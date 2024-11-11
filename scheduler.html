@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="cache-control" content="max-age=0">
+    <meta http-equiv="cache-control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="expires" content="0" />
+    <meta http-equiv="expires" content="Tue, 01 Jan 1980 11:00:00 GMT">
+    <meta http-equiv="pragma" content="no-cache">
+
+    <link rel="stylesheet" href="./css/bootstrap.min.css" type="TEXT/CSS">
+    <link rel="stylesheet" href="./css/material-kit/css/material-kit.min.css" type="TEXT/CSS">
+    <link rel="stylesheet" href="./css/material-overwrite.css" type="TEXT/CSS">
+    <link rel="stylesheet" href="./css/media.css" type="text/css">
+    <link rel="stylesheet" href="./css/fontawesome/css/all.css">
+    <link rel="stylesheet" href="./css/jquery-ui.css" type="TEXT/CSS">
+
+    <script type="text/javascript" src="./config.js"></script>
+    <script type="text/javascript" src="./js/jquery.min.js"></script>
+    <script type="text/javascript" src="./css/material-kit/js/core/popper.min.js"></script>
+    <script type="text/javascript" src="./js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="./js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="./js/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="./js/moment.js"></script>
+    <script type="text/javascript" src="./js/combodate.js"></script>
+    <script type="text/javascript" src="./js/bootstrap-confirmation.js"></script>
+
+    <script>
+        if (sessionStorage.getItem('scrmLoggedIn') == null) {
+            alert("You are not logged in");
+            window.location.href = 'login.html';
+        }
+    </script>
+
+    <style>
+        #sub-menu-header {
+            border-radius: unset !important;
+            padding: 0px 10px !important;
+            border-bottom: unset !important;
+            min-height: 34px;
+        }
+        
+        #s-calendar {
+            display: unset;
+            width: calc(100% - 28px);
+            margin-right: 5px;
+        }
+        
+        .ui-datepicker-trigger {
+            height: 23px;
+            cursor: pointer;
+        }
+        
+        .hour,
+        .minute {
+            border-radius: 5px;
+        }
+        
+        .combodate {
+            display: block;
+            margin-top: 5px;
+        }
+        
+        .header-btn {
+            border-radius: 3px !important;
+            cursor: pointer;
+        }
+        /*  Could be used at Site A for alarm
+        .blinking {
+        animation: opacity 1s ease-in-out infinite;
+        opacity: 1;
+        }
+
+        @keyframes opacity {
+        0% {
+        opacity: 1;
+        }
+
+        50% {
+        opacity: 0
+        }
+
+        100% {
+        opacity: 1;
+        }
+        } /Could be used at Site A for alarm*/
+    </style>
+</head>
+
+<body class="custom-scroll" onkeydown='return (event.keyCode != 116)' onload="windowOnload(true)">
+    <div id="sub-menu-header" class="bg-primary">
+        <div class="nav-tabs-navigation">
+            <div class="nav-tabs-wrapper max-width-container">
+                <ul class="nav nav-tabs pl-0">
+                    <li id="current-task-li" class="nav-item">
+                        <a id="current-task-a" class='nav-link pt-2 l-scheduler-current' href="#" data-toggle="tab" aria-selected="false"><i
+                                class="fas fa-tasks mr-2"></i>Current<i id="current-alarm"
+                                class="fas fa-bell ml-1 text-danger d-none"></i></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div id="lower-container" class="custom-scroll mx-3">
+    </div>
+
+    <div id="current-container" class="custom-scroll mx-3">
+        <div class="card mt-5 mb-3">
+            <div class="card-header card-header-text card-header-info">
+                <h5 class="my-0">
+                    <i class="fas fa-tasks card-header-icon"></i><span class="align-middle l-scheduler-current">Current Task</span>
+                </h5>
+            </div>
+            <div class="card-body">
+                <div class="mt-3">
+                    <table id="current-tbl" class="table table-hover" style="width:100%" data-page-length="5"></table>
+                </div>
+                <div id="current-tbl-refreshed" class="mt-3 text-gray d-none"><i class="fas fa-exclamation-triangle mr-2"></i>Task table is refreshed...</div>
+            </div>
+        </div>
+
+        <div id="current-edit-card" class="card mt-0" style="display:none;">
+            <div class="card-body">
+
+                <div class="mb-1 pt-2 pb-1">
+                    <label class="l-scheduler-message">Message</label>
+                    <div id="current-msg"></div>
+                </div>
+
+                <div class="row mb-1 px-3 pt-1 pb-1">
+                    <input id="r-id" class="d-none" val="" />
+                    <label class="l-scheduler-comment">Comment</label>
+                    <input id="r-comment" class="form-control" type="search" autocomplete="off" max-length="500" />
+                </div>
+
+                <div class="text-center mt-3">
+
+                    <button id="handle-scheduler-btn" class="btn btn-warning rounded btn-sm text-capitalize mr-2">
+                        <i class="fas fa-broom mr-2"></i></i><span class="l-scheduler-comment-and-clear">Comment & Clear Scheduler</span></button>
+
+                    <button id="current-cancel-btn" class="btn btn-gray rounded btn-sm text-capitalize mr-2">
+                        <i class="fas fa-times mr-2"></i></i><span class="l-general-cancel">Cancel</span></button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript" src="./obfuscate_b4/scheduler.js"></script>
+</body>
+
+</html>

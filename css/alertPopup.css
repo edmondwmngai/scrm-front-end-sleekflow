@@ -1,0 +1,115 @@
+body {
+    background-color: #eee;
+    color: #3C4858;
+}
+
+.card {
+    border: 0;
+    margin-bottom: 30px;
+    margin-top: 30px;
+    border-radius: 6px;
+    color: rgba(0,0,0,.87);
+    background: #fff;
+    width: 100%;
+    box-shadow: 0 2px 2px 0 rgba(0,0,0,.14), 0 3px 1px -2px rgba(0,0,0,.2), 0 1px 5px 0 rgba(0,0,0,.12);
+}
+
+.card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+}
+
+.card .card-header {
+    border-radius: 3px;
+    padding: 1rem 15px;
+    margin-left: 15px;
+    margin-right: 15px;
+    margin-top: -30px;
+    border: 0;
+	color: white;
+}
+
+.card .card-header-info {
+    box-shadow: 0 5px 20px 0 rgba(0,0,0,.2), 0 13px 24px -11px rgba(0,188,212,.6);
+	background: linear-gradient(60deg,#26c6da,#0097a7);
+	font-size: .875rem;
+}
+
+.card .card-body, .card .card-footer {
+    padding: .9375rem 1.875rem;
+	flex: 1 1 auto;
+}
+
+.h1, .h2, .h3, .h4, body, h1, h2, h3, h4, h5, h6 {
+    font-family: Roboto,Helvetica,Arial,sans-serif;
+    font-weight: 300;
+	color: inherit;
+}
+
+.h4, h4 {
+    font-size: 1.125rem;
+    line-height: 1.5em;
+}
+
+.h5, h5 {
+    font-size: 1.0625rem;
+    line-height: 1.55em;
+}
+
+.mr-2, .mx-2 {
+    margin-right: .5rem!important;
+}
+
+.mt-0, .my-0 {
+    margin-top: 0!important;
+}
+
+.mb-0, .my-0 {
+    margin-bottom: 0!important;
+}
+
+.mt-5, .my-5 {
+    margin-top: 3rem!important;
+}
+
+.mb-3, .my-3 {
+    margin-bottom: 1rem!important;
+}
+
+body {
+	margin-left: 15px;
+	margin-right: 15px;
+	
+}
+
+/* ============= Custom Scroll in body ============= */
+
+.custom-scroll::-webkit-scrollbar {
+	width: 8px;
+	height: 8px;
+}
+
+.custom-scroll::-webkit-scrollbar-track {
+	background: lightgray
+}
+
+.custom-scroll::-webkit-scrollbar-thumb {
+	-webkit-border-radius: 8px;
+	border-radius: 8px;
+	background: #AECBFC;
+}
+
+.custom-scroll::-webkit-scrollbar-thumb:window-inactive {
+	background: #AECBFC;
+}
+
+.blank-error-span {
+	/* display: inline-block; */
+	color: red;
+	/* margin-left: 10px; */
+}

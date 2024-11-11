@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="cache-control" content="max-age=0">
+    <meta http-equiv="cache-control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="expires" content="0" />
+    <meta http-equiv="expires" content="Tue, 01 Jan 1980 11:00:00 GMT">
+    <meta http-equiv="pragma" content="no-cache">
+
+    <link rel="stylesheet" href="./css/bootstrap.min.css" type="TEXT/CSS">
+    <link rel="stylesheet" href="./css/material-kit/css/material-kit.min.css" type="TEXT/CSS">
+    <link rel="stylesheet" href="./css/material-overwrite.css" type="TEXT/CSS">
+    <link rel="stylesheet" href="./css/media.css" type="text/css">
+    <link rel="stylesheet" href="./css/fontawesome/css/all.css">
+
+    <script type="text/javascript" src="./config.js"></script>
+    <script type="text/javascript" src="./js/jquery.min.js"></script>
+    <script type="text/javascript" src="./css/material-kit/js/core/popper.min.js"></script>
+    <script type="text/javascript" src="./js/bootstrap.min.js"></script>
+
+    <style>
+        .card-header {
+            border-radius: unset !important;
+            padding: 0px 10px !important;
+            border-bottom: unset !important;
+        }
+
+        .card-header-success {
+            box-shadow: 0 5px 20px 0 rgba(0, 0, 0, .2), 0 13px 24px -11px rgba(76, 175, 80, .6);
+            background: linear-gradient(60deg, #66bb6a, #388e3c);
+            color: white;
+        }
+
+        /* .nav-tabs .nav-item .nav-link {
+            padding: 5px 10px !important;
+        } */
+
+        .main-card {
+            background: #FFFFFF;
+            border: 1px solid #E5E9F2;
+            border-radius: 5px;
+            padding: 15px;
+            /* margin-top: 10px; */
+        }
+
+        .list-in-bar {
+            color: White;
+            text-decoration: underline;
+            cursor: pointer;
+            margin-left: 10px;
+        }
+
+        .manual-header-success {
+            background: linear-gradient(60deg, #66bb6a, #388e3c);
+            box-shadow: 0 5px 20px 0 rgba(0, 0, 0, .2), 0 13px 24px -11px rgba(76, 175, 80, .6);
+            border-radius: 5px;
+            display: none;
+            color: white;
+        }
+
+        #campaign-section {
+            padding: 6px 0 5px 5px !important;
+        }
+
+        #campaign-section,
+        .menu-title-items {
+            display: none;
+        }
+
+        .card .header {
+            background: inherit;
+        }
+    </style>
+</head>
+
+<body class='custom-scroll' onload="windowOnload()" onkeydown='return (event.keyCode != 116)'>
+    <div class="card-header bg-success" style="min-height: 34px;">
+        <div class="nav-tabs-navigation">
+            <div class="nav-tabs-wrapper">
+                <ul class="nav nav-tabs pl-0">
+                    <li id="campaign-section" class="nav-item form-group form-inline mr-3 text-light">
+                        <span><i class="far fa-building mr-2"></i></span>
+                    </li>
+                    <li id='right-btn-section' class="nav-item menu-title-items ml-auto d-none">
+                        <span id="update-campaign-list" class='btn rounded btn-sm btn-warning text-capitalize py-1 my-1'
+                            style="font-size:12px important;" onclick='loadTitleBarData();'><i
+                                class="fas fa-sync mr-2"></i><span class="l-menu-refresh">Refresh</span></span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div style="height:calc(100vh - 71px);">
+        <div class="max-width-body">
+            <iframe src="" id="media-content" width='100%' height='auto' frameborder="0" openType="menu"
+                style='border-radius:5px;display:none' title="menu frame"></iframe>
+            <iframe id='input-form' width='100%' height='auto' frameborder="0" openType="menu"
+                style="display: none;" title="input form frame"></iframe>
+            <iframe id='search' width='100%' src="" frameborder="0" openType="menu" oncontextmenu="return false;"
+                height="100%" title="searc frame"></iframe>
+        </div>
+    </div>
+    <script type="text/javascript" src="./obfuscate_b4/menu.js"></script>
+</body>
+
+</html>

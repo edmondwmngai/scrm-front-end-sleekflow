@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="cache-control" content="max-age=0">
+    <meta http-equiv="cache-control" content="no-cache">
+    <meta http-equiv="expires" content="-1">
+    <meta http-equiv="expires" content="Tue, 01 Jan 1980 11:00:00 GMT">
+    <meta http-equiv="pragma" content="no-cache">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <link rel="stylesheet" href="../css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="../css/material-kit/css/material-kit.min.css" type="TEXT/CSS">
+    <link rel="stylesheet" href="../css/material-overwrite.css" type="TEXT/CSS">
+    <link rel="stylesheet" href="../css/fontawesome/css/all.css">
+    <script type="text/javascript" src="../js/jquery.min.js"></script>
+    <style>
+        body {
+            /* margin: 15px; */
+            font-size: 14px;
+        }
+        /* ============= Custom Scroll in body ============= */
+        
+        .custom-scroll::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        
+        .custom-scroll::-webkit-scrollbar-track {
+            background: lightgray
+        }
+        
+        .custom-scroll::-webkit-scrollbar-thumb {
+            -webkit-border-radius: 8px;
+            border-radius: 8px;
+            background: #AECBFC;
+        }
+        
+        .custom-scroll::-webkit-scrollbar-thumb:window-inactive {
+            background: #AECBFC;
+        }
+
+        /* ============= //Custom Scroll in body ============= */
+    </style>
+</head>
+
+<body class='custom-scroll max-width-body' onload="windowOnload()">
+    <div class="mt-4 ml-4">
+
+        <div class="form-group form-inline mb-1">
+            <div class="form-check mr-3">
+                <label class="form-check-label">
+                    <input type="radio" class='form-check-input dial-yes-disable l-menu-all' checked name="channel"
+                        value="All">
+                    All&nbsp;
+                    <span class="circle">
+                        <span class="check"></span>
+                    </span>
+                </label>
+            </div>
+            <div class="form-check mr-3">
+                <label class="form-check-label">
+                    <input type="radio" class='form-check-input dial-yes-disable l-menu-email' name="channel"
+                        value="Inbound_Email">
+                    <!-- Email -->&nbsp;
+                    <span class="circle">
+                        <span class="check"></span>
+                    </span>
+                </label>
+            </div>
+            <div class="form-check mr-3">
+                <label class="form-check-label">
+                    <input type="radio" class='form-check-input dial-yes-disable l-menu-voicemail' name="channel"
+                        value="Inbound_Voicemail">
+                    <!-- Voicemil -->&nbsp;
+                    <span class="circle">
+                        <span class="check"></span>
+                    </span>
+                </label>
+            </div>
+            <div class="form-check mr-3">
+                <label class="form-check-label">
+                    <input type="radio" class='form-check-input dial-yes-disable l-menu-fax' name="channel"
+                        value="Inbound_Fax">
+                    <!-- Fax -->&nbsp;
+                    <span class="circle">
+                        <span class="check"></span>
+                    </span>
+                </label>
+            </div>
+        </div>
+
+        <div>
+            <span class="l-menu-transfer-from"></span>:
+            <!-- Transfer From: -->
+            <select class="form-control d-inline" id="from-agent-list" style="width:200px;" onchange="confirmClicked();">
+                <option selected="selected " value=""></option>
+            </select>
+        </div>
+
+    </div>
+    <iframe src="" id="input-form-email" width='100%' height='0' frameborder="0" openType='menu'></iframe>
+    <iframe src="" id="input-form-vmail" width='100%' height='0' frameborder="0" openType='menu'></iframe>
+    <iframe src="" id="input-form-fax" width='100%' height='0' frameborder="0" openType='menu'></iframe>
+
+    <script type="text/javascript" src="../obfuscate_b4/adminTransfer.js"></script>
+</body>
+
+</html>

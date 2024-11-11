@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="en">
+    
+<link rel="shortcut icon" href="./images/favicon.ico" type="image/x-icon">
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live Mon | Epro Marvel</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="cache-control" content="max-age=0">
+    <meta http-equiv="cache-control" content="no-cache">
+    <meta http-equiv="expires" content="-1">
+    <meta http-equiv="expires" content="Tue, 01 Jan 1980 11:00:00 GMT">
+    <meta http-equiv="pragma" content="no-cache">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+    <script type="text/javascript" src="./js/jquery.min.js"></script>
+    <script type="text/javascript" src="./js/popper.min.js"></script>
+    <script type="text/javascript" src="./js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="./js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="./js/bootstrap-confirmation.js"></script>
+    <script type="text/javascript" src="./js/Chart.min.js"></script>
+    <script type="text/javascript" src="./js/Gauge.js"></script>
+    <script type="text/javascript" src="./js/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="./config.js"></script>
+
+    <link rel="stylesheet" href="./css/bootstrap.min.css" type="TEXT/CSS">
+    <link rel="stylesheet" href="./css/material-kit/css/material-kit.css" type="TEXT/CSS">
+    <link rel="stylesheet" href="./css/material-overwrite.css" type="text/css">
+    <link rel="stylesheet" href="./css/fontawesome/css/all.css">
+    <link rel="stylesheet" href="./css/jquery-ui.css" type="TEXT/CSS">
+
+    <style>
+        .nav-tabs .nav-item .title-button {
+            padding-top: 0px !important;
+            padding-bottom: 0px !important;
+        }
+
+        .nav-tabs .nav-item .left-btn,
+        .nav-tabs .nav-item .left-btn:focus,
+        .nav-tabs .nav-item .left-btn:hover {
+            border: 1px solid #06707c !important;
+            border-top-left-radius: 5px;
+            border-bottom-left-radius: 5px;
+        }
+
+        .nav-tabs .nav-item .right-btn,
+        .nav-tabs .nav-item .right-btn:focus,
+        .nav-tabs .nav-item .right-btn:hover {
+            border: 1px solid #06707c !important;
+            border-top-right-radius: 5px;
+            border-bottom-right-radius: 5px;
+        }
+
+        #q-tbl_wrapper {
+            width: 100%;
+        }
+
+        #menu-text {
+            cursor: unset;
+        }
+
+        .nav-btn {
+            box-shadow: unset !important;
+        }
+
+        .nav-btn.bg-info:hover {
+            background-color: inherit !important;
+        }
+
+        .dropdown-menu li>a:hover,
+        .dropdown-menu li>a:focus {
+            background: #00bcd4 !important;
+        }
+
+        .w-23 {
+            width: 23% !important;
+        }
+
+        .w-31 {
+            width: 31% !important;
+        }
+
+        .w-69 {
+            width: 69% !important;
+        }
+
+        .w-33 {
+            width: 33% !important;
+        }
+
+        /* deprecated
+        .voice-lbl {
+            width: 80px;
+            display: inline-table;
+        }
+
+        .voice-input-container {
+            width: 313px;
+            display: inline-block;
+        } */
+
+        .ui-datepicker-trigger {
+            cursor: pointer;
+            height: 22px;
+            padding-left: 5px;
+            vertical-align: middle;
+            cursor: pointer;
+        }
+
+        .queue-header-option {
+            background: rgb(195, 25, 92);
+        }
+
+        .select-me {
+            cursor: pointer;
+            box-shadow: 8px 0px 15px rgba(0, 0, 0, 0.1);
+            color: black;
+            background: #ffda85 !important;
+        }
+
+        .queue-selected {
+            cursor: unset;
+            background: linear-gradient(60deg, #ffa726, #f57c00) !important;
+            color: white !important;
+        }
+
+        .fa-comment {
+            color: rgba(59, 145, 255, 0.5);
+        }
+
+        .fa-phone {
+            color: rgba(213, 66, 106, 0.5);
+        }
+
+        .legend-square {
+            border: 1px solid #ccc;
+            float: left;
+            width: 12px;
+            height: 12px;
+            margin: 2px;
+            height: 2vh;
+            width: 2vh;
+            border-radius: 5px;
+            margin-right: 0.5em;
+        }
+
+        .bg-Working {
+            background: rgba(21, 193, 231, 0.9);
+        }
+
+        /* .bg-Ready {
+            background: yellow;
+        } */
+
+        .bg-Talk {
+            background: rgba(71, 163, 75, 0.9);
+        }
+
+        .bg-Break {
+            background: rgba(247, 159, 55, 0.9);
+        }
+
+        /* .bg-Idle {
+            background: rgba(239, 60, 73, 0.9);
+        } */
+
+        .bg-Hold {
+            background: rgb(201, 203, 207);
+        }
+
+        .bg-Monitor {
+            background: rgb(153, 102, 255);;
+        }
+
+        /* .bg-Dialing { background: rgb(201, 203, 207); } */
+
+        button.bg-info:focus,
+        button.tbl-dropdown-btn.btn:hover,
+        button.tbl-dropdown-btn.btn:focus {
+            background-color: #00bcd4 !important;
+        }
+
+        .tbl-dropdown-btn {
+            font-size: 16px;
+            margin-left: 10px;
+        }
+
+        .tbl-dropdown-btn:after {
+            margin-bottom: -0.1rem;
+        }
+
+        .agent-column {
+            border-left: 1px solid darkgray;
+            border-right: 1px solid darkgray;
+        }
+
+        .invisible {
+            opacity: 0;
+        }
+
+        .table td.chat-no-col {
+            padding-left: 20px !important;
+        }
+
+        #agent-status-tbl>tbody>tr>td>.bg-info:hover {
+            background: #17a2b8 !important;
+        }
+
+        .sla-gauge-title {
+            font-weight: 600;
+            color: #666666;
+            text-align: center;
+        }
+
+        table.dataTable thead .sorting:after,
+        table.dataTable thead .sorting_desc:after,
+        table.dataTable thead .sorting_asc:after {
+            position: relative;
+            top: 3px;
+        }
+
+        #alert-container {
+            position: absolute;
+            bottom: 15px;
+            left: 15px;
+        }
+
+        .alert {
+            border-radius: 5px;
+        }
+
+        button.close[data-dismiss="alert"] {
+            display: contents;
+        }
+
+        /* == Fixed Header Scroll Content CSS == */
+        .dataTables_scrollHeadInner>table,
+        .dataTable {
+            margin-bottom: 0 !important;
+        }
+
+        .dataTables_scrollBody>table>thead {
+            visibility: collapse;
+            /* Cannot be display none, as still need their width behind */
+        }
+
+        /* width */
+        .dataTables_scrollBody::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        /* Track */
+        .dataTables_scrollBody::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        /* Handle */
+        .dataTables_scrollBody::-webkit-scrollbar-thumb {
+            -webkit-border-radius: 6px;
+            border-radius: 6px;
+            background: #AECBFC;
+        }
+
+        /* Handle on hover */
+        .dataTables_scrollBody::-webkit-scrollbar-thumb:hover {
+            background: #6da0f7;
+        }
+
+        #agent-status-tbl_wrapper,
+        #agent-status-tbl-2_wrapper,
+        #q-tbl_wrapper {
+            font-weight: 750;
+        }
+
+        #agent-status-tbl_wrapper thead th,
+        #agent-status-tbl-2_wrapper thead th,
+        #q-tbl_wrapper thead th {
+            font-weight: 750;
+        }
+
+        #acd-tbl_wrapper>.dataTables_scroll>.dataTables_scrollHead>.dataTables_scrollHeadInner>table>thead>tr>th {
+            background-color: rgba(255, 235, 59, 0.3);
+            color: black;
+        }
+
+        #acd-tbl_wrapper>.dataTables_scroll>.dataTables_scrollHead>.dataTables_scrollHeadInner>table>thead>tr>th,
+        #acd-cb-tbl_wrapper>.dataTables_scroll>.dataTables_scrollHead>.dataTables_scrollHeadInner>table>thead>tr>th,
+        #agent-tbl_wrapper>.dataTables_scroll>.dataTables_scrollHead>.dataTables_scrollHeadInner>table>thead>tr>th,
+        #agent-cb-tbl_wrapper>.dataTables_scroll>.dataTables_scrollHead>.dataTables_scrollHeadInner>table>thead>tr>th,
+        #super-tbl_wrapper>.dataTables_scroll>.dataTables_scrollHead>.dataTables_scrollHeadInner>table>thead>tr>th,
+        #super-acd-tbl_wrapper>.dataTables_scroll>.dataTables_scrollHead>.dataTables_scrollHeadInner>table>thead>tr>th {
+            background-color: rgba(255, 235, 59, 0.3);
+            color: black;
+        }
+
+        /* == /Fixed Header Scroll Content CSS == */
+        #acd-tbl td,
+        #acd-cb-tbl td,
+        #agent-tbl td,
+        #agent-cb-tbl td,
+        #super-tbl td,
+        #super-acd-tbl td {
+            max-width: 12.5vw !important;
+        }
+
+        .agent-dropdown-btn-txt {
+            max-width: 13vw;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: inline-block;
+        }
+
+        .wall-cell {
+            margin-top: 0;
+            margin-bottom: 0;
+            height: calc((100vh - 710px)/3);
+            line-height: calc((100vh - 710px)/3);
+            font-size: 3vw;
+        }
+
+        .act-btn {
+            font-size: 16px;
+            margin-left: 10px;
+        }
+        
+        /* the style of triangle */
+        .act-btn:after {
+            margin-bottom: -0.1rem;
+        }
+    </style>
+</head>
+
+<body id="wm-main-content" class='custom-scroll d-none' style="overflow: auto;">
+
+    <div class="my-0 w-100 bg-info text-light d-inline-block" style="height:25px; line-height:25px;">
+        &nbsp;&nbsp;<span><i class="far fa-eye"></i>&nbsp;&nbsp;Live Mon</span>
+        <div class="dropdown-btn-container btn-group my-0 float-right">
+            <button id="dropdown-btn" class="btn dropdown-toggle py-0 bg-info nav-btn text-capitalize"
+                data-toggle="dropdown" style="font-size:16px;line-height:25px;">Live Monitor&nbsp;</button>
+            <ul id="cat-dropdown-menu" class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu">
+                <li><a tabindex="-1" href="#">Agent & ACD</a></li>
+                <li><a tabindex="-1" href="#">Live Monitor</a></li>
+            </ul>
+        </div>
+    </div>
+    <!-- =================== 1/3 Agent & ACD =================== -->
+    <div id="agent-acd" class="d-none mx-4">
+        <div class="row">
+            <div class="w-50 pr-1">
+                <div class="card mt-5 mb-0" style="height:90vh;">
+                    <div class='card-header card-header-info'>
+                        <h5 class="my-0 float-left">
+                            <i class="fas fa-users card-header-icon"></i><span class="align-middle">ACD
+                                Assignment</span>
+                        </h5>
+                        <ul class="nav nav-tabs float-right" data-tabs="tabs">
+                            <li class="nav-item cursor-pointer">
+                                <a class="nav-link active title-button left-btn" data-toggle="tab" href="#acd-agents">
+                                    ACD <i class="fas fa-long-arrow-alt-right"></i> Agent(s)
+                                </a>
+                            </li>
+                            <li class="nav-item cursor-pointer">
+                                <a class="nav-link title-button right-btn" data-toggle="tab" href="#agent-acds">
+                                    Agent <i class="fas fa-long-arrow-alt-right"></i> ACD(s)
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class='card-body'>
+                        <div class="tab-content">
+                            <div id="acd-agents" class="tab-pane in active">
+                                <div class="row">
+                                    <div class="flex-fill" style="max-width:49%; margin-right:1%;">
+                                        <table id="acd-tbl" class="w-100 table" aria-describedby="acd-tbl"></table>
+                                    </div>
+                                    <div class="flex-fill" style="max-width:49%;">
+                                        <table id="agent-cb-tbl" class="w-100 table" aria-describedby="agent-cb-tbl"></table>
+                                        <div class="form-group text-center">
+                                            <a id="save-acd-agent-selected-a"
+                                                class="btn rounded btn-sm btn-warning mt-2 mb-0 text-capitalize"
+                                                data-toggle="confirmation" data-placement="bottom" data-popout="true"
+                                                data-btn-ok-class="btn-info"
+                                                href="javascript:(saveAcdAgentSelected())"><i
+                                                    class="fas fa-save mr-2"></i><span
+                                                    class="align-middle">Save</span></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="agent-acds" class="tab-pane">
+                                <div class="row">
+                                    <div class="flex-fill" style="max-width:49%; margin-right:1%;">
+                                        <table id="agent-tbl" class="w-100 table" aria-describedby="agent-tbl"></table>
+                                    </div>
+                                    <div class="flex-fill" style="max-width:49%;">
+                                        <table id="acd-cb-tbl" class="w-100 table" aria-describedby="acd-cb-tbl"></table>
+                                        <div class="form-group text-center mt-4">
+                                            <a id="save-agent-acd-selected-a"
+                                                class="btn rounded btn-sm btn-warning mt-2 mb-0 text-capitalize"
+                                                data-toggle="confirmation" data-placement="bottom" data-popout="true"
+                                                data-btn-ok-class="btn-info"
+                                                href="javascript:(saveAgentAcdSelected())"><i
+                                                    class="fas fa-save mr-2"></i><span
+                                                    class="align-middle">Save</span></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="w-50 pl-1">
+                <div class="card mt-5 mb-0" style="height:90vh;">
+                    <div class='card-header card-header-info'>
+                        <h5 class="my-0 float-left">
+                            <i class="fas fa-users card-header-icon"></i><span class="align-middle">Supervisor
+                                Accessibility</span>
+                        </h5>
+                    </div>
+                    <div class='card-body'>
+                        <div id="super-acds">
+                            <div class="row">
+                                <div class="flex-fill" style="max-width:49%; margin-right:1%;">
+                                    <table id="super-tbl" class="w-100 table" aria-describedby="super-tbl"></table>
+                                </div>
+                                <div class="flex-fill" style="max-width:49%;">
+                                    <table id="super-acd-tbl" class="w-100 table" aria-describedby="super-acd-tbl"></table>
+                                    <div id="super-acd-btn-container" class="form-group text-center">
+                                        <!-- Button only show when user is supervisor -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="alert-container">
+
+        </div>
+    </div>
+    <!-- =================== 2/3 Live Mon =================== -->
+    <div id="live-monitor" class="mx-2 row">
+        <div class="card" style="height:467px;margin-top:38px;margin-bottom:13px;">
+            <div class='card-header card-header-primary shadow'>
+                <h5 class="my-0">
+                    <i class="far fa-smile card-header-icon"></i><span class="align-middle">Agent Status</span>
+                </h5>
+            </div>
+
+            <div class='card-body mx-0 px-2 row'>
+
+                <!-- Please notet the col-sm when add to below in javascript, becasue can just have 1 agent table -->
+
+                <div id="tra-bar-container" class="pl-2">
+                    <canvas id="ib-traditional-bar"></canvas>
+                </div>
+
+                <div id="as-tb-1-container" class="pr-2" id="agent-status-tbl-container">
+                    <table id="agent-status-tbl" class="table table-hover" aria-describedby="agent-status-tbl"></table>
+                </div>
+
+                <div id="as-tb-2-container" class="pl-2" id="agent-status-tbl-2-container">
+                    <table id="agent-status-tbl-2" class="table table-hover d-none" aria-describedby="agent-status-tbl-2"></table>
+                </div>
+
+                <div id="social-bar-container" class="pl-2" style="float:right;">
+                    <canvas id="ib-social-bar"></canvas>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="col-lg-5 pl-0">
+            <div class="card mt-3.5 mb-0" style="height:calc(100vh - 586px)">
+                <div class="card-header card-header-rose shadow d-flex justify-content-between">
+                    <h5 class="my-0 d-inline-block">
+                        <i class="fas fa-chart-line card-header-icon"></i><span class="align-middle">Queue</span>
+                    </h5>
+                    <h5 class="my-0 d-inline-block">
+                        IVR No.<span id="ivr-num">0</span>
+                    </h5>
+                    <select id="wm-service-select" class="form-control card-header-select w-auto">
+                        <option class="queue-header-option" value="All" selected="">All</option>
+                    </select>
+                </div>
+                <div class='card-body mx-2 custom-scroll'>
+                    <div class="row w-auto">
+                        <table id="q-tbl" class="w-100 table" aria-describedby="q-tbl"></table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-7 px-0">
+            <div class="d-flex w-100 m-0">
+                <h5 class="flex-fill p-0 m-0">
+                    <span class="text-secondary pl-1">ACD: </span>
+                    <span id="selected-acd"></span>
+                </h5>
+                <h5 class="flex-fill p-0 m-0">
+                    <span class="text-secondary">Service: </span>
+                    <span id="selected-service"></span>
+                </h5>
+            </div>
+            <div class="row mx-0">
+                <div class="w-23 card my-0 w-auto p-0 text-center">
+                    <h5 class="my-0 w-100 card-header-warning" style="box-shadow: none;"><span
+                            class="wall-call">Incoming Calls</span><span class="wall-chat d-none">Incoming Chat</span>
+                    </h5>
+                    <h2 id="wall-1" class="wall-cell">&nbsp;</h2>
+                </div>
+                <div class="w-23 card my-0 w-auto p-0 text-center">
+                    <h5 class="my-0 w-100 card-header-warning" style="box-shadow: none;"><span
+                            class="wall-call">Answered Calls</span><span class="wall-chat d-none">Answered Chat</span>
+                    </h5>
+                    <h2 id="wall-2" class="wall-cell">&nbsp;</h2>
+                </div>
+                <div class="w-23 card my-0 w-auto p-0 text-center">
+                    <h5 class="my-0 w-100 card-header-warning" style="box-shadow: none;"><span
+                            class="wall-call">Abandoned Calls</span><span class="wall-chat d-none">Abandoned Chat</span>
+                    </h5>
+                    <h2 id="wall-3" class="wall-cell">&nbsp;</h2>
+                </div>
+                <div class="w-31 card my-0 w-auto p-0 text-center">
+                    <h5 class="my-0 w-100 card-header-warning" style="box-shadow: none;"><span
+                            class="wall-call">Outbound Calls</span><span class="wall-chat d-none">Outbound Chat</span>
+                    </h5>
+                    <h2 id="wall-4" class="wall-cell">&nbsp;</h2>
+                </div>
+            </div>
+            <div class="row mx-0">
+                <div class="w-69 card m-0">
+                    <div class="mx-auto my-auto">
+                        <div class="w-100 text-nowrap d-flex">
+                            <div class="w-50 d-inline-block">
+                                <div class="pr-2" style="width:18vw;">
+                                    <h6 class="mt-2 mb-2 sla-gauge-title sla-gauge-title-call d-none">SLA - Abandoned
+                                        Call%</h6>
+                                    <h6 class="mt-2 mb-2 sla-gauge-title sla-gauge-title-chat d-none">SLA - Abandoned
+                                        Chat%</h6>
+                                    <canvas id="sla-guage-1"></canvas>
+                                </div>
+                            </div>
+                            <div class="w-50 d-inline-block">
+                                <div class="pr-2" style="width:18vw;">
+                                    <h6 class="mt-3 mb-2 sla-gauge-title sla-gauge-title-sec d-none"
+                                        style="font-weight:600;color:#666666;text-align: center;">SLA - Avg Abandoned
+                                        Sec.</h6>
+
+                                    <!-- NO DEL - needed if for demo<h6 class="mt-2 mb-2 sla-gauge-title sla-gauge-title-sec d-none"
+                                        style="font-weight:600;color:#666666;text-align: center;">SLA - ANSWERED CALL
+                                        W/I 20 SEC. %</h6> NO DEL -->
+
+                                    <canvas id="sla-guage-2"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="w-31">
+                    <div class="card my-0 w-auto px-0 text-center">
+
+                        <!-- NO DEL: demo target <h5 class="my-0 w-100 card-header-warning" style="box-shadow: none;">Avg Call W/I 20s %</h5> -->
+
+                        <h5 class="my-0 w-100 card-header-warning" style="box-shadow: none;">Avg Abandoned Time</h5>
+                        <h2 id="wall-5" class="wall-cell">&nbsp;</h2>
+                    </div>
+                    <div class="card my-0 w-auto px-0 text-center">
+                        <h5 class="my-0 w-100 card-header-warning" style="box-shadow: none;"><span class="wall-call">Avg
+                                Talk Time</span><span class="wall-chat d-none">Avg Chat Time</span></h5>
+                        <h2 id="wall-6" class="wall-cell">&nbsp;</h2>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <label class="float-right mr-3 mt-3">Last update on&nbsp;<span id="wall-update-time"></span></label>
+            </div>
+        </div>
+    </div>
+    
+    <!-- =================== 3/3 Voice Log Search deprecated =================== -->
+    <!-- <div id="voice-log-search" class="mx-2 row d-none">
+        <div class="card mt-5 mb-3 mx-2" id="lower-part-container">
+            <div class='card-header card-header-text card-header-info'>
+                <h5 class="my-0">
+                    <i class="fas fa-microphone mr-2"></i>
+                    Search Voice
+                </h5>
+            </div>
+            <div id="search-case-body" class='card-body'>
+                <div class="mx-auto">
+                    <div class="form-inline"><span>Match all of the following filled fields</span>
+                    </div>
+                    <div id='voice-fm-container' class="display" style="width:100%">
+                        <div class="case-search-item form-group form-inline mb-1">
+                            <span class="voice-input-container">
+                                <span class="voice-lbl">Start Date<span class="text-danger">*</span></span>
+                                <span>
+                                    <input id="voice-start-date" class="form-control mt-1" type="search"
+                                        placeholder="yyyy-mm-dd" pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}" autocomplete="off">
+                                </span>
+                            </span>
+                            <span class="voice-input-container">
+                                <span class="voice-lbl">End Date<span class="text-danger">*</span></span>
+                                <span>
+                                    <input id="voice-end-date" class="form-control mt-1" type="search"
+                                        placeholder="yyyy-mm-dd" pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}" autocomplete="off">
+                                </span>
+                            </span>
+                        </div>
+                        <div>
+                            <span class="voice-input-container">
+                                <span class="voice-lbl">Agent ID</span>
+                                <input id="voice-staff-no" class="form-control w-auto d-inline" type="search"
+                                    autocomplete="off" />
+                            </span>
+                            <span class="voice-input-container">
+                                <span class="voice-lbl">Phone No.</span>
+                                <input id="voice-phone-no" class="form-control w-auto d-inline" type="search"
+                                    autocomplete="off">
+                            </span>
+                            <span id="voice-select-container" class="voice-input-container d-none">
+                                <span class="voice-lbl">Service</span>
+                                <select id="voice-service-select" class="form-control w-auto d-inline">
+                                    <option value="" selected=""></option>
+                                </select>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="mt-2">
+                        <button class='submit-btn btn btn-sm rounded btn-warning text-capitalize'
+                            onclick="return searchVoiceClicked();"><i
+                                class="fas fa-search mr-2"></i><span>Search</span></button>
+                    </div>
+
+                    <div id="voice-res-container">
+                        <table id="search-voice-tbl" class="w-100 table mt-2" aria-describedby="search-voice-tbl"></table>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div> -->
+
+    <script type="text/javascript" src="./wmConfig.js"></script>
+    <script type="text/javascript" src="./obfuscate_b4/wiseMon.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+
+<html lang="en">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<meta http-equiv="cache-control" content="max-age=0">
+	<meta http-equiv="cache-control" content="no-cache">
+	<meta http-equiv="expires" content="-1">
+	<meta http-equiv="expires" content="Tue, 01 Jan 1980 11:00:00 GMT">
+	<meta http-equiv="pragma" content="no-cache">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="./css/fontawesome/css/all.css">
+	<link rel="stylesheet" href="./css/bootstrap.min.css" type="text/css">
+	<link rel="stylesheet" href="./css/material-kit/css/material-kit.min.css" type="TEXT/CSS">
+	<link rel="stylesheet" href="./css/material-overwrite.css" type="TEXT/CSS">
+	<link rel="stylesheet" href="./css/media.css" type="TEXT/CSS">
+
+	<script type="text/javascript" src="./config.js"></script>
+	<script type="text/javascript" src="./js/jquery.min.js"></script>
+	<script type="text/javascript" src="./js/popper.min.js"></script>
+	<script type="text/javascript" src="./js/jquery.dataTables.min.js"></script>
+	<script type="text/javascript" src="./js/bootstrap.min.js"></script>
+	<style>
+		.transfer-to-container {
+			float: right;
+		}
+
+		.details-content {
+			background: lightyellow;
+			height: 176px;
+		}
+	</style>
+</head>
+
+<body onload='emailOnload()' style='margin:10px 0 0 0; overflow:hidden;' onkeydown='return (event.keyCode != 116)'>
+	<div class='card mt-5 mb-3'>
+		<div class='card-header card-header-text card-header-info'>
+			<h5 class="my-0">
+				<i class='fa fa-envelope card-header-icon'></i><span class="align-middle l-email-email-list"></span>
+			</h5>
+		</div>
+		<div class='card-body'>
+			<table id='media-list-table' style="width:100%;" class="table table-hover mt-3 clearfix"></table>
+		</div>
+	</div>
+	<div class='transfer-to-container'>
+		<span class="l-email-transfer-to"></span>:
+		<select id='agent-list' value='' class="temp-disabled" style='border-radius:5px;height:31px;' disabled>
+			<option disabled="disabled" selected="selected" value=''></option>
+		</select>
+		<button class="btn btn-sm btn-warning rounded mb-2 text-capitalize temp-disabled" onclick="confirmClicked()"
+			disabled><i class="fas fa-clipboard-check mr-2"></i><span class="l-email-confirm"></span></button>
+	</div>
+
+	<script type="text/javascript" src="./obfuscate_b4/email.js"></script>
+</body>
+
+</html>

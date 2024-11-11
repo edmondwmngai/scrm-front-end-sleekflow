@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="cache-control" content="max-age=0">
+<meta http-equiv="cache-control" content="no-cache">
+<meta http-equiv="expires" content="-1">
+<meta http-equiv="expires" content="Tue, 01 Jan 1980 11:00:00 GMT">
+<meta http-equiv="pragma" content="no-cache">
+	<script type="text/javascript">
+		window.onload = function () {
+			sessionStorage.setItem('scrmAgentId', '5');
+			document.getElementById("phone").src = "phone.html";
+		}
+		// prevent right click
+		document.addEventListener('contextmenu', event => event.preventDefault());
+	</script>
+</head>
+
+<body style="margin:0px">
+	<iframe id="phone" src="" style="width:100%;border:0px"></iframe>
+	<br />
+	<!--
+<iframe src="play_wav.html" style="width:100%;border:0px"></iframe>
+-->
+</body>
+
+</html>

@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+
+<head>
+    <meta http-equiv="cache-control" content="max-age=0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Expires" content="0" />
+    <meta http-equiv="expires" content="Tue, 01 Jan 1980 11:00:00 GMT">
+    <meta http-equiv="pragma" content="no-cache">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="shortcut icon" href="./images/favicon.ico">
+    <link rel="stylesheet" href="./css/fontawesome/css/all.css">
+    <link rel="stylesheet" href="./css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="././css/material-kit/css/material-kit.min.css" type="TEXT/CSS">
+    <link rel="stylesheet" href="./css/media.css" type="TEXT/CSS">
+    <link rel="stylesheet" href="./css/material-overwrite.css" type="TEXT/CSS">
+
+    <script type="text/javascript" src="./config.js"></script>
+    <script type="text/javascript" src="./js/jquery.min.js"></script>
+    <script type="text/javascript" src="./js/download.js"></script>
+    <script type="text/javascript" src="./js/tiff.min.js"></script>
+    <script type="text/javascript" src="./js/socialContent.js"></script>
+    <title id="ac-reset-title">
+    </title>
+    <style type="text/css">
+        body {
+            margin-left: 15px;
+            margin-right: 15px;
+        }
+        /* ============= Custom Scroll in body ============= */
+        
+        .custom-scroll::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        
+        .custom-scroll::-webkit-scrollbar-track {
+            background: lightgray
+        }
+        
+        .custom-scroll::-webkit-scrollbar-thumb {
+            -webkit-border-radius: 8px;
+            border-radius: 8px;
+            background: #AECBFC;
+        }
+        
+        .custom-scroll::-webkit-scrollbar-thumb:window-inactive {
+            background: #AECBFC;
+        }
+        
+        .profile-picture {
+            max-width: 100%;
+            max-height: 100%;
+            /* border-radius: 50%; */
+            margin: 0;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        
+        #photo-container {
+            width: 100px;
+            /* line-height: 213px;*/
+            height: 100px;
+            position: relative;
+            text-align: center;
+        }
+        /*#field-name-span {
+            font-size: 8px;
+        } */
+        /* .txt-fields {
+            width: 100%;
+        }
+
+        #txt-name {
+            width: 100%;
+        } */
+        
+        .blank-error-span,
+        .radio-blank-error-span {
+            /* display: inline-block; */
+            color: red;
+            /* margin-left: 10px; */
+        }
+    </style>
+</head>
+
+<body onload='accountRecordPopupOnload()' class='custom-scroll'>
+    <div class='card mt-5 mb-3'>
+        <!--Card Header-->
+        <div class='card-header card-header-text card-header-info'>
+            <h5 id="user-reset-header" class="my-0">
+            </h5>
+        </div>
+
+        <!--Card Body-->
+        <div class='card-body'>
+            <section class="d-table">
+                <!--Seller ID-->
+                <div class="d-table-row">
+                    <label class="form-label"><span class="l-account-seller-id"></span></label>
+                    <span class="d-table-cell" id="txt-seller-id"></span>
+                    <!-- <button class="check-btn to-be-disabled  btn rounded btn-sm btn-info mt-3 mb-0" id="check-seller-button"><i class="fas fa-clipboard-check mr-2"></i>Check</button> -->
+                    <!-- <span class="blank-error-span" id="seller-id-error"></span> -->
+                </div>
+
+                <!--Agent ID-->
+                <div class="d-table-row">
+                    <label class="form-label"><span class="l-account-agent-id"></span></label>
+                    <span class="d-table-cell" id="txt-agent-id"></span>
+                    <!-- <button class="check-btn to-be-disabled  btn rounded btn-sm btn-info mt-3 mb-0" id="check-agent-button"><i class="fas fa-clipboard-check mr-2"></i>Check</button> -->
+                    <!-- <span class="blank-error-span" id="agent-id-error"></span> -->
+                </div>
+
+                <!--Agent Name-->
+                <div class="d-table-row">
+                    <label class="form-label mr-2"><span class="l-account-agent-name"></span></label>
+                    <span id="txt-name" class="d-table-cell"></span>
+                    <!-- <span class="blank-error-span" id="agent-name-error"></span> -->
+                </div>
+
+                <!--Email-->
+                <div class="d-none">
+                    <label class="form-label"><span class="l-account-email"></span></label>
+                    <span type="text" class="d-table-cell" id="txt-email"></span>
+                </div>
+
+                <!--Role-->
+                <div class="d-table-row">
+                    <label class="form-label"><span class="l-account-role"></span></label>
+                    <span class="d-table-cell" id="role-name"></span>
+                </div>
+
+                <!--Account Status-->
+                <div class="d-table-row">
+                    <label class="form-label"><span class="l-account-account-status mr-2"></span></label>
+                    <span class="d-table-cell" id="account-status"></span>
+                    <!-- <div id="role-div">
+                            <label class="form-label"><span class="l-account-role"></span></label>
+                        </div>
+                        <span class="radio-blank-error-span" id="role-error"></span> -->
+                </div>
+            </section>
+            <!-- <button class="btn rounded btn-sm btn-warning mt-3 mb-0 text-capitalize" onclick="changePassword()">
+                <i class="fas fa-key mr-2"></i>
+                <span class="l-change-password"></span></button> -->
+
+            <div class="form-group">
+                <!--Change Password checkboxes-->
+                <div class="form-check" id="change-password-container">
+                    <!-- assign checkbox -->
+                </div>
+            </div>
+
+            <!--Password-->
+            <div class="form-group">
+                <label class="form-label" for="txt-password"><span class="l-account-password"></span></label>
+                <input type="password" class="form-control" name="txt-password" id="txt-password" />
+                <span class="blank-error-span" id="password-error"></span>
+            </div>
+
+            <!--Confirm Password-->
+            <div class="form-group">
+                <label class="form-label" for="txt-confirm-password"><span
+                        class="l-account-confirm-password"></span></label>
+                <input type="password" class="form-control" name="txt-confirm-password" id="txt-confirm-password" />
+                <span class="blank-error-span" id="confirm-password-error"></span>
+            </div>
+
+            <!--Counter-->
+            <div class="form-group">
+                <div id="counter-div"></div>
+            </div>
+
+            <!--buttons-->
+            <div class="form-group text-center">
+                <span id='validation-result' style="display:none"></span>
+                <button class="btn rounded btn-sm btn-warning mt-3 mb-0 text-capitalize" onclick="submitForm()"><i
+                        class="fas fa-save mr-2"></i><span class="l-general-save"></span></button>
+                <button class="btn rounded btn-sm btn-default mt-3 mb-0 text-capitalize" onclick="clearForm()"><i
+                        class="fas fa-times-circle mr-2"></i><span class="l-general-cancel"></span></button>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript" src="./obfuscate_b4/accountResetPopup.js"></script>
+</body>
+
+</html>

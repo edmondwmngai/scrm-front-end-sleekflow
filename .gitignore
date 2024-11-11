@@ -1,0 +1,18 @@
+config.js
+fb_media/
+vettings/
+uploads/
+.svn/
+node_modules/
+.db
+Thumbs.db
+.vs/
+sh.exe.stackdump
+.bak
+wsLibrary_x.js
+Wise/script/sl-campaignCRM.js
+Wise/script/constant.js
+obfuscated/
+upload_ob/
+# cmd call this afterward: git rm -rf --cached .
+# cmd call this afterward: git add .

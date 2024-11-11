@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="20px" height="20px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 48.2 (47327) - http://www.bohemiancoding.com/sketch -->
+    <title>folder-search-24</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Desktop" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" transform="translate(-740.000000, -1501.000000)">
+        <g id="5.-Glyph-Icons" transform="translate(79.000000, 1082.000000)" fill="#005CFB" fill-rule="nonzero">
+            <g id="Outline-Icons-24px" transform="translate(0.000000, 364.000000)">
+                <g id="folder-search-24" transform="translate(661.000000, 55.000000)">
+                    <path d="M18,18 L18,5.27272727 L9.5,5.27272727 L7.04545455,2 L2,2 L2,18 L18,18 Z M10.5,3.27272727 L20,3.27272727 L20,20 L0,20 L0,0 L8.04545455,0 L10.5,3.27272727 Z" id="Shape"></path>
+                    <polygon id="Shape" points="10.111075 13.1616522 11.5252886 11.7474387 14.7980159 15.0201659 13.3838023 16.4343795"></polygon>
+                    <path d="M8.77272727,14.2727273 C6.63889983,14.2727273 4.90909091,12.5429184 4.90909091,10.4090909 C4.90909091,8.27526347 6.63889983,6.54545455 8.77272727,6.54545455 C10.9065547,6.54545455 12.6363636,8.27526347 12.6363636,10.4090909 C12.6363636,12.5429184 10.9065547,14.2727273 8.77272727,14.2727273 Z M8.77272727,12.2727273 C9.80198522,12.2727273 10.6363636,11.4383489 10.6363636,10.4090909 C10.6363636,9.37983297 9.80198522,8.54545455 8.77272727,8.54545455 C7.74346933,8.54545455 6.90909091,9.37983297 6.90909091,10.4090909 C6.90909091,11.4383489 7.74346933,12.2727273 8.77272727,12.2727273 Z" id="Oval"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

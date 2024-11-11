@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="18px" height="18px" viewBox="0 0 18 18" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 48.2 (47327) - http://www.bohemiancoding.com/sketch -->
+    <title>send</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Inbound---Query---Active_wechat-profile-Copy" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" transform="translate(-1068.000000, -556.000000)">
+        <g id="Content" transform="translate(0.000000, 121.000000)" fill="#FFFFFF" fill-rule="nonzero">
+            <g id="Inner-Content" transform="translate(299.000000, 0.000000)">
+                <g id="Chatbox-Area" transform="translate(1.000000, 0.000000)">
+                    <g id="Textbox-Area" transform="translate(20.000000, 380.000000)">
+                        <g id="Apply-Button" transform="translate(736.000000, 49.000000)">
+                            <g id="send" transform="translate(12.000000, 6.000000)">
+                                <path d="M0.713515349,8.30712723 L2.73369851,9.83735522 L9.78905297,6.70164213 L4.31958541,11.0124637 L4.31958541,16.3031956 C4.31958541,17.0346007 5.23207792,17.3677702 5.70321881,16.8080454 L8.15769823,13.8918322 L13.253232,17.7142665 C13.7149658,18.0599789 14.378953,17.80677 14.4926226,17.2407738 L17.6314714,1.56220837 C17.7537642,0.951528241 17.1493555,0.449030218 16.5716004,0.680289059 L0.893034923,6.95171525 C0.325470853,7.17905444 0.224344106,7.9402488 0.713515349,8.30712723 Z" id="Shape"></path>
+                            </g>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

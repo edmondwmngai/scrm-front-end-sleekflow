@@ -1,0 +1,14 @@
+https://github.com/formio/formio.js/issues/2677
+
+Add Form Builder
+
+If For Inbound
++ dbo.case_result and dbo.case_result_log add column Form_Id
++ under Menu add a Form Builder tab, in it can mangae and add new input form
++ [scrm].[dbo].[config] add a new row defaultFormId
++ API to update defaultFormId field in [scrm].[dbo].[config]
+
+If For Outbound
++ [dbo].[outbound_input_form] add a new column e.g. Form_JSON 
++ for [dbo].[outbound_input_form] add 1. a insert API, 2. update API 3. Just get JSON API (don't change existing get outbound input form API, the JSON could be very big, should not be get in list)
++ in Outbound tab left panel, add a '+ Form' field, in it can mangae and add new input form

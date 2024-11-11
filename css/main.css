@@ -1,0 +1,171 @@
+body {
+    font-size: 14px !important;
+    width: auto;
+}
+
+table {
+    border: 0;
+    width: 100%;
+}
+
+.phone-icon {
+    width: 18px;
+    text-align: center !important;
+    margin-right: 6px;
+}
+
+
+/* ================ TITLE CSS ================ */
+
+.white-color-title {
+    text-align: right;
+    color: #FFFFFF;
+    font-weight: 550;
+}
+
+
+/* ================ MAIN PAGE TAB CSS ================ */
+
+/* ================ /TAB CSS ================ */
+/* ifrmae class, parent tab-pane position has to be absotlute, parenet parent has to be relative, to fix Chrome textarea not calculated correct issue */
+.main-content {
+    position: fixed;
+    border: none;
+    height: calc(100% - 177px);;
+    display: block;
+    width: 100%;
+}
+
+/* the class below for framework, will have issue when textarea not seeable, loss top bar
+.main-content {
+    border: 0;
+    width: 100%;
+    height: calc(100vh - 156px);
+    height: -o-calc(100vh - 156px);
+    height: -webkit-calc(100vh - 156px);
+    height: -moz-calc(100vh - 156px);
+} */
+
+.scroll-hidden {
+    overflow: hidden;
+}
+
+.phone-panel {
+    width: 111px;
+}
+
+.bg-yellow {
+    background: #dbdb30;
+}
+
+.title-btn-disabled {
+    background:#ffbc59 !important;
+    pointer-events: none;
+}
+
+/* ============= Modal ============= */
+
+.close {
+    line-height: 1.43;
+}
+
+.agent-list-cell {
+    display: table-cell;
+    padding-left: 12px;
+}
+
+
+/* ============= /Modal ============= */
+
+/* ============= overwrite bootstrap / material kit ============= */
+
+.navbar {
+    border-radius: unset !important;
+}
+
+.card .card-header {
+    border-radius: unset !important;
+    padding: 0px 10px !important;
+    background: inherit;
+    min-height: 34px;
+}
+
+a.text-light:focus {
+    color: inherit !important;
+}
+
+.nav-item>.l-main-ready-idle:hover {
+    color: #dae0e5 !important;
+    cursor: pointer;
+}
+
+.nav-item>.l-main-ready-idle:hover {
+    color: #dae0e5 !important
+}
+
+.wise-mon-icon{
+    font-size: 25px;
+    cursor: pointer;
+}
+
+button.close{
+   /* overwrite timeout/stylesheet/main.css .clsoe  */
+   background-image: unset !important;
+}
+
+
+.hover-black {
+    border-radius: 5px;
+    text-align: center;
+    width: 36px;
+    margin-right: 4px;
+    padding: 0;
+}
+
+.hover-black:hover {
+    box-shadow: 0 14px 26px -12px rgba(153, 153, 153, 0.42), 0 4px 23px 0px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(153, 153, 153, 0.2);
+}
+
+.tel-input, .tel-input:focus {
+    width: calc(100% - 35px);
+    display: inline-block;
+    color: black;
+    background: white;
+    border-radius: 5px;
+    padding-top: .1rem;
+    padding-bottom: .1rem;
+    padding-left: .1rem;
+}
+
+#phone-submenu > span.d-table-row {
+    font-size: .8125rem;
+    white-space: nowrap;
+}
+
+.dropdown-cell {
+    /* padding: 0.4rem 1.25rem; */
+    padding: 0.4rem 0.7rem;
+}
+
+.font-size-large {
+    font-size: large;
+}
+
+#alert-container {
+    position: absolute;
+    bottom: 15px;
+    left: 15px;
+    color: black;
+}
+
+.alert {
+    border-radius: 5px;
+    color: black !important;
+    font-weight: 700;
+}
+
+button.close[data-dismiss="alert"] {
+    display: contents;
+    line-height:1px;
+    color: black;
+}

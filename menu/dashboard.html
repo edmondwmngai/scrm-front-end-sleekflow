@@ -1,0 +1,584 @@
+<!-- dashboard.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="cache-control" content="max-age=0">
+    <meta http-equiv="cache-control" content="no-cache">
+    <meta http-equiv="expires" content="-1">
+    <meta http-equiv="expires" content="Tue, 01 Jan 1980 11:00:00 GMT">
+    <meta http-equiv="pragma" content="no-cache">
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../css/fontawesome/css/all.css">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no'
+        name='viewport' />
+    <!--     Fonts and icons     -->
+    <link rel="stylesheet" type="text/css"
+        href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
+    <!-- CSS Files -->
+    <link href="../css/material-kit/assets/css/material-dashboard.css?v=2.1.1" rel="stylesheet" />
+    <!-- CSS Just for demo purpose, don't include it in your project -->
+    <link href="../css/material-kit/assets/demo/demo.css" rel="stylesheet" />
+    <style>
+        /* ============= Custom Scroll in body ============= */
+
+        body {
+            background: #f4f5f7;
+        }
+
+        .custom-scroll::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        .custom-scroll::-webkit-scrollbar-track {
+            background: lightgray
+        }
+
+        .custom-scroll::-webkit-scrollbar-thumb {
+            -webkit-border-radius: 8px;
+            border-radius: 8px;
+            background: #AECBFC;
+        }
+
+        .custom-scroll::-webkit-scrollbar-thumb:window-inactive {
+            background: #AECBFC;
+        }
+
+        .c-pointer {
+            cursor: pointer;
+        }
+
+        .fixed-card-height {
+            height: 392px;
+        }
+
+        .card {
+            margin-bottom: 15px;
+        }
+
+        .card-header-select {
+            color: white;
+            width: auto;
+            float: right;
+            -webkit-appearance: menulist-button !important;
+            padding: 0 !important;
+            margin-top: 0 !important;
+            background-image: unset !important;
+        }
+
+        .card-footer-select {
+            width: auto;
+            float: right;
+            -webkit-appearance: menulist-button !important;
+            margin-top: 0 !important;
+            padding: 0 !important;
+            height: 24px !important;
+            background-image: unset !important;
+            color: #999999;
+        }
+
+        .card-footer-select:focus {
+            color: #999999;
+        }
+
+        .card-footer-select>option {
+            padding: 0;
+        }
+    </style>
+</head>
+
+<body class="custom-scroll" onload="windowOnload(true)">
+    <div class="wrapper">
+        <div class="main-panel" style="float:unset;width:auto;">
+            <div class="content mt-0 pt-1 pb-0 px-1">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-2 px-2">
+                            <div class="card card-stats">
+                                <div class="card-header card-header-success card-header-icon">
+                                    <div class="card-icon">
+                                        <i class="fas fa-question-circle"></i>
+                                    </div>
+                                    <p class="card-category l-dashboard-enquiry">Enquiry</p>
+                                    <h3 id="data-1-today" class="card-title">
+                                    </h3>
+                                </div>
+                                <div class="card-footer">
+                                    <div class="stats">
+                                        <i class="material-icons">date_range</i><span style="padding-top:2px;"
+                                            class="l-dashboard-today">Today</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-2 px-2">
+                            <div class="card card-stats">
+                                <div class="card-header card-header-warning card-header-icon">
+                                    <div class="card-icon">
+                                        <i class="fas fa-comment-alt"></i>
+                                    </div>
+                                    <p class="card-category l-dashboard-feedback">Feedback</p>
+                                    <h3 id="data-2-today" class="card-title"></h3>
+                                </div>
+                                <div class="card-footer">
+                                    <div class="stats">
+                                        <i class="material-icons">date_range</i><span style="padding-top:2px;"
+                                            class="l-dashboard-today">Today</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-2 px-2">
+                            <div class="card card-stats">
+                                <div class="card-header card-header-danger card-header-icon">
+                                    <div class="card-icon">
+                                        <i class="fas fa-surprise"></i>
+                                    </div>
+                                    <p class="card-category l-dashboard-complaint">Complaint</p>
+                                    <h3 id="data-3-today" class="card-title"></h3>
+                                </div>
+                                <div class="card-footer">
+                                    <div class="stats">
+                                        <i class="material-icons">date_range</i><span style="padding-top:2px;"
+                                            class="l-dashboard-today">Today</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-2 px-2">
+                            <div class="card card-stats">
+                                <div class="card-header card-header-icon">
+                                    <div class="card-icon" title="Fan Page Comments" style="background:#4267b2;">
+                                        <i class="fas fa-smile-beam"></i>
+                                    </div>
+                                    <p class="card-category l-dashboard-compliment">Compliment</p>
+                                    <h3 id="data-4-today" class="card-title"></h3>
+                                </div>
+                                <div class="card-footer">
+                                    <div class="stats">
+                                        <i class="material-icons">date_range</i><span style="padding-top:2px;"
+                                            class="l-dashboard-today">Today</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-2 px-2">
+                            <div class="card card-stats">
+                                <div class="card-header card-header-icon">
+                                    <div class="card-icon" title="Fan Page Comments" style="background:#02adc2">
+                                        <i class="fas fa-folder-open"></i>
+                                    </div>
+                                    <p class="card-category l-dashboard-new-closed-case">Opened</p>
+                                    <h3 id="data-5-today" class="card-title"></h3>
+                                </div>
+                                <div class="card-footer">
+                                    <div class="stats">
+                                        <i class="material-icons">date_range</i><span style="padding-top:2px;"
+                                            class="l-dashboard-today">Today</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-2 px-2">
+                            <div class="card card-stats">
+                                <div class="card-header card-header-icon">
+                                    <div class="card-icon" title="Fan Page Comments" style="background:#9027ab;">
+                                        <i class="far fa-folder"></i>
+                                    </div>
+                                    <p class="card-category l-dashboard-new-closed-case">Closed</p>
+                                    <h3 id="data-6-today" class="card-title"></h3>
+                                </div>
+                                <div class="card-footer">
+                                    <div class="stats">
+                                        <i class="material-icons">date_range</i><span style="padding-top:2px;"
+                                            class="l-dashboard-today">Today</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 2nd row -->
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="card card-chart">
+                                <div class="card-header card-header-success">
+                                    <canvas id="data-1-line"></canvas>
+                                </div>
+                                <div class="card-body">
+                                    <h4 class="card-title l-dashboard-enquiry">Enquiry</h4>
+                                    <p class="card-category l-dashboard-new-case">New Case</p>
+                                </div>
+                                <div class="card-footer">
+                                    <div class="stats">
+                                        <i class="material-icons">date_range</i>
+                                        <select class="form-control card-footer-select"
+                                            onchange="md.initData1Line(this.value)">
+                                            <option value="last7" class="l-dashboard-last-7-days">Last 7 days</option>
+                                            <option value="last14" class="l-dashboard-last-14-days">Last 14 days
+                                            </option>
+                                            <option value="last30" class="l-dashboard-last-30-days">Last 30 days
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="card card-chart">
+                                <div class="card-header card-header-warning">
+                                    <canvas id="data-2-line"></canvas>
+                                </div>
+                                <div class="card-body">
+                                    <h4 class="card-title l-dashboard-feedback">Feedback</h4>
+                                    <p class="card-category l-dashboard-new-case">New Case</p>
+                                </div>
+                                <div class="card-footer">
+                                    <div class="stats">
+                                        <i class="material-icons">date_range</i>
+                                        <select class="form-control card-footer-select"
+                                            onchange="md.initData2Line(this.value)">
+                                            <option value="last7" class="l-dashboard-last-7-days">Last 7 days</option>
+                                            <option value="last14" class="l-dashboard-last-14-days">Last 14 days
+                                            </option>
+                                            <option value="last30" class="l-dashboard-last-30-days">Last 30 days
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="card card-chart">
+                                <div class="card-header card-header-danger">
+                                    <canvas id="data-3-line"></canvas>
+                                </div>
+                                <div class="card-body">
+                                    <h4 class="card-title l-dashboard-complaint">Complaint</h4>
+                                    <p class="card-category l-dashboard-new-case">New Case</p>
+                                </div>
+                                <div class="card-footer">
+                                    <div class="stats">
+                                        <i class="material-icons">date_range</i>
+                                        <select class="form-control card-footer-select"
+                                            onchange="md.initData3Line(this.value)">
+                                            <option value="last7" class="l-dashboard-last-7-days">Last 7 days</option>
+                                            <option value="last14" class="l-dashboard-last-14-days">Last 14 days
+                                            </option>
+                                            <option value="last30" class="l-dashboard-last-30-days">Last 30 days
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="card card-chart">
+                                <div class="card-header card-header-info" style="background:#4267b2;">
+                                    <canvas id="data-4-line"></canvas>
+                                </div>
+                                <div class="card-body">
+                                    <h4 class="card-title l-dashboard-compliment">Compliment</h4>
+                                    <p class="card-category l-dashboard-new-case">New Case</p>
+                                </div>
+                                <div class="card-footer">
+                                    <div class="stats">
+                                        <i class="material-icons">date_range</i>
+                                        <select class="form-control card-footer-select"
+                                            onchange="md.initData4Line(this.value)">
+                                            <option value="last7" class="l-dashboard-last-7-days">Last 7 days</option>
+                                            <option value="last14" class="l-dashboard-last-14-days">Last 14 days
+                                            </option>
+                                            <option value="last30" class="l-dashboard-last-30-days">Last 30 days
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 3rd row -->
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="card card-chart">
+                                <div class="card-header card-header-primary">
+                                    <canvas id="ib-trad-bar"></canvas>
+                                </div>
+                                <div class="card-body">
+                                    <h4 class="card-title l-dashboard-ib-trad-media">I/B Traditional Media</h4>
+                                    <p class="card-category">
+                                        <span id="daily-chart-in-decrease" class="l-dashboard-ib-trad-media-sub">Call,
+                                            VM, Email and Fax</span>
+                                </div>
+                                <div class="card-footer">
+                                    <div class="stats">
+                                        <i class="material-icons">date_range</i><span style="padding-top:2px;"
+                                            class="l-dashboard-today">Today</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card card-chart">
+                                <div class="card-header card-header-info">
+                                    <canvas id="ob-trad-bar"></canvas>
+                                </div>
+                                <div class="card-body">
+                                    <h4 class="card-title l-dashboard-ob-trad-media">O/B Traditional Media</h4>
+                                    <p class="card-category l-dashboard-ob-trad-media-sub">Call, SMS, Email and Fax</p>
+                                </div>
+                                <div class="card-footer">
+                                    <div class="stats">
+                                        <i class="material-icons">date_range</i><span style="padding-top:2px;"
+                                            class="l-dashboard-today">Today</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card card-chart">
+                                <div class="card-header card-header-rose">
+                                    <canvas id="ib-social-bar"></canvas>
+                                </div>
+                                <div class="card-body">
+                                    <h4 class="card-title l-dashboard-ib-social-media">I/B Social Media</h4>
+                                    <p class="card-category l-dashboard-social-media-sub">Web Chat, WeChat and FB
+                                        Messenger</p>
+                                </div>
+                                <div class="card-footer">
+                                    <div class="stats">
+                                        <i class="material-icons">date_range</i><span style="padding-top:2px;"
+                                            class="l-dashboard-today">Today</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 4th row - 2 charts - 1 -->
+                    <div class="row">
+                        <div class="card card-chart mt-0 mx-3">
+                            <div class="card-body">
+                                <h4 class="card-title l-dashboard-ib-trad-media">I/B Traditional Media</h4>
+                                <p class="card-category my-0 l-dashboard-ib-trad-media-sub">Call, VM, Email and Fax</p>
+                                <div class="row" style="height: 200px;">
+                                    <div class="pl-2" style="width:calc(100% - 360px);">
+                                        <canvas id="ib-traditional-line"></canvas>
+                                    </div>
+                                    <div style="width: 360px;">
+                                        <canvas id="ib-traditional-doughnut"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <div class="stats">
+                                    <i class="material-icons">date_range</i>
+                                    <select class="form-control card-footer-select" onchange="md.initIBTra(this.value)">
+                                        <option value="last7" class="l-dashboard-last-7-days">Last 7 days</option>
+                                        <option value="last14" class="l-dashboard-last-14-days">Last 14 days</option>
+                                        <option value="last30" class="l-dashboard-last-30-days" selected>Last 30 days
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 5th row - 2 charts - 2 -->
+                    <div class="row">
+                        <div class="card card-chart mt-0 mx-3">
+                            <div class="card-body">
+                                <h4 class="card-title l-dashboard-ob-trad-media">O/B Traditional Media</h4>
+                                <p class="card-category my-0 l-dashboard-ob-trad-media-sub">Call, SMS, Email and Fax</p>
+                                <div class="row" style="height: 200px;">
+                                    <div style="width: 360px;">
+                                        <canvas id="ob-traditional-doughnut"></canvas>
+                                    </div>
+                                    <div class="pr-2" style="width:calc(100% - 360px);">
+                                        <canvas id="ob-traditional-line"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <div class="stats">
+                                    <i class="material-icons">date_range</i>
+                                    <select class="form-control card-footer-select" onchange="md.initOBTra(this.value)">
+                                        <option value="last7" class="l-dashboard-last-7-days">Last 7 days</option>
+                                        <option value="last14" class="l-dashboard-last-14-days">Last 14 days</option>
+                                        <option value="last30" class="l-dashboard-last-30-days" selected>Last 30 days
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 6th row - 2 charts - 3 -->
+                    <div class="row">
+                        <div class="card card-chart mt-0 mx-3">
+                            <div class="card-body">
+                                <h4 class="card-title l-dashboard-ib-social-media">I/B Social Media</h4>
+                                <p class="card-category my-0 l-dashboard-social-media-sub">Web Chat, WeChat and FB
+                                    Messenger</p>
+                                <div class="row" style="height: 200px;">
+                                    <!-- fb messenger lbl is too long so, not 280px, but 300px -->
+                                    <div class="pl-2" style="width:calc(100% - 360px);">
+                                        <canvas id="ib-social-line"></canvas>
+                                    </div>
+                                    <div style="width: 360px;">
+                                        <canvas id="ib-social-doughnut"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <div class="stats">
+                                    <i class="material-icons">date_range</i>
+                                    <select class="form-control card-footer-select" onchange="md.initIBSo(this.value)">
+                                        <option value="last7" class="l-dashboard-last-7-days">Last 7 days</option>
+                                        <option value="last14" class="l-dashboard-last-14-days">Last 14 days</option>
+                                        <option value="last30" class="l-dashboard-last-30-days" selected>Last 30 days
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 7th row -->
+                    <div class="row mb-5">
+                        <div class="col-lg-6 col-md-12 pr-1">
+                            <div class="card fixed-card-height">
+                                <div class="card-header card-header-tabs card-header-primary">
+                                    <div class="nav-tabs-navigation">
+                                        <div class="nav-tabs-wrapper">
+                                            <span class="float-left">
+                                                <h4 class="card-title mt-2 l-dashboard-created-new-case-nature">Created
+                                                    New Case Nature</h4>
+                                            </span>
+                                            <select class="form-control card-header-select"
+                                                onchange="md.loadAgentNature(this.value)">
+                                                <option class="l-dashboard-today" style="background: #8e24aa"
+                                                    value="Today" selected>Today</option>
+                                                <option class="l-dashboard-last-7-days" style="background: #8e24aa"
+                                                    value="Last7">Last 7 days</option>
+                                                <option class="l-dashboard-last-14-days" style="background: #8e24aa"
+                                                    value="Last14">Last 14 days</option>
+                                                <option class="l-dashboard-last-30-days" style="background: #8e24aa"
+                                                    value="Last30" selected>Last 30 days</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-body table-responsive custom-scroll">
+                                    <table class="table table-hover">
+                                        <thead class="text-primary">
+                                            <th title="Agent">Agent</th>
+                                            <th title="Enquiry"><i class="fas fa-question-circle"></i></th>
+                                            <th title="Feedback"><i class="fas fa-comment-alt"></i></th>
+                                            <th title="Complaint"><i class="fas fa-surprise"></i></th>
+                                            <th title="Compliment"><i class="fas fa-smile-beam"></i></th>
+                                            <th title="Subtotal">Total</th>
+                                        </thead>
+                                        <tbody id="agent-handled-tbl-body">
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-12 pl-1">
+                            <div class="card fixed-card-height">
+                                <div class="card-header card-header-warning">
+                                    <ul class="nav nav-tabs float-left" data-tabs="tabs">
+                                        <li class="nav-item c-pointer" onclick="channelTypeChanged('ib')">
+                                            <p class="nav-link active" data-toggle="tab">
+                                                I/B Trad
+                                            </p>
+                                        </li>
+                                        <li class="nav-item c-pointer" onclick="channelTypeChanged('ob')">
+                                            <p class="nav-link" data-toggle="tab">
+                                                O/B Trad
+                                            </p>
+                                        </li>
+                                        <li class="nav-item c-pointer" onclick="channelTypeChanged('social')">
+                                            <p class="nav-link" data-toggle="tab">
+                                                I/B SM
+                                            </p>
+                                        </li>
+                                    </ul>
+
+                                    <select class="form-control card-header-select"
+                                        onchange="channelTimeChanged(this.value)">
+                                        <option class="l-dashboard-today" style="background: #fb8c00" value="last30"
+                                            selected>Today</option>
+                                        <option class="l-dashboard-last-7-days" style="background: #fb8c00"
+                                            value="last7">Last 7 days</option>
+                                        <option class="l-dashboard-last-14-days" style="background: #fb8c00"
+                                            value="last14">Last 14 days</option>
+                                        <option class="l-dashboard-last-30-days" style="background: #fb8c00"
+                                            value="last30" selected>Last 30 days</option>
+                                    </select>
+                                </div>
+                                <div class="card-body table-responsive custom-scroll">
+                                    <table class="table table-hover">
+                                        <thead id="channel-thead" class="text-warning">
+                                            <th>Agent</th>
+                                            <th>Call</th>
+                                            <th>VM</th>
+                                            <th>Email</th>
+                                            <th>Fax</th>
+                                        </thead>
+                                        <tbody id="channel-tbody">
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--   Core JS Files   -->
+    <script src="../css/material-kit/assets/js/core/jquery.min.js"></script>
+    <script src="../css/material-kit/assets/js/core/popper.min.js"></script>
+    <script src="../css/material-kit/assets/js/core/bootstrap-material-design.min.js"></script>
+    <script src="../css/material-kit/assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
+    <!-- Plugin for the momentJs  -->
+    <script src="../css/material-kit/assets/js/plugins/moment.min.js"></script>
+    <!--  Plugin for Sweet Alert -->
+    <script src="../css/material-kit/assets/js/plugins/sweetalert2.js"></script>
+    <!-- Forms Validations Plugin -->
+    <script src="../css/material-kit/assets/js/plugins/jquery.validate.min.js"></script>
+    <!-- Plugin for the Wizard, full documentation here: https://github.com/VinceG/twitter-bootstrap-wizard -->
+    <script src="../css/material-kit/assets/js/plugins/jquery.bootstrap-wizard.js"></script>
+    <!--	Plugin for Select, full documentation here: http://silviomoreto.github.io/bootstrap-select -->
+    <script src="../css/material-kit/assets/js/plugins/bootstrap-selectpicker.js"></script>
+    <!--  Plugin for the DateTimePicker, full documentation here: https://eonasdan.github.io/bootstrap-datetimepicker/ -->
+    <script src="../css/material-kit/assets/js/plugins/bootstrap-datetimepicker.min.js"></script>
+    <!--  DataTables.net Plugin, full documentation here: https://datatables.net/  -->
+    <script src="../css/material-kit/assets/js/plugins/jquery.dataTables.min.js"></script>
+    <!--	Plugin for Tags, full documentation here: https://github.com/bootstrap-tagsinput/bootstrap-tagsinputs  -->
+    <script src="../css/material-kit/assets/js/plugins/bootstrap-tagsinput.js"></script>
+    <!-- Plugin for Fileupload, full documentation here: http://www.jasny.net/bootstrap/javascript/#fileinput -->
+    <script src="../css/material-kit/assets/js/plugins/jasny-bootstrap.min.js"></script>
+    <!--  Full Calendar Plugin, full documentation here: https://github.com/fullcalendar/fullcalendar    -->
+    <script src="../css/material-kit/assets/js/plugins/fullcalendar.min.js"></script>
+    <!-- Vector Map plugin, full documentation here: http://jvectormap.com/documentation/ -->
+    <script src="../css/material-kit/assets/js/plugins/jquery-jvectormap.js"></script>
+    <!--  Plugin for the Sliders, full documentation here: http://refreshless.com/nouislider/ -->
+    <script src="../css/material-kit/assets/js/plugins/nouislider.min.js"></script>
+    <!-- Include a polyfill for ES6 Promises (optional) for IE11, UC Browser and Android browser support SweetAlert -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/core-js/2.4.1/core.js"></script>
+    <!-- Library for adding dinamically elements -->
+    <script src="../css/material-kit/assets/js/plugins/arrive.min.js"></script>
+    <!--  Notifications Plugin    -->
+    <script src="../css/material-kit/assets/js/plugins/bootstrap-notify.js"></script>
+    <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
+    <script src="../js/Chart.min.js" type="text/javascript"></script>
+    <script src="../js/chartjs-plugin-piechart-outlabels.js" type="text/javascript"></script>
+    <script src="../config.js" type="text/javascript"></script>
+    <script src="../obfuscate_b4/dashboard.js" type="text/javascript"></script>
+</body>
+
+</html>

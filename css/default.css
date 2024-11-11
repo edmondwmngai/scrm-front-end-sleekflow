@@ -1,0 +1,174 @@
+A:link
+{
+    COLOR: #0000ff
+}
+A:visited
+{
+    COLOR: #0000ff
+}
+A:hover
+{
+    COLOR: #000055
+}
+TD
+{
+    FONT-SIZE: x-small;
+    FONT-FAMILY: Arial,Helvetica,Verdana
+}
+
+
+A
+{
+    TEXT-DECORATION: none
+}
+BUTTON
+{
+    BORDER-RIGHT: #483d8b 2px solid;
+    BORDER-TOP: #483d8b 2px solid;
+    FONT-WEIGHT: bold;
+    BORDER-LEFT: #483d8b 2px solid;
+    WIDTH: 100px;
+    CURSOR: hand;
+    BORDER-BOTTOM: #483d8b 2px solid;
+    HEIGHT: 30px;
+    BACKGROUND-COLOR: #ccccff
+}
+HTML
+{
+    SCROLLBAR-HIGHLIGHT-COLOR: #ffffff;
+    SCROLLBAR-SHADOW-COLOR: #ffffff;
+    SCROLLBAR-3DLIGHT-COLOR: #ffffff;
+    SCROLLBAR-ARROW-COLOR: #4169e1;
+    SCROLLBAR-TRACK-COLOR: #ffffff;
+    SCROLLBAR-DARKSHADOW-COLOR: #ffffff;
+    SCROLLBAR-BASE-COLOR: #cccccc
+}
+LABEL
+{
+    WIDTH: 80px;
+    TEXT-ALIGN: left
+}
+TEXTAREA
+{
+    BORDER-RIGHT: #d3d3d3 2px solid;
+    BORDER-TOP: #d3d3d3 2px solid;
+    FONT-SIZE: 14px;
+    SCROLLBAR-HIGHLIGHT-COLOR: #ffffff;
+    BORDER-LEFT: #d3d3d3 2px solid;
+    SCROLLBAR-SHADOW-COLOR: #ffffff;
+    COLOR: darkblue;
+    SCROLLBAR-3DLIGHT-COLOR: #ffffff;
+    SCROLLBAR-ARROW-COLOR: #4169e1;
+    SCROLLBAR-TRACK-COLOR: #ffffff;
+    BORDER-BOTTOM: #d3d3d3 2px solid;
+    SCROLLBAR-DARKSHADOW-COLOR: #ffffff;
+    SCROLLBAR-BASE-COLOR: #cccccc;
+    BACKGROUND-COLOR: #ffffff
+}
+INPUT
+{	
+	FONT-SIZE: 14px;
+	color: darkblue;
+    border-width: 2px 2px 2px 2px;
+	border-style: solid;
+	border-color: #D3D3D3;
+	background-color: #FFFFFF;
+}
+.TEXTAREA
+{
+    BORDER-RIGHT: #d3d3d3 2px solid;
+    BORDER-TOP: #d3d3d3 2px solid;
+    FONT-SIZE: 14px;
+    SCROLLBAR-HIGHLIGHT-COLOR: #ffffff;
+    BORDER-LEFT: #d3d3d3 2px solid;
+    SCROLLBAR-SHADOW-COLOR: #ffffff;
+    COLOR: darkblue;
+    SCROLLBAR-3DLIGHT-COLOR: #ffffff;
+    SCROLLBAR-ARROW-COLOR: #4169e1;
+    SCROLLBAR-TRACK-COLOR: #ffffff;
+    BORDER-BOTTOM: #d3d3d3 2px solid;
+    SCROLLBAR-DARKSHADOW-COLOR: #ffffff;
+    SCROLLBAR-BASE-COLOR: #cccccc;
+    BACKGROUND-COLOR: #ffffff
+}
+HR
+{
+    HEIGHT: 1px
+}
+
+.subMenu
+{
+    BORDER-RIGHT: #f1f1f1 0px solid;
+    PADDING-RIGHT: 25px;
+    BORDER-TOP: #f1f1f1 0px solid;
+    PADDING-LEFT: 6px;
+    FONT-SIZE: 70%;
+    PADDING-BOTTOM: 3px;
+    BORDER-LEFT: #f1f1f1 0px solid;
+    CURSOR: hand;
+    PADDING-TOP: 1px;
+    BORDER-BOTTOM: #f1f1f1 0px solid;
+    FONT-FAMILY: Verdana, Arial, Helvetica;
+    BACKGROUND-COLOR: #f1f1f1
+}
+.innerFrame2
+{
+    BORDER-RIGHT: #d3d3d3 1px solid;
+    BORDER-TOP: #d3d3d3 1px solid;
+    BORDER-LEFT: #d3d3d3 1px solid;
+    BORDER-BOTTOM: #d3d3d3 1px solid;
+    BACKGROUND-COLOR: #e3e3e3
+}
+.innerFrame1
+{
+    BORDER-RIGHT: #d3d3d3 1px solid;
+    BORDER-TOP: #d3d3d3 1px solid;
+    BORDER-LEFT: #d3d3d3 1px solid;
+    BORDER-BOTTOM: #d3d3d3 1px solid;
+    BACKGROUND-COLOR: #f1f1f1
+}
+.bg1
+{
+    BACKGROUND-COLOR: #ffffff
+}
+.bg2
+{
+    BACKGROUND-COLOR: #f1f1f1
+}
+.leftWall
+{
+    BORDER-RIGHT: #d3d3d3 thin solid
+}
+.topWall
+{
+    BORDER-TOP: #000000 thin outset
+}
+.MyTitle
+{
+    FONT-WEIGHT: bolder;
+    FONT-SIZE: 20px;
+    COLOR: white;
+    HEIGHT: 40px;
+    BACKGROUND-COLOR: royalblue
+}
+.inputbox
+{
+    BORDER-RIGHT: #d3d3d3 2px solid;
+    BORDER-TOP: #d3d3d3 2px solid;
+    BORDER-LEFT: #d3d3d3 2px solid;
+    COLOR: #00008b;
+    BORDER-BOTTOM: #d3d3d3 2px solid;
+    BACKGROUND-COLOR: #ffffff
+}
+.xpTable
+{
+	FONT-SIZE: 14px;
+	border-width: 1px 1px 1px 1px;
+	border-style: solid;
+	border-color: #D3D3D3;
+	background-color: #F1F1F1;
+}
+LABEL
+{
+    CURSOR: hand
+}

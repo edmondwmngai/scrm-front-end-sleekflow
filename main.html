@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="cache-control" content="max-age=0">
+    <meta http-equiv="cache-control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="expires" content="0" />
+    <meta http-equiv="expires" content="Tue, 01 Jan 1980 11:00:00 GMT">
+    <meta http-equiv="pragma" content="no-cache">
+
+    <link rel="icon" href="./images/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="./images/favicon.ico" type="image/x-icon">
+
+    <title>
+        Epro Marvel | Contact Centre Solution
+    </title>
+
+    <link rel="stylesheet" href="./css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="./css/material-kit/css/material-kit.min.css" type="TEXT/CSS">
+    <link rel="stylesheet" href="./css/material-overwrite.css" type="TEXT/CSS">
+    <link REL="stylesheet" href="./css/main.css" TYPE="TEXT/CSS">
+    <link rel="stylesheet" href="./css/fontawesome/css/all.css">
+    <link rel="stylesheet" href="./css/messagebox.min.css" type="text/css">
+    <link type="text/css" rel="stylesheet" href="./timeout/stylesheets/main.css">
+    <link type="text/css" rel="stylesheet" href="./timeout/stylesheets/jquery-ui.css">
+    <link type="text/css" rel="stylesheet" href="./timeout/stylesheets/jquery-ui.structure.css">
+    <link type="text/css" rel="stylesheet" href="./timeout/stylesheets/jquery-ui.theme.css">
+
+    <script src="./timeout/js/jquery.min.js" type="text/javascript"></script>
+    <script src="./timeout/js/jquery-ui.min.js" type="text/javascript"></script>
+    <script src="./timeout/js/store.min.js" type="text/javascript"></script>
+    <script src="./timeout/js/jquery-idleTimeout-iframes.js" type="text/javascript"></script>
+
+
+    <script type="text/javascript" src="./config.js"></script>
+    <script type="text/javascript" src="./js/generalFn.js"></script>
+    <script type="text/javascript" src="./js/popper.min.js"></script>
+    <script type="text/javascript" src="./js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="./js/bootstrap-confirmation.js"></script>
+    <script type="text/javascript" src="./js/messagebox.min.js"></script>
+</head>
+
+<body class='scroll-hidden' TopMargin="0" LeftMargin="0" onbeforeunload="windowOnBeforeUnload()" onkeydown='return (event.keyCode != 116)'>
+
+    <nav class="navbar navbar-default navbar-expand navbar-light bg-light py-0 mb-0 bg-info" style="position:static">
+        <div class="w-100">
+            <div class="navbar-collapse" id="navbarSupportedContent">
+
+                <div class="nav-item ml-2">
+                    <span>
+                        <span class="l-main-tel">Tel</span>:&nbsp;&nbsp;
+                    <input id="phone-panel-no" class="form-control tel-input" type="search" style="display: inline-block; width: 170px" maxlength="17" />
+                    </span>
+                </div>
+
+                <div class="nav-item btn btn-warning hover-black ml-2 py-1" style='position:relative;' title="Make Call" onclick="phoneClicked('make')">
+                    <span>
+                        <i class="fas fa-phone font-size-large"></i>
+                    </span>
+                </div>
+
+                <div class="nav-item btn btn-warning hover-black py-1" style='position:relative;' title="Drop Call" onclick="phoneClicked('drop')">
+                    <span>
+                        <i class="fas fa-phone-slash font-size-large"></i>
+                    </span>
+                </div>
+
+                <div id="icon-line-1" class="nav-item btn btn-warning hover-black py-1" style='position:relative;' title="Hold Call" onclick="phoneClicked('hold')">
+                    <span>
+                        <i class="fas fa-pause font-size-large"></i>
+                    </span>
+                </div>
+
+                <div class="nav-item btn btn-warning hover-black py-1" style='position:relative;' title="Call Agent" onclick="phoneClicked('agent')">
+                    <span>
+                        <i class="fas fa-plus font-size-large"></i>
+                    </span>
+                </div>
+
+                <div class="nav-item btn btn-warning hover-black py-1" style='position:relative;' title="Conference Call" onclick="phoneClicked('conference')">
+                    <span>
+                        <i class="fas fa-users font-size-large"></i>
+                    </span>
+                </div>
+
+                <div class="nav-item btn btn-warning hover-black py-1" style='position:relative;' title="Transfer Call" onclick="phoneClicked('transfer')">
+                    <span>
+                        <i class="fas fa-exchange-alt font-size-large"></i>
+                    </span>
+                </div>
+
+                <div id="agent-list-dropdown-container" class="nav-item dropdown hover-black ml-1">
+                    <a class="nav-link dropdown-toggle px-0 text-white" href="#" id="agent-list-dropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fas fa-columns font-size-large mt-1" title="Agent List"></i>
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="agent-list-dropdown">
+                        <div id="phone-submenu" class="d-table mt-1"></div>
+                        <div class="dropdown-divider"></div>
+                        <a id="phone-dropdown-close" class="dropdown-item" href="#">
+                            <i class="fa fa-caret-up font-bg mr-2"></i><span class="l-main-close">
+                        </a>
+                    </div>
+                </div>
+
+                <div id="phone-dropdown" class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle text-light px-0" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <img src="./images/dialpad.png" class="w-auto">
+                    </a>
+                    <div class="dropdown-menu mt-1" aria-labelledby="navbarDropdown">
+                        <div class="dropdown-item text-center bg-white shadow-none">
+                            <button class='btn rounded btn-sm mr-1 btn-info' onclick="phoneNoClicked(1)">1</button>&nbsp;
+                            <button class='btn rounded btn-sm mr-1 btn-info' onclick="phoneNoClicked(2)">2</button>
+                            <button class='btn rounded btn-sm btn-info' onclick="phoneNoClicked(3)">3</button>
+                        </div>
+                        <div class="dropdown-item text-center bg-white shadow-none">
+                            <button class='btn rounded btn-sm mr-1 btn-info' onclick="phoneNoClicked(4)">4</button>&nbsp;
+                            <button class='btn rounded btn-sm mr-1 btn-info' onclick="phoneNoClicked(5)">5</button>
+                            <button class='btn rounded btn-sm btn-info' onclick="phoneNoClicked(6)">6</button>
+                        </div>
+                        <div class="dropdown-item text-center bg-white shadow-none">
+                            <button class='btn rounded btn-sm mr-1 btn-info' onclick="phoneNoClicked(7)">7</button>&nbsp;
+                            <button class='btn rounded btn-sm mr-1 btn-info' onclick="phoneNoClicked(8)">8</button>
+                            <button class='btn rounded btn-sm btn-info' onclick="phoneNoClicked(9)">9</button>
+                        </div>
+                        <div class="dropdown-item text-center bg-white shadow-none">
+                            <button class='btn rounded btn-sm mr-1 btn-info' onclick="phoneNoClicked('*')">*</button>&nbsp;
+                            <button class='btn rounded btn-sm mr-1 btn-info' onclick="phoneNoClicked(0)">0</button>
+                            <button class='btn rounded btn-sm btn-info' onclick="phoneNoClicked('#')">#</button>
+                        </div>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#">
+                           <i class="fa fa-caret-up font-bg phone-icon"></i><span class="l-main-close"></span>
+                        </a>
+                    </div>
+                </div>
+
+
+                <ul class="navbar-nav mr-auto">
+                </ul>
+                <div id="direct-call-container" class="nav-item text-center d-none"
+                    style="min-width:122px;cursor: pointer;" onclick="directCallClicked();">
+                    <span id="panel-direct-count" class="nav-link"
+                        style='font-weight:bold !important;height:33px;line-height: 25px;'>
+                        <span id="direct-count-text">Queue: 0</span>
+                            </span>
+                    </div>
+
+                    <div id="agent-info-dropdown" class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle text-light pr-0" href="#" id="navbarDropdown1" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fas fa-user-circle font-large align-middle" title="Profile"></i>
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown1">
+                            <div class="dropdown-item bg-white shadow-none">
+                                <span class="text-gray text-right" style="width:51px;"><span
+                                    class='l-account-seller-id'></span></span><span class='text-gray mr-1'>:</span><span id="dropdown-login-id" class="text-dark"></span><br>
+                            </div>
+                            <div class="dropdown-item bg-white shadow-none">
+                                <span class="text-gray" style="width:51px;"><span class='l-main-name'></span></span><span class='text-gray mr-1'>:</span><span id="dropdown-agent-name" class="text-dark"></span><br>
+                            </div>
+                            <div id="role-field-container" class="dropdown-item bg-white shadow-none">
+                                <span class="text-gray" style="width:51px;"><span class='l-main-role'></span></span><span class='text-gray mr-1'>:</span><span id="dropdown-role-name" class="text-dark"></span>
+                            </div>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#">
+                                <i class="fa fa-caret-up font-bg mr-2"></i><span class="l-main-close"></span>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="nav-item dropdown text-center" style="min-width:122px;">
+                        <a id="panel-agent-status" class="nav-link dropdown-toggle text-white" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style='font-weight:bold !important;height:33px;line-height: 25px;background:#6c757d;'>
+                            <i class="fas fa-square mr-2"></i><span id="agent-status-text" class="l-user-status-LOGOUT">LOGOUT</span>&nbsp;
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="panel-agent-status">
+                            <a href="#" class="dropdown-item py-auto" onclick="statusChange('break');">
+                                <span>Break</span>
+                            </a>
+                            <a href="#" class="dropdown-item py-auto" onclick="statusChange('idle');">
+                                <span>Idle</span>
+                            </a>
+                            <a href="#" class="dropdown-item py-auto" onclick="statusChange('ready');">
+                                <span>Ready</span>
+                            </a>
+                        </div>
+                    </div>
+                    <div id="read-to-talk-btn" class="nav-item" style="font-size: 25px;" onclick="return readyClicked();">
+                        <span class="nav-link text-light fas fa-clipboard-check l-main-ready-idle"></span>
+                    </div>
+                    <div class="nav-item">
+                        <b id="panel-time-count" class="nav-link text-light p-0">00:00</b>
+                    </div>
+                    <div class="nav-item">
+                        <a class="nav-link text-light" data-toggle="confirmation" data-placement="bottom" data-popout="true" data-btn-ok-class="btn-info" href="javascript:(logoutClicked())"><i
+                            class="fa fa-sign-out-alt mr-2"></i><span class="l-main-logout"></span></a>
+                    </div>
+                </div>
+            </div>
+    </nav>
+
+    <!-- PHONE PANEL -->
+    <div id="phone-panel-header" class="row" style="background-color:#eee;">
+        <iframe id='phone-panel' class="pt-1 opacity-0" height='109px' style='border:none;' title="phone-menu"></iframe>
+    </div>
+    
+    <!-- 3 TABS: MENU, TRADITIONAL, SOCIAL -->
+    <div class="card card-nav-tabs card-plain" style="border:none !important;">
+        <div class="card-header bg-info">
+            <div class="nav-tabs-navigation">
+                <div class="nav-tabs-wrapper" style="max-width: unset;display: table;">
+                    <ul id="main-tabs" class="nav nav-tabs" data-tabs="tabs">
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="card-body px-0 py-0">
+            <div id="main-tab-content" class="tab-content position-relative">
+            </div>
+        </div>
+    </div>
+    <!-- ======== Be Invited Modal ======== -->
+    <div class="modal" id="beInvitedModal" tabindex="-1" role="dialog" aria-labelledby="beInvitedModalTitle" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h6 class="modal-title" id="beInvitedModalTitle">Got invite to a chatroom</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true"><i class="fas fa-times"></i></span>
+                        </button>
+                </div>
+                <div class="modal-body">
+                    <p style='display:flex;'><span style='flex:1.5;'>Campaign:&nbsp;<span
+                                id='be-invited-campaign'></span></span><span style='flex:1;'>Entry:&nbsp;<span
+                                id='be-invited-entry'></span></span><span style="margin-right:5px;">Ticket
+                            ID:&nbsp;<span id='be-invited-ticketid'></span></span>
+                    </p>
+                    <p>
+                        <div><span><span id="be-invited-agent"></span>&nbsp;invited you with message:</div>
+                        <div id="be-invited-request" style='width:98%;padding:5px;border-radius:5px;'></div>
+                        <p>
+                            <p>Reply Message:
+                                <input type="text" id="be-invited-message" style='width:98%;padding:5px;border-radius:5px;' autocomplete="off">
+                            </p>
+                </div>
+                <div class="modal-footer">
+                    <button onclick="acceptRejectClicked(false);" type="button" class="btn btn-default btn-sm text-capitalize mr-3 rounded" data-dismiss="modal"><i
+                            class="fas fa-times mr-2"></i><span>Reject</span></button>
+                    <button onclick="acceptRejectClicked(true);" type="button" class="btn btn-warning btn-sm text-capitalize rounded"><i
+                            class="fas fa-check mr-2"></i><span>Accept</span></button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ======== /Be Invited Modal ======== -->
+    <div id="alert-container">
+    </div>
+    <input id="hidden-conn-id" class="d-none" />
+    <!-- Increased the time of loading by doing this -->
+    <script>
+        $(document).ready(function() {
+            $('#phone-panel').attr('src', './Wise/Phone.html');
+            $.getScript("./obfuscate_b4/main.js");
+        });
+    </script>
+</body>
+
+</html>

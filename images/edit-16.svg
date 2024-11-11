@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="16px" height="16px" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 48.2 (47327) - http://www.bohemiancoding.com/sketch -->
+    <title>edit-16</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Desktop" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" transform="translate(-441.000000, -1204.000000)">
+        <g id="5.-Glyph-Icons" transform="translate(79.000000, 1082.000000)" fill="#005CFB" fill-rule="nonzero">
+            <g id="Glyph-Icons-16px" transform="translate(0.000000, 64.000000)">
+                <g id="edit-16" transform="translate(362.000000, 58.000000)">
+                    <path d="M14.1,0.3 C13.7,-0.1 13.1,-0.1 12.7,0.3 L6,7 L6,10 L9,10 L15.7,3.3 C16.1,2.9 16.1,2.3 15.7,1.9 L14.1,0.3 Z" id="Shape"></path>
+                    <path d="M15,9 C14.4,9 14,9.4 14,10 L14,14 L2,14 L2,2 L6,2 C6.6,2 7,1.6 7,1 C7,0.4 6.6,0 6,0 L1,0 C0.4,0 0,0.4 0,1 L0,15 C0,15.6 0.4,16 1,16 L15,16 C15.6,16 16,15.6 16,15 L16,10 C16,9.4 15.6,9 15,9 Z" id="Shape"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

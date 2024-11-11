@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="cache-control" content="max-age=0">
+    <meta http-equiv="cache-control" content="no-cache">
+    <meta http-equiv="expires" content="-1">
+    <meta http-equiv="expires" content="Tue, 01 Jan 1980 11:00:00 GMT">
+    <meta http-equiv="pragma" content="no-cache">
+    <link rel="stylesheet" href="./css/bootstrap.min.css" type="TEXT/CSS">
+    <link rel="stylesheet" href="./css/material-kit/css/material-kit.min.css" type="TEXT/CSS">
+    <link rel="stylesheet" href="./css/material-overwrite.css" type="TEXT/CSS">
+    <link rel="stylesheet" href="./css/fontawesome/css/all.css">
+    <link rel="stylesheet" href="./css/basic.css" type="text/css">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <script type="text/javascript" src="./config.js"></script>
+    <script type="text/javascript" src="./js/jquery.min.js"></script>
+    <script type="text/javascript" src="./js/popper.min.js"></script>
+    <script type="text/javascript" src="./js/bootstrap.min.js"></script>
+    <style>
+        body {
+            background: #f4f5f7 !important;
+        }
+
+        .company-logo-container {
+            width: 239px;
+        }
+
+        .company-logo {
+            width: 239px;
+            height: 51px;
+        }
+
+        .call-type-pic {
+            height: 45px;
+            float: right;
+            margin-right: 15px;
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            top: 0;
+            margin: auto;
+        }
+    </style>
+
+    <script>
+
+    </script>
+</head>
+
+<body class='custom-scroll mb-5' onLoad="windowOnload()" onkeydown='return (event.keyCode != 116)'>
+    <div class="max-width-body">
+        <div id='traditional-header' class="d-flex bd-highlight mt-2">
+            <div class="flex-fill" style='position:relative;'>
+                <img id='traditional-company-pic' class='company-logo'
+                    src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=">
+            </div>
+            <div class="flex-fill my-auto"><span class="text-center">
+                    <span id="junk-mail-header" class="rounded bg-warning mx-3 p-3 display-5" style="display:none;"
+                        data-toggle="tooltip"><i class="fa fa-envelope mr-2"></i><span
+                            class="l-traditional-junk-mail"></span></span>
+                    <span id="repeated-customer-header" class="rounded bg-warning mx-3 p-3 display-5"
+                        style="display:none;" data-toggle="tooltip"><i class="fa fa-envelope mr-2"></i><span
+                            class="l-traditional-repeated-sender"></span></span>
+                    <span id="difficult-customer-header" class="rounded bg-warning mx-3 p-3 display-5"
+                        style="display:none;" data-toggle="tooltip"><i class="fa fa-envelope mr-2"></i><span
+                            class="l-traditional-difficult-sender"></span></span>
+                    <span id="repeated-caller-header" class="rounded bg-warning mx-3 p-3 display-5"
+                        style="display:none;" data-toggle="tooltip"><i class="fas fa-phone mr-2"></i><span
+                            class="l-traditional-repeated-caller"></span></span>
+                    <span id="difficult-caller-header" class="rounded bg-warning mx-3 p-3 display-5"
+                        style="display:none;" data-toggle="tooltip"><i class="fas fa-phone mr-2"></i><span
+                            class="l-traditional-difficult-caller"></span></span>
+                </span>
+            </div>
+            <div id='traditional-call-type-pic' class=" flex-fill"></div>
+        </div>
+        <iframe src="" id="media-content" width='100%' height='0' frameborder="0"
+            style='border-radius:5px;margin-top:10px'></iframe>
+        <iframe width='100%' height='auto' id="input-form" frameborder="0" openType="traditional"
+            style="display: none;"></iframe>
+        <iframe width='100%' height='auto' id="search" frameborder="0" openType="traditional"></iframe>
+    </div>
+
+    <script type="text/javascript" src="./obfuscate_b4/traditionalMedia.js"></script>
+
+</body>
+
+</html>

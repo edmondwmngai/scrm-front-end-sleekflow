@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<meta http-equiv="cache-control" content="max-age=0">
+	<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+	<meta http-equiv="expires" content="-1">
+	<meta http-equiv="expires" content="Tue, 01 Jan 1980 11:00:00 GMT">
+	<meta http-equiv="pragma" content="no-cache">
+	<script type="text/javascript" src="./js/jquery.min.js"></script>
+	<script type="text/javascript" src="./config.js"></script>
+	<style>
+		body {
+			font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+			margin: 0px;
+			font-size: 14px;
+		}
+
+		.gray-bg-label-span {
+			font-size: 12px;
+			background: #f4f5f7;
+			padding: 2px;
+			border-radius: 5px;
+		}
+
+		.line-bottom-container-first {
+			border-bottom: 1px solid #E5E9F2;
+			padding: 0 0 7.5px 0;
+		}
+
+		.standard-margin-top {
+			margin-top: 7.5px;
+			word-wrap: break-word;
+		}
+
+		.main-card {
+			background: #FFFFFF;
+			border: 1px solid #E5E9F2;
+			border-radius: 5px;
+			padding: 13px 15px 6px 15px
+		}
+
+		.vertical-center {
+			display: flex;
+			align-items: center;
+		}
+	</style>
+</head>
+
+<body onload='return vmailContentOnload()' class='media-content-body custom-scroll'
+	onkeydown='return (event.keyCode != 116)'>
+	<div class="main-card">
+		<div class="line-bottom-container-first vertical-center">
+			<span style='width:100px; display:inline-block;'>
+				<span class="gray-bg-label-span"><span class="l-form-timestamp"></span>:</span>
+			</span>
+			<span style='width:40%;display:inline-block;' id="timestamp-span"></span>
+			<span style='width:100px; display:inline-block;'>
+				<span class="gray-bg-label-span"><span class="l-vmail-caller-display"></span>:</span>
+			</span>
+			<span id="vmail-caller"></span>
+		</div>
+		<div class='standard-margin-top vertical-center'>
+			<span style='width:100px; display:inline-block;'>
+				<span class="gray-bg-label-span"><span class="l-form-play-voicemail"></span>:</span>
+			</span>
+			<span style='width:40%;display:inline-block;' id='audio-player'></span>
+			<span style='width:100px; display:inline-block;'>
+				<span class="gray-bg-label-span"><span class="l-vmail-subject"></span>:</span>
+			</span>
+			<span style='width:40%;display:inline-block;' id="vmail-subject"></span>
+		</div>
+	</div>
+
+	<script type="text/javascript" src="./obfuscate_b4/vmailContent.js"></script>
+
+</body>
+
+</html>

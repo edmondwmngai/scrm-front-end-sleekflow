@@ -1,0 +1,584 @@
+<!-- Notes: parent.type:newCustomer, newCase, newUpdate -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="cache-control" content="max-age=0">
+    <meta http-equiv="cache-control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="expires" content="0" />
+    <meta http-equiv="expires" content="Tue, 01 Jan 1980 11:00:00 GMT">
+    <meta http-equiv="pragma" content="no-cache">
+
+    <link rel="stylesheet" href="../../css/bootstrap.min.css" type="TEXT/CSS">
+    <link rel="stylesheet" href="../../css/search.css" type="TEXT/CSS">
+    <link rel="stylesheet" href="../../css/material-kit/css/material-kit.min.css" type="TEXT/CSS">
+    <link rel="stylesheet" href="../../css/material-overwrite.css" type="TEXT/CSS">
+    <link rel="stylesheet" href="../../css/fontawesome/css/all.css">
+    <link rel="stylesheet" href="../../css/loading.css">
+    <link rel="stylesheet" href="../../css/jquery-ui.css" type="TEXT/CSS">
+    <link rel="stylesheet" href="../../css/jquery-ui-timepicker-addon.css" type="TEXT/CSS">
+
+    <script type="text/javascript" src="../../js/jquery.min.js"></script>
+    <script type="text/javascript" src="../../js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="../../js/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="../../js/jquery-ui-timepicker-addon.min.js"></script>
+    <script type="text/javascript" src="../../js/generalFn.js"></script>
+    <script type="text/javascript" src="../../js/popper.min.js"></script>
+    <script type="text/javascript" src="../../js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../../js/ckeditor/ckeditor.js"></script>
+    <script type="text/javascript" src="../../js/ckeditorFn.js"></script>
+    <script type="text/javascript" src="./info.js"></script>
+    <script type="text/javascript" src="../../config.js"></script>
+
+    <style type="text/css">
+        body {
+            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+            margin: 0px;
+            font-size: 14px;
+        }
+
+        .profile-pic {
+            height: 130px;
+            width: 130px;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        .table-btn {
+            cursor: pointer;
+            color: #005CFB;
+            vertical-align: middle;
+            font-size: 16px;
+        }
+
+        /* the td just get minimum space */
+
+        .btnColumn {
+            width: 1%;
+            white-space: nowrap;
+            padding-top: 0;
+            padding-bottom: 0;
+        }
+
+        /* Case Log Table CSS */
+
+        table.dataTable thead th,
+        table.dataTable tfoot th {
+            font-weight: 550;
+        }
+
+        th {
+            color: rgb(100, 100, 100);
+            font-size: 12px;
+        }
+
+        table.dataTable thead {
+            text-align: left;
+        }
+
+        table>tr {
+            border-bottom: 1px solid #E5E9F2;
+        }
+
+        table.dataTable th,
+        table.dataTable td {
+            /* Adjust the default spacing of 'td's */
+            padding: 6px 10px !important;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
+            max-width: 180px;
+            -webkit-touch-callout: none;
+            /* iOS Safari */
+            -webkit-user-select: none;
+            /* Chrome/Safari/Opera */
+            -khtml-user-select: none;
+            /* Konqueror */
+            -moz-user-select: none;
+            /* Firefox */
+            -ms-user-select: none;
+            /* Internet Explorer/Edge*/
+            user-select: none;
+            /* Non-prefixed version, currently not supported by any browser */
+        }
+
+        @media only screen and (max-width: 600px) {
+            .table.dataTable td {
+                max-width: 420px;
+            }
+        }
+
+        table.dataTable tbody tr.highlight {
+            background-color: #EDF4FF !important;
+            font-weight: bold;
+        }
+
+        .email-attach-tag {
+            font-size: 12px;
+            border: 1px solid #E5E9F2;
+            border-radius: 5px;
+            margin-right: 5px;
+            padding: 0 6px 0 6px;
+            text-decoration: underline;
+            cursor: pointer;
+            color: #005cfb;
+            background: white;
+        }
+
+        .cke_source {
+            height: inherit !important;
+        }
+
+        .custom-form-label {
+            min-width: 100px;
+            text-align: right !important;
+            padding-right: 20px;
+            display: inline-block
+        }
+
+        /* ============= Custom Scroll in body ============= */
+
+        .custom-scroll::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        .custom-scroll::-webkit-scrollbar-track {
+            background: lightgray
+        }
+
+        .custom-scroll::-webkit-scrollbar-thumb {
+            -webkit-border-radius: 8px;
+            border-radius: 8px;
+            background: #AECBFC;
+        }
+
+        .custom-scroll::-webkit-scrollbar-thumb:window-inactive {
+            background: #AECBFC;
+        }
+
+        .case-log-details-min-width {
+            min-width: 205px;
+        }
+
+        .word-icon {
+            color: #14469F;
+            margin-left: 0.4em;
+            cursor: pointer;
+            vertical-align: middle;
+            font-size: 1.3em;
+            margin-top: 0.1em;
+        }
+    </style>
+</head>
+
+<body onload="windowOnload();" onkeydown='return (event.keyCode != 116)' style="overflow:hidden;">
+
+    <div id='customer-table' class='card mt-5 mb-5'>
+        <div class="card-header card-header-text card-header-info">
+            <h5 class="mt-0 mb-0">
+                <i class='fa fa-user-circle card-header-icon' aria-hidden="true"></i>
+                <span>
+                    <span class="l-form-customer-information"></span>
+                </span>
+                <span id="customer-tbl-customer-id" class="align-middle d-none" style="color:darkblue;">
+                    &nbsp;&nbsp;(<span class="l-form-customer-id"></span>:&nbsp;<span id="customer-id-title"></span>)
+                </span>
+                <span id="scheduled-reminder" class="mt-0 mb-0 ml-3 rounded btn btn-sm btn-warning text-capitalize"
+                    style="display:none;" onclick="scheduleClick()"><i class="fas fa-calendar-alt mr-2"></i><span
+                        class='l-form-scheduled-reminder'></span></span>
+            </h5>
+        </div>
+        <div class="collapse show" style="width:100%;" id='customer-details-body'>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-sm-10">
+
+                        <table>
+
+                            <td><label class='px-2' for='Name_Eng'><span class="l-form-full-name"></span>&nbsp;<span
+                                        class="text-danger">*</span></label></td><td>
+                                <input class="form-control edit-field" type="search" id="Name_Eng" autocomplete="off" />
+                            </td>
+                            <td>
+                                <label for='Title' class='px-2 l-form-title'></label></td><td>
+                                <select class="form-control col-sm-4 edit-field" name="Title" id='Title'>
+                                    <option selected="selected" value=''></option>
+                                    <option class="l-form-miss" value="Miss">Miss</option>
+                                    <option class="l-form-mr" value="Mr">Mr</option>
+                                    <option class="l-form-mrs" value="Mrs">Mrs</option>
+                                    <option class="l-form-ms" value="Ms">Ms</option>
+                                </select>
+                            </td>
+
+                            <td>
+                                <label for='Lang' class='px-2 l-form-language'></label></td><td>
+                                <select class="form-control col-sm-6 edit-field pr-0" name="Lang" id='Lang'>
+                                    <option selected="selected" value=''></option>
+                                    <option class="l-form-cantonese" value="Cantonese">Cantonese</option>
+                                    <option class="l-form-english" value="English">English</option>
+                                    <option class="l-form-mandarin" value="Mandarin">Mandarin</option>
+                                    <option class="l-form-japanese" value="Japanese">Japanese</option>
+                                </select>
+                            </td>
+                            </tr>
+
+                            <td><label class='px-2' for='Nationality_Id'>
+                                    <i class="far fa-flag mr-2"></i><span class="l-form-nationality">Nationality</span>
+                                </label></td><td>
+                                <select class="form-control edit-field mt-1" id='Nationality_Id'
+                                    onchange='nationalityChanged(this)'>
+                                    <option value=""></option>
+                                </select>
+                            </td>
+                        <td>
+                                <label for='Market_Id' class='px-2'>
+                                    <i class="fas fa-globe-asia mr-2"></i><span class="l-form-market"></span>
+                                </label></td><td>
+                                <select class="form-control edit-field" id='Market_Id'>
+                                    <option value=""></option>
+                                </select></td><td>
+                                <label for='Profile_Id' class='px-2'>
+                                    <i class="far fa-user-circle mr-2"></i><span class='l-form-profile'></span>
+                                </label></td><td>
+                                <select class="form-control edit-field" id='Profile_Id' style="max-width:90px;">
+                                    <option value=""></option>
+                                </select>
+                            </td>
+                            </tr>
+
+                            <tr class='row form-inline'>
+                                <td>
+                                    <label for='Mobile_No' class='px-2'>
+                                        <i class='fa fa-phone mr-2'></i><span class="l-form-mobile"></span>
+                                    </label></td><td>
+                                    <input id="Mobile_No" class="form-control edit-field" type="search"
+                                        onkeyup="this.value=this.value.replace(/[^\d]/,'')" maxLength="50"
+                                        autocomplete="off" />
+                                </td>
+                                <td>
+                                    <label for='Other_Phone_No' class='px-2 l-form-other'><i
+                                            class='fa fa-phone mr-2'></i><span class='l-form-other'></span></label></td><td>
+                                    <input class="form-control edit-field"
+                                        onkeyup="this.value=this.value.replace(/[^\d]/,'')" maxLength="50" type="search"
+                                        id="Other_Phone_No" autocomplete="off" />
+                                </td>
+                                <td>
+                                    <label for='Fax_No' class='px-2'><i class='fa fa-fax mr-2'></i><span
+                                            class="l-form-fax"></span></label></td><td>
+                                    <input class="form-control edit-field"
+                                        onkeyup="this.value=this.value.replace(/[^\d]/,'')" maxLength="50" type="search"
+                                        id="Fax_No" autocomplete="off" />
+                                </td>
+                            </tr>
+
+                            <td><label class='px-2' for='Email'><i class='fa fa-envelope mr-2'></i><span
+                                        class="l-form-email"></span></label></td><td>
+                                <input class="form-control edit-field" type='search' maxLength="50"
+                                    id="Email" autocomplete="off" />
+                            </td>
+                            <td colspan="2">
+                                <label for='Address1'><i
+                                        class="far fa-address-book mr-2"></i><span
+                                        class="l-form-address">Address</span></label></td><td>
+                                <input class="form-control edit-field" type="search" id="Address1"
+                                    autocomplete="off" maxlength="100" />
+                            </td>
+
+                            </tr>
+
+
+                            <tr class='row form-inline'>
+                                <td colspan="3" class='input-group pl-5'>
+                                    <div class="form-check">
+                                        <label class="form-check-label">
+                                            <i class="fas fa-info-circle mr-2"></i>
+                                            <input id="Agree_To_Disclose_Info"
+                                                class="form-check-input edit-field l-form-agree-to-disclose-information"
+                                                type="checkbox">
+                                            &nbsp;
+                                            <span class="form-check-sign">
+                                                <span class="check"></span>
+                                            </span>
+                                        </label>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <div class='col-sm-2'>
+                        <div class='mx-auto'>
+                            <div class='row'>
+                                <span class="col-md-11 pl-4 text-center">
+                                    <div><img class='img-raised profile-pic' onclick='profilePicClick();' id="profile-pic"
+                                            src="../../images/user.png" /></div>
+                                    <input type="file" id="file-to-upload" accept="image/x-png,image/gif,image/jpeg"
+                                        onchange="previewPhoto(this);" style="display:none">
+                                    <button
+                                        class="edit-field mt-3 btn rounded btn-sm btn-warning text-capitalize l-general-upload"
+                                        type="button" title="Upload Photo"
+                                        onclick="$('#file-to-upload').trigger('click');">Upload</button>
+                                </span>
+                                <div class="col-md-1"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="updateCsSection" class='mt-1 text-center'>
+                    <button id="edit-save-btn" class='cs-button btn btn-warning rounded btn-sm text-capitalize'
+                        onclick="updateClicked()">
+                        <i class="fa fa-save mr-2"></i><span class="l-form-save"></span></button>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    <div id="accordion">
+        <div class='card mt-3 mb-3'>
+            <div class="card-header card-header-text card-header-info" href="#case-details-body">
+                <h5 class="mt-0 mb-0">
+                    <i class='fa fa-edit card-header-icon'></i>
+                    <spna id='case-details-title' class="align-sub l-form-case-details">
+                        </span>
+                </h5>
+            </div>
+            <div class="collapse show" data-parent="#accordion" id='case-details-body'>
+                <div class="card-body">
+                    <div class='row form-inline'>
+                        <div class='form-group col-sm-5'>
+                            <label for='call-status' class='control-label custom-form-label'><span>Call
+                                    Status</span>&nbsp;<span class="text-danger">*</span></label>
+                            <select class="form-control" id='call-status' style="width:59%;">
+                                <option selected="selected" value=''></option>
+                                <option value="Unreach">Unreach</option>
+                                <option value="Reached">Reached</option>
+                                <option value="Successful Order">Successful Order</option>
+                            </select>
+                        </div>
+                        <div class='form-group col-sm-7'>
+
+                            <label id="call-status-label" for='call-status'
+                                class='control-label custom-form-label d-none'><span>Call Reason</span>&nbsp;<span
+                                    class="text-danger">*</span></label>
+
+                            <select id="successful-reason" class="d-none form-control">
+                                <option value="Accept Offer" selected>Accept Offer</option>
+                            </select>
+
+                            <select id="unreach-reason" class="d-none form-control">
+                                <option value="" selected>- Please Select -</option>
+                                <option value="No Answered">No Answered</option>
+                                <option value="Voice Mail">Voice Mail</option>
+                                <option value="On Trip">On Trip</option>
+                                <option value="Customer Busy">Customer Busy</option>
+                                <option value="Line Busy">Line Busy</option>
+                                <option value="Wrong Number">Wrong Number</option>
+                                <option value="Not Here/Meeting">Not Here/Meeting</option>
+                            </select>
+
+                            <select id="reached-reason" class="d-none form-control">
+                                <option value="" selected>- Please Select -</option>
+                                <option value="Consider">Consider</option>
+                                <option value="Reject">Reject</option>
+                            </select>
+
+                        </div>
+                    </div>
+
+                    <div class='row form-inline'>
+                        <div class='form-group col-sm-12 mb-1'>
+                            <label for='case-details'
+                                class='control-label custom-form-label'><span>Callback</span></label>
+                            <input id="callback-datetime" class="form-control mt-1" type="search"
+                                placeholder="yyyy-mm-dd hh:mm" autocomplete="off">
+                        </div>
+                    </div>
+
+                    <div class='row form-inline'>
+                        <div class='form-group col-sm-12 mb-1'>
+                            <label for='case-details'
+                                class='control-label custom-form-label'><span>Remarks</span></label>
+                            <textarea class="mt-2" name='case-details' id='call-remarks' rows="3" cols="20"
+                                style="font-family:inherit;width:calc(100% - 110px);" maxlength="500"></textarea>
+                        </div>
+                    </div>
+
+                    <div class='row form-inline'>
+                        <div class='form-group col-sm-12 pl-0'>
+                            <label class='col-sm-1 control-label pl-4 mt-2'>&nbsp;&nbsp;<span>&nbsp;</span></label>
+                            <div class='col-sm-11 pl-0'>
+                                <div id="reply-radio-group" class='form-group form-inline'>
+
+                                    <div class="form-check ml-3">
+                                        <label class="form-check-label">
+                                            <input class='form-check-input dial-yes-disable l-form-none'
+                                                onclick='replyChannelChange(this)' type="radio" id="reply-none"
+                                                name="replyList" value="" checked>
+                                            &nbsp;
+                                            <span class="circle">
+                                                <span class="check"></span>
+                                            </span>
+                                        </label>
+                                    </div>
+
+                                    <!-- <div class="form-check ml-3">
+                                        <label class="form-check-label">
+                                            <input class='form-check-input dial-yes-disable l-form-radio-email'
+                                                onclick='replyChannelChange(this)' type="radio" id="reply-email"
+                                                name="replyList" value="email">
+                                            &nbsp; <span class="circle">
+                                                <span class="check"></span>
+                                            </span>
+                                        </label>
+                                    </div> -->
+
+
+                                    <!-- <div class="form-check ml-3">
+                                        <label class="form-check-label">
+                                            <input class='form-check-input dial-yes-disable l-form-radio-fax'
+                                                onclick='replyChannelChange(this)' type="radio" id="reply-fax"
+                                                name="replyList" value="fax">
+                                            &nbsp; <span class="circle">
+                                                <span class="check"></span>
+                                            </span>
+                                        </label>
+                                    </div> -->
+
+
+                                    <!-- <div class="form-check ml-3">
+                                        <label class="form-check-label">
+                                            <input class='form-check-input dial-yes-disable l-form-sms'
+                                                onclick='replyChannelChange(this)' type="radio" id="reply-sms"
+                                                name="replyList" value="sms">
+                                            &nbsp; <span class="circle">
+                                                <span class="check"></span>
+                                            </span>
+                                        </label>
+                                    </div> -->
+
+                                    <div class="form-check ml-2">
+                                        <label class="form-check-label">
+                                            <input class='form-check-input dial-yes-disable l-form-call'
+                                                onclick='replyChannelChange(this)' type="radio" id="reply-call"
+                                                name="replyList" value="call">
+                                            &nbsp; <span class="circle">
+                                                <span class="check"></span>
+                                            </span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <span class='ml-5'>
+                        <span id='reply-details'>
+                            <span style='display:none;' id='email-details'>
+                                <span style='display:inline-block;' id="email-other-container">
+                                    <div class="form-check ml-2" style='display:inline;'>
+                                        <label class="form-check-label">
+                                            <input type="checkbox"
+                                                class="form-check-input reply-checkbox email-list l-form-radio-other"
+                                                value='other' id="email-other-check"
+                                                onclick='replyOtherClicked("email-other-input", this)'
+                                                autocomplete="off">
+                                            &nbsp;
+                                            <span class="form-check-sign">
+                                                <span class="check"></span>
+                                            </span>
+                                        </label>
+                                    </div>&nbsp;
+                                    <input type='email' maxLength="50" disabled=true id='email-other-input'
+                                        style='border-radius:5px;' type="search" autocomplete="off">
+                                </span>
+                            </span>
+
+                            <span style='display:none;' id='fax-details'>
+                                <span id="fax-other-container">
+                                    <div class="form-check ml-2" style='display:inline;'><label
+                                            class="form-check-label">
+                                            <input type="checkbox"
+                                                class="form-check-input reply-checkbox fax-list l-form-radio-other"
+                                                value='other' id="fax-other-check"
+                                                onclick='replyOtherClicked("fax-other-input", this)' autocomplete="off">
+                                            &nbsp;
+                                            <span class="form-check-sign">
+                                                <span class="check"></span>
+                                            </span>
+                                        </label>
+                                    </div>&nbsp;
+                                    <input type='tel' onkeyup="this.value=this.value.replace(/[^\d]/,'')" maxLength="50"
+                                        disabled=true id='fax-other-input' style='border-radius:5px;' type="search"
+                                        autocomplete="off">
+                                </span>
+                            </span>
+
+                            <span style='display:none;' id='sms-details'>
+                                <span id="sms-other-container">
+                                    <div class="form-check ml-2" style='display:inline;'>
+                                        <label class="form-check-label">
+                                            <input type="checkbox"
+                                                class="form-check-input reply-checkbox sms-list l-form-radio-other"
+                                                name="smsList" value='other' id="sms-other-check"
+                                                onclick='replyOtherClicked("sms-other-input", this)' autocomplete="off">
+                                            &nbsp;
+                                            <span class="form-check-sign">
+                                                <span class="check"></span>
+                                            </span>
+                                        </label>
+                                    </div>&nbsp;
+                                    <input type='tel' onkeyup="this.value=this.value.replace(/[^\d]/,'')" maxLength="50"
+                                        disabled=true id='sms-other-input' style='border-radius:5px;' type="search"
+                                        autocomplete="off">
+                                </span>
+                            </span>
+
+
+                            <span style='display:none;' id='call-details'>
+                                <span id="call-other-container">
+                                    <div class="form-check ml-2" style='display:inline;'>
+                                        <label class="form-check-label">
+                                            <input type="radio"
+                                                class="form-check-input reply-checkbox call-list dial-yes-disable l-form-radio-other"
+                                                name="callList" value='other' id="call-other-check"
+                                                onchange='replyCallChanged(this)'>
+                                            &nbsp;
+                                            <span class="circle">
+                                                <span class="check"></span>
+                                            </span>
+                                        </label>
+                                    </div>&nbsp;
+                                    <input type='tel' onkeyup="this.value=this.value.replace(/[^\d]/,'')"
+                                        onkeydown="callOnkeydown()" maxLength="50" class='dial-yes-disable'
+                                        disabled=true id='call-other-input' style='border-radius:5px;' type="search"
+                                        autocomplete="off">
+                                </span>
+                            </span>
+                        </span>
+                        <button type='button' class='dial-yes-disable btn btn-warning btn-sm rounded text-capitalize'
+                            onclick='replySubmitClicked()' id='reply-submit-btn' style='display:none;'></button>
+                    </span>
+                    <div id='reply-container'></div>
+                    <div id="save-btn-section" style="text-align:center;margin-top:10px;">
+                        <button class='btn btn-warning rounded btn-sm text-capitalize' onclick='saveClicked()'><i
+                                class="fa fa-save mr-2"></i><span class="l-form-save"></span></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="agent-handle-section" class="mb-5">
+        <span class="l-form-handled-by"></span>:&nbsp;
+        <span id='ip-agent-name'></span>
+    </div>
+
+    <script type="text/javascript" src="../../obfuscate_b4/crmForm_1.js"></script>
+
+</body>
+
+</html>

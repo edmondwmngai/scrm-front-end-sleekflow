@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="cache-control" content="max-age=0">
+    <meta http-equiv="cache-control" content="no-cache">
+    <meta http-equiv="expires" content="-1">
+    <meta http-equiv="expires" content="Tue, 01 Jan 1980 11:00:00 GMT">
+    <meta http-equiv="pragma" content="no-cache">
+    <link rel="shortcut icon" href="../../images/favicon.ico">
+    <link rel="stylesheet" href="../../css/bootstrap.min.css" type="TEXT/CSS">
+    <link rel="stylesheet" href="../../css/material-kit/css/material-kit.min.css" type="TEXT/CSS">
+    <link rel="stylesheet" href="../../css/material-overwrite.css" type="TEXT/CSS">
+    <link rel="stylesheet" href="../../css/fontawesome/css/all.css">
+    <script type="text/javascript" src="../../js/jquery.min.js"></script>
+    <script type="text/javascript" src="../../js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../../js/download.js"></script>
+    <script type="text/javascript" src="../../js/tiff.min.js"></script>
+    <script type="text/javascript" src="../../js/SocialContent.js"></script>
+    <script type="text/javascript" src="../../config.js"></script>
+    <title>
+        Case Record Popup
+    </title>
+    <style type="text/css">
+        .left-cell {
+            background-color: #66CCFF;
+            width: 102px;
+            vertical-align: top;
+        }
+
+        .fax-fn-btn {
+            color: blue;
+            text-decoration: underline;
+            margin-left: 10px;
+            cursor: pointer;
+        }
+
+        .default-image {
+            height: 150px;
+            margin-left: 50%;
+        }
+
+        .rotate-90 {
+            transform-origin: 0 0;
+            margin-left: 50%;
+            width: 150px;
+            height: 150px;
+            /* IE 9 */
+            -ms-transform: rotate(90deg);
+            /* Safari 3-8 */
+            -webkit-transform: rotate(90deg);
+            transform: rotate(90deg);
+            -webkit-transform-origin: 0 0;
+        }
+
+        .rotate-180 {
+            height: 150px;
+            width: auto;
+            /* IE 9 */
+            -ms-transform: rotate(180deg);
+            /* Safari 3-8 */
+            -webkit-transform: rotate(180deg);
+            transform: rotate(180deg);
+            margin-left: 50%;
+        }
+
+        .rotate-270 {
+            /* IE 9 */
+            -ms-transform: rotate(270deg);
+            /* Safari 3-8 */
+            -webkit-transform: rotate(270deg);
+            transform: rotate(270deg);
+            margin-left: 50%;
+            width: 150px;
+            height: 150px;
+        }
+
+        .auto-style2 {
+            text-align: center;
+        }
+
+        .auto-style222 {
+            background-color: #FFCC99;
+            word-break: break-all;
+        }
+
+        .auto-style333 {
+            background-color: #99CCFF;
+            min-width: 102px;
+        }
+
+        .auto-style334 {
+            height: 20px;
+        }
+
+        .right-cell {
+            word-wrap: break-word;
+            max-width: 694px
+        }
+
+        /* ============= Custom Scroll in body ============= */
+
+        .custom-scroll::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        .custom-scroll::-webkit-scrollbar-track {
+            background: lightgray
+        }
+
+        .custom-scroll::-webkit-scrollbar-thumb {
+            -webkit-border-radius: 8px;
+            border-radius: 8px;
+            background: #AECBFC;
+        }
+
+        .custom-scroll::-webkit-scrollbar-thumb:window-inactive {
+            background: #AECBFC;
+        }
+
+        .email-attach-tag {
+            font-size: 12px;
+            border: 1px solid #E5E9F2;
+            border-radius: 5px;
+            margin-right: 5px;
+            padding: 0 6px 0 6px;
+            text-decoration: underline;
+            cursor: pointer;
+            color: #005cfb;
+            background: white;
+        }
+
+        /* =================== Social Media Content ============================== */
+
+        .content-header {
+            background: #f4f5f7;
+            padding: 10px 10px 5px 10px;
+            /* padding: 10px 15px; */
+        }
+
+        .content-section-inner {
+            -moz-box-shadow: inset 0 0 20px #c1c4c9;
+            -webkit-box-shadow: inset 0 0 20px #c1c4c9;
+            box-shadow: inset 0 0 20px #c1c4c9;
+            /* padding: 20px 20px 120px 20px; */
+            background: #f4f5f7;
+        }
+
+        .company-logo {
+            width: 239px;
+            height: 51px;
+        }
+
+        .content-basic-info {
+            overflow: auto;
+            padding: 0 10px;
+            display: inline-table;
+            width: calc(100% - 140px);
+            height: 51px;
+            vertical-align: top;
+        }
+
+        .cs-info-span {
+            margin-right: 7px;
+        }
+
+        .content-gray-label {
+            color: #A9A9A9;
+            display: inline-block;
+        }
+
+        .message-row {
+            display: flex;
+            flex-direction: row;
+            margin: 13px;
+            justify-content: center;
+            width: 79%;
+        }
+
+        .visitor-row {
+            margin-right: 20%;
+        }
+
+        .agent-row {
+            margin-left: 20%;
+        }
+
+        .user-icon {
+            border-radius: 50%;
+            text-align: center;
+            width: 50px;
+            height: 50px;
+            line-height: 47px;
+            background: #fff;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .time-with-seconds {
+            font-size: smaller;
+            padding-top: 7px;
+            text-align: center;
+        }
+
+        .visitor-content-bubble {
+            background: white;
+            background-image: initial;
+            background-position-x: initial;
+            background-position-y: initial;
+            background-size: initial;
+            background-attachment: initial;
+            background-origin: initial;
+            background-clip: initial;
+            background-color: white;
+            width: inherit;
+            height: auto;
+            border-radius: 5px;
+            padding: 10px 15px;
+            margin-left: 18px;
+            box-shadow: 0 3px 8px 1px lightgrey;
+        }
+
+        .agent-content-bubble {
+            margin-right: 18px;
+            background: #d2e3ff;
+            width: inherit;
+            height: auto;
+            border-radius: 5px;
+            padding: 10px 15px;
+            margin-left: 18px;
+            box-shadow: 0 3px 8px 1px lightgrey;
+        }
+
+        .content-bubble-name {
+            font-weight: bold;
+            max-width: 65%;
+            display: inline-block;
+            overflow: hidden;
+            height: 15px;
+        }
+
+        .content-bubble-content {
+            word-wrap: break-word;
+            white-space: pre-line;
+        }
+
+        /* ============= overwrite master-kit ============= */
+
+        body {
+            background: white !important;
+            font-size: 14px;
+        }
+
+        .navbar {
+            border-radius: 0px;
+        }
+    </style>
+</head>
+
+<body onload='caseRecordPopupOnload()' class='custom-scroll' onkeydown='return (event.keyCode != 116)'>
+    <nav class="navbar sticky-top bg-info position-relative py-1 mb-0 d-none remove-none" data-toggle="collapse"
+        data-target="#call-media-content">
+        <span class="navbar-brand ml-3" href="#"><span id="call-type-span"></span></span>
+    </nav>
+
+    <div id="call-media-content" class='custom-scroll clearfix collapse show mx-3' style="overflow:auto;"></div>
+    <nav class="navbar sticky-top bg-warning py-1 d-none remove-none mb-0" data-toggle="collapse"
+        data-target="#middle-content">
+        <span class="navbar-brand ml-3 l-form-case-details" href="#"></span>
+    </nav>
+
+    <div id="middle-content" class="ml-3 my-3 d-none remove-none collapse show">
+        <div class="row mb-1 mx-0">
+            <span class="col-sm-3 text-gray l-form-nature"></span>
+            <div class="col-sm-9">
+                <span id='p-nature'></span>
+            </div>
+        </div>
+        <div class="row mb-1 mx-0">
+            <span class="col-sm-3 text-gray l-form-details"></span>
+            <div class="col-sm-9">
+                <span id='p-details'></span>
+            </div>
+        </div>
+        <div class="row mb-1 mx-0">
+            <span class="col-sm-3 text-gray l-form-handled-by"></span>
+            <div class="col-sm-9">
+                <span id='p-updated-by'></span>
+            </div>
+        </div>
+        <div class="row mb-1 mx-0">
+            <span class="col-sm-3 text-gray l-form-status"></span>
+            <div class="col-sm-9">
+                <span id='p-status'></span>
+            </div>
+        </div>
+        <div class="row mb-1 mx-0">
+            <span class="col-sm-3 text-gray l-form-long-call-duration"></span>
+            <div class="col-sm-9">
+                <span id='p-Long_Call'></span>
+            </div>
+        </div>
+        <div class="row mb-1 mx-0">
+            <span class="col-sm-3 text-gray l-form-reason-for-long-call"></span>
+            <div class="col-sm-9">
+                <span id='p-Long_Call_Reason'></span>
+            </div>
+        </div>
+        <div class="row mb-1 mx-0">
+            <span class="col-sm-3 text-gray l-form-is-junk-mail"></span>
+            <div class="col-sm-9">
+                <span id='p-Is_Junk_Mail'></span>
+            </div>
+        </div>
+        <div class="row mb-1 mx-0">
+            <span class="col-sm-3 text-gray l-form-reply"></span>
+            <div class="col-sm-9">
+                <span id='p-reply'></span>
+            </div>
+        </div>
+        <div class="row mb-1 mx-0">
+            <span class="col-sm-3 text-gray l-form-reply-details"></span>
+            <div class="col-sm-9">
+                <span id='p-reply-details'></span>
+            </div>
+        </div>
+    </div>
+
+    <nav id="reply-navbar" class="navbar sticky-top bg-info py-1 d-none remove-none">
+        <span class="navbar-brand ml-3" id="reply-type-span"></span>
+    </nav>
+
+    <div id="reply-media-content" class="mx-3 mb-3"></div>
+
+    <script type="text/javascript" src="../../obfuscate_b4/caseCaseRecordPopup.js"></script>
+
+</body>
+
+</html>

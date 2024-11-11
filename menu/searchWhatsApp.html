@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="cache-control" content="max-age=0">
+    <meta http-equiv="cache-control" content="no-cache">
+    <meta http-equiv="expires" content="-1">
+    <meta http-equiv="expires" content="Tue, 01 Jan 1980 11:00:00 GMT">
+    <meta http-equiv="pragma" content="no-cache">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+    <link rel="stylesheet" href="../css/bootstrap.min.css" type="TEXT/CSS">
+    <link rel="stylesheet" href="../css/material-kit/css/material-kit.css" type="TEXT/CSS">
+    <link rel="stylesheet" type="text/css" href="../css/material-overwrite.css">
+    <link rel="stylesheet" href="../css/fontawesome/css/all.css">
+    <link rel="stylesheet" href="../css/jquery-ui.css" type="TEXT/CSS">
+    <link rel="stylesheet" href="../css/social.css" type="TEXT/CSS">
+
+    <script type="text/javascript" src="../js/jquery.min.js"></script>
+    <script type="text/javascript" src="../js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="../js/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="../js/SocialContent.js"></script>
+
+    <style>
+        .ui-datepicker-trigger {
+            cursor: pointer;
+            height: 22px;
+            padding-left: 5px;
+            vertical-align: middle;
+            cursor: pointer;
+        }
+    </style>
+
+</head>
+
+<body class='custom-scroll max-width-body' onload="windowOnload(true)">
+    <div class="card mt-5 mb-3" id="lower-part-container">
+        <div class='card-header card-header-text card-header-info'>
+            <h5 class="my-0">
+                <i class="fab fa-whatsapp card-header-icon"></i><span class="align-middle l-menu-search-whatsapp">Search WhatsApp</span>
+            </h5>
+        </div>
+
+        <div class='card-body mb-1'>
+
+            <div class="form-group form-inline mb-1 d-flex justify-content-between">
+                <span>
+                    <span class="l-search-start-date"></span><span class="text-danger">*</span>&nbsp;&nbsp;
+                <span>
+                        <input id="whatsapp-start-date" class="form-control mt-1" type="search" placeholder="yyyy-mm-dd" pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}" autocomplete="off">
+                    </span>
+                </span>
+                <span>
+                    <span class="l-search-end-date"></span><span class="text-danger">*</span>&nbsp;&nbsp
+                <span>
+                        <input id="whatsapp-end-date" class="form-control mt-1" type="search" placeholder="yyyy-mm-dd" pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}" autocomplete="off">
+                    </span>
+                </span>
+                <span>
+                    <span class="l-search-phone"></span><span class="text-danger">*</span>&nbsp;&nbsp
+                <input id="whatsapp-phone-no" class="form-control w-auto d-inline" type="search" autocomplete="off" maxlength="15">
+                </span>
+                <button id="search-whatsapp-btn" class='btn btn-sm rounded btn-warning text-capitalize mt-2'><i class="fas fa-search mr-2"></i><span class="l-search-search"></span></button>
+            </div>
+
+            <div id="whatsapp-container" class="mt-3 mb-1 custom-scroll" style="background-color: rgb(244, 245, 247);overflow-y: auto;max-height:calc(100vh - 184px);"></div>
+
+        </div>
+
+    </div>
+    <!-- Modal for enlarge image -->
+    <div id="myModal" class="modal image-modal custom-scroll">
+        <span class="close image-close" onclick="closeEnlageModal();">&times;</span>
+        <img class="modal-content image-modal-content" id="img01">
+        <div id="caption"></div>
+    </div>
+    <!-- /Modal for enlarge image -->
+
+    <script src="../obfuscate_b4/searchWhatsApp.js" type="text/javascript"></script>
+
+</body>
+
+</html>

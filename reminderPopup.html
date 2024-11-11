@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<link rel="shortcut icon" href="./images/favicon.ico">
+
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="cache-control" content="max-age=0">
+    <meta http-equiv="cache-control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="expires" content="0" />
+    <meta http-equiv="expires" content="Tue, 01 Jan 1980 11:00:00 GMT">
+    <meta http-equiv="pragma" content="no-cache">
+
+    <link rel="stylesheet" href="./css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="./css/jquery-ui.css" type="TEXT/CSS">
+    <link rel="stylesheet" href="./css/material-kit/css/material-kit.min.css" type="TEXT/CSS">
+    <link rel="stylesheet" href="./css/material-overwrite.css" type="TEXT/CSS">
+    <link rel="stylesheet" href="./css/fontawesome/css/all.css">
+    <link rel="stylesheet" href="./css/search.css" type="TEXT/CSS">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <script type="text/javascript" src="./config.js"></script>
+    <script type="text/javascript" src="./js/jquery.min.js"></script>
+    <script type="text/javascript" src="./js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="./js/jquery-ui.min.js"></script>
+
+    <script type="text/javascript" src="./js/moment.js"></script>
+    <script type="text/javascript" src="./js/combodate.js"></script>
+    <script type="text/javascript" src="./js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="./js/bootstrap-datetimepicker.js"></script>
+    <title>
+        Scheduled Reminder
+    </title>
+    <style type="text/css">
+        body {
+            margin-left: 15px;
+            margin-right: 15px;
+        }
+
+        #calendar,
+        .hour,
+        .minute,
+        #txt-remarks {
+            border-radius: 5px;
+        }
+
+        /* ============= Custom Scroll in body ============= */
+
+        .custom-scroll::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        .custom-scroll::-webkit-scrollbar-track {
+            background: lightgray
+        }
+
+        .custom-scroll::-webkit-scrollbar-thumb {
+            -webkit-border-radius: 8px;
+            border-radius: 8px;
+            background: #AECBFC;
+        }
+
+        .custom-scroll::-webkit-scrollbar-thumb:window-inactive {
+            background: #AECBFC;
+        }
+
+        #field-name-span {
+            font-size: 8px;
+        }
+
+        .error-span {
+            display: inline-block;
+            color: red;
+        }
+
+        #txt-remarks {
+            width: 100%;
+            height: 200px;
+        }
+    </style>
+</head>
+
+<body onload='reminderPopupOnload()' class='custom-scroll' onkeydown='return (event.keyCode != 116)'>
+    <div class='card mt-5 mb-3'>
+        <!--Card Header-->
+        <div class='card-header card-header-text card-header-info'>
+            <h5 class="my-0" id="p-header">
+            </h5>
+        </div>
+
+        <!--Card Body-->
+        <div class='card-body'>
+
+            <!--Reminder Date Time-->
+            <div>
+                <label class="label-control" for="reminder-datetime"><span class="l-reminder-scheduled-date-time">Reminder Date Time</span>&nbsp;<span class="text-danger">*</span></label>
+            </div>
+
+            <div>
+                <label class="label-control mr-2 l-campaign-date">Date</label>
+                <input type="text" id="calendar">
+                <!-- <input type="text" id="date" data-format="YYYY-MM-DD" data-template="YYYY / MM / DD " name="date"> -->
+                <label class="label-control mx-2 l-campaign-time">Time</label>
+                <input type="text" id="time" data-format="HH:mm" data-template="HH : mm" name="time">
+                <span class="error-span col-sm-10" id="reminder-date-time-error"></span>
+            </div>
+
+            <!--Remarks-->
+            <div>
+                <label class="form-label l-reminder-remarks">Remarks</label>
+                <textarea class="txt-fields" id="txt-remarks" rows="6"></textarea>
+            </div>
+
+            <!--buttons-->
+            <div class="text-center">
+                <span id='validation-result' style="display:none"></span>
+                <button id="r-popup-submit-btn" class="btn btn-round btn-sm btn-warning mt-3 mb-0 text-capitalize"><i
+                        class="fas fa-save mr-2"></i><span class="l-general-save">Save</span></button>
+                <button class="btn btn-round btn-sm btn-default mt-3 mb-0 text-capitalize" onclick="clearForm()"><i
+                        class="fas fa-times-circle mr-2"></i><span class="l-general-cancel">Cancel</span></button>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript" src="./obfuscate_b4/reminderPopup.js"></script>
+</body>
+
+</html>

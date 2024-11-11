@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<script src="https://code.jquery.com/jquery-3.5.1.min.js"
+		integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+
+	<!-- <link rel='stylesheet' href='https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css'>
+	<link rel='stylesheet' href='https://unpkg.com/formiojs@latest/dist/formio.full.min.css'>
+	<script src='https://unpkg.com/formiojs@latest/dist/formio.full.min.js'></script> -->
+	<!-- https://cdn.jsdelivr.net/npm/ng-formio#2.23.9/dist/formio-complete.min.js
+	https://cdn.jsdelivr.net/npm/ng-formio#2.23.9/dist/formio-complete.min.css -->
+
+	<link rel='stylesheet' href='./formio/css/bootstrap.min.css'>
+	<link rel='stylesheet' href='./formio/css/formio.full.min.css'>
+	<!-- <link rel='stylesheet' href='./css/formio-complete.min.css'> -->
+	<!-- <link rel="stylesheet" href="./css/fontawesome/css/all.css"> Found if added this some original icons may disappear -->
+	<script src='./formio/formio.full.min.js'></script>
+	<!-- <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular.js"></script>
+	<script src='./formio-complete.min.js'></script> -->
+	<script src='./formio/simpleArr.js'></script>
+	<script src='./formio/advanceArr.js'></script>
+	<script src='./formio/conditionalArr.js'></script>
+	<script src='./formio/crmSimpleArr.js'></script>
+	<script src='./formio/enquiryNature.js'></script>
+	<script src='./formio/bootstrap.min.js'></script>
+
+
+	<style>
+		@media (min-width: 576px) {
+			.modal-dialog {
+				max-width: 70%;
+			}
+		}
+		
+		.custom-tbl-row {
+			display: table-row;
+			height: 25px;
+		}
+
+		.custom-tbl-cell {
+			display: table-cell;
+			height: 25px;
+		}
+
+		/* #enquiry-modal:before {
+			content: '';
+			display: inline-block;
+			height: 100%;
+			vertical-align: middle;
+			margin-right: -4px;
+			width: auto;
+		} */
+
+	</style>
+
+<body>
+
+	<p id="btn-group" class="d-none" style="margin-top:10px;text-align:center;">
+		<button id="custom-original-btn" class="btn btn-info">Custom / Original Build</button>
+		<button id="simple-example-btn" class="btn btn-success">Simple</button>
+		<button id="crm-example-btn" class="btn btn-success">CRM</button>
+		<button id="advance-example-btn" class="btn btn-success ml-1">Advance</button>
+		<button id="conditional-example-btn" class="btn btn-success ml-1">Conditional</button>
+		<button id="blank" class="btn btn-info ml-1">Blank Form</button>
+
+
+		<button id="alert-json" class="btn btn-info ml-1">Show JSON</button>
+		<!-- To Do: Edit JSON Module -->
+		<button id="copy-json" class="btn btn-info ml-1">Copy JSON</button>
+
+		<button id="apply-form-btn" class="btn btn-primary ml-1">Apply Form</button>
+
+		<button id="preview-btn" class="btn btn-warning ml-1">Preview</button>
+		<button id="return" class="btn btn-warning ml-1" style="display:none;">Return</button>
+	</p>
+
+	<div id='builder' class="mx-3"></div>
+	<div id='formio' style="max-width: 1240px;margin: auto;"></div>
+	<script src='./formio/customBuilder.js'></script>
+	<script src='./formio/customEditForm.js'></script>
+	<script src='./formio/labelKeyObj.js'></script>
+	<script src='./formio/getSelectOpts.js'></script>
+</body>
+
+
+
+
+<script type='text/javascript'>
+
+	var getNationality = function(){
+		return [{"id":"abc","val":"BBC"},{id:"bbc",val:"kkb"}];
+	}
+
+	var emptyArr = [{ "type": "button", "label": "Submit", "key": "submit", "disableOnInvalid": true, "input": true, "tableView": false }];
+	var compos = [];// JSON.parse(JSON.stringify(crmSimpleArr)); // just slice() not work, clone will affact original array's deep object array
+	var isCustom = true;
+
+	var token = sessionStorage.getItem('scrmToken') || '';
+	function genOriginalBuild() {
+		console.log('Formio.rebuild');console.log(Formio.rebuild);
+		console.log('Formio.builder.rebuild');console.log(Formio.builder.rebuild);
+		Formio.builder(document.getElementById('builder'), { components: compos }) // compos will change when the form change automatically
+		.then(function (form) { // NO DEL no need so far only
+			console.log('form.rebuild');console.log(form.rebuild);
+			console.log('form.editForm');console.log(form.editForm);
+			// form.rebuild = function(){alert('no')}
+			// form.on("saveComponent", function (e) {
+			// 	alert('lala');
+			// });
+			form.on("change", function (e) {
+				console.log('form.builder');
+				console.log(form.builder);
+				// TBD added for construct builder
+				// var tempInput = document.createElement("input");
+				// tempInput.value = JSON.stringify(form.builder);
+				// document.body.appendChild(tempInput);
+				// tempInput.select();
+				// document.execCommand("copy");
+				// document.body.removeChild(tempInput);
+				// TBD
+				
+			});
+		});
+	}
+	
+	function genCustomBuild() {
+		Formio.builder(document.getElementById('builder'), {components: compos}, {
+		  builder: customBuilder, editForm: customEditForm
+		}).then(function(builder) {
+			console.log('builder');
+			console.log(builder);
+			builder.on('addComponent', function(info, parent, path, index, isNew) {
+			  // alert('addComponent');
+			  console.log('info');console.log(info);
+			  console.log('parent');console.log(parent);
+			  console.log('path');console.log(path);
+			  console.log('index');console.log(index);
+			  console.log('isNew');console.log(isNew);
+			  // this.options.noNewEdit = true;
+		  });
+		  // details: search this.emit(' @ https://github.com/formio/formio.js/blob/master/src/WebformBuilder.js#L1163-L1168
+		  builder.on('updateComponent', function(the_component, changed) {
+			  // alert('addComponent');
+			  // console.log('the_component');console.log(the_component);
+			  // console.log('changed');console.log(changed);
+			  // this.options.noNewEdit = true;
+		  });
+	
+		  builder.on('saveComponent', function(component, unkown, unkown1, unkown2, unkown3, isNew) {
+			  console.log('component');console.log(component);
+			//   console.log('parent');console.log(parent);
+			//   console.log('isNew');console.log(isNew);
+			//   console.log('original');console.log(original);
+			//   console.log('another');console.log(another);
+			  console.log('isNew');console.log(isNew);
+				if (isNew) { 
+					if(labelKeyObj[component.label]) {
+						component.key = labelKeyObj[component.label];
+					}
+					if(component.type == 'select'){
+						if (typeof getSelectOpts[component.key] == 'function') {
+							getSelectOpts[component.key](function(getOptsType, valueProperty, template){
+								// component.data.json = dataJson;
+								if (getOptsType == 'nationality'){
+									getNationalityJson([component]);
+								}
+								component.valueProperty = valueProperty;
+								component.dataSrc = "json";
+								component.template = template;
+							});
+						} else {
+							component.data.values = getSelectOpts[component.key];
+						}
+					}
+				}
+		  });
+
+		  builder.on('editComponent', function(the_component, b) {
+			console.log('editComponent the_component');console.log(the_component);
+			console.log('editComponent b');console.log(b); // b is undefined
+			// the_component.key='First_Name'
+
+		  });
+
+		  builder.on('change', function(this_form) {
+			  console.log('change this_form');console.log(this_form);
+
+		  });
+		});
+	}
+
+	window.onload = function () {
+		$.ajax({
+			type: 'POST',
+			url: 'http://172.17.7.40/mvc/api/Login',
+			data: JSON.stringify({
+				SellerID: '5',
+				Password: '5',
+				mode: 'crmMode'
+			}),
+			crossDomain: true,
+			contentType: "application/json",
+			dataType: 'json',
+			success: function(res) {
+				var details = res.details || 'Error';
+				if (!/^success$/i.test(res.result || "")) {
+					alert('Save failed');
+				} else {
+					token = details.Token || '';
+					sessionStorage.setItem('scrmToken', token);
+				}
+			}
+		});
+		genCustomBuild();
+	};
+	
+	$('#custom-original-btn').on('click',function(){
+		$('#preview-btn').show();
+		$('#return').hide();
+		// clear preveiw form
+		$('#formio').empty();
+		// clear builder
+		$('#builder').empty().show();
+		isCustom = !isCustom;
+		compos = JSON.parse(JSON.stringify(advanceArr));
+		if (isCustom) {
+			genCustomBuild();
+		} else {
+			genOriginalBuild();
+		}
+	});
+
+	$('#preview-btn').on('click', function () {
+		$('#builder').hide();
+		$('#preview-btn').hide();
+		$('#return').show();
+		Formio.createForm(document.getElementById('formio'), {
+			components: compos
+		}).then(function (form) {
+			// Prevent the submission from going to the form.io server.
+			form.nosubmit = true;
+
+
+			form.on('event', function (submission) {
+				alert('event');
+			});
+
+			form.on('submitDone', function (submission) {
+				// alert('submitDone');
+			});
+
+			form.on('formUpdate', function (event, form) {
+				alert('formUpdate');
+				console.log(event);
+				console.log(form);
+			});
+
+			form.on('customEvent', function (theBtn) { // object cotains data and type
+				console.log(theBtn);
+				if (theBtn.type == 'openModalFn') {
+					if ($('#enquiry-modal').length == 0) {
+						$(naquiryNatureStr).insertBefore('#btn-group');
+						$('#enquiry-nature-modal').modal('show');
+					}
+				}
+			});
+
+			form.on('change', function (A,B,C) { // object cotains data and type
+				console.log(A);
+				console.log(B);
+				console.log(C);
+			});
+
+
+			// Triggered when they click the submit button.
+			form.on('submit', function (submission) {
+				console.log(submission);
+				alert('The data you submitted: ' + JSON.stringify(submission.data));
+				// alert('Submission sent to custom endpoint. See developer console.');
+				form.emit('submitDone', submission);
+				// return fetch('https://hookb.in/ZrRRbJBe', {
+				// 	body: JSON.stringify(submission),
+				// 	headers: {
+				// 		'content-type': 'application/json'
+				// 	},
+				// 	method: 'POST',
+				// 	mode: 'cors',
+				// })
+				// 	.then(function (response) {
+				// 		form.emit('submitDone', submission)
+				// 		response.json()
+				// 	})
+			});
+
+			// form.getComponent('Nationality_Id').triggerChange = function(a){
+			// 	console.log('triggerChange');
+			// 	console.log(a);
+			// 	console.log(this.component);
+			// 	// var nationalitySelect = $(this);
+			// 	// var nationalityId = nationalitySelect.val();
+			// 	// var nationalitySelect1 = $(this.component);
+			// 	// var nationalityId1 = nationalitySelect1.val();
+			// 	var nationalityId = this.getValue();
+			// 	console.log('triggerChange2');
+			// 	var option = $('option:selected', this);
+			// 	var option1 = $('option:selected', this.component);
+			// 	var options2 = 	$('select[name="data[Nationality_Id]"] option:selected')
+			// }
+
+			$('select[name="data[Nationality_Id]"]').on('change', function () {
+				var nationalitySelect = $(this);
+				var nationalityId = nationalitySelect.val();
+				var option = $('option:selected', this);
+				if (option.length > 0) {
+					var optionHtml = option.html();
+					var idxOfMarketId = optionHtml.indexOf('market-id=');
+					var idxOfMarketIdEnd = optionHtml.indexOf(' ', idxOfMarketId);
+					var idxOfProfileId = optionHtml.indexOf('profile-id=');
+					var idxOfProfileEnd = optionHtml.indexOf('&gt;', idxOfProfileId);
+					var marketId = optionHtml.slice(idxOfMarketId+10, idxOfMarketIdEnd);
+					var profileId = optionHtml.slice(idxOfProfileId+11, idxOfProfileEnd);
+					
+					if (nationalityId == 1) {
+						if (form.getComponent('Market_Id')) {
+							form.getComponent('Market_Id').setValue(marketId);
+							form.getComponent('Market_Id').disabled = false;
+						}
+						if (form.getComponent('Profile_Id')) {
+							form.getComponent('Profile_Id').setValue(profileId);
+							form.getComponent('Profile_Id').disabled = false;
+						}
+					} else {
+						if (form.getComponent('Market_Id')) {
+							form.getComponent('Market_Id').setValue(marketId);
+							form.getComponent('Market_Id').disabled = true;
+						}
+						if (form.getComponent('Profile_Id')) {
+							form.getComponent('Profile_Id').setValue(profileId);
+							form.getComponent('Profile_Id').disabled = true;
+						}						
+					}
+				} else {
+					if (form.getComponent('Market_Id')) {
+						form.getComponent('Market_Id').setValue('');
+						form.getComponent('Market_Id').disabled = false;
+					}
+					if (form.getComponent('Profile_Id')) {
+						form.getComponent('Profile_Id').setValue('');
+						form.getComponent('Profile_Id').disabled = false;
+					}
+				}
+			})
+		});
+
+		// To apply some conditions before submitting, you can use the hook beforeSubmit // NO DEL no need so far only
+
+		// Formio.createForm(myFormElement, myFormUrl, {
+		// 	hooks: {
+		// 		beforeSubmit: (submission, next) => {
+		// 			// apply your conditions
+		// 			// call next when your ready to submit
+		// 		}
+		// 	}
+		// }).then(function (form) {
+		// 	.....
+		// });
+	});
+
+	$('#return').on('click', function () {
+		$('#formio').empty();
+		$('#return').hide();
+		$('#preview-btn').show();
+		$('#builder').show();
+		// clear preveiw form
+		$('#formio').empty();
+	});
+
+
+	$('#alert-json').on('click', function () {
+		alert(JSON.stringify(compos));
+	});
+
+	var compoOptsEmpty = function(theArr){
+			theArr.forEach(element => {
+			if (element.type == 'select') {
+				element.data = {} // .values = [];
+			} else if (element.components) {
+				compoOptsEmpty(element.components)
+			} else if (element.columns) {
+				compoOptsEmpty(element.columns)
+			}
+		});
+	}
+
+	$('#copy-json').on('click', function () {
+		var tempInput = document.createElement("input");
+		// var clonedCompos = JSON.parse(JSON.stringify(compos));
+		// compoOptsEmpty(clonedCompos);
+		tempInput.value = JSON.stringify(compos);
+		document.body.appendChild(tempInput);
+		tempInput.select();
+		document.execCommand("copy");
+		document.body.removeChild(tempInput);
+
+	});
+
+	$('#blank').on('click', function () {
+		$('#preview-btn').show();
+		$('#return').hide();
+		$('#builder').empty().show();
+		compos = JSON.parse(JSON.stringify(emptyArr));
+		if (isCustom) {
+			genCustomBuild();
+		} else {
+			genOriginalBuild();
+		}
+	});
+
+	$('#simple-example-btn').on('click', function () {
+		$('#preview-btn').show();
+		$('#return').hide();
+		// clear preveiw form
+		$('#formio').empty();
+		// clear builder
+		$('#builder').empty().show();
+		compos = JSON.parse(JSON.stringify(simpleArr));
+		if (isCustom) {
+			genCustomBuild();
+		} else {
+			genOriginalBuild();
+		}
+	});
+
+	$('#advance-example-btn').on('click', function () {
+		$('#preview-btn').show();
+		$('#return').hide();
+		// clear preveiw form
+		$('#formio').empty();
+		// clear builder
+		$('#builder').empty().show();
+		compos = JSON.parse(JSON.stringify(advanceArr));
+		if (isCustom) {
+			genCustomBuild();
+		} else {
+			genOriginalBuild();
+		}
+	});
+
+	$('#conditional-example-btn').on('click', function () {
+		$('#preview-btn').show();
+		$('#return').hide();
+		// clear preveiw form
+		$('#formio').empty();
+		// clear builder
+		$('#builder').empty().show();
+		compos = JSON.parse(JSON.stringify(conditionalArr));
+		if (isCustom) {
+			genCustomBuild();
+		} else {
+			genOriginalBuild();
+		}
+	});
+
+	$('#crm-example-btn').on('click', function () {
+		$('#preview-btn').show();
+		$('#return').hide();
+		// clear preveiw form
+		$('#formio').empty();
+		// clear builder
+		$('#builder').empty().show();
+		compos = JSON.parse(JSON.stringify(crmSimpleArr));
+		if (isCustom) {
+			genCustomBuild();
+		} else {
+			genOriginalBuild();
+		}
+	});
+
+	function updateJsonToCrm(clonedCompos){
+		$.ajax({
+			type: "PUT",
+			url: 'http://172.17.7.40/mvccampaignCRM/api/UpdateCase',
+			data: JSON.stringify({'Agent_Id':5,'Details':compos, 'Internal_Case_No': 17167,
+			Token: token// "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IjUiLCJuYmYiOjE2MDQyODU0MDEsImV4cCI6MTYwNDM3MTgwMSwiaWF0IjoxNjA0Mjg1NDAxfQ.IBbHWMQVnyGWtr3z9CNUuziFQbHT6PKYkpaNzL9Mp44"
+		}),
+			crossDomain: true,
+			contentType: "application/json",
+			dataType: 'json'
+		}).always(function(res) {
+			alert('Applied to demo server');
+		});
+	}
+
+	$('#apply-form-btn').on('click', function () {
+		if(confirm('Are you sure?')){
+			// Validate form error e.g. will double key happened
+			if ($('.error').length > 0){
+				alert('Form have errors');
+				return
+			}
+			// take out select options
+			var clonedCompos = JSON.parse(JSON.stringify(compos));
+			compoOptsEmpty(clonedCompos);
+			console.log('compos before save');
+			console.log(compos);
+			// To do: fdsa
+			// Get Token First
+			if (token.length > 0) {
+				updateJsonToCrm(clonedCompos);
+			} else {
+
+		
+			$.ajax({
+                type: 'POST',
+                url: 'http://172.17.7.40/mvc/api/Login',
+                data: JSON.stringify({
+                    SellerID: '5',
+                    Password: '5',
+                    mode: 'crmMode'
+                }),
+                crossDomain: true,
+                contentType: "application/json",
+                dataType: 'json',
+                success: function(res) {
+                    var details = res.details || 'Error';
+                    if (!/^success$/i.test(res.result || "")) {
+						alert('Save failed');
+					} else {
+							token = details.Token || '';
+							sessionStorage.setItem('scrmToken', token);
+							updateJsonToCrm(clonedCompos);
+					}
+				}});
+			}
+
+		}
+	});
+
+
+</script>
+
+</head>
+
+</html>

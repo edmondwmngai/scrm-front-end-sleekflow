@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="16px" height="17px" viewBox="0 0 16 17" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 48.2 (47327) - http://www.bohemiancoding.com/sketch -->
+    <title>attach-16</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Desktop" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" transform="translate(-640.000000, -1203.000000)">
+        <g id="5.-Glyph-Icons" transform="translate(79.000000, 1082.000000)" fill="#596371" fill-rule="nonzero">
+            <g id="Glyph-Icons-16px" transform="translate(0.000000, 64.000000)">
+                <g id="attach-16" transform="translate(561.000000, 57.000000)">
+                    <path d="M9.6,13.8 C8,15.4 5.5,15.4 3.9,13.8 C2.3,12.2 2.2,9.8 3.8,8.3 L8.3,3.8 C9.3,2.8 10.9,2.8 11.8,3.8 C12.8,4.8 12.8,6.4 11.8,7.3 L8.3,10.9 C7.9,11.3 7.3,11.3 6.9,10.9 C6.5,10.5 6.5,9.9 6.9,9.5 L9.7,6.7 L8.2,5.3 L5.5,8 C4.3,9.2 4.3,11.1 5.5,12.2 C6.7,13.3 8.6,13.4 9.7,12.2 L13.3,8.6 C15.1,6.8 15.1,4 13.3,2.2 C11.5,0.4 8.7,0.4 6.9,2.2 L2.4,6.9 C0.1,9.2 0.2,12.9 2.5,15.2 C3.7,16.4 5.2,17 6.8,17 C8.4,17 9.9,16.4 11,15.2 L15.3,10.9 L13.9,9.5 L9.6,13.8 Z" id="Shape"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

@@ -1,0 +1,953 @@
+<!-- Notes: parent.type:newCustomer, newCase, newUpdate -->
+<!DOCTYPE html>
+<html lang="en">
+
+<body onkeydown='return (event.keyCode != 116)' style="overflow:hidden;">
+    <div id="body-container">
+        <div id='customer-table' class='card mt-5 mb-3'>
+            <div class="card-header card-header-text card-header-info">
+                <h5 class="mt-0 mb-0">
+                    <i class='fa fa-user-circle card-header-icon' aria-hidden="true"></i>
+                    <span>
+                        <span class="l-form-customer-information"></span>
+                        <span id="get-build-span"></span>
+                    </span>
+                    <span id="customer-tbl-customer-id" class="align-middle d-none" style="color:darkblue;">
+                        &nbsp;&nbsp;(<span class="l-ob-call-id">Call ID</span>:&nbsp;<span
+                            id="customer-id-title"></span>)
+                    </span>
+                    <span id="scheduled-reminder" class="mt-0 mb-0 ml-3 rounded btn btn-sm btn-warning text-capitalize"
+                        style="display:none;" onclick="scheduleClick()"><i class="fas fa-calendar-alt mr-2"></i><span
+                            class='l-form-scheduled-reminder'></span></span>
+                </h5>
+            </div>
+            <div class="collapse show" style="width:100%;" id='customer-details-body'>
+                <div class="card-body">
+                    <!-- CUSTOMER INFORMATION -->
+
+                    <div id="updateCsSection" class='mt-1 text-center d-none'>
+                        <button id="edit-save-btn" class='cs-button btn btn-warning rounded btn-sm text-capitalize'
+                            onclick="updateClicked()">
+                            <i class="fa fa-save mr-2"></i><span class="l-form-save"></span></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class='card mt-5 mb-3'>
+            <div class="card-header card-header-text card-header-info" href="#case-details-body">
+                <h5 class="mt-0 mb-0">
+                    <i class='fa fa-edit card-header-icon'></i>
+                    <spna id='case-details-title' class="align-sub"> <span class="l-form-case-details">Case
+                            Details</span><span> - <span class="l-main-outbound">Outbound</span> Form A</span>
+                        </span>
+                </h5>
+            </div>
+            <div class="collapse show" data-parent="#accordion" id='case-details-body'>
+                <div class="card-body">
+                    <div class='row form-inline'>
+                        <div class='form-group col-sm-5'>
+                            <label for='call-status' class='custom-form-label col-1-w'><span
+                                    class="l-campaign-callstatus">Call
+                                    Status</span>&nbsp;<span class="text-danger">*</span></label>
+                            <select class="form-control select-min-w" id='call-status'>
+                                <option value="" selected>- Please select -</option>
+                                <option value="Unreach">Unreach</option>
+                                <option value="Reached">Reached</option>
+                                <option value="Successful Order">Successful Order</option>
+                            </select>
+                        </div>
+                        <div class='form-group col-sm-7'>
+
+                            <label id="call-status-label" for='call-status' class='custom-form-label d-none' style="width: 163px;"><span
+                                    class="l-campaign-reason">Reason</span>&nbsp;<span
+                                    class="text-danger">*</span></label>
+
+                            <select id="successful-reason" class="d-none form-control select-min-w">
+                                <option value="Accept Offer" selected>Accept Offer</option>
+                            </select>
+
+                            <select id="unreach-reason" class="d-none form-control select-min-w">
+                                <option value="" selected>- Please Select -</option>
+                                <option value="No Answered">No Answered</option>
+                                <option value="Voice Mail">Voice Mail</option>
+                                <option value="On Trip">On Trip</option>
+                                <option value="Customer Busy">Customer Busy</option>
+                                <option value="Line Busy">Line Busy</option>
+                                <option value="Wrong Number">Wrong Number</option>
+                                <option value="Not Here/Meeting">Not Here/Meeting</option>
+                            </select>
+
+                            <select id="reached-reason" class="d-none form-control select-min-w">
+                                <option value="" selected>- Please Select -</option>
+                                <option value="Consider">Consider</option>
+                                <option value="Reject">Reject</option>
+                            </select>
+
+                        </div>
+                    </div>
+
+                    <div id="form-insurance-plan" style="display: none;">
+                        <div id="policy-plan-details">
+                            <hr />
+                            <div class="form-row"><span style="font-size: 20px; padding-bottom: 30px;">Policy / Plan
+                                    Details</span></div>
+                            <div class='form-row form-inline'>
+
+                                <!-- application number -->
+                                <label for="application-no-input" class='col-1-w col-form-label'>Application
+                                    No.</label>
+                                <div class="col-2-sw">
+                                    <input id="application-no-input" class="form-control" type="search"
+                                        placeholder="TPLHK600xxxxxx001" pattern="TPLHK600[0-9]{6}001">
+                                </div>
+                            </div>
+                            <div class='form-row form-inline '>
+
+                                <!-- producer number -->
+                                <label for="producer-no-input" class="col-1-w col-form-label">Producer No.</label>
+                                <div class="col-2-sw">
+                                    <input id="producer-no-input" class="form-control" type="search">
+                                </div>
+                            </div>
+
+                            <div class='form-row form-inline '>
+
+                                <!-- application signing date -->
+                                <label for='application-signing-date ' class='col-1-w col-form-label'>Application
+                                    Signing Date</label>
+                                <div class="col-2-sw">
+                                    <input id="application-signing-date" class="form-control mt-1" type="search"
+                                        placeholder="yyyy-mm-dd" autocomplete="off">
+                                </div>
+                            </div>
+                            <div class='form-row form-inline '>
+
+                                <!-- commencement date -->
+                                <label for='commencement-date ' class='col-1-w col-form-label'>Commencement
+                                    Date</label>
+                                <div class="col-2-sw">
+                                    <input id="commencement-date" class="form-control mt-1" type="search"
+                                        placeholder="yyyy-mm-dd" autocomplete="off">
+                                </div>
+                            </div>
+
+                            <div class='form-row form-inline '>
+
+                                <!-- Plan code -->
+                                <label for="plan-code-select" class='col-1-w col-form-label'>Plan
+                                    Code</label>
+                                <div class="col-2-sw">
+                                    <input id="plan-code-input" class="form-control mt-1" type="search" value="1411SC2">
+                                </div>
+                            </div>
+                            <div class='form-row form-inline '>
+
+                                <!-- Plan level -->
+                                <label for="plan-level-select" class='col-1-w col-form-label'>Plan
+                                    Type</label>
+                                <div class="col-2-sw">
+                                    <select id="plan-level-select" class="form-control select-min-w">
+                                        <option value="" selected>- Please select -</option>
+                                        <option value="1">Plan 1</option>
+                                        <option value="2">Plan 2</option>
+                                        <option value="3">Plan 3</option>
+                                        <option value="4">Plan 4</option>
+                                        <option value="5">Plan 5</option>
+                                        <option value="6">Plan 6</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class='form-row form-inline '>
+
+                                <!-- Discount type -->
+                                <label for="discount-type-select" class='col-1-w col-form-label'>Discount
+                                    type</label>
+                                <div class="col-2-sw">
+                                    <select id="discount-type-select" class="form-control select-min-w">
+                                        <option value="" selected>- Please select -</option>
+                                        <option value="no">Not applicable</option>
+                                        <option value="family10%">Family discount(10% off premium)</option>
+                                        <option value="firstmonth50%">50% off 1st month premium discount</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class='form-row form-inline '>
+
+                                <!-- campaign code -->
+                                <label for='campaign-code-input ' class='col-1-w col-form-label'>Campaign
+                                    Code</label>
+                                <div class="col-2-sw">
+                                    <select id="campaign-code-select" class="form-control select-min-w">
+                                        <option value="" selected>- Please select -</option>
+                                        <option value="30">30(Vaccine Offer till 31 DEC 2021)</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class='form-row form-inline '>
+
+                                <!-- initial premium -->
+                                <label for="initial-premium-display" class='col-1-w col-form-label'>Initial
+                                    Premium</label>
+                                <div class="col-2-sw">
+                                    <input id="initial-premium-display" class="form-control" type="search" disabled>
+                                </div>
+                            </div>
+                            <div class='form-row form-inline '>
+
+                                <!-- payment mode -->
+                                <label for="payment-mode-display" class='col-1-w col-form-label'>Payment
+                                    Mode</label>
+                                <div class="col-2-sw">
+                                    <input id="payment-mode-display" class="form-control" type="search" disabled
+                                        value="Monthly">
+                                </div>
+                            </div>
+                        </div>
+                        <div id="applicant-personal-info">
+                            <hr />
+                            <div class="form-row"><span class="is-header">Applicant's
+                                    Personal
+                                    Information</span></div>
+                            <div class='form-row form-inline'>
+
+                                <!-- CDF -->
+                                <label for="applicant-cdf-select" class='col-1-w col-form-label'>CDF</label>
+                                <div class="col-2-sw">
+                                    <select id="applicant-cdf-select" class="form-control select-min-w">
+                                        <option value="" selected>- Please select -</option>
+                                        <option value="Y">Y</option>
+                                        <option value="N">N</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class='form-row form-inline'>
+
+                                <!-- Fatca appliciant -->
+                                <label for="applicant-facta-select"
+                                    class='col-1-w col-form-label'>FATCA_APPLICANT</label>
+                                <div class="col-2-sw">
+                                    <select id="applicant-fatca-select" class="form-control select-min-w">
+                                        <option value="" selected>- Please select -</option>
+                                        <option value="Y">Y</option>
+                                        <option value="N">N</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class='form-row form-inline'>
+
+                                <!-- CRS -->
+                                <label for="applicant-crs-select" class='col-1-w col-form-label'>CRS</label>
+                                <div class="col-2-sw">
+                                    <select id="applicant-crs-select" class="form-control select-min-w">
+                                        <option value="" selected>- Please select -</option>
+                                        <option value="1">只是香港稅務居民</option>
+                                        <option value="2">是香港稅務居民及擁有其他稅務管轄區或國家的稅務居民身份</option>
+                                        <option value="3">非香港稅務居民，但擁有其他稅務管轄區的稅務居民身份</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class='form-row form-inline'>
+
+                                <!-- jurisdiction -->
+                                <label for="applicant-jurisdiction-input"
+                                    class='col-1-w col-form-label'>Jurisdiction</label>
+                                <div class="col-2-sw">
+                                    <input id="applicant-jurisdiction-input" class="form-control mt-1" type="search"
+                                        disabled>
+                                </div>
+                            </div>
+                            <div class='form-row form-inline'>
+
+                                <!-- TIN no. -->
+                                <label for="applicant-tin-no-input" class='col-1-w col-form-label'>TIN
+                                    No.</label>
+                                <div class="col-2-sw">
+                                    <input id="applicant-tin-no-input" class="form-control mt-1" type="search">
+                                </div>
+                            </div>
+                            <div class='form-row form-inline'>
+
+                                <!-- crs reason -->
+                                <label for="applicant-crs-reason-select" class='col-1-w col-form-label'>CRS
+                                    Reason</label>
+                                <div class="col-2-sw">
+                                    <select id="applicant-crs-reason-select" class="form-control select-min-w">
+                                        <option value="" selected>- Please select -</option>
+                                        <option value="A">保單申請人/持有人的居留司法管轄區並沒有向其居民發出稅務編號。</option>
+                                        <option value="B">保單申請人/持有人不能取得稅務編號。</option>
+                                        <option value="C">保單申請人/持有人毋需提供稅務編號。</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class='form-row form-inline'>
+
+                                <!-- crs reason details -->
+                                <label for="applicant-crs-reason-details-input" class='col-1-w col-form-label'>CRS
+                                    Reason Details</label>
+                                <div class="col-2-sw">
+                                    <input id="applicant-crs-reason-details-input" class="form-control mt-1"
+                                        type="search" disabled>
+                                </div>
+                            </div>
+                            <div class='form-row form-inline'>
+
+                                <!-- residency -->
+                                <label for="applicant-residency-select" class='col-1-w col-form-label'>Residency</label>
+                                <div class="col-2-sw">
+                                    <select id="applicant-residency-select" class="form-control select-min-w">
+                                        <option value="" selected>- Please select -</option>
+                                        <option value="A">香港永久居民</option>
+                                        <option value="B">香港居民</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class='form-row form-inline'>
+
+                                <!-- Eng Last Name -->
+                                <label for="applicant-eng-last-name-input" class='col-1-w col-form-label'>Last
+                                    Name(English)</label>
+
+                                <div class='form-group col-2-sw'>
+                                    <input id="applicant-eng-last-name-input" class="form-control mt-1" type="search"
+                                        style="width: 76%;">
+                                </div>
+
+
+                            </div>
+
+                            <div class='form-row form-inline'>
+
+                                <!-- Eng First Name -->
+                                <label for="applicant-eng-first-name-input" class='col-1-w col-form-label'>First
+                                    Name(English)</label>
+                                <div class='col-2-sw'>
+                                    <input id="applicant-eng-first-name-input" class="form-control mt-1" type="search">
+                                </div>
+                            </div>
+
+                            <div class='form-row form-inline'>
+
+                                <!-- Chi Last Name -->
+                                <label for="applicant-eng-last-name-input" class='col-1-w col-form-label'>Last
+                                    Name(Chinese)</label>
+                                <div class='form-group col-2-sw'>
+                                    <input id="applicant-eng-last-name-input" class="form-control mt-1" type="search"
+                                        style="width: 76%;">
+                                </div>
+                            </div>
+
+                            <div class='form-row form-inline'>
+
+                                <!-- Chi First Name -->
+                                <label for="applicant-chi-first-name-input" class='col-1-w col-form-label'>First
+                                    Name(Chinese)</label>
+                                <div class='col-2-sw'>
+                                    <input id="applicant-chi-first-name-input" class="form-control mt-1" type="search">
+                                </div>
+                            </div>
+
+                            <div class='form-row form-inline'>
+
+                                <!-- HKID -->
+                                <label for="applicant-hkid-input" class='col-1-w col-form-label'>HKID</label>
+                                <div class="col-2-sw">
+                                    <input id="applicant-hkid-input" class="form-control mt-1" type="search">
+                                </div>
+                            </div>
+                            <div class='form-row form-inline'>
+
+                                <!-- Nationality -->
+                                <label for="applicant-nationality-input"
+                                    class='col-1-w col-form-label'>Nationality</label>
+                                <div class="col-2-sw">
+                                    <input id="applicant-nationality-input" class="form-control mt-1" type="search">
+                                </div>
+                            </div>
+                            <div class='form-row form-inline'>
+
+                                <!-- DOB -->
+                                <label for='applicant-dob-date' class='col-1-w col-form-label'>Date of
+                                    Birth</label>
+                                <div class="col-2-sw">
+                                    <input id="applicant-dob-date" class="form-control mt-1" type="search"
+                                        placeholder="yyyy-mm-dd" autocomplete="off">
+                                </div>
+
+                                <span class="font-weight-700 ml-5 mr-3">Age:&nbsp;&nbsp;<span id="applicant-dob-date-age"></span></span>
+                            </div>
+                            <div class='form-row form-inline'>
+
+                                <!-- place of birth -->
+                                <label for="applicant-place-of-birth-input" class='col-1-w col-form-label'>Place of
+                                    Birth</label>
+                                <div class="col-2-sw">
+                                    <input id="applicant-palce-of-birth-input" class="form-control mt-1" type="search">
+                                </div>
+                            </div>
+                            <div class='form-row form-inline'>
+
+                                <!-- gender -->
+                                <label for="applicant-gender-select" class='col-1-w col-form-label'>Gender</label>
+                                <div class="col-2-sw">
+                                    <select id="applicant-gender-select" class="form-control select-min-w">
+                                        <option value="" selected>- Please select -</option>
+                                        <option value="M">Male</option>
+                                        <option value="F">Female</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class='form-row form-inline'>
+
+                                <!-- mobile no -->
+                                <label for="applicant-mobile-no-input" class='col-1-w col-form-label'>Mobile
+                                    No.</label>
+                                <div class="col-2-sw">
+                                    <input id="applicant-mobile-no-input" class="form-control mt-1" type="search">
+                                </div>
+                            </div>
+                            <div class='form-row form-inline'>
+
+                                <!-- address Line 1 -->
+                                <label for="applicant-address1-input" class='col-1-w col-form-label'>Address
+                                    Line 1</label>
+                                <div class="col-2-sw">
+                                    <input id="applicant-address1-input" class="form-control mt-1" type="search">
+                                </div>
+                            </div>
+                            <div class='form-row form-inline'>
+
+                                <!-- address Line 2 -->
+                                <label for="applicant-address2-input" class='col-1-w col-form-label'>Address
+                                    Line 2</label>
+                                <div class="col-2-sw">
+                                    <input id="applicant-address-input" class="form-control mt-1" type="search">
+                                </div>
+                            </div>
+                            <div class='form-row form-inline'>
+
+                                <!-- address Line 3 -->
+                                <label for="applicant-address3-input" class='col-1-w col-form-label'>Address
+                                    Line 3</label>
+                                <div class="col-2-sw">
+                                    <input id="applicant-address3-input" class="form-control mt-1" type="search">
+                                </div>
+                            </div>
+                            <div class='form-row form-inline'>
+
+                                <!-- email -->
+                                <label for="applicant-email-input" class='col-1-w col-form-label'>Email</label>
+                                <div class="col-2-sw">
+                                    <input id="applicant-email-input" class="form-control mt-1" type="email"
+                                        pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$">
+                                </div>
+                            </div>
+                            <div class='form-row form-inline'>
+
+                                <!-- policy language -->
+                                <label for="applicant-policy-language-select" class='col-1-w col-form-label'>Policy
+                                    Language</label>
+                                <div class="col-2-sw">
+                                    <select id="applicant-policy-language-select" class="form-control select-min-w">
+                                        <option value="" selected>- Please select -</option>
+                                        <option value="Chi">中文</option>
+                                        <option value="Eng">English</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class='form-row form-inline'>
+
+                                <!-- education -->
+                                <label for="applicant-education-input" class='col-1-w col-form-label'>Education</label>
+                                <div class="col-2-sw">
+                                    <input id="applicant-education-input" class="form-control mt-1" type="search">
+                                </div>
+                            </div>
+                            <div class='form-row form-inline'>
+                                <!-- occupation -->
+                                <label for="applicant-occupation-select"
+                                    class='col-1-w col-form-label'>Occupation</label>
+                                <div class="col-2-sw">
+                                    <select id="applicant-occupation-select" class="form-control select-min-w">
+                                        <option value="" selected>- Please select -</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class='form-row form-inline'>
+
+                                <!-- title -->
+                                <label for="applicant-title-select" class='col-1-w col-form-label'>Title</label>
+                                <div class="col-2-sw">
+                                    <select id="applicant-title-select" class="form-control select-min-w">
+                                        <option value="" selected>- Please select -</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class='form-row form-inline'>
+
+                                <!-- income -->
+                                <label for="applicant-income-input" class='col-1-w col-form-label'>Income</label>
+                                <div class="col-2-sw">
+                                    <input id="applicant-income-input" class="form-control mt-1" type="search">
+                                </div>
+                            </div>
+                        </div>
+                        <div id="insured-person-selector">
+                            <hr />
+                            <div class="form-row"><span class="is-header">Insured
+                                    Person</span>
+                            </div>
+                            <div class="form-row form-inline">
+
+                                <!-- main -->
+                                <div class="form-check form-check-inline">
+                                    <label class="form-check-label">
+                                        <input class="form-check-input" type="checkbox" id="insured-person-main-check"
+                                            value="false">Main
+                                        <span class="form-check-sign">
+                                            <span class="check"></span>
+                                        </span>
+                                    </label>
+                                </div>
+
+                                <!-- spouse -->
+                                <div class="form-check form-check-inline ml-4">
+                                    <label class="form-check-label">
+                                        <input class="form-check-input" type="checkbox" id="insured-person-spouse-check"
+                                            value="false">Spouse
+                                        <span class="form-check-sign">
+                                            <span class="check"></span>
+                                        </span>
+                                    </label>
+                                </div>
+
+                                <!-- child -->
+                                <div class="form-inline ml-4">
+                                    <label for="insured-person-child-select"
+                                        class='col-form-label pb-0 mr-2'>Child</label>
+                                    <select id="insured-person-child-select" class="form-control select-min-w pb-0">
+                                        <option value="0" selected>None</option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="insured-personal-info-main">
+                        </div>
+                        <div id="insured-personal-info-spouse">
+                        </div>
+                        <div id="insured-personal-info-child1">
+                        </div>
+                        <div id="insured-personal-info-child2">
+                        </div>
+                        <div id="insured-personal-info-child3">
+                        </div>
+                        <div id="insured-personal-info-child4">
+                        </div>
+                        <div id="insured-personal-info-test" style="display: none;">
+                            <hr />
+                            <div class="form-row"><span class="is-header">Insured's Personal
+                                    Information - test</span></div>
+                            <div class='form-row form-inline '>
+
+                                <!-- relationship -->
+                                <label for="test-relationship-display"
+                                    class='col-1-w col-form-label'>Relationship</label>
+                                <div class="col-2-sw">
+                                    <input id="test-relationship-display" class="form-control" type="search" disabled
+                                        value="TEST_RELATIONSHIP">
+                                </div>
+                            </div>
+
+                            <div class='form-row form-inline'>
+
+                                <!-- residency -->
+                                <label for="test-residency-select" class='col-1-w col-form-label'>Residency</label>
+                                <div class="col-2-sw">
+                                    <select id="test-residencyt-select" class="form-control select-min-w">
+                                        <option value="" selected>- Please select -</option>
+                                        <option value="A">香港永久居民</option>
+                                        <option value="B">香港居民</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class='form-row form-inline'>
+
+                                <!-- Eng Last Name -->
+                                <label for="test-eng-last-name-input" class='col-1-w col-form-label'>Last
+                                    Name(English)</label>
+
+                                <div class='form-group col-2-sw'>
+                                    <input id="test-eng-last-name-input" class="form-control mt-1" type="search"
+                                        style="width: 76%;">
+                                </div>
+                            </div>
+
+                            <div class='form-row form-inline'>
+
+                                <!-- Eng First Name -->
+                                <label for="test-eng-first-name-input" class='col-1-w col-form-label'>First
+                                    Name(English)</label>
+                                <div class='col-1-w'>
+                                    <input id="test-eng-first-name-input" class="form-control mt-1" type="search">
+                                </div>
+                            </div>
+
+                            <div class='form-row form-inline'>
+
+                                <!-- chi Last Name -->
+                                <label for="test-chi-last-name-input" class='col-1-w col-form-label'>Last
+                                    Name(Chinese)</label>
+                                <div class='form-group col-2-sw'>
+                                    <input id="test-chi-last-name-input" class="form-control mt-1" type="search"
+                                        style="width: 76%;">
+                                </div>
+                            </div>
+
+                            <div class='form-row form-inline'>
+
+                                <!-- chi First Name -->
+                                <label for="test-chi-first-name-input" class='col-1-w col-form-label'>First
+                                    Name(Chinese)</label>
+                                <div class='col-1-w'>
+                                    <input id="test-chi-first-name-input" class="form-control mt-1" type="search">
+                                </div>
+                            </div>
+
+                            <div class='form-row form-inline'>
+
+                                <!-- hkid -->
+                                <label for="test-hkid-input" class='col-1-w col-form-label'>HKID</label>
+                                <div class="col-2-sw">
+                                    <input id="test-hkid-input" class="form-control mt-1" type="search">
+                                </div>
+                            </div>
+                            <div class='form-row form-inline'>
+
+                                <!-- nationality -->
+                                <label for="test-nationality-input" class='col-1-w col-form-label'>Nationality</label>
+                                <div class="col-2-sw">
+                                    <input id="test-nationality-input" class="form-control mt-1" type="search">
+                                </div>
+                            </div>
+                            <div class='form-row form-inline'>
+
+                                <!-- dob -->
+                                <label for='test-dob-date' class='col-1-w col-form-label'>Date of
+                                    Birth</label>
+                                <div class="col-2-sw">
+                                    <input id="test-dob-date" class="form-control mt-1" type="search"
+                                        placeholder="yyyy-mm-dd" autocomplete="off">
+                                </div>
+                            </div>
+                            <div class='form-row form-inline'>
+                                <!-- place of birth -->
+                                <label for="test-place-of-birth-input" class='col-1-w col-form-label'>Place
+                                    of Birth</label>
+                                <div class="col-2-sw">
+                                    <input id="test-palce-of-birth-input" class="form-control mt-1" type="search">
+                                </div>
+                            </div>
+                            <div class='form-row form-inline'>
+
+                                <!-- gender -->
+                                <label for="test-gender-select" class='col-1-w col-form-label'>Gender</label>
+                                <div class="col-2-sw">
+                                    <select id="test-gender-select" class="form-control select-min-w">
+                                        <option value="" selected>- Please select -</option>
+                                        <option value="M">Male</option>
+                                        <option value="F">Female</option>
+                                        <option value="O">Other</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class='form-row form-inline'>
+
+                                <!-- occupation -->
+                                <label for="test-occupation-select" class='col-1-w col-form-label'>Occupation</label>
+                                <div class="col-2-sw">
+                                    <select id="test-occupation-select" class="form-control select-min-w">
+                                        <option value="" selected>- Please select -</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class='form-row form-inline'>
+
+                                <!-- title -->
+                                <label for="test-title-select" class='col-1-w col-form-label'>Title</label>
+                                <div class="col-2-sw">
+                                    <select id="test-title-select" class="form-control select-min-w">
+                                        <option value="" selected>- Please select -</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="payment-info">
+                            <hr />
+                            <div class="form-row"><span class="is-header">Payment
+                                    Information</span></div>
+                            <div class='form-row form-inline'>
+
+                                <!-- payment mode -->
+                                <label for="payment-mode-select" class='col-1-w col-form-label'>Payment
+                                    Mode</label>
+                                <div class="col-2-sw">
+                                    <select id="payment-mode-select" class="form-control select-min-w">
+                                        <option value="" selected>- Please select -</option>
+                                        <option value="SDDA">SDDA</option>
+                                        <option value="CCA">CCA</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class='form-row form-inline'>
+
+                                <!-- card holder name -->
+                                <label for="card-holder-name-input" class='col-1-w col-form-label'>Card
+                                    Holder's Name</label>
+                                <div class="col-2-sw">
+                                    <input id="card-holder-name-input" class="form-control mt-1" type="search"
+                                        placeholder="Must be same as applicant's name">
+                                </div>
+                            </div>
+                            <div class='form-row form-inline'>
+
+                                <!-- card no -->
+                                <label for="card-no-input" class='col-1-w col-form-label'>Credit Card
+                                    No.</label>
+                                <div class="col-2-sw">
+                                    <input id="card-no-input" class="form-control mt-1" type="search"
+                                        pattern="([4-6]+[0-9]{15})|(3+[0-9]{14})">
+                                </div>
+                            </div>
+                            <div class='form-row form-inline'>
+
+                                <!-- card expiry date -->
+                                <label for="card-expiry-date-input" class='col-1-w col-form-label'>Credit
+                                    Card Expiry Date</label>
+                                <div class="col-2-sw">
+                                    <input id="card-expiry-date-input" class="form-control mt-1" type="search"
+                                        placeholder="MM/YY">
+                                </div>
+                            </div>
+                            <div class='form-row form-inline'>
+
+                                <!-- bank acc holder name -->
+                                <label for="bank-acc-holder-name-input" class='col-1-w col-form-label'>Bank
+                                    Account Holder's Name</label>
+                                <div class="col-2-sw">
+                                    <input id="bank-acc-holder-input" class="form-control mt-1" type="search"
+                                        placeholder="Must be same as applicant's name">
+                                </div>
+                            </div>
+                            <div class='form-row form-inline'>
+
+                                <!-- bank code -->
+                                <label for="bank-code-select" class='col-1-w col-form-label'>Bank
+                                    Code</label>
+                                <div class="col-2-sw">
+                                    <select id="bank-code-select" class="form-control select-min-w">
+                                        <option value="" selected>- Please select -</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class='form-row form-inline'>
+
+                                <!-- branch code -->
+                                <label for="branch-code-input" class='col-1-w col-form-label'>Branch
+                                    Code</label>
+                                <div class="col-2-sw">
+                                    <input id="branch-code-input" class="form-control mt-1" type="search"
+                                        pattern="[0-9]{3}">
+                                </div>
+                            </div>
+                            <div class='form-row form-inline'>
+
+                                <!-- bank account no -->
+                                <label for="bank-acc-no-input" class='col-1-w col-form-label'>Bank
+                                    Account
+                                    No.</label>
+                                <div class="col-2-sw">
+                                    <input id="bank-acc-no-input" class="form-control mt-1" type="search"
+                                        pattern="[0-9]{6,10}">
+                                </div>
+                            </div>
+                            <hr />
+                        </div>
+
+                        <div id="dm-consent">
+                            <div class="form-row form-inline">
+                                <label for="dm-consent-select" class='col-1-w col-form-label'>DM Consent</label>
+                                <select id="dm-consent-select" class="form-control select-min-w">
+                                    <option value="" selected>- Please select -</option>
+                                    <option value="Y">Y</option>
+                                    <option value="N">N</option>
+                                </select>
+                            </div>
+                            <hr />
+                        </div>
+
+                    </div>
+
+                    <!-- //////////////////////////////////////////////////// -->
+
+                    <div class='row form-inline'>
+                        <div class='form-group col-sm-12 mb-1'>
+                            <label for='case-details' class='custom-form-label col-1-w'><span
+                                    class="l-campaign-callback">Callback</span></label>
+                            <input id="callback-datetime" class="form-control mt-1" type="search"
+                                placeholder="yyyy-mm-dd hh:mm" autocomplete="off">
+                        </div>
+                    </div>
+
+                    <div class='row form-inline'>
+                        <div class='form-group col-sm-12 mb-1'>
+                            <label for='case-details' class='custom-form-label col-1-w'><span
+                                    class="l-form-remarks">Remarks</span></label>
+                            <textarea class="mt-2" name='case-details' id='call-remarks' rows="3" cols="20"
+                                style="font-family:inherit;width:calc(100% - 193px);" maxlength="500"></textarea>
+                        </div>
+                    </div>
+
+                    <div class='row form-inline'>
+                        <div class='form-group col-sm-12 pl-0'>
+                            <label class='col-sm-1 pl-4 mt-2'>&nbsp;&nbsp;<span>&nbsp;</span></label>
+                            <div class='col-sm-11 pl-0'>
+                                <div id="reply-radio-group" class='form-group form-inline'>
+
+                                    <div class="form-check ml-3">
+                                        <label class="form-check-label">
+                                            <input class='form-check-input dial-yes-disable l-form-none'
+                                                onclick='replyChannelChange(this)' type="radio" id="reply-none"
+                                                name="replyList" value="" checked>
+                                            &nbsp;
+                                            <span class="circle">
+                                                <span class="check"></span>
+                                            </span>
+                                        </label>
+                                    </div>
+
+                                    <div class="form-check ml-2">
+                                        <label class="form-check-label">
+                                            <input class='form-check-input dial-yes-disable l-form-call'
+                                                onclick='replyChannelChange(this)' type="radio" id="reply-call"
+                                                name="replyList" value="call">
+                                            &nbsp; <span class="circle">
+                                                <span class="check"></span>
+                                            </span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <span class='ml-5'>
+                        <span id='reply-details'>
+                            <span style='display:none;' id='email-details'>
+                                <span style='display:inline-block;' id="email-other-container">
+                                    <div class="form-check ml-2" style='display:inline;'>
+                                        <label class="form-check-label">
+                                            <input type="checkbox"
+                                                class="form-check-input reply-checkbox email-list l-form-radio-other"
+                                                value='other' id="email-other-check"
+                                                onclick='replyOtherClicked("email-other-input", this)'
+                                                autocomplete="off">
+                                            &nbsp;
+                                            <span class="form-check-sign">
+                                                <span class="check"></span>
+                                            </span>
+                                        </label>
+                                    </div>&nbsp;
+                                    <input type='email' maxLength="50" disabled=true id='email-other-input'
+                                        style='border-radius:5px;' type="search" autocomplete="off">
+                                </span>
+                            </span>
+
+                            <span style='display:none;' id='fax-details'>
+                                <span id="fax-other-container">
+                                    <div class="form-check ml-2" style='display:inline;'><label
+                                            class="form-check-label">
+                                            <input type="checkbox"
+                                                class="form-check-input reply-checkbox fax-list l-form-radio-other"
+                                                value='other' id="fax-other-check"
+                                                onclick='replyOtherClicked("fax-other-input", this)' autocomplete="off">
+                                            &nbsp;
+                                            <span class="form-check-sign">
+                                                <span class="check"></span>
+                                            </span>
+                                        </label>
+                                    </div>&nbsp;
+                                    <input type='tel' onkeyup="this.value=this.value.replace(/[^\d]/,'')" maxLength="50"
+                                        disabled=true id='fax-other-input' style='border-radius:5px;' type="search"
+                                        autocomplete="off">
+                                </span>
+                            </span>
+
+                            <span style='display:none;' id='sms-details'>
+                                <span id="sms-other-container">
+                                    <div class="form-check ml-2" style='display:inline;'>
+                                        <label class="form-check-label">
+                                            <input type="checkbox"
+                                                class="form-check-input reply-checkbox sms-list l-form-radio-other"
+                                                name="smsList" value='other' id="sms-other-check"
+                                                onclick='replyOtherClicked("sms-other-input", this)' autocomplete="off">
+                                            &nbsp;
+                                            <span class="form-check-sign">
+                                                <span class="check"></span>
+                                            </span>
+                                        </label>
+                                    </div>&nbsp;
+                                    <input type='tel' onkeyup="this.value=this.value.replace(/[^\d]/,'')" maxLength="50"
+                                        disabled=true id='sms-other-input' style='border-radius:5px;' type="search"
+                                        autocomplete="off">
+                                </span>
+                            </span>
+
+
+                            <span style='display:none;' id='call-details'>
+                                <span id="call-other-container">
+                                    <div class="form-check ml-2" style='display:inline;'>
+                                        <label class="form-check-label">
+                                            <input type="radio"
+                                                class="form-check-input reply-checkbox call-list dial-yes-disable l-form-radio-other"
+                                                name="callList" value='other' id="call-other-check"
+                                                onchange='replyCallChanged(this)'>
+                                            &nbsp;
+                                            <span class="circle">
+                                                <span class="check"></span>
+                                            </span>
+                                        </label>
+                                    </div>&nbsp;
+                                    <input type='tel' onkeyup="this.value=this.value.replace(/[^\d]/,'')"
+                                        onkeydown="callOnkeydown()" maxLength="50" class='dial-yes-disable'
+                                        disabled=true id='call-other-input' style='border-radius:5px;' type="search"
+                                        autocomplete="off">
+                                </span>
+                            </span>
+                        </span>
+                        <button type='button' class='dial-yes-disable btn btn-warning btn-sm rounded text-capitalize'
+                            onclick='replySubmitClicked()' id='reply-submit-btn' style='display:none;'></button>
+                    </span>
+                    <div id='reply-container'></div>
+                    <div id="save-btn-section" style="text-align:center;margin-top:10px;">
+                        <button id="fm-save-btn" class='btn btn-warning rounded btn-sm text-capitalize'><i
+                                class="fa fa-save mr-2"></i><span class="l-form-save"></span></button>
+                        <button id="fm-close-btn" type="button" class="btn btn-sm rounded btn-default text-capitalize"><i
+                            class="fas fa-times-circle mr-2"></i><span>Close</span></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="agent-handle-section">
+            <span class="l-form-handled-by"></span>:&nbsp;
+            <span id='ip-agent-name'></span>
+        </div>
+    </div>
+</body>
+
+</html>

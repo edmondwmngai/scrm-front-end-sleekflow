@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="16px" height="16px" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 48.2 (47327) - http://www.bohemiancoding.com/sketch -->
+    <title>simple-remove</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Desktop" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" transform="translate(-400.000000, -1244.000000)">
+        <g id="5.-Glyph-Icons" transform="translate(79.000000, 1082.000000)" fill="#596371" fill-rule="nonzero">
+            <g id="Glyph-Icons-16px" transform="translate(0.000000, 64.000000)">
+                <g id="simple-remove" transform="translate(321.000000, 98.000000)">
+                    <polygon id="Shape" points="14 0.585786438 0.585786438 14 2 15.4142136 15.4142136 2"></polygon>
+                    <polygon id="Shape" points="15.4142136 14 2 0.585786438 0.585786438 2 14 15.4142136"></polygon>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

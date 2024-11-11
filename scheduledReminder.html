@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="cache-control" content="max-age=0">
+    <meta http-equiv="cache-control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="expires" content="0" />
+    <meta http-equiv="expires" content="Tue, 01 Jan 1980 11:00:00 GMT">
+    <meta http-equiv="pragma" content="no-cache">
+
+    <link rel="shortcut icon" href="./images/favicon.ico">
+    <link rel="stylesheet" href="./css/fontawesome/css/all.css">
+    <link rel="stylesheet" href="./css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="././css/material-kit/css/material-kit.min.css" type="TEXT/CSS">
+    <link rel="stylesheet" href="./css/media.css" type="TEXT/CSS">
+    <link rel="stylesheet" href="./css/material-overwrite.css" type="TEXT/CSS">
+
+    <script type="text/javascript" src="./config.js"></script>
+    <script type="text/javascript" src="./js/jquery.min.js"></script>
+    <script type="text/javascript" src="./js/popper.min.js"></script>
+    <script type="text/javascript" src="./js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="./js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="./js/bootstrap-confirmation.js"></script>
+    <style>
+        body {
+            margin: 50px 50px 50px 50px;
+        }
+
+        .custom-scroll::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        .custom-scroll::-webkit-scrollbar-track {
+            background: lightgray;
+        }
+
+        .custom-scroll::-webkit-scrollbar-thumb {
+            -webkit-border-radius: 8px;
+            border-radius: 8px;
+            background: #AECBFC;
+        }
+
+        .custom-scroll::-webkit-scrollbar-thumb:window-inactive {
+            background: #AECBFC;
+        }
+
+        table.dataTable tbody tr.highlight {
+            background-color: #EDF4FF !important;
+            font-weight: bold;
+        }
+
+        .table-btn {
+            cursor: pointer;
+        }
+
+        .text-wrap {
+            white-space: normal;
+        }
+
+        .col-w-5p {
+            width: 5% !important;
+        }        
+
+        .col-w-10p {
+            width: 10% !important;
+        }
+        
+        .col-w-15p {
+            width: 15% !important;
+        }
+    </style>
+</head>
+
+<body class='custom-scroll max-width-body' onload="windowOnload(true)">
+
+    <div id="scheduled-reminder-list" class='card mt-5 mb-3 d-none'>
+        <div class='card-header card-header-text card-header-info'>
+            <h5 class="my-0">
+                <i class="far fa-bell card-header-icon"></i><span
+                    class="align-middle l-reminder-scheduled-reminder-list"></span>
+            </h5>
+        </div>
+
+        <div class='card-body'>
+            <div id="select-section" class="row form-inline d-none">
+                <div class="form-group col-sm-5">
+                    <label class="form-label mr-2 l-reminder-please-select-agent" for="select-agent"></label>
+                    <!--dropdown menu-->
+                    <select class="form-control col-sm-5" name="Agent" id="select-agent"></select>
+                </div>
+            </div>
+
+            <div id="reminder-table-section">
+                <!-- <h3>Overdue Reminders</h3>
+                <table id="overdue-table" style="width:100%;" class="table table-hover mt-3 clearfix"></table>
+                <h3>Other Outstanding Reminders</h3> -->
+                <table id="reminder-table" style="width:100%;" class="table table-hover mt-3 clearfix"></table>
+            </div>
+
+            <!--buttons-->
+            <div class="form-group text-center">
+                <a class="btn rounded btn-sm btn-warning mt-3 mb-0 text-capitalize" data-toggle="confirmation"
+                    data-placement="bottom" data-popout="true" data-btn-ok-class="btn-info"
+                    href="javascript:(markAsRead())"><i class="fas fa-save mr-2"></i><span
+                        class="align-middle l-reminder-update"></span></a>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript" src="./obfuscate_b4/scheduledReminder.js"></script>
+</body>
+
+</html>

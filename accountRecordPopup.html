@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="cache-control" content="max-age=0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Expires" content="0" />
+    <meta http-equiv="expires" content="Tue, 01 Jan 1980 11:00:00 GMT">
+    <meta http-equiv="pragma" content="no-cache">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="shortcut icon" href="./images/favicon.ico">
+    <link rel="stylesheet" href="./css/fontawesome/css/all.css">
+    <link rel="stylesheet" href="./css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="././css/material-kit/css/material-kit.min.css" type="TEXT/CSS">
+    <link rel="stylesheet" href="./css/media.css" type="TEXT/CSS">
+    <link rel="stylesheet" href="./css/material-overwrite.css" type="TEXT/CSS">
+
+    <script type="text/javascript" src="./config.js"></script>
+    <script type="text/javascript" src="./js/jquery.min.js"></script>
+    <script type="text/javascript" src="./js/download.js"></script>
+    <script type="text/javascript" src="./js/tiff.min.js"></script>
+    <script type="text/javascript" src="./js/SocialContent.js"></script>
+    <title id="ac-rec-title">
+    </title>
+    <style type="text/css">
+        body {
+            margin-left: 15px;
+            margin-right: 15px;
+        }
+
+        /* ============= Custom Scroll in body ============= */
+
+        .custom-scroll::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        .custom-scroll::-webkit-scrollbar-track {
+            background: lightgray
+        }
+
+        .custom-scroll::-webkit-scrollbar-thumb {
+            -webkit-border-radius: 8px;
+            border-radius: 8px;
+            background: #AECBFC;
+        }
+
+        .custom-scroll::-webkit-scrollbar-thumb:window-inactive {
+            background: #AECBFC;
+        }
+
+        .profile-picture {
+            max-width: 100%;
+            max-height: 100%;
+            /* border-radius: 50%; */
+            margin: 0;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        #photo-container {
+            width: 100px;
+            /* line-height: 213px;*/
+            height: 100px;
+            position: relative;
+            text-align: center;
+        }
+
+        /*#field-name-span {
+            font-size: 8px;
+        } */
+        /* .txt-fields {
+            width: 100%;
+        }
+
+        #txt-name {
+            width: 100%;
+        } */
+
+        .blank-error-span,
+        .radio-blank-error-span {
+            /* display: inline-block; */
+            color: red;
+            /* margin-left: 10px; */
+        }
+    </style>
+</head>
+
+<body onload='accountRecordPopupOnload()' class='custom-scroll'>
+    <div class='card mt-5 mb-5'>
+        <!--Card Header-->
+        <div class='card-header card-header-text card-header-info'>
+            <h5 class="my-0" id="p-header">
+            </h5>
+        </div>
+
+        <!--Card Body-->
+        <div class='card-body'>
+            <!--Seller ID-->
+            <div class="form-group">
+                <label class="form-label" for="txt-seller-id"><span class="l-account-seller-id"></span>&nbsp;<span class="text-danger">*</span></label>
+                <input type="text" class="form-control" name="txt-seller-id" id="txt-seller-id" autocomplete="off" />
+                <span class="blank-error-span" id="seller-id-error"></span>
+            </div>
+
+            <!--Agent ID-->
+            <div class="form-group">
+                <label class="form-label" for="txt-agent-id"><span class="l-account-agent-id"></span>&nbsp;<span class="text-danger">*</span></label>
+                <input type="text" class="form-control" name="txt-agent-id" id="txt-agent-id" autocomplete="off" />
+                <span class="blank-error-span" id="agent-id-error"></span>
+            </div>
+
+            <!--Profile Photo-->
+            <div class="form-group">
+                <label class="form-label l-account-profile-photo"></label>
+                <div id="photo-container">
+                    <img class="profile-picture" id="profile-pic" src="./images/user.png" alt="profile picture">
+                </div>
+                <input class='verify-photo' type="file" id="p-file-to-upload" accept="image/x-png,image/gif,image/jpeg"
+                    onchange="previewPhoto(this);" style="display:none">
+                <button class="check-btn to-be-disabled  btn rounded btn-sm btn-warning mt-3 mb-0 text-capitalize"
+                    onclick="$('#p-file-to-upload').trigger('click');">
+                    <i class="fas fa-file-image mr-2"></i><span class="l-account-choose-photo"></span></button>
+                <button class="check-btn btn rounded btn-sm btn-default mt-3 mb-0 text-capitalize"
+                    onclick="removePhoto()">
+                    <i class="fas fa-trash-alt mr-2"></i><span class="l-fb-remove-media"></span></button>
+
+            </div>
+
+            <!--Agent Name-->
+            <div class="form-group">
+                <label class="form-label" for="txt-agent-name"><span class="l-account-agent-name"></span>&nbsp;<span class="text-danger">*</span></label>
+                <input type="text" class="form-control" name="txt-name" id="txt-name" autocomplete="off" />
+                <span class="blank-error-span" id="agent-name-error"></span>
+            </div>
+
+            <!--Email-->
+            <div class="form-group">
+                <label class="form-label" for="txt-email"><span class="l-account-email"></span>&nbsp;<span class="text-danger">*</span></label>
+                <input type="text" class="form-control" name="txt-email" id="txt-email" autocomplete="off" />
+                <span class="blank-error-span" id="email-error"></span>
+            </div>
+
+            <div id="pw-container" class="d-none">
+
+                <div class="form-group">
+                    <!--Change Password checkboxes-->
+                    <div class="form-check" id="change-password-container">
+                        <!-- assign checkbox -->
+                    </div>
+                </div>
+
+                <!--Password-->
+                <div class="form-group">
+                    <label class="form-label" for="txt-password"><span class="l-account-password"></span>&nbsp;<span class="text-danger">*</span></label>
+                    <input type="password" class="form-control" name="txt-password" id="txt-password"
+                        onkeydown="if(event.keyCode === 32) return false;" maxlength="50" />
+                    <span class="blank-error-span" id="password-error"></span>
+                </div>
+
+                <!--Confirm Password-->
+                <div class="form-group">
+                    <label class="form-label" for="txt-confirm-password"><span
+                            class="l-account-confirm-password"></span>*</label>
+                    <input type="password" class="form-control" name="txt-confirm-password" id="txt-confirm-password"
+                        onkeydown="if(event.keyCode === 32) return false;" maxlength="50" />
+                    <span class="blank-error-span" id="confirm-password-error"></span>
+                </div>
+
+            </div>
+            <!--Role-->
+            <div class="form-group">
+                <div id="role-div">
+                    <label class="form-label"><span class="l-account-role"></span>&nbsp;<span class="text-danger">*</span></label>
+                </div>
+                <span class="radio-blank-error-span" id="role-error"></span>
+            </div>
+
+            <!--Account Status-->
+            <div class="form-group">
+                <label class="form-label l-account-account-status"></label>
+                <div class="togglebutton">
+                    <!--toggle button-->
+                    <label>
+                        <input type="checkbox" id="status-toggle" checked="">
+                        <span class="toggle"></span>
+                    </label>
+                    <!--status label-->
+                    <label for="status-toggle" id="account-status-label" class="l-account-active"></label>
+                </div>
+            </div>
+
+            <!--Counter-->
+            <div class="form-group">
+                <div id="counter-div"></div>
+            </div>
+
+            <!--buttons-->
+            <div class="form-group text-center">
+                <span id='validation-result' style="display:none"></span>
+                <button class="btn rounded btn-sm btn-warning mt-3 mb-0 text-capitalize" onclick="submitForm()"><i
+                        class="fas fa-save mr-2"></i><span class="l-general-save"></span></button>
+                <button class="btn rounded btn-sm btn-default mt-3 mb-0 text-capitalize" onclick="clearForm()"><i
+                        class="fas fa-times-circle mr-2"></i><span class="l-general-cancel"></span></button>
+            </div>
+        </div>
+    </div>
+    <script src="./obfuscate_b4/accountRecordPopup.js" type="text/javascript"></script>
+</body>
+
+</html>

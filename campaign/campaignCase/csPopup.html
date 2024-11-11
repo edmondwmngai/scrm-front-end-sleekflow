@@ -1,0 +1,200 @@
+<!-- NOTES: Opened by:
+1. input form. Not editable
+2. Search Contact in Menu tab. Editable. -->
+<!DOCTYPE html>
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="cache-control" content="max-age=0">
+<meta http-equiv="cache-control" content="no-cache">
+<meta http-equiv="expires" content="-1">
+<meta http-equiv="expires" content="Tue, 01 Jan 1980 11:00:00 GMT">
+<meta http-equiv="pragma" content="no-cache">
+<link rel="shortcut icon" href="../../images/favicon.ico">
+<link rel="stylesheet" href="../../css/fontawesome/css/all.css">
+<link rel="stylesheet" href="../../css/bootstrap.min.css" type="TEXT/CSS">
+<link rel="stylesheet" href="../../css/material-kit/css/material-kit.min.css" type="TEXT/CSS">
+<link rel="stylesheet" href="../../css/material-overwrite.css" type="TEXT/CSS">
+<script type="text/javascript" src="../../config.js"></script>
+<script type="text/javascript" src="../../js/generalFn.js"></script>
+
+<head>
+    <script type="text/javascript" src="../../js/jquery.min.js"></script>
+    <style type="text/css">
+        .profile-pic {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+        }
+
+        /* ============= overwrite master-kit ============= */
+        body {
+            background: #f4f5f7 !important;
+            font-size: 14px;
+        }
+    </style>
+</head>
+
+<body class="custom-scroll" onload='csPopupOnload();' onkeydown='return (event.keyCode != 116)'>
+    <div class='card mt-5 mb-3 mx-3 w-auto'>
+        <!--Card Header-->
+        <div class='card-header card-header-text card-header-info'>
+            <h5 class="mt-0 mb-0 l-form-customer-information" id="p-header">
+            </h5>
+        </div>
+        <div class='card-body'>
+            <div class="row ml-0 mr-0">
+                <div class="col-sm-9 mt-3 pr-0">
+                    <div class="from-group form-inline">
+                        <label class="form-label col-sm-3 justify-content-start l-form-title" for="edit-Title"></label>
+                        <select name='Title'
+                            class='form-control col-sm-5 ml-3 offset-right-sm-3 edit-field verify-field'
+                            id='edit-Title'>
+                            <option value=""></option>
+                            <option value="Miss">Miss</option>
+                            <option value="Mr">Mr</option>
+                            <option value="Mrs">Mrs</option>
+                            <option value="Ms">Ms</option>
+                        </select>
+                        <span class='data-field-span col-sm-9' id='pTitle'></span>
+                    </div>
+                    <!-- <div class="from-group form-inline" id="gender-row">
+                <label class="form-label col-sm-3 justify-content-start" for="edit-Title">Gender</label>
+                <span class='col-sm-9' id='pGender'></span>
+            </div> -->
+                    <div class="from-group form-inline">
+                        <label class="form-label col-sm-3 pr-0 justify-content-start l-form-full-name"
+                            for="edit-Name_Eng"></label>
+                        <input maxlength="50"
+                            class='form-control col-sm-5 ml-3 offset-right-sm-3 edit-field verify-field' name='Name_Eng'
+                            id='edit-Name_Eng' />
+                        <span class='data-field-span col-sm-9' id='pName_Eng'></span>
+                    </div>
+                    <div class="from-group form-inline">
+                        <label class="form-label col-sm-3 justify-content-start l-form-language"
+                            for="edit-Lang"></label>
+                        <select class='form-control col-sm-5 ml-3 offset-right-sm-3 edit-field verify-field' name="Lang"
+                            id='edit-Lang'>
+                            <option selected="selected" value="Cantonese">Cantonese</option>
+                            <option value="English">English</option>
+                            <option value="Mandarin">Mandarin</option>
+                            <option value="Japanese">Japanese</option>
+                        </select>
+                        <span class='data-field-span col-sm-9' id='pLang'></span>
+                    </div>
+                    <div class="from-group form-inline">
+                        <label class="form-label col-sm-3 justify-content-start" for="edit-Nationality_Id"><i
+                                class="far fa-flag mr-2"></i><span class="l-form-nationality"></span></label>
+                        <select class='form-control col-sm-5 ml-3 offset-right-sm-3 edit-field verify-field'
+                            id='edit-Nationality_Id' name="Nationality_Id" onchange="nationalityChanged(this);">
+                            <option value=""></option>
+                        </select>
+                        <span class='data-field-span col-sm-9' id='pNationality_Id'></span>
+                    </div>
+                    <div class="from-group form-inline">
+                        <label class="form-label col-sm-3 justify-content-start" for="edit-Market_Id"><i
+                                class="fas fa-globe-asia mr-2"></i><span class="l-form-market"></span></label>
+                        <select class='form-control col-sm-5 ml-3 offset-right-sm-3 edit-field verify-field'
+                            id='edit-Market_Id' name="Market_Id">
+                            <option value=""></option>
+                        </select>
+                        <span class='data-field-span col-sm-9' id='pMarket_Id'></span>
+                    </div>
+                    <div class="from-group form-inline">
+                        <label class="form-label col-sm-3 justify-content-start" for="edit-Profile_Id"><i
+                                class="far fa-user-circle mr-2"></i><span class="l-form-profile"></span></label>
+                        <select class='form-control col-sm-5 ml-3 offset-right-sm-3 edit-field verify-field'
+                            id='edit-Profile_Id' name="Profile_Id">
+                            <option value=""></option>
+                        </select>
+                        <span class='data-field-span col-sm-9' id='pProfile_Id'></span>
+                    </div>
+                    <div class="from-group form-inline">
+                        <label class="form-label col-sm-3 pr-0 justify-content-start" for="edit-Mobile_No"><i
+                                class='fa fa-phone mr-2'></i><span class="l-form-mobile"></span></label>
+                        <input maxlength="50"
+                            class='form-control col-sm-5 ml-3 offset-right-sm-3 edit-field verify-field'
+                            name='Mobile_No' id='edit-Mobile_No' />
+                        <span class='data-field-span col-sm-9' id='pMobile_No'></span>
+                    </div>
+                    <!-- <div class="from-group form-inline">
+                <label class="form-label col-sm-3 pr-0 justify-content-start" for="edit-Home_No"><i class='fa fa-phone mr-2'></i>Home</label>
+                <input maxlength="50" class='form-control col-sm-5 ml-3 offset-right-sm-3 edit-field verify-field' name='Home_No'
+                    id='edit-Home_No' />
+                <span class='data-field-span col-sm-9' id='pHome_No'></span>
+            </div>
+           <div class="from-group form-inline">
+                <label class="form-label col-sm-3 pr-0 justify-content-start" for="edit-Office_No"><i class='fa fa-phone mr-2'></i>Office</label>
+                <input maxlength="50" class='form-control col-sm-5 ml-3 offset-right-sm-3 edit-field verify-field' name='Office_No'
+                    id='edit-Office_No' />
+                <span class='data-field-span col-sm-9' id='pOffice_No'></span>
+            </div>-->
+                    <div class="from-group form-inline">
+                        <label class="form-label col-sm-3 pr-0 justify-content-start" for="edit-Other_Phone_No"><i
+                                class='fa fa-phone mr-2'></i><span class="l-form-other"></span></label>
+                        <input maxlength="50"
+                            class='form-control col-sm-5 ml-3 offset-right-sm-3 edit-field verify-field'
+                            name='Other_Phone_No' id='edit-Other_Phone_No' />
+                        <span class='data-field-span col-sm-9' id='pOther_Phone_No'></span>
+                    </div>
+                    <div class="from-group form-inline">
+                        <label class="form-label col-sm-3 pr-0 justify-content-start" for="edit-Fax_No"><i
+                                class='fa fa-fax mr-2'></i><span class="l-form-fax"></span></label>
+                        <input maxlength="50"
+                            class='form-control col-sm-5 ml-3 offset-right-sm-3 edit-field verify-field' name='Fax_No'
+                            id='edit-Fax_No' />
+                        <span class='data-field-span col-sm-9' id='pFax_No'></span>
+                    </div>
+                    <div class="from-group form-inline">
+                        <label class="form-label col-sm-3 pr-0 justify-content-start" for="edit-Email"><i
+                                class='fa fa-envelope mr-2'></i><span class="l-form-email"></span></label>
+                        <input maxlength="50"
+                            class='form-control col-sm-5 ml-3 offset-right-sm-3 edit-field verify-field' name='Email'
+                            id='edit-Email' />
+                        <span class='data-field-span col-sm-9' id='pEmail'></span>
+                    </div>
+                    <div class="from-group form-inline">
+                        <label class="form-label col-sm-3 pr-0 justify-content-start" for="edit-Address1"><i
+                                class='far fa-address-book mr-2'></i><span class="l-form-address"></span></label>
+                        <input maxlength="50"
+                            class='form-control col-sm-5 ml-3 offset-right-sm-3 edit-field verify-field'
+                            id='edit-Address1' name="Address1" />
+                        <span class='data-field-span col-sm-9' id='pAddress1'></span>
+                    </div>
+                    <div class="from-group form-inline mt-2">
+                        <div class="form-check ml-3">
+                            <label class="form-check-label">
+                                <i class="fas fa-info-circle mr-2"></i>
+                                <input type="checkbox"
+                                    class="form-check-input reply-checkbox sms-list dial-yes-disable l-form-agree-to-disclose-information"
+                                    id="Agree_To_Disclose_Info">
+                                &nbsp;
+                                <span class="form-check-sign">
+                                    <span class="check"></span>
+                                </span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-3 text-center pl-0">
+                    <img id="p-profile-pic" class="profile-pic mt-3 justify-content-right" src="../../images/user.png">
+                    <input class="verify-photo" type="file" id="p-file-to-upload"
+                        accept="image/x-png,image/gif,image/jpeg" onchange="previewPhoto(this);" style="display:none">
+                    <button class="edit-field mt-2 btn rounded btn-sm btn-warning text-capitalize l-general-upload"
+                        type="button" title="Upload Photo" onclick="$('#p-file-to-upload').trigger('click');"></button>
+                </div>
+            </div>
+            <div class="text-center mt-2">
+                <button class='btn btn-sm rounded btn-warning edit-field text-capitalize' onclick='confirmClicked()'><i
+                        class="fas fa-save mr-2"></i><span class="l-form-save"></span></button>
+                <button class='btn btn-sm rounded btn-default text-capitalize' value="Close"
+                    onclick="window.close();"><i class="fas fa-times-circle mr-2"></i><span
+                        class="l-general-cancel"></span></button>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript" src="../../obfuscate_b4/caseCsPopup.js"></script>
+
+</body>
+
+</html>

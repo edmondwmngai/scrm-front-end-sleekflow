@@ -1,0 +1,880 @@
+body {
+    margin: 0;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 14px;
+}
+
+h1 {
+    Font-family: impact, Arial;
+    color: #92b2cc;
+    Font-size: 31px;
+}
+
+
+/* ==== override bootstrap ==== */
+
+label {
+    font-weight: inherit;
+}
+
+/* ==== /override bootstrap ==== */
+
+.active-chat-ques {
+    color: #4b5766;
+    background: #F3F6FB;
+    border: #E5E9F2;
+    padding: 12px 10px;
+    border-bottom: 1px solid #e5e9f2;
+    border-right: 1px solid #e5e9f2;
+    font-weight: bold;
+}
+
+.default-content-title {
+    /* height: 51px; */
+    height: 71px;
+    padding: 10px 15px;
+    border-left: 1px solid #E5E9F2;
+    /* overlap line */
+    margin-left: -1px;
+}
+
+.content-section-inner,
+.fb-comment-inner {
+    -moz-box-shadow: inset 0 0 20px #c1c4c9;
+    -webkit-box-shadow: inset 0 0 20px #c1c4c9;
+    box-shadow: inset 0 0 20px #c1c4c9;
+    /* padding: 20px 20px 120px 20px; */
+    background: #f4f5f7;
+    /* min-height: 100%; */
+    /* height: 441px; */
+    /* height: 435px; */
+    height: 100%;
+}
+
+.fb-scroll {
+    padding: 15px 5px 15px 15px;
+    overflow-y: scroll;
+    background: lightgray;
+    height: calc(100vh - 100px);
+}
+
+.fb-reply-row {
+    margin-left: 76px;
+    display: flex;
+    justify-content: left;
+    margin-bottom: 10px;
+    margin-right: 5px;
+}
+
+.bubble-container {
+    cursor: pointer;
+    border-bottom: 1px solid #E5E9F2;
+    border-right: 1px solid #E5E9F2;
+    padding: 10px;
+    position: relative;
+    background: white;
+    overflow-x: hidden;
+    min-height: 48px;
+}
+
+.bubble-present {
+    border: 3px solid cadetblue;
+    background-color: lightyellow;
+}
+
+.bubble-closed {
+    background: #f9fafc;
+    color: #92959b;
+}
+
+.bubble-container-inner {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.bubble-icon {
+    width: 30px;
+}
+
+.bubble-label-content-columns {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+}
+
+.bubble-channel-logo {
+    width: 24px;
+}
+
+.buble-content-column {
+    white-space: nowrap;
+    overflow: hidden;
+    margin-left: 14px;
+    width: 100%;
+}
+
+.bubble-subject {
+    font-weight: 600;
+    color: #3C4858;
+    width: 100px;
+    overflow: hidden;
+    display: inline-block;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.bubble-short-name {
+    font-size: smaller;
+    font-weight: 600;
+    color: red;
+    line-height: 16px;
+}
+
+.bubble-datetime {
+    font-size: smaller;
+    font-weight: 600;
+    color: #005CFB;
+    line-height: 16px;
+}
+
+.bubble-message {
+    display: inline-block;
+    overflow: hidden;
+    width: 120px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+
+/* .pass-form-icon,
+.leave-chat-icon {
+    color: #005CFB;
+    float: right;
+    width: 50px;
+    margin-left: 2px;
+    height: 15px;
+    width: 15px;
+} */
+
+.bubble-unread {
+    border-left: 10px solid #075cee;
+}
+
+.company-logo {
+    width: 239px;
+    height: 51px;
+    vertical-align: unset;
+}
+
+.content-basic-info {
+    overflow: auto;
+    padding: 0 10px;
+    display: inline-block;
+    /* width: calc(100% - 425px); */
+    /* calc(100% - 368px); */
+    line-height: 1.28;
+    height: 58px;    /* This height cannot be change as long as right panel height not changed */
+}
+
+.cs-info-span {
+    margin-right: 7px;
+}
+
+.content-gray-label {
+    color: #A9A9A9;
+    display: inline-block;
+}
+
+.message-row {
+    display: flex;
+    flex-direction: row;
+    padding: 5px 0;
+    justify-content: center;
+    margin-bottom: 5px;
+    width: 80%;
+}
+
+.visitor-row {
+    margin-right: 20%;
+}
+
+.selected-row {
+    background: darkorange;
+    border-radius: 5px;
+}
+
+.visitor-row:before {
+    background: darkorchid;
+}
+
+.visitor-row:after {
+    background: darkcyan;
+}
+
+.agent-row {
+    margin-left: 20%;
+}
+
+/* used for img, but font-awesome saved at CDN server should run faster
+.user-icon {
+    border-radius: 50%;
+    text-align: center;
+    width: 28px;
+    height: 28px;
+    line-height: 47px;
+    background: #fff;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 4px;
+}
+*/
+
+.user-icon {
+    border-radius: 50%;
+    text-align: center;
+    width: 28px;
+    height: 28px;
+    line-height: 28px;
+    background: #fff;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 4px;
+    color: #c0ccda;
+}
+
+.time-with-seconds {
+    font-size: smaller;
+    padding-top: 2px;
+    text-align: center;
+    width: 75px;
+}
+
+.visitor-content-bubble {
+    background: white;
+    background-image: initial;
+    background-position-x: initial;
+    background-position-y: initial;
+    background-size: initial;
+    background-attachment: initial;
+    background-origin: initial;
+    background-clip: initial;
+    background-color: white;
+    width: inherit;
+    height: 100%;
+    border-radius: 5px;
+    padding: 8px 15px 10px 15px;
+    margin-left: 12px;
+    margin-right: 12px;
+    box-shadow: 0 3px 8px 1px lightgrey;
+}
+
+.agent-content-bubble {
+    margin-right: 18px;
+    background: #d2e3ff;
+    width: inherit;;
+    height: 100%;
+    border-radius: 5px;
+    padding: 10px 15px;
+    margin-left: 12px;
+    margin-right: 12px;
+    box-shadow: 0 3px 8px 1px lightgrey;
+}
+
+.fb-agent-bubble {
+    background: #d2e3ff;
+    background-image: initial;
+    background-position-x: initial;
+    background-position-y: initial;
+    background-size: initial;
+    background-attachment: initial;
+    background-origin: initial;
+    background-clip: initial;
+    background-color: #d2e3ff;
+    width: 59%;
+    height: auto;
+    border-radius: 5px;
+    padding: 10px 15px;
+    margin-left: 12px;
+    box-shadow: 0 3px 8px 1px lightgrey;
+}
+
+.content-bubble-name {
+    font-weight: bold;
+    max-width: 200px;
+    display: inline-block;
+    overflow: hidden;
+    line-height: 16px;
+}
+
+.last-conversation {
+    float: right;
+    color: darkolivegreen;
+    font-size: smaller;
+}
+
+.content-bubble-content {
+    word-wrap: break-word;
+    white-space: pre-line;
+    line-height: 16px;
+}
+
+.reply-container {
+    background: white;
+    min-height: 95px;
+    margin: 5px 30px 15px 35px;
+    padding: 15px 15px 0 15px;
+    border-radius: 5px;
+    border: 1px solid lightgray;
+}
+
+.reply-textarea {
+    border: none;
+    box-shadow: none;
+    min-height: 10px;
+    margin-bottom: 2px;
+    font-size: 14px;
+    width: 100%;
+}
+
+.reply-icon-group {
+    font-size: larger;
+}
+
+
+/* .reply-attach-container {
+    display: block;
+    padding: 2px 10px 4px 10px;
+    border-radius: 5px 0 0 5px;
+    background: white;
+    border: solid #dbdee6 1px;
+    cursor: pointer;
+    float: left;
+} */
+
+.reply-canned-container {
+    display: block;
+    padding: 2px 10px 4px 10px;
+    border-radius: 5px 0 0 5px;
+    background: white;
+    border: solid #dbdee6 1px;
+    cursor: pointer;
+    float: left;
+}
+
+.reply-share-container {
+    display: block;
+    padding: 2px 10.5px 4px 10.5px;
+    background: white;
+    border: solid #dbdee6 1px;
+    border-left: none;
+    float: left;
+}
+
+.reply-end-container {
+    display: block;
+    border-radius: 0 5px 5px 0;
+    padding: 2px 10px 4px 11px;
+    background: white;
+    border: solid #dbdee6 1px;
+    border-left: none;
+    cursor: pointer;
+    float: left;
+}
+
+.s-standalone-btn {
+    padding: 2px 10px 4px 10px;
+    color: #596371;
+    background: white;
+    border: solid #dbdee6 1px;
+    border-radius: 5px;
+    margin-left: 8px;
+    height: 25px;
+    cursor: pointer;
+    vertical-align: bottom;
+}
+
+.reply-discard-container {
+    padding: 4px 10px 2px 10px;
+    color: #596371;
+    background: white;
+    border: solid #dbdee6 1px;
+    border-radius: 5px;
+    margin-left: 8px;
+    height: 25px;
+    cursor: pointer;
+    vertical-align: bottom;
+}
+
+.reply-icon-size {
+    width: 16px;
+    height: 17px;
+}
+
+.reply-send-container {
+    float: right;
+    padding: 2px 13px 4px 12px;
+    background: #005cfb;
+    border-radius: 5px;
+    cursor: pointer;
+    border: none;
+    /* margin-top: 3px; */
+}
+
+.reply-btns-disable {
+    cursor: default !important;
+    opacity: 0.3;
+}
+
+i.fb {
+    border: solid #395693;
+    border-width: 0 3px 3px 0;
+    display: inline-block;
+    padding: 3px;
+}
+
+.right {
+    transform: rotate(-45deg);
+    -webkit-transform: rotate(-45deg);
+}
+
+.up {
+    transform: rotate(-135deg);
+    -webkit-transform: rotate(-135deg);
+}
+
+.link-span {
+    cursor: pointer;
+    color: #395693;
+    text-decoration: underline;
+}
+
+.search-input {
+    padding: 10px 15px 30px 15px;
+    background: rgb(244, 245, 247);
+}
+
+.group-chat {
+    border: 3px solid lightsteelblue;
+    border-radius: 5px;
+}
+
+.top-channel-img {
+    height: 45px;
+    float: right;
+    padding: 3px 5px 0px 5px;
+}
+
+
+/* ============= Custom Scroll in body ============= */
+
+.custom-scroll::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+.custom-scroll::-webkit-scrollbar-track {
+    background: lightgray
+}
+
+.custom-scroll::-webkit-scrollbar-thumb {
+    -webkit-border-radius: 8px;
+    border-radius: 8px;
+    background: #AECBFC;
+}
+
+.custom-scroll::-webkit-scrollbar-thumb:window-inactive {
+    background: #AECBFC;
+}
+
+
+/* ============= Modal ============= */
+
+
+/* 
+.modal-title {
+    font-size: 20px;
+    display: inline-block;
+} */
+
+.close {
+    line-height: 1.43;
+}
+
+.agent-list-cell {
+    display: table-cell;
+    padding-left: 12px;
+    cursor: pointer;
+}
+
+.bubble-small-icon {
+    padding-top: 3px;
+    color: #005cfb;
+}
+
+.bubble-small-icon:hover {
+    color: #04378e;
+}
+
+.keyboard-icon {
+    color: #596371;
+    align-items: middle;
+    cursor: pointer;
+}
+
+.keyboard-icon:hover {
+    color: #000000;
+}
+
+
+/* ============= /Modal ============= */
+
+
+/* ============= Image Modal ============= */
+
+#myImg {
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+#myImg:hover {
+    opacity: 0.7;
+}
+
+
+/* The Modal (background) */
+
+.image-modal {
+    display: none;
+    /* Hidden by default */
+    position: fixed;
+    /* Stay in place */
+    z-index: 1;
+    /* Sit on top */
+    padding-top: 2.7%;
+    /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%;
+    /* Full width */
+    height: 100%;
+    /* Full height */
+    overflow: auto;
+    /* Enable scroll if needed */
+    background-color: rgb(0, 0, 0);
+    /* Fallback color */
+    background-color: rgba(0, 0, 0, 0.65);
+    /* Black w/ opacity */
+}
+
+
+/* Modal Content (image) */
+
+.image-modal-content {
+    margin: auto;
+    display: block;
+    max-height: 83%;
+    max-width: 83%;
+    width: auto;
+    height: auto;
+}
+
+/* Caption of Modal Image */
+
+#caption {
+    margin: auto;
+    display: block;
+    width: 80%;
+    max-width: 700px;
+    text-align: center;
+    color: #ccc;
+    padding: 10px 0;
+    height: auto;
+}
+
+
+/* Add Animation */
+
+.image-modal-content,
+#caption {
+    -webkit-animation-name: zoom;
+    -webkit-animation-duration: 0.6s;
+    animation-name: zoom;
+    animation-duration: 0.6s;
+}
+
+@-webkit-keyframes zoom {
+    from {
+        -webkit-transform: scale(0)
+    }
+    to {
+        -webkit-transform: scale(1)
+    }
+}
+
+@keyframes zoom {
+    from {
+        transform: scale(0)
+    }
+    to {
+        transform: scale(1)
+    }
+}
+
+
+/* The Close Button */
+
+.image-close {
+    position: absolute;
+    top: 15px;
+    right: 35px;
+    /* color: #f1f1f1; */
+    font-size: 40px;
+    font-weight: bold;
+    transition: 0.3s;
+    color: 'white';
+}
+
+.image-close:hover,
+.image-close:focus {
+    color: #bbb;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+
+/* 100% Image Width on Smaller Screens */
+
+/* @media only screen and (max-width: 700px) {
+    .image-modal-content {
+        width: 100%;
+    }
+} */
+
+.private-i {
+    line-height: 18px;
+    margin-left: 5px;
+    color: #c594f2;
+}
+
+.silent-btn-group{
+    position: relative;
+}
+
+.silent-agent-lbl{
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    margin-bottom: 0;
+}
+
+.coach-bubble{
+    display: inline-table;
+    border-radius:5px;
+    padding:10px 100px;
+    box-shadow:0 3px 8px 1px lightgrey;
+    color: white;
+    background:dodgerblue;
+    white-space: pre-line;
+}
+
+.status-bubble{
+    /* border-top:0.5px solid white;
+    border-radius:5px;
+    padding:10px 100px;
+    color: white;
+    background:#777171;
+    white-space: pre-line; */
+    display: inline-table;
+    box-shadow:0 3px 8px 1px lightgrey;
+    font-size: small;
+    border-radius: 7.5px;
+    padding: 5px 12px 6px;
+    background: #d7f4ff;
+}
+
+.fb-msg-row{
+    width: 73% !important;
+}
+
+.fb-visitor-content-bubble{
+    margin-left:0;
+    width: 62%;
+}
+
+.fb-visitor-reply-bubble{
+    margin-right: 0;
+    /* margin-left: 18px; */
+}
+
+.reply-bubble {
+    margin-left: -4px;
+    margin-bottom: 15px;
+    width: 100%;
+    border-radius: 5px;
+    padding: 10px 15px;
+}
+
+.reply-cust {
+    background: rgb(180 253 223 / 0.5);
+    border-left: 5px solid rgb(0 139 139 / 0.7);
+}
+
+.reply-agent {
+    background: rgba(210,227,255,0.5);
+    border-left: 5px solid rgb(84 127 249 / 0.7);
+}
+
+.dotted-line {
+    border-top:3px darkgray dotted;
+    width:99%;
+}
+/* ============= /Image Modal ============= */
+
+
+/* ============= Social Popup ============= */
+.wa-qp-tp-container{
+    width: 342px;
+    display: inline-block;
+}
+
+.wa-qp-card-container{
+    border: 1px solid rgba(0, 0, 0, .125) !important;
+    border-radius: .25rem !important;
+}
+
+.wa-qp-btn {
+    margin: 3px 1.5px 0;
+    box-shadow: 0 1px .5px rgba(var(--shadow-rgb),.13);
+    padding: 6px 7px 8px 9px;
+    background-color: var(--incoming-background);
+    min-width: calc(50% - 3px);
+    height: 36px;
+    display: flex;
+    flex-grow: 1;
+    justify-content: center;
+    color: rgb(0, 165, 244);
+    border: 1px solid rgba(0, 0, 0, .125) !important;
+    border-radius: .25rem !important;
+    font-weight: 500;
+}
+
+.wa-cta-tp-container{
+    width: 342px;
+    border: 1px solid rgba(0, 0, 0, .125) !important;
+    border-radius: .25rem !important;
+    display: inline-block;
+}
+
+/* 
+.wa-cta-card-container{
+} */
+
+.wa-cta-btn {
+    display: flex;
+    flex-direction: row;
+    flex-grow: 1;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    min-width: calc(100% - 16px);
+    height: 34px;
+    color: rgb(0, 165, 244);
+    border-top: 1px solid rgba(0, 0, 0, .125) !important;
+    font-weight: 500;
+}
+
+
+.wa-card-img-container{
+    text-align: center;
+    background: lightgray;
+    height: 173px;
+    border-radius: .25rem !important;
+    margin: 6px;
+    color: white;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.wa-card-img {
+    font-size: 171px;
+    width: 100%;
+}
+
+.wa-card-txt {
+    margin-bottom: 5px;
+    margin-left: 8px;
+    white-space: pre-wrap;
+}
+
+.wa-btn-group {
+    margin: 0 -1.5px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.wa-right-config {
+    display: inline-grid;
+    margin-left: 10px;
+    vertical-align: top;
+}
+
+.wa-preview-img {
+    background: black;
+}
+
+.deleted-msg {
+    color: gray;
+    font-style: italic;
+}
+
+.wa-sent-success{
+    color: #adadad;
+    position: absolute;
+    right: 0;
+    bottom: 0px;
+}
+/* ============= /Social Popup ============= */
+
+.togglebutton label,
+.bmd-form-group label,
+.bmd-form-group.bmd-form-group-lg label,
+.bmd-form-group.bmd-form-group-sm label,
+.bmd-form-group:not(.has-success):not(.has-danger) [class*=' bmd-label'].bmd-label-floating,
+.bmd-form-group:not(.has-success):not(.has-danger) [class^=bmd-label].bmd-label-floating,
+label {
+    color: black !important;
+}
+
+.is-header {
+    font-size: 20px;
+    padding-bottom: 30px;
+}
+
+.col-1-w {
+    width: 163px;
+    display: inline-block !important;
+}
+
+.col-2-sw {
+    width: 217px;
+}
+
+.col-3-space {
+    width: 50px;
+}
+
+.col-2-lw {
+    width: 543px;
+}
+
+.font-weight-700 {
+    font-weight: 700;
+}

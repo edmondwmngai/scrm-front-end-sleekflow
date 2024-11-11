@@ -1,0 +1,2518 @@
+	<!DOCTYPE html>
+<html>
+<head>
+<!--
+<meta http-equiv="X-UA-Compatible" content="IE=8">
+-->
+<meta http-equiv="pragma" content="no-cache">
+<meta http-equiv="expires" content="0">
+<meta http-equiv="cache-control" content="max-age=0" />
+<meta http-equiv="cache-control" content="no-cache, no-store, must-revalidate"/>
+<meta http-equiv="expires" content="0" />
+<meta http-equiv="expires" content="mon, 22 jul 2002 11:12:01 gmt"/>
+<meta http-equiv="pragma" content="no-cache" />
+
+<style type="text/css">
+
+.container {
+  width:auto;
+  display: inline-block;
+  overflow-x: auto;
+  overflow-y: hidden;
+  margin:0px;
+}
+
+.container::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+.container::-webkit-scrollbar-thumb {
+    -webkit-border-radius: 8px;
+    border-radius: 8px;
+    background: #AECBFC;
+}
+
+.container::-webkit-scrollbar-track {
+    background: lightgray
+}
+
+.num-btn {
+	vertical-align: middle;
+  -webkit-border-radius: 8;
+  -moz-border-radius: 8;
+  border-radius: 8px;
+  font-family: Roboto,sans-serif;
+  color: #000000;
+  font-size: 14px;
+  background: #ffffff;
+  padding: 8px 12px 8px 12px;
+  border: solid #1f628d 2px;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.num-btn2 {
+	vertical-align: middle;
+  -webkit-border-radius: 8;
+  -moz-border-radius: 8;
+  border-radius: 4px;
+  font-family: Roboto,sans-serif;
+  color: #000000;
+  font-size: 10px;
+  background: #ffffff;
+  padding: 6px 8px 6px 8px;
+  border: solid #1f628d 2px;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.num-btn:hover {
+  background: #3cb0fd;
+  text-decoration: none;
+}
+
+.call-btn {
+  -webkit-border-radius: 5;
+  -moz-border-radius: 5;
+  border-radius: 5px;
+  font-family: Roboto,sans-serif;
+  color: #000000;
+  font-size: 10px;
+  background: #E3F6CE;
+  padding: 5px 10px 5px 10px;
+  border: solid #1f628d 2px;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.img-btn {
+	vertical-align: middle;
+}
+
+.status-box {
+  vertical-align: middle;
+  -webkit-border-radius: 8;
+  -moz-border-radius: 8;
+  border-radius: 8px;
+  font-family: Roboto,sans-serif;
+  color: #000000;
+  font-size: 14px;
+  background: #A9E2F3;
+  padding: 5px 10px 5px 10px;
+  border: solid #1f628d 2px;
+  text-decoration: none;
+  display: inline-block;
+  
+  right: 0px;
+}
+
+.css_table {
+      display:table;
+	  
+  }
+.css_tr {
+      display: table-row;
+	  width: 100%;
+  }
+.css_td {
+	display: inline-block;
+	font-size: 14px;
+	height: 100%;
+	-webkit-border-radius: 8;
+	-moz-border-radius: 8;
+	border-radius: 8px;
+  }
+.css_td.rowspanned {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 100px;
+ 
+}
+
+.queue_content {
+	display:inline-block;
+	margin:5px 5px 0px 0px;
+	box-shadow: 0 2px 4px 0 rgba(0,0,0,.14);
+	border-radius: 3px;
+	transition:.3s;
+	background:#ffff;
+	width:130px;
+	height:80px;
+}
+.queue_subcontent1 {
+	display:inline-block;
+	margin-top: -10px;
+	margin-left:10px;
+	position:absolute;
+	width:30%;
+}
+
+.queue_title {
+	display:inline-block;
+	position:relative;
+	text-align:right;
+	margin:2px 0 0 -5px;
+	width:100%
+}
+
+.queue_subcontent2 {
+	display:inline-block;
+	position:relative;
+	width:100%;
+	font-size:18px;
+	margin-top:10px;
+	text-align:center;
+}
+
+</style>
+<script src="script/jquery-1.12.4.min.js"></script>
+<script src="script/jquery.formatDateTime.js"></script>
+<script src="script/wsLibrary.js"></script>
+<script src="script/constant.js"></script>
+<script src="script/runtime.js"></script>
+<script src="script/promise-polyfill.min.js"></script>
+<script type="text/javascript">
+var langJson = JSON.parse(sessionStorage.getItem('scrmLangJson')) || {};																
+
+if (!Array.prototype.findIndex) {
+  Object.defineProperty(Array.prototype, 'findIndex', {
+    value: function(predicate) {
+     // 1. Let O be ? ToObject(this value).
+      if (this == null) {
+        throw new TypeError('"this" is null or not defined');
+      }
+
+      var o = Object(this);
+
+      // 2. Let len be ? ToLength(? Get(O, "length")).
+      var len = o.length >>> 0;
+
+      // 3. If IsCallable(predicate) is false, throw a TypeError exception.
+      if (typeof predicate !== 'function') {
+        throw new TypeError('predicate must be a function');
+      }
+
+      // 4. If thisArg was supplied, let T be thisArg; else let T be undefined.
+      var thisArg = arguments[1];
+
+      // 5. Let k be 0.
+      var k = 0;
+
+      // 6. Repeat, while k < len
+      while (k < len) {
+        // a. Let Pk be ! ToString(k).
+        // b. Let kValue be ? Get(O, Pk).
+        // c. Let testResult be ToBoolean(? Call(predicate, T, « kValue, k, O »)).
+        // d. If testResult is true, return k.
+        var kValue = o[k];
+        if (predicate.call(thisArg, kValue, k, o)) {
+          return k;
+        }
+        // e. Increase k by 1.
+        k++;
+      }
+
+      // 7. Return -1.
+      return -1;
+    }
+  });
+}
+</script>
+
+<script type="text/javascript">
+
+function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
+
+var loginId = sessionStorage.getItem('scrmAgentId');
+
+
+var serviceList = [];
+/*
+serviceList.push({
+	name : "HKDNR_E",
+	caption : "HKDNR {E}",
+	callType: CATY_INDB,
+	dnis: "5010",
+	acdGroup: 1,
+	showPriority : 1
+});
+
+serviceList.push({
+	name : "KingParrot",
+	caption : "King Parrot (A)", 
+	callType: CATY_EMAIL,
+	acdGroup: 1,
+	dnis: "eprotel27990202@gmail.com",
+	showPriority : 2
+});
+
+serviceList.push({
+	name : "OCF", 
+	caption : "One Call Fix", 
+	callType: CATY_INDB,
+	dnis: "5009",
+	acdGroup: 1,
+	showPriority : 1
+});
+serviceList.push({
+	name : "OCF", 
+	caption : "One Call Fix", 
+	callType: CATY_VMAIL,
+	dnis: "5009",
+	acdGroup: 1,
+	showPriority : 2
+});
+
+serviceList.push({
+	name : "OCF", 
+	caption : "One Call Fix", 
+	callType: CATY_FAX,
+	dnis: "5998",
+	acdGroup: 1,
+	showPriority : 2
+});
+
+*/
+
+serviceList.push({
+	name : "HKTB", 
+	shortName: "TB",
+	caption : "", 
+	callType: CATY_WEBCHAT,
+	dnis: "SM_Win2016-demoWebChat",
+	acdGroup: 1,
+	showPriority : 1
+});
+
+
+serviceList.push({
+	name : "HKTB", 
+	shortName: "TB",
+	caption : "", 
+	callType: CATY_INDB,
+	dnis: "9000",
+	acdGroup: 1,
+	showPriority : 1
+});
+
+serviceList.push({
+	name : "HKTB", 
+	shortName: "TB",
+	caption : "", 
+	callType: CATY_INDB,
+	dnis: "9000",
+	acdGroup: 2,
+	showPriority : 1
+});
+
+serviceList.push({
+	name : "HKTB", 
+	shortName: "TB",
+	caption : "", 
+	callType: CATY_INDB,
+	dnis: "9000",
+	acdGroup: 3,
+	showPriority : 1
+});
+
+
+
+serviceList.push({
+	name : "HKTB", 
+	shortName: "TB",
+	caption : "", 
+	callType: CATY_VMAIL,
+	dnis: "9001",
+	acdGroup: 1,
+	showPriority : 2
+});
+
+serviceList.push({
+	name : "HKTB", 
+	shortName: "TB",
+	caption : "", 
+	callType: CATY_FAX,
+	dnis: "5702",
+	acdGroup: 5,
+	showPriority : 2
+});
+
+serviceList.push({
+	name : "HKTB", 
+	shortName: "TB",
+	caption : "", 
+	callType: CATY_EMAIL,
+	dnis: "demo-cpb@eprotel.com.hk",
+	acdGroup: 1,
+	showPriority : 2
+});
+
+serviceList.push({
+	name : "HKTB", 
+	shortName: "TB",
+	caption : "", 
+	callType: CATY_BLOG,
+	dnis: "SM_Win2016-demoWeChat",
+	acdGroup: 1,
+	showPriority : 1
+});
+
+serviceList.push({
+	name : "HKTB", 
+	shortName: "TB",
+	caption : "", 
+	callType: CATY_BLOG,
+	dnis: "SM_Win2016-demoFB",
+	acdGroup: 1,
+	showPriority : 1
+});
+/*
+serviceList.push({
+	name : "NP360", 
+	shortName: "360",
+	caption : "NP360", 
+	callType: CATY_BLOG,
+	dnis: "SM_EproWechat154",
+	acdGroup: 5,
+	showPriority : 1
+});
+*/
+/*
+serviceList.push({
+	name : "OneCallFix", 
+	shortName: "OCF",
+	caption : "OCF", 
+	callType: CATY_BLOG,
+	dnis: "SM_EproOCF",
+	acdGroup: 6,
+	showPriority : 1
+});
+
+serviceList.push({
+	name : "OneCallFix", 
+	shortName: "OCF",
+	caption : "OCF", 
+	callType: CATY_BLOG,
+	dnis: "SM_SCRM2WeChat154",
+	acdGroup: 6,
+	showPriority : 1
+});
+
+serviceList.push({
+	name : "OneCallFix", 
+	shortName: "OCF",
+	caption : "OCF", 
+	callType: CATY_WEBCHAT,
+	dnis: "SM_SCRM2WebChat154",
+	acdGroup: 6,
+	showPriority : 1
+});
+
+serviceList.push({
+	name : "OneCallFix", 
+	shortName: "OCF",
+	caption : "OCF", 
+	callType: CATY_INDB,
+	dnis: "5710",
+	acdGroup: 6,
+	showPriority : 1
+});
+
+serviceList.push({
+	name : "OneCallFix", 
+	shortName: "OCF",
+	caption : "OCF", 
+	callType: CATY_VMAIL,
+	dnis: "5711",
+	acdGroup: 6,
+	showPriority : 2
+});
+
+serviceList.push({
+	name : "OneCallFix", 
+	shortName: "OCF",
+	caption : "OCF", 
+	callType: CATY_FAX,
+	dnis: "5712",
+	acdGroup: 6,
+	showPriority : 2
+});
+
+serviceList.push({
+	name : "OneCallFix", 
+	shortName: "OCF",
+	caption : "OCF", 
+	callType: CATY_EMAIL,
+	dnis: "scrm2@eprotel.com.hk",
+	acdGroup: 6,
+	showPriority : 2
+});
+*/
+var outboundANI ={};
+outboundANI["HKTB"] ={call: "36202316", fax: "5702", faxCover: "D:\\FaxShare\\cover.cov", email: "demo-cpb@eprotel.com.hk", sms: "2003"};
+//outboundANI["OneCallFix"] ={call: "5710", fax: "5712", faxCover: "D:\\FaxShare\\cover.cov", email: "scrm2@eprotel.com.hk", sms: "5703$ONE"};
+
+var queueLayout = {};
+/*
+queueLayout[CATY_INDB]={ prefix: "inbound", style: "vertical-align:top; height:86px; width:70px;border: solid #B40404 2px;color:#B40404", image: "img/call-icon-512.png", color: "#B40404" };
+queueLayout[CATY_EMAIL]={ prefix: "email", style: "vertical-align:top; height:86px; width:70px;border: solid #298A08 2px;color:#298A08", image: "img/email-icon-512.png", color: "#298A08"};
+queueLayout[CATY_VMAIL]={ prefix: "vmail", style: "vertical-align:top; height:86px; width:70px;border: solid #DF7401 2px;color:#DF7401", image: "img/vmail-icon-256.png", color: "#DF7401"};
+queueLayout[CATY_FAX]={ prefix: "fax", style: "vertical-align:top; height:86px; width:70px;border: solid #515151 2px;color:#515151", image: "img/fax-icon-256.png", color: "#515151"};
+queueLayout[CATY_WEBCHAT]={ prefix: "webchat", style: "vertical-align:top; height:86px; width:70px;border: solid #086A87 2px;color:#086A87", image: "img/webchat-icon-217.png", color: "#086A87"};	
+queueLayout[CATY_BLOG]={ prefix: "blog", style: "vertical-align:top; height:86px; width:70px;border: solid #475993 2px;color:#475993", image: "img/sm-icon-200.png",color: "#475993"};	
+*/
+queueLayout[CATY_INDB]={ prefix: "inbound", style: "width:48px;border-radius:3px;background: linear-gradient(60deg,#EF7C50,#e53935);box-shadow:3px 3px 4px 0 rgba(0,0,0,.36);", image: "img/call-icon-512-2.png", color: "#E9433F" };
+queueLayout[CATY_EMAIL]={ prefix: "email", style: "width:48px;border-radius:3px;background: linear-gradient(60deg,#FFC83D,#fb8c00);box-shadow:3px 3px 4px 0 rgba(0,0,0,.36);", image: "img/email-icon-512-2.png", color: "#F89A1E"};
+queueLayout[CATY_VMAIL]={ prefix: "vmail", style: "width:48px;border-radius:3px;background: linear-gradient(60deg,#86B784,#43a047);box-shadow:3px 3px 4px 0 rgba(0,0,0,.36);", image: "img/vmail-icon-512-2.png", color: "#52BD00"};
+queueLayout[CATY_FAX]={ prefix: "fax", style: "width:48px;border-radius:3px;background:linear-gradient(60deg,#6AD1D8,#00acc1);box-shadow:3px 3px 4px 0 rgba(0,0,0,.36);", image: "img/fax-icon-512-2.png", color: "#08B1C6"};
+queueLayout[CATY_WEBCHAT]={ prefix: "webchat", style: "width:48px;border-radius:3px;background:linear-gradient(60deg,#F48FB1,#F06292);box-shadow:3px 3px 4px 0 rgba(0,0,0,.36);", image: "img/webchat-icon-512-2.png", color: "#F06292"};	
+queueLayout[CATY_BLOG]={ prefix: "blog", style: "width:48px;border-radius:3px;background:linear-gradient(60deg,#7986CB,#3D5A98);box-shadow:3px 3px 4px 0 rgba(0,0,0,.36);", image: "img/fb-icon-512-2.png",color: "#3D5A98"};	
+
+var channels={};
+channels[CATY_INDB]="Inbound_Call"; 
+channels[CATY_EMAIL]="Inbound_Email"; 
+channels[CATY_VMAIL]="Inbound_Voicemail"; 
+channels[CATY_FAX]="Inbound_Fax"; 
+channels[CATY_WEBCHAT]="Inbound_Webchat"; 
+channels[CATY_BLOG]="Inbound_OthersMedia"; 
+
+var agentStatus={};
+agentStatus[STATUS_LOGOUT]="LOGOUT";
+agentStatus[STATUS_LOGIN]="LOGIN";
+agentStatus[STATUS_IDLE]="IDLE";
+agentStatus[STATUS_READY]="READY";
+agentStatus[STATUS_BREAK]="BREAK";
+agentStatus[STATUS_HOLD]="HOLD";
+agentStatus[STATUS_TALKING]="TALKING";
+agentStatus[STATUS_WORKING]="WORKING";
+agentStatus[STATUS_DIALING]="DIALING";
+agentStatus[STATUS_PLAYING]="PLAYING";
+agentStatus[STATUS_MONITOR]="MONITOR";
+
+var ticketList=[];
+//ticketList.push({"ticket_id":"-2083549824"});
+var currSocialMsg={};
+
+var sendMsgResult ={result:"", data:{}};
+var sendFileResult ={result:"", data:{}};
+var userMode="";
+var agentStatusTimer;
+var inboundQueueTimer;
+var updateQueueTimer;
+
+var queueList = [];
+var callType=0;
+var callID=0;
+var ANINo="";
+var DNISNo="";
+var ivrsMessage="";
+var attachment="";
+var currCallInfo={ lastCallType: 0, lastCallID: 0, confCallID: 0, callSeq : []} ;
+var currCallType=0;
+var currCallID=0;
+var holdingConnIDs = [];
+var confConnID=0;
+var isMakeConf=false;
+var mediaID =0;
+var mediaFrom ="";
+var mediaTo ="";
+var mediaSubject ="";
+var ringAudio;
+
+window.onclose = function() {
+	wsWiseAgent.Logout();
+}
+
+window.onbeforeunload =function() {
+	wsWiseAgent.Logout();
+}
+
+function windowOnload() {
+	//console.log(new Date().getTime());
+	var w = $(window).width();
+	// $('.container').css('width', w-300);
+	ringAudio=document.getElementById("ringAudio");
+	//ringAudio.play();
+	//console.log(ringing.duration);
+	agentStatusTimer=window.setInterval ("AgentStatusTicker()",1000,"javascript");
+	window.clearInterval(agentStatusTimer);
+	inboundQueueTimer=window.setInterval ("inboundQueueTicker()",1000,"javascript");
+	//window.clearInterval(agentStatusTimer);
+	queueTimeTimer=window.setInterval ("queueTimeTicker()",1000,"javascript");
+	//window.clearInterval(queueTimer);
+	wsWiseAgent.OpenWebsocket(WISESERVER);
+}
+
+window.addEventListener(document, 'wsOnopen', function (e){
+	setTimeout(function (){wsWiseAgent.Login(loginId, loginId, '');},1000);
+});
+
+addEventListener(document, 'CommandSuccess', function (e){
+	var obj = e.detail;
+	if (obj.ResultCommand == 127) {	
+	
+	    wsWiseAgent.GetACDGroup();
+	    wsWiseAgent.GetACDPark();
+	    wsWiseAgent.StartMonitor (1);	//for ACDGroup call queue
+		initMediaCount();
+		updateQueueTimer=window.setInterval ("updateQueueTicker()",60000,"javascript");
+	}
+});	
+
+addEventListener(document,  'CommandFail', function (e){
+	var obj = e.detail;
+	console.log(obj);
+});	
+
+addEventListener(document, 'AgentStatusEvent', function (e){
+	var obj = e.detail;
+	//console.log(obj.StatusID);
+	document.getElementById('buttonHold').innerHTML= (obj.StatusID==STATUS_HOLD)? "Unhld" : "Hold";
+	window.clearInterval(agentStatusTimer);	
+	switch (obj.StatusID) {
+		case STATUS_LOGIN:		    		    		    		        
+			userMode = "LOGIN";
+			
+		break;
+		case STATUS_IDLE:		    		    		    		        
+			userMode = "IDLE";
+			wsWiseAgent.BindToACDGroup(0);
+			isMakeConf=false;
+			confConnID=0;
+			break;
+		case STATUS_WORKING:				    
+			userMode = "WORKING";
+			wsWiseAgent.BindToACDGroup(0);
+			isMakeConf=false;
+			confConnID=0;
+			break;
+		case STATUS_HOLD:
+			userMode = "HOLD";
+			break;
+		case STATUS_BREAK:
+			userMode = "BREAK";
+			break;
+		case STATUS_DIALING:
+			userMode = "DIALING";
+			break;
+		case STATUS_READY:
+			userMode = "READY";
+			break;
+		case STATUS_TALKING:
+			userMode = "TALK";
+			wsWiseAgent.BindToACDGroup(0);
+			break;
+		case STATUS_PLAYING:
+		    userMode = "PLAYING";
+		    break;
+		case STATUS_MONITOR:
+			userMode = "MONITOR";
+		    break;
+	}
+	if (userMode!="") {
+		$('#panelAgentStatus').text(userMode);
+		
+		$('#panelTimeCount').text("00:00");
+		
+		if(userMode == "IDLE") {
+			$('#panelAgentStatus').css("color","red");
+		} else if(userMode == "TALK") {
+			$('#panelAgentStatus').css("color","blue");
+		} else if(userMode == "HOLD") {
+			$('#panelAgentStatus').css("color","orangered");
+		} else {
+			$('#panelAgentStatus').css("color","black");
+		}
+		
+		try {
+			parent.document.getElementById('agent-status-text').innerHTML=langJson['l-user-status-' + userMode] || userMode;
+			parent.document.getElementById('panel-time-count').innerHTML="00:00";
+			if(userMode == "IDLE") {
+				parent.document.getElementById('panel-agent-status').firstChild.className ='text-danger';
+			} else if(userMode == "TALK") {
+				parent.document.getElementById('panel-agent-status').firstChild.className ='text-light';
+			} else if(userMode == "HOLD") {
+				parent.document.getElementById('panel-agent-status').firstChild.className ='text-warning';
+			} else {
+				parent.document.getElementById('panel-agent-status').firstChild.className ='text-secondary';
+			}
+		} catch(err) {
+			console.log(err.message);
+		}
+	}
+	agentStatusTimer=window.setInterval ("agentStatusTicker()",1000,"javascript");
+});
+
+addEventListener(document, 'ACDGroupQueueEx' , function (e){
+    var obj= e.detail;
+	//console.log(obj);
+	var bShowQueue=false;
+	for(var i=0; i<obj.Member.length; i++){//get all member in same GroupID
+		for (var a = 0; a < serviceList.length; a++) {
+			//console.log(serviceList[a]);
+			var callType=serviceList[a].callType;
+			//if(callType==CATY_WECHAT || callType==CATY_FBMSG || callType==CATY_FBFAN) callType=CATY_BLOG;
+			if (serviceList[a].acdGroup == obj.Member[i].GroupID && callType==obj.Member[i].CallType ) {
+				
+				var idx = queueList.findIndex(function (v) { return v.callType==obj.Member[i].CallType && v.acdGroup==obj.Member[i].GroupID});
+				/* 
+				var idx = -1;
+				queueList.some(function(v, ii) {
+					if (v.callType==obj.Member[i].CallType && v.acdGroup==obj.Member[i].GroupID) {
+						idx = ii;
+						return true;
+					}
+				});
+				*/
+				if (idx ==-1) {
+					if(obj.Member[i].WaitCount!=0) {
+						var q={callType: parseInt(obj.Member[i].CallType), acdGroup : serviceList[a].acdGroup, name: serviceList[a].name, caption : serviceList[a].caption,
+						dnis: serviceList[a].dnis, showPriority : serviceList[a].showPriority, waitTime: obj.Member[i].MaxWaitTime, waitCount : obj.Member[i].WaitCount,
+						mediaCount: 0};
+						//console.log(q);
+						queueList.push(q);
+						bShowQueue=true;
+					}
+				} else if (idx >= 0) {
+					console.log(queueList[idx]);
+					if(queueList[idx].mediaCount==0 && obj.Member[i].WaitCount==0) {
+						queueList.splice(idx,1);
+						bShowQueue=true;
+					}	
+					else {
+						if ( queueList[idx].waitTime != obj.Member[i].MaxWaitTime || queueList[idx].waitCount != obj.Member[i].WaitCount) bShowQueue=true;
+						queueList[idx].waitTime = obj.Member[i].MaxWaitTime;
+						queueList[idx].waitCount = obj.Member[i].WaitCount;
+					}
+					/*
+					if(obj.Member[i].WaitCount!=0) {
+						queueList[idx].waitTime = obj.Member[i].MaxWaitTime;
+						queueList[idx].waitCount = obj.Member[i].WaitCount;
+					} else if(queueList[idx].mediaCount==0) queueList.splice(idx,1);
+					*/
+				}
+			}
+		}
+	}	
+	console.log(bShowQueue);
+	if (bShowQueue) {
+		queueList.sort(function (a,b) { var e =a.showPriority -b.showPriority; if(e==0) return (b.waitTime-a.waitTime); else return e; });
+		showQueueList();
+	}
+});
+
+addEventListener(document, 'CallMessage', function (e){//Object got: {obj.Member[i].VarType, obj.Member[i].VarMsg}
+	var obj = e.detail;
+	console.log(obj);
+	for (i=0; i<obj.Member.length; i++){ 
+		switch (obj.Member[i].VarType) {
+			case C_VAL_DATA:
+				ivrsMessage = obj.Member[i].VarMsg;
+				break;
+			case C_VAL_CONNECTIONID:
+				connID=obj.Member[i].VarMsg;
+				if (callType==CATY_CONF) confConnID = connID;
+				break;
+			case C_VAL_CALLID:
+				callID=obj.Member[i].VarMsg;
+				//if (callType==CATY_OUTBD && ANINo=="") return;
+				break;
+			case C_VAL_SERVICEID:
+				serviceID =obj.Member[i].VarMsg;
+				break;
+			case C_VAL_CALLTYPE:
+				callType = obj.Member[i].VarMsg;
+				break;
+			case C_VAL_ANI:
+				ANINo  = obj.Member[i].VarMsg;
+				//currCallInfo.lastCallType =callType;
+				
+				break;
+			case C_VAL_DNIS:
+				DNISNo  = obj.Member[i].VarMsg;
+				
+				break;
+			case C_VAL_ATTACHMENT:
+				attachment = obj.Member[i].VarMsg;
+				break;
+			case C_VAL_MEDIAFROM:
+				mediaFrom = obj.Member[i].VarMsg;
+				break;
+			case C_VAL_MEDIATO:
+				mediaTo = obj.Member[i].VarMsg;
+				break;
+			case C_VAL_MEDIASUBJECT:
+				mediaSubject = obj.Member[i].VarMsg;
+				break;
+			case C_VAL_MEDIAID:
+				mediaID = obj.Member[i].VarMsg;
+				break;
+			case C_VAL_ATTACHMENT :
+				attachment = obj.Member[i].VarMsg;
+				break;
+			case C_VAL_MEDIATO :
+				mediaTo = obj.Member[i].VarMsg;
+				break;
+			case C_VAL_MEDIAFROM :
+				mediaFrom = obj.Member[i].VarMsg;
+				break;
+			case C_VAL_MEDIASUBJECT :
+				mediaSubject = obj.Member[i].VarMsg;
+				break;
+				
+		}
+	}
+	$("#softPhone").css("cursor", "default");
+	$("#queueListBar").find("[id*='QueueCount1']").css("cursor","pointer");
+	if (callType==CATY_OUTBD || callType==CATY_INDB || callType==CATY_TRANSFER|| callType==CATY_CONF) {
+		
+		if (callType==CATY_CONF && isMakeConf) {	//when agent create conference call
+			currCallInfo.confCallID = callID;
+			// call UI
+			window.parent.replyCallClick(currCallInfo.lastCallType, currCallInfo.lastCallID, currCallInfo.confConnID);
+		} else if (callType==CATY_OUTBD) {
+			// call UI
+			console.log(callID);
+			if (currCallInfo.lastCallID!=callID) {
+				currCallInfo.lastCallType=callType;
+				currCallInfo.lastCallID=callID;
+				var c = {"callType" : callType, "callID": callID, "ANI": ANINo, "DNIS": DNISNo, "Message": ivrsMessage};
+				if (currCallInfo.callSeq.filter(function (v) { return v.callID==c.callID }).length==0)
+					currCallInfo.callSeq.push(c);
+				console.log(currCallInfo);
+				
+				window.parent.replyCallClick(callType, callID, 0);
+			}
+		} else {
+			currCallInfo.lastCallType=callType;
+			currCallInfo.lastCallID=callID;
+			var c = {"callType" : callType, "callID": callID, "ANI": ANINo, "DNIS": DNISNo, "Message": ivrsMessage };
+			if (currCallInfo.callSeq.filter(function (v) { return v.callID==c.callID }).length==0)
+				currCallInfo.callSeq.push(c);
+			console.log(currCallInfo);
+			
+			//all type of inbounds: inbound call , transfer in call, agent invite in conference call
+			if (callType==CATY_INDB || callType==CATY_TRANSFER || (callType==CATY_CONF && !isMakeConf)) {	
+				//var s = serviceList.filter(function (v) { return v.callType==callType && v.dnis==DNISNo });
+				var s = serviceList.filter(function (v) { return v.callType==CATY_INDB && v.dnis==DNISNo });
+				if (s.length>0)
+					window.parent.connClick(callID,s[0].name,channels[CATY_INDB],ANINo,ivrsMessage);
+			}
+		}
+	} else if ((callType==CATY_EMAIL || callType==CATY_VMAIL) && mediaFrom !="") {
+		//console.log(mediaFrom);
+		updateMediaCount(callType,mediaFrom,10);
+		/*
+		try {
+			var s = serviceList.filter(function (v) { return v.callType==callType && v.dnis.toLowerCase()==mediaFrom.toLowerCase() });
+			//console.log(s);
+			if(s.length==0) return;
+			
+			window.parent.connClick(callID,s[0].name,channels[callType],mediaFrom,null);
+		} catch(err) {
+			console.log(err.message);
+		}
+		*/
+	} else if (callType==CATY_FAX) {
+		//console.log(DNISNo);
+		try {
+			var s = serviceList.filter(function (v) { return v.callType==callType && v.dnis==DNISNo });
+			if(s.length==0) return;
+			window.parent.connClick(callID,s[0].name,channels[callType],DNISNo,null);
+		} catch(err) {
+			console.log(err.message);
+		}
+	} else if ((callType==CATY_BLOG || callType==CATY_WEBCHAT) && mediaID !=0) {
+		//window.parent.connClick(connID,s[0].name,channels[callType],mediaFrom,mediaID,null);
+		console.log(mediaID);
+		//ticketList.push({ticketId: mediaID, ticketStatus: "open", onlineForm: [], offlineForm: [], msgList:[]});
+		//ticketList.push({ticketId: mediaID, ticketStatus: "open"});
+		if(mediaSubject == 'webchat_offlineForm'){
+			// triggerEvent(document, "OfflineForm", {obj});
+			triggerEvent(document, "OfflineForm", {'Command': obj.Command, 'company_code': mediaFrom, 'ticket_id': mediaID, entry:"webchat", "offline_form":1 });
+			wsWiseAgent.GetOfflineForm(mediaID);
+			wsWiseAgent.UpdateTicket(mediaID, loginId);
+		}else{
+			wsWiseAgent.UpdateTicket(mediaID, loginId);
+	    }
+		//wsWiseAgent.GetOfflineForm(mediaID);
+		//wsWiseAgent.UpdateTicket(TicketNo,loginId);
+		//wsWiseAgent.GetOnlineForm(mediaID);
+	}
+	
+});
+
+addEventListener(document,  'CallStatusEvent', function (e){
+	var obj = e.detail;
+	console.log(obj);
+	switch (obj.StatusID) {
+		case CALL_ESTHOLD:
+		case CALL_ESTDHOLD:
+			holdingConnIDs.push(connID);
+			break;
+	}
+});
+
+addEventListener(document, 'MediaCallStatus', function (e){//Object got: {obj.ConnID, obj.CallType, obj.StatusID}
+	var obj = e.detail;
+	if (obj.ConnID != 0) {
+		if (obj.StatusID == CALL_I_QUEUE) {			//New Queue
+		}
+	}
+});
+
+addEventListener(document, 'CallQueueData_UC', function (e){
+	var obj = e.detail;
+	console.log(obj);
+});
+
+addEventListener(document, 'OfflineForm', function (e) {
+	var obj = e.detail;
+	var idx = ticketList.findIndex(function (v) { return v.ticket_id==obj.ticket_id});
+	// if (idx==-1) return;
+	if(idx == -1) {  // to create a form with company name first
+		var ticket = jQuery.extend({}, obj);
+		ticket.online_form_data=[];
+		ticket.offline_form_data=[];
+		ticket.ticket_status="open";
+		ticket.company_name="";
+		ticket.company_short_name="";
+		var s = serviceList.filter(function (v) { return v.callType==CATY_WEBCHAT && v.dnis==ticket.company_code })[0];
+		if (s!=undefined) {ticket.company_name=s.name; ticket.company_short_name=s.shortName;}
+		ticketList.push(ticket);
+		/*
+		currSocialMsg = jQuery.extend({}, obj);
+		currSocialMsg.online_form_data=[];
+		currSocialMsg.offline_form_data=[];
+		*/
+		// triggerEvent(window.parent.document, 'onWiseSocialMsg', ticket);
+	} else { // by ticket id match, return offline_form_data
+		var bEvent = (ticketList[idx].offline_form_data.length==0)? true: false;
+		if (bEvent) {
+			ticketList[idx].offline_form = 1;
+			if(obj.data){ ticketList[idx].offline_form_data = obj.data; }
+			//currSocialMsg.offline_form_data = obj.data;
+			console.log('ticketList[idx]');console.log(ticketList[idx]);
+			ticketList[idx].start_time="";
+			$.ajax({
+				type: "POST",
+				url: "http://172.17.7.40/WisePBX/api/SocialMedia/GetFormData",
+				data: JSON.stringify({"ticketId" : obj.ticket_id}),
+				contentType: "application/json; charset=utf-8",
+				dataType: "json",
+				success: function (r) {
+					if (r.result=="success") {
+						ticketList[idx].start_time=r.data.start_time;
+					}
+					console.log('ticketList[idx]');console.log(ticketList[idx]);
+					triggerEvent(window.parent.document, 'onWiseSocialMsg', ticketList[idx]);
+				},
+				error: function (r) {
+					console.log(r);
+					triggerEvent(window.parent.document, 'onWiseSocialMsg', ticketList[idx]);
+				},
+			});
+		}
+		
+	}
+});
+
+addEventListener(document, 'OnlineForm', function (e) {
+	var obj = e.detail;
+	console.log(obj);
+	console.log(ticketList);
+	/*
+	var idx = -1;
+	ticketList.some(function(v, i) {
+		if (v.ticketId==obj.ticket_id) {
+			idx = i;
+			return true;
+		}
+	});
+	*/
+	var idx = ticketList.findIndex(function (v) { return v.ticket_id==obj.ticket_id});
+	//console.log(idx);
+	if (idx==-1) return;
+	console.log(ticketList[idx]);
+	var bEvent = (ticketList[idx].online_form_data.length==0)? true: false;
+	ticketList[idx].online_form = 1;
+	ticketList[idx].online_form_data = obj.data;
+	console.log(currSocialMsg);
+	//currSocialMsg.online_form_data = obj.data;
+	if (bEvent && ticketList[idx].msg_list!=undefined) triggerEvent(window.parent.document, 'onWiseSocialMsg', ticketList[idx]);
+});
+
+addEventListener(document, 'SendSocialMsgToAgent', function (e) {
+	var obj = e.detail;
+	console.log(obj);
+	/*
+	var idx = -1;
+	ticketList.some(function(v, i) {
+		if (v.ticketId==obj.ticket_id) {
+			idx = i;
+			return true;
+		}
+	});
+	*/
+	var idx = ticketList.findIndex(function (v) { return v.ticket_id==obj.ticket_id});
+	//console.log(idx);
+	if(idx==-1) {
+		var ticket = jQuery.extend({}, obj);
+		ticket.online_form_data=[];
+		ticket.offline_form_data=[];
+		ticket.ticket_status="open";
+		ticket.company_name="";
+		ticket.company_short_name="";
+		if (ticket.entry=="webchat") {
+			var s = serviceList.filter(function (v) { return v.callType==CATY_WEBCHAT && v.dnis==ticket.company_code })[0];
+			if (s!=undefined) {ticket.company_name=s.name; ticket.company_short_name=s.shortName;}
+		} else {
+			var s = serviceList.filter(function (v) { return v.callType==CATY_BLOG && v.dnis==ticket.company_code })[0];
+			if (s!=undefined) {ticket.company_name=s.name; ticket.company_short_name=s.shortName;}
+		}
+		ticketList.push(ticket);
+		
+		/*
+		currSocialMsg = jQuery.extend({}, obj);
+		currSocialMsg.online_form_data=[];
+		currSocialMsg.offline_form_data=[];
+		*/
+		if (ticket.entry=="webchat") {
+			if(obj.offline_form==0) 
+				wsWiseAgent.GetOnlineForm(obj.ticket_id);
+			else
+				wsWiseAgent.GetOfflineForm(obj.ticket_id);
+		} 
+		else {
+			triggerEvent(window.parent.document, 'onWiseSocialMsg', ticket);
+		}
+	} else {
+		//ticketList[idx].msgList.concat(obj.msg_list);
+		
+		/*
+		currSocialMsg = jQuery.extend({}, obj);
+		currSocialMsg.online_form_data = ticketList[idx].onlineForm;
+		currSocialMsg.offline_form_data = ticketList[idx].offlineForm;
+		currSocialMsg.ticket_status = ticketList[idx].ticketStatus;
+		*/
+		if (obj.msg_list!=undefined && ticketList[idx].ticketStatus != "end" && ticketList[idx].ticketStatus != "timeout") {
+			ticketList[idx].Command = obj.Command;
+			ticketList[idx].msg_list=obj.msg_list;
+			triggerEvent(window.parent.document, 'onWiseSocialMsg', ticketList[idx]);
+		}
+	}
+	console.log(currSocialMsg);
+});
+
+addEventListener(document, 'TicketMsgList', function (e) {
+	var obj = e.detail;
+	console.log(obj.ticket_id);
+	/*
+	var idx = -1;
+	ticketList.some(function(v, i) {
+		if (v.ticketId==obj.ticket_id) {
+			idx = i;
+			return true;
+		}
+	});
+	*/
+	//var idx = ticketList.findIndex(function (v) { return v.ticket_id==obj.ticket_id});
+	//if (idx==-1) return;
+	obj.data.msg_list=JSON.parse(JSON.stringify(obj.data.msg_list).split('"sent_by_flag":').join('"send_by_flag":'));
+	obj.start_time="";
+	obj.online_form=0;
+	obj.online_form_data=[];
+	obj.offline_form=0;
+	obj.offline_form_data=[];
+	$.ajax({
+		type: "POST",
+		url: "http://172.17.7.40/WisePBX/api/SocialMedia/GetFormData",
+		data: JSON.stringify({"ticketId" : obj.ticket_id}),
+		contentType: "application/json; charset=utf-8",
+		dataType: "json",
+		success: function (r) {
+			if (r.result=="success") {
+				obj.start_time=r.data.start_time;
+				if(r.data.online.length>0)
+				{
+					obj.online_form=1;
+					obj.online_form_data=r.data.online;
+				} 
+				
+				if(r.data.offline.length>0)
+				{
+					obj.offline_form=1;
+					obj.offline_form_data=r.data.offline;
+				} 
+			}
+			console.log(obj);
+			triggerEvent(window.parent.document, 'onWiseSocialMsgList', obj);
+		},
+		error: function (r) {
+			console.log(r);
+			triggerEvent(window.parent.document, 'onWiseSocialMsgList', obj);
+		},
+	});
+
+
+	
+	/*
+	var msgList = jQuery.extend({}, obj);
+	msgList.online_form_data = ticketList[idx].onlineForm;
+	msgList.offline_form_data = ticketList[idx].offlineForm;
+	msgList.ticket_status = ticketList[idx].ticketStatus;
+	triggerEvent(document, 'onWiseSocialMsg', msgList);
+	*/
+	
+	
+});
+
+addEventListener(document, 'EndTicket', function (e) {
+	var obj = e.detail;
+	//console.log(obj);
+	/*
+	var idx = -1;
+	ticketList.some(function(v, i) {
+		if (v.ticketId==obj.ticket_id) {
+			idx = i;
+			return true;
+		}
+	});
+	*/
+	var idx = ticketList.findIndex(function (v) { return v.ticket_id==obj.ticket_id});
+	if (idx==-1) return;
+	ticketList[idx].ticketStatus = "end";
+	if(ticketList[idx].offline_form != 1){
+		triggerEvent(window.parent.document, 'onWiseSocialStatus', {ticket_id: obj.ticket_id, ticket_status: "end" });
+	}
+});
+
+addEventListener(document, 'TicketTimeout', function (e){
+	var obj = e.detail;
+	//console.log(obj);
+	/*
+	var idx = -1;
+	ticketList.some(function(v, i) {
+		if (v.ticketId==obj.ticket_id) {
+			idx = i;
+			return true;
+		}
+	});
+	*/
+	var idx = ticketList.findIndex(function (v) { return v.ticket_id==obj.ticket_id});
+	if (idx==-1) return;
+	ticketList[idx].ticketStatus = "timeout";
+	if(ticketList[idx].offline_form != 1){
+		triggerEvent(window.parent.document, 'onWiseSocialStatus', {ticket_id: obj.ticket_id, ticket_status: "timeout" });
+	}
+});
+
+addEventListener(document, 'ResultSendMsg', function (e){
+	var obj = e.detail;
+	console.log(obj);
+	sendMsgResult.result = (obj.data.client_msg_id!="" && obj.data.id!="") ? "success" : "fail"; 
+	if (sendMsgResult.result=="success") sendMsgResult.data=obj.data;
+});
+
+addEventListener(document, 'ResultSendFile', function (e){
+	var obj = e.detail;
+	console.log(obj);
+	sendFileResult.result = (obj.data.client_msg_id!="" && obj.data.id!="") ? "success" : "fail"; 
+	if (sendFileResult.result=="success") sendFileResult.data=obj.data;
+});
+
+var postTicketId=0;
+addEventListener(document, 'FaceBookPost', function (e){
+	var obj = e.detail;
+	if(postTicketId!=obj.ticket_id)
+	{
+		triggerEvent(window.parent.document, 'onWiseFBPost', {ticket_id: obj.ticket_id, message: obj.message });
+		postTicketId=obj.ticket_id;
+	}
+	console.log(obj);
+});
+
+addEventListener(document, 'SameLevelReply', function (e){
+	var obj = e.detail;
+	console.log(obj);
+});
+
+addEventListener(document, 'RecvInvAgentToChat', function (e){
+	var obj = e.detail;
+	console.log(obj);
+	triggerEvent(window.parent.document, 'onWiseRecvInvAgentToChat', obj);
+});
+// when agent got message from invited agent
+addEventListener(document, 'RecvShortMsg_UC', function (e){
+	var obj = e.detail;
+	console.log(obj);
+	triggerEvent(window.parent.document, 'onWiseRecvShortMsg_UC', obj);
+});
+// when agent be invited to a conference
+addEventListener(document, 'ClientMsgID', function (e){
+	var obj = e.detail;
+	console.log(obj);
+	triggerEvent(window.parent.document, 'onWiseClientMsgID', obj);
+});
+
+addEventListener(document, 'ACDGroupMember', function (e){
+	var obj = e.detail;
+	for (i=0;i<obj.Member.length;i++)
+	{
+		obj.Member[i].Status=agentStatus[obj.Member[i].StatusID];
+	}
+	console.log(obj);
+	triggerEvent(window.parent.document, 'onWiseAgentList', obj);
+});
+
+function EncodeTime(t)
+{
+	
+	var s = "0" + t%60;
+	var m = "" + parseInt(t/60);
+	if (m.length==1) m ="0" + m;
+	//else if ( m.length>3) m="+999";
+	
+	return m +":" + s.slice(-2);
+}
+
+function Sound(source,volume,loop)
+{
+    this.source=source;
+    this.volume=volume;
+    this.loop=loop;
+    var son;
+    this.son=son;
+    this.finish=false;
+    this.stop=function()
+    {
+        document.body.removeChild(this.son);
+    }
+    this.start=function()
+    {
+        if(this.finish)return false;
+        this.son=document.createElement("embed");
+        this.son.setAttribute("src",this.source);
+        this.son.setAttribute("hidden","true");
+        this.son.setAttribute("volume",this.volume);
+        this.son.setAttribute("autostart","true");
+        this.son.setAttribute("loop",this.loop);
+		this.son.setAttribute("enablejavascript","true");
+        document.body.appendChild(this.son);
+    }
+    this.remove=function()
+    {
+		if (this.son==undefined) return;
+		document.body.removeChild(this.son);
+        this.finish=true;
+    }
+    this.init=function(volume,loop)
+    {
+        this.finish=false;
+        this.volume=volume;
+        this.loop=loop;
+    }
+}
+
+var oldStatus="";
+function agentStatusTicker()
+{
+	//if (userMode != oldStatus && userMode != "WRAP UP" && userMode != "HOLD" || (userMode == "TALK" && userMode == "READY")) {
+	if (userMode != oldStatus) {
+		oldStatus = userMode;
+		document.getElementById('panelTimeCount').innerHTML="00:00";
+		try {
+			parent.document.getElementById('panel-time-count').innerHTML="00:00";
+		} catch(err) {
+			console.log(err.message);
+		}
+    }
+	else
+	{
+		s=document.getElementById('panelTimeCount').innerHTML.split(":");
+		t= parseInt(s[0])*60 + parseInt(s[1]) + 1;
+		document.getElementById('panelTimeCount').innerHTML=EncodeTime(t);
+
+		try {
+			s=parent.document.getElementById('panel-time-count').innerHTML.split(":");
+			t= parseInt(s[0])*60 + parseInt(s[1]) + 1;
+			parent.document.getElementById('panel-time-count').innerHTML=EncodeTime(t);
+		} catch(err) {
+			console.log(err.message);
+		}
+	}
+}
+
+function updateQueueTicker()
+{
+	window.clearInterval(updateQueueTimer);
+	/*
+	for(i=0;i<queueList.length;i++) {
+		if ( queueList[i].callType== CATY_EMAIL || queueList[i].callType==CATY_VMAIL || queueList[i].callType==CATY_FAX) {
+			updateMediaCount(queueList[i].callType,queueList[i].dnis);
+		}
+	}
+	*/
+	var updateFlag=false;
+	for(i=0;i<serviceList.length;i++) {
+		if ( serviceList[i].callType== CATY_EMAIL || serviceList[i].callType==CATY_VMAIL || serviceList[i].callType==CATY_FAX) {
+			if(queueList.filter(function (v) { return v.callType==serviceList[i].callType && v.dnis==serviceList[i].dnis }).length==0) {
+				var link="";
+				if (serviceList[i].callType==CATY_EMAIL) 
+					link= "http://172.17.7.40/WisePBX/api/Email/GetCount";
+				else if (serviceList[i].callType==CATY_VMAIL) 
+					link= "http://172.17.7.40/WisePBX/api/Vmail/GetCount";
+				else if (serviceList[i].callType==CATY_FAX) 
+					link= "http://172.17.7.40/WisePBX/api/Fax/GetCount";
+				if (link!=""){
+					//console.log(link);	
+					$.ajax({
+						type: "POST",
+						async : true,
+						url: link,
+						data: JSON.stringify({"dnis" : serviceList[i].dnis, "agentId": loginId}),
+						contentType: "application/json; charset=utf-8",
+						dataType: "json",
+						service :  serviceList[i],
+						success: function (r) {
+							var mediaCount = r.data;
+							//console.log(this.service);
+							if (mediaCount >0) {
+								var q={callType: this.service.callType, acdGroup : this.service.acdGroup, name: this.service.name, caption : this.service.caption,
+									dnis: this.service.dnis, showPriority : this.service.showPriority, waitTime: 0, waitCount : 0,
+									mediaCount: mediaCount};
+								queueList.push(q);
+								queueList.sort(function (a,b) { var e =a.showPriority -b.showPriority; if(e==0) return (b.waitTime-a.waitTime); else return e; });
+								showQueueList();
+							}
+						},
+						error: function (r) {
+							console.log(r);
+						},
+					});
+				}
+			}
+		}
+	}
+	/*
+	if (updateFlag) {
+		queueList.sort(function (a,b) { var e =a.showPriority -b.showPriority; if(e==0) return (b.waitTime-a.waitTime); else return e; });
+		showQueueList();
+	}
+	*/
+	//initMediaCount();
+	updateQueueTimer=window.setInterval ("updateQueueTicker()",60000,"javascript");
+}
+
+function inboundQueueTicker()
+{
+	return;
+	var isQueue =false;
+	for (var a = 0; a < serviceList.length; a++) {
+		//alert($("#inboundQueue_"+serviceList[a].name).text());
+		if($("#inboundQueue_"+serviceList[a].name).text()!="0" && $("#inboundQueue_"+serviceList[a].name).text()!="") {
+			$("#inboundQueue_"+serviceList[a].name).fadeIn(250).fadeOut(250).fadeIn(250);
+			//console.log(serviceList[a]);
+			isQueue = true;
+		} else
+			$("#inboundQueue_"+serviceList[a].name).stop().stop();
+		/*
+		if($("#emailQueue_"+serviceList[a].name).text()!="0" && $("#emailQueue_"+serviceList[a].name).text()!="") {
+			$("#emailQueue_"+serviceList[a].name).fadeIn(250).fadeOut(250).fadeIn(250);
+			isQueue = true;
+		} else
+			$("#emailQueue_"+serviceList[a].name).stop().stop();
+		*/	
+	}
+	ringAudio=document.getElementById("ringAudio");
+	if (isQueue) {
+		ringAudio.play();
+	}
+	else {
+		if(!ringAudio.ended) {
+			ringAudio.pause();
+			ringAudio.currentTime =0;
+		}
+	}
+}
+
+function readyToAnswer(name)
+{
+	if($("#inboundQueue_"+ name).text()=="0") return;
+	try {
+		parent.document.getElementById('phone-panel-no').value = '';
+	} catch(err) {
+		console.log(err);
+	}
+	$("#panelPhoneNo").text("");
+	var c = serviceList.filter(function (v) { return v.name===name });
+	console.log(c[0]);
+	wsWiseAgent.BindToACDGroup(c[0].acdGroup);
+	setTimeout(function (){wsWiseAgent.Ready();},700);
+}
+
+function acceptCall(callType, acdGroup)
+{
+	$("#softPhone").css("cursor");
+	//console.log($("#softPhone").css("cursor"));
+	if($("#softPhone").css("cursor")=="wait") {
+		alert(langJson['l-alert-waiting-call-message']);
+		return;
+	}
+	/*
+	if(callType==CATY_BLOG)
+		c = serviceList.filter(function (v) { return [CATY_WECHAT, CATY_FBMSG, CATY_FBFAN].indexOf(v.callType)>-1 && v.acdGroup==acdGroup });
+	else
+		c = serviceList.filter(function (v) { return v.callType==callType && v.acdGroup==acdGroup });
+	*/
+	var c = serviceList.filter(function (v) { return v.callType==callType && v.acdGroup==acdGroup });
+	if(c.length==0) return;	
+	
+	console.log(c);
+	if(callType==CATY_INDB) {
+		if($("#inboundQueue_"+ name).text()=="0") return;
+		
+		wsWiseAgent.BindToACDGroup(c[0].acdGroup);
+		setTimeout(function (){wsWiseAgent.Ready();},700);
+		$("#softPhone").css("cursor", "wait");
+		$("#queueListBar").find("[id*='QueueCount1']").css("cursor","wait");
+	} else {
+		var layout=queueLayout[callType];
+        //if($("#"+ layout.prefix +"QueueCount1_"+ c[0].name).text()=="0") {
+		if(callType==CATY_EMAIL || callType==CATY_VMAIL || callType==CATY_FAX) {
+			try { 
+				setTimeout(function(){window.parent.connClick(0,c[0].name,channels[callType],c[0].dnis,null)}, 500); 
+			} catch(err){ console.log(err.message); }
+		}
+		//	return;
+        //}
+		
+		if(userMode=="WORKING") {
+			wsWiseAgent.Idle();
+			setTimeout(function (p){wsWiseAgent.AcceptMediaCallEx (DEVICE_ACDGROUP, p.acdGroup, p.callType);}.bind(this, {acdGroup : acdGroup, callType: callType}),200);
+		} else
+			wsWiseAgent.AcceptMediaCallEx (DEVICE_ACDGROUP, acdGroup, callType);
+		$("#softPhone").css("cursor", "wait");
+		$("#queueListBar").find("[id*='QueueCount1']").css("cursor","wait");
+	}
+	/*
+	} else if(callType==CATY_EMAIL) {
+		if($("#emailQueue_"+ name).text()=="0") return;
+		if(userMode=="WORKING") {
+			wsWiseAgent.Idle();
+			setTimeout(function (p){wsWiseAgent.AcceptMediaCallEx (DEVICE_ACDGROUP, p.acdGroup, p.callType);}.bind(this, {acdGroup : c[0].acdGroup, callType: callType}),500);
+		} else
+			wsWiseAgent.AcceptMediaCallEx (DEVICE_ACDGROUP, c[0].acdGroup, callType);
+	} else if(callType==CATY_VMAIL) {
+		if($("#vmailQueue_"+ name).text()=="0") return;
+		if(userMode=="WORKING") {
+			wsWiseAgent.Idle();
+			setTimeout(function (p){wsWiseAgent.AcceptMediaCallEx (DEVICE_ACDGROUP, p.acdGroup, p.callType);}.bind(this, {acdGroup : c[0].acdGroup, callType: callType}),500);
+		} else
+			wsWiseAgent.AcceptMediaCallEx (DEVICE_ACDGROUP, c[0].acdGroup, callType);
+	} else if(callType==CATY_FAX) {
+		if($("#faxQueue_"+ name).text()=="0") return;
+		if(userMode=="WORKING") {
+			wsWiseAgent.Idle();
+			setTimeout(function (p){wsWiseAgent.AcceptMediaCallEx (DEVICE_ACDGROUP, p.acdGroup, p.callType);}.bind(this, {acdGroup : c[0].acdGroup, callType: callType}),500);
+		} else
+			wsWiseAgent.AcceptMediaCallEx (DEVICE_ACDGROUP, c[0].acdGroup, callType);
+	}
+	*/
+}
+function showQueueList()
+{
+	$("#queueListBar").css("display", "none");
+	$("#queueListBar").empty();
+	
+	for (i=0;i<queueList.length;i++)
+	{
+		console.log(queueList[i]);
+		var layout = queueLayout[queueList[i].callType];
+		//console.log(layout);	
+		//alert(queueList[i].callType);
+		/*
+		var objDiv=document.createElement("div");
+		objDiv.setAttribute("class","display:inline-block;margin:10px;position:relative;vertical-align:top;");
+		objDiv.setAttribute("id",layout.prefix +"Queue_" + queueList[i].name);
+		*/
+		
+		
+		var objDiv=document.createElement("div");
+		//objDiv.setAttribute("class","queue_content");
+		objDiv.setAttribute("style","display:inline-block;margin:5px 0px 0px 5px;box-shadow: 0 2px 4px 0 rgba(0,0,0,.14);border-radius: 3px;transition:.3s;background:#ffff;width:130px;height:80px;color:" + layout.color) ;
+		//objDiv1.setAttribute("title","") ;
+		
+		var objDiv_Img=document.createElement("div");
+		objDiv_Img.setAttribute("style","display:inline-block;top:-5px;margin-left:10px;position:absolute;width:30%") ;
+		
+		var objImg = document.createElement("img");
+		objImg.setAttribute("style",layout.style);
+		objImg.src=layout.image;
+		objDiv_Img.appendChild(objImg);
+		
+		objDiv.appendChild(objDiv_Img);
+		
+		
+		var objQueueName = document.createElement("p");
+		objQueueName.setAttribute("style","display:inline-block;position:relative;text-align:right;margin:2px 0 0 -5px;width:100%");
+		objQueueName.innerHTML = queueList[i].caption;
+		objDiv.appendChild(objQueueName);
+		
+		var objQueueTime = document.createElement("p");
+		objQueueTime.setAttribute("style","display:inline-block;position:relative;text-align:right;margin:2px 0 0 -5px;width:100%;font-size:18px;color:#848484");
+		objQueueTime.setAttribute("id",layout.prefix +"QueueTime_" + queueList[i].name);
+		objQueueTime.innerHTML = (queueList[i].waitCount==0)?"00:00" : EncodeTime(queueList[i].waitTime);
+		objDiv.appendChild(objQueueTime);
+		
+		var objDivQueue=document.createElement("div");
+		objDivQueue.setAttribute("class","queue_subcontent2");
+		//objDivQueue.textContent=" ";
+		
+		var objQueueCount1 = document.createElement("div");
+		if($("#softPhone").css("cursor")=="wait")
+			objQueueCount1.setAttribute("style","display:inline-block;float:left;text-align:left;margin-left:5px;width:30%;border:2px solid #fff;color:#848484;cursor:wait;");
+		else
+			objQueueCount1.setAttribute("style","display:inline-block;float:left;text-align:left;margin-left:5px;width:30%;border:2px solid #fff;color:#848484;cursor:pointer;");
+			
+		objQueueCount1.setAttribute("id",layout.prefix +"QueueCount1_" + queueList[i].name);
+		objQueueCount1.textContent = queueList[i].waitCount;
+		objQueueCount1.setAttribute("onclick", "acceptCall(" + queueList[i].callType+ "," + queueList[i].acdGroup +");");
+		
+		objDivQueue.appendChild(objQueueCount1);
+		//var objDivTemp = document.createElement("div");
+		//objDivTemp.setAttribute("style","display:inline-block;width:1px");
+		//objDivTemp.innerHTML="&nbsp;";
+		//objDivQueue.appendChild(objDivTemp);
+		//if ( queueList[i].callType== CATY_EMAIL || queueList[i].callType==CATY_VMAIL || queueList[i].callType==CATY_FAX) {
+			//var objDivSubQueue = document.createElement("div");
+			//objDivSubQueue.setAttribute("style","display:inline-block;float:right;text-align:right;margin-right:5px;width:30%;cursor:pointer;color:"+layout.color);
+			if ( queueList[i].callType== CATY_EMAIL || queueList[i].callType==CATY_VMAIL || queueList[i].callType==CATY_FAX) {
+			var objQueueCount2 = document.createElement("div");
+			objQueueCount2.setAttribute("id",layout.prefix +"QueueCount2_" + queueList[i].name);
+			objQueueCount2.setAttribute("style","display:inline-block;float:right;text-align:center;margin-right:5px;border:2px solid #eee;border-radius:3px;width:30%;cursor:pointer;" );
+			objQueueCount2.setAttribute("onclick", "getMediaCount("+ queueList[i].callType + ",'"+ queueList[i].dnis +"', "+ loginId +");try { window.parent.connClick(0,'" + queueList[i].name +"','" + channels[queueList[i].callType] + "','" + queueList[i].dnis + "',null);} catch (err) {console.log(err.message);}" );
+			objQueueCount2.textContent = queueList[i].mediaCount;
+			//objDivSubQueue.appendChild(objQueueCount2);
+			objDivQueue.appendChild(objQueueCount2);
+			} 
+			//objDivQueue.appendChild(objDivSubQueue);
+			
+		//}
+		objDiv.appendChild(objDivQueue);
+		objDiv.setAttribute("id",layout.prefix +"Queue_" + queueList[i].name);
+		queueListBar.appendChild(objDiv);
+	}
+	
+	$("#queueListBar").css("width", queueList.length*135);
+	$("#queueListBar").css("display", "inline-block");
+	
+}
+
+function queueTimeTicker()
+{
+	for (i=0;i<queueList.length;i++)
+	{
+		var idCount=queueLayout[queueList[i].callType].prefix+ "QueueCount1_" + queueList[i].name;
+			//console.log($("#"+ idCount).text());
+		if ($("#"+ idCount).text()>0) {
+			var idTime=queueLayout[queueList[i].callType].prefix+ "QueueTime_" + queueList[i].name;
+			//var s=document.getElementById(idTime).innerHTML.split(":");
+			var s=$("#"+ idTime).html().split(":");
+			queueList[i].waitTime= parseInt(s[0])*60 + parseInt(s[1]) + 1;
+			document.getElementById(idTime).innerHTML =EncodeTime(queueList[i].waitTime);
+		}
+	}
+}
+function initMediaCount()
+{
+	for(var i=0; i<serviceList.length;i++)
+	{
+		//if([CATY_EMAIL ,CATY_VMAIL, CATY_FAX].indexOf(serviceList[i].callType)!=-1)
+		if ( serviceList[i].callType== CATY_EMAIL || serviceList[i].callType==CATY_VMAIL || serviceList[i].callType==CATY_FAX) 
+		{
+			getMediaCount(serviceList[i].callType,serviceList[i].dnis, loginId);
+		}
+	}
+	
+}
+
+function getMediaCount(callType,dnis, agentId)
+{
+	var link="";
+	if (callType==CATY_EMAIL)
+		link ="http://172.17.7.40/WisePBX/api/Email/GetCount";
+	else if (callType==CATY_VMAIL)
+		link ="http://172.17.7.40/WisePBX/api/Vmail/GetCount";
+	else if (callType==CATY_FAX)
+		link ="http://172.17.7.40/WisePBX/api/Fax/GetCount";
+	
+	if (link=="") return;
+	
+	$.ajax({
+		type: "POST",
+		url: link,
+		data: JSON.stringify({"dnis" : dnis, "agentId": agentId}),
+		contentType: "application/json; charset=utf-8",
+		dataType: "json",
+		success: function (r) {
+			
+			if (r.result=="success"){
+				showMediaCount(callType, dnis,parseInt(r.data));
+			}
+		},
+		error: function (r) {
+			console.log(r);
+		},
+	});
+}
+function showMediaCount(callType,dnis,mediaCount)
+{
+	
+	/*
+	var idxServiceList = -1;
+	serviceList.some(function(v, i) {
+    if (v.callType==callType && v.dnis==dnis) {
+        idxServiceList = i;
+        return true;
+		}
+	});
+	if (idxServiceList==-1) return;
+	*/
+	var idxServiceList = serviceList.findIndex(function (v) { return v.callType==callType && v.dnis==dnis});
+	
+	/*
+	var idxQueueList = -1;
+	queueList.some(function(v, i) {
+    if (v.callType==callType && v.dnis==dnis) {
+        idxQueueList = i;
+        return true;
+		}
+	});
+	*/
+	
+	var idxQueueList = queueList.findIndex(function (v) { return v.callType==callType && v.dnis==dnis});
+	if (idxQueueList ==-1) {
+		var service=serviceList[idxServiceList];
+		if (mediaCount!=0) {
+			var q={callType: parseInt(callType), acdGroup : service.acdGroup, name: service.name, caption : service.caption,
+				dnis: service.dnis, showPriority : service.showPriority, waitTime: 0, waitCount : 0,
+				mediaCount: mediaCount};
+			queueList.push(q);
+		}
+	} else if (idxQueueList >= 0) {
+		if(queueList[idxQueueList].WaitCount==0 && mediaCount==0) 
+			queueList.splice(idxQueueList,1);
+		else {
+			queueList[idxQueueList].mediaCount=mediaCount;
+		}
+	}
+	queueList.sort(function (a,b) { var e =a.showPriority -b.showPriority; if(e==0) return (b.waitTime-a.waitTime); else return e; });
+	showQueueList();
+}
+
+function updateMediaCount(callType,dnis,checkCount)
+{
+	//checkCount = typeof checkFlag !== 'undefined' ? checkCount : -1;
+	checkCount = checkCount || -1;
+	if (checkCount>=0) {
+		console.log("updateMediaCount");
+		console.log(callType);
+		console.log(dnis);
+		console.log(checkCount);
+	}
+	//checkFlag = typeof checkFlag !== 'undefined' ? checkFlag : false;
+	var checkFlag =false;
+	var url;
+	if (callType==CATY_EMAIL) 
+		url= "http://172.17.7.40/WisePBX/api/Email/GetCount";
+	else if (callType==CATY_VMAIL) 
+		url= "http://172.17.7.40/WisePBX/api/Vmail/GetCount";
+	else if (callType==CATY_FAX) 
+		url= "http://172.17.7.40/WisePBX/api/Fax/GetCount";
+		
+	$.ajax({
+		type: "POST",
+		url: url,
+		data: JSON.stringify({"dnis" : dnis, "agentId": loginId}),
+		contentType: "application/json; charset=utf-8",
+		dataType: "json",
+		success: function (r) {
+			//console.log(r);
+			if (r.result=="success"){
+				var mediaCount = parseInt(r.data);
+				/*
+				var idx = -1;
+				queueList.some(function(v, i) {
+				if (v.callType==callType && v.dnis==dnis) {
+					idx = i;
+					return true;
+					}
+				});
+				*/
+				var idx = queueList.findIndex(function (v) { return v.callType==callType && v.dnis==dnis});
+				if (idx==-1) {
+					if (mediaCount!=0) {
+						
+						/*
+						var a = -1;
+						serviceList.some(function(v, i) {
+						if (v.callType==callType && v.dnis==dnis) {
+							a = i;
+							return true;
+							}
+						});
+						*/
+						var a = serviceList.findIndex(function (v) { return v.callType==callType && v.dnis==dnis});
+						if (a==-1) return;
+						var q={callType: parseInt(callType), acdGroup : serviceList[a].acdGroup, name: serviceList[a].name, caption : serviceList[a].caption,
+							dnis: serviceList[a].dnis, showPriority : serviceList[a].showPriority, waitTime: 0, waitCount : 0,
+							mediaCount: mediaCount};
+						console.log(q);
+						queueList.push(q);
+						queueList.sort(function (a,b) { 
+							var e =a.showPriority-b.showPriority; 
+							if(e==0) e = b.waitTime-a.waitTime; else return e; 
+							if(e==0) e = a.callType-b.callType; else return e;
+							return e;
+						});
+						showQueueList();
+						
+					}
+				}
+				else
+				{
+					//console.log(queueList[idx]);
+					if(checkCount>0 && queueList[idx].mediaCount==mediaCount) {
+						setTimeout(function(p) { updateMediaCount(p.callType,p.dnis,p.checkCount);}.bind(this,{callType: callType, callType: callType, checkCount: checkCount-1}),500);
+						return;
+					}
+					
+					//if(checkCount!=-1 && queueList[idx].mediaCount!=mediaCount) checkFlag = true;
+					layout=queueLayout[callType];
+					queueList[idx].mediaCount=mediaCount;
+					var idCount1 =layout.prefix+"QueueCount1_" + queueList[idx].name;
+					if($("#" + idCount1).text()=="0" && mediaCount==0) {
+						$("#" + layout.prefix+"Queue_" + queueList[idx].name).remove();
+						queueList.splice(idx,1);
+						//showQueueList();
+					} else {
+						var idCount2 =layout.prefix+"QueueCount2_" + queueList[idx].name;
+						$("#" + idCount2).text(mediaCount);
+					}
+					/*
+					if(checkFlag == true){
+						window.parent.connClick(callID,queueList[idx].name,channels[callType],mediaFrom,null);
+					}
+					*/
+				}
+				// window.parent.connClick(callID,queueList[idx].name,channels[callType],mediaFrom,null);
+			}
+		},
+		error: function (r) {
+			console.log(r);
+		},
+	});
+}
+</script>
+
+<script type="text/javascript">
+function wiseGetServiceInfo(serviceName)
+{
+	var r = [];
+	var s=serviceList.filter(function (v) {return v.name==serviceName });
+	for (i=0;i<s.length;i++) {
+		var info={ channel : channels[s[i].callType], dnis: s[i].dnis};
+		r.push(info);
+	}
+	return r;
+}
+
+function wiseMakeCall(serviceName,phoneNo)
+{
+	// if(serviceName!=null){
+		// try {
+			// if (phoneNo==null)
+			// 	phoneNo=parent.document.getElementById('phone-panel-no').value;
+			// else
+				// parent.document.getElementById('phone-panel-no').value = phoneNo;
+		// } catch(err) {
+			// if (phoneNo==null)
+			// 	phoneNo=document.getElementById('panelPhoneNo').value;
+			// else
+				// document.getElementById('panelPhoneNo').value = phoneNo;
+		// }
+	// }
+	var ANI = (serviceName==null)? CallANI : outboundANI[serviceName].call;
+	if (userMode == "WORKING") {
+		wsWiseAgent.Idle();
+		currCallInfo={ lastCallType: 0, lastCallID: 0, confCallID: 0, callSeq : []} ;
+		setTimeout(function (){wsWiseAgent.DialOut (phoneNo,ANI);},500);
+	}
+	else if (userMode == "IDLE") {
+		currCallInfo={ lastCallType: 0, lastCallID: 0, confCallID: 0, callSeq : []} ;
+		wsWiseAgent.DialOut (phoneNo,ANI);
+	}
+	else if (userMode == "HOLD") {
+		wsWiseAgent.DialOut (phoneNo,ANI);
+	}
+	
+}
+
+function wiseDropCall()
+{
+	if (userMode == "TALK") 
+		wsWiseAgent.Hangup();
+	else if (userMode != "IDLE") 
+		wsWiseAgent.Idle();
+}
+
+function wiseHoldCall()
+{
+	//console.log($("#buttonHold").attr("title"));
+	//if ($("#buttonHold").attr("title")=="Hold Call" && userMode=="TALK") {
+	if (userMode=="TALK") {
+		wsWiseAgent.Hold();
+		$("#buttonHold").attr("title", "Unhold Call");
+		$("#buttonHold").attr("src", "img/call-unhold.png");
+	//} else if ($("#buttonHold").attr("title")=="Unhold Call" && userMode=="HOLD") {
+	} else if (userMode=="HOLD") {
+		wsWiseAgent.Unhold(holdingConnIDs.pop());
+		$("#buttonHold").attr("title", "Hold Call");
+		$("#buttonHold").attr("src", "img/call-hold.png");
+	}
+}
+function wiseMakeConference()
+{
+	if(confConnID==0) {
+		if(holdingConnIDs.length!=0) {
+			isMakeConf=true;
+			wsWiseAgent.CreateConference(holdingConnIDs[holdingConnIDs.length-1]);
+		}
+	} 
+	else {
+		wsWiseAgent.AddMemberToConference(confConnID);
+	}
+}
+
+function wiseTransferCall(msg)
+{
+	if (msg==null) msg="";
+	if(holdingConnIDs.length!=0) {
+		wsWiseAgent.TransferCall(holdingConnIDs[holdingConnIDs.length-1],msg);
+	} 
+	
+}
+
+function wiseCallAgent(agentNo)
+{
+	try {
+		if (agentNo==null)
+			agentNo=parent.document.getElementById('phone-panel-no').value;	
+	} catch(err) {
+		if (agentNo==null)
+			agentNo=document.getElementById('panelPhoneNo').value;
+	}
+	wsWiseAgent.DialAgent(agentNo);
+}
+
+function wiseSendDTMF(val)
+{
+	if (userMode=="TALK") {
+		wsWiseAgent.SendDTMFTone(val);
+	}
+}
+
+function wiseAnswerTicket(ticketId)
+{
+	if(ticketId=="") return;
+	wsWiseAgent.UpdateTicket(ticketId);
+}
+
+function wiseGetTicketMsg(ticketId)
+{
+	if(ticketId=="") return;
+	wsWiseAgent.GetTicketMsg(ticketId);
+} 
+
+function wiseTerminalTicket(ticketId)
+{
+	if(ticketId=="") return;
+	var idx = ticketList.findIndex(function (v) { return v.ticket_id==ticketId});
+	if(idx!=-1) ticketList.splice(idx,1);
+	wsWiseAgent.CompleteTicket(ticketId);
+}
+
+function wiseCompleteTicket(ticketId)
+{
+	wsWiseAgent.CompleteTicket(ticketId);
+}
+
+function wiseAssignToChatRoom(ticket_id, assign_to, action)
+{
+	wsWiseAgent.AssignToChatRoom(ticket_id, assign_to, action);
+}
+
+var wiseSendSocialMsg_Async = function () {
+  var _ref = _asyncToGenerator(regeneratorRuntime.mark(function _callee(ticketId, msgText, completedMsgIdList, callback, msgId) {
+	return regeneratorRuntime.wrap(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+			var ticket=ticketList.filter(function (v) {return v.ticket_id==ticketId })[0];
+	
+			if (ticket.entry=="fb_comment") {
+				console.log('msgId @ wiseSendSocialMsg_Async');console.log(msgId);
+				if(msgId == -1){
+					wsWiseAgent.SendMsgToConnector(ticketId, -1, completedMsgIdList, msgText);
+				}else{
+					for (var i = 0; i < completedMsgIdList.length; i++) {
+						var messageId = completedMsgIdList[i];
+						wsWiseAgent.SendMsgToConnector(ticketId, messageId, [messageId], msgText);
+					}
+				}
+                // wsWiseAgent.SendMsgToConnector(ticketId, -1, completedMsgIdList, msgText);
+			} else {
+				wsWiseAgent.SendMsgToConnector(ticketId, 0,[0],msgText);
+			}
+          case 1:
+            if (!(sendMsgResult.result == "")) {
+              _context.next = 5;
+              break;
+            }
+
+            _context.next = 4;
+            return sleep(500);
+
+          case 4:
+            _context.next = 1;
+            break;
+		  case 5:
+			callback(sendMsgResult);
+		
+          case 6:
+          case "end":
+            return _context.stop();
+        }
+      }
+    }, _callee, this);
+  }));
+
+  return function wiseSendSocialMsg_Async(_x, _x2, _x3, _x4, _x5) {
+	return _ref.apply(this, arguments);
+  };
+}(); 
+
+function wiseSendSocialMsg_Ex(ticketId, msgText, completedMsgIdList, callback, msgId)
+{
+	if(ticketId=="") return;
+	// if(ticketId=="" || msgText=="") return;
+	sendMsgResult.result="";
+	sendMsgResult.data={};
+	wiseSendSocialMsg_Async(ticketId, msgText, completedMsgIdList, callback, msgId);
+}
+
+function wiseSendSocialMsg(ticketId, msgText, completedMsgIdList)
+{
+	if(ticketId=="" || msgText=="") return;
+	var ticket=ticketList.filter(function (v) {return v.ticket_id==ticketId })[0];
+	
+	if (ticket.entry=="fb_comment") {
+		for (var i = 0; i < completedMsgIdList.length; i++) {
+			var msgId = completedMsgIdList[i];
+			wsWiseAgent.SendMsgToConnector(ticketId, msgId, [msgId], msgText);
+		}
+	} else {
+		wsWiseAgent.SendMsgToConnector(ticketId, 0,[0],msgText);
+	}
+}
+
+function wiseGetFBPost(ticketId)
+{
+	wsWiseAgent.GetFaceBookPost(loginId,ticketId);
+}
+
+function wiseUploadSocialFile(ticketId, fileId, callback)
+{
+	var _fileUpload = $("#" + fileId).get(0);
+	var _fileData = new FormData();
+	for(var i=0;i<_fileUpload.files.length;i++)
+		fileData.append("files", _fileUpload.files[i]);  
+		
+    _fileData.append('ticketId', ticketId);    
+	_fileData.append('agentId', loginId);  
+	
+	console.log(_fileData);
+	$.ajax({  
+		url: 'http://localhost:51453/api/SocialMedia/UploadFile',  
+		type: "POST",  
+		contentType: false, // Not to set any content header  
+		processData: false, // Not to process data  
+		dataType: 'json',
+		data: _fileData,  
+		success: function (r) {  
+			console.log(r);  
+			if (typeof callback === "function") { callback(r.data); }
+		},  
+		error: function (err) {  
+			console.log(err);  
+		}  
+	});  
+}
+//
+var wiseSendSocialFile_Async = function () {
+  var _ref = _asyncToGenerator(regeneratorRuntime.mark(function _callee(ticketId, filePath, completedMsgIdList, callback) {
+	return regeneratorRuntime.wrap(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+			var ticket=ticketList.filter(function (v) {return v.ticket_id==ticketId })[0];
+			if (ticket.entry=="fb_comment") {
+				for (var i = 0; i < completedMsgIdList.length; i++) {
+					var msgId = completedMsgIdList[i];
+                    wsWiseAgent.SendFileToConnector(ticketId, msgId,[msgId],filePath);
+                }
+			} else {
+				wsWiseAgent.SendFileToConnector(ticketId, 0,[0],filePath);
+			}
+          case 1:
+            if (!(sendFileResult.result == "")) {
+              _context.next = 5;
+              break;
+            }
+
+            _context.next = 4;
+            return sleep(500);
+
+          case 4:
+            _context.next = 1;
+            break;
+		  case 5:
+			callback(sendFileResult);
+		
+          case 6:
+          case "end":
+            return _context.stop();
+        }
+      }
+    }, _callee, this);
+  }));
+
+  return function wiseSendSocialFile_Async(_x, _x2, _x3, _x4) {
+	return _ref.apply(this, arguments);
+  };
+}();
+
+function wiseSendSocialFile_Ex(ticketId, filePath, completedMsgIdList, callback)
+{
+	sendFileResult.result="";
+	sendFileResult.data={};
+	wiseSendSocialFile_Async(ticketId, filePath, completedMsgIdList, callback);
+}
+
+function wiseSendSocialFile(ticketId, filePath, completedMsgIdList)
+{
+	
+	
+	var ticket=ticketList.filter(function (v) {return v.ticket_id==ticketId })[0];
+	if (ticket.entry=="fb_comment") {
+		for (var i = 0; i < completedMsgIdList.length; i++) {
+			var msgId = completedMsgIdList[i];
+			wsWiseAgent.SendFileToConnector(ticketId, msgId,[msgId],filePath);
+		}
+	} else {
+		wsWiseAgent.SendFileToConnector(ticketId, 0,[0],filePath);
+	}
+	//waitTimeOut(1000, function(){console.log("waitTimeOut");});
+}
+
+function wiseSetMediaHandled(channel, mediaId, caseNo)
+{
+	//var callType= Object.keys(channels).find( function (key){ return channels[key] ===channel});
+	//var _callType= parseInt(Object.keys(channels)[Object.values(channels).indexOf(channel)]);
+	var _callType= parseInt(Object.keys(channels)[Object.keys(channels).map(key => channels[key]).indexOf(channel)]);
+	if (isNaN(_callType)) return;
+	
+	var _link="";
+	if( _callType==CATY_EMAIL)
+		_link= "http://172.17.7.40/WisePBX/api/Email/SetHandled";
+	else if( _callType==CATY_VMAIL)
+		_link= "http://172.17.7.40/WisePBX/api/Vmail/SetHandled";
+	else if( _callType==CATY_FAX)
+		_link= "http://172.17.7.40/WisePBX/api/Fax/SetHandled";
+	if(_link=="") return;		
+	$.ajax({
+		type: "POST",
+		url: _link,
+		contentType: "application/json; charset=utf-8",
+		dataType: "json",
+		data: JSON.stringify({"callType" : _callType, "mediaId" : mediaId, "caseNo": caseNo, "updatedBy": loginId}),
+		success: function (r) {
+			var _dnis= r.data;
+			updateMediaCount(_callType,_dnis,10);
+		},
+		error: function (r) {
+			console.log(r);
+		},
+	});
+		
+}
+
+function wiseAssignAgent(channel, mediaIds, assignTo, callback)
+{
+	//var callType= Object.keys(channels).find( function (key){ return channels[key] ===channel});
+	//var _callType= parseInt(Object.keys(channels)[Object.values(channels).indexOf(channel)]);
+	var _callType= parseInt(Object.keys(channels)[Object.keys(channels).map(key => channels[key]).indexOf(channel)]);
+	if (isNaN(_callType)) return;
+	console.log(_callType);
+	var _link="";
+	if( _callType==CATY_EMAIL)
+		_link= "http://172.17.7.40/WisePBX/api/Email/AssignAgent";
+	else if( _callType==CATY_VMAIL)
+		_link= "http://172.17.7.40/WisePBX/api/Vmail/AssignAgent";
+		//link= "http://localhost:51453/api/Vmail/AssignAgent";
+	else if( _callType==CATY_FAX)
+		_link= "http://172.17.7.40/WisePBX/api/Fax/AssignAgent";
+	if(_link=="") return;	
+	$.ajax({
+		type: "POST",
+		url: _link,
+		contentType: "application/json; charset=utf-8",
+		dataType: "json",
+		data: JSON.stringify({"mediaIds" : mediaIds, "assignTo": assignTo, "updatedBy": loginId}),
+		success: function (r) {
+			//console.log(r);
+			var _dnisArray= $.unique(r.data.map(function (d) {return d.dnis;}));
+			for (i=0;i<_dnisArray.length;i++) {
+				//console.log(dnisArray[i]);
+				updateMediaCount(_callType,_dnisArray[i],10);
+			}
+			if (typeof callback === "function") { callback(); }
+		},
+		error: function (r) {
+			console.log(r);
+		},
+	});
+		
+}
+
+function wiseGetAgentName(agentIds, callback)
+{
+	//var callType= Object.keys(channels).find( function (key){ return channels[key] ===channel});
+	$.ajax({
+		type: "POST",
+		url: "http://172.17.7.40/WisePBX/api/SocialMedia/GetAgentName",
+		contentType: "application/json; charset=utf-8",
+		dataType: "json",
+		data: JSON.stringify({"agentIds" : agentIds}),
+		success: function (r) {
+			//console.log(r);
+			if(r.result=="success") {
+				if (typeof callback === "function") { callback(r.data); }
+			}
+		},
+		error: function (r) {
+			console.log(r);
+		},
+	});
+		
+}
+
+function wiseSendSMS(serviceName, phoneNo, shortMsg)
+{
+	var _returnJson;
+	_returnJson = JSON.parse( $.ajax({
+		type: "POST",
+		async: false,
+		url: "http://172.17.7.40/WisePBX/api/Outbound/CreateCaseId",
+		contentType: "application/json; charset=utf-8",
+		dataType: "json",
+		data: JSON.stringify({"agentId": loginId}),
+	}).responseText);
+	
+	var _mediaCaseId=-1;
+	if(_returnJson.result=="success")
+		_mediaCaseId = _returnJson.data ;
+	else {
+		if(_returnJson.result=="fail") console.log(_returnJson.details);
+		return -1;
+	}
+	var smsANI = outboundANI[serviceName].sms;
+	wsWiseAgent.SendSMS_UC(phoneNo,smsANI, _mediaCaseId, "", shortMsg );
+	
+	_returnJson = JSON.parse( $.ajax({
+		type: "POST",
+		async: false,
+		url: "http://172.17.7.40/WisePBX/api/Outbound/GetCallId",
+		contentType: "application/json; charset=utf-8",
+		dataType: "json",
+		data: JSON.stringify({"callType": CATY_OUTSMS, "caseId" : _mediaCaseId, "agentId": loginId}),
+	}).responseText);
+	
+	if(_returnJson.result=="success")
+		return _returnJson.data;
+	else {
+		if(_returnJson.result=="fail") console.log(_returnJson.details);
+		return -1;
+	}
+}
+function wiseInviteAgentToChat(agentId, ticketId, msgContent)
+{
+	wsWiseAgent.InviteAgentToChat(agentId, ticketId, msgContent);
+}
+function wiseSendMessage_UC(DeviceType, DeviceID, Message)
+{
+	wsWiseAgent.SendMessage_UC(DeviceType, DeviceID, Message);
+}
+function sleep(ms) {
+   return new Promise(function (res) {
+      setTimeout(res, ms);
+   });
+};
+
+/*
+async function wiseSendEmail_Async(serviceName, emailTo, emailCc, emailSubject, emailContent, attachedFiles) {
+  	var emailFrom = outboundANI[serviceName].email;
+	wsWiseAgent.SendEmail_UC(emailTo,emailCc,"",emailFrom,emailSubject,attachedFiles ,0,emailFrom,1,emailContent);
+  	while(callID==0) {
+    	await sleep(1000);
+    }
+  return callID;
+}
+*/
+
+// polyfill awiat/async
+var wiseSendEmail_Async = function () {
+  var _ref = _asyncToGenerator(regeneratorRuntime.mark(function _callee(serviceName, emailTo, emailCc, emailSubject, emailContent, attachedFiles) {
+	return regeneratorRuntime.wrap(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+			var emailFrom = outboundANI[serviceName].email;
+			wsWiseAgent.SendEmail_UC(emailTo,emailCc,"",emailFrom,emailSubject,attachedFiles ,0,emailFrom,3,emailContent);
+			
+          case 1:
+            if (!(callID == 0)) {
+              _context.next = 6;
+              break;
+            }
+
+            _context.next = 4;
+            return sleep(500);
+
+          case 4:
+            _context.next = 1;
+            break;
+
+          case 6:
+			return _context.abrupt("return", callID);
+
+          case 7:
+          case "end":
+            return _context.stop();
+        }
+      }
+    }, _callee, this);
+  }));
+
+  return function wiseSendEmail_Async(_x, _x2, _x3, _x4, _x5, _x6) {
+	return _ref.apply(this, arguments);
+  };
+}();
+
+function wiseSendEmail_Ex(serviceName, emailTo, emailCc, emailSubject, emailContent, attachedFiles, callback)
+{
+	var r=wiseSendEmail_Async(serviceName, emailTo, emailCc, emailSubject, emailContent, attachedFiles);
+	r.then(function(v){callback(v);});
+}
+function wiseSendEmail(serviceName, emailTo, emailCc, emailSubject, emailContent, attachedFiles)
+{
+	
+	var _returnJson;
+	_returnJson = JSON.parse( $.ajax({
+		type: "POST",
+		async: false,
+		url: "http://172.17.7.40/WisePBX/api/Outbound/CreateCaseId",
+		contentType: "application/json; charset=utf-8",
+		dataType: "json",
+		data: JSON.stringify({"agentId": loginId}),
+	}).responseText);
+	
+	var _mediaCaseId=-1;
+	if(_returnJson.result=="success")
+		_mediaCaseId = _returnJson.data ;
+	else {
+		if(_returnJson.result=="fail") console.log(_returnJson.details);
+		return -1;
+	}
+	
+	var _returnJson =JSON.parse( $.ajax({
+		type: "POST",
+		async: false,
+		url: "http://172.17.7.40/WisePBX/api/Email/UploadContent",
+		contentType: "application/json; charset=utf-8",
+		dataType: "json",
+		data: JSON.stringify({"content": emailContent, "agentId": loginId}),
+	}).responseText);
+	var _filePath;
+	if(_returnJson.result=="success") {
+		_filePath=_returnJson.data;
+	} else {
+		console.log(_returnJson.details);
+		return -1;
+	}
+	
+	var emailFrom = outboundANI[serviceName].email;
+	wsWiseAgent.SendEmail_UC(emailTo,emailCc,"",emailFrom,emailSubject,attachedFiles ,_mediaCaseId,emailFrom,3,_filePath);
+	//wsWiseAgent.SendEmail_UC(emailTo,emailCc,"",emailFrom,emailSubject,attachedFiles ,_mediaCaseId,emailFrom,3,emailContent);
+	
+	
+	
+	_returnJson = JSON.parse( $.ajax({
+		type: "POST",
+		async: false,
+		url: "http://172.17.7.40/WisePBX/api/Outbound/GetCallId",
+		contentType: "application/json; charset=utf-8",
+		dataType: "json",
+		data: JSON.stringify({"callType": CATY_EMAIL_OUT, "caseId" : _mediaCaseId, "agentId": loginId}),
+	}).responseText);
+	
+	if(_returnJson.result=="success") {
+		return _returnJson.data;
+	} else {
+		if(_returnJson.result=="fail") console.log(_returnJson.details);
+		return -1;
+	}
+}
+
+function wiseSendFax(serviceName, faxNo, faxFile, coverSubject, coverMsg, coverAttn,  coverSender, coverCompany)
+{
+	var _returnJson;
+	_returnJson = JSON.parse( $.ajax({
+		type: "POST",
+		async: false,
+		url: "http://172.17.7.40/WisePBX/api/Outbound/CreateCaseId",
+		contentType: "application/json; charset=utf-8",
+		dataType: "json",
+		data: JSON.stringify({"agentId": loginId}),
+	}).responseText);
+	
+	var _mediaCaseId=-1;
+	if(_returnJson.result=="success")
+		_mediaCaseId = _returnJson.data ;
+	else {
+		if(_returnJson.result=="fail") console.log(_returnJson.details);
+		return -1;
+	}
+	
+	var faxANI = outboundANI[serviceName].fax;
+	var faxCover = outboundANI[serviceName].faxCover;
+	wsWiseAgent.SendFaxExP_UC(0,faxNo,coverMsg,faxFile,coverAttn ,coverSubject ,coverCompany ,faxCover, _mediaCaseId ,faxANI,coverSender,1);
+
+	_returnJson = JSON.parse( $.ajax({
+		type: "POST",
+		async: false,
+		url: "http://172.17.7.40/WisePBX/api/Outbound/GetCallId",
+		contentType: "application/json; charset=utf-8",
+		dataType: "json",
+		data: JSON.stringify({"callType": CATY_FAX_OUT, "caseId" : _mediaCaseId, "agentId": loginId}),
+	}).responseText);
+	
+	if(_returnJson.result=="success")
+		return _returnJson.data;
+	else {
+		if(_returnJson.result=="fail") console.log(_returnJson.details);
+		return -1;
+	}
+}
+function WiseGetAgentList(name, entry)
+{
+	if(entry=="webchat") callType=CATY_WEBCHAT;
+	else if(entry=="email") callType=CATY_EMAIL;
+	else if(entry=="vmail") callType=CATY_VMAIL;
+	else callType=CATY_BLOG;
+
+	var s = serviceList.filter(function (v) { return v.name==name && v.callType==callType });
+	if(s.length==0) return;
+	wsWiseAgent.GetACDGroupMember(s[0].acdGroup);
+}
+/*
+function wiseRemoveAttachement(attachedFiles)
+{
+	var _files=attachedFiles.split(";");
+	for (_file in _files) {
+		if (_file.indexOf("\\Uploads\\")==-1) return;
+	}
+	$.ajax({
+		type: "POST",
+		url: "http://172.17.7.40/WisePBX/api/Outbound/RemoveAttachment",
+		contentType: "application/json; charset=utf-8",
+		dataType: "json",
+		data : "{\"files\": [\"" + attachedFiles.replace(",","\",\"").replace(" ","") + "\"]",
+		success: function (r) {
+			console.log(r);
+		},
+		error: function (r) {
+			console.log(r);
+		},
+	});
+}
+
+function wiseUploadAttachement(fileId, appCaseNo)
+{
+	var _fileUpload = $("#" + fileId).get(0);
+	var _fileData = new FormData();
+	for(var i=0;i<_fileUpload.files.length;i++)
+		fileData.append("files", _fileUpload.files[i]);  
+      
+	_fileData.append('agentId', loginId);  
+	_fileData.append('caseNo', appCaseNo);  
+	console.log(_fileData);
+	$.ajax({  
+		url: 'http://localhost:51453/api/Outbound/UploadAttachment',  
+		type: "POST",  
+		contentType: false, // Not to set any content header  
+		processData: false, // Not to process data  
+		dataType: 'json',
+		data: _fileData,  
+		success: function (r) {  
+			console.log(r);  
+		},  
+		error: function (err) {  
+			console.log(err);  
+		}  
+	});  
+}
+*/
+
+
+function TestGetMsg()
+{	
+	alert('complete ticket @ HKTBPhone.html');
+	wiseCompleteTicket(-1343550946);
+	// console.log("aaa="+$("#softPhone").css("cursor"));
+	// console.log($("#queueListBar").find("[id*='QueueCount1']"));
+	// $("#queueListBar").find("[id*='QueueCount1']").css("cursor","wait");
+		
+	// //wiseGetAgentName([1,2],function(r){console.log(r);});
+	// //WiseGetAgentList('NP360','fb_comment');
+	// wiseSendEmail('OneCallFix', 'tigerpkchong@eprotel.com.hk', '', 'RE: testing', '<html><boby><h1> Hello</h1></boby></html>', '');
+	/*
+	var a = parseInt(Object.keys(channels)[Object.values(channels).indexOf("x")]);
+	console.log(isNaN(a));
+	console.log(typeof a);
+	return;
+	*/
+	//wsWiseAgent.GetTicketMsg(1205544477);
+	//wiseSendSocialMsg(ticketList[0].ticket_id,"Test form Tiger");
+	
+	//wiseSendSocialFile(ticketList[0].ticket_id,"//172.17.7.40/WisePBX/Uploads/11-2-4c3dba32-9267-4bf2-9460-3ad82f79f7c5/Penguins.jpg");
+	//wiseSendSocialFile(ticketList[0].ticket_id,"d:\\Inetpub\\wwwroot\\WisePBX\\Uploads\\11-2-4c3dba32-9267-4bf2-9460-3ad82f79f7c5\\Penguins.jpg");
+	//wiseSendSocialFile(ticketList[0].ticket_id,"\\\\172.17.7.40\\OnlineCRM_WebChat\\Uploads\\20180704\\20180704102754319_sample.jpg");
+	//wiseSendSocialFile(ticketList[0].ticket_id,"20180704102754319_sample.jpg");
+	//wiseSendSocialFile(ticketList[0].ticket_id,"C:\\Etrius\\Connector\\uploads\\20180710\\sample1.jpg");
+	//wiseSendFax("NP360", "82269218", "D:\\FaxShare\\SCRM TESTING FAX.doc", "Testing Subject", "Testing Message", "Attn Tiger",  "Sender Tiger", "Epro Company");
+	//var i=wiseSendFax("5702", "29534898", "D:\\FaxShare\\SCRM TESTING FAX.doc", "D:\\FaxShare\\cover.doc", "Testing Subject", "Testing Message", "Attn Tiger",  "Sender Tiger", "Epro Company");
+	//wiseAssignAgent("Inbound_Voicemail", [47458108,47458029],5, function(){alert('assigned');});
+	//var i= wiseSendSMS("NP360","92055486","SMS TSTING 1");
+	
+	
+	//wiseMakeCall("NP360","27102140");
+	
+	//var i=wiseSendSMS_Ex("NP360","92055486","SMS TSTING 2");
+	//wiseSendEmail_Ex ("NP360", "tigerpkchong@eprotel.com.hk", "",  "Testing Subject", "Testing email content", "", function(callId){console.log(callId)});
+	//wiseSendEmail ("NP360", "tigerpkchong@eprotel.com.hk", "",  "Testing Subject", "Testing email content 2", "");
+	//console.log(i);
+	//wiseGetTicketMsg("-2083549824");
+	//wiseSendSocialMsg_Ex(ticketList[0].ticket_id, "Hello w", null, function(r){console.log(r)});
+	//wiseSendSocialFile_Ex(ticketList[0].ticket_id, "D:\\Inetpub\\wwwroot\\WisePBX\\Uploads\\20180720\\-1234567\\Chrysanthemum.jpg", null, function(r){console.log(r)});
+	//wiseSendSocialFile(ticketList[0].ticket_id, "D:\\Inetpub\\wwwroot\\WisePBX\\Uploads\\20180720\\-1234567\\Chrysanthemum.jpg");
+	//wiseGetTicketMsg(ticketList[0].ticket_id);
+	//wsWiseAgent.GetFaceBookPost(loginId,"-324865835");
+	//wsWiseAgent.GetSameLevelReply("1598198658",10,1);
+	//var r=wiseGetServiceInfo("NP360");
+	//console.log(r);
+}
+/*
+addEventListener(document, 'onWiseSocialMsg', function (e) {
+	var obj = e.detail;
+	console.log(obj);
+});
+
+
+addEventListener(document, 'onWiseSocialStatus', function (e) {
+	var obj = e.detail;
+	console.log(obj);
+});
+*/
+</script>   
+
+</head>
+<body onload="windowOnload();" style="margin:0px;background:#eeeeee" onkeydown='return (event.keyCode != 116)'>
+<div id="softPhone" style="text-align:left;font-size:12px;font-family: Roboto,sans-serif;width:100%">
+	<div style="display:none;vertical-align:top;margin:0px;width:200px">
+	
+	<input id="panelPhoneNo" type="text" class="num-btn" style="width:170px;height:10px" maxLength="10"/>
+	
+	
+	<!--<button class="call-btn" style="width:60px;height:40px" onclick="WiseMakeCall();">Call</button>&nbsp;-->
+	<!--<button class="call-btn" style="width:60px;height:40px" onclick="WiseDropCall();">Drop</button>&nbsp; -->
+	<!--<button id="buttonHold" class="call-btn" style="width:50px;height:40px" onclick="WiseHoldCall();">Hold</button>&nbsp;-->
+	<!--
+	<button class="call-btn" style="width:50px;height:40px" onclick="WiseMakeConference();" title="Conference">Conf</button>&nbsp;
+	<button class="call-btn" style="width:50px;height:40px" onclick="WiseTransferCall();" title="Transfer">Xfer</button>&nbsp;
+	
+	-->
+	<br/>
+	<input type="image" src="img/call-out.png" width="30px" class="img-btn" style="vertical-align: middle;" title="Make Call" onclick="wiseMakeCall();"/>
+	<input type="image" src="img/call-drop.png" width="30px" style="vertical-align: middle;" title="Drop Call" onclick="wiseDropCall();"/>
+	<input type="image" src="img/call-hold.png" width="30px" style="vertical-align: middle;" title="Hold Call" id="buttonHold" onclick="wiseHoldCall();"/>
+	<input type="image" src="img/call-agent.png" width="30px" style="vertical-align: middle;" title="Call Agent" onclick="wiseCallAgent();"/>
+	<input type="image" src="img/call-conf.png" width="30px" style="vertical-align: middle;" title="Conference Call" onclick="wiseMakeConference();"/>
+	<input type="image" src="img/call-transfer.png" width="30px" style="vertical-align: middle;" title="Transfer Call" onclick="wiseTransferCall();"/>
+	<br/>
+	
+	
+	<div class="status-box" style="width:170px;">
+		<span id="panelAgentStatus" style="float:left;font-weight: bold;">LOGOUT</span>
+		<span id="panelTimeCount" style="float:right;font-weight: bold;">00:00</span>
+	</div>
+	</div>
+	
+	<!--
+	<div id="containerP" class="container"> 
+	<hr style="height: 0px; visibility: hidden; margin-Bottom:5px"/>
+	<button class="num-btn2">1</button>&nbsp;
+	<button class="num-btn2">2</button>&nbsp;
+	<button class="num-btn2">3</button>&nbsp;
+	
+	<button class="num-btn2">4</button>&nbsp;
+	<button class="num-btn2">5</button>&nbsp;
+	<button class="num-btn2">6</button>
+	<hr style="height: 0px; visibility: hidden; margin-Bottom:-1px"/>
+	<button class="num-btn2">7</button>&nbsp;
+	<button class="num-btn2">8</button>&nbsp;
+	<button class="num-btn2">9</button>&nbsp;
+	<button class="num-btn2">0</button>&nbsp;
+	<button class="num-btn2">*</button>&nbsp;
+	<button class="num-btn2">#</button>
+	</div>
+	-->
+	<div id="container" class="container" style="display:inline-block;width:100%"> 
+		<div style="display:none;">
+			<input type="button" onclick="TestGetMsg();" value="test"/>
+		</div>
+		<div id="queueListBar" style= "display:inline-block;margin-top:10px;position:relative;vertical-align:top;height:90px;width:100%"></div>
+	
+	</div>
+	
+	<div id="temp"></div>
+	<audio id="ringAudio">
+		<source src="ring.mp3"></source>
+	</audio>
+</div>
+<script>
+</script>
+</body>
+</html>

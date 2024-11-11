@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<meta http-equiv="cache-control" content="max-age=0">
+	<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+	<meta http-equiv="expires" content="-1">
+	<meta http-equiv="expires" content="Tue, 01 Jan 1980 11:00:00 GMT">
+	<meta http-equiv="pragma" content="no-cache">
+	<link rel="stylesheet" href="./css/media.css" type="TEXT/CSS">
+	<script type="text/javascript" src="./js/jquery.min.js"></script>
+	<script type="text/javascript" src="./js/tiff.min.js"></script>
+	<script type="text/javascript" src="./config.js"></script>
+	<style>
+		body {
+			font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+			margin: 0px;
+			font-size: 14px;
+		}
+
+		.fax-fn-btn {
+			color: blue;
+			text-decoration: underline;
+			margin-left: 10px;
+			cursor: pointer;
+		}
+
+		.gray-bg-label-span {
+			font-size: 12px;
+			background: #f4f5f7;
+			padding: 2px;
+			border-radius: 5px;
+		}
+
+		.line-bottom-container-first {
+			border-bottom: 1px solid #E5E9F2;
+			padding: 0 0 7.5px 0;
+		}
+
+		.standard-margin-top {
+			margin-top: 7.5px;
+			word-wrap: break-word;
+		}
+
+		.main-card {
+			background: #FFFFFF;
+			border: 1px solid #E5E9F2;
+			border-radius: 5px;
+			padding: 15px;
+		}
+
+		.default-image {
+			height: 104px;
+			margin-left: 50%;
+		}
+
+		.rotate-90 {
+			transform-origin: 0 0;
+			margin-left: 50%;
+			width: 104px;
+			height: 104px;
+			/* IE 9 */
+			-ms-transform: rotate(90deg);
+			/* Safari 3-8 */
+			-webkit-transform: rotate(90deg);
+			transform: rotate(90deg);
+			-webkit-transform-origin: 0 0;
+		}
+
+		.rotate-180 {
+			height: 104pX;
+			width: auto;
+			/* IE 9 */
+			-ms-transform: rotate(180deg);
+			/* Safari 3-8 */
+			-webkit-transform: rotate(180deg);
+			transform: rotate(180deg);
+			margin-left: 50%;
+		}
+
+		.rotate-270 {
+			/* IE 9 */
+			-ms-transform: rotate(270deg);
+			/* Safari 3-8 */
+			-webkit-transform: rotate(270deg);
+			transform: rotate(270deg);
+			margin-left: 50%;
+			width: 104px;
+			height: 104px;
+		}
+
+		/* pop-up fax content */
+
+		.pop-default-image {
+			/* width: 100%; */
+			position: absolute;
+			top: 100px;
+			/* top:84px; */
+		}
+
+		.pop-rotate-90 {
+			/* height: 100%; */
+			/* IE 9 */
+			-ms-transform: rotate(90deg);
+			/* Safari 3-8 */
+			-webkit-transform: rotate(90deg);
+			transform: rotate(90deg);
+			position: absolute;
+			top: 400px;
+			/* top:334px; */
+			/* top: 381px; */
+		}
+
+		.pop-rotate-180 {
+			/* width:100%; */
+			/* IE 9 */
+			-ms-transform: rotate(180deg);
+			/* Safari 3-8 */
+			-webkit-transform: rotate(180deg);
+			transform: rotate(180deg);
+			position: absolute;
+			top: 100px;
+			/* top:334px; */
+			/* top: 84px; */
+		}
+
+		.pop-rotate-270 {
+			/* height: 100%; */
+			/* IE 9 */
+			-ms-transform: rotate(270deg);
+			/* Safari 3-8 */
+			-webkit-transform: rotate(270deg);
+			transform: rotate(270deg);
+			position: absolute;
+			top: 400px;
+			/* top:334px; */
+			/* top: 381px; */
+		}
+	</style>
+</head>
+
+<body onload='return windowOnload()' class='media-content-body custom-scroll' onkeydown='return (event.keyCode != 116)'>
+	<!-- <div class="media-content-container"> -->
+	<div class="main-card">
+		<div class="line-bottom-container-first flex">
+
+			<span style='display:inline-flex;flex:1;margin-right:10px;'>
+				<span style='display:inline-block;margin-right:5px;'>
+					<span class="gray-bg-label-span"><span class="l-form-timestamp"></span>:</span>
+				</span>
+				<span style='display:inline-block;' id="timestamp-span"></span>
+			</span>
+
+			<span style='display:inline-flex;flex:1;margin-right:10px;'>
+				<span style='display:inline-block;margin-right:5px;'>
+					<span class="gray-bg-label-span"><span class="l-fax-caller-display"></span>:</span>
+				</span>
+				<span style='display:inline-block;' id="media-caller"></span>
+			</span>
+
+			<span style='display:inline-flex;flex:1;'>
+				<span style='display:inline-block;margin-right:5px;'>
+					<span class="gray-bg-label-span"><span class="l-fax-fax-id"></span>:</span>
+				</span>
+				<span style='display:inline-block;' id="media-id"></span>
+			</span>
+
+		</div>
+		<div class='standard-margin-top'>
+			<span style='margin-right: 5px; display:inline-block;'><span class="gray-bg-label-span"><span
+						class="l-fax-page"></span>:</span></span>
+			<select id="page-no" onchange="changePageNo(this.value);">
+			</select>
+			<!-- <span id='open-fax- popup' class='fax-fn-btn' onclick='openPopup()'>Open</span> -->
+			<span id='rotate-fax' class='fax-fn-btn' onclick='rotateTiff()'><span class="l-fax-rotate"></span></span>
+			<br />
+			<div id='loading-tiff' class="l-fax-loading"
+				style='font-weight:550;font-size:16px;text-align: center;width: 100%;margin:50px'></div>
+			<div>
+				<img id="tiff-image" src="" class="default-image">
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript" src="./obfuscate_b4/faxContent.js"></script>
+</body>
+
+</html>

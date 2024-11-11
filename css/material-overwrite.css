@@ -1,0 +1,643 @@
+/* ============= overwrite bootstrap/master-kit ============= */
+
+body {
+    background: #f4f5f7 !important;
+    /* -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none; */
+}
+
+h5 {
+    font-weight: bold !important;
+}
+
+.card {
+    border: 1px solid rgba(0, 0, 0, .125) !important;
+    border-radius: .25rem !important;
+}
+
+select,
+select.form-control {
+    -webkit-appearance: menulist-button;
+}
+
+select:disabled,
+select.form-control:disabled {
+    -webkit-appearance: unset;
+}
+
+input[type="search"]::-webkit-search-cancel-button {
+    -webkit-appearance: searchfield-cancel-button !important;
+}
+
+.togglebutton label,
+.bmd-form-group label,
+.bmd-form-group.bmd-form-group-lg label,
+.bmd-form-group.bmd-form-group-sm label,
+.bmd-form-group:not(.has-success):not(.has-danger) [class*=' bmd-label'].bmd-label-floating,
+.bmd-form-group:not(.has-success):not(.has-danger) [class^=bmd-label].bmd-label-floating,
+label {
+    /* color: #777474; */
+    color: rgb(24, 24, 24);
+}
+
+select.form-control:not([size]):not([multiple]) {
+    height: inherit;
+    padding-top: 5.5px;
+    padding-bottom: 5.5px;
+}
+
+/* .form-control:disabled {
+    background: lightyellow;
+} */
+
+.form-control {
+    height: inherit !important;
+}
+
+.form-control,
+.is-focused .form-control {
+    background-image: linear-gradient(to top, #25C5D9 2px, rgba(156, 39, 176, 0) 2px), linear-gradient(to top, #d2d2d2 1px, rgba(210, 210, 210, 0) 1px);
+}
+
+.form-control.disabled,
+.form-control:disabled,
+.form-control[disabled],
+fieldset[disabled][disabled] .form-control {
+    background-image: linear-gradient(to right, #d2d2d2 0, #d2d2d2 30%, transparent 30%, transparent 100%);
+    background-repeat: repeat-x;
+    background-size: 3px 1px;
+}
+
+.form-check .form-check-label .circle .check {
+    background-color: #25C5D9 !important;
+}
+
+.form-check .form-check-input:checked~.circle {
+    border-color: #25C5D9 !important;
+}
+
+.form-check .form-check-input:checked+.form-check-sign .check {
+    background: #25C5D9;
+}
+
+/* to prevent click to a wrong checkbox */
+.form-check .form-check-sign:before {
+    transform: unset;
+}
+
+.togglebutton label input[type=checkbox]:checked+.toggle {
+    background-color: #25C5D9;
+}
+
+.togglebutton label input[type=checkbox]:checked+.toggle:after {
+    border-color: #25C5D9;
+}
+
+.title,
+.card-title,
+.info-title,
+.footer-brand,
+.footer-big h5,
+.footer-big h4,
+.media .media-heading {
+    font-family: Roboto, Helvetica, Arial, sans-serif !important;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus input:-webkit-autofill,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus {
+    border-bottom: 1px solid #d2d2d2 !important;
+    -webkit-text-fill-color: inherit !important;
+    box-shadow: 0 0 0px 1000px #FFFFFF inset;
+    -webkit-box-shadow: 0 0 0px 1000px #FFFFFF inset;
+    transition: background-color 5000s ease-in-out 0s;
+}
+
+.tooltip,
+.tooltip.show {
+    transition: unset;
+    -webkit-transform: unset;
+    -moz-transform: unset;
+    -o-transform: unset;
+    -ms-transform: unset;
+    transform: unset;
+}
+
+.btn {
+    margin: 0 1px;
+}
+
+.btn-sm {
+    font-size: 13px !important;
+    padding: .24rem 1.25rem !important;
+}
+
+.btn .material-icons,
+.btn:not(.btn-just-icon):not(.btn-fab) .fa {
+    font-size: inherit;
+    padding-right: 2px;
+}
+
+.btn i,
+.btn span {
+    vertical-align: middle !important;
+}
+
+.btn-circle {
+    width: 30px !important;
+    height: 30px !important;
+    padding: 0 0 5px 0!important;
+    border-radius: 15px !important;
+    text-align: center !important;
+    font-size: 19px !important;
+    line-height: 1.42857 !important;
+}
+
+.btn.btn-warning:focus, .btn.btn-warning:hover {
+    box-shadow: 0 2px 2px 0 rgba(255, 152, 0, 0.14), 0 3px 1px -2px rgba(255, 152, 0, 0.2), 0 1px 5px 0 rgba(255, 152, 0, 0.12) !important;
+}
+
+.btn.btn-warning:focus {
+    /* same as .btn.btn-warning */
+    background-color: #ff9800;
+    border-color: #ff9800;
+}
+
+.btn:active:hover:not([disabled])  {
+    box-shadow: none;
+    transform: translateY(2px);
+    filter: brightness(120%);
+}
+
+/* .btn.btn-warning:active  {
+    box-shadow: none;
+    transform: translateY(2px);
+    filter: brightness(120%);
+} */
+
+.btn.btn-warning.btn-link {
+    box-shadow: none !important;
+}
+
+.btn.btn-success:focus, .btn.btn-success:hover {
+    /* same as .btn.btn-success, important needed */
+    box-shadow: 0 2px 2px 0 rgba(76, 175, 80, 0.14), 0 3px 1px -2px rgba(76, 175, 80, 0.2), 0 1px 5px 0 rgba(76, 175, 80, 0.12) !important;
+}
+
+.btn.btn-success:focus {
+    /* same as .btn.btn-success */
+    background-color: #4caf50;
+    border-color: #4caf50;
+}
+
+.btn.btn-success:active  {
+    box-shadow: none;
+    transform: translateY(2px);
+    filter: brightness(120%);
+}
+
+.btn.btn-default:focus, .btn.btn-default:hover {
+    /* same as .btn.btn-default, important needed */
+    box-shadow: 0 2px 2px 0 rgba(153, 153, 153, 0.14), 0 3px 1px -2px rgba(153, 153, 153, 0.2), 0 1px 5px 0 rgba(153, 153, 153, 0.12) !important;
+}
+
+.btn.btn-default:focus {
+    /* same as .btn.btn-default */
+    background-color: #999999;
+    border-color: #999999;
+}
+
+/* .btn.btn-default:active  {
+    box-shadow: none;
+    transform: translateY(2px);
+    filter: brightness(120%);
+} */
+
+.dropdown-menu .dropdown-item,
+.dropdown-menu li>a {
+    padding: 0.4rem 1.25rem;
+}
+
+.nav-link {
+    padding:0.25rem 0.9rem;
+}
+
+.nav-tabs .nav-item .nav-link {
+    font-size: 15px;
+    padding: 5px 15px !important;
+    text-transform: unset;
+    transition: unset;
+    border-radius: 0
+}
+
+.nav-item{
+    user-select: none;
+}
+
+.max-width-container {
+    max-width: 1280px;
+    margin: auto;
+}
+
+.max-width-body {
+    max-width: 1240px;
+    margin: auto;
+}
+
+.popover-header {
+    padding: 15px 10px 0px 15px;
+}
+
+.confirmation-buttons>.btn-group {
+    margin-top: 5px;
+    margin-bottom: 0;
+}
+
+.popover-body {
+    padding: 0 10px 18px 15px;
+}
+
+.table td {
+    border-top: none;
+    border-bottom: 1px solid rgba(0, 0, 0, .06);
+}
+
+.table-btn {
+    cursor: pointer;
+    color: #005CFB;
+    vertical-align: middle;
+    font-size: 16px;
+}
+
+.btnColumn {
+    width: 1%;
+    white-space: nowrap;
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}
+
+/* ================ Extra Calss ================ */
+
+.card-header-icon {
+    font-size: x-large;
+    vertical-align: sub;
+    margin-right: 8px;
+    margin-left: 8px;
+}
+
+.font-large {
+    font-size: x-large;
+}
+
+.nav-tabs .nav-item .nav-link {
+    transition: unset;
+}
+
+.nav-tabs .nav-item .nav-link:focus,
+.nav-tabs .nav-item .nav-link:hover {
+    background: rgba(255, 255, 255, .2);
+    transition: unset;
+}
+
+.nav-tabs .nav-item .nav-link.active {
+    background: rgba(0, 0, 0, 0.3);
+}
+
+.align-sub {
+    vertical-align: sub;
+}
+
+.custom-scroll::-webkit-scrollbar {
+    overflow: auto;
+    width: 8px;
+    height: 8px;
+}
+
+.custom-scroll::-webkit-scrollbar-track {
+    background: lightgray
+}
+
+.custom-scroll::-webkit-scrollbar-thumb {
+    -webkit-border-radius: 8px;
+    border-radius: 8px;
+    background: #AECBFC;
+}
+
+.custom-scroll::-webkit-scrollbar-thumb:window-inactive {
+    background: #AECBFC;
+}
+
+.custom-scroll::-webkit-scrollbar-thumb:hover {
+    background:#6da0f7; 
+}
+
+/* ============================ TABLE EDITS ===========================*/
+
+table>thead,
+tbody {
+    /* Remove border and background around header and body parts of the table */
+    background: #ffffff;
+    border: 0px;
+    font-size: 14px;
+}
+
+/* table.dataTable thead th,
+table.dataTable tfoot th {
+    font-weight: 550;
+} */
+
+table.dataTable tfoot th {
+    font-weight: 550;
+}
+
+th {
+    /* color: rgb(100, 100, 100); By request of Carol, header make it clearer */
+    color: black;
+
+    font-size: 12px;
+    padding: 5px 9px 5px 9px !important;
+}
+
+table.dataTable thead {
+    text-align: left;
+    /* By request of Carol, header make it clearer */
+    font-weight: 800;
+    background: #f7f7f7 !important;
+}
+
+table>tr {
+    border-bottom: 1px solid #E5E9F2;
+}
+
+table.dataTable th,
+table.dataTable td {
+    /* Adjust the default spacing of 'td's */
+    /* padding: 15px 10px; */
+    padding: 6px 10px !important;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    max-width: 190px;
+    /* max-width: 300px; */
+    /* max-width: 40px; */
+    /* display: inline-block; */
+    /* width: auto; */
+    -webkit-touch-callout: none;
+    /* iOS Safari */
+    -webkit-user-select: none;
+    /* Chrome/Safari/Opera */
+    -khtml-user-select: none;
+    /* Konqueror */
+    -moz-user-select: none;
+    /* Firefox */
+    -ms-user-select: none;
+    /* Internet Explorer/Edge*/
+    user-select: none;
+    /* Non-prefixed version, currently not supported by any browser */
+    vertical-align: middle;
+}
+
+@media only screen and (max-width: 600px) {
+    .table.dataTable td {
+        max-width: 420px;
+    }
+}
+
+table.dataTable tbody tr.highlight {
+    background-color: #EDF4FF !important;
+    /* background-color: lightskyblue !important; */
+    font-weight: bold;
+}
+
+table.dataTable thead td{
+    margin-right: 15px;
+}
+/* Asc desc icon not counted width, so need padding right */
+table.dataTable thead th{
+    padding-right: 20px !important;
+}
+
+table.dataTable thead .sorting:after,
+table.dataTable thead .sorting_asc:after,
+table.dataTable thead .sorting_desc:after {
+    font-family: 'icomoon' !important;
+    margin-left: 7px;
+    /* To vertical align text on left */
+    position: absolute;
+    padding-top: 2px;
+}
+
+table.dataTable thead .sorting:after {
+    /* DEFAULT */
+    content: url(../images/icon-select-16-defaut.png);
+}
+
+table.dataTable thead .sorting_asc:after {
+    /* ASCENDING */
+    content: url(../images/icon-select-16-asc.png);
+}
+
+table.dataTable thead .sorting_desc:after {
+    /* DESCENDING */
+    content: url(../images/icon-select-16-desc.png);
+}
+
+table.dataTable thead .sorting,
+table.dataTable thead .sorting_asc,
+table.dataTable thead .sorting_desc {
+    background-image: none;
+}
+
+td.dataTables_empty {
+    text-align: center;
+}
+
+table.dataTable {
+    width: 100%;
+    clear: both;
+    border-collapse: separate;
+    border-spacing: 0;
+}
+.dataTables_wrapper.no-footer .dataTables_scrollBody, table.dataTable.no-footer, table.dataTable thead th, table.dataTable thead td  {
+    border-bottom: 1px solid #c9c9c9;
+}
+
+.dataTables_wrapper.no-footer div.dataTables_scrollHead table.dataTable, .dataTables_wrapper.no-footer div.dataTables_scrollBody>table {
+    border-bottom: none;
+}
+
+/* ============= datatable ============= */
+
+.dataTables_length {
+    float: right;
+}
+
+.dataTables_length>label {
+    color: rgb(100, 100, 100);
+}
+
+.dataTables_length>label>select {
+    border-radius: 5px;
+}
+
+.dataTables_info {
+    display: inline;
+    color: rgb(100, 100, 100);
+}
+
+.dataTables_paginate {
+    float: right;
+    position: relative;
+    bottom: 10px;
+}
+
+a.paginate_button {
+    border: 0;
+    border-radius: 30px !important;
+    transition: all .3s;
+    padding: 0px 11px;
+    margin: 0 3px;
+    min-width: 36px;
+    height: 36px;
+    line-height: 36px;
+    color: rgb(100, 100, 100);
+    font-weight: 400;
+    font-size: 12px;
+    text-transform: uppercase;
+    background: transparent;
+    text-align: center;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+div.alphabet a.active,
+div.alphabet a.active.empty,
+a.paginate_button.current {
+    background: #00bcd4;
+    border-color: #00bcd4;
+    /* background-color: rgb(0, 188, 212);
+    border-color: rgb(0, 188, 212); */
+    color: #fff !important;
+    box-shadow: 0 4px 5px 0 rgba(156, 39, 176, 0.14), 0 1px 10px 0 rgba(156, 39, 176, 0.12), 0 2px 4px -1px rgba(156, 39, 176, 0.2);
+    display: inline-block;
+}
+
+select:disabled,
+btn:disabled {
+    opacity: .40;
+}
+
+/* Child rows */
+
+td.details-control {
+    background: url('../images/details_open.png') no-repeat center center;
+    cursor: pointer;
+    width: 4%;
+}
+
+tr.shown td.details-control {
+    background: url('../images/details_close.png') no-repeat center center;
+}
+
+.details-control-title {
+    margin-left: 40px;
+    padding-right: 20px;
+}
+
+.dataTables_wrapper .dataTables_processing {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    height: 40px;
+    margin-left: -50%;
+    margin-top: -25px;
+    padding-top: 20px;
+    text-align: center;
+    font-size: 1.2em;
+    background-color: white;
+    background: -webkit-gradient(linear, left top, right top, color-stop(0%, rgba(255, 255, 255, 0)), color-stop(25%, rgba(255, 255, 255, 0.9)), color-stop(75%, rgba(255, 255, 255, 0.9)), color-stop(100%, rgba(255, 255, 255, 0)));
+    background: -webkit-linear-gradient(left, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.9) 25%, rgba(255, 255, 255, 0.9) 75%, rgba(255, 255, 255, 0) 100%);
+    background: -moz-linear-gradient(left, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.9) 25%, rgba(255, 255, 255, 0.9) 75%, rgba(255, 255, 255, 0) 100%);
+    background: -ms-linear-gradient(left, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.9) 25%, rgba(255, 255, 255, 0.9) 75%, rgba(255, 255, 255, 0) 100%);
+    background: -o-linear-gradient(left, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.9) 25%, rgba(255, 255, 255, 0.9) 75%, rgba(255, 255, 255, 0) 100%);
+    background: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.9) 25%, rgba(255, 255, 255, 0.9) 75%, rgba(255, 255, 255, 0) 100%);
+    z-index: 99;
+}
+
+.modal-title {
+    font-size: 20px;
+}
+
+.tag-label {
+    font-size: small;
+    background: #008394;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    padding-right: 8px;
+    padding-left: 8px;
+    border-radius: 5px;
+    color: white;
+}
+
+.user-select-none {
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    -o-user-select: none;
+    user-select: none;    
+  }
+
+/* =========== added because added scrollX true =========== */
+
+.dataTables_scrollHeadInner > .table {
+    margin-bottom: 0;
+}
+
+.dataTables_scrollBody > .table > thead {
+    display: contents;
+}
+
+.dataTables_scrollBody > .table > thead .sorting:after, 
+.dataTables_scrollBody > .table > thead .sorting_asc:after, 
+.dataTables_scrollBody > .table > thead .sorting_desc:after {
+    display: none;
+}
+
+ .dataTables_scrollBody > table.dataTable th {
+   padding-top: 0px !important;
+   padding-bottom: 0px !important;
+}
+
+.dataTables_scroll {
+    margin-bottom : 1rem !important;
+}
+
+.dataTables_scrollBody > table {
+   margin-bottom: 0;
+ }
+/* =========== /added because added scrollX true =========== */
+
+.card-header[data-toggle="collapse"] {
+    cursor: pointer;
+}
+
+.card-header[data-toggle="collapse"] h5::after  {
+    font-family: 'Font Awesome 5 Free';
+    content: "\f068";
+    float: right;
+}
+.card-header[data-toggle="collapse"].collapsed h5::after {
+    content: "\f067";
+}

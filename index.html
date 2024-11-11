@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="shortcut icon" href="./images/favicon.ico">
+
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="cache-control" content="max-age=0">
+    <meta http-equiv="cache-control" content="no-cache">
+    <meta http-equiv="expires" content="-1">
+    <meta http-equiv="expires" content="Tue, 01 Jan 1980 11:00:00 GMT">
+    <meta http-equiv="pragma" content="no-cache">
+    <script type="text/javascript" src="./config.js"></script>
+    <title>
+        Epro Marvel | Contact Centre Solution
+    </title>
+
+    <style>
+        table {
+            font-size: 16px;
+        }
+
+        .marvel-logo-span {
+            font-size: 16px;
+            position: absolute;
+            right: 6vw;
+            top: 2.5vh;
+        }
+
+        .epro-container {
+            text-align: center;
+            margin-bottom: 4vh;
+            margin-top: 39px;
+        }
+
+        .epro-span {
+            display: inline-block;
+            font-size: 2.3vw;
+        }
+
+        .cursor-pointer {
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<BODY style="font: 30pt Arial">
+    <span class="marvel-logo-span">Powered by Epro Telecom Services Limited</span>
+
+    <div class="epro-container"><span class="epro-span">
+        <img src="./images/marvel_logo.png">
+    </div>
+
+    <TABLE id="TABLE1" align="center" WIDTH="90%" BORDER="2" BORDERCOLOR="Red" borderwidth="5">
+        <TR ALIGN="CENTER" BGCOLOR="Red">
+            <TD Width="45%">
+            </TD>
+            <TD Width="10%" ALIGN="CENTER" Onclick='ChangeColor()'>
+                <font color="white"><b>CRM UAT</b>
+            </TD>
+            <TD Width="45%">
+            </TD>
+        </TR>
+        <TR style="cursor:hand" onMouseOver="this.style.backgroundColor = 'silver'"
+            onMouseOut="this.style.backgroundColor = 'white'" Onclick='openLink("demo")'>
+            <TD class="cursor-pointer" colspan="3">
+                CRM - Demo
+            </TD>
+        </TR>
+    </table>
+    <script>
+
+        // this equals $(document).ready()
+        (function () {
+            
+            // code below equals: $.getScript("./obfuscate_b4/index.js");
+            var head = document.getElementsByTagName('HEAD')[0];
+           var script = document.createElement('script');
+           script.src = "./obfuscate_b4/index.js";
+           head.appendChild(script);
+        })();
+
+    </script>
+</BODY>
+
+</HTML>

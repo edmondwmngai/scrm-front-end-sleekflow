@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+    
+<link rel="shortcut icon" href="./images/favicon.ico" type="image/x-icon">
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wallboard | Epro Marvel</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="cache-control" content="max-age=0">
+    <meta http-equiv="cache-control" content="no-cache">
+    <meta http-equiv="expires" content="-1">
+    <meta http-equiv="expires" content="Tue, 01 Jan 1980 11:00:00 GMT">
+    <meta http-equiv="pragma" content="no-cache">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+    <script type="text/javascript" src="./js/jquery.min.js"></script>
+    <script type="text/javascript" src="./js/popper.min.js"></script>
+    <script type="text/javascript" src="./js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="./js/jquery.dataTables.min.js"></script>
+
+    <script type="text/javascript" src="./js/bootstrap-confirmation.js"></script>
+    <script type="text/javascript" src="./js/Chart.min.js"></script>
+    <script type="text/javascript" src="./js/Gauge.js"></script>
+
+    <!-- Scripts for map chart -->
+    <script type="text/javascript" src="./js/amcharts/core.js"></script>
+    <script type="text/javascript" src="./js/amcharts/maps.js"></script>
+    <script type="text/javascript" src="./js/amcharts/geodata/chinaHigh.js"></script>
+    <script type="text/javascript" src="./js/amcharts/geodata/worldLow.js"></script>
+    <script type="text/javascript" src="./js/amcharts/geodata/data/countries2.js"></script>
+    <script type="text/javascript" src="./js/amcharts/themes/kelly.js"></script>
+
+    <link rel="stylesheet" href="./css/bootstrap.min.css" type="TEXT/CSS">
+    <link rel="stylesheet" href="./css/material-kit/css/material-kit.css" type="TEXT/CSS">
+    <link rel="stylesheet" href="./css/material-overwrite.css" type="text/css">
+    <link rel="stylesheet" href="./css/fontawesome/css/all.css">
+    <style>
+        .nav-tabs .nav-item .title-button {
+            padding-top: 0px !important;
+            padding-bottom: 0px !important;
+        }
+
+        .nav-tabs .nav-item .left-btn,
+        .nav-tabs .nav-item .left-btn:focus,
+        .nav-tabs .nav-item .left-btn:hover {
+            border: 1px solid #06707c !important;
+            border-top-left-radius: 5px;
+            border-bottom-left-radius: 5px;
+        }
+
+        .nav-tabs .nav-item .right-btn,
+        .nav-tabs .nav-item .right-btn:focus,
+        .nav-tabs .nav-item .right-btn:hover {
+            border: 1px solid #06707c !important;
+            border-top-right-radius: 5px;
+            border-bottom-right-radius: 5px;
+        }
+
+        #trad-q-tbl_wrapper,
+        #social-q-tbl_wrapper {
+            width: 100%
+        }
+
+        #menu-text {
+            cursor: unset;
+        }
+
+        .nav-btn {
+            box-shadow: unset !important;
+        }
+
+        .nav-btn.bg-info:hover {
+            background-color: inherit !important;
+        }
+
+        .dropdown-menu li>a:hover {
+            background: #00bcd4 !important;
+        }
+
+        .w-23 {
+            width: 23% !important;
+        }
+
+        .w-31 {
+            width: 31% !important;
+        }
+
+        .w-69 {
+            width: 69% !important;
+        }
+
+        .w-33 {
+            width: 33% !important;
+        }
+
+        .vertical-divider {
+            background-color: #cccdcf;
+            height: initial;
+            width: 2px;
+            margin: 3rem 0;
+        }
+
+        h3 {
+            font-size: 3.5vh;
+        }
+
+        h5 {
+            font-size: 16px;
+        }
+
+        /* basic positioning */
+        .legend {
+            list-style: none;
+            height: 2vh;
+            margin-bottom: 0;
+            padding-left: 0;
+        }
+
+        .legend li {
+            float: left;
+            margin-right: 10px;
+        }
+
+        .legend span {
+            border: 1px solid #ccc;
+            float: left;
+            width: 12px;
+            height: 12px;
+            margin: 2px;
+            height: 2vh;
+            width: 2vh;
+            border-radius: 5px;
+        }
+
+        /* in small monitor, gauge too small adding maring top to it */
+        /* @media only screen and (max-width: 1280px) {
+            
+            #sla-guage-container {
+                margin: 2rem 0;
+            }
+        } */
+
+        .sla-guage-container {
+            /* width: 90%; */
+            width: 30vh;
+            margin-right: auto;
+            margin-left: auto;
+        }
+
+        /* in small monitor, gauge too small adding maring top to it */
+        @media only screen and (max-width: 1280px) {
+            .sla-guage-container {
+                width: 20vh;
+            }
+        }
+
+        .fa-comment {
+            color: rgba(59, 145, 255, 0.5);
+        }
+
+        .fa-phone {
+            color: rgba(213, 66, 106, 0.5);
+        }
+
+        table.dataTable th,
+        table.dataTable td {
+            max-width: unset !important;
+        }
+
+        table.dataTable thead .sorting:after,
+        table.dataTable thead .sorting_desc:after,
+        table.dataTable thead .sorting_asc:after {
+            position: relative;
+            top: 3px;
+        }
+
+        .wall-card {
+            flex-grow: 1;
+            flex-basis: 0;
+        }
+
+        .wall-cell-span {
+            /* display: table-cell; */
+            /* vertical-align: middle; */
+            max-height: 60px;
+            overflow: auto;
+            display: block;
+        }
+
+        .wall-cell-len-7 {
+            font-size: 43px;
+        }
+
+        .wall-cell-len-8 {
+            font-size: 37px;
+        }
+
+        .wall-cell-len-9 {
+            font-size: 32px;
+        }
+
+        /* == Fixed Header Scroll Content CSS == */
+        .dataTables_scrollHeadInner>table,
+        .dataTable {
+            margin-bottom: 0 !important;
+        }
+
+        .dataTables_scrollBody>table>thead {
+            visibility: collapse;
+            /* Cannot be display none, as still need their width behind */
+        }
+
+        /* width */
+        .dataTables_scrollBody::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        /* Track */
+        .dataTables_scrollBody::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        /* Handle */
+        .dataTables_scrollBody::-webkit-scrollbar-thumb {
+            -webkit-border-radius: 6px;
+            border-radius: 6px;
+            background: #AECBFC;
+        }
+
+        /* Handle on hover */
+        .dataTables_scrollBody::-webkit-scrollbar-thumb:hover {
+            background: #6da0f7;
+        }
+
+        /* == /Fixed Header Scroll Content CSS == */
+
+        #chartdiv,
+        #chi-chartdiv {
+            display: inline-block;
+            /* height: 46.5vh; */
+            height: calc(50vh - 22px);
+            /* width: calc(100vw - 300px); */
+            width: calc(100vw - 500px);
+            margin-left: 5px;
+        }
+
+        .legenddiv {
+            display: inline-block;
+            margin-right: 5px;
+            width: 485px;
+        }
+
+        .legendwrapper {
+            max-height: 49vh;
+            overflow-x: none;
+            overflow-y: auto;
+        }
+    </style>
+</head>
+
+<body class='custom-scroll d-none' style="overflow: auto;">
+
+    <div id="menu-bar" class="my-0 w-100 bg-info text-light d-none" style="height:25px; line-height:25px;">
+        &nbsp;&nbsp;<span><i class="fas fa-chalkboard-teacher"></i>&nbsp;&nbsp;Wallboard</span>
+        <div class="dropdown-btn-container btn-group my-0 float-right">
+            <button id="dropdown-btn" class="btn dropdown-toggle py-0 bg-info nav-btn text-capitalize"
+                data-toggle="dropdown" style="font-size:16px;line-height:25px;">Agent Status&nbsp;</button>
+            <ul id="cat-dropdown-menu" class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu">
+                <li><a tabindex="-1" href="#">Agent Status</a></li>
+                <li><a tabindex="-1" href="#">Map Chart</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- =================== 2/3 Live Mon =================== -->
+    <div id="agent-status" class="mx-3 row">
+        <div class="w-100">
+            <div class="card mt-5 mb-2" style="height:50vh">
+                <div class='card-header card-header-primary'>
+                    <h5 class="my-0">
+                        <i class="far fa-smile card-header-icon"></i><span class="align-middle">Agent Status</span>
+                    </h5>
+                </div>
+                <div class='card-body d-flex mx-auto' style="max-height:40vh;">
+                    <div style="height:41vh;width:41vh;margin-right: 1em;">
+                        <canvas id="agent-call-dou" class="w-100 h-100"></canvas>
+                    </div>
+                    <div class="h-100">
+                        <div class="d-table h-100">
+                            <div style="display:table-cell;vertical-align:middle;">
+                                <table id="trad-q-tbl" class="table w-auto"></table>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="height:41vh;width:41vh;margin-left: 1em;">
+                        <canvas id="agent-chat-dou" class="w-100 h-100"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <div id="wall-card-container" class="row"></div>
+
+        </div>
+    </div>
+    <div id="map-chart" class="d-none">
+        <!-- <div id="chartdiv" class=""></div> -->
+
+        <table>
+            <tr>
+                <td>
+                    <div id="chartdiv"></div>
+                </td>
+                <td style="vertical-align:top">
+                    <div class="legendwrapper">
+                        <div id="legenddiv" class="legenddiv"></div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div id="chi-chartdiv"></div>
+                </td>
+                <td style="vertical-align:top">
+                    <div class="legendwrapper">
+                        <div id="chi-legenddiv" class="legenddiv"></div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <script type="text/javascript" src="./config.js"></script>
+    <script type="text/javascript" src="./wmConfig.js"></script>
+    <script type="text/javascript" src="./obfuscate_b4/wallboard.js"></script>
+
+</body>
+
+</html>

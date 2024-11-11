@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="16px" height="15px" viewBox="0 0 16 15" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 48.2 (47327) - http://www.bohemiancoding.com/sketch -->
+    <title>share-16</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Desktop" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" transform="translate(-81.000000, -1244.000000)">
+        <g id="5.-Glyph-Icons" transform="translate(79.000000, 1082.000000)" fill="#596371" fill-rule="nonzero">
+            <g id="Glyph-Icons-16px" transform="translate(0.000000, 64.000000)">
+                <g id="share-16" transform="translate(2.000000, 98.000000)">
+                    <path d="M13,15 L1,15 C0.448,15 0,14.552 0,14 L0,4 C0,3.448 0.448,3 1,3 L5,3 L5,5 L2,5 L2,13 L12,13 L12,10 L14,10 L14,14 C14,14.552 13.552,15 13,15 Z" id="Shape"></path>
+                    <path d="M16,4 L12,0 L12,3 C8.691,3 6,5.691 6,9 L8,9 C8,6.794 9.794,5 12,5 L12,8 L16,4 Z" id="Shape"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

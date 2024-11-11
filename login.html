@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no"
+        name="viewport">
+    <meta http-equiv="cache-control" content="max-age=0">
+    <meta http-equiv="cache-control" content="no-cache">
+    <meta http-equiv="expires" content="-1">
+    <meta http-equiv="expires" content="Tue, 01 Jan 1980 11:00:00 GMT">
+    <meta http-equiv="pragma" content="no-cache">
+    <meta charset="utf-8">
+
+    <title>
+        Epro Marvel | Contact Centre Solution
+    </title>
+
+    <link rel="icon" type="image/png" sizes="192x192" href="./images/favicon.png">
+
+    <link rel="stylesheet" href="./css/bootstrap.min.css" type="TEXT/CSS">
+    <link rel="stylesheet" href="./css/material-kit/css/material-kit.css" type="TEXT/CSS">
+    <link rel="stylesheet" href="./css/fontawesome/css/all.css">
+    <link rel="stylesheet" href="./css/loading.css">
+    <link rel="stylesheet" type="text/css" href="./css/material-overwrite.css">
+
+    <script type="text/javascript" src="./config.js"></script>
+    <script type="text/javascript" src="./js/jquery.min.js"></script>
+    <script type="text/javascript" src="./js/popper.min.js"></script>
+    <script type="text/javascript" src="./js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="./js/bootstrap-confirmation.js"></script>
+
+    <style>
+        .filter-drop-shadow {
+            filter: drop-shadow(0px 0px 5px #eee);
+        }
+
+        .login-btn {
+            font-weight: bold !important;
+            font-size: initial !important;
+        }
+
+        .login-btn:hover {
+            color: #845105 !important;
+        }
+
+        .change-pw-btn,
+        .change-pw-btn:focus {
+            background: white !important;
+            font-weight: bold !important;
+        }
+
+        .change-pw-btn:hover {
+            color: black !important;
+        }
+
+        a.disabled {
+            pointer-events: none;
+            cursor: default;
+        }
+
+        #login-company {
+            max-width: 200px;
+            max-height: 80px;
+        }
+
+        .pwd-view-container {
+            position: relative;
+        }
+
+        .pwd-view {
+            z-index: 3;
+            color: #495057;
+            display: none;
+            font-size: 16px;
+            cursor: pointer;
+            position: absolute;
+            right: 5px;
+            bottom: 0.9rem;
+        }
+
+        .l-login-password {
+            /* to provide space for Edge show password */
+            padding-right: 26px;
+        }
+    </style>
+</head>
+
+<body rightmargin="0" topmargin="0" leftmargin="0" bottommargin="0" language="javascript"
+    onkeydown='return (event.keyCode != 116)'>
+    <div class="page-header header-filter"
+        style="background-image: url('./images/bg.png'); background-size: cover; background-position: top center;">
+        <div class="container">
+            <div class="text-center mb-5">
+                <img id="login-company" class="d-none filter-drop-shadow" src="" alt="company logo">
+                <img src=".\images\marvel_logo.png" class="filter-drop-shadow mr-5" alt="marvel logo">
+                <img src=".\images\ets_logo.png" class="filter-drop-shadow" style="height: 57px;" alt="ets logo">
+            </div>
+            <div class="row">
+                <div class="col-lg-4 col-md-6 ml-auto mr-auto">
+                    <div class="card card-login">
+                        <div class="form">
+                            <div class="card-header card-header-info text-center">
+                                <h4 class="card-title l-login-login"></h4>
+                            </div>
+
+                            <div class="card-body mt-4">
+
+                                <div class="text-right">
+                                    <select id='language-select' style="width:50px;border:none;outline:none;"
+                                        onchange="languageChanged(this);">
+                                        <option selected value="EN">EN</option>
+                                        <option value="TC">繁中</option>
+                                        <option value="SC">简中</option>
+                                    </select>
+                                </div>
+
+                                <span class="bmd-form-group">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" style="font-size:20px;">
+                                                <i class="far fa-smile"></i>
+                                            </span>
+                                        </div>
+                                        <input id="staffID" type="search" type="text"
+                                            class="form-control l-login-username"
+                                            onkeydown="return staffID_onkeydown(event)">
+                                    </div>
+                                </span>
+
+                                <span class="bmd-form-group">
+                                    <div class="input-group pw-view-container">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">
+                                                <i class="fas fa-lock" style="font-size:20px;"></i>
+                                            </span>
+                                        </div>
+                                        <input id="pwd" type="password"
+                                            class="form-control l-login-password" autocomplete="current-password">
+                                        <i class="pwd-view far fa-eye-slash"></i>
+                                    </div>
+                                </span>
+
+                                <div id='warning-msg' class='mt-2 ml-3 text-danger' style='min-height:30px;'></div>
+
+                                <div class="text-center mt-0 ml-3">
+                                    <button class="btn btn-warning btn-link btn-wd text-capitalize login-btn pt-0 pb-4"
+                                        onclick="return verify(event)"><span class="l-login-get-started"></span>
+                                    </button>
+                                </div>
+                                <div class="text-right mt-0 ml-3">
+                                </div>
+
+                            </div>
+                            <div class="mb-3 pl-3" style="position:absolute;bottom:0;left:0;">
+                                <a id="restore-btn" class="btn btn-sm btn-warning rounded ml-1 text-capitalize d-none"
+                                    data-toggle="confirmation" data-placement="top" data-popout="true"
+                                    data-btn-ok-class="btn-info" href="javascript:(restoreClicked())"><i
+                                        class="fas fa-undo-alt mr-2"></i><span class='l-login-restore'>
+                                        <!-- Restore -->
+                                    </span></a>
+                                <span id="loading-icon-section" class="ml-2 d-none" style="vertical-align:sub;">
+                                    <div id="circularG">
+                                        <div id="circularG_1" class="circularG"></div>
+                                        <div id="circularG_2" class="circularG"></div>
+                                        <div id="circularG_3" class="circularG"></div>
+                                        <div id="circularG_4" class="circularG"></div>
+                                        <div id="circularG_5" class="circularG"></div>
+                                        <div id="circularG_6" class="circularG"></div>
+                                        <div id="circularG_7" class="circularG"></div>
+                                        <div id="circularG_8" class="circularG"></div>
+                                    </div>
+                                </span>
+                                <span class="d-none l-sending-request l-login-sending-request"
+                                    style="vertical-align:sub;">
+                                    <!-- Sending Request... -->
+                                </span>
+                                <span class="d-none l-login-done" style="vertical-align:sub;">
+                                    <!-- Done! -->
+                                </span>
+                            </div>
+                            <div style="position:absolute;bottom:0;right:0;"><span
+                                    class="float-right mr-4 mb-4">v1.0</span></div>
+                            </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript" src="./obfuscate_b4/login.js"></script>
+</body>
+
+</html>

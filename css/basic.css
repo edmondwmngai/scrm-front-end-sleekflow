@@ -1,0 +1,27 @@
+body {
+    /* margin-top: 0px !important; */
+    margin: 0 15px 15px 15px;
+    font-size: 14px;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+/* ============= Custom Scroll in body ============= */
+
+.custom-scroll::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+.custom-scroll::-webkit-scrollbar-track {
+    background: lightgray
+}
+
+.custom-scroll::-webkit-scrollbar-thumb {
+    -webkit-border-radius: 8px;
+    border-radius: 8px;
+    background: #AECBFC;
+}
+
+.custom-scroll::-webkit-scrollbar-thumb:window-inactive {
+    background: #AECBFC;
+}

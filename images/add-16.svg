@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="15px" height="15px" viewBox="0 0 15 15" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 48.2 (47327) - http://www.bohemiancoding.com/sketch -->
+    <title>add-16</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Desktop" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" transform="translate(-481.000000, -1245.000000)">
+        <g id="5.-Glyph-Icons" transform="translate(79.000000, 1082.000000)" fill="#005CFB" fill-rule="nonzero">
+            <g id="Glyph-Icons-16px" transform="translate(0.000000, 64.000000)">
+                <g id="add-16" transform="translate(402.000000, 99.000000)">
+                    <path d="M14.0625,6.5625 L8.4375,6.5625 L8.4375,0.9375 C8.4375,0.375 8.0625,0 7.5,0 C6.9375,0 6.5625,0.375 6.5625,0.9375 L6.5625,6.5625 L0.9375,6.5625 C0.375,6.5625 0,6.9375 0,7.5 C0,8.0625 0.375,8.4375 0.9375,8.4375 L6.5625,8.4375 L6.5625,14.0625 C6.5625,14.625 6.9375,15 7.5,15 C8.0625,15 8.4375,14.625 8.4375,14.0625 L8.4375,8.4375 L14.0625,8.4375 C14.625,8.4375 15,8.0625 15,7.5 C15,6.9375 14.625,6.5625 14.0625,6.5625 Z" id="Shape"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

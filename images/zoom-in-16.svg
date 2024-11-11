@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="16px" height="16px" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 48.2 (47327) - http://www.bohemiancoding.com/sketch -->
+    <title>zoom-in-16</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Desktop" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" transform="translate(-360.000000, -1204.000000)">
+        <g id="5.-Glyph-Icons" transform="translate(79.000000, 1082.000000)" fill="#005CFB" fill-rule="nonzero">
+            <g id="Glyph-Icons-16px" transform="translate(0.000000, 64.000000)">
+                <g id="zoom-in-16" transform="translate(281.000000, 58.000000)">
+                    <polygon id="Shape" points="10 8 8 8 8 10 6 10 6 8 4 8 4 6 6 6 6 4 8 4 8 6 10 6"></polygon>
+                    <path d="M15.707,13.293 L13,10.586 C13.63,9.536 14,8.311 14,7 C14,3.14 10.859,0 7,0 C3.141,0 0,3.14 0,7 C0,10.86 3.141,14 7,14 C8.312,14 9.536,13.631 10.586,13 L13.293,15.707 C13.488,15.902 13.744,16 14,16 C14.256,16 14.512,15.902 14.707,15.707 L15.707,14.707 C16.098,14.316 16.098,13.684 15.707,13.293 Z M7,12 C4.239,12 2,9.761 2,7 C2,4.239 4.239,2 7,2 C9.761,2 12,4.239 12,7 C12,9.761 9.761,12 7,12 Z" id="Shape"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

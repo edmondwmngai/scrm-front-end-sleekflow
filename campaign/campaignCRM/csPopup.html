@@ -1,0 +1,238 @@
+<!-- NOTES: Opened by:
+1. input form. Not editable
+2. Search Contact in Menu tab. Editable. -->
+<!DOCTYPE html>
+<html lang="en">
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="cache-control" content="max-age=0">
+<meta http-equiv="cache-control" content="no-cache">
+<meta http-equiv="expires" content="-1">
+<meta http-equiv="expires" content="Tue, 01 Jan 1980 11:00:00 GMT">
+<meta http-equiv="pragma" content="no-cache">
+<link rel="shortcut icon" href="../../images/favicon.ico">
+<link rel="stylesheet" href="../../css/fontawesome/css/all.css">
+<link rel="stylesheet" href="../../css/bootstrap.min.css" type="TEXT/CSS">
+<link rel="stylesheet" href="../../css/material-kit/css/material-kit.min.css" type="TEXT/CSS">
+<link rel="stylesheet" href="../../css/material-overwrite.css" type="TEXT/CSS">
+<link rel="stylesheet" href="../../css/search.css" type="TEXT/CSS">
+<script type="text/javascript" src="../../js/jquery.min.js"></script>
+<script type="text/javascript" src="../../js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="../../config.js"></script>
+<script type="text/javascript" src="../../js/generalFn.js"></script>
+
+<head>
+    <title id="cs-popup-title"></title>
+    <style type="text/css">
+        .profile-pic {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+        }
+
+        .l-cs-all {
+            margin-right: 10px;
+        }
+
+        /* .align-center {
+            padding-top: 5px;
+            text-align: center;
+        } */
+
+        /* ============= overwrite master-kit ============= */
+        /* select,
+        select.form-control {
+            -webkit-appearance: menulist-button;
+        } */
+
+        body {
+            background: #f4f5f7 !important;
+            font-size: 14px;
+        }
+
+        .multile-lines-cell {
+            overflow-wrap: break-word;
+            white-space: normal !important;
+        }
+
+        /* Customer Journety's Type columns text span*/
+        .cj-type-span {
+            display: inline-block;
+            min-width: 70px;
+        }
+    </style>
+</head>
+
+<body class="custom-scroll m-3" onload='csPopupOnload();' onkeydown='return (event.keyCode != 116)'>
+    <!--Nav Tab-->
+    <ul id="tabs" class="nav nav-tabs nav-fill" role="tablist">
+        <li class="nav-item">
+            <a class="nav-link pt-2 active show" data-toggle="tab" href="#cs-info" aria-selected="true"><span
+                    class="l-form-customer-information">Customer Information</span><i
+                    class="fa fa-user-circle ml-2"></i></a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link pt-2" data-toggle="tab" href="#cs-journey" aria-selected="false"><span
+                    class="l-cs-customer-journey">Customer Journey</span><i class="fas fa-exchange-alt ml-2"></i></a>
+        </li>
+    </ul>
+    <!--Nav Tab Content-->
+    <div class="tab-content">
+        <div id="cs-info" class="tab-pane in active show">
+            <div class="row ml-0 mr-0">
+                <div class="col-sm-9 mt-3 pr-0">
+                    <div class="form-inline">
+                        <label class="form-label col-sm-3 justify-content-start l-form-title" for="edit-Title"></label>
+                        <select name='Title'
+                            class='form-control col-sm-5 ml-3 offset-right-sm-3 edit-field verify-field'
+                            id='edit-Title'>
+                            <option value=""></option>
+                            <option value="Miss">Miss</option>
+                            <option value="Mr">Mr</option>
+                            <option value="Mrs">Mrs</option>
+                            <option value="Ms">Ms</option>
+                        </select>
+                        <span class='data-field-span col-sm-9' id='pTitle'></span>
+                    </div>
+                    <div class="form-inline">
+                        <label class="form-label col-sm-3 pr-0 justify-content-start l-form-full-name"
+                            for="edit-Name_Eng"></label>
+                        <input maxlength="50"
+                            class='form-control col-sm-5 ml-3 offset-right-sm-3 edit-field verify-field' name='Name_Eng'
+                            id='edit-Name_Eng' />
+                        <span class='data-field-span col-sm-9' id='pName_Eng'></span>
+                    </div>
+                    <div class="form-inline">
+                        <label class="form-label col-sm-3 justify-content-start l-form-language"
+                            for="edit-Lang"></label>
+                        <select class='form-control col-sm-5 ml-3 offset-right-sm-3 edit-field verify-field' name="Lang"
+                            id='edit-Lang'>
+                            <option selected="selected" value="Cantonese">Cantonese</option>
+                            <option value="English">English</option>
+                            <option value="Mandarin">Mandarin</option>
+                            <option value="Japanese">Japanese</option>
+                        </select>
+                        <span class='data-field-span col-sm-9' id='pLang'></span>
+                    </div>
+                    <div class="form-inline">
+                        <label class="form-label col-sm-3 justify-content-start" for="edit-Nationality_Id"><i
+                                class="far fa-flag mr-2"></i><span class="l-form-nationality"></span></label>
+                        <select class='form-control col-sm-5 ml-3 offset-right-sm-3 edit-field verify-field'
+                            id='edit-Nationality_Id' name="Nationality_Id" onchange="nationalityChanged(this);">
+                            <option value=""></option>
+                        </select>
+                        <span class='data-field-span col-sm-9' id='pNationality_Id'></span>
+                    </div>
+                    <div class="form-inline">
+                        <label class="form-label col-sm-3 justify-content-start" for="edit-Market_Id"><i
+                                class="fas fa-globe-asia mr-2"></i><span class="l-form-market"></span></label>
+                        <select class='form-control col-sm-5 ml-3 offset-right-sm-3 edit-field verify-field'
+                            id='edit-Market_Id' name="Market_Id">
+                            <option value=""></option>
+                        </select>
+                        <span class='data-field-span col-sm-9' id='pMarket_Id'></span>
+                    </div>
+                    <div class="form-inline">
+                        <label class="form-label col-sm-3 justify-content-start" for="edit-Profile_Id"><i
+                                class="far fa-user-circle mr-2"></i><span class="l-form-profile"></span></label>
+                        <select class='form-control col-sm-5 ml-3 offset-right-sm-3 edit-field verify-field'
+                            id='edit-Profile_Id' name="Profile_Id">
+                            <option value=""></option>
+                        </select>
+                        <span class='data-field-span col-sm-9' id='pProfile_Id'></span>
+                    </div>
+                    <div class="form-inline">
+                        <label class="form-label col-sm-3 pr-0 justify-content-start" for="edit-Mobile_No"><i
+                                class='fa fa-phone mr-2'></i><span class="l-form-mobile"></span></label>
+                        <input maxlength="50"
+                            class='form-control col-sm-5 ml-3 offset-right-sm-3 edit-field verify-field'
+                            name='Mobile_No' id='edit-Mobile_No' />
+                        <span class='data-field-span col-sm-9' id='pMobile_No'></span>
+                    </div>
+                    <div class="form-inline">
+                        <label class="form-label col-sm-3 pr-0 justify-content-start" for="edit-Other_Phone_No"><i
+                                class='fa fa-phone mr-2'></i><span class="l-form-other"></span></label>
+                        <input maxlength="50"
+                            class='form-control col-sm-5 ml-3 offset-right-sm-3 edit-field verify-field'
+                            name='Other_Phone_No' id='edit-Other_Phone_No' />
+                        <span class='data-field-span col-sm-9' id='pOther_Phone_No'></span>
+                    </div>
+                    <div class="form-inline">
+                        <label class="form-label col-sm-3 pr-0 justify-content-start" for="edit-Fax_No"><i
+                                class='fa fa-fax mr-2'></i><span class="l-form-fax"></span></label>
+                        <input maxlength="50"
+                            class='form-control col-sm-5 ml-3 offset-right-sm-3 edit-field verify-field' name='Fax_No'
+                            id='edit-Fax_No' />
+                        <span class='data-field-span col-sm-9' id='pFax_No'></span>
+                    </div>
+                    <div class="form-inline">
+                        <label class="form-label col-sm-3 pr-0 justify-content-start" for="edit-Email"><i
+                                class='fa fa-envelope mr-2'></i><span class="l-form-email"></span></label>
+                        <input maxlength="50"
+                            class='form-control col-sm-5 ml-3 offset-right-sm-3 edit-field verify-field' name='Email'
+                            id='edit-Email' />
+                        <span class='data-field-span col-sm-9' id='pEmail'></span>
+                    </div>
+                    <div class="form-inline">
+                        <label class="form-label col-sm-3 pr-0 justify-content-start" for="edit-Address1"><i
+                                class='far fa-address-book mr-2'></i><span class="l-form-address"></span></label>
+                        <input maxlength="50"
+                            class='form-control col-sm-5 ml-3 offset-right-sm-3 edit-field verify-field'
+                            id='edit-Address1' name="Address1" />
+                        <span class='data-field-span col-sm-9' id='pAddress1'></span>
+                    </div>
+                    <div class="form-inline mt-2">
+                        <div class="form-check ml-3">
+                            <label class="form-check-label">
+                                <i class="fas fa-info-circle mr-2"></i>
+                                <input type="checkbox"
+                                    class="form-check-input reply-checkbox sms-list dial-yes-disable l-form-agree-to-disclose-information"
+                                    id="Agree_To_Disclose_Info">
+                                &nbsp;
+                                <span class="form-check-sign">
+                                    <span class="check"></span>
+                                </span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-3 text-center pl-0">
+                    <div>
+                        <img id="p-profile-pic" class="profile-pic mt-3 justify-content-right"
+                            src="../../images/user.png" alt="profile pic">
+                    </div>
+                    <input class="verify-photo" type="file" id="p-file-to-upload"
+                        accept="image/x-png,image/gif,image/jpeg" onchange="previewPhoto(this);" style="display:none">
+                    <button class="edit-field mt-2 btn rounded btn-sm btn-warning text-capitalize l-general-upload"
+                        type="button" title="Upload Photo" onclick="$('#p-file-to-upload').trigger('click');"></button>
+                </div>
+            </div>
+            <div class="text-center mt-2">
+                <button class='btn btn-sm rounded btn-warning edit-field text-capitalize' onclick='confirmClicked()'><i
+                        class="fas fa-save mr-2"></i><span class="l-form-save"></span></button>
+                <button class='btn btn-sm rounded btn-default text-capitalize' value="Close"
+                    onclick="window.close();"><i class="fas fa-times-circle mr-2"></i><span
+                        class="l-general-cancel"></span></button>
+            </div>
+        </div>
+        <div id="cs-journey" class="tab-pane">
+            <div class="form-inline mt-2 justify-content-end">
+                <div class="form-check ml-3">
+                    <label class="l-cs-all">Inbound/Outbound/Manual Update</label>
+                    <div class="togglebutton">
+                        <label>
+                            <input id="cs-journey-no-manual-input" type="checkbox" checked="" onchange="noCommunicationChanged(this);">
+                            <span class="toggle"></span>
+                            <span class="l-cs-inbound-outbound">Inbound/Outbound</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript" src="../../obfuscate_b4/crmCsPopup.js"></script>
+
+</body>
+
+</html>

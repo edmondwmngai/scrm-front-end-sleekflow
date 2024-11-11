@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="36px" height="36px" viewBox="0 0 36 36" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 48.2 (47327) - http://www.bohemiancoding.com/sketch -->
+    <title>calendar-grid-30</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Desktop" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" transform="translate(-339.000000, -1645.000000)">
+        <g id="5.-Glyph-Icons" transform="translate(79.000000, 1082.000000)" fill="#005CFB" fill-rule="nonzero">
+            <g id="Outline-Icons-30px" transform="translate(0.000000, 524.000000)">
+                <g id="calendar-grid-30" transform="translate(262.000000, 41.000000)">
+                    <polygon id="Shape" points="33.08 9.58666667 33.08 11.7466667 -1.08 11.7466667 -1.08 9.58666667"></polygon>
+                    <polygon id="Shape" points="30.92 4.28 24.52 4.28 24.52 2.12 33.08 2.12 33.08 33.08 -1.08 33.08 -1.08 2.12 7.48 2.12 7.48 4.28 1.08 4.28 1.08 30.92 30.92 30.92"></polygon>
+                    <polygon id="Shape" points="9.58666667 4.28 9.58666667 2.12 22.4133333 2.12 22.4133333 4.28"></polygon>
+                    <path d="M20.28,27.7466667 L5.32,27.7466667 L5.32,14.92 L26.68,14.92 L26.68,22.4133333 L20.28,22.4133333 L20.28,27.7466667 Z M7.48,17.08 L7.48,25.5866667 L18.12,25.5866667 L18.12,20.2533333 L24.52,20.2533333 L24.52,17.08 L7.48,17.08 Z" id="Shape"></path>
+                    <polygon id="Shape" points="18.12 14.92 20.28 14.92 20.28 22.4133333 18.12 22.4133333"></polygon>
+                    <polygon id="Shape" points="11.72 15.9866667 13.88 15.9866667 13.88 27.7466667 11.72 27.7466667"></polygon>
+                    <polygon id="Shape" points="20.28 20.2533333 20.28 22.4133333 5.32 22.4133333 5.32 20.2533333"></polygon>
+                    <path d="M7.48,1.08 L7.48,5.32 L9.58666667,5.32 L9.58666667,1.08 L7.48,1.08 Z M11.7466667,-1.08 L11.7466667,7.48 L5.32,7.48 L5.32,-1.08 L11.7466667,-1.08 Z" id="Rectangle-path"></path>
+                    <path d="M22.4133333,5.32 L24.52,5.32 L24.52,1.08 L22.4133333,1.08 L22.4133333,5.32 Z M26.68,-1.08 L26.68,7.48 L20.2533333,7.48 L20.2533333,-1.08 L26.68,-1.08 Z" id="Rectangle-path"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

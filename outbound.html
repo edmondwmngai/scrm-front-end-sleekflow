@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="cache-control" content="max-age=0">
+    <meta http-equiv="cache-control" content="no-cache">
+    <meta http-equiv="expires" content="-1">
+    <meta http-equiv="expires" content="Tue, 01 Jan 1980 11:00:00 GMT">
+    <meta http-equiv="pragma" content="no-cache">
+
+    <!-- <link rel="stylesheet" href="./css/jquery.dataTables.css" type="TEXT/CSS"> -->
+    <link rel="stylesheet" href="./css/bootstrap.min.css" type="TEXT/CSS">
+    <link rel="stylesheet" href="./css/material-kit/css/material-kit.min.css" type="TEXT/CSS">
+    <link rel="stylesheet" href="./css/material-overwrite.css" type="text/css">
+    <link rel="stylesheet" href="./css/fontawesome/css/all.css">
+    <link rel="stylesheet" href="./css/jquery-ui.css" type="TEXT/CSS">
+    <link rel="stylesheet" href="./css/loading.css">
+    <link rel="stylesheet" href="./css/outbound.css">
+
+    <script type="text/javascript" src="./js/jquery.min.js"></script>
+    <script type="text/javascript" src="./js/popper.min.js"></script>
+    <script type="text/javascript" src="./js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="./js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="./js/dataTables.buttons.min.js"></script>
+    <script type="text/javascript" src="./js/buttons.html5.min.js"></script>
+    <script type="text/javascript" src="./js/jszip.min.js"></script>
+    <script type="text/javascript" src="./js/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="./js/ckeditor/ckeditor.js"></script>
+    <script type="text/javascript" src="./js/ckeditorFn.js"></script>
+    <script type="text/javascript" src="./config.js"></script>
+</head>
+
+<body class='custom-scroll full-page' style="cursor:wait;" onload="windowOnload(true)">
+
+    <div>
+        <!-- <div class="d-flex"> -->
+
+        <div id="left-menu" class="d-none sidebar" style="width:135px;">
+            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
+            <ul class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                <li id="m-open-content-tab"><a id="open-tab" class="nav-link text-capitalize mx-2" data-toggle="pill" href="#open-content" role="tab" aria-controls="open-content" aria-selected="false"><i
+                            class="far fa-folder-open mr-2"></i><span class="align-middle l-form-open">Open</span></a>
+                </li>
+            </ul>
+        </div>
+
+        <div id="main" style="position: relative;margin-left:135px;">
+            <button class="openbtn text-info mt-3 ml-2" onclick="openNav()">☰</button>
+            <!-- <div style="width: calc(100% - 129px);display: inline-block;"> -->
+
+            <div class="tab-content p-0" id="v-pills-tabContent">
+
+                <div class="tab-pane fade pt-1 px-0" id="design-content" role="tabpanel" aria-labelledby="design-tab">
+                    <div class="card mb-0">
+                        <div class='card-header card-header-text card-header-info'>
+                            <h5 class="my-0">
+                                <i class="fas fa-plus mr-2"></i><span class="align-middle l-social-campaign">Campaign</span>
+                            </h5>
+                        </div>
+                        <div id="c-container" class="card-body">
+
+                        </div>
+                    </div>
+                </div>
+
+                <!-- <div class="tab-pane fade pt-1 px-0" id="builder-content" role="tabpanel" aria-labelledby="builder-tab">
+                    <div class="card mb-0">
+                        <div class='card-header card-header-text card-header-info'>
+                            <h5 class="my-0">
+                                <i class="fas fa-pencil-ruler mr-2"></i><span class="align-middle">Form Builder</span>
+                            </h5>
+                        </div>
+                        <div id="b-container" class="card-body">
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-pane fade pt-1 px-0" id="form-content" role="tabpanel" aria-labelledby="form-tab">
+                    <div class="card mb-0">
+                        <div class='card-header card-header-text card-header-info'>
+                            <h5 class="my-0">
+                                <i class="fas fa-plus mr-2"></i><span class="align-middle">Form Structure</span>
+                            </h5>
+                        </div>
+                        <div id="f-container" class="card-body">
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-pane fade pt-1 px-0" id="builder-content" role="tabpanel" aria-labelledby="builder-tab">
+                    <div class="card mb-0">
+                        <div class='card-header card-header-text card-header-info'>
+                            <h5 class="my-0">
+                                <i class="fas fa-pencil-ruler mr-2"></i><span class="align-middle">Form Builder</span>
+                            </h5>
+                        </div>
+                        <div id="b-container" class="card-body">
+
+                        </div>
+                    </div>
+                </div> -->
+
+                <div class="tab-pane fade pt-1 px-0" id="upload-content" role="tabpanel" aria-labelledby="upload-tab">
+                    <div class="card mb-0">
+                        <div class='card-header card-header-text card-header-info'>
+                            <h5 class="my-0">
+                                <i class="fas fa-upload mr-2"></i><span class="align-middle l-outbound-upload-batch">Upload Batch</span>
+                            </h5>
+                        </div>
+                        <div id="u-container" class="card-body">
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-pane fade pt-1 px-0 mb-5" id="manage-content" role="tabpanel" aria-labelledby="manage-tab">
+                    <div id="a-assign-call-list-card" class="card mb-0">
+                        <div class='card-header card-header-text card-header-warning' data-toggle="collapse" data-target="#a-batch-body">
+                            <h5 class="my-0 d-inline">
+                                <i class="fas fa-tasks mr-2"></i><span class="align-middle l-outbound-assign-call-to-agent">Assign Call List To
+                                    Agents</span>
+                            </h5>
+
+                            <div class="togglebutton within-batch-period-toggle"><label><input
+                                id="a-within-batch-period" type="checkbox" checked=""><span
+                                class="toggle"></span><span class="within-batch-period-toggle-lbl">Not Include
+                                Expired Batches</span></label></div>
+                        </div>
+                        <div id="a-batch-body" class="show">
+                            <div class="card-body">
+                                <table id="a-batch-tbl" class="table table-hover w-100"></table>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="m-lower-part"></div>
+                </div>
+
+
+                <div class="tab-pane fade pt-1 px-0" id="open-content" role="tabpanel" aria-labelledby="open-tab">
+
+                    <div id="cust-search-container" class="card mb-5">
+                        <div class='card-header card-header-text card-header-warning' data-toggle="collapse" data-target="#o-search-customer-body">
+                            <h5 class="my-0">
+                                <i class="fas fa-search mr-2"></i><span class="align-middle l-menu-search-customer">Search Customer</span>
+                            </h5>
+                        </div>
+                        <div id="o-search-customer-body" class="show">
+                            <div class="card-body">
+                                <div class="d-flex flex-wrap">
+                                    <div class="form">
+                                        <table>
+                                            <tr>
+                                                <td class="pr-1"><span class="l-outbound-campaign-code">Campaign&nbsp;<span class="text-danger">*</span></span>
+                                                </td>
+                                                <td class="pr-3"><select id="o-search-campaign-select" class="form-control"></select></td>
+                                                <td class="pr-1"><span class="l-outbound-batch-code">Batch&nbsp;<span
+                                                            class="text-danger">*</span></span>
+                                                </td>
+                                                <td class="pr-3"><select id="o-search-batch" class="form-control mr-4" disabled="true"></select>
+                                                </td>
+                                                <td class="pr-1"><span class="l-outbound-phone-number">Phone No.</span>
+                                                </td>
+                                                <td class="pr-3"><input id="o-phone" class="form-control mr-4" type="search" autocomplete="off"></td>
+                                                <td class="pr-1"><span class="l-main-name">Name</span></td>
+                                                <td class="pr-3"><input id="o-name" class="form-control mr-4" type="search" autocomplete="off"></td>
+                                            </tr>
+
+                                            <tr>
+                                                <td class="pr-1"><span class="l-form-gender">Gender</span></td>
+                                                <td class="pr-3"><select id="o-gender" class="form-control c-customer-input">
+                                                        <option value="">- Please Select -</option>
+                                                        <option value="M">Male</option>
+                                                        <option value="F">Female</option>
+                                                    </select></td>
+                                                <td class="pr-1"><span class="l-campaign-agefrom">Age From</span></td>
+                                                <td class="pr-3"><input id="o-age-from" class="form-control" type="number" min="0"></td>
+                                                <td class="pr-1"><span class="l-campaign-ageto">Age To</span></td>
+                                                <td class="pr-3"><input id="o-age-to" class="form-control" type="number" min="0"></td>
+                                                <td class="pr-1"><span class="l-campaign-callstatus">Call Status</span></td>
+                                                <td class="pr-3"><select id="o-call-status" class="form-control">
+                                                        <option value="">- Please Select -</option>
+                                                        <option value="NewLead">Null</option>
+                                                        <option value="Unreach">Unreach</option>
+                                                        <option value="Reached">Reached</option>
+                                                        <option value="Successful Order">Successful Order</option>
+                                                    </select></td>
+                                            </tr>
+
+                                            <tr>
+                                                <td class="pr-1"><span class="l-campaign-callback">Callback</span></td>
+                                                <td class="pr-3"><select id="o-callback" class="form-control">
+                                                        <option value="">- Please Select -</option>
+                                                        <option value="all">All Time</option>
+                                                        <option value="09:00 - 11:00">09:00 - 11:00</option>
+                                                        <option value="11:01 - 14:00">11:01 - 14:00</option>
+                                                        <option value="14:01 - 16:00">14:01 - 16:00</option>
+                                                        <option value="16:01 - 18:00">16:01 - 18:00</option>
+                                                        <option value="> 18:00">&gt; 18:00</option>
+                                                    </select></td>
+                                                <td class="pr-2" colspan="6">
+                                                    <div class="form-check d-inline mr-2 mt-0"><label class="form-check-label l-campaign-mycalllistonly"><input
+                                                                type="radio" name="agent-list" class="form-check-input"
+                                                                value="myself" checked>My Call List
+                                                            Only<span class="circle"><span
+                                                                    class="check"></span></span></label>
+                                                    </div>
+
+                                                    <div class="form-check d-inline mt-0 mr-3"><label class="form-check-label l-campaign-allcustomers"><input
+                                                                type="radio" name="agent-list" class="form-check-input"
+                                                                value="all">All
+                                                            Customers<span class="circle"><span
+                                                                    class="check"></span></span></label>
+                                                    </div>
+
+                                                    <span class="form-check d-inline"> <label class="form-check-label"> <input
+                                                        id="o-within-batch-period" class="form-check-input"
+                                                        type="checkbox" checked> Within Batch Period <span
+                                                        class="form-check-sign"><span
+                                                            class="check"></span></span>
+                                                    </label>
+                                                    </span>
+
+                                                    <button id="o-search-btn" class='btn btn-sm rounded btn-warning text-capitalize mr-2 ml-3'><i
+                                                            class="fas fa-search mr-2"></i><span
+                                                            class="l-search-search">Search</span></button>
+
+                                                    <button id="o-cancel-btn" class="btn rounded btn-sm btn-default mb-0 text-capitalize"><i
+                                                            class="fas fa-undo-alt mr-2"></i><span>Cancel</span></button>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                    <div id="o-search-results-container" class="w-100">
+                                        <table id="o-search-results-tbl" class="table w-100 table-hover"></table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="o-contact-status-container" class="card d-none mb-0">
+                        <div class='card-header card-header-text card-header-info' data-toggle="collapse" data-target="#o-contact-status-body">
+                            <h5 class="my-0">
+                                <i class="fas fa-th-list mr-2"></i><span class="align-middle l-campaign-contact-status">Contact Status</span>
+                            </h5>
+                        </div>
+                        <div id="o-contact-status-body" class="show">
+                            <div class="card-body">
+                                <table id="o-contact-status-tbl" class="table w-100"></table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- a div container to let o-input-form w-100 only to the div -->
+                    <div>
+                        <iframe id="o-input-form" class="w-100 mb-5" frameborder="0" style="display: none;"></iframe>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Modal -->
+        <div class="modal fade" id="logModal" tabindex="-1" role="dialog" aria-labelledby="logModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="logModalLabel">Log Details</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <table>
+                            <tbody id="log-tbl-body"></tbody>
+                        </table>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /Modal -->
+
+        <script type="text/javascript" src="./obfuscate_b4/outbound.js"></script>
+
+</body>
+
+</html>

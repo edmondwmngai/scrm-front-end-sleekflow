@@ -144,12 +144,13 @@
 
 	  //Visitor (Receive) side
 	  //--------------------------------------
-	  receiveMessage(message)
+	  receiveMessage(message, sendby)
 	  {
 			this.messageReceived = message;
 	  		var templateResponse = this.visitorMessageTemplate;
 			var contextResponse = { 
 			  response: this.messageReceived,
+			  SentBy: this.sendBy,
 			  time: this.getCurrentTime()
 			};
 
@@ -240,64 +241,57 @@
       //  selected closed (timeout):  bubble-container bubble-present bubble-closed
       //  pending closed (timeout):  bubble-container bubble-closed
 
-	  addBubble(status, timeout, name)
+
+	  
+	  addBubble(status, timeout, ticket)
 	  {
-			
-			this.count = this.count + 1;
+
+		  	var dateISO = new Date(ticket.UpdatedAt);
+			//var dateUpdateAt = dateISO.getFullYear()+'-' + (dateISO.getMonth()+1) + '-'+dateISO.getDate();//prints expected format.
+			var dateUpdateAt = dateISO.toTimeString().split(' ')[0];
+			var context = { 
+				endUserId: ticket.EndUserId,
+				endUserName: ticket.EndUserName,
+				endUserEmail: ticket.EndUserEmail,
+				endUserPhone: ticket.EndUserPhone,
+				lastMessage: ticket.LastMessage, 
+				ticketId: ticket.TicketId,
+				updatedAt: dateUpdateAt,
+				deviceId: ticket.DeviceId,
+				channel:  ticket.Channel
+				
+			};
+
 			var template  = this.bubbleTemplate;
-			var count =  this.count;
 
 			if (status == "Pending" && timeout == false)
 			{
-					var context = { 
-						bubblestatus: "bubble-container",
-						name: count.toString(),
-						ticketId:  count
-					};
+				context.bubblestatus = "bubble-container";
 			}
 			else if (status == "Present" && timeout == false)
 			{
-					var context = { 
-						bubblestatus: "bubble-container bubble-present",
-						name:  count.toString(),
-						ticketId:  count
-					};
+				context.bubblestatus = "bubble-container bubble-present";
 			}
 			else if (status == "Pending_Unread" && timeout == false)
 			{
-					var context = { 
-						bubblestatus: "bubble-container bubble-unread",
-						name:  count.toString(),
-						ticketId:  count
-					};
+				context.bubblestatus = "bubble-container bubble-unread";
 			}
 
 			else if (status == "Pending" && timeout == true)
 			{
-					var context = { 
-						bubblestatus: "bubble-container bubble-present bubble-closed",
-						name: count.toString(),
-						ticketId:  count
-					};
-	
+				context.bubblestatus = "bubble-container bubble-present bubble-closed";
 			}
 			else if (status == "Present" && timeout == true)
 			{
-					var context = { 
-						bubblestatus: "bubble-container bubble-closed",
-						name: count.toString(),
-						ticketId:  count
-					};
+				context.bubblestatus = "bubble-container bubble-closed";
 	     	}	
 
-
-
-			 this.$ticketList.append(template(context));
+			this.$ticketList.append(template(context));
 
 	  };
 
 	 
-
+	  
 	  refreshTicketList()
 	  {
 	  
@@ -305,46 +299,7 @@
 
 
 			// the following data is for testing
-			 this.addBubble("Present", false);
-			 this.addBubble("Pending", false);
-			 this.addBubble("Pending", false);
-			 this.addBubble("Pending_Unread", false);
-			 this.addBubble("Pending", false);
-			 this.addBubble("Pending", false);
 
-
-			 this.addBubble("Present", true);
-			 this.addBubble("Pending", true);
-			  this.addBubble("Present", false);
-			 this.addBubble("Pending", false);
-			 this.addBubble("Pending", false);
-			 this.addBubble("Pending_Unread", false);
-			 this.addBubble("Pending", false);
-			 this.addBubble("Pending", false);
-
-
-			 this.addBubble("Present", true);
-			 this.addBubble("Pending", true);
-			  this.addBubble("Present", false);
-			 this.addBubble("Pending", false);
-			 this.addBubble("Pending", false);
-			 this.addBubble("Pending_Unread", false);
-			 this.addBubble("Pending", false);
-			 this.addBubble("Pending", false);
-
-
-			 this.addBubble("Present", true);
-			 this.addBubble("Pending", true);
-			  this.addBubble("Present", false);
-			 this.addBubble("Pending", false);
-			 this.addBubble("Pending", false);
-			 this.addBubble("Pending_Unread", false);
-			 this.addBubble("Pending", false);
-			 this.addBubble("Pending", false);
-
-
-			 this.addBubble("Present", true);
-			 this.addBubble("Pending", true);
 	 };
 
 	//---------------------------------------------------------------------------------------------------------------------------------------------///
@@ -362,16 +317,30 @@
 
 			if (ticketList != null)
 			{
-				//for (var i = 0; i < sMsglist.length; i++) {
 				for (var i = 0; i < ticketList.length; i++) 
 				{
+					//var dateISO = new Date(ticketList[i].UpdatedAt);
+					//var dateUpdateAt = date.getFullYear()+'-' + (date.getMonth()+1) + '-'+date.getDate();//prints expected format.
+
+					//var context = { 
+					//	endUserId: ticketList[i].EndUserId,
+					//	endUserName: ticketList[i].EndUserName,
+					//	endUserEmail: ticketList[i].EndUserEmail,
+					//	endUserPhone: ticketList[i].EndUserPhone,
+					//	lastMessage: ticketList[i].lastMessage, 
+					//	ticketId: ticketList[i].TicketId,
+					//	updatedAt: dateUpdateAt,
+					//	deciveId: ticketList[i].DeviceId,
+					//};
+
+
 					if (i == 0)
 					{
-						this.addBubble("Present", false, ticketList[i].EndUserName);
+						this.addBubble("Present", false, ticketList[i]);
 					}
 					else
 					{
-						this.addBubble("Pending", false, ticketList[i].EndUserName);
+						this.addBubble("Pending", false, ticketList[i]);
 					}
 				   //peopletList.addItem(ticket.TicketId, ticket.SentBy);
 				}
@@ -391,11 +360,11 @@
 
 					if (sMsg.SentBy == "user")
 					{
-						this.receiveMessage(sMsg.MessageContent);
+						this.receiveMessage(sMsg.MessageContent, sMsg.sendby);
 					}
 					else
 					{
-						this.addMessageByText(sMsg.MessageContent);
+						this.addMessageByText(sMsg.MessageContent, sMsg.sendby);
 					}
 				}
            }
@@ -464,3 +433,5 @@
 	  }
   }
   
+
+

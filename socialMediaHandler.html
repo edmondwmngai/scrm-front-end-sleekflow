@@ -108,7 +108,7 @@
                                         class="reply-send-container">
                                     <img class="reply-icon-size" src="./images/send.svg">
                                 </button>
-                                <button data-toggle="tooltip" data-placement="top" id="testSendMsgButton" title="Send"
+                                <button style="display:none" data-toggle="tooltip" data-placement="top" id="testSendMsgButton" title="Send"
                                         class="reply-send-container">
                                     <img class="reply-icon-size" src="./images/send.svg">
                                 </button>
@@ -116,7 +116,7 @@
                         </div>
 
 
-                        <div class="reply-container"><textarea id="reply-textarea-1123724117" class="reply-textarea" maxlength="1000" rows="2" placeholder="Type your text here..." onkeypress="textareaPressed(event);" onkeyup="sendCSInput(1123724117)"></textarea><div class="reply-icon-group"><button id="canned-1123724117" class="reply-canned-container keyboard-icon" data-toggle="tooltip" data-placement="top" title="Select Message" onclick="cannedBtnClicked(&quot;campaignCRM&quot;)"><span class="align-sub"><i class="far fa-keyboard"></i></span></button><button id="share-1123724117" class="reply-share-container keyboard-icon" data-toggle="tooltip" data-placement="top" title="Select File" onclick="shareBtnClicked(&quot;campaignCRM&quot;)"><span class="align-sub"><i class="far fa-file"></i></span></button><input type="file" onchange="uploadAttachment(this, 1123724117);" style="display:none"><button id="upload-1123724117" class="reply-share-container keyboard-icon" data-toggle="tooltip" data-placement="top" title="Send File" onclick="$(this).prev().trigger(&quot;click&quot;);"><span class="align-sub"><i class="fas fa-file-upload"></i></span></button><button id="end-1123724117" class="reply-end-container keyboard-icon" data-toggle="tooltip" data-placement="top" title="End Session" entry="webchat" onclick="endClicked(1123724117,this)"><span class="align-sub"><i class="fas fa-times"></i></span></button><button id="reply-btn-1123724117" class="reply-send-container" entry="webchat" onclick="replyClicked(1123724117)" data-toggle="tooltip" data-placement="top" title="Send Message"><img class="reply-icon-size" src="./images/send.svg"></button></div></div>
+                        <div class="reply-container" style="display:none"><textarea id="reply-textarea-1123724117" class="reply-textarea" maxlength="1000" rows="2" placeholder="Type your text here..." onkeypress="textareaPressed(event);" onkeyup="sendCSInput(1123724117)"></textarea><div class="reply-icon-group"><button id="canned-1123724117" class="reply-canned-container keyboard-icon" data-toggle="tooltip" data-placement="top" title="Select Message" onclick="cannedBtnClicked(&quot;campaignCRM&quot;)"><span class="align-sub"><i class="far fa-keyboard"></i></span></button><button id="share-1123724117" class="reply-share-container keyboard-icon" data-toggle="tooltip" data-placement="top" title="Select File" onclick="shareBtnClicked(&quot;campaignCRM&quot;)"><span class="align-sub"><i class="far fa-file"></i></span></button><input type="file" onchange="uploadAttachment(this, 1123724117);" style="display:none"><button id="upload-1123724117" class="reply-share-container keyboard-icon" data-toggle="tooltip" data-placement="top" title="Send File" onclick="$(this).prev().trigger(&quot;click&quot;);"><span class="align-sub"><i class="fas fa-file-upload"></i></span></button><button id="end-1123724117" class="reply-end-container keyboard-icon" data-toggle="tooltip" data-placement="top" title="End Session" entry="webchat" onclick="endClicked(1123724117,this)"><span class="align-sub"><i class="fas fa-times"></i></span></button><button id="reply-btn-1123724117" class="reply-send-container" entry="webchat" onclick="replyClicked(1123724117)" data-toggle="tooltip" data-placement="top" title="Send Message"><img class="reply-icon-size" src="./images/send.svg"></button></div></div>
                     </div>
                 </div>
             </div>
@@ -269,8 +269,8 @@
         <script id="agent_message_template" type="text/x-handlebars-template">
             <div id="-1310755465" class="message-row agent-row">
                 <div class="agent-content-bubble content-bubble">
-                    <div class="content-bubble-name">SYSTEM</div>
-                    <div class="content-bubble-content">Welcome to Epro!</div>
+                    <div class="content-bubble-name">agent</div>
+                    <div class="content-bubble-content">{{messageOutput}}</div>
                 </div>
                 <div>
                     <span class="user-icon"><i class="fas fa-user"></i></span>
@@ -278,7 +278,6 @@
                 </div>
             </div>
         </script>
-
         <script id="visitor_message_template" type="text/x-handlebars-template">
             <div id="2135790869" class="message-row visitor-row">
                 <div>
@@ -291,8 +290,10 @@
                     </div>
                 </div>
                 <div class="visitor-content-bubble content-bubble">
-                    <div class="content-bubble-name">edm</div>
-                    <div class="content-bubble-content">131414414</div>
+                    <div class="content-bubble-name">{{SentBy
+                        }}
+                    </div>
+                    <div class="content-bubble-content">{{response}}</div>
                 </div>
             </div>
         </script>
@@ -338,28 +339,33 @@
         <script id="bubble_template" type="text/x-handlebars-template">
 
             
-            <div class="{{bubblestatus}}" style="height:58px" id="bubble-430971308" campaign="campaignCRM" companycode="SM_Win2016-demoWebChat" enduserid="-2145706776" onclick="chatService.selectTicket(this)">
+            <div class="{{bubblestatus}}" style="height:58px" id="bubble-{{ticketId}}" campaign="campaignCRM" companycode="SM_Win2016-demoWebChat" enduserid="{{endUserId}}" onclick="chatService.selectTicket(this)">
                 <div class="bubble-container-inner">
                     <span class="bubble-label-content-columns">
-                        <span style="display: none;"class="bubble-id">{{ticketId}}</span>
+                        <span style="display: none;" class="bubble-id">{{ticketId}}</span>
+                        <span style="display: none;" class="bubble-user-id">{{endUserId}}</span>
+                        <span style="display: none;" class="bubble-user-email">{{endUserEmail}}</span>
+                        <span style="display: none;" class="bubble-user-phone">{{endUserPhone}}</span>
+                        <span style="display: none;" class="bubble-channel">{{channel}}</span>
+                        <span style="display: none;" class="bubble-deviceid">{{deviceId}}</span>                        
                         <div class="bubble-channel-logo">
                             <img class="bubble-icon" src="./Wise/img/webchat-icon-217.png">
                         </div>
                         <div class="buble-content-column">
                             <div>
-                                <span class="bubble-subject">{{name}}</span>
+                                <span class="bubble-subject">{{endUserName}}</span>
                                 <span style="float:right;">
                                     <span class="bubble-short-name"></span>&nbsp;
                                     <span class="bubble-datetime">
                                         <span class="bubble-date"></span>
-                                        <span class="bubble-time">09:43:29</span>
+                                        <span class="bubble-time">{{updatedAt}}</span>
                                     </span>
                                 </span>
                             </div>
                             <div class="d-flex">
-                                <span class="bubble-message mr-auto">m2</span>
-                                <i class="fas fa-plus bubble-small-icon mr-2" onclick="chatService.addAgent(430971308,&quot;campaignCRM&quot;,&quot;webchat&quot;)" data-toggle="tooltip" data-placement="bottom" title="Conference Call"></i>
-                                <i class="fas fa-sign-out-alt leave-chat-icon bubble-small-icon" onclick="leaveChat(430971308)" data-toggle="tooltip" data-placement="bottom" title="Leave Chat"></i>
+                                <span class="bubble-message mr-auto">{{lastMessage}}</span>
+                                <i class="fas fa-plus bubble-small-icon mr-2" onclick="chatService.addAgent({{ticketId}},&quot;campaignCRM&quot;,&quot;webchat&quot;)" data-toggle="tooltip" data-placement="bottom" title="Conference Call"></i>
+                                <i class="fas fa-sign-out-alt leave-chat-icon bubble-small-icon" onclick="leaveChat({{ticketId}})" data-toggle="tooltip" data-placement="bottom" title="Leave Chat"></i>
                                 <i class="fas fa-star private-i"></i>
                             </div>
                         </div>

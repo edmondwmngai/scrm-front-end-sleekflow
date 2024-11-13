@@ -20,6 +20,8 @@
     <script type="text/javascript" src="./js/jquery.min.js"></script>
     <script type="text/javascript" src="./js/popper.min.js"></script>
     <script type="text/javascript" src="./js/bootstrap.min.js"></script>
+    
+    <script type="text/javascript" src="./js/moment.js"></script>
 
 
     <script src="wise/script/shandler/SocialContent.js"></script>
@@ -108,7 +110,7 @@
                                         class="reply-send-container">
                                     <img class="reply-icon-size" src="./images/send.svg">
                                 </button>
-                                <button style="display:none" data-toggle="tooltip" data-placement="top" id="testSendMsgButton" title="Send"
+                                <button style="display:v" data-toggle="tooltip" data-placement="top" id="testSendMsgButton" title="Send"
                                         class="reply-send-container">
                                     <img class="reply-icon-size" src="./images/send.svg">
                                 </button>
@@ -339,7 +341,7 @@
         <script id="bubble_template" type="text/x-handlebars-template">
 
             
-            <div class="{{bubblestatus}}" style="height:58px" id="bubble-{{ticketId}}" campaign="campaignCRM" companycode="SM_Win2016-demoWebChat" enduserid="{{endUserId}}" onclick="chatService.selectTicket(this)">
+            <div class="{{bubblestatus}}" style="height: 58px; overflow: hidden" id="bubble-{{ticketId}}" campaign="campaignCRM" companycode="SM_Win2016-demoWebChat" enduserid="{{endUserId}}" onclick="chatService.selectTicket(this)">
                 <div class="bubble-container-inner">
                     <span class="bubble-label-content-columns">
                         <span style="display: none;" class="bubble-id">{{ticketId}}</span>
@@ -347,7 +349,7 @@
                         <span style="display: none;" class="bubble-user-email">{{endUserEmail}}</span>
                         <span style="display: none;" class="bubble-user-phone">{{endUserPhone}}</span>
                         <span style="display: none;" class="bubble-channel">{{channel}}</span>
-                        <span style="display: none;" class="bubble-deviceid">{{deviceId}}</span>                        
+                        <span style="display: none;" class="bubble-deviceid">{{deviceId}}</span>
                         <div class="bubble-channel-logo">
                             <img class="bubble-icon" src="./Wise/img/webchat-icon-217.png">
                         </div>
@@ -369,6 +371,7 @@
                                 <i class="fas fa-star private-i"></i>
                             </div>
                         </div>
+                        <span style="display: none;" class="bubble-messagelist">{{messageList}}</span>
                     </span>
                 </div>
             </div>
@@ -401,8 +404,8 @@
 
     <script>
                 
-           var shandler = parent.$('#phone-panel')[0].contentWindow.shandler;
-        	var sTicket = parent.$('#phone-panel')[0].contentWindow.currentTicket;
+            var shandler = parent.$('#phone-panel')[0].contentWindow.shandler;
+            var sTicket = parent.$('#phone-panel')[0].contentWindow.currentTicket;
 			var sMsglist= parent.$('#phone-panel')[0].contentWindow.currentMsglist;
             var reloadScreen = parent.$('#phone-panel')[0].contentWindow.reloadedByGetTicket;
                 

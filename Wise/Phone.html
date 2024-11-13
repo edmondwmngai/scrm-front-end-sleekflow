@@ -534,6 +534,8 @@ var SelectedChannel   = null;
 var SelectedDeviceID  = null;
 var selectedQueuelist = null;
 var reloadedByGetTicket = false;
+var AssignedTicketList= [];
+var sendMessageReturned=null;
 
 var ticketList=[];
 //ticketList.push({"ticket_id":"-2083549824"});
@@ -701,6 +703,10 @@ function onTicketEvent(e)
 		}
 	}
 
+	
+	//ticketList.push(q);
+
+
     //Remove all queueListItem that waitCount is 0
 	//queueList = queueList.filter(i=>i.source != 'sleekflow' && i.waitCount == 0);
 
@@ -718,6 +724,7 @@ function updateBubbleList()
 
 function onMessageEvent(e)
 {
+	parent.$('#social-media-main')[0].contentWindow.chatService.receiveMessageCallBack(e.details);
 	console.log(e);
 }
 
@@ -763,10 +770,10 @@ function acceptCall_Shandler(loginId, Token, Channel, deviceID)
 						let _messagelist = response.details.messages.filter(t => t.TicketId == response.details.ticket.TicketId);
 
                        // createOrUpdateBubbleFromHandler(shandler.tickets[0], _messagelist);
-					   if (_messagelist == null)
-					   {
-							shandler.tickets[0].shift;
-					   }
+					  // if (_messagelist == null)
+					  // {
+					//		shandler.tickets[0].shift;
+					 //  }
 
 					   	//Function for redirect iframe to socialMedialHandler.html
 						window.parent.SocialMediaClicked();
@@ -787,6 +794,8 @@ function acceptCall_Shandler(loginId, Token, Channel, deviceID)
 						//All the chatService reload the ticket screen
 
 						reloadedByGetTicket = true;
+
+						AssignedTicketList.push(currentTicket);
 //						parent.$('#social-media-main')[0].contentWindow.chatService.reloadByGetTicket();
 
 						//parent.$('#social-media')[0].contentWindow.createOrUpdateBubbleFromHandler(ticket, _messageList);
@@ -831,32 +840,46 @@ function acceptCall_Shandler(loginId, Token, Channel, deviceID)
 }
 
 
-function sendMessageByHandler(channel, webClientSenderId, messageType, messageContent, tickertId)
+function sendMessageByHandler(agent, token, channel, webClientSenderId, messageType, messageContent, ticketId)
 {
-
+		//Default example
+		//let formData = new FormData();
+		//formData.append('agentId', 111);
+		//formData.append('token', 'xxx');
+		//formData.append('ticketId', 112);
+		//formData.append('channel', 'web');
+		//formData.append('WebClientSenderId', '11120-232-42323');      //user id
+		//formData.append('messageType', 'file');               //file or text
+	//	formData.append('messageContent', 'hello');
+	//	formData.append('files', file);
 
 	    // Create a FormData object
 		let formData = new FormData();
 
 		// Append input field values to the FormData object
+
+		formData.append('agentId',			agent);
+		formData.append('token',			token);
+		formData.append('ticketId',			ticketId);
 		formData.append('channel',			channel);
 		formData.append('webClientSenderId',webClientSenderId);
 		formData.append('messageType',		messageType);
 		formData.append('messageContent',	messageContent);
-		formData.append('tickertId',		tickertId);
+		//formData.append('files',			file);
 
 		shandler.sendMessage(formData)
-	   .then(response=>{
-
-	   		return response.result;
-	   })
+	    .then(response=>{
+			if (response != null)
+			{
+				sendMessageReturned = response;
+				parent.$('#social-media-main')[0].contentWindow.chatService.sendByAPICallBack(sendMessageReturned);
+			}
+		})
 	   .catch(error => {
 
 		  console.log(error);
-		  return false;
+		  return null;
 		});
-
-
 }
 
 
@@ -3869,3 +3892,4 @@ addEventListener(document, 'onWiseSocialStatus', function (e) {
 <!-- <script src="./script/SIPml-epro.js" type="text/javascript"> </script>
 <script src="./script/webRTC.js" type="text/javascript"> </script> -->
 </html>
+

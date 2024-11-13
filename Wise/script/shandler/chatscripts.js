@@ -12,8 +12,8 @@
 		agentId = 0;
 
 		currentTicket = null;
-
-
+		selectedTicketId = 0;
+		selectedwebClientSenderId = "";
 	  init()
 	  {
 		    this.cacheDOM();
@@ -53,7 +53,7 @@
 		this.$button.on('click', this.addReplyMessageByClick.bind(this));
 		this.$textarea.on('keyup', this.addReplyMessageEnter.bind(this));
 
-		//this.$testbutton.on('click', this.sendByClick.bind(this));
+		this.$testbutton.on('click', this.sendByClick.bind(this));
 
 	  };
 
@@ -65,15 +65,10 @@
 		{
 
 			//var ticketList = parent.$('#phone-panel')[0].contentWindow.shandler.tickets;
-
-
-
-
 	//		var result = this.sendMessageByAPI(channel, webClientSenderId, messageType, messageContent, tickertId)
 
 	//		if (result)
 	//		{
-
 				var template = this.agentMessageTemplate;
 				var context = { 
 					messageOutput: this.messageToSend,
@@ -86,48 +81,45 @@
 	//		}
 	    }
 	  };
+
+
+	  //On  UI level=>   sendByClick();
+	  //sendMessageByAPI ()
+	  //phone.html call sendMessageByHandler();
+	  //wss sendMessage();
+
 	  sendByClick()
 	  {
-				this.sendMessageByAPI("web", "ccf94713-d0cb-4a84-873a-bd4a7589a751","file", "This is a testing message from shandler", "123245");
+			//var loginId = parseInt(sessionStorage.getItem('scrmAgentId') || -1);
+			//var token = sessionStorage.getItem('scrmToken') || '';
+			//var agentName = sessionStorage.getItem('scrmAgentName') || '';
+
+			var loginId = top.loginId;
+			var token = top.token;
+			
+			event.preventDefault(); // Prevent the default button click behavior
+			parent.$('#phone-panel')[0].contentWindow.sendMessageReturned= null;
+            parent.$('#phone-panel')[0].contentWindow.sendMessageByHandler(loginId, token, "web", this.selectedwebClientSenderId, "text", this.$textarea.val(), this.selectedTicketId);
+				
 	  }
 
-
-
-	  sendMessageByAPI(channel, webClientSenderId, messageType, messageContent, tickertId)
+	  sendByAPICallBack(msg)
 	  {
-				 event.preventDefault(); // Prevent the default button click behavior
-
-                // Create a FormData object
-                //let formData = new FormData();
-
-                // Append input field values to the FormData object
-				//formData.append('channel',			channel);
-				//formData.append('webClientSenderId',webClientSenderId);
-				//formData.append('messageType',		messageType);
-				//formData.append('messageContent',	messageContent);
-				//formData.append('tickertId',		tickertId);
-
-				parent.$('#phone-panel')[0].contentWindow.sendMessageByHandler(channel ,webClientSenderId,	messageType, messageContent, tickertId);
-
-				//files
-				//formData.append('file', $('#file')[0].files[0]);
-
-
-	
-                // Perform the AJAX request
-                //$.ajax({	url: 'https://example.com/api/endpoint', // Replace with your API endpoint
-				//			type: 'POST',			data: formData,
-				//			processData: false, // Important for sending FormData
-				//			contentType: false, // Important for sending FormData
-				//			success: function(response) {    console.log('Success:', response);		},	// Handle the success response                        
-				//			error: function(jqXHR, textStatus, errorThrown) {   console.log('Error:', textStatus, errorThrown); }// Handle the error response     });
-	  
-
-
-	  
+				parent.$('#phone-panel')[0].contentWindow.currentMsglist.push(msg);
+				
+				this.updateChatHeader();
+				this.messageToSend = this.$textarea.val();
+				this.$textarea.val('');
+				this.render();         
 	  
 	  };
 
+	  receiveMessageCallBack(sMsg)
+	  {
+			parent.$('#phone-panel')[0].contentWindow.currentMsglist.push(sMsg);
+			this.receiveMessage(sMsg.MessageContent, sMsg.sendby);
+	  
+	  };
 	  // For chat history header
 	  //---------------------------------------------
 	  updateChatHeader()
@@ -173,18 +165,7 @@
 	  };
 
 	  	  
-	  addReplyTestMessageByClick() 
-	  {		
-			this.updateChatHeader();
-			this.messageToSend = this.$textarea.val()
-
-
-			this.sendMessageByAPI("web", "ccf94713-d0cb-4a84-873a-bd4a7589a751","file", this.messageToSend, "123245");
-
-			this.render();         
-	  };
-
-
+	
 	  addReplyMessageEnter(event) {
 			// enter was pressed
 			if (event.keyCode === 13) {
@@ -218,12 +199,19 @@
 	  {
 
 		//Get the value from each Bubble
-		e.getElementsByClassName('bubble-subject')[0].innerHTML
+		//e.getElementsByClassName('bubble-subject')[0].innerHTML;
+		
 		console.log(e.getElementsByClassName('bubble-subject')[0].innerHTML);
 
 		// Loop all the ticket to reset not selecte
 		const elements = e.parentElement.querySelectorAll('.bubble-container');
 		elements.forEach((element, index) => {	element.classList.remove("bubble-present")   });
+		
+		
+		this.selectedwebClientSenderId   = e.getElementsByClassName('bubble-user-id')[0].innerHTML;
+		this.selectedticketId			= e.getElementsByClassName('bubble-id')[0].innerHTML;
+		
+		console.log("selected ticket id:" + this.selectedticketId.toString());
 
 
 		// Update the selected class CSS
@@ -243,12 +231,22 @@
 
 
 	  
-	  addBubble(status, timeout, ticket)
+	  addBubble(status, timeout, ticket, messageList)
 	  {
 
-		  	var dateISO = new Date(ticket.UpdatedAt);
+
+
+					//moment(date).format('D MMM YYYY, h:mm:ss A')
+
+					var dateISO = ticket.UpdatedAt;
+
+					var mDate = moment(dateISO).format('hh:mm:ss');
+		  	//var dateISO = new Date(ticket.UpdatedAt);
 			//var dateUpdateAt = dateISO.getFullYear()+'-' + (dateISO.getMonth()+1) + '-'+dateISO.getDate();//prints expected format.
-			var dateUpdateAt = dateISO.toTimeString().split(' ')[0];
+
+			var jsonMsgList = JSON.stringify(messageList);
+
+			//var dateUpdateAt = dateISO.toTimeString().split(' ')[0];
 			var context = { 
 				endUserId: ticket.EndUserId,
 				endUserName: ticket.EndUserName,
@@ -256,9 +254,10 @@
 				endUserPhone: ticket.EndUserPhone,
 				lastMessage: ticket.LastMessage, 
 				ticketId: ticket.TicketId,
-				updatedAt: dateUpdateAt,
+				updatedAt: mDate,
 				deviceId: ticket.DeviceId,
-				channel:  ticket.Channel
+				channel:  ticket.Channel,
+				messageList: jsonMsgList
 				
 			};
 
@@ -270,6 +269,8 @@
 			}
 			else if (status == "Present" && timeout == false)
 			{
+				this.selectedTicketId = context.ticketId;
+				this.selectedwebClientSenderId= context.endUserId;
 				context.bubblestatus = "bubble-container bubble-present";
 			}
 			else if (status == "Pending_Unread" && timeout == false)
@@ -290,7 +291,11 @@
 
 	  };
 
-	 
+	  MoveBubbleAtFirst(status, timeout, ticket, messageList)
+	  {
+
+
+	  };
 	  
 	  refreshTicketList()
 	  {
@@ -314,34 +319,24 @@
 	  
 			//1. Update Bubble ticket list
 		  	var ticketList = parent.$('#phone-panel')[0].contentWindow.shandler.tickets;
+			var messageList= parent.$('#phone-panel')[0].contentWindow.currentMsglist;
+			var assignedLst= parent.$('#phone-panel')[0].contentWindow.AssignedTicketList;
+
+			//queueList.sort(function (a,b) { var e =a.showPriority -b.showPriority; if(e==0) return (b.waitTime-a.waitTime); else return e; });
 
 			if (ticketList != null)
 			{
-				for (var i = 0; i < ticketList.length; i++) 
+				for (var i = 0; i < assignedLst.length; i++) 
 				{
-					//var dateISO = new Date(ticketList[i].UpdatedAt);
-					//var dateUpdateAt = date.getFullYear()+'-' + (date.getMonth()+1) + '-'+date.getDate();//prints expected format.
-
-					//var context = { 
-					//	endUserId: ticketList[i].EndUserId,
-					//	endUserName: ticketList[i].EndUserName,
-					//	endUserEmail: ticketList[i].EndUserEmail,
-					//	endUserPhone: ticketList[i].EndUserPhone,
-					//	lastMessage: ticketList[i].lastMessage, 
-					//	ticketId: ticketList[i].TicketId,
-					//	updatedAt: dateUpdateAt,
-					//	deciveId: ticketList[i].DeviceId,
-					//};
-
-
-					if (i == 0)
-					{
-						this.addBubble("Present", false, ticketList[i]);
-					}
-					else
-					{
-						this.addBubble("Pending", false, ticketList[i]);
-					}
+						if (i == 0)
+						{
+							this.addBubble("Present", false, ticketList[i], messageList);
+						}
+						else
+						{
+							this.addBubble("Pending", false, ticketList[i], messageList);
+						}
+					//}
 				   //peopletList.addItem(ticket.TicketId, ticket.SentBy);
 				}
 			}

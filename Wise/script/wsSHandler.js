@@ -47,6 +47,11 @@ class wsSHandler {
 				if(this.onTicketEvent)
 					this.onTicketEvent(this.tickets);
 
+			}
+			else if(msg.type=="message") {
+
+				this.onMessageEvent(msg);
+
 			};
 		};
 		this.websocket.onclose=(event)=> {
@@ -194,6 +199,7 @@ class wsSHandler {
 			console.log(response);
 			return null;
 		}
+
 		const json = await response.json();
 		if(json.result=="success")
 			return json.details;

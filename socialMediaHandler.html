@@ -341,7 +341,7 @@
         <script id="bubble_template" type="text/x-handlebars-template">
 
             
-            <div class="{{bubblestatus}}" style="height: 58px; overflow: hidden" id="bubble-{{ticketId}}" campaign="campaignCRM" companycode="SM_Win2016-demoWebChat" enduserid="{{endUserId}}" onclick="chatService.selectTicket(this)">
+            <div class="{{bubblestatus}}" style="height: 58px; overflow: hidden" id="bubble-ticket" campaign="campaignCRM" companycode="SM_Win2016-demoWebChat" enduserid="{{endUserId}}" onclick="chatService.selectTicket(this)">
                 <div class="bubble-container-inner">
                     <span class="bubble-label-content-columns">
                         <span style="display: none;" class="bubble-id">{{ticketId}}</span>
@@ -415,6 +415,9 @@
 
 
                 //chatService.refreshTicketList();
+
+
+               // chatService.addTestBubble("Present", false);
 
                 //Handle the user click from queuelist on the top 
                 if (reloadScreen)

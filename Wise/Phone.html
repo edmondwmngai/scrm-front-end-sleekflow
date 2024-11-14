@@ -769,6 +769,10 @@ function acceptCall_Shandler(loginId, Token, Channel, deviceID)
 
 						let _messagelist = response.details.messages.filter(t => t.TicketId == response.details.ticket.TicketId);
 
+						//at the sorting for store message list first come first store
+						_messagelist = _messagelist.sort((a, b) => { return a.MessageId - b.MessageId; });
+
+
                        // createOrUpdateBubbleFromHandler(shandler.tickets[0], _messagelist);
 					  // if (_messagelist == null)
 					  // {
@@ -781,7 +785,7 @@ function acceptCall_Shandler(loginId, Token, Channel, deviceID)
 						currentTicket = response.details.ticket;
 						
 						//For Show last message in ticket double list 
-						currentTicket.LastMessage = _messagelist[0].MessageContent;
+                        currentTicket.LastMessage = _messagelist[_messagelist.length-1].MessageContent;
 
 						//currentTicketlist = [].concat(shandler.tickets);
 						currentMsglist=  _messagelist;
@@ -793,12 +797,16 @@ function acceptCall_Shandler(loginId, Token, Channel, deviceID)
 
 						//All the chatService reload the ticket screen
 
+
+						
+                        const assignedTicket = Object.assign({}, currentTicket);
+                        assignedTicket.messages = _messagelist;
+
+                        AssignedTicketList.push(assignedTicket);
+
+						
 						reloadedByGetTicket = true;
-
-						AssignedTicketList.push(currentTicket);
-//						parent.$('#social-media-main')[0].contentWindow.chatService.reloadByGetTicket();
-
-						//parent.$('#social-media')[0].contentWindow.createOrUpdateBubbleFromHandler(ticket, _messageList);
+						
 					}
 
 					

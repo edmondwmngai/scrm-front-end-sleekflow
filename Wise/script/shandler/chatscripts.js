@@ -52,11 +52,18 @@
 	  
 	  bindEvents()
 	  {
-		this.$button.on('click', this.addReplyMessageByClick.bind(this));
+		//this.$button.on('click', this.addReplyMessageByClick.bind(this));
 		this.$textarea.on('keyup', this.addReplyMessageEnter.bind(this));
 
-		this.$testbutton.on('click', this.sendByClick.bind(this));
-		//this.addTestBubble("Present",false);
+		this.$button.on('click', this.sendMessageByClick.bind(this));
+
+		  //this.$testbutton.on('click', this.sendMessageByClick.bind(this));
+
+//		  this.addTestBubble("Present", false, 1, 1111);
+//		  this.addTestBubble("Present", false, 2, 2222);
+//		  this.addTestBubble("Present", false, 3, 3333);
+//		  this.moveBubbleToFirst(2222);
+
 	  };
 
 	  render()
@@ -66,11 +73,6 @@
 		if (this.messageToSend.trim() !== '') 
 		{
 
-			//var ticketList = parent.$('#phone-panel')[0].contentWindow.shandler.tickets;
-	//		var result = this.sendMessageByAPI(channel, webClientSenderId, messageType, messageContent, tickertId)
-
-	//		if (result)
-	//		{
 				var template = this.agentMessageTemplate;
 				var context = { 
 					messageOutput: this.messageToSend,
@@ -80,7 +82,7 @@
 				this.$chatHistory.append(template(context));
 				this.scrollToBottom();
 				this.$textarea.val('');
-	//		}
+	
 	    }
 	  };
 
@@ -89,8 +91,7 @@
 	  //sendMessageByAPI ()
 	  //phone.html call sendMessageByHandler();
 	  //wss sendMessage();
-
-	  sendByClick()
+	  sendMessageByClick()
 	  {
 			//var loginId = parseInt(sessionStorage.getItem('scrmAgentId') || -1);
 			//var token = sessionStorage.getItem('scrmToken') || '';
@@ -102,27 +103,67 @@
 			event.preventDefault(); // Prevent the default button click behavior
 			parent.$('#phone-panel')[0].contentWindow.sendMessageReturned= null;
             parent.$('#phone-panel')[0].contentWindow.sendMessageByHandler(loginId, token, "web", this.selectedwebClientSenderId, "text", this.$textarea.val(), this.selectedTicketId);
-				
+
+
 	  }
 
-	  sendByAPICallBack(msg)
+	  sendMessageCallBack(sMsg)
 	  {
-				parent.$('#phone-panel')[0].contentWindow.currentMsglist.push(msg);
-				
-				this.updateChatHeader();
-				this.messageToSend = this.$textarea.val();
-				this.$textarea.val('');
-				this.render();         
-	  
+		  this.updateBubbleHistory(sMsg);
+		  this.updateChatHeader();
+		  this.messageToSend = this.$textarea.val();
+		  this.$textarea.val('');
+		  this.render();         
 	  };
 
-	  receiveMessageCallBack(sMsg)
+	  incomeMessageCallBack(sMsg)
 	  {
-			parent.$('#phone-panel')[0].contentWindow.currentMsglist.push(sMsg);
-			this.receiveMessage(sMsg.MessageContent, sMsg.sendby);
-			this.updateBubbleHistory(sMsg);
-	  
+		  this.updateBubbleHistory(sMsg);
+
+		  //Current Bubble Message
+		  if (this.selectedTicketId == sMsg.TicketId) {
+			  this.receiveMessage(sMsg.MessageContent, sMsg.sendby);
+		  }
+		  else
+		  {
+			  this.updateBubbleStatus(sMsg.TicketId, "Pending_Unread", false);
+
+		  }
 	  };
+
+
+
+	  updateBubbleStatus(inputTicketID, status, timeout)
+	  {
+		  const specifiedValue = inputTicketID;
+
+		  // Find the main parent div
+		  const mainParentDiv = document.getElementById('bubble-list-inner');
+
+		  // Find all parent divs 
+		  const parentDivs = mainParentDiv.querySelectorAll('#bubble-ticket');
+
+		  // Iterate through each parent div 
+		  parentDivs.forEach(parent => {
+			  const subDivs = parent.querySelectorAll('.bubble-id');
+
+			  // Check if any sub div's HTML equals the specified value 
+			  subDivs.forEach(sub => {
+
+				  if (sub.innerHTML.trim() === specifiedValue.toString())
+				  {
+					  // *********Update the logic in there
+					  if (status == "Pending_Unread" && timeout == false)
+					  {
+						  parent.classList.add("bubble-unread");
+					  }
+				  }
+			  });
+		  });
+			
+
+	  }
+
 	  // For chat history header
 	  //---------------------------------------------
 	  updateChatHeader()
@@ -132,34 +173,8 @@
 			this.$histHeader.append(templateResponse())
 	  };
 
-	  updateBubbleHistory(msg)
-	  {
-	
-
-		  var elements = document.getElementById('bubble-list-inner').querySelectorAll("#bubble-ticket");
-
-
-		  //document.getElementsByClassName('.bubble-container'); // Use parentElement.querySelectorAll to get all elements with class name 'box' 
-		 //  const parentDiv = document.getElementsByClassName('bubble-container bubble-present');
-
-		  //const keywordElements = document.querySelectorAll('[class*="keyword"]');
-
-
-//			const elements = parentDiv.querySelectorAll('.bubble-container');
-		  //getElementsByClassName('bubble-id')[0].innerHTML;
-
-		  //parentDiv[1].querySelectorAll('[class*="bubble-container"]');
-			elements.forEach((element, index) => {	
-															var messageList = JSON.parse(element.getElementsByClassName('bubble-messagelist')[0].innerHTML); 
-															messageList.push(msg);
-															element.getElementsByClassName('bubble-messagelist')[0].innerHTML =  JSON.stringify(messageList);
-												});
-
-	  }
-
 	  // For chat history
-	  //---------------------------------------------
-
+	  //----------------------------------------------------------------------------------------------------------------------------------
 
 	  //Visitor (Receive) side
 	  //--------------------------------------
@@ -192,8 +207,6 @@
 			
 
 	  };
-
-	  	  
 	
 	  addReplyMessageEnter(event) {
 			// enter was pressed
@@ -221,6 +234,44 @@
 		 this.$chathistory.append(template(context));
 	  };
 
+	  reloadChatHistory(sMsglist)
+	  {
+		  //Reset the chat history screen
+		  $('#chatHistory').html('');
+
+		  if (sMsglist != null) {
+			  for (var i = 0; i < sMsglist.length; i++)
+			  {
+				  //for (var i = sMsglist.length - 1; i >= 0; i--) {
+				  let sMsg = sMsglist[i];
+
+				  if (sMsg.SentBy == "user") {
+					  this.receiveMessage(sMsg.MessageContent, sMsg.sendby);
+				  }
+				  else {
+					  this.addReplyMessageByText(sMsg.MessageContent, sMsg.sendby);
+				  }
+			  }
+		  }
+	  };
+
+	  //function update all the msglist in assignedlist
+	  updateBubbleHistory(msg) {
+
+		  var sTicket = parent.$('#phone-panel')[0].contentWindow.AssignedTicketList.filter(i => i.TicketId == msg.TicketId);
+		  var sMsglist = sTicket[0].messages;
+		  sMsglist.push(msg);
+
+		  var elements = document.getElementById('bubble-list-inner').querySelectorAll("#bubble-ticket");
+
+		  elements.forEach((element, index) => {
+			  var messageList = JSON.parse(element.getElementsByClassName('bubble-messagelist')[0].innerHTML);
+			  messageList.push(msg);
+			  element.getElementsByClassName('bubble-messagelist')[0].innerHTML = JSON.stringify(messageList);
+		  });
+
+	  };
+
 	  // For ticket (bubble) list
 	  //---------------------------------------------
 	  //When agent click the left bubble box, the box will be highlighted 
@@ -230,7 +281,7 @@
 		//Get the value from each Bubble
 		//e.getElementsByClassName('bubble-subject')[0].innerHTML;
 		
-		console.log(e.getElementsByClassName('bubble-subject')[0].innerHTML);
+		//console.log(e.getElementsByClassName('bubble-subject')[0].innerHTML);
 
 		// Loop all the ticket to reset not selecte
 		const elements = e.parentElement.querySelectorAll('.bubble-container');
@@ -240,26 +291,59 @@
 		this.selectedwebClientSenderId  = e.getElementsByClassName('bubble-user-id')[0].innerHTML;
 		this.selectedticketId			= e.getElementsByClassName('bubble-id')[0].innerHTML;
 		
-		console.log("selected ticket id:" + this.selectedticketId.toString());
+		//console.log("selected ticket id:" + this.selectedticketId.toString());
 
 
 		// Update the selected class CSS
 		e.classList.add("bubble-present");
 		e.classList.remove("bubble-unread");
-		
-		// **Not finished. Call the function from handler to load the messagelist
+
+	    var selectedTicket = parent.$('#phone-panel')[0].contentWindow.AssignedTicketList.filter(i => i.TicketId == e.getElementsByClassName('bubble-id')[0].innerHTML);
+
+
+		var sMsglist = selectedTicket[0].messages;
+
+
+		this.reloadChatHistory(sMsglist);
+
+				// **Not finished. Call the function from handler to load the messagelist
 
 	  };
+
+
+	  moveBubbleToFirst(inputTicketID) {
+
+		  const specifiedValue = inputTicketID;
+		  // Find the main parent div 
+
+		  const mainParentDiv = document.getElementById('bubble-list-inner');
+
+		  // Find all parent divs 
+		  const parentDivs = mainParentDiv.querySelectorAll('#bubble-ticket');
+
+		  // Iterate through each parent div 
+		  parentDivs.forEach(parent => {
+			  const subDivs = parent.querySelectorAll('.bubble-id');
+
+			  // Check if any sub div's HTML equals the specified value 
+			  subDivs.forEach(sub => {
+
+				  if (sub.innerHTML.trim() === specifiedValue.toString()) {
+
+					  // Move the parent div to the top 
+					  mainParentDiv.prepend(parent);
+					  console.log('Moved parent div to the top:', parent);
+				  }
+			  });
+		  });
+	  }
 
 
       //  pending only:   bubble-container
       //  selected:       bubble-container bubble-present
       //  pending unread: bubble-container bubble-unread
       //  selected closed (timeout):  bubble-container bubble-present bubble-closed
-      //  pending closed (timeout):  bubble-container bubble-closed
-
-
-	  
+      //  pending closed (timeout):  bubble-container bubble-closed	  
 	  addBubble(status, timeout, ticket, messageList)
 	  {
 
@@ -326,17 +410,14 @@
 
 	  };
 
-	  addTestBubble(status, timeout)
+	  addTestBubble(status, timeout, name, ticketID)
 	  {
-
-
-
 				
 			//var dateUpdateAt = dateISO.toTimeString().split(' ')[0];
 			var context = { 
 				endUserId: "123",
-				endUserName: "Name",
-				ticketId: 123444,
+				endUserName: name,
+				ticketId: ticketID,
 				endUserId: "14224242424"
 			};
 
@@ -370,22 +451,6 @@
 
 	  };
 
-	  MoveBubbleAtFirst(status, timeout, ticket, messageList)
-	  {
-
-
-	  };
-	  
-	  refreshTicketList()
-	  {
-	  
-			this.$ticketList.empty();
-
-
-			// the following data is for testing
-
-	 };
-
 	//---------------------------------------------------------------------------------------------------------------------------------------------///
 	// For procedure including multi-steps
 	//---------------------------------------------------------------------------------------------------------------------------------------------///
@@ -406,12 +471,16 @@
 
 			//queueList.sort(function (a,b) { var e =a.showPriority -b.showPriority; if(e==0) return (b.waitTime-a.waitTime); else return e; });
 
-		  const elements = document.getElementById('bubble-list-inner').querySelectorAll("#bubble-ticket");
+			const elements = document.getElementById('bubble-list-inner').querySelectorAll("#bubble-ticket");
 		    elements.forEach((element, index) => { element.classList.remove("bubble-present") });
 
 
 			if (currentTicket != null)
 			{
+
+				this.selectedTicketId		   = currentTicket.ticketId;
+				this.selectedwebClientSenderId = currentTicket.selectedwebClientSenderId;
+
 				for (var i = 0; i < assignedLst.length; i++)
 				{
 					if (i == (assignedLst.length - 1)) {
@@ -433,37 +502,16 @@
 			//2. Update Chat history header
 			this.updateChatHeader();
 
-			//3. Update message list
-			var sMsglist= parent.$('#phone-panel')[0].contentWindow.currentMsglist;
-
-			if (sMsglist != null)
-			{
-				for (var i = 0; i < sMsglist.length; i++) {
-				//for (var i = sMsglist.length - 1; i >= 0; i--) {
-					let sMsg = sMsglist[i];
-
-					if (sMsg.SentBy == "user")
-					{
-						this.receiveMessage(sMsg.MessageContent, sMsg.sendby);
-					}
-					else
-					{
-						this.addMessageByText(sMsg.MessageContent, sMsg.sendby);
-					}
-				}
-           }
-	  
+		  //3. Update message list
+			//*****currentMsgList is only be used for getTicket
+			var sMsgList= parent.$('#phone-panel')[0].contentWindow.currentMsglist;
+			this.reloadChatHistory(sMsgList);
 		
 	  };
 
-	  fillChatHistory()
-	  {
 
-
-
-
-	  };
-
+	  //------------------------------------------------------------------------------------------------------------------------
+	  //Unfinished AREA------------------------------------------------------------------------------------------------------------------------
 	  //------------------------------------------------------------------------------------------------------------------------
 	   addAgent()
 	  {

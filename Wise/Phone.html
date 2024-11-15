@@ -714,17 +714,9 @@ function onTicketEvent(e)
     showQueueList();
 }
 
-function updateBubbleList()
-{
-
-	 var shandler= parent.$('#phone-panel')[0].contentWindow.shandler;
-
-}
-
-
 function onMessageEvent(e)
 {
-	parent.$('#social-media-main')[0].contentWindow.chatService.receiveMessageCallBack(e.details);
+	parent.$('#social-media-main')[0].contentWindow.chatService.incomeMessageCallBack(e.details);
 	console.log(e);
 }
 
@@ -880,7 +872,7 @@ function sendMessageByHandler(agent, token, channel, webClientSenderId, messageT
 			if (response != null)
 			{
 				sendMessageReturned = response;
-				parent.$('#social-media-main')[0].contentWindow.chatService.sendByAPICallBack(sendMessageReturned);
+                parent.$('#social-media-main')[0].contentWindow.chatService.sendMessageCallBack(sendMessageReturned);
 			}
 		})
 	   .catch(error => {

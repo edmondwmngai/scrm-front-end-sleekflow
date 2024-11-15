@@ -73,14 +73,14 @@
                 <!-- <div class="active-chat-ques l-social-active-chat-ques"></div> -->
                 <div id="bubble-list-inner" class="custom-scroll" style="overflow-y:auto;height:753px;border-bottom: 1px solid #E5E9F2;">
                 </div>
-                <input type="button" value="refresh" onclick="chatService.refreshTicketList()" />
+                <input type="button" style="display:none" value="refresh" onclick="chatService.refreshTicketList()" />
             </div>
 
 
 
             <div id="content-section" style="display:block;width:calc(100% - 251px);float:right;">
                 <div id="default-content-container">
-                    <div class="default-content-title" style="height:58px">
+                    <div class="default-content-title" style="height:71px">
 
 
 
@@ -269,32 +269,31 @@
         </script>
 
         <script id="agent_message_template" type="text/x-handlebars-template">
-            <div id="-1310755465" class="message-row agent-row">
+            <div id="{{messageid}}" class="message-row agent-row">
                 <div class="agent-content-bubble content-bubble">
-                    <div class="content-bubble-name">agent</div>
+                    <div class="content-bubble-name">{{SentBy}}</div>
                     <div class="content-bubble-content">{{messageOutput}}</div>
                 </div>
                 <div>
                     <span class="user-icon"><i class="fas fa-user"></i></span>
-                    <div class="time-with-seconds" title="2024-11-05 10:47:31"><span></span><span>10:47:31</span></div>
+                    <div class="time-with-seconds" title="{{time}}"><span></span><span>{{time}}</span></div>
                 </div>
             </div>
         </script>
+        
         <script id="visitor_message_template" type="text/x-handlebars-template">
-            <div id="2135790869" class="message-row visitor-row">
+            <div id="{{messageid}}" class="message-row visitor-row">
                 <div>
                     <span class="user-icon">
                         <i class="fas fa-user"></i>
                     </span>
-                    <div class="time-with-seconds" title="2024-11-05 10:47:33">
+                    <div class="time-with-seconds" title="{{time}}">
                         <span></span>
-                        <span>10:47:33</span>
+                        <span>{{time}}</span>
                     </div>
                 </div>
                 <div class="visitor-content-bubble content-bubble">
-                    <div class="content-bubble-name">{{SentBy
-                        }}
-                    </div>
+                    <div class="content-bubble-name">{{SentBy}}</div>
                     <div class="content-bubble-content">{{response}}</div>
                 </div>
             </div>
@@ -309,7 +308,7 @@
         <script id="chatlist_header_template" type="text/x-handlebars-template">
             <div style="padding:7px 10px 0px 10px;">
                 <span class="custom-scroll content-basic-info" style="margin-top: -10px; margin-left: -15px">
-                    <span class="cs-info-span"><span class="content-gray-label">Platform:</span>&nbsp;webchat</span>
+                    <span class="cs-info-span"><span class="content-gray-label">Platform:</span>&nbsp;{{channel}}</span>
                     <span class="cs-info-span">
                         <span class="content-gray-label">Ticket ID:</span>{{ticketId}}
                     </span>
@@ -320,12 +319,12 @@
                     </span>
                     <span id="cs-info-1213777168">
                         <span>
-                            <span class="content-gray-label">Source:</span>&nbsp;www.commas.hk
+                            <span class="content-gray-label">Source:</span>&nbsp;{{source}}
                         </span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        <span><span class="content-gray-label">Language:</span>&nbsp;English</span>
+                        <span><span class="content-gray-label">Language:</span>&nbsp;{{language}}</span>
                     </span>
                 </span>
-                <img id="channel-1213777168" class="top-channel-img" style="margin-top:-20px" data-toggle="tooltip" data-placement="left" src="./Wise/img/webchat-icon-217.png">
+                <img id="channel-1213777168" class="top-channel-img" style="margin-top:-20px" data-toggle="tooltip" data-placement="left" src="./Wise/img/{{channelImg}}">
             </div>
         </script>
 
@@ -341,7 +340,7 @@
         <script id="bubble_template" type="text/x-handlebars-template">
 
             
-            <div class="{{bubblestatus}}" style="height: 58px; overflow: hidden" id="bubble-ticket" campaign="campaignCRM" companycode="SM_Win2016-demoWebChat" enduserid="{{endUserId}}" onclick="chatService.selectTicket(this)">
+            <div class="{{bubblestatus}}" style="height: 71px; overflow: hidden" id="bubble-ticket" campaign="campaignCRM" companycode="SM_Win2016-demoWebChat" enduserid="{{endUserId}}" onclick="chatService.selectTicket(this)">
                 <div class="bubble-container-inner">
                     <span class="bubble-label-content-columns">
                         <span style="display: none;" class="bubble-id">{{ticketId}}</span>
@@ -385,7 +384,7 @@
 
     </div>
     
-    <div id="variableStatus">Variable value will appear here</div> 
+    
     <!----------------------------------------------------------------------------------------------------->
 
     

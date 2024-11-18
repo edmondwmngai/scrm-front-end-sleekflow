@@ -1,5 +1,7 @@
   class chat
   {
+	  
+	  ///////
 		messageToSend = '';
 		messageReceived = '';
 		messageToSendBy =  '';
@@ -49,7 +51,9 @@
 			this.chatlistHeaderTemplate		=	Handlebars.compile( $("#chatlist_header_template").html());
 			this.agentMessageTemplate		=	Handlebars.compile( $("#agent_message_template").html());
 			this.visitorMessageTemplate		=	Handlebars.compile( $("#visitor_message_template").html());
-			this.statusUpdateTemplate		=	Handlebars.compile( $("#status_update_template").html());
+		    this.statusUpdateTemplate		=	Handlebars.compile($("#status_update_template").html());
+			this.visitorMessageWithAttachmentTemplate = Handlebars.compile($("#visitor_message_withattachment_template").html());
+		  
 	  };
 	  
 	  bindEvents()
@@ -213,13 +217,49 @@
 			var dateISO = sMsg.UpdatedAt;
 			var mDate = moment(dateISO).format('hh:mm:ss');
 
-			var contextResponse = { 
-			  response: sMsg.MessageContent,
-			  SentBy: sEndUserName,
-			  time: mDate
-			};
 
-			this.$chatHistory.append(templateResponse(contextResponse))
+			var attachmentTemplate = this.visitorMessageWithAttachmentTemplate;
+
+
+		  
+
+		   var attachment = "";
+
+		  //this.$chatHistory[0].getElementsByClassName('content-bubble-content')[0].append("abc");
+
+		  
+		  //Check the filejson is empty or not
+		  if (sMsg.FilesJson.length < 3)
+		  {
+
+			  var contextResponse = {
+				  response: sMsg.MessageContent,
+				  SentBy: sEndUserName,
+				  time: mDate
+
+			  };
+			  this.$chatHistory.append(templateResponse(contextResponse));
+		  }
+		  else
+		  {
+			  var FileList = [];
+
+			  FileList = JSON.parse(sMsg.FilesJson);
+
+			  //FileList[0].MimeType
+			 var Filename = FileList[0].EProFilename;
+			 var Fileurl = FileList[0].EproFileUrl;
+
+			  var contextResponse = {
+				  response: sMsg.MessageContent,
+				  SentBy: sEndUserName,
+				  time: mDate,
+				  FileFileName: Filename,
+				  FileUrl: Fileurl
+			  };
+
+			  this.$chatHistory.append(attachmentTemplate(contextResponse));
+		  }
 	  };
 
 

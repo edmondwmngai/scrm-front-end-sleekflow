@@ -24,7 +24,7 @@
     <script type="text/javascript" src="./js/moment.js"></script>
 
 
-    <script src="wise/script/shandler/SocialContent.js"></script>
+    <script src="js/SocialContent.js"></script>
     <script src="wise/script/wsSHandler.js"></script>
 
     <script>
@@ -253,6 +253,10 @@
                 </div>
             </li>
         </script>
+
+
+
+
         <script id="ticket-list-template" type="text/x-handlebars-template">
             <li class="clearfix">
                 <img src="Wise/img/webchat-icon-217.png" style="height:30px; width:30px" alt="avatar" />
@@ -280,13 +284,11 @@
                 </div>
             </div>
         </script>
-        
+
         <script id="visitor_message_template" type="text/x-handlebars-template">
             <div id="{{messageid}}" class="message-row visitor-row">
                 <div>
-                    <span class="user-icon">
-                        <i class="fas fa-user"></i>
-                    </span>
+                    <span class="user-icon"><i class="fas fa-user"></i></span>
                     <div class="time-with-seconds" title="{{time}}">
                         <span></span>
                         <span>{{time}}</span>
@@ -294,10 +296,40 @@
                 </div>
                 <div class="visitor-content-bubble content-bubble">
                     <div class="content-bubble-name">{{SentBy}}</div>
-                    <div class="content-bubble-content">{{response}}</div>
+                    <div class="content-bubble-content">
+                        {{response}}
+                    </div>
                 </div>
             </div>
         </script>
+
+
+        <script id="visitor_message_withattachment_template" type="text/x-handlebars-template">
+            <div id="{{messageid}}" class="message-row visitor-row">
+                <div>
+                    <span class="user-icon"><i class="fas fa-user"></i></span>
+                    <div class="time-with-seconds" title="{{time}}">
+                        <span></span>
+                        <span>{{time}}</span>
+                    </div>
+                </div>
+                <div class="visitor-content-bubble content-bubble">
+                    <div class="content-bubble-name">{{SentBy}}</div>
+                    <div class="content-bubble-content">
+                        <div style="text-align:center;">
+                            <img onclick="enlargeImage(this);" class="content-image" alt="{{FileName}}" style="max-width:100%;max-height:200px;" src="{{FileUrl}}">
+                        </div>
+                        <div class="position-relative">
+                            
+                            <a href="{{FileUrl}}" target="_blank" download="">{{FileName}}</a>
+                        </div>
+
+                        <div></div>
+                    </div>
+                </div>
+            </div>
+        </script>
+
 
         <script id="status_update_template" type="text/x-handlebars-template">
             <div id="end300098934" class="text-center my-3">
@@ -339,7 +371,7 @@
 
         <script id="bubble_template" type="text/x-handlebars-template">
 
-            
+
             <div class="{{bubblestatus}}" style="height: 71px; overflow: hidden" id="bubble-ticket" campaign="campaignCRM" companycode="SM_Win2016-demoWebChat" enduserid="{{endUserId}}" onclick="chatService.selectTicket(this)">
                 <div class="bubble-container-inner">
                     <span class="bubble-label-content-columns">

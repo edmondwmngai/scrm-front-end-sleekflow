@@ -260,10 +260,11 @@ function getSqlFormatTime() {
     return date;
 }
 
+//2024 for shandler
 function cannedBtnClicked(campaign) {
     popupCampaign = campaign;
     var openWindows = parent.openWindows;
-    var socialPopup = window.open('./socialPopup.html?type=msg', 'socialPop', 'toolbar=0,location=0,top=50, left=100,menubar=0,resizable=0,scrollbars=1,width=692,height=726');
+    var socialPopup = window.open('./socialPopupSL.html?type=msg', 'socialPop', 'toolbar=0,location=0,top=50, left=100,menubar=0,resizable=0,scrollbars=1,width=692,height=726');
     openWindows[openWindows.length] = socialPopup;
     socialPopup.onload = function () {
         socialPopup.onbeforeunload = function () {
@@ -1995,62 +1996,25 @@ function fbPostAddContinus(ticketId) {
     }
 }
 
-function createOrUpdateBubbleFromHandler(msgObj, messages) {
-
-    
-    //		"MessageId": 2281386826,	<= ID
-    //		"TicketId": 26,
-    //		"UniqueId": null,
-    //		"EndUserId": "537e41bd-d962-4244-a8bf-804b0803937d",
-    //		"Channel": "web",
-    //		"SentBy": "user",
-    //		"UpdatedBy": null,
-    //		"UpdatedAt": "2024-10-30T09:40:42.933",		<=sent_time'
-    //		"MessageType": "text",
-    //		"MessageContent": "AAAAA",
-
+function createOrUpdateBubble(msgObj) {
     console.log(msgObj); // TBD
     var channelImg = '';
-    var ticketId = msgObj.TicketId;  //Updated on 2024 1029
+    var ticketId = msgObj.ticket_id;
     var newTicket = false;
-    var msgList = messages || [];
+    var msgList = msgObj.msg_list || [];
     var msgListLength = msgList != undefined ? msgList.length : 0;
-
-
-    //20241030 
-    //var lastMsg = msgListLength != 0 ? msgList[msgListLength - 1] : {};
-    //var lastMsgContent = (lastMsg.msg_content || '').replace(/</g, "&lt;").replace(/>/g, "&gt;");
-    //var lastMsgSentTime = lastMsg.sent_time || '';
-    //var lastMsgDate = lastMsgSentTime.length == 0 ? '' : SC.handleDate(lastMsgSentTime);
-    //var lastMsgTime = lastMsgDate == '' ? lastMsgSentTime.length == 0 ? '' : SC.returnTime(lastMsgSentTime, true) : "";
-
-
     var lastMsg = msgListLength != 0 ? msgList[msgListLength - 1] : {};
-    var lastMsgContent = (lastMsg.MessageContent || '').replace(/</g, "&lt;").replace(/>/g, "&gt;");
-    var lastMsgSentTime = lastMsg.UpdatedAt || '';
+    var lastMsgContent = (lastMsg.msg_content || '').replace(/</g, "&lt;").replace(/>/g, "&gt;");
+    var lastMsgSentTime = lastMsg.sent_time || '';
     var lastMsgDate = lastMsgSentTime.length == 0 ? '' : SC.handleDate(lastMsgSentTime);
     var lastMsgTime = lastMsgDate == '' ? lastMsgSentTime.length == 0 ? '' : SC.returnTime(lastMsgSentTime, true) : "";
-
-    var entry = msgObj.Channel;
-
-    //var campaign = customCompany != "no" ? customCompany : msgObj.company_name;  ///20241030 Set to empty first
-    var campaign = "";
-
-    //var formData = msgObj.online_form_data || [];
-    var formData = [];   ///20241030 Set to empty first
-
-
-    var enduserId = msgObj.EndUserId || -1;
-
-    //var isOfflineForm = msgObj.offline_form == 1 || false;    ///20241030 Set to false first;
-    var isOfflineForm = false;
-
-    //var onlineFormData = msgObj.online_form_data || [];             
-    var onlineFormData = []; ///20241030 Set to empty first
-
-    //var offlineFormData = msgObj.offline_form_data || []; ///20241030 Set to empty first
-    var offlineFormData = [];
-
+    var entry = msgObj.entry;
+    var campaign = customCompany != "no"? customCompany: msgObj.company_name;
+    var formData = msgObj.online_form_data || [];
+    var enduserId = msgObj.enduser_id || -1;
+    var isOfflineForm = msgObj.offline_form == 1 || false;
+    var onlineFormData = msgObj.online_form_data || [];
+    var offlineFormData = msgObj.offline_form_data || [];
     var isMonitor = parent.tmpMonIdArr.includes(ticketId);
     var isFB = entry == 'facebook' || entry == 'fb_comment';
 
@@ -2087,16 +2051,11 @@ function createOrUpdateBubbleFromHandler(msgObj, messages) {
             channelImg = 'WeChat';
         }
         var bubbleMsg = (entry == 'fb_comment' || entry == 'fb_post') ? '' : isOfflineForm ? handleOfflineFormName(offlineFormData) : handleBubbleMsg(lastMsgContent, lastMsg.msg_object_client_name, lastMsg.msg_object_path);
-
-
         var offlineFormStr = isOfflineForm ? 'bubble-closed ' : '';
         var bubbleStyle = isOfflineForm ? 'style="background:white;color:black;" ' : '';
         var inviteAgentIdStr = '';
         var conferenceStr = '';
-
-        //var bubbleShortNameStr = customCompany == 'no' ? msgObj.company_short_name : '';
-        var bubbleShortNameStr = '';  //20241030 empty the name first;
-
+        var bubbleShortNameStr = customCompany == 'no' ? msgObj.company_short_name : '';
         var addAgentStr = 'addAgent(' + ticketId + ',"' + campaign + '","' + entry + '")';
         if (entry != 'fb_comment' && entry != 'fb_post') {
 
@@ -2142,15 +2101,9 @@ function createOrUpdateBubbleFromHandler(msgObj, messages) {
 
         var contentInnerHeight = (entry == 'fb_comment' || entry == 'fb_post' || noFormInSocial) ? 'calc(100vh - 262px)' : (isOfflineForm ? '413px' : '520px');
 
-        //20201030 for comment to empty Company Logo and shortName first
-       // var companyLogoStr = customCompany == 'no' ? '<img class="company-logo" src="./campaign/' + campaign + '/logo.png"/>' : '';
-        //var companyShortName = msgObj.company_short_name;
-        //var companyShortNameStr = ((entry == 'facebook' || entry == 'fb_comment') && companyShortName && companyShortName.length > 0) ? ('<span class="content-gray-label">Label:&nbsp;</span>' + companyShortName + '&nbsp;') : '';
-        var companyLogoStr = '';
-        var companyShortName = '';
-        var companyShortNameStr = '';
-
-
+        var companyLogoStr = customCompany == 'no' ? '<img class="company-logo" src="./campaign/' + campaign + '/logo.png"/>' : '';
+        var companyShortName = msgObj.company_short_name;
+        var companyShortNameStr = ((entry == 'facebook' || entry == 'fb_comment') && companyShortName && companyShortName.length > 0) ? ('<span class="content-gray-label">Label:&nbsp;</span>' + companyShortName + '&nbsp;') : '';
 
         var textareaId = 'reply-textarea-' + ticketId;
         var sendCSInputStr = (entry == 'webchat' ? (' onkeyup="sendCSInput(' + ticketId + ')"') : '');
@@ -2192,8 +2145,7 @@ function createOrUpdateBubbleFromHandler(msgObj, messages) {
                 data: JSON.stringify({
                     "userId": enduserId,
                     "entry": entry,
-                    //companyCode: msgObj.company_code
-                     companyCode: ''
+                    companyCode: msgObj.company_code
                 }),
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
@@ -2256,53 +2208,37 @@ function createOrUpdateBubbleFromHandler(msgObj, messages) {
     }
     var lastClientTime = null; // for whatsapp
     for (var i = 0; i < msgListLength; i++) {
-
         var theMsg = msgList[i];
-        
-        var theMsgContentDisplay = (theMsg.MessageContent || '').replace(/<[\/]{0,1}(script|object|embed)[^><]*>/ig, "");
-        var theMsgMsgType = theMsg.MessageType;
+        var theMsgContentDisplay = (theMsg.msg_content || '').replace(/<[\/]{0,1}(script|object|embed)[^><]*>/ig, "");
+        var theMsgMsgType = theMsg.msg_type;
 
         // if not iXServer greeting message or whatsapp not qr cta message linkify
         if ((theMsg.sender != '0' && entry != 'whatsapp') || (entry == 'whatsapp' && theMsgMsgType != 'tp_qr' && theMsgMsgType != 'tp_cta')) {
             theMsgContentDisplay = SC.linkify(theMsgContentDisplay);
         }
-        var sentTime = SC.returnDateTime(theMsg.UpdatedAt);
+        var sentTime = SC.returnDateTime(theMsg.sent_time);
         var theMsgDate = SC.handleDate(sentTime);
         var theMsgTime = theMsgDate == '' ? sentTime.slice(11, 19) : "";
-
-
-
-        //COmmented on 30 Oct 2024 file is handling in other way
-        //var msgObjectPath = theMsg.msg_object_path;
-
-        var msgId = String(theMsg.MessageId || '');
-
-        //COmmented on 30 Oct 2024 file is handling in other way
-        //var handleContentMsgObj = {}
-        //if (msgObjectPath != null) {
-        //    handleContentMsgObj = SC.handleContentMsg(theMsg.msg_object_path, theMsg.msg_object_client_name, theMsg.msg_type);
-        //    if (handleContentMsgObj.isImage) {
-        //        haveImageToLoad = true;
-        //    }
-        //    theMsgContentDisplay = handleContentMsgObj.text + '<div>' + theMsgContentDisplay + '</div>'
-        //}
-
-
-
-        //COmmented on 30 Oct 2024 , don't know the usage of msg_type
-
-        //if (theMsg.msg_type == 'tp_qr') {
-        //    handleContentMsgObj = SC.handleWATpQRMsg(theMsgContentDisplay)
-        //    theMsgContentDisplay = handleContentMsgObj.text
-        //} else if (theMsg.msg_type == 'tp_cta') {
-        //    handleContentMsgObj = SC.handleWATpCTAMsg(theMsgContentDisplay)
-        //    theMsgContentDisplay = handleContentMsgObj.text
-        //}
-
-
-        //if (handleContentMsgObj.isImage) {
-        //    haveImageToLoad = true;
-        //}
+        var msgObjectPath = theMsg.msg_object_path;
+        var msgId = String(theMsg.id || '');
+        var handleContentMsgObj = {}
+        if (msgObjectPath != null) {
+            handleContentMsgObj = SC.handleContentMsg(theMsg.msg_object_path, theMsg.msg_object_client_name, theMsg.msg_type);
+            if (handleContentMsgObj.isImage) {
+                haveImageToLoad = true;
+            }
+            theMsgContentDisplay = handleContentMsgObj.text + '<div>' + theMsgContentDisplay + '</div>'
+        }
+        if (theMsg.msg_type == 'tp_qr') {
+            handleContentMsgObj = SC.handleWATpQRMsg(theMsgContentDisplay)
+            theMsgContentDisplay = handleContentMsgObj.text
+        } else if (theMsg.msg_type == 'tp_cta') {
+            handleContentMsgObj = SC.handleWATpCTAMsg(theMsgContentDisplay)
+            theMsgContentDisplay = handleContentMsgObj.text
+        }
+        if (handleContentMsgObj.isImage) {
+            haveImageToLoad = true;
+        }
 
         // add form name if available
         var fbCommentStr = '';
@@ -2323,18 +2259,12 @@ function createOrUpdateBubbleFromHandler(msgObj, messages) {
         if (!duplicateMsg) {
 
             // 發送者1:客服,2:enduser
-            //if (theMsg.send_by_flag == 2) {
-            //updated on 20241030
-            if (theMsg.SentBy == "user") {
-
-                //var userIconStr = isFB ? '<img class="user-icon" src="' + theMsg.profile_pic + '" onerror="if (this.src != \'./images/user.png\') this.src = \'./images/user.png\';" />' :
-                var userIconStr = isFB ? '<img class="user-icon" src="" onerror="if (this.src != \'./images/user.png\') this.src = \'./images/user.png\';" />' :
+            if (theMsg.send_by_flag == 2) {
+                var userIconStr = isFB ? '<img class="user-icon" src="' + theMsg.profile_pic + '" onerror="if (this.src != \'./images/user.png\') this.src = \'./images/user.png\';" />' :
                     '<span class="user-icon"><i class="fas fa-user"></i></span>'
                 removeTypingBubble(ticketId);
                 contentScrollDiv.append('<div id="' + msgRowId + '" class="message-row' + visitorRow + '"' + fbCommentStr + '><div>' + userIconStr + '<div class="time-with-seconds" title="' + sentTime + '"><span>' + theMsgDate + '</span><span>' + theMsgTime + '</span></div></div><div class="visitor-content-bubble content-bubble"><div class="content-bubble-name">' +
-
-                    SC.handleBubbleName('', (entry == 'webchat' ? formData : null), null, true) +
-                    //SC.handleBubbleName(theMsg.nick_name, (entry == 'webchat' ? formData : null), null, true) +
+                    SC.handleBubbleName(theMsg.nick_name, (entry == 'webchat' ? formData : null), null, true) +
                     formNameStr + '</div><div class="content-bubble-content">' + theMsgContentDisplay + '</div></div>' + fbToHistorStr + '</div>');
                 haveMsgSendByEndUser = true;
                 if (entry == 'whatsapp') {
@@ -2360,46 +2290,45 @@ function createOrUpdateBubbleFromHandler(msgObj, messages) {
                 contentScrollDiv.append('<div id="' + msgRowId + '" class="message-row agent-row"><div class="agent-content-bubble content-bubble"><div class="content-bubble-name">' + agentBubbleName + '</div><div class="content-bubble-content">' + theMsgContentDisplay + '</div></div><div><span class="user-icon"><i class="fas fa-user"></i></span><div class="time-with-seconds" title="' + sentTime + '"><span>' + theMsgDate + '</span><span>' + theMsgTime + '</span></div></div></div>');
             }
 
-            //20241030 no reply_msg anymore (or need to rewrite the log)
-            //if (theMsg.reply_msg) {
-            //    var replyBubbleStr = '';
-            //    var reply_msg = theMsg.reply_msg;
-            //    var bubbleNow = $('#' + msgRowId).find('.content-bubble');
-            //    var theMsgContentDisplay = (reply_msg.msg_content || '').replace(/</g, "&lt;").replace(/>/g, "&gt;");
-            //    var replyMsgMsgType = reply_msg.msg_type;
-            //    var replyMsgObjPath = reply_msg.msg_object_path
-            //    if (replyMsgMsgType != 'tp_qr' && replyMsgMsgType != 'tp_cta') {
-            //        theMsgContentDisplay = SC.linkify(theMsgContentDisplay);
-            //    }
-            //    var handleContentMsgObj = {}
-            //    if (replyMsgObjPath != null) {
-            //        handleContentMsgObj = SC.handleContentMsg(reply_msg.msg_object_path, reply_msg.msg_object_client_name, reply_msg.msg_type);
-            //        theMsgContentDisplay = handleContentMsgObj.text + '<div>' + theMsgContentDisplay + '</div>'
-            //    }
+            if (theMsg.reply_msg) {
+                var replyBubbleStr = '';
+                var reply_msg = theMsg.reply_msg;
+                var bubbleNow = $('#' + msgRowId).find('.content-bubble');
+                var theMsgContentDisplay = (reply_msg.msg_content || '').replace(/</g, "&lt;").replace(/>/g, "&gt;");
+                var replyMsgMsgType = reply_msg.msg_type;
+                var replyMsgObjPath = reply_msg.msg_object_path
+                if (replyMsgMsgType != 'tp_qr' && replyMsgMsgType != 'tp_cta') {
+                    theMsgContentDisplay = SC.linkify(theMsgContentDisplay);
+                }
+                var handleContentMsgObj = {}
+                if (replyMsgObjPath != null) {
+                    handleContentMsgObj = SC.handleContentMsg(reply_msg.msg_object_path, reply_msg.msg_object_client_name, reply_msg.msg_type);
+                    theMsgContentDisplay = handleContentMsgObj.text + '<div>' + theMsgContentDisplay + '</div>'
+                }
 
-            //    if (replyMsgMsgType == 'tp_qr') {
-            //        handleContentMsgObj = SC.handleWATpQRMsg(theMsgContentDisplay)
-            //        theMsgContentDisplay = handleContentMsgObj.text
-            //    } else if (replyMsgMsgType == 'tp_cta') {
-            //        handleContentMsgObj = SC.handleWATpCTAMsg(theMsgContentDisplay)
-            //        theMsgContentDisplay = handleContentMsgObj.text
-            //    }
-            //    if (handleContentMsgObj.isImage) {
-            //        haveImageToLoad = true;
-            //    }
+                if (replyMsgMsgType == 'tp_qr') {
+                    handleContentMsgObj = SC.handleWATpQRMsg(theMsgContentDisplay)
+                    theMsgContentDisplay = handleContentMsgObj.text
+                } else if (replyMsgMsgType == 'tp_cta') {
+                    handleContentMsgObj = SC.handleWATpCTAMsg(theMsgContentDisplay)
+                    theMsgContentDisplay = handleContentMsgObj.text
+                }
+                if (handleContentMsgObj.isImage) {
+                    haveImageToLoad = true;
+                }
 
-            //    if (reply_msg.send_by_flag == 2) { //發送者1:客服,2:enduser{
-            //        replyBubbleStr = ('<div class="reply-bubble reply-cust"><div class="content-bubble-name">' +
-            //            reply_msg.nick_name +
-            //            formNameStr + '</div><div class="content-bubble-content">' + theMsgContentDisplay + '</div></div>');
-            //    } else {
-            //        var agentBubbleName = reply_msg.sender == '0' ? 'SYSTEM' : isNaN(reply_msg.sender) ? (isNaN(reply_msg.nick_name) ? reply_msg.nick_name : parent.getAgentName(Number(reply_msg.nick_name))) : parent.getAgentName(Number(reply_msg.sender));
-            //        replyBubbleStr = ('<div class="reply-bubble reply-agent"><div class="content-bubble-name">' +
-            //            agentBubbleName +
-            //            '</div><div class="content-bubble-content">' + theMsgContentDisplay + '</div></div>');
-            //    }
-            //    $(replyBubbleStr).prependTo(bubbleNow);
-            //}
+                if (reply_msg.send_by_flag == 2) { //發送者1:客服,2:enduser{
+                    replyBubbleStr = ('<div class="reply-bubble reply-cust"><div class="content-bubble-name">' +
+                        reply_msg.nick_name +
+                        formNameStr + '</div><div class="content-bubble-content">' + theMsgContentDisplay + '</div></div>');
+                } else {
+                    var agentBubbleName = reply_msg.sender == '0' ? 'SYSTEM' : isNaN(reply_msg.sender) ? (isNaN(reply_msg.nick_name) ? reply_msg.nick_name : parent.getAgentName(Number(reply_msg.nick_name))) : parent.getAgentName(Number(reply_msg.sender));
+                    replyBubbleStr = ('<div class="reply-bubble reply-agent"><div class="content-bubble-name">' +
+                        agentBubbleName +
+                        '</div><div class="content-bubble-content">' + theMsgContentDisplay + '</div></div>');
+                }
+                $(replyBubbleStr).prependTo(bubbleNow);
+            }
         } else {
 
             // append text or pic to it
@@ -2427,7 +2356,7 @@ function createOrUpdateBubbleFromHandler(msgObj, messages) {
         for (let theField of offlineFormData) {
             formFieldsStr += ('<div style="display:table-row;"><div style="display:table-cell;padding-right:10px;padding-bottom:3px;">' + theField.field_name + ': </div><div style="display:table-cell;">' + theField.field_value + '</div></div>');
         }
-        contentScrollDiv.append('<div class="message-row visitor-row"><div class="visitor-content-bubble"><div class="content-bubble-name" style="margin-bottom:5px;">Offline Form</div><div class="content-bubble-content"><table>' + formFieldsStr + '</table><div style="float:right;">Received Time: ' + SC.returnDateTime(msgObj.UpdatedAt) + '</div></div></div></div>');
+        contentScrollDiv.append('<div class="message-row visitor-row"><div class="visitor-content-bubble"><div class="content-bubble-name" style="margin-bottom:5px;">Offline Form</div><div class="content-bubble-content"><table>' + formFieldsStr + '</table><div style="float:right;">Received Time: ' + SC.returnDateTime(msgObj.start_time) + '</div></div></div></div>');
     }
 
     if (haveMsgSendByEndUser) {
@@ -2590,8 +2519,6 @@ function createOrUpdateBubbleFromHandler(msgObj, messages) {
     }
 }
 
-
-//-----------------------------------------------------------------------------------------------------//
 function updatePhotoConfirmed(campaign, customerId, iconSrc, ticketId) {
     if (confirm(langJson['l-confirm-change-profile-photo'])) {
         var fileData = new FormData();

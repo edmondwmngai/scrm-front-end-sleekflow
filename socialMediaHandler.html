@@ -20,18 +20,18 @@
     <script type="text/javascript" src="./js/jquery.min.js"></script>
     <script type="text/javascript" src="./js/popper.min.js"></script>
     <script type="text/javascript" src="./js/bootstrap.min.js"></script>
-    
+
     <script type="text/javascript" src="./js/moment.js"></script>
 
-
-    <script src="js/SocialContent.js"></script>
+                
+    <script src="wise/script/shandler/socialMedia.js"></script>
     <script src="wise/script/wsSHandler.js"></script>
 
     <script>
 
-        var shandler= parent.$('#phone-panel')[0].contentWindow.shandler;
+        var shandler = parent.$('#phone-panel')[0].contentWindow.shandler;
         var sTicket = parent.$('#phone-panel')[0].contentWindow.currentTicket;
-        var sMsglist= parent.$('#phone-panel')[0].contentWindow.currentMsglist;
+        var sMsglist = parent.$('#phone-panel')[0].contentWindow.currentMsglist;
         //var QueueList= parent.$('#phone-panel')[0].contentWindow.QueueList;
 
     </script>
@@ -94,11 +94,13 @@
                         <div class="reply-container">
                             <textarea class="reply-textarea" id="replyTextarea" rows="2"></textarea>
                             <div class="reply-icon-group">
-                                <button data-toggle="tooltip" data-placement="top"
-                                        class="reply-canned-container reply-btns-disable  keyboard-icon">
+                                <button data-toggle="tooltip" data-placement="top" id="cannedButton"
+                                        class="reply-canned-container reply-btns-disable  keyboard-icon"
+                                        onclick="cannedBtnClicked(&quot;campaignCRM&quot;)"
+                                        >
                                     <span class="align-sub"><i class="far fa-keyboard"></i></span>
                                 </button>
-                                <button data-toggle="tooltip" data-placement="top"
+                                <button data-toggle="tooltip" data-placement="top" onchange="uploadAttachment(this, 454465293);"
                                         class="reply-share-container reply-btns-disable  keyboard-icon">
                                     <span class="align-sub"><i class="far fa-file"></i></span>
                                 </button>
@@ -302,117 +304,142 @@
                 </div>
             </div>
         </script>
-
-
-        <script id="visitor_message_withattachment_template" type="text/x-handlebars-template">
-            <div id="{{messageid}}" class="message-row visitor-row">
-                <div>
-                    <span class="user-icon"><i class="fas fa-user"></i></span>
-                    <div class="time-with-seconds" title="{{time}}">
-                        <span></span>
-                        <span>{{time}}</span>
-                    </div>
-                </div>
-                <div class="visitor-content-bubble content-bubble">
-                    <div class="content-bubble-name">{{SentBy}}</div>
+        <script id="visitor_message__withattachment_template" type="text/x-handlebars-template">
+            <div id="" class="message-row agent-row">
+                <div class="agent-content-bubble content-bubble">
+                    <div class="content-bubble-name">MaryCheung</div>
                     <div class="content-bubble-content">
                         <div style="text-align:center;">
-                            <img onclick="enlargeImage(this);" class="content-image" alt="{{FileName}}" style="max-width:100%;max-height:200px;" src="{{FileUrl}}">
+                            <img onclick="enlargeImage(this);" class="content-image" alt="broken1.jpg" style="max-width:100%;max-height:200px;" src="http://172.17.7.40/WisePBX/Uploads/20241118/1584390197/broken1.jpg">
                         </div>
                         <div class="position-relative">
-                            
-                            <a href="{{FileUrl}}" target="_blank" download="">{{FileName}}</a>
+                            <a href="http://172.17.7.40/WisePBX/Uploads/20241118/1584390197/broken1.jpg" target="_blank" download="">broken1.jpg</a>
+                            <span class="wa-sent-success">sent</span>
                         </div>
-
                         <div></div>
                     </div>
                 </div>
-            </div>
-        </script>
-
-
-        <script id="status_update_template" type="text/x-handlebars-template">
-            <div id="end300098934" class="text-center my-3">
-                <span class="status-bubble">{{status}}</span>
-            </div>
-        </script>
-
-        <script id="chatlist_header_template" type="text/x-handlebars-template">
-            <div style="padding:7px 10px 0px 10px;">
-                <span class="custom-scroll content-basic-info" style="margin-top: -10px; margin-left: -15px">
-                    <span class="cs-info-span"><span class="content-gray-label">Platform:</span>&nbsp;{{channel}}</span>
-                    <span class="cs-info-span">
-                        <span class="content-gray-label">Ticket ID:</span>{{ticketId}}
+                <div>
+                    <span class="user-icon">
+                        <i class="fas fa-user"></i>
                     </span>
-                    <span id="cs-basic-1213777168">
-                        <span>
-                            <span class="content-gray-label">Name:</span>{{name}}
-                        </span>
-                    </span>
-                    <span id="cs-info-1213777168">
-                        <span>
-                            <span class="content-gray-label">Source:</span>&nbsp;{{source}}
-                        </span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        <span><span class="content-gray-label">Language:</span>&nbsp;{{language}}</span>
-                    </span>
-                </span>
-                <img id="channel-1213777168" class="top-channel-img" style="margin-top:-20px" data-toggle="tooltip" data-placement="left" src="./Wise/img/{{channelImg}}">
-            </div>
-        </script>
-
-        <!--
-
-        pending only:   bubble-container
-        selected:       bubble-container bubble-present
-        pending unread: bubble-container bubble-unread
-        selected closed (timeout):  bubble-container bubble-present bubble-closed
-        pending closed (timeout):  bubble-container bubble-closed
-    -->
-
-        <script id="bubble_template" type="text/x-handlebars-template">
-
-
-            <div class="{{bubblestatus}}" style="height: 71px; overflow: hidden" id="bubble-ticket" campaign="campaignCRM" companycode="SM_Win2016-demoWebChat" enduserid="{{endUserId}}" onclick="chatService.selectTicket(this)">
-                <div class="bubble-container-inner">
-                    <span class="bubble-label-content-columns">
-                        <span style="display: none;" class="bubble-id">{{ticketId}}</span>
-                        <span style="display: none;" class="bubble-user-id">{{endUserId}}</span>
-                        <span style="display: none;" class="bubble-user-email">{{endUserEmail}}</span>
-                        <span style="display: none;" class="bubble-user-phone">{{endUserPhone}}</span>
-                        <span style="display: none;" class="bubble-channel">{{channel}}</span>
-                        <span style="display: none;" class="bubble-deviceid">{{deviceId}}</span>
-                        <div class="bubble-channel-logo">
-                            <img class="bubble-icon" src="./Wise/img/webchat-icon-217.png">
-                        </div>
-                        <div class="buble-content-column">
-                            <div>
-                                <span class="bubble-subject">{{endUserName}}</span>
-                                <span style="float:right;">
-                                    <span class="bubble-short-name"></span>&nbsp;
-                                    <span class="bubble-datetime">
-                                        <span class="bubble-date"></span>
-                                        <span class="bubble-time">{{updatedAt}}</span>
-                                    </span>
-                                </span>
-                            </div>
-                            <div class="d-flex">
-                                <span class="bubble-message mr-auto">{{lastMessage}}</span>
-                                <i class="fas fa-plus bubble-small-icon mr-2" onclick="chatService.addAgent({{ticketId}},&quot;campaignCRM&quot;,&quot;webchat&quot;)" data-toggle="tooltip" data-placement="bottom" title="Conference Call"></i>
-                                <i class="fas fa-sign-out-alt leave-chat-icon bubble-small-icon" onclick="leaveChat({{ticketId}})" data-toggle="tooltip" data-placement="bottom" title="Leave Chat"></i>
-                                <i class="fas fa-star private-i"></i>
-                            </div>
-                        </div>
-                        <span style="display: none;" class="bubble-messagelist">{{messageList}}</span>
-                    </span>
+                    <div class="time-with-seconds" title="2024-11-18 18:04:0">
+                        <span></span>
+                        <span>18:04:0</span>
+                    </div>
                 </div>
             </div>
         </script>
 
+            <script id="visitor_message_withattachment_template" type="text/x-handlebars-template">
+                <div id="{{messageid}}" class="message-row visitor-row">
+                    <div>
+                        <span class="user-icon"><i class="fas fa-user"></i></span>
+                        <div class="time-with-seconds" title="{{time}}">
+                            <span></span>
+                            <span>{{time}}</span>
+                        </div>
+                    </div>
+                    <div class="visitor-content-bubble content-bubble">
+                        <div class="content-bubble-name">{{SentBy}}</div>
+                        <div class="content-bubble-content">
+                            <div style="text-align:center;">
+                                <img onclick="enlargeImage(this);" class="content-image" alt="{{FileName}}" style="max-width:100%;max-height:200px;" src="{{FileUrl}}">
+                            </div>
+                            <div class="position-relative">
+
+                                <a href="{{FileUrl}}" target="_blank" download="">{{FileName}}</a>
+                            </div>
+
+                            <div></div>
+                        </div>
+                    </div>
+                </div>
+            </script>
 
 
-        <!-----End of loading template__-------------------------------------------------------------------------------------------------------------------------------------------------->
-        <!-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------->
-        <!-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------->
+            <script id="status_update_template" type="text/x-handlebars-template">
+                <div id="end300098934" class="text-center my-3">
+                    <span class="status-bubble">{{status}}</span>
+                </div>
+            </script>
+
+            <script id="chatlist_header_template" type="text/x-handlebars-template">
+                <div style="padding:7px 10px 0px 10px;">
+                    <span class="custom-scroll content-basic-info" style="margin-top: -10px; margin-left: -15px">
+                        <span class="cs-info-span"><span class="content-gray-label">Platform:</span>&nbsp;{{channel}}</span>
+                        <span class="cs-info-span">
+                            <span class="content-gray-label">Ticket ID:</span>{{ticketId}}
+                        </span>
+                        <span id="cs-basic-1213777168">
+                            <span>
+                                <span class="content-gray-label">Name:</span>{{name}}
+                            </span>
+                        </span>
+                        <span id="cs-info-1213777168">
+                            <span>
+                                <span class="content-gray-label">Source:</span>&nbsp;{{source}}
+                            </span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <span><span class="content-gray-label">Language:</span>&nbsp;{{language}}</span>
+                        </span>
+                    </span>
+                    <img id="channel-1213777168" class="top-channel-img" style="margin-top:-20px" data-toggle="tooltip" data-placement="left" src="./Wise/img/{{channelImg}}">
+                </div>
+            </script>
+
+            <!--
+
+            pending only:   bubble-container
+            selected:       bubble-container bubble-present
+            pending unread: bubble-container bubble-unread
+            selected closed (timeout):  bubble-container bubble-present bubble-closed
+            pending closed (timeout):  bubble-container bubble-closed
+        -->
+
+            <script id="bubble_template" type="text/x-handlebars-template">
+
+
+                <div class="{{bubblestatus}}" style="height: 71px; overflow: hidden" id="bubble-ticket" campaign="campaignCRM" companycode="SM_Win2016-demoWebChat" enduserid="{{endUserId}}" onclick="chatService.selectTicket(this)">
+                    <div class="bubble-container-inner">
+                        <span class="bubble-label-content-columns">
+                            <span style="display: none;" class="bubble-id">{{ticketId}}</span>
+                            <span style="display: none;" class="bubble-user-id">{{endUserId}}</span>
+                            <span style="display: none;" class="bubble-user-email">{{endUserEmail}}</span>
+                            <span style="display: none;" class="bubble-user-phone">{{endUserPhone}}</span>
+                            <span style="display: none;" class="bubble-channel">{{channel}}</span>
+                            <span style="display: none;" class="bubble-deviceid">{{deviceId}}</span>
+                            <div class="bubble-channel-logo">
+                                <img class="bubble-icon" src="./Wise/img/webchat-icon-217.png">
+                            </div>
+                            <div class="buble-content-column">
+                                <div>
+                                    <span class="bubble-subject">{{endUserName}}</span>
+                                    <span style="float:right;">
+                                        <span class="bubble-short-name"></span>&nbsp;
+                                        <span class="bubble-datetime">
+                                            <span class="bubble-date"></span>
+                                            <span class="bubble-time">{{updatedAt}}</span>
+                                        </span>
+                                    </span>
+                                </div>
+                                <div class="d-flex">
+                                    <span class="bubble-message mr-auto">{{lastMessage}}</span>
+                                    <i class="fas fa-plus bubble-small-icon mr-2" onclick="chatService.addAgent({{ticketId}},&quot;campaignCRM&quot;,&quot;webchat&quot;)" data-toggle="tooltip" data-placement="bottom" title="Conference Call"></i>
+                                    <i class="fas fa-sign-out-alt leave-chat-icon bubble-small-icon" onclick="leaveChat({{ticketId}})" data-toggle="tooltip" data-placement="bottom" title="Leave Chat"></i>
+                                    <i class="fas fa-star private-i"></i>
+                                </div>
+                            </div>
+                            <span style="display: none;" class="bubble-messagelist">{{messageList}}</span>
+                        </span>
+                    </div>
+                </div>
+            </script>
+
+
+
+            <!-----End of loading template__-------------------------------------------------------------------------------------------------------------------------------------------------->
+            <!-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------->
+            <!-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------->
 
     </div>
     

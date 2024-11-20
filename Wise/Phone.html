@@ -680,7 +680,7 @@ function onTicketEvent(e)
 	//Remove all queueListItem that are created in sHandler
 	queueList = queueList.filter(i=>i.source != 'sleekflow');
 
-	for (var i = 0; i < serviceList.length; i++) {
+    for (var i = 0; i < serviceList.length; i++) {
 		let service = serviceList[i];
         if (service.source == 'sleekflow') {
 
@@ -881,6 +881,49 @@ function sendMessageByHandler(agent, token, channel, webClientSenderId, messageT
 		  return null;
 		});
 }
+
+
+function sendAttachmentByHandler(agent, token, channel, webClientSenderId, messageType, file, ticketId)
+{
+            //Default example
+            //let formData = new FormData();
+            //formData.append('agentId', 111);
+            //formData.append('token', 'xxx');
+            //formData.append('ticketId', 112);
+            //formData.append('channel', 'web');
+            //formData.append('WebClientSenderId', '11120-232-42323');      //user id
+            //formData.append('messageType', 'file');               //file or text
+            //	formData.append('messageContent', 'hello');
+            //	formData.append('files', file);
+
+            // Create a FormData object
+            let formData = new FormData();
+
+            // Append input field values to the FormData object
+
+            formData.append('agentId', agent);
+            formData.append('token', token);
+            formData.append('ticketId', ticketId);
+            formData.append('channel', channel);
+            formData.append('webClientSenderId', webClientSenderId);
+			formData.append('messageType', messageType);
+			formData.append('messageContent', null);
+            formData.append('files',			file);
+
+            shandler.sendMessage(formData)
+                .then(response => {
+                    if (response != null) {
+                        sendMessageReturned = response;
+                        parent.$('#social-media-main')[0].contentWindow.chatService.sendMessageCallBack(sendMessageReturned);
+                    }
+                })
+                .catch(error => {
+
+                    console.log(error);
+                    return null;
+                });
+}
+
 
 
 //Not finished

@@ -52,7 +52,8 @@
 			this.agentMessageTemplate		=	Handlebars.compile( $("#agent_message_template").html());
 			this.visitorMessageTemplate		=	Handlebars.compile( $("#visitor_message_template").html());
 		    this.statusUpdateTemplate		=	Handlebars.compile($("#status_update_template").html());
-			this.visitorMessageWithAttachmentTemplate = Handlebars.compile($("#visitor_message_withattachment_template").html());
+			this.visitorMessageWithAttachmentTemplate	= Handlebars.compile($("#visitor_message_withattachment_template").html());
+			this.agentMessageWithAttachmentTemplate		= Handlebars.compile($("#agent_message_withattachment_template").html());
 		  
 	  };
 	  
@@ -98,30 +99,83 @@
 	  //sendMessageByAPI ()
 	  //phone.html call sendMessageByHandler();
 	  //wss sendMessage();
-	  sendMessageByClick()
+	  sendMessageByClick() {
+		  //var loginId = parseInt(sessionStorage.getItem('scrmAgentId') || -1);
+		  //var token = sessionStorage.getItem('scrmToken') || '';
+		  //var agentName = sessionStorage.getItem('scrmAgentName') || '';
+
+		  var loginId = top.loginId;
+		  var token = top.token;
+		  var agentName = top.agentName;
+
+		  event.preventDefault(); // Prevent the default button click behavior
+		  parent.$('#phone-panel')[0].contentWindow.sendMessageReturned = null;
+		  parent.$('#phone-panel')[0].contentWindow.sendMessageByHandler(loginId, token, this.selectedChatChannel, this.selectedwebClientSenderId, "text", this.$textarea.val(), this.selectedTicketId);
+
+
+
+
+	  };
+
+
+	  sendAttachmentByClick()
 	  {
-			//var loginId = parseInt(sessionStorage.getItem('scrmAgentId') || -1);
-			//var token = sessionStorage.getItem('scrmToken') || '';
-			//var agentName = sessionStorage.getItem('scrmAgentName') || '';
+		  var loginId = top.loginId;
+		  var token = top.token;
+		  var agentName = top.agentName;
 
-			var loginId = top.loginId;
-			var token 	= top.token;
-			var agentName=top.agentName;
-			
-			event.preventDefault(); // Prevent the default button click behavior
-			parent.$('#phone-panel')[0].contentWindow.sendMessageReturned= null;
-            parent.$('#phone-panel')[0].contentWindow.sendMessageByHandler(loginId, token, this.selectedChatChannel, this.selectedwebClientSenderId, "text", this.$textarea.val(), this.selectedTicketId);
+		  var fileInput = $('#fileInput')[0]; 
+		  var file = fileInput.files[0];
+
+		  event.preventDefault(); // Prevent the default button click behavior
+		  parent.$('#phone-panel')[0].contentWindow.sendMessageReturned = null;
+		  parent.$('#phone-panel')[0].contentWindow.sendAttachmentByHandler(loginId, token, this.selectedChatChannel, this.selectedwebClientSenderId, "file", file, this.selectedTicketId);
 
 
+	  };
+
+	  sendAttachmentReset()
+	  {
+		  $('#fileInput')[0].value = "";
 	  }
-
+	  
 	  sendMessageCallBack(sMsg)
 	  {
 		  this.updateBubbleHistory(sMsg);
 		  //this.updateChatHeader();
-		  this.messageToSend = this.$textarea.val();
-		  this.$textarea.val('');
-		  this.render(sMsg);         
+
+		  if (sMsg.MessageType = "text") { 
+				this.messageToSend = this.$textarea.val();
+				this.$textarea.val('');
+				this.render(sMsg);         
+		  }
+
+		  if (sMsg.MessageType = "file") {
+
+			  var template = this.agentMessageWithAttachmentTemplate
+			  var dateISO = sMsg.UpdatedAt;
+			  var mDate = moment(dateISO).format('hh:mm:ss');
+
+			  var FileList = [];
+
+			  FileList = JSON.parse(sMsg.FilesJson);
+
+			  //FileList[0].MimeType
+			  var Filename = FileList[0].EProFilename;
+			  var Fileurl = FileList[0].EproFileUrl;
+
+			  //Need to update for agentList function
+			  var contextResponse = {
+				  response: sMsg.MessageContent,
+				  SentBy: top.agentName,
+				  time: mDate,
+				  FileFileName: Filename,
+				  FileUrl: Fileurl
+			  };
+
+			  this.$chatHistory.append(template(contextResponse));
+
+		  }
 	  };
 
 	  incomeMessageCallBack(sMsg)
@@ -269,22 +323,54 @@
 	  addReplyMessageByText(sMsg)
 	  {
 			this.scrollToBottom();
-			var template = this.agentMessageTemplate;
 
-			var dateISO = sMsg.UpdatedAt;
-			var mDate = moment(dateISO).format('hh:mm:ss');
 
-			//**** Need to ask for how get the agentName 
-			var context = { 
-					SentBy: top.agentName,
-					messageOutput: sMsg.MessageContent,
-					time:  mDate
-			};
+		  if (sMsg.MessageType = "text") {
 
-				this.$chatHistory.append(template(context));
-				this.scrollToBottom();
-				this.$textarea.val('');
-	
+			  var template = this.agentMessageTemplate;
+
+			  var dateISO = sMsg.UpdatedAt;
+			  var mDate = moment(dateISO).format('hh:mm:ss');
+
+			  var context = {
+				  SentBy: top.agentName,
+				  messageOutput: sMsg.MessageContent,
+				  time: mDate
+			  };
+
+			  this.$chatHistory.append(template(context));
+			  this.scrollToBottom();
+			  this.$textarea.val('');
+
+		  }
+		  else if (sMsg.MessageType = "file")
+		  {
+
+			  var template = this.agentMessageWithAttachmentTemplate	
+			  var dateISO = sMsg.UpdatedAt;
+			  var mDate = moment(dateISO).format('hh:mm:ss');
+
+			  var FileList = [];
+
+			  FileList = JSON.parse(sMsg.FilesJson);
+
+			  //FileList[0].MimeType
+			  var Filename = FileList[0].EProFilename;
+			  var Fileurl = FileList[0].EproFileUrl;
+
+
+			  //Need to update to get AgentList function
+			  var contextResponse = {
+				  response: sMsg.MessageContent,
+				  SentBy: top.agentName,   
+				  time: mDate,
+				  FileFileName: Filename,
+				  FileUrl: Fileurl
+			  };
+
+			  this.$chatHistory.append(template(contextResponse));
+
+		  }
 	  };
 	  
 	  addReplyMessageByClick() 
@@ -306,7 +392,7 @@
 	  };
 	  getCurrentTime() {
 		  return new Date().toLocaleTimeString().
-				  replace(/([\d]+:[\d]{2})(:[\d]{2})(.*)/, "$1$3");
+				  replace(/([\d]+:[\d]{2})(:[\d]{2})(.*)/, "$1$3");fcall
 	  };
 	  getRandomItem(arr) {
 		  return arr[Math.floor(Math.random()*arr.length)];
@@ -630,6 +716,9 @@
 			$('#agentListModal').modal('toggle');
 	  
 	  };
+
+
+
 	  //-----------------------------------------------------------------------------------------------------------------------------
 	  //Canned response
 

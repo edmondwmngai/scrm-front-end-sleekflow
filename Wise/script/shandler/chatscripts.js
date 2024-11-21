@@ -221,7 +221,7 @@
 			var mDate = moment(dateISO).format('hh:mm:ss');
 
 
-           var attachmentTemplate = this.visitorMessageWithImageTemplate;
+         
 		 
 		  //this.$chatHistory[0].getElementsByClassName('content-bubble-content')[0].append("abc");
 
@@ -257,6 +257,7 @@
 				  var dateISO = sMsg.UpdatedAt;
 				  var mDate = moment(dateISO).format('hh:mm:ss');
 
+				  var attachmentTemplate = this.visitorMessageWithImageTemplate;
 
 				  //var agentName = agentService.getAgentNameByID(this.currentSelectedAgentId);
 
@@ -287,7 +288,7 @@
 
 				  var context = {
 					  SentBy: sEndUserName,
-					  messageOutput: "{{attachment}}",
+					  response: "{{attachment}}",
 					  time: mDate
 				  };
 

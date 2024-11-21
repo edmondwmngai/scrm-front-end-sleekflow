@@ -907,7 +907,7 @@ function sendAttachmentByHandler(agent, token, channel, webClientSenderId, messa
             formData.append('channel', channel);
             formData.append('webClientSenderId', webClientSenderId);
 			formData.append('messageType', messageType);
-			formData.append('messageContent', null);
+			formData.append('messageContent', "");
             formData.append('files',			file);
 
             shandler.sendMessage(formData)

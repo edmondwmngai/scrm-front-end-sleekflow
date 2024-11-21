@@ -24,7 +24,7 @@
 	  {
 		    this.cacheDOM();
 			this.bindEvents();
-			this.render();
+			//this.render();
 		
 			 //this.updateStatus("Session Timeout");			 //this.updateStatus("Session Ended");
 	  };
@@ -52,8 +52,8 @@
 			this.agentMessageTemplate		=	Handlebars.compile( $("#agent_message_template").html());
 			this.visitorMessageTemplate		=	Handlebars.compile( $("#visitor_message_template").html());
 		    this.statusUpdateTemplate		=	Handlebars.compile($("#status_update_template").html());
-			this.visitorMessageWithAttachmentTemplate	= Handlebars.compile($("#visitor_message_withattachment_template").html());
-			this.agentMessageWithAttachmentTemplate		= Handlebars.compile($("#agent_message_withattachment_template").html());
+			this.visitorMessageWithImageTemplate= Handlebars.compile($("#visitor_message_withimage_template").html());
+			this.agentMessageWithImageTemplate	= Handlebars.compile($("#agent_message_withimage_template").html());
 		  
 	  };
 	  
@@ -72,28 +72,6 @@
 //		  this.moveBubbleToFirst(2222);
 
 	  };
-
-	  render()
-	  {
-		  
-		this.scrollToBottom();
-		if (this.messageToSend.trim() !== '') 
-		{
-
-				var template = this.agentMessageTemplate;
-				var context = { 
-					SentBy: top.agentName,
-					messageOutput: this.messageToSend,
-					time: this.getCurrentTime()
-				};
-
-				this.$chatHistory.append(template(context));
-				this.scrollToBottom();
-				this.$textarea.val('');
-	
-	    }
-	  };
-
 
 	  //On  UI level=>   sendByClick();
 	  //sendMessageByAPI ()
@@ -143,40 +121,9 @@
 	  {
 		  this.updateBubbleHistory(sMsg);
 		  //this.updateChatHeader();
-
-		  if (sMsg.MessageType = "text") { 
-				this.messageToSend = this.$textarea.val();
-				this.$textarea.val('');
-				this.render(sMsg);         
-		  }
-
-		  if (sMsg.MessageType = "file") {
-
-			  var template = this.agentMessageWithAttachmentTemplate
-			  var dateISO = sMsg.UpdatedAt;
-			  var mDate = moment(dateISO).format('hh:mm:ss');
-
-			  var FileList = [];
-
-			  FileList = JSON.parse(sMsg.FilesJson);
-
-			  //FileList[0].MimeType
-			  var Filename = FileList[0].EProFilename;
-			  var Fileurl = FileList[0].EproFileUrl;
-
-			  //Need to update for agentList function
-			  var contextResponse = {
-				  response: sMsg.MessageContent,
-				  SentBy: top.agentName,
-				  time: mDate,
-				  FileFileName: Filename,
-				  FileUrl: Fileurl
-			  };
-
-			  this.$chatHistory.append(template(contextResponse));
-
-		  }
+		  this.addReplyMessageByText(sMsg);
 	  };
+
 
 	  incomeMessageCallBack(sMsg)
 	  {
@@ -272,13 +219,8 @@
 			var mDate = moment(dateISO).format('hh:mm:ss');
 
 
-			var attachmentTemplate = this.visitorMessageWithAttachmentTemplate;
-
-
-		  
-
-		   var attachment = "";
-
+           var attachmentTemplate = this.visitorMessageWithImageTemplate;
+		 
 		  //this.$chatHistory[0].getElementsByClassName('content-bubble-content')[0].append("abc");
 
 		  
@@ -293,6 +235,7 @@
 
 			  };
 			  this.$chatHistory.append(templateResponse(contextResponse));
+			
 		  }
 		  else
 		  {
@@ -301,19 +244,56 @@
 			  FileList = JSON.parse(sMsg.FilesJson);
 
 			  //FileList[0].MimeType
-			 var Filename = FileList[0].EProFilename;
-			 var Fileurl = FileList[0].EproFileUrl;
+			  var Filename = FileList[0].EproFilename;
+			  var Fileurl = FileList[0].EproFileUrl;
+			  var FileMime = FileList[0].MimeType;
 
-			  var contextResponse = {
-				  response: sMsg.MessageContent,
-				  SentBy: sEndUserName,
-				  time: mDate,
-				  FileFileName: Filename,
-				  FileUrl: Fileurl
-			  };
+			  if (FileMime.startsWith('image/')) {
+				  
+				  var dateISO = sMsg.UpdatedAt;
+				  var mDate = moment(dateISO).format('hh:mm:ss');
 
-			  this.$chatHistory.append(attachmentTemplate(contextResponse));
+
+
+				  //Need to update to get AgentList function
+				  var contextResponse = {
+					  response: sMsg.MessageContent,
+					  SentBy: top.agentName,
+					  time: mDate,
+					  FileFileName: Filename,
+					  FileUrl: Fileurl
+				  };
+
+				  this.$chatHistory.append(attachmentTemplate(contextResponse));
+			  }
+			  else {
+				  var template = this.visitorMessageTemplate;
+
+				  var aTag = "<div class='position-relative'>" +
+					  "<a href='{{FileUrl}}' target='_blank' download=''>{{FileName}}</a>" +
+					  "<span class='wa-sent-success'>sent</span></div>";
+				  aTag = aTag.replace("{{FileUrl}}", Fileurl);
+				  aTag = aTag.replace("{{FileName}}", Filename);
+
+				  var dateISO = sMsg.UpdatedAt;
+				  var mDate = moment(dateISO).format('hh:mm:ss');
+
+				  var context = {
+					  SentBy: top.agentName,
+					  messageOutput: "{{attachment}}",
+					  time: mDate
+				  };
+
+				  var output = template(context);
+				  output = output.replace("{{attachment}}", aTag);
+				  this.$chatHistory.append(output);
+				  this.$textarea.val('');
+
+			  }
 		  }
+
+
+		  this.scrollToBottom();
 	  };
 
 
@@ -322,10 +302,8 @@
 	  //------------------------------------------------------------------
 	  addReplyMessageByText(sMsg)
 	  {
-			this.scrollToBottom();
-
-
-		  if (sMsg.MessageType = "text") {
+		  if (sMsg.MessageType = "text" && sMsg.FilesJson.length < 4)
+		  {
 
 			  var template = this.agentMessageTemplate;
 
@@ -339,51 +317,74 @@
 			  };
 
 			  this.$chatHistory.append(template(context));
-			  this.scrollToBottom();
-			  this.$textarea.val('');
 
 		  }
-		  else if (sMsg.MessageType = "file")
+		  else if (sMsg.MessageType = "file" || sMsg.FilesJson.length > 4)
 		  {
 
-			  var template = this.agentMessageWithAttachmentTemplate	
-			  var dateISO = sMsg.UpdatedAt;
-			  var mDate = moment(dateISO).format('hh:mm:ss');
 
 			  var FileList = [];
 
 			  FileList = JSON.parse(sMsg.FilesJson);
 
 			  //FileList[0].MimeType
-			  var Filename = FileList[0].EProFilename;
+			  var Filename = FileList[0].EproFilename;
 			  var Fileurl = FileList[0].EproFileUrl;
+			  var FileMime = FileList[0].MimeType;
 
+			  if (FileMime.startsWith('image/'))
+			  {
+				  var template = this.agentMessageWithImageTemplate;
+				  var dateISO = sMsg.UpdatedAt;
+				  var mDate = moment(dateISO).format('hh:mm:ss');
 
-			  //Need to update to get AgentList function
-			  var contextResponse = {
-				  response: sMsg.MessageContent,
-				  SentBy: top.agentName,   
-				  time: mDate,
-				  FileFileName: Filename,
-				  FileUrl: Fileurl
-			  };
+				  var displayImage = "max-width:100%;max-height:200px";
 
-			  this.$chatHistory.append(template(contextResponse));
+				  //Need to update to get AgentList function
+				  var contextResponse = {
+					  response: sMsg.MessageContent,
+					  SentBy: top.agentName,
+					  time: mDate,
+					  FileFileName: Filename,
+					  FileUrl: Fileurl,
+					  displayImage: displayImage
+				  };
 
+				  this.$chatHistory.append(template(contextResponse));
+			  }
+			  else
+			  {
+				  var template = this.agentMessageTemplate;
+
+				  var aTag = "<div class='position-relative'>" +
+					  "<a href='{{FileUrl}}' target='_blank' download=''>{{FileName}}</a>" +
+					  "<span class='wa-sent-success'>sent</span></div>";
+				  aTag = aTag.replace("{{FileUrl}}", Fileurl);
+				  aTag = aTag.replace("{{FileName}}", Filename);
+
+				  var dateISO = sMsg.UpdatedAt;
+				  var mDate = moment(dateISO).format('hh:mm:ss');
+
+				  var context = {
+					  SentBy: top.agentName,
+					  messageOutput: "{{attachment}}",
+					  time: mDate
+				  };
+
+				  var output = template(context);
+				  output = output.replace("{{attachment}}", aTag);
+				  this.$chatHistory.append(output);
+			  }
 		  }
-	  };
-	  
-	  addReplyMessageByClick() 
-	  {		
-			this.updateChatHeader();
-			this.messageToSend = this.$textarea.val()
-			this.render();  
-	  };
-	
+
+		  this.scrollToBottom();
+		  this.$textarea.val('');
+	  };	  
+		
 	  addReplyMessageEnter(event) {
 			// enter was pressed
 			if (event.keyCode === 13) {
-			  this.addReplyMessageByClick();
+				this.sendMessageByClick();
 			}
 	  };
 	  //--------------------------------------------------------------------
@@ -393,9 +394,6 @@
 	  getCurrentTime() {
 		  return new Date().toLocaleTimeString().
 				  replace(/([\d]+:[\d]{2})(:[\d]{2})(.*)/, "$1$3");fcall
-	  };
-	  getRandomItem(arr) {
-		  return arr[Math.floor(Math.random()*arr.length)];
 	  };
 	
 	  //Update the status in chat history, eg. timeout and update the status at the end of chat history
@@ -424,6 +422,8 @@
 				  else {
 					  this.addReplyMessageByText(sMsg);
 				  }
+
+				  this.scrollToBottom();
 			  }
 		  }
 	  };
@@ -506,7 +506,7 @@
 				  }
 			  });
 		  });
-	  }
+	  };
 
 
       //  pending only:   bubble-container

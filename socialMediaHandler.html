@@ -24,7 +24,7 @@
     <script type="text/javascript" src="./js/moment.js"></script>
 
                 
-    <script src="wise/script/shandler/socialMedia.js"></script>
+    
     <script src="wise/script/wsSHandler.js"></script>
 
     <script>
@@ -129,7 +129,7 @@
                                 </button>
                             </div>
                         </div>
-                        
+
                         <div class="reply-container" style="display:none"><textarea id="reply-textarea-1123724117" class="reply-textarea" maxlength="1000" rows="2" placeholder="Type your text here..." onkeypress="textareaPressed(event);" onkeyup="sendCSInput(1123724117)"></textarea><div class="reply-icon-group"><button id="canned-1123724117" class="reply-canned-container keyboard-icon" data-toggle="tooltip" data-placement="top" title="Select Message" onclick="cannedBtnClicked(&quot;campaignCRM&quot;)"><span class="align-sub"><i class="far fa-keyboard"></i></span></button><button id="share-1123724117" class="reply-share-container keyboard-icon" data-toggle="tooltip" data-placement="top" title="Select File" onclick="shareBtnClicked(&quot;campaignCRM&quot;)"><span class="align-sub"><i class="far fa-file"></i></span></button><input type="file" onchange="uploadAttachment(this, 1123724117);" style="display:none"><button id="upload-1123724117" class="reply-share-container keyboard-icon" data-toggle="tooltip" data-placement="top" title="Send File" onclick="$(this).prev().trigger(&quot;click&quot;);"><span class="align-sub"><i class="fas fa-file-upload"></i></span></button><button id="end-1123724117" class="reply-end-container keyboard-icon" data-toggle="tooltip" data-placement="top" title="End Session" entry="webchat" onclick="endClicked(1123724117,this)"><span class="align-sub"><i class="fas fa-times"></i></span></button><button id="reply-btn-1123724117" class="reply-send-container" entry="webchat" onclick="replyClicked(1123724117)" data-toggle="tooltip" data-placement="top" title="Send Message"><img class="reply-icon-size" src="./images/send.svg"></button></div></div>
 
 
@@ -317,13 +317,27 @@
             </div>
         </script>
 
-        <script id="agent_message_withattachment_template" type="text/x-handlebars-template">
+
+        <script id="agent_message_template" type="text/x-handlebars-template">
+            <div id="{{messageid}}" class="message-row agent-row">
+                <div class="agent-content-bubble content-bubble">
+                    <div class="content-bubble-name">{{SentBy}}</div>
+                    <div class="content-bubble-content">{{messageOutput}}</div>
+                </div>
+                <div>
+                    <span class="user-icon"><i class="fas fa-user"></i></span>
+                    <div class="time-with-seconds" title="{{time}}"><span></span><span>{{time}}</span></div>
+                </div>
+            </div>
+        </script>
+
+        <script id="agent_message_withimage_template" type="text/x-handlebars-template">
             <div id="{{messageid}}" class="message-row agent-row">
                 <div class="agent-content-bubble content-bubble">
                     <div class="content-bubble-name">{{SentBy}}</div>
                     <div class="content-bubble-content">
                         <div style="text-align:center;">
-                            <img onclick="enlargeImage(this);" class="content-image" alt="{{FileName}}" src="{{FileUrl}}">
+                            <img onclick="enlargeImage(this);" class="content-image" style="{{displayImage}}" alt="{{FileName}}" style="max-width:100%;max-height:200px;" src="{{FileUrl}}">
                         </div>
                         <div class="position-relative">
                             <a href="{{FileUrl}}" target="_blank" download="">{{FileName}}</a>
@@ -339,7 +353,7 @@
             </div>
         </script>
 
-        <script id="visitor_message_withattachment_template" type="text/x-handlebars-template">
+        <script id="visitor_message_withimage_template" type="text/x-handlebars-template">
             <div id="{{messageid}}" class="message-row visitor-row">
                 <div>
                     <span class="user-icon"><i class="fas fa-user"></i></span>
@@ -450,14 +464,14 @@
         <!-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------->
 
     </div>
-    
-    
+
+
     <!----------------------------------------------------------------------------------------------------->
 
-    
+
     <script>
-// For load template before loading chat service
-   //   $("#template").load("wise/script/shandler/chatTemplate.js");
+        // For load template before loading chat service
+        //   $("#template").load("wise/script/shandler/chatTemplate.js");
     </script>
 
 
@@ -466,37 +480,35 @@
     <script src='https://cdnjs.cloudflare.com/ajax/libs/list.js/1.1.1/list.min.js'></script>
 
     <script src="wise/script/shandler/chatscripts.js"></script>
+    <script src="js/SocialContent.js"></script>
 
 
     <script>
-                
-            var shandler = parent.$('#phone-panel')[0].contentWindow.shandler;
-            var sTicket = parent.$('#phone-panel')[0].contentWindow.currentTicket;
-			var sMsglist= parent.$('#phone-panel')[0].contentWindow.currentMsglist;
-            var reloadScreen = parent.$('#phone-panel')[0].contentWindow.reloadedByGetTicket;
-                
-                var chatService = new chat();
-          //      var ticketService = new ticket();
-                chatService.init();
+
+        var shandler = parent.$('#phone-panel')[0].contentWindow.shandler;
+        var sTicket = parent.$('#phone-panel')[0].contentWindow.currentTicket;
+        var sMsglist = parent.$('#phone-panel')[0].contentWindow.currentMsglist;
+        var reloadScreen = parent.$('#phone-panel')[0].contentWindow.reloadedByGetTicket;
+
+        var chatService = new chat();
+        //      var ticketService = new ticket();
+        chatService.init();
 
 
-                //chatService.refreshTicketList();
+        //chatService.refreshTicketList();
 
 
-               // chatService.addTestBubble("Present", false);
+        // chatService.addTestBubble("Present", false);
 
-                //Handle the user click from queuelist on the top 
-                if (reloadScreen)
-                {
-                    chatService.reloadByGetTicket();
-                }
-            
-                
+        //Handle the user click from queuelist on the top
+        if (reloadScreen) {
+            chatService.reloadByGetTicket();
+        }
 
 
 
     </script>
-
+    <script src="wise/script/shandler/socialMedia.js"></script>
 </body>
 </html>
 

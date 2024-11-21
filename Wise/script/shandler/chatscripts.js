@@ -13,8 +13,10 @@
 		statusUpdateTemplate = null;
 		agentId = 0;
 
-		currentTicket = null;
-		selectedTicketId = 0;
+	    currentTicket = null;
+		
+	    selectedTicketId = 0;
+		selectedAgentId = 0;
 	    selectedwebClientSenderId = "";
 		selectedChatChannel = "";
 		selectedEndUserName = "";
@@ -223,6 +225,8 @@
 		 
 		  //this.$chatHistory[0].getElementsByClassName('content-bubble-content')[0].append("abc");
 
+
+		  //agentService.getAgentNameByID(sMsg/)
 		  
 		  //Check the filejson is empty or not
 		  if (sMsg.FilesJson.length < 3)
@@ -254,11 +258,14 @@
 				  var mDate = moment(dateISO).format('hh:mm:ss');
 
 
+				  //var agentName = agentService.getAgentNameByID(this.currentSelectedAgentId);
+
+				 // this.selectedAgentId = currentTicket.AssignedTo;
 
 				  //Need to update to get AgentList function
 				  var contextResponse = {
 					  response: sMsg.MessageContent,
-					  SentBy: top.agentName,
+					  SentBy: sEndUserName,
 					  time: mDate,
 					  FileFileName: Filename,
 					  FileUrl: Fileurl
@@ -279,7 +286,7 @@
 				  var mDate = moment(dateISO).format('hh:mm:ss');
 
 				  var context = {
-					  SentBy: top.agentName,
+					  SentBy: sEndUserName,
 					  messageOutput: "{{attachment}}",
 					  time: mDate
 				  };
@@ -302,6 +309,11 @@
 	  //------------------------------------------------------------------
 	  addReplyMessageByText(sMsg)
 	  {
+
+
+		  var agentName = agentService.getAgentNameByID(this.selectedAgentId);
+
+		  
 		  if (sMsg.MessageType = "text" && sMsg.FilesJson.length < 4)
 		  {
 
@@ -311,7 +323,7 @@
 			  var mDate = moment(dateISO).format('hh:mm:ss');
 
 			  var context = {
-				  SentBy: top.agentName,
+				  SentBy: agentName,
 				  messageOutput: sMsg.MessageContent,
 				  time: mDate
 			  };
@@ -343,7 +355,7 @@
 				  //Need to update to get AgentList function
 				  var contextResponse = {
 					  response: sMsg.MessageContent,
-					  SentBy: top.agentName,
+					  SentBy: agentName,
 					  time: mDate,
 					  FileFileName: Filename,
 					  FileUrl: Fileurl,
@@ -366,7 +378,7 @@
 				  var mDate = moment(dateISO).format('hh:mm:ss');
 
 				  var context = {
-					  SentBy: top.agentName,
+					  SentBy: agentName,
 					  messageOutput: "{{attachment}}",
 					  time: mDate
 				  };
@@ -461,7 +473,8 @@
 		
 		
 		this.selectedwebClientSenderId  = e.getElementsByClassName('bubble-user-id')[0].innerHTML;
-		this.selectedticketId			= e.getElementsByClassName('bubble-id')[0].innerHTML;
+        this.selectedTicketId			= e.getElementsByClassName('bubble-id')[0].innerHTML;
+		this.selectedAgentId			= e.getElementsByClassName('bubble-agent-id')[0].innerHTML;
 		this.selectedChatChannel 		= e.getElementsByClassName('bubble-channel')[0].innerHTML;
 		this.selectedEndUserName		= e.getElementsByClassName('bubble-subject')[0].innerHTML;
 
@@ -532,7 +545,8 @@
 		  
 
 			//var dateUpdateAt = dateISO.toTimeString().split(' ')[0];
-			var context = { 
+		  var context = { 
+			    agentId: ticket.AssignedTo,
 				endUserId: ticket.EndUserId,
 				endUserName: ticket.EndUserName,
 				endUserEmail: ticket.EndUserEmail,
@@ -554,7 +568,8 @@
 			}
 			else if (status == "Present" && timeout == false)
 			{
-				this.selectedTicketId 			= context.ticketId;
+				this.selectedTicketId = context.ticketId;
+				this.selectedAgentId = context.agentId;
 				this.selectedwebClientSenderId	= context.endUserId;
 				this.selectedChatChannel 	  	= ticket.Channel;
 				this.selectedEndUserName		= context.EndUserName;
@@ -599,6 +614,7 @@
 			else if (status == "Present" && timeout == false)
 			{
 				this.selectedTicketId = context.ticketId;
+				this.selectedAgentId  = context.agentId;
 				this.selectedwebClientSenderId	= context.endUserId;
 				this.selectedChatChannel 		= "web";
 				this.selectedEndUserName		= context.endUserName;
@@ -646,7 +662,8 @@
 			if (currentTicket != null)
 			{
 
-				this.selectedTicketId		   	= currentTicket.ticketId;
+				this.selectedTicketId = currentTicket.ticketId;
+				this.selectedAgentId  = currentTicket.AssignedTo;
 				this.selectedwebClientSenderId 	= currentTicket.selectedwebClientSenderId;
 				this.selectedChatChannel 	   	= currentTicket.Channel;
 				this.selectedEndUserName		= currentTicket.EndUserName;

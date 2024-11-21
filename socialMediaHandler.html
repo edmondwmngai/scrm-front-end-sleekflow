@@ -411,12 +411,12 @@
 
         <!--
 
-        pending only:   bubble-container
-        selected:       bubble-container bubble-present
-        pending unread: bubble-container bubble-unread
-        selected closed (timeout):  bubble-container bubble-present bubble-closed
-        pending closed (timeout):  bubble-container bubble-closed
-    -->
+            pending only:   bubble-container
+            selected:       bubble-container bubble-present
+            pending unread: bubble-container bubble-unread
+            selected closed (timeout):  bubble-container bubble-present bubble-closed
+            pending closed (timeout):  bubble-container bubble-closed
+        -->
 
         <script id="bubble_template" type="text/x-handlebars-template">
 
@@ -425,6 +425,7 @@
                 <div class="bubble-container-inner">
                     <span class="bubble-label-content-columns">
                         <span style="display: none;" class="bubble-id">{{ticketId}}</span>
+                        <span style="display: none;" class="bubble-agent-id">{{agentId}}</span>
                         <span style="display: none;" class="bubble-user-id">{{endUserId}}</span>
                         <span style="display: none;" class="bubble-user-email">{{endUserEmail}}</span>
                         <span style="display: none;" class="bubble-user-phone">{{endUserPhone}}</span>
@@ -480,6 +481,7 @@
     <script src='https://cdnjs.cloudflare.com/ajax/libs/list.js/1.1.1/list.min.js'></script>
 
     <script src="wise/script/shandler/chatscripts.js"></script>
+    <script src="wise/script/shandler/agentscripts.js"></script>
     <script src="js/SocialContent.js"></script>
 
 
@@ -490,6 +492,7 @@
         var sMsglist = parent.$('#phone-panel')[0].contentWindow.currentMsglist;
         var reloadScreen = parent.$('#phone-panel')[0].contentWindow.reloadedByGetTicket;
 
+        var agentService = new agent();
         var chatService = new chat();
         //      var ticketService = new ticket();
         chatService.init();

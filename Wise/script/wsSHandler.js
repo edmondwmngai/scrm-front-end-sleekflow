@@ -13,6 +13,7 @@ class wsSHandler {
 		//const {hostname, agentid, token, tls, listener} =data;
 		const {wsUrl, apiUrl, agentid, token, tickets, listener} = data;
 		console.log(data);
+		//this.#b64DecodeUnicode("5oi05b635qKB6KGM5YWs5biD5pyA5paw");
 		//this.wsUrl=(tls)? `wss://${hostname}:8133` : `ws://${hostname}:8133`;
 		//this.apiUrl=(tls)? `https://${hostname}:8033` : `http://${hostname}:8033`;
 		this.wsUrl=wsUrl;
@@ -44,12 +45,17 @@ class wsSHandler {
 			}
 			else if(msg.type=="ticket") {
 				this.tickets=[...msg.details];
+				for(var i=0;i<this.tickets.length;i++){
+					this.tickets[i].EndUserName = this.#b64DecodeUnicode(this.tickets[i].EndUserName);
+					this.tickets[i].EndUserEmail = this.#b64DecodeUnicode(this.tickets[i].EndUserEmail);
+				}
 				if(this.onTicketEvent)
 					this.onTicketEvent(this.tickets);
 
 			}
 			else if(msg.type=="message") {
-
+				msg.details.MessageContent=this.#b64DecodeUnicode(msg.details.MessageContent);
+				msg.details.FilesJson=this.#b64DecodeUnicode(msg.details.FilesJson);
 				this.onMessageEvent(msg);
 
 			};
@@ -59,7 +65,18 @@ class wsSHandler {
 		};
 		
 	};
-
+	#b64DecodeUnicode(str) {
+    // Going backwards: from bytestream, to percent-encoding, to original string.
+		try {
+			return decodeURIComponent(atob(str).split('').map(function(c) {
+				return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+			}).join(''));
+		} catch(err) {
+			console.log(str);
+			console.log(err);
+			return str;
+		}
+	};
 	//"TicketId": 4,
 	//"EndUserId": "85292055486",
 	//"EndUserName": "Tiger Chong",

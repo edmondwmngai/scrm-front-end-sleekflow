@@ -114,10 +114,37 @@
 
 	  };
 
+	  sendAttachmentByURL(fileUrl, fileName)
+	  {
+
+		  fetch(fileUrl, {
+			  mode: 'cors'
+		  })
+                .then(response => response.blob())
+                .then(blob => {
+                    // Create a File object from the Blob
+					var fileObj = new File([blob], fileName, {type: blob.type });
+
+					// Use DataTransfer to set the file input value
+					var dataTransfer = new DataTransfer();
+					dataTransfer.items.add(fileObj);
+
+					var fileInput = $('#fileInput')[0]; 
+					fileInput.files = dataTransfer.files;
+					//document.getElementById('fileInput').files = dataTransfer.files;
+					var file = fileInput.files[0];
+
+					parent.$('#phone-panel')[0].contentWindow.sendAttachmentByHandler(loginId, token, this.selectedChatChannel, this.selectedwebClientSenderId, "file", file, this.selectedTicketId);
+                    });
+
+		
+	  };
+
+
 	  sendAttachmentReset()
 	  {
 		  $('#fileInput')[0].value = "";
-	  }
+	  };
 	  
 	  sendMessageCallBack(sMsg)
 	  {
@@ -659,6 +686,7 @@
 			const elements = document.getElementById('bubble-list-inner').querySelectorAll("#bubble-ticket");
 		    elements.forEach((element, index) => { element.classList.remove("bubble-present") });
 
+			
 
 			if (currentTicket != null)
 			{
@@ -682,6 +710,9 @@
 					if (this.PresentTicket) {
 						this.PresentTicket = false;
 						this.addBubble("Present", false, assignedLst[i], assignedLst[i].messages);
+
+						//js that call from searchinput.js
+						searchInput(assignedLst[i]);
 					} else {
 						this.addBubble("Pending", false, assignedLst[i], assignedLst[i].messages);
 					}
@@ -695,7 +726,10 @@
 		  //3. Update message list
 			//*****currentMsgList is only be used for getTicket
 			var sMsgList= parent.$('#phone-panel')[0].contentWindow.currentMsglist;
-			this.reloadChatHistory(sMsgList);
+		  this.reloadChatHistory(sMsgList);
+
+
+		
 		
 	  };
 

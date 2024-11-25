@@ -281,7 +281,7 @@ function cannedBtnClicked(campaign) {
 function shareBtnClicked(campaign) {
     popupCampaign = campaign;
     var openWindows = parent.openWindows;
-    var socialPopup = window.open('./socialPopup.html?type=file', 'socialPop', 'toolbar=0,location=0,top=50, left=100,menubar=0,resizable=0,scrollbars=1,width=527,height=616');
+    var socialPopup = window.open('./socialPopupSL.html?type=file', 'socialPop', 'toolbar=0,location=0,top=50, left=100,menubar=0,resizable=0,scrollbars=1,width=527,height=616');
     openWindows[openWindows.length] = socialPopup;
     socialPopup.onload = function () {
         socialPopup.onbeforeunload = function () {

@@ -62,12 +62,14 @@ function selectClicked(index) {
             //var entry = windowOpener.$('#reply-btn-' + presentTicketId).attr('entry');
 
 
-
+            
 
             // This is a fb fan page
             var msgIdArr = [];
             var commentIdArr = [];
             var selectedMsgs;
+
+            var entry = "";
             if (entry == 'fb_comment') {
 
                 // verify have selected any comments
@@ -97,8 +99,18 @@ function selectClicked(index) {
                 if (entry != 'fb_comment') {
                     $('#loading-icon-section').removeClass('d-none');
                     $('.temp-disabled-btn').prop('disabled', true);
-                    windowOpener.createOrUpdateBubble({ 'ticket_id': presentTicketId, 'msg_list': [{ 'nick_name': windowOpener.agentName, 'send_by_flag': 1, 'sent_time': windowOpener.getSqlFormatTime(), 'msg_object_path': fileUrl, 'msg_object_client_name': fileName }] });
-                    windowOpener.sendSocialFile(presentTicketId, filePath, null);
+
+                    //windowOpener.createOrUpdateBubble({ 'ticket_id': presentTicketId, 'msg_list': [{ 'nick_name': windowOpener.agentName, 'send_by_flag': 1, 'sent_time': windowOpener.getSqlFormatTime(), 'msg_object_path': fileUrl, 'msg_object_client_name': fileName }] });
+                    //windowOpener.sendSocialFile(presentTicketId, filePath, null);
+
+                    window.opener.parent.$('#social-media-main')[0].contentWindow.sendSocialFile(presentTicketId, filePath, null);
+
+                    //window.opener.chatService.
+
+                    //window.opener.chatService.sendAttachmentByURL(fileUrl, fileName);
+
+
+
                     if (i == selectedCheckbox.length - 1) {
                         window.close();
                     }

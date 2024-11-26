@@ -153,7 +153,8 @@ class wsSHandler {
 		console.log(json);
 		if(json.result=="success")
 		{
-			this.tickets.push(json.details.ticket);
+			//this.tickets.push(json.details.ticket);
+			return true;
 		}
 		return json;
 	};

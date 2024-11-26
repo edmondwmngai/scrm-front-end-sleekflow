@@ -68,9 +68,9 @@
 
 		  //this.$testbutton.on('click', this.sendMessageByClick.bind(this));
 
-//		  this.addTestBubble("Present", false, 1, 1111);
-//		  this.addTestBubble("Present", false, 2, 2222);
-//		  this.addTestBubble("Present", false, 3, 3333);
+		//  this.addTestBubble("Present", false, 1, 1111);
+		//  this.addTestBubble("Present", false, 2, 2222);
+		//  this.addTestBubble("Present", false, 3, 3333);
 //		  this.moveBubbleToFirst(2222);
 
 	  };
@@ -195,6 +195,12 @@
 					  {
 						  parent.classList.add("bubble-unread");
 					  }
+					  if (status == "Session_End" && timeout == true)
+					  {
+						  parent.classList.add("bubble-closed");
+						  parent.getElementsByClassName('bubble-message mr-auto')[0].innerHTML = "Session Closed";
+					  }
+
 				  }
 			  });
 		  });
@@ -441,7 +447,7 @@
 	  {
 		  var template  = this.statusUpdateTemplate;
 		  var context = { status: statusMessage	};
-		 this.$chathistory.append(template(context));
+		 this.$chatHistory.append(template(context));
 	  };
 
 	  reloadChatHistory(sMsglist)
@@ -517,12 +523,13 @@
 		var sMsglist = selectedTicket[0].messages;
 		this.reloadChatHistory(sMsglist);
 
-			
+		searchInput(selectedTicket[0]);	
 
 	  };
 
 
-	  moveBubbleToFirst(inputTicketID) {
+	  moveBubbleToFirst(inputTicketID)
+	  {
 
 		  const specifiedValue = inputTicketID;
 		  // Find the main parent div 
@@ -733,6 +740,24 @@
 		
 	  };
 
+
+	  endSession()
+	  {
+		  var loginId = top.loginId;
+		  var token = top.token;
+		  //this.selectedTicketId
+		  
+		  parent.$('#phone-panel')[0].contentWindow.endSessionByHandler(loginId, token, this.selectedTicketId);
+	  };
+
+	  //endSessionCallBack(sTicket)
+	  endSessionCallBack(ticketId)
+	  {
+		 // this.updateBubbleStatus(sTicket.TicketId, "Session_End", true);
+
+		  this.updateBubbleStatus(ticketId, "Session_End", true);
+		  this.updateStatus("Session Ended");
+	  };
 
 	  //------------------------------------------------------------------------------------------------------------------------
 	  //Unfinished AREA------------------------------------------------------------------------------------------------------------------------

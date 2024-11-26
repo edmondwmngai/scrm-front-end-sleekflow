@@ -20,7 +20,10 @@ function searchInput(sTicket)
     ///Still do not know the usage
     var functions = sessionStorage.getItem('scrmFunctions') || '';
     var noFormInSocial = functions.indexOf('No-Form-In-Social') != -1 ? true : false;
-    
+
+
+    //20241126 for reset
+    $('#search-input-section').empty();
 
     // ====== 3/3 add auto search if needed ======
     if (newTicket) 

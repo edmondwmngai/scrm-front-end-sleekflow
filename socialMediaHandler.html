@@ -120,8 +120,12 @@
                                     <img class="reply-icon-size" src="./images/send.svg">
                                 </button>
 
-
-
+                                <!--End the session?-->
+                                <button id="end" class="reply-end-container keyboard-icon" data-toggle="tooltip" data-placement="top" title="End Session" entry="webchat" onclick="chatService.endSession()">
+                                    <span class="align-sub">
+                                        <i class="fas fa-times"></i>
+                                    </span>
+                                </button>
 
                                 <button style="display:none" data-toggle="tooltip" data-placement="top" id="testSendMsgButton" title="Send"
                                         class="reply-send-container">
@@ -286,6 +290,7 @@
             </li>
         </script>
 
+    
         <script id="agent_message_template" type="text/x-handlebars-template">
             <div id="{{messageid}}" class="message-row agent-row">
                 <div class="agent-content-bubble content-bubble">
@@ -411,12 +416,12 @@
 
         <!--
 
-            pending only:   bubble-container
-            selected:       bubble-container bubble-present
-            pending unread: bubble-container bubble-unread
-            selected closed (timeout):  bubble-container bubble-present bubble-closed
-            pending closed (timeout):  bubble-container bubble-closed
-        -->
+        pending only:   bubble-container
+        selected:       bubble-container bubble-present
+        pending unread: bubble-container bubble-unread
+        selected closed (timeout):  bubble-container bubble-present bubble-closed
+        pending closed (timeout):  bubble-container bubble-closed
+    -->
 
         <script id="bubble_template" type="text/x-handlebars-template">
 

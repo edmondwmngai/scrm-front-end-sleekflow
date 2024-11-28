@@ -12,6 +12,7 @@ class wsSHandler {
 	constructor(data) {
 		//const {hostname, agentid, token, tls, listener} =data;
 		const {wsUrl, apiUrl, agentid, token, tickets, listener} = data;
+		
 		console.log(data);
 		//this.#b64DecodeUnicode("5oi05b635qKB6KGM5YWs5biD5pyA5paw");
 		//this.wsUrl=(tls)? `wss://${hostname}:8133` : `ws://${hostname}:8133`;
@@ -25,6 +26,53 @@ class wsSHandler {
 		this.onMessageEvent=listener.onMessageEvent;
 		this.tickets=[];
 		
+		this.#createWebSocket();
+		
+	};
+	static async create(data) 
+	{
+		const {hostname, agentid, token, tls, listener} =data;
+		const wsUrl=(tls)? `wss://${hostname}:8133` : `ws://${hostname}:8133`;
+		const apiUrl = (tls)? `https://${hostname}:8033` : `http://${hostname}:8033`;
+		
+		const response = await fetch(apiUrl +'/api/login', {
+            method: 'POST',
+			headers: {
+				"Content-Type": "application/json; charset=utf-8",
+			},
+            body: JSON.stringify({Agent_Id: agentid, Token: token}),
+        });
+		console.log(response);
+		const json = await response.json();
+		
+		console.log(json);
+		if(json.result=="success")
+		{
+			let tickets=json.tickets;
+			return new wsSHandler({
+				wsUrl, apiUrl, agentid, token, tickets, listener
+			});
+		}
+		return null;
+    };
+	async #reConnect() 
+	{
+		const response = await fetch(this.apiUrl +'/api/login', {
+			method: 'POST',
+			headers: {
+				"Content-Type": "application/json; charset=utf-8",
+			},
+			body: JSON.stringify({Agent_Id: this.agentid, Token: this.token}),
+		});
+		const json = await response.json();
+		if(json.result=="success")
+		{
+			this.#createWebSocket();
+		}
+	};
+	
+	#createWebSocket()
+	{
 		this.websocket = new WebSocket(this.wsUrl);
 		this.websocket.onopen = (event) => {
 			console.log(event);
@@ -60,14 +108,21 @@ class wsSHandler {
 
 			};
 		};
+		//let seft=this;
 		this.websocket.onclose=(event)=> {
 			console.log(event);
+			
+			setTimeout(this.#reConnect.bind(this),1000);
+			
 		};
-		
+		this.websocket.onerror=(event)=> {
+			console.log(event);
+			this.websocket.close();
+		};
 	};
-	#b64DecodeUnicode(str) {
-    // Going backwards: from bytestream, to percent-encoding, to original string.
-		try {
+	#b64DecodeUnicode(str) 
+	{
+    	try {
 			return decodeURIComponent(atob(str).split('').map(function(c) {
 				return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
 			}).join(''));
@@ -77,6 +132,7 @@ class wsSHandler {
 			return str;
 		}
 	};
+	
 	//"TicketId": 4,
 	//"EndUserId": "85292055486",
 	//"EndUserName": "Tiger Chong",
@@ -85,31 +141,8 @@ class wsSHandler {
 	//"Channel": "whatsappcloudapi",
 	//"DeviceId": "85293909352",
 	
-	static async create(data) {
-		const {hostname, agentid, token, tls, listener} =data;
-		const wsUrl=(tls)? `wss://${hostname}:8133` : `ws://${hostname}:8133`;
-		const apiUrl = (tls)? `https://${hostname}:8033` : `http://${hostname}:8033`;
-		const response = await fetch(apiUrl +'/api/login', {
-            method: 'POST',
-			headers: {
-				"Content-Type": "application/json; charset=utf-8",
-			},
-            body: JSON.stringify({Agent_Id: agentid, Token: token}),
-        });
-		console.log(response);
-		const json = await response.json();
-		console.log(json);
-		if(json.result=="success")
-		{
-			let tickets=json.tickets;
-			return new wsSHandler({
-				wsUrl, apiUrl, agentid, token, tickets, listener
-			});
-		}
-		return null;
-        //return await response.json();
-        
-    };
+	
+	
 	async getTicket(data)
 	{
 		const { agentid, token, channel, deviceid } = data;

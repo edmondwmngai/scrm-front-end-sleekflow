@@ -68,12 +68,16 @@
 
 		  //this.$testbutton.on('click', this.sendMessageByClick.bind(this));
 
-		//  this.addTestBubble("Present", false, 1, 1111);
-		//  this.addTestBubble("Present", false, 2, 2222);
-		//  this.addTestBubble("Present", false, 3, 3333);
+		//  this.addTestBubble("Present", false, "Tiger", 418);
+      //    this.addTestBubble("Present", false, "Test", 419);
+		  //this.addTestBubble("Present", false, 3, 3333);
 //		  this.moveBubbleToFirst(2222);
 
 	  };
+
+
+	  //For send and receive by API-------------------------------------------------------------------------------------------------------------
+	  //----------------------------------------------------------------------------------------------------------------------------------------
 
 	  //On  UI level=>   sendByClick();
 	  //sendMessageByAPI ()
@@ -96,7 +100,6 @@
 
 
 	  };
-
 
 	  sendAttachmentByClick()
 	  {
@@ -140,7 +143,6 @@
 		
 	  };
 
-
 	  sendAttachmentReset()
 	  {
 		  $('#fileInput')[0].value = "";
@@ -152,7 +154,6 @@
 		  //this.updateChatHeader();
 		  this.addReplyMessageByText(sMsg);
 	  };
-
 
 	  incomeMessageCallBack(sMsg)
 	  {
@@ -169,45 +170,42 @@
 		  }
 	  };
 
+	  endSession() {
 
+		  var endSession = false;
 
-	  updateBubbleStatus(inputTicketID, status, timeout)
+		  //Confirm by user to end the session
+		  if (confirm('End Session')) {
+			  endSession = true;
+		  }
+		  else
+		  {
+			  endSession = false;
+		  }
+
+		  if (endSession) {
+			  var loginId = top.loginId;
+			  var token = top.token;
+			  //this.selectedTicketId
+
+			  parent.$('#phone-panel')[0].contentWindow.endSessionByHandler(loginId, token, this.selectedTicketId);
+			  
+		  }
+	  };
+
+	  //endSessionCallBack(sTicket)
+	  endSessionCallBack(ticketId)
 	  {
-		  const specifiedValue = inputTicketID;
+		  this.updateChatEndSession(ticketId);
+	  };
 
-		  // Find the main parent div
-		  const mainParentDiv = document.getElementById('bubble-list-inner');
-
-		  // Find all parent divs 
-		  const parentDivs = mainParentDiv.querySelectorAll('#bubble-ticket');
-
-		  // Iterate through each parent div 
-		  parentDivs.forEach(parent => {
-			  const subDivs = parent.querySelectorAll('.bubble-id');
-
-			  // Check if any sub div's HTML equals the specified value 
-			  subDivs.forEach(sub => {
-
-				  if (sub.innerHTML.trim() === specifiedValue.toString())
-				  {
-					  // *********Update the logic in there
-					  if (status == "Pending_Unread" && timeout == false)
-					  {
-						  parent.classList.add("bubble-unread");
-					  }
-					  if (status == "Session_End" && timeout == true)
-					  {
-						  parent.classList.add("bubble-closed");
-						  parent.getElementsByClassName('bubble-message mr-auto')[0].innerHTML = "Session Closed";
-					  }
-
-				  }
-			  });
-		  });
+	  sessionTimeoutCallBack(ticketId)
+	  {
+		  this.updateChatSessionTimeout(ticketId);
 	  }
 
 	  // For chat history header
-	  //---------------------------------------------
+	  //----------------------------------------------------------------------------------------------------------------------------------------------
 	  updateChatHeader(entry, visitorName, ticketId)
 	  {
 	  	this.$histHeader.html("");
@@ -232,8 +230,8 @@
 		this.$histHeader.append(templateResponse(contextResponse));
 	  };
 
-	  // For chat history
-	  //----------------------------------------------------------------------------------------------------------------------------------
+	  // For chat history and chat inteface  on right side
+	  //---------------------------------------------------------------------------------------------------------------------------------------------
 
 	  //Visitor (Receive) side
 	  //--------------------------------------
@@ -336,9 +334,7 @@
 
 		  this.scrollToBottom();
 	  };
-
-
-	  
+	  	  	  
 	  //Agent (Reply) side
 	  //------------------------------------------------------------------
 	  addReplyMessageByText(sMsg)
@@ -375,7 +371,7 @@
 
 			  //FileList[0].MimeType
 			  var Filename = FileList[0].EproFilename;
-			  var Fileurl = FileList[0].EproFileUrl;
+			  var Fileurl  = FileList[0].EproFileUrl;
 			  var FileMime = FileList[0].MimeType;
 
 			  if (FileMime.startsWith('image/'))
@@ -437,23 +433,27 @@
 	  scrollToBottom() {
 		   this.$chatHistory.scrollTop(this.$chatHistory[0].scrollHeight);
 	  };
+
 	  getCurrentTime() {
 		  return new Date().toLocaleTimeString().
 				  replace(/([\d]+:[\d]{2})(:[\d]{2})(.*)/, "$1$3");fcall
 	  };
 	
 	  //Update the status in chat history, eg. timeout and update the status at the end of chat history
-	  updateStatus(statusMessage)
+	  updateChatStatus(statusMessage)
 	  {
 		  var template  = this.statusUpdateTemplate;
 		  var context = { status: statusMessage	};
-		 this.$chatHistory.append(template(context));
+		  this.$chatHistory.append(template(context));
 	  };
 
 	  reloadChatHistory(sMsglist)
 	  {
 		  //Reset the chat history screen
 		  $('#chatHistory').html('');
+		  this.disableInput(false);
+
+		  var ticketID = 0;
 
 		  if (sMsglist != null) {
 			  for (var i = 0; i < sMsglist.length; i++)
@@ -472,6 +472,19 @@
 				  this.scrollToBottom();
 			  }
 		  }
+
+		  //Current present (selected ticket)
+		  var sTicket = parent.$('#phone-panel')[0].contentWindow.AssignedTicketList.filter(i => i.TicketId == sMsglist[0].TicketId);
+		  var ticketStatus = sTicket[0].Status;
+
+		  if (ticketStatus == "closed")
+		  {	
+			  this.updateChatEndSession(this.selectedTicketId);
+		  }
+
+		  if (ticketStatus == "timeout") {
+			  this.updateChatSessionTimeout(this.selectedTicketId);
+		  }
 	  };
 
 	  //function update all the msglist in assignedlist
@@ -489,9 +502,44 @@
 		  });
 
 	  };
+ 
+
+	  disableInput(sValue)
+	  {
+		  if (sValue)
+		  {
+			  $(".reply-container :input").attr("disabled", true);
+		  }
+		  else
+		  {
+			  $(".reply-container :input").attr("disabled", false);
+		  }
+	  };
+
+	  updateChatEndSession(ticketId)
+	  {
+		  this.disableInput(true);
+		  this.updateBubbleStatus(ticketId, "Session_End", true);
+		  this.updateStatusInAssignedList(ticketId, "Status", "closed");
+		  this.updateChatStatus("Session Ended");
+	  };
+
+	  updateChatSessionTimeout(ticketId)
+	  {
+		  //loop all bubble and set disable
+
+		  // "Session Ended"
+		  this.disableInput(true);
+		  this.updateBubbleStatus(ticketId, "Session_End", true);
+		  this.updateStatusInAssignedList(ticketId, "Status", "timeout");
+		  this.updateChatStatus("Session Timeout");
+		  this.updateChatStatus("Session Ended");
+		  // "Session Timeout"
+		  // "Session Ended"
+	  };
 
 	  // For ticket (bubble) list
-	  //---------------------------------------------
+	  //-----------------------------------------------------------------------------------------------------------------------------------------------------
 	  //When agent click the left bubble box, the box will be highlighted 
 	  selectTicket(e)
 	  {
@@ -527,7 +575,6 @@
 
 	  };
 
-
 	  moveBubbleToFirst(inputTicketID)
 	  {
 
@@ -555,7 +602,6 @@
 			  });
 		  });
 	  };
-
 
       //  pending only:   bubble-container
       //  selected:       bubble-container bubble-present
@@ -673,15 +719,56 @@
 
 	  };
 
+	  updateBubbleStatus(inputTicketID, status, timeout) {
+		  const specifiedValue = inputTicketID;
+
+		  // Find the main parent div
+		  const mainParentDiv = document.getElementById('bubble-list-inner');
+
+		  // Find all parent divs 
+		  const parentDivs = mainParentDiv.querySelectorAll('#bubble-ticket');
+
+		  // Iterate through each parent div 
+		  parentDivs.forEach(parent => {
+			  const subDivs = parent.querySelectorAll('.bubble-id');
+
+			  // Check if any sub div's HTML equals the specified value 
+			  subDivs.forEach(sub => {
+
+				  if (sub.innerHTML.trim() === specifiedValue.toString()) {
+					  // *********Update the logic in there
+					  if (status == "Pending_Unread" && timeout == false) {
+						  parent.classList.add("bubble-unread");
+					  }
+					  if (status == "Session_End" && timeout == true)
+					  {
+						  parent.classList.add("bubble-closed");
+						  parent.getElementsByClassName('bubble-message mr-auto')[0].innerHTML = "Session Closed";
+
+					  }
+
+				  }
+			  });
+		  });
+	  };
+
+	  updateStatusInAssignedList(ticketId, fieldName, value)
+	  {
+		  var sTicket = parent.$('#phone-panel')[0].contentWindow.AssignedTicketList.filter(i => i.TicketId == ticketId);
+
+		  if (fieldName = "Status")
+		  {
+			  sTicket[0].status = value;
+		  }
+	  }
+	 
 	//---------------------------------------------------------------------------------------------------------------------------------------------///
 	// For procedure including multi-steps
 	//---------------------------------------------------------------------------------------------------------------------------------------------///
-
-		//Tiggered by click the quening list, all the information in chatbot will be reloaded
+	//Tiggered by click the quening list, all the information in chatbot will be reloaded
 
 		//------------------------------------------------------------------------------------------------------------------------
-
-	
+		
 	  reloadByGetTicket()
 	  {
 			//1. Update Bubble ticket list
@@ -741,24 +828,6 @@
 	  };
 
 
-	  endSession()
-	  {
-		  var loginId = top.loginId;
-		  var token = top.token;
-		  //this.selectedTicketId
-		  
-		  parent.$('#phone-panel')[0].contentWindow.endSessionByHandler(loginId, token, this.selectedTicketId);
-	  };
-
-	  //endSessionCallBack(sTicket)
-	  endSessionCallBack(ticketId)
-	  {
-		 // this.updateBubbleStatus(sTicket.TicketId, "Session_End", true);
-
-		  this.updateBubbleStatus(ticketId, "Session_End", true);
-		  this.updateStatus("Session Ended");
-	  };
-
 	  //------------------------------------------------------------------------------------------------------------------------
 	  //Unfinished AREA------------------------------------------------------------------------------------------------------------------------
 	  //------------------------------------------------------------------------------------------------------------------------
@@ -794,8 +863,6 @@
 	  
 	  };
 
-
-
 	  //-----------------------------------------------------------------------------------------------------------------------------
 	  //Canned response
 
@@ -825,3 +892,4 @@
   
 
 
+5

@@ -8,10 +8,15 @@ function searchInput(sTicket)
     var ticketId    = sTicket.TicketId;
     var entry       = sTicket.Channel;
 
+    //var loginId= parseInt(sessionStorage.getItem('scrmAgentId') || -1);
+    //var token = sessionStorage.getItem('scrmToken') || '';
+
     var campaign    = parent.$('#phone-panel')[0].contentWindow.selectedQueuelist[0].name;
     var enduserId   = sTicket.EndUserId;
     var loginId     = top.loginId;
     var token       = top.token;
+    sessionStorage.setItem('scrmAgentId',   top.loginId);
+    sessionStorage.setItem('scrmToken',     top.token);
     var onlineFormData; //////////////////?????????????????????????????????????
 
     var offlineFormData; //////////////////?????????????????????????????????????

@@ -536,6 +536,7 @@ var selectedQueuelist = null;
 var reloadedByGetTicket = false;
 var AssignedTicketList= [];
 var sendMessageReturned=null;
+var testMode = false;
 
 var ticketList=[];
 //ticketList.push({"ticket_id":"-2083549824"});
@@ -725,10 +726,25 @@ function onMessageEvent(e)
 //--------------------------------------------------------------------------------
 function acceptCall_test(loginId, Token, Channel, deviceID)
 {
-	
+	testMode = true;
 	
 	//Function for redirect iframe to socialMedialHandler.html
 	window.parent.SocialMediaClicked();
+
+
+	var testAssignedList = '[{ "TicketId": 418, "EndUserId": "b5b6f193-0a3b-4560-aa33-573706309416", "EndUserProfileId": "53cf32e6-8914-4ffb-a935-fefb05caa9fd", "EndUserName": "TIGER", "EndUserEmail": "TIGER@TIGERTEST.COM", "EndUserPhone": "85291111111", "AssignedTo": 5, "Status": "timeout", "Channel": "web", "DeviceId": "", "CreatedBy": "user", "CreatedAt": "2024-11-27T09:54:24.763", "UpdatedAt": "2024-11-27T09:54:34.257", "LastMessage": "Message 3", "messages": [{ "MessageId": 2307930846, "TicketId": 418, "UniqueId": null, "EndUserId": "b5b6f193-0a3b-4560-aa33-573706309416", "Channel": "web", "SentBy": "user", "UpdatedBy": null, "UpdatedAt": "2024-11-27T09:54:24.763", "MessageType": "text", "MessageContent": "MEssage 1", "FilesJson": "[]" }, { "MessageId": 2307930870, "TicketId": 418, "UniqueId": null, "EndUserId": "b5b6f193-0a3b-4560-aa33-573706309416", "Channel": "web", "SentBy": "user", "UpdatedBy": null, "UpdatedAt": "2024-11-27T09:54:27.827", "MessageType": "text", "MessageContent": "Message 2", "FilesJson": "[]" }, { "MessageId": 2307930925, "TicketId": 418, "UniqueId": null, "EndUserId": "b5b6f193-0a3b-4560-aa33-573706309416", "Channel": "web", "SentBy": "user", "UpdatedBy": null, "UpdatedAt": "2024-11-27T09:54:34.257", "MessageType": "text", "MessageContent": "Message 3", "FilesJson": "[]" }] }, 						 { "TicketId": 419, "EndUserId": "037b1416-38c5-4c9e-aa4c-ce7dec02effa", "EndUserProfileId": "53cf32e6-8914-4ffb-a935-fefb05caa9fd", "EndUserName": "TEST", "EndUserEmail": "TEST@TESTER.COM", "EndUserPhone": "85291111111", "AssignedTo": 5, "Status": "open", "Channel": "web", "DeviceId": "", "CreatedBy": "user", "CreatedAt": "2024-11-27T09:58:11.51", "UpdatedAt": "2024-11-27T09:58:24.383", "LastMessage": "Message from tester 44", "messages": [{ "MessageId": 2307932310, "TicketId": 419, "UniqueId": null, "EndUserId": "037b1416-38c5-4c9e-aa4c-ce7dec02effa", "Channel": "web", "SentBy": "user", "UpdatedBy": null, "UpdatedAt": "2024-11-27T09:58:11.51", "MessageType": "text", "MessageContent": "Message from tester 1", "FilesJson": "[]" }, { "MessageId": 2307932360, "TicketId": 419, "UniqueId": null, "EndUserId": "037b1416-38c5-4c9e-aa4c-ce7dec02effa", "Channel": "web", "SentBy": "user", "UpdatedBy": null, "UpdatedAt": "2024-11-27T09:58:18.937", "MessageType": "text", "MessageContent": "Message from tester 2", "FilesJson": "[]" }, { "MessageId": 2307932376, "TicketId": 419, "UniqueId": null, "EndUserId": "037b1416-38c5-4c9e-aa4c-ce7dec02effa", "Channel": "web", "SentBy": "user", "UpdatedBy": null, "UpdatedAt": "2024-11-27T09:58:21.74", "MessageType": "text", "MessageContent": "Message from tester 33", "FilesJson": "[]" }, { "MessageId": 2307932391, "TicketId": 419, "UniqueId": null, "EndUserId": "037b1416-38c5-4c9e-aa4c-ce7dec02effa", "Channel": "web", "SentBy": "user", "UpdatedBy": null, "UpdatedAt": "2024-11-27T09:58:24.383", "MessageType": "text", "MessageContent": "Message from tester 44", "FilesJson": "[]" }] },	{ "TicketId": 420, "EndUserId": "b5b6f193-0a3b-4560-aa33-573706309416", "EndUserProfileId": "53cf32e6-8914-4ffb-a935-fefb05caa9fd", "EndUserName": "MARY", "EndUserEmail": "MARY@MARY.COM", "EndUserPhone": "85291111111", "AssignedTo": 5, "Status": "closed", "Channel": "web", "DeviceId": "", "CreatedBy": "user", "CreatedAt": "2024-11-27T09:54:24.763", "UpdatedAt": "2024-11-27T09:54:34.257", "LastMessage": "Message 3", "messages": [{ "MessageId": 2307930846, "TicketId": 420, "UniqueId": null, "EndUserId": "b5b6f193-0a3b-4560-aa33-573706309416", "Channel": "web", "SentBy": "user", "UpdatedBy": null, "UpdatedAt": "2024-11-27T09:54:24.763", "MessageType": "text", "MessageContent": "MEssage 1", "FilesJson": "[]" }, { "MessageId": 2307930870, "TicketId": 420, "UniqueId": null, "EndUserId": "b5b6f193-0a3b-4560-aa33-573706309416", "Channel": "web", "SentBy": "user", "UpdatedBy": null, "UpdatedAt": "2024-11-27T09:54:27.827", "MessageType": "text", "MessageContent": "Message 2", "FilesJson": "[]" }, { "MessageId": 2307930925, "TicketId": 420, "UniqueId": null, "EndUserId": "b5b6f193-0a3b-4560-aa33-573706309416", "Channel": "web", "SentBy": "user", "UpdatedBy": null, "UpdatedAt": "2024-11-27T09:54:34.257", "MessageType": "text", "MessageContent": "Message 3", "FilesJson": "[]" }] }]';
+
+
+	//var testQueueList = '[{ "callType": 16, "name": "campaignCRM", "caption": "EPRO", "entry": "whatsapp", "source": "sleekflow", "dnis": "85293909352", "showPriority": 0, "waitTime": 0, "waitCount": 0 }, { "callType": 10, "name": "campaignCRM", "caption": "EPRO", "entry": "web", "source": "sleekflow", "dnis": "", "showPriority": 0, "waitTime": 0, "waitCount": 0 }, { "callType": 7, "acdGroup": 1, "entry": "", "name": "campaignCRM", "caption": "9000", "dnis": "9000", "showPriority": 1, "waitTime": 582820, "waitCount": 1, "mediaCount": 0 }, { "callType": 6, "acdGroup": 7, "name": "campaignCRM", "caption": "EPRO", "dnis": "demo-cpb@eprotel.com.hk", "showPriority": 2, "waitTime": 632525, "waitCount": 1, "mediaCount": 17 }, { "callType": 7, "acdGroup": 1, "name": "campaignCRM", "caption": "9001", "dnis": "9001", "showPriority": 2, "waitTime": 582821, "waitCount": 0, "mediaCount": 2 }]';
+    AssignedTicketList = JSON.parse(testAssignedList);
+
+	//queueList = JSON.parse(testQueueList);
+
+	selectedQueuelist = queueList.filter(i => i.source == 'sleekflow' && i.entry == 'web');
+
+
+	//JSON.parse(JSON.stringify(parent.$('#phone-panel')[0].contentWindow.AssignedTicketList));
+
 
 	//var chatService= parent.$('#social-media')[0].contentWindow.chatService;
 	//chatService.addMessage();

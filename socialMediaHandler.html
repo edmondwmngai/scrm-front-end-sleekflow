@@ -499,6 +499,7 @@
         var sTicket = parent.$('#phone-panel')[0].contentWindow.currentTicket;
         var sMsglist = parent.$('#phone-panel')[0].contentWindow.currentMsglist;
         var reloadScreen = parent.$('#phone-panel')[0].contentWindow.reloadedByGetTicket;
+        var testMode = parent.$('#phone-panel')[0].contentWindow.testMode;
 
         var agentService = new agent();
         var chatService = new chat();
@@ -516,6 +517,12 @@
             chatService.reloadByGetTicket();
         }
 
+        if (testMode)
+        {
+            chatService.addTestBubble("Present", false, "Tiger", 418);
+            chatService.addTestBubble("Present", false, "Test", 419);
+            chatService.addTestBubble("Present", false, "Mary", 420);
+        }
 
 
     </script>

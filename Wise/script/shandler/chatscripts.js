@@ -76,13 +76,13 @@
 	  };
 
 
-	  //For send and receive by API-------------------------------------------------------------------------------------------------------------
+	  //For send and receive by API of Web Socket_----------------------------------------------------------------------------------------------
 	  //----------------------------------------------------------------------------------------------------------------------------------------
 
 	  //On  UI level=>   sendByClick();
 	  //sendMessageByAPI ()
 	  //phone.html call sendMessageByHandler();
-	  //wss sendMessage();
+	  //wss sendMessage(); 
 	  sendMessageByClick() {
 		  //var loginId = parseInt(sessionStorage.getItem('scrmAgentId') || -1);
 		  //var token = sessionStorage.getItem('scrmToken') || '';
@@ -117,6 +117,7 @@
 
 	  };
 
+	  //this function is not work
 	  sendAttachmentByURL(fileUrl, fileName)
 	  {
 
@@ -150,14 +151,14 @@
 	  
 	  sendMessageCallBack(sMsg)
 	  {
-		  this.updateBubbleHistory(sMsg);
+		  this.updateChatMessageHistory(sMsg);
 		  //this.updateChatHeader();
 		  this.addReplyMessageByText(sMsg);
 	  };
 
 	  incomeMessageCallBack(sMsg)
 	  {
-		  this.updateBubbleHistory(sMsg);
+		  this.updateChatMessageHistory(sMsg);
 
 		  //Current Bubble Message
 		  if (this.selectedTicketId == sMsg.TicketId) {
@@ -166,7 +167,7 @@
 		  else
 		  {
 			  this.updateBubbleStatus(sMsg.TicketId, "Pending_Unread", false);
-
+			  this.moveBubbleToFirst(sMsg.TicketId);
 		  }
 	  };
 
@@ -204,6 +205,9 @@
 		  this.updateChatSessionTimeout(ticketId);
 	  }
 
+	  //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
+
+	  //
 	  // For chat history header
 	  //----------------------------------------------------------------------------------------------------------------------------------------------
 	  updateChatHeader(entry, visitorName, ticketId)
@@ -488,7 +492,7 @@
 	  };
 
 	  //function update all the msglist in assignedlist
-	  updateBubbleHistory(sMsg) {
+	  updateChatMessageHistory(sMsg) {
 		  var sTicket = parent.$('#phone-panel')[0].contentWindow.AssignedTicketList.filter(i => i.TicketId == sMsg.TicketId);
 		  var sMsglist = sTicket[0].messages;
 		  sMsglist.push(sMsg);
@@ -520,14 +524,13 @@
 	  {
 		  this.disableInput(true);
 		  this.updateBubbleStatus(ticketId, "Session_End", true);
+
 		  this.updateStatusInAssignedList(ticketId, "Status", "closed");
 		  this.updateChatStatus("Session Ended");
 	  };
 
 	  updateChatSessionTimeout(ticketId)
 	  {
-		  //loop all bubble and set disable
-
 		  // "Session Ended"
 		  this.disableInput(true);
 		  this.updateBubbleStatus(ticketId, "Session_End", true);
@@ -621,7 +624,7 @@
 		  	//var dateISO = new Date(ticket.UpdatedAt);
 			//var dateUpdateAt = dateISO.getFullYear()+'-' + (dateISO.getMonth()+1) + '-'+dateISO.getDate();//prints expected format.
 
-			var jsonMsgList = JSON.stringify(messageList);
+		  var jsonMsgList = JSON.stringify(messageList);
 
 		  
 
@@ -744,9 +747,11 @@
 					  {
 						  parent.classList.add("bubble-closed");
 						  parent.getElementsByClassName('bubble-message mr-auto')[0].innerHTML = "Session Closed";
-
+						  parent.getElementsByClassName('bubble-icon')[0].style = "opacity: 0.1;";
+						  parent.getElementsByClassName('bubble-subject')[0].style = "color:grey";
+						  parent.querySelector('#bubble-add-agent').style.visibility = "hidden";
+						  parent.querySelector('#bubble-leave-chat').style.visibility = "hidden";
 					  }
-
 				  }
 			  });
 		  });
@@ -831,7 +836,7 @@
 	  //------------------------------------------------------------------------------------------------------------------------
 	  //Unfinished AREA------------------------------------------------------------------------------------------------------------------------
 	  //------------------------------------------------------------------------------------------------------------------------
-	   addAgent()
+	  addAgent()
 	  {
 			// The original logic come from socialMEdia.js addAgent then pass to  main.js 8.5 and 9  getAgentList and onWiseAgentList
 

@@ -22,6 +22,7 @@
 		selectedEndUserName = "";
 		PresentTicket = true;
 
+		//Contacted us in the last hour: Last Ticket ID: 1386264423 on 2024-11 - 29 12: 17: 37
 	  init()
 	  {
 		    this.cacheDOM();
@@ -210,6 +211,7 @@
 	  //
 	  // For chat history header
 	  //----------------------------------------------------------------------------------------------------------------------------------------------
+
 	  updateChatHeader(entry, visitorName, ticketId)
 	  {
 	  	this.$histHeader.html("");
@@ -230,9 +232,45 @@
 			  channel: entry
 		  };
 
+		  var pastTicket = this.returnPastTicketFromSameVisitor(ticketId);
+		  if (pastTicket != null)
+		  {
+			  alert("same visitor find");
+		  }
+
 
 		this.$histHeader.append(templateResponse(contextResponse));
 	  };
+
+	  returnPastTicketFromSameVisitor(ticketId)
+	  {
+
+		  var sTicket = parent.$('#phone-panel')[0].contentWindow.AssignedTicketList.filter(i => i.TicketId == ticketId);
+		  var sEndUserName	= sTicket[0].EndUserName;
+
+		  var EndUserId = sTicket[0].EndUserId;
+
+		  const currentDatetime = moment();
+
+
+		  var records = parent.$('#phone-panel')[0].contentWindow.AssignedTicketList;
+		  
+		  // Filter records within 1 hour of the current datetime
+		  var filteredRecords = records.filter(record => {
+			  const recordMoment = moment(record.UpdatedAt);
+			  return Math.abs(currentDatetime.diff(recordMoment, 'hours', true)) <= 1;
+		  });
+		  
+		  if (filteredRecords.length > 0) {
+			  filteredRecords = filteredRecords.filter(i => i.sEndUserName == sEndUserName);
+			  return filteredRecords[filteredRecords.length - 1];
+		  }
+		  else {
+			  return null;
+		  }
+		  //Return the last inserted record in asigned ticket List only
+	  };
+
 
 	  // For chat history and chat inteface  on right side
 	  //---------------------------------------------------------------------------------------------------------------------------------------------
@@ -251,14 +289,12 @@
 			this.messageReceived = sMsg.MessageContent;
 	  		var templateResponse = this.visitorMessageTemplate;
 
+			//The moment js cannot handle the iso date format, if full date format the output is wrong. Please update the moment js above 2.16.0
+			var dateISO = sMsg.UpdatedAt.slice(0, 19); 
+			var mDate = moment(dateISO).format('HH:mm:ss');
+						
 
-			var dateISO = sMsg.UpdatedAt;
-			var mDate = moment(dateISO).format('hh:mm:ss');
-
-
-         
-		 
-		  //this.$chatHistory[0].getElementsByClassName('content-bubble-content')[0].append("abc");
+          //this.$chatHistory[0].getElementsByClassName('content-bubble-content')[0].append("abc");
 
 
 		  //agentService.getAgentNameByID(sMsg/)
@@ -289,8 +325,9 @@
 
 			  if (FileMime.startsWith('image/')) {
 				  
-				  var dateISO = sMsg.UpdatedAt;
-				  var mDate = moment(dateISO).format('hh:mm:ss');
+				  var dateISO = sMsg.UpdatedAt.slice(0, 19); 
+				  
+				  var mDate = moment(dateISO).format('HH:mm:ss');
 
 				  var attachmentTemplate = this.visitorMessageWithImageTemplate;
 
@@ -318,8 +355,8 @@
 				  aTag = aTag.replace("{{FileUrl}}", Fileurl);
 				  aTag = aTag.replace("{{FileName}}", Filename);
 
-				  var dateISO = sMsg.UpdatedAt;
-				  var mDate = moment(dateISO).format('hh:mm:ss');
+				  var dateISO = sMsg.UpdatedAt.slice(0, 19); 
+				  var mDate = moment(dateISO).format('HH:mm:ss');
 
 				  var context = {
 					  SentBy: sEndUserName,
@@ -353,8 +390,9 @@
 
 			  var template = this.agentMessageTemplate;
 
-			  var dateISO = sMsg.UpdatedAt;
-			  var mDate = moment(dateISO).format('hh:mm:ss');
+
+			  var dateISO = sMsg.UpdatedAt.slice(0, 19); 
+			  var mDate = moment(dateISO).format('HH:mm:ss');
 
 			  var context = {
 				  SentBy: agentName,
@@ -381,8 +419,8 @@
 			  if (FileMime.startsWith('image/'))
 			  {
 				  var template = this.agentMessageWithImageTemplate;
-				  var dateISO = sMsg.UpdatedAt;
-				  var mDate = moment(dateISO).format('hh:mm:ss');
+				  var dateISO = sMsg.UpdatedAt.slice(0, 19); 
+				  var mDate = moment(dateISO).format('HH:mm:ss');
 
 				  var displayImage = "max-width:100%;max-height:200px";
 
@@ -408,8 +446,8 @@
 				  aTag = aTag.replace("{{FileUrl}}", Fileurl);
 				  aTag = aTag.replace("{{FileName}}", Filename);
 
-				  var dateISO = sMsg.UpdatedAt;
-				  var mDate = moment(dateISO).format('hh:mm:ss');
+				  var dateISO = sMsg.UpdatedAt.slice(0, 19); 
+				  var mDate = moment(dateISO).format('HH:mm:ss');
 
 				  var context = {
 					  SentBy: agentName,
@@ -492,17 +530,37 @@
 	  };
 
 	  //function update all the msglist in assignedlist
-	  updateChatMessageHistory(sMsg) {
-		  var sTicket = parent.$('#phone-panel')[0].contentWindow.AssignedTicketList.filter(i => i.TicketId == sMsg.TicketId);
-		  var sMsglist = sTicket[0].messages;
+	  updateChatMessageHistory(sMsg)
+	  {
+		  //Update the client side Ticket AssignedList Message List for specified ticket
+		  var sTicketLst = parent.$('#phone-panel')[0].contentWindow.AssignedTicketList.filter(i => i.TicketId == sMsg.TicketId);
+		  var sTicket = sTicketLst[0];
+		  var sMsglist = sTicket.messages;
 		  sMsglist.push(sMsg);
 
+		  //Update back the ticket information
+		  sTicket.UpdatedAt = sMsg.UpdatedAt;
+		  sTicket.LastMessage= sMsg.MessageContent;
+
+
+		  //Also update the current Status of Ticket Bubble
 		  var elements = document.getElementById('bubble-list-inner').querySelectorAll("#bubble-ticket");
 
-		  elements.forEach((element, index) => {
-			  var messageList = JSON.parse(element.getElementsByClassName('bubble-messagelist')[0].innerHTML);
-			  messageList.push(sMsg);
-			  element.getElementsByClassName('bubble-messagelist')[0].innerHTML = JSON.stringify(messageList);
+		  elements.forEach((element, index) =>
+		  {
+			  var dateISO = sMsg.UpdatedAt.slice(0, 19); 
+			  var mDate = moment(dateISO).format('HH:mm:ss');
+
+			  var bubbleId = element.getElementsByClassName('bubble-id')[0].innerHTML;
+
+			  if (bubbleId.trim() == sMsg.TicketId)
+			  {
+				  var messageList = JSON.parse(element.getElementsByClassName('bubble-messagelist')[0].innerHTML);
+				  messageList.push(sMsg);
+				  element.getElementsByClassName('bubble-messagelist')[0].innerHTML = JSON.stringify(messageList);
+				  element.getElementsByClassName('bubble-time')[0].innerHTML = mDate;
+				  element.getElementsByClassName('bubble-message mr-auto')[0].innerHTML = sTicket.LastMessage;
+			  }
 		  });
 
 	  };
@@ -617,9 +675,8 @@
 		  console.log(JSON.stringify(ticket));
          console.log(ticket.UpdatedAt);
 		  
-		  var dateISO = ticket.UpdatedAt;
-		  
-		  var mDate = moment(dateISO).format('hh:mm:ss');
+		  var dateISO = ticket.UpdatedAt.slice(0, 19); 
+		  var mDate = moment(dateISO).format('HH:mm:ss');
 		  
 		  	//var dateISO = new Date(ticket.UpdatedAt);
 			//var dateUpdateAt = dateISO.getFullYear()+'-' + (dateISO.getMonth()+1) + '-'+dateISO.getDate();//prints expected format.
@@ -719,7 +776,29 @@
 	     	}	
 
 			this.$ticketList.append(template(context));
+			this.updateChatHeader("web", name, ticketID);
+	  };
 
+	  updateBubbleInfo(sTicket)
+	  {
+		  const specifiedValue = inputTicketID;
+
+		  // Find the main parent div
+		  const mainParentDiv = document.getElementById('bubble-list-inner');
+
+		  // Find all parent divs 
+		  const parentDivs = mainParentDiv.querySelectorAll('#bubble-ticket');
+		  // Iterate through each parent div 
+		  parentDivs.forEach(parent => {
+			  const subDivs = parent.querySelectorAll('.bubble-id');
+			  // Check if any sub div's HTML equals the specified value 
+			  subDivs.forEach(sub => {
+				  if (sub.innerHTML.trim() === specifiedValue.toString())
+				  {
+					  parent.getElementsByClassName('bubble-message mr-auto')[0].innerHTML = sTicket.messages[sTicket.messages.length - 1].MessageContent;
+				  }
+			  });
+		  });
 	  };
 
 	  updateBubbleStatus(inputTicketID, status, timeout) {

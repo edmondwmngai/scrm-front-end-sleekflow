@@ -1,6 +1,5 @@
   class chat
   {
-	  
 	  ///////
 		messageToSend = '';
 		messageReceived = '';
@@ -27,7 +26,6 @@
 	  {
 		    this.cacheDOM();
 			this.bindEvents();
-			//this.render();
 		
 			 //this.updateStatus("Session Timeout");			 //this.updateStatus("Session Ended");
 	  };
@@ -212,7 +210,8 @@
 	  // For chat history header
 	  //----------------------------------------------------------------------------------------------------------------------------------------------
 
-	  updateChatHeader(entry, visitorName, ticketId)
+	  //updateChatHeader(entry, visitorName, ticketId)
+	  updateChatHeader(entry, sTicket)
 	  {
 	  	this.$histHeader.html("");
 		var templateResponse = this.chatlistHeaderTemplate;
@@ -225,15 +224,17 @@
 		if (entry == 'wechat')		{	channelImg = 'WeChat.png';			}
 
 		  var contextResponse = {
-			  ticketId: ticketId,
-			  name: visitorName,
+			  ticketId: sTicket.TicketId,
+			  name: sTicket.EndUserName,
+			  email: sTicket.EndUserEmail, 
+			  phone: sTicket.EndUserPhone, 
 			  language: "English",
 			  channelImg: channelImg,
 			  channel: entry,
 			  additionalInfo: ""
 		  };
 
-		  var pastTicket = this.returnPastTicketFromSameVisitor(ticketId);
+		  var pastTicket = this.returnPastTicketFromSameVisitor(sTicket.TicketId);
 		  if (pastTicket != null)
 		  {
 
@@ -256,7 +257,7 @@
 		  const currentDatetime = moment();
 
 		  // Not count the current present ticket
-		  var records = parent.$('#phone-panel')[0].contentWindow.AssignedTicketListfilter(i => i.TicketId != ticketId);
+		  var records = parent.$('#phone-panel')[0].contentWindow.AssignedTicketList.filter(i => i.TicketId != ticketId);
 		  
 		  // Filter records within 1 hour of the current datetime
 		  var filteredRecords = records.filter(record => {
@@ -398,7 +399,6 @@
 		  else if (sMsg.MessageType = "file" || sMsg.FilesJson.length > 4)
 		  {
 
-
 			  var FileList = [];
 
 			  FileList = JSON.parse(sMsg.FilesJson);
@@ -458,8 +458,8 @@
 	  };	  
 		
 	  addReplyMessageEnter(event) {
-			// enter was pressed
-			if (event.keyCode === 13) {
+		  // enter was pressed
+			if (event.keyCode == 13 && !event.shiftKey) {
 				this.sendMessageByClick();
 			}
 	  };
@@ -623,7 +623,7 @@
 
 		var sMsglist = selectedTicket[0].messages;
 		this.reloadChatHistory(sMsglist);
-		this.updateChatHeader(this.selectedChatChannel, this.selectedEndUserName, this.selectedTicketId);
+		this.updateChatHeader(this.selectedChatChannel, selectedTicket[0]);
 		searchInput(selectedTicket[0]);	
 
 	  };
@@ -729,13 +729,18 @@
 
 	  addTestBubble(status, timeout, name, ticketID)
 	  {
-				
+
+     		  var sTicket = parent.$('#phone-panel')[0].contentWindow.AssignedTicketList.filter(i => i.TicketId == ticketID);
+
 			//var dateUpdateAt = dateISO.toTimeString().split(' ')[0];
 			var context = { 
-				endUserId: "123",
 				endUserName: name,
 				ticketId: ticketID,
-				endUserId: "14224242424"
+				endUserId: sTicket[0].EndUserId,
+				Channel: sTicket[0].Channel,
+				AssignedTo: sTicket[0].AssignedTo,
+				endUserEmail: sTicket[0].endUserEmail,
+				endUserPhone: sTicket[0].endUserPhone
 			};
 
 			var template  = this.bubbleTemplate;
@@ -749,7 +754,7 @@
 				this.selectedTicketId = context.ticketId;
 				this.selectedAgentId  = context.agentId;
 				this.selectedwebClientSenderId	= context.endUserId;
-				this.selectedChatChannel 		= "web";
+				this.selectedChatChannel = context.Channel;
 				this.selectedEndUserName		= context.endUserName;
 				context.bubblestatus = "bubble-container bubble-present";
 			}
@@ -768,7 +773,19 @@
 	     	}	
 
 			this.$ticketList.append(template(context));
-			this.updateChatHeader("web", name, ticketID);
+
+		  this.selectedTicketId = sTicket[0].ticketId;
+		  this.selectedAgentId = sTicket[0].AssignedTo;
+		  this.selectedwebClientSenderId = sTicket[0].selectedwebClientSenderId;
+		  this.selectedChatChannel = sTicket[0].Channel;
+		  this.selectedEndUserName = sTicket[0].EndUserName;
+
+
+		  //var sTicket = parent.$('#phone-panel')[0].contentWindow.AssignedTicketList.filter(i => i.TicketId == ticketID);
+
+		  this.updateChatHeader("web", sTicket[0]);
+
+
 	  };
 
 	  updateBubbleInfo(sTicket)
@@ -890,7 +907,7 @@
 			}
 
 			//2. Update Chat history header
-		  this.updateChatHeader(this.selectedChatChannel, this.selectedEndUserName, this.selectedTicketId);
+		  this.updateChatHeader(this.selectedChatChannel, currentTicket);
 				               
 
 		  //3. Update message list

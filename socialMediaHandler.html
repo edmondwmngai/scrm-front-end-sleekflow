@@ -290,7 +290,7 @@
             </li>
         </script>
 
-    
+
         <script id="agent_message_template" type="text/x-handlebars-template">
             <div id="{{messageid}}" class="message-row agent-row">
                 <div class="agent-content-bubble content-bubble">
@@ -390,87 +390,123 @@
                 <span class="status-bubble">{{status}}</span>
             </div>
         </script>
-
+                        
         <script id="chatlist_header_template" type="text/x-handlebars-template">
-            <div style="padding:7px 10px 0px 10px;">
-                <span class="custom-scroll content-basic-info" style="margin-top: -10px; margin-left: -15px">
-                    <span class="cs-info-span"><span class="content-gray-label">Platform:</span>&nbsp;{{channel}}</span>
+                <span class="custom-scroll content-basic-info" style="width:100%; margin-top: 0px; margin-left: -15px">
+                    <span class="cs-info-span">
+                        <span class="content-gray-label">Platform:</span>&nbsp;{{channel}}
+                    </span>
                     <span class="cs-info-span">
                         <span class="content-gray-label">Ticket ID:</span>{{ticketId}}
                     </span>
-                    <span id="cs-basic-1213777168">
+                    <span id="cs-basic">
                         <span>
-                            <span class="content-gray-label">Name:</span>{{name}}
+                            <span class="content-gray-label">Name:</span>&nbsp;{{name}}
                         </span>
                     </span>
-                    <span id="cs-info-1213777168">
-                        <span>
-                            <span class="content-gray-label">Source:</span>&nbsp;{{source}}
-                        </span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <span id="cs-info">
+                        <span><span class="content-gray-label" style="visibility:hidden">Source:</span>&nbsp;{{source}}</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         <span><span class="content-gray-label">Language:</span>&nbsp;{{language}}</span>
+                        <span><span class="content-gray-label">Email:</span>&nbsp;{{email}}</span>
+                        <span><span class="content-gray-label">Phone:</span>&nbsp;{{phone}}</span>
+                        <br />
+                        <span><span id="cs-info-additional" class="content-gray-label">{{additionalInfo}}</span></span>
+                    </span>
+                    <img id="channel" class="top-channel-img" style="margin-top: -20px; float: right;" data-toggle="tooltip" data-placement="left" src="./Wise/img/{{channelImg}}">
+                </span>
+            </div>
+        </script>
+
+        <script id="chatlist_header_template1" type="text/x-handlebars-template">
+            <div style="padding:7px 10px 0px 10px;">
+                <span class="custom-scroll content-basic-info">
+                    <span class="cs-info-span"><span class="content-gray-label">Platform:</span>&nbsp;webchat</span>
+                    <span class="cs-info-span"><span class="content-gray-label">Ticket ID:</span>&nbsp;357761895</span>
+                    <span id="cs-basic-357761895">
+                        <span style="white-space:pre;"><span class="content-gray-label">Name:</span>&nbsp;TEST</span>
+                    </span>
+                    <span id="cs-info-357761895">
+                        <span style="white-space:pre;"><span class="content-gray-label">Source:</span>&nbsp;www.commas.hk </span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <span style="white-space:pre;"><span class="content-gray-label">Language:</span>&nbsp;English</span>
                     </span>
                 </span>
-                <img id="channel-1213777168" class="top-channel-img" style="margin-top:-20px" data-toggle="tooltip" data-placement="left" src="./Wise/img/{{channelImg}}">
+                <img id="channel-357761895" class="top-channel-img" data-toggle="tooltip" data-placement="left" src="./Wise/img/webchat-icon-217.png">
             </div>
         </script>
-
-        <!--
-
-        pending only:   bubble-container
-        selected:       bubble-container bubble-present
-        pending unread: bubble-container bubble-unread
-        selected closed (timeout):  bubble-container bubble-present bubble-closed
-        pending closed (timeout):  bubble-container bubble-closed
-    -->
-
-        <script id="bubble_template" type="text/x-handlebars-template">
-
-
-            <div class="{{bubblestatus}}" style="height: 71px; overflow: hidden" id="bubble-ticket" campaign="campaignCRM" companycode="SM_Win2016-demoWebChat" enduserid="{{endUserId}}" onclick="chatService.selectTicket(this)">
-                <div class="bubble-container-inner">
-                    <span class="bubble-label-content-columns">
-                        <span style="display: none;" class="bubble-id">{{ticketId}}</span>
-                        <span style="display: none;" class="bubble-agent-id">{{agentId}}</span>
-                        <span style="display: none;" class="bubble-user-id">{{endUserId}}</span>
-                        <span style="display: none;" class="bubble-user-email">{{endUserEmail}}</span>
-                        <span style="display: none;" class="bubble-user-phone">{{endUserPhone}}</span>
-                        <span style="display: none;" class="bubble-channel">{{channel}}</span>
-                        <span style="display: none;" class="bubble-deviceid">{{deviceId}}</span>
-                        <div class="bubble-channel-logo">
-                            <!--opacity: 0.1; -->
-                            <img class="bubble-icon" src="./Wise/img/webchat-icon-217.png">
-                        </div>
-                        <div class="buble-content-column">
-                            <div>
-                                <span class="bubble-subject">{{endUserName}}</span>
-                                <span style="float:right;">
-                                    <span class="bubble-short-name"></span>&nbsp;
-                                    <span class="bubble-datetime">
-                                        <span class="bubble-date"></span>
-                                        <span class="bubble-time">{{updatedAt}}</span>
-                                    </span>
-                                </span>
-                            </div>
-                            <div class="d-flex">
-                                <span class="bubble-message mr-auto">{{lastMessage}}</span>
-                                <i class="fas fa-plus bubble-small-icon mr-2" id="bubble-add-agent" onclick="chatService.addAgent({{ticketId}},&quot;campaignCRM&quot;,&quot;webchat&quot;)" data-toggle="tooltip" data-placement="bottom" title="Conference Call"></i>
-                                <i class="fas fa-sign-out-alt leave-chat-icon bubble-small-icon" id="bubble-leave-chat" onclick="leaveChat({{ticketId}})" data-toggle="tooltip" data-placement="bottom" title="Leave Chat"></i>
-                                <i class="fas fa-star private-i"></i>
-                            </div>
-                        </div>
-                        <span style="display: none;" class="bubble-messagelist">{{messageList}}</span>
+        <script id="chatlist_header_template2" type="text/x-handlebars-template">
+            <div style="padding:7px 10px 0px 10px;">
+                <span class="custom-scroll content-basic-info">
+                    <span class="cs-info-span"><span class="content-gray-label">Platform:</span>&nbsp;webchat</span>
+                    <span class="cs-info-span"><span class="content-gray-label">Ticket ID:</span>&nbsp;145056642</span>
+                    <span id="cs-basic-145056642">
+                        <span style="white-space:pre;"><span class="content-gray-label">Name:</span>&nbsp;TEST</span>
                     </span>
-                </div>
+                    <span id="cs-info-145056642">
+                        <span style="white-space:pre;"><span class="content-gray-label">Source:</span>&nbsp;www.commas.hk</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <span style="white-space:pre;"><span class="content-gray-label">Language:</span>&nbsp;English</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <span style="white-space:pre;"><span class="content-gray-label">Contacted us in the last hour:</span>&nbsp;Last Ticket ID: 357761895 on 2024-12-02 12:05:46</span>
+                    </span>
+                </span>
+                <img id="channel-145056642" class="top-channel-img" data-toggle="tooltip" data-placement="left" src="./Wise/img/webchat-icon-217.png">
             </div>
         </script>
+                <!--
+
+            pending only:   bubble-container
+            selected:       bubble-container bubble-present
+            pending unread: bubble-container bubble-unread
+            selected closed (timeout):  bubble-container bubble-present bubble-closed
+            pending closed (timeout):  bubble-container bubble-closed
+        -->
+
+                <script id="bubble_template" type="text/x-handlebars-template">
+
+
+                    <div class="{{bubblestatus}}" style="height: 71px; overflow: hidden" id="bubble-ticket" campaign="campaignCRM" companycode="SM_Win2016-demoWebChat" enduserid="{{endUserId}}" onclick="chatService.selectTicket(this)">
+                        <div class="bubble-container-inner">
+                            <span class="bubble-label-content-columns">
+                                <span style="display: none;" class="bubble-id">{{ticketId}}</span>
+                                <span style="display: none;" class="bubble-agent-id">{{AssignedTo}}</span>
+                                <span style="display: none;" class="bubble-user-id">{{endUserId}}</span>
+                                <span style="display: none;" class="bubble-user-email">{{endUserEmail}}</span>
+                                <span style="display: none;" class="bubble-user-phone">{{endUserPhone}}</span>
+                                <span style="display: none;" class="bubble-channel">{{Channel}}</span>
+                                <span style="display: none;" class="bubble-deviceid">{{deviceId}}</span>
+                                <div class="bubble-channel-logo">
+                                    <!--opacity: 0.1; -->
+                                    <img class="bubble-icon" src="./Wise/img/webchat-icon-217.png">
+                                </div>
+                                <div class="buble-content-column">
+                                    <div>
+                                        <span class="bubble-subject">{{endUserName}}</span>
+                                        <span style="float:right;">
+                                            <span class="bubble-short-name"></span>&nbsp;
+                                            <span class="bubble-datetime">
+                                                <span class="bubble-date"></span>
+                                                <span class="bubble-time">{{updatedAt}}</span>
+                                            </span>
+                                        </span>
+                                    </div>
+                                    <div class="d-flex">
+                                        <span class="bubble-message mr-auto">{{lastMessage}}</span>
+                                        <i class="fas fa-plus bubble-small-icon mr-2" id="bubble-add-agent" onclick="chatService.addAgent({{ticketId}},&quot;campaignCRM&quot;,&quot;webchat&quot;)" data-toggle="tooltip" data-placement="bottom" title="Conference Call"></i>
+                                        <i class="fas fa-sign-out-alt leave-chat-icon bubble-small-icon" id="bubble-leave-chat" onclick="leaveChat({{ticketId}})" data-toggle="tooltip" data-placement="bottom" title="Leave Chat"></i>
+                                        <i class="fas fa-star private-i"></i>
+                                    </div>
+                                </div>
+                                <span style="display: none;" class="bubble-messagelist">{{messageList}}</span>
+                            </span>
+                        </div>
+                    </div>
+                </script>
 
 
 
-        <!-----End of loading template__-------------------------------------------------------------------------------------------------------------------------------------------------->
-        <!-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------->
-        <!-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------->
+                <!-----End of loading template__-------------------------------------------------------------------------------------------------------------------------------------------------->
+                <!-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------->
+                <!-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------->
 
-    </div>
+</div>
 
 
     <!----------------------------------------------------------------------------------------------------->
@@ -523,6 +559,8 @@
             chatService.addTestBubble("Present", false, "Tiger", 418);
             chatService.addTestBubble("Present", false, "Test", 419);
             chatService.addTestBubble("Present", false, "Mary", 420);
+
+            
         }
 
 

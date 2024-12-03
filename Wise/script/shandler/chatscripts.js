@@ -229,13 +229,16 @@
 			  name: visitorName,
 			  language: "English",
 			  channelImg: channelImg,
-			  channel: entry
+			  channel: entry,
+			  additionalInfo: ""
 		  };
 
 		  var pastTicket = this.returnPastTicketFromSameVisitor(ticketId);
 		  if (pastTicket != null)
 		  {
-			  alert("same visitor find");
+
+			  //Contacted us in the last hour: Last Ticket ID: 1386264423 on 2024-11 - 29 12: 17: 37
+			  contextResponse.additionalInfo = "Contacted us in the last hour: Last Ticket ID: " + pastTicket.TicketId + " on " + pastTicket.UpdatedAt.slice(0, 19);
 		  }
 
 
@@ -252,23 +255,23 @@
 
 		  const currentDatetime = moment();
 
-
-		  var records = parent.$('#phone-panel')[0].contentWindow.AssignedTicketList;
+		  // Not count the current present ticket
+		  var records = parent.$('#phone-panel')[0].contentWindow.AssignedTicketListfilter(i => i.TicketId != ticketId);
 		  
 		  // Filter records within 1 hour of the current datetime
 		  var filteredRecords = records.filter(record => {
-			  const recordMoment = moment(record.UpdatedAt);
+			  const recordMoment = moment(record.UpdatedAt.slice(0, 19));
 			  return Math.abs(currentDatetime.diff(recordMoment, 'hours', true)) <= 1;
 		  });
-		  
+		  //Return the last inserted record in asigned ticket List only
 		  if (filteredRecords.length > 0) {
-			  filteredRecords = filteredRecords.filter(i => i.sEndUserName == sEndUserName);
+			  filteredRecords = filteredRecords.filter(i => i.EndUserName == sEndUserName);
 			  return filteredRecords[filteredRecords.length - 1];
 		  }
 		  else {
 			  return null;
 		  }
-		  //Return the last inserted record in asigned ticket List only
+		 
 	  };
 
 
@@ -280,11 +283,9 @@
 	  
 	  //sMsg.MessageContent, sMsg.sendby
 	  receiveMessage(sMsg)
-	  {
-			
+	  {			
 			var sTicket = parent.$('#phone-panel')[0].contentWindow.AssignedTicketList.filter(i => i.TicketId == sMsg.TicketId);
 			var sEndUserName = sTicket[0].EndUserName;
-
 
 			this.messageReceived = sMsg.MessageContent;
 	  		var templateResponse = this.visitorMessageTemplate;
@@ -292,25 +293,16 @@
 			//The moment js cannot handle the iso date format, if full date format the output is wrong. Please update the moment js above 2.16.0
 			var dateISO = sMsg.UpdatedAt.slice(0, 19); 
 			var mDate = moment(dateISO).format('HH:mm:ss');
-						
-
-          //this.$chatHistory[0].getElementsByClassName('content-bubble-content')[0].append("abc");
-
-
-		  //agentService.getAgentNameByID(sMsg/)
 		  
 		  //Check the filejson is empty or not
 		  if (sMsg.FilesJson.length < 3)
 		  {
-
 			  var contextResponse = {
 				  response: sMsg.MessageContent,
 				  SentBy: sEndUserName,
 				  time: mDate
-
 			  };
 			  this.$chatHistory.append(templateResponse(contextResponse));
-			
 		  }
 		  else
 		  {
@@ -631,7 +623,7 @@
 
 		var sMsglist = selectedTicket[0].messages;
 		this.reloadChatHistory(sMsglist);
-
+		this.updateChatHeader(this.selectedChatChannel, this.selectedEndUserName, this.selectedTicketId);
 		searchInput(selectedTicket[0]);	
 
 	  };
@@ -898,7 +890,7 @@
 			}
 
 			//2. Update Chat history header
-			this.updateChatHeader(this.selectedChatChannel, this.selectedEndUserName, this.selectedTicketId)
+		  this.updateChatHeader(this.selectedChatChannel, this.selectedEndUserName, this.selectedTicketId);
 				               
 
 		  //3. Update message list

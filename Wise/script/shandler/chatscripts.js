@@ -19,7 +19,9 @@
 	    selectedwebClientSenderId = "";
 		selectedChatChannel = "";
 		selectedEndUserName = "";
-		PresentTicket = true;
+	  PresentTicket = true;
+
+	     selectedCannedFiles = [];
 
 		//Contacted us in the last hour: Last Ticket ID: 1386264423 on 2024-11 - 29 12: 17: 37
 	  init()
@@ -91,9 +93,21 @@
 		  var token = top.token;
 		  var agentName = top.agentName;
 
+		  var sTicket = parent.$('#phone-panel')[0].contentWindow.AssignedTicketList.filter(i => i.TicketId == this.selectedTicketId);
+
+
 		  event.preventDefault(); // Prevent the default button click behavior
 		  parent.$('#phone-panel')[0].contentWindow.sendMessageReturned = null;
-		  parent.$('#phone-panel')[0].contentWindow.sendMessageByHandler(loginId, token, this.selectedChatChannel, this.selectedwebClientSenderId, "text", this.$textarea.val(), this.selectedTicketId);
+
+
+		  if (sTicket[0].Channel == "whatsapp")
+		  {
+			  sTicket[0].EndUserPhone = sTicket[0].messages[0].EndUserId;
+		  }
+
+
+		  
+		  parent.$('#phone-panel')[0].contentWindow.sendMessageByHandler(loginId, token, "text", this.$textarea.val(), sTicket[0]);
 
 
 
@@ -111,38 +125,30 @@
 
 		  event.preventDefault(); // Prevent the default button click behavior
 		  parent.$('#phone-panel')[0].contentWindow.sendMessageReturned = null;
-		  parent.$('#phone-panel')[0].contentWindow.sendAttachmentByHandler(loginId, token, this.selectedChatChannel, this.selectedwebClientSenderId, "file", file, this.selectedTicketId);
 
+		  var sTicket = parent.$('#phone-panel')[0].contentWindow.AssignedTicketList.filter(i => i.TicketId == this.selectedTicketId);											
+		  parent.$('#phone-panel')[0].contentWindow.sendAttachmentByHandler(loginId, token, "file", file, sTicket[0]);
 
 	  };
 
-	  //this function is not work
-	  sendAttachmentByURL(fileUrl, fileName)
-	  {
-
-		  fetch(fileUrl, {
-			  mode: 'cors'
-		  })
-                .then(response => response.blob())
-                .then(blob => {
-                    // Create a File object from the Blob
-					var fileObj = new File([blob], fileName, {type: blob.type });
-
-					// Use DataTransfer to set the file input value
-					var dataTransfer = new DataTransfer();
-					dataTransfer.items.add(fileObj);
-
-					var fileInput = $('#fileInput')[0]; 
-					fileInput.files = dataTransfer.files;
-					//document.getElementById('fileInput').files = dataTransfer.files;
-					var file = fileInput.files[0];
-
-					parent.$('#phone-panel')[0].contentWindow.sendAttachmentByHandler(loginId, token, this.selectedChatChannel, this.selectedwebClientSenderId, "file", file, this.selectedTicketId);
-                    });
-
-		
+	  sendCannedFile(fileId, fileName, fileType)
+	  {  $.ajax({ type: "POST",
+			 url: 'http://172.17.6.11/shandler/api/socialmedia/GetCannedFiles',crossDomain: true,
+			  data: JSON.stringify({ "company": 'EPRO', "fileId": fileId }),	contentType: "application/json; charset=utf-8",	dataType: "json",
+			  success: function (r) {
+				  if (!/^success$/i.test(r.result || "")) {
+					  console.log('error in socialPopup');
+				  } else {  //cannot use this.selectedTicketId because the function is tiggerd in popup
+					  sendCannedAttachmentByHandler(fileId, fileName, fileType, r.data.FileBase64, chatService.selectedTicketId);
+				  }
+			  },
+			  error: function (r) {
+				  console.log('error in socialPopup');
+				  console.log(r);
+			  }
+		  });
 	  };
-
+  
 	  sendAttachmentReset()
 	  {
 		  $('#fileInput')[0].value = "";
@@ -216,12 +222,9 @@
 	  	this.$histHeader.html("");
 		var templateResponse = this.chatlistHeaderTemplate;
 
-		var channelImg = "webchat-icon-217.png";
-		if (entry == 'webchat')		{	channelImg = 'webchat-icon-217.png' }
-		if (entry == 'whatsapp')	{	channelImg = 'whatsapp.png';		}
-		if (entry == 'facebook')	{	channelImg = 'fbmsg-icon-256.png';  }
-		if (entry == 'fb_comment')	{	channelImg = 'facebook_icon.png';	} 
-		if (entry == 'wechat')		{	channelImg = 'WeChat.png';			}
+		var channelImg = this.returnChannelImgByEntry(entry);
+
+		  
 
 		  var contextResponse = {
 			  ticketId: sTicket.TicketId,
@@ -593,7 +596,8 @@
 
 	  // For ticket (bubble) list
 	  //-----------------------------------------------------------------------------------------------------------------------------------------------------
-	  //When agent click the left bubble box, the box will be highlighted 
+
+	  //When agent click the left bubble box, the box will be highlighted
 	  selectTicket(e)
 	  {
 
@@ -605,7 +609,6 @@
 		// Loop all the ticket to reset not selecte
 		const elements = e.parentElement.querySelectorAll('.bubble-container');
 		elements.forEach((element, index) => {	element.classList.remove("bubble-present")   });
-		
 		
 		this.selectedwebClientSenderId  = e.getElementsByClassName('bubble-user-id')[0].innerHTML;
         this.selectedTicketId			= e.getElementsByClassName('bubble-id')[0].innerHTML;
@@ -675,7 +678,9 @@
 
 		  var jsonMsgList = JSON.stringify(messageList);
 
-		  
+
+		  var channelImg = this.returnChannelImgByEntry(ticket.Channel);
+
 
 			//var dateUpdateAt = dateISO.toTimeString().split(' ')[0];
 		  var context = { 
@@ -688,7 +693,8 @@
 				ticketId: ticket.TicketId,
 				updatedAt: mDate,				
 				deviceId: ticket.DeviceId,
-				channel:  ticket.Channel,
+			    channel: ticket.Channel,
+				channelImg: channelImg,
 				messageList: jsonMsgList
 			};
 
@@ -732,6 +738,9 @@
 
      		  var sTicket = parent.$('#phone-panel')[0].contentWindow.AssignedTicketList.filter(i => i.TicketId == ticketID);
 
+
+			var channelImg = this.returnChannelImgByEntry(sTicket[0].Channel);
+
 			//var dateUpdateAt = dateISO.toTimeString().split(' ')[0];
 			var context = { 
 				endUserName: name,
@@ -740,7 +749,8 @@
 				Channel: sTicket[0].Channel,
 				AssignedTo: sTicket[0].AssignedTo,
 				endUserEmail: sTicket[0].endUserEmail,
-				endUserPhone: sTicket[0].endUserPhone
+				endUserPhone: sTicket[0].endUserPhone,
+				channelImg: channelImg
 			};
 
 			var template  = this.bubbleTemplate;
@@ -774,9 +784,9 @@
 
 			this.$ticketList.append(template(context));
 
-		  this.selectedTicketId = sTicket[0].ticketId;
+		  this.selectedTicketId = sTicket[0].TicketId;
 		  this.selectedAgentId = sTicket[0].AssignedTo;
-		  this.selectedwebClientSenderId = sTicket[0].selectedwebClientSenderId;
+		  this.selectedwebClientSenderId = sTicket[0].EndUserId;
 		  this.selectedChatChannel = sTicket[0].Channel;
 		  this.selectedEndUserName = sTicket[0].EndUserName;
 
@@ -873,14 +883,12 @@
 			const elements = document.getElementById('bubble-list-inner').querySelectorAll("#bubble-ticket");
 		    elements.forEach((element, index) => { element.classList.remove("bubble-present") });
 
-			
-
 			if (currentTicket != null)
 			{
-
-				this.selectedTicketId = currentTicket.ticketId;
-				this.selectedAgentId  = currentTicket.AssignedTo;
-				this.selectedwebClientSenderId 	= currentTicket.selectedwebClientSenderId;
+				
+				this.selectedTicketId			= currentTicket.TicketId;
+				this.selectedAgentId			= currentTicket.AssignedTo;
+				this.selectedwebClientSenderId  = currentTicket.EndUserId;
 				this.selectedChatChannel 	   	= currentTicket.Channel;
 				this.selectedEndUserName		= currentTicket.EndUserName;
 		
@@ -914,12 +922,16 @@
 			//*****currentMsgList is only be used for getTicket
 			var sMsgList= parent.$('#phone-panel')[0].contentWindow.currentMsglist;
 		  this.reloadChatHistory(sMsgList);
-
-
-		
-		
 	  };
 
+
+	  reloadBySwitchChannel()
+	  {
+
+
+
+
+	  }
 
 	  //------------------------------------------------------------------------------------------------------------------------
 	  //Unfinished AREA------------------------------------------------------------------------------------------------------------------------
@@ -960,6 +972,16 @@
 	  //Canned response
 
 	  //THe original logic is come from socialMedia.js -  cannedBtnClicked(campaign)
+	  returnChannelImgByEntry(entry)
+	  {
+		  var channelImg = "webchat-icon-217.png";
+		  if (entry == 'webchat') { channelImg = 'webchat-icon-217.png' }
+		  if (entry == 'whatsapp') { channelImg = 'whatsapp.png'; }
+		  if (entry == 'facebook') { channelImg = 'fbmsg-icon-256.png'; }
+		  if (entry == 'fb_comment') { channelImg = 'facebook_icon.png'; }
+		  if (entry == 'wechat') { channelImg = 'WeChat.png'; }
+		  return channelImg;
+	  }
 	  cannedResponse()
 	  {
 		
@@ -982,7 +1004,35 @@
 	  
 	  }
   }
-  
 
 
-5
+function sendCannedAttachmentByHandler(fileId, fileName, fileType, base64, ticketId)
+{
+	var loginId = top.loginId;
+	var token = top.token;
+
+	const fileBlob = base64ToBlob(base64, fileType);
+
+	var fileInput = $('#fileInput')[0];
+	var file = fileInput.files[0];
+
+	var fileObj = new File([fileBlob], fileName, { type: fileType });
+	var dataTransfer = new DataTransfer();
+	dataTransfer.items.add(fileObj);
+	fileInput.files = dataTransfer.files;
+
+	var sTicket = parent.$('#phone-panel')[0].contentWindow.AssignedTicketList.filter(i => i.TicketId == ticketId);											
+	parent.$('#phone-panel')[0].contentWindow.sendAttachmentByHandler(loginId, token, "file", file, sTicket[0]);
+};
+
+function base64ToBlob(base64String, contentType = '') {
+	const byteCharacters = atob(base64String);
+	const byteArrays = [];
+
+	for (let i = 0; i < byteCharacters.length; i++) {
+		byteArrays.push(byteCharacters.charCodeAt(i));
+	}
+
+	const byteArray = new Uint8Array(byteArrays);
+	return new Blob([byteArray], { type: contentType });
+};

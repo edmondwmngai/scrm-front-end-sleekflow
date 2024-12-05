@@ -268,6 +268,7 @@ function cannedBtnClicked(campaign) {
     openWindows[openWindows.length] = socialPopup;
     socialPopup.onload = function () {
         socialPopup.onbeforeunload = function () {
+
             for (var i = 0; i < openWindows.length; i++) {
                 if (openWindows[i] == socialPopup) {
                     openWindows.splice(i, 1);
@@ -284,6 +285,8 @@ function shareBtnClicked(campaign) {
     var socialPopup = window.open('./socialPopupSL.html?type=file', 'socialPop', 'toolbar=0,location=0,top=50, left=100,menubar=0,resizable=0,scrollbars=1,width=527,height=616');
     openWindows[openWindows.length] = socialPopup;
     socialPopup.onload = function () {
+
+        parent.$('#social-media-main')[0].contentWindow.chatService.selectedCannedFiles = [];
         socialPopup.onbeforeunload = function () {
             for (var i = 0; i < openWindows.length; i++) {
                 if (openWindows[i] == socialPopup) {
@@ -291,8 +294,33 @@ function shareBtnClicked(campaign) {
                     break;
                 }
             }
+
+            var sFile = parent.$('#social-media-main')[0].contentWindow.chatService.selectedCannedFiles;
+
+
+            var delay = 2000;
+            //setTimeout(function () {
+
+            for (var i = 0; i < sFile.length; i++)
+            {
+                var fileId  = sFile[i].FileId; 
+                var fileName = sFile[i].FileName; 
+                var contentType = sFile[i].ContentType; 
+   //             setTimeout(function () {
+    //                parent.$('#social-media-main')[0].contentWindow.chatService.sendCannedFile(sFile[i].FileId, sFile[i].FileName, sFile[i].ContentType);
+     //           }, i * delay);
+
+                console.log(sFile[i].FileName);
+
+               setTimeout(parent.$('#social-media-main')[0].contentWindow.chatService.sendCannedFile, 3000+(i * delay), sFile[i].FileId, sFile[i].FileName, sFile[i].ContentType);
+            }
+            
+
         }
     }
+
+   
+	
 }
 
 function endClicked(ticketId, oThis) {

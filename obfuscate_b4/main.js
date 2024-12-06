@@ -617,7 +617,7 @@ function SocialMediaClicked() {
     
     
 	$('.nav-tabs a[href="#social-media"]').tab('show');
-    $(iframeMain).attr('src', 'socialMediaHandler.html');
+    $(iframeMain).attr('src', 'socialMediaSL.html');
 
  
 }

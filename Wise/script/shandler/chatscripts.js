@@ -63,7 +63,7 @@
 	  bindEvents()
 	  {
 		//this.$button.on('click', this.addReplyMessageByClick.bind(this));
-		this.$textarea.on('keyup', this.addReplyMessageEnter.bind(this));
+		this.$textarea.on('keypress', this.addReplyMessageEnter.bind(this));
 
 		this.$button.on('click', this.sendMessageByClick.bind(this));
 
@@ -461,8 +461,12 @@
 	  };	  
 		
 	  addReplyMessageEnter(event) {
+
 		  // enter was pressed
-			if (event.keyCode == 13 && !event.shiftKey) {
+		  if (event.keyCode == 13 && !event.shiftKey) {
+
+			  //Prevent adding a new line 
+				event.preventDefault();
 				this.sendMessageByClick();
 			}
 	  };
@@ -681,7 +685,7 @@
 
 		  var channelImg = this.returnChannelImgByEntry(ticket.Channel);
 
-
+		
 			//var dateUpdateAt = dateISO.toTimeString().split(' ')[0];
 		  var context = { 
 			    agentId: ticket.AssignedTo,
@@ -710,7 +714,7 @@
 				this.selectedTicketId = context.ticketId;
 				this.selectedAgentId = context.agentId;
 				this.selectedwebClientSenderId	= context.endUserId;
-				this.selectedChatChannel 	  	= ticket.Channel;
+				this.selectedChatChannel		= context.channel;
 				this.selectedEndUserName		= context.EndUserName;
 				context.bubblestatus = "bubble-container bubble-present";
 			}
@@ -923,15 +927,6 @@
 			var sMsgList= parent.$('#phone-panel')[0].contentWindow.currentMsglist;
 		  this.reloadChatHistory(sMsgList);
 	  };
-
-
-	  reloadBySwitchChannel()
-	  {
-
-
-
-
-	  }
 
 	  //------------------------------------------------------------------------------------------------------------------------
 	  //Unfinished AREA------------------------------------------------------------------------------------------------------------------------

@@ -91,10 +91,18 @@ function selectClicked(index) {
 
             for (var i = 0; i < selectedCheckbox.length; i++) {
                 var theFile = listTable.row(selectedCheckbox[i].closest('tr')).data();
+
+                if (theFile == null)
+                {
+                    alert("Please resend again");
+                }
+
                 var fileName = theFile.FileName;
                 var filePath = theFile.FilePath;
                 var fileUrl = theFile.FileUrl.toLowerCase();
-
+                var fileId = theFile.FileId;
+                var findType = theFile.ContentType;
+                
                 // if entry is not fb_comment
                 if (entry != 'fb_comment') {
                     $('#loading-icon-section').removeClass('d-none');
@@ -103,16 +111,15 @@ function selectClicked(index) {
                     //windowOpener.createOrUpdateBubble({ 'ticket_id': presentTicketId, 'msg_list': [{ 'nick_name': windowOpener.agentName, 'send_by_flag': 1, 'sent_time': windowOpener.getSqlFormatTime(), 'msg_object_path': fileUrl, 'msg_object_client_name': fileName }] });
                     //windowOpener.sendSocialFile(presentTicketId, filePath, null);
 
-                    window.opener.parent.$('#social-media-main')[0].contentWindow.sendSocialFile(presentTicketId, filePath, null);
-
-                    //window.opener.chatService.
-
-                    //window.opener.chatService.sendAttachmentByURL(fileUrl, fileName);
-
-
+                    var delay = 1000;
+                    //setTimeout(function () {
+                      //  window.opener.chatService.sendCannedFile(fileId, fileName, findType);
+                    //}, i * delay);
+                    
+                    windowOpener.chatService.selectedCannedFiles.push(theFile);
 
                     if (i == selectedCheckbox.length - 1) {
-                        window.close();
+                        window.close();                        
                     }
                 } else {
 
@@ -455,11 +462,13 @@ $(document).ready(function () {
     $('#select-msg').text(langJson['l-social-message-send-title']);
     var script = document.createElement('script');
     // the data should be JSON.stringify({ "companyName": campaign }), however, for Demo Tiger just build HKTB
+
     if (type == 'msg') {
         $.ajax({
             type: "POST",
             url: wiseHost + '/wisepbx/api/SocialMedia/GetCannedMsgs',
             data: JSON.stringify({ "companyName": 'HKTB' }),
+
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             success: function (r) {
@@ -477,6 +486,7 @@ $(document).ready(function () {
                     }
                 }
             },
+            
             error: function (r) {
                 console.log('error in socialPopup');
                 console.log(r);
@@ -486,10 +496,16 @@ $(document).ready(function () {
         $('#select-msg').text(langJson['l-social-file-send-title']);
         $('#sp-btn-group').prepend('<button class="btn rounded btn-sm btn-warning mt-3 mb-0 text-capitalize temp-disabled-btn" onclick="selectClicked()"><i class="fas fa-save mr-2"></i><span>' + langJson['l-general-confirm'] + '</span></button>');
         // the data should be JSON.stringify({ "companyName": campaign }), however, for Demo Tiger just build HKTB
+
+
+            // url: wiseHost + '/wisepbx/api/SocialMedia/GetCannedFiles',
+            //data: JSON.stringify({ "companyName": 'HKTB' }),
+          
         $.ajax({
             type: "POST",
-            url: wiseHost + '/wisepbx/api/SocialMedia/GetCannedFiles',
-            data: JSON.stringify({ "companyName": 'HKTB' }),
+            url: 'http://172.17.6.11/shandler/api/socialmedia/GetCannedFiles',
+            crossDomain: true,
+            data: JSON.stringify({ "company": 'EPRO' }),
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             success: function (r) {

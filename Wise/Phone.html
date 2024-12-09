@@ -533,6 +533,9 @@ var currentMsglist    = null;
 var SelectedChannel   = null;
 var SelectedDeviceID  = null;
 var selectedQueuelist = null;
+
+var pastMsglist = null;
+
 var reloadedByGetTicket = false;
 var AssignedTicketList= [];
 var sendMessageReturned=null;
@@ -777,6 +780,8 @@ function acceptCall_Shandler(loginId, Token, Channel, deviceID)
 
                         //let _messagelist = response.details.messages.filter(t => t.TicketId == shandler.tickets[shandler.tickets.length-1].TicketId);
 
+                        
+
 						let _messagelist = response.details.messages.filter(t => t.TicketId == response.details.ticket.TicketId);
 
 						//at the sorting for store message list first come first store
@@ -816,6 +821,26 @@ function acceptCall_Shandler(loginId, Token, Channel, deviceID)
 
 						
 						reloadedByGetTicket = true;
+
+						pastMsglist = null;
+
+                        //var limit = "500";
+                        //shandler.getMessagesByUserId({
+                        //    agentid: loginId,
+                        //    token: Token,
+                        //    userId: currentTicket.EndUserId,
+                        //    msgId: _messagelist[_messagelist.length - 1].msgId,
+                        //    limit, limit,
+                        //    deviceid: deviceID
+                        //})
+                        //    .then(response => {
+                        //        pastMsglist = response.details.messages;
+                        //    })
+                        //    .catch(error => {
+
+                        //        console.log(error);
+                        //        return null;
+                        //    });
 						
 					}
 
@@ -967,6 +992,27 @@ function sendAttachmentByHandler(agent, token, messageType, file, sTicket) {
 
 
 
+function sendCannedFileByHandler(fileId, fileName, fileType)
+{
+            $.ajax({
+                type: "POST",
+                url: 'http://172.17.6.11/shandler/api/socialmedia/GetCannedFiles', crossDomain: true,
+                data: JSON.stringify({ "company": 'EPRO', "fileId": fileId }), contentType: "application/json; charset=utf-8", dataType: "json",
+                success: function (r) {
+                    if (!/^success$/i.test(r.result || "")) {
+                        console.log('error in sendCannedFileByHandler');
+					} else {  //cannot use this.selectedTicketId because the function is tiggerd in popup
+						var sTicketId = parent.$('#social-media-main')[0].contentWindow.chatService.selectedTicketId;
+                        parent.$('#social-media-main')[0].contentWindow.chatService.sendCannedAttachmentCallBack(fileId, fileName, fileType, r.data.FileBase64, sTicketId);
+                    }
+                },
+                error: function (r) {
+                    console.log('error in sendCannedFileByHandler');
+                    console.log(r);
+                }
+            });
+};
+
 
 function endSessionByHandler(loginId, token, ticketId)
 {
@@ -986,7 +1032,7 @@ function endSessionByHandler(loginId, token, ticketId)
                     }
                 })
                 .catch(error => {
-
+                    console.log('error in endSessionByHandler');
                     console.log(error);
                     return null;
                 });
@@ -1023,7 +1069,7 @@ function returnMessagesByTicketID(loginId, Token, Channel, TicketId)
 }
 
 //Not finished
-function returnMessagesByTicketID(loginId, Token, Channel, TicketId)
+function returnMessagesFromHandlerByUserId(loginId, Token, TicketId)
 {
 
 		shandler.getMessagesByUserId({

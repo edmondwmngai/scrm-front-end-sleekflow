@@ -204,7 +204,8 @@ class wsSHandler {
 			headers: {
 				"Content-Type": "application/json; charset=utf-8",
 			},
-            body: JSON.stringify({AgentId: agentid, Token: token, UserId: userId, MsgId: msgId, Limit: limit }),
+			//body: JSON.stringify({ AgentId: agentid, Token: token, UserId: userId, MsgId: msgId, Limit: limit }),
+			body: JSON.stringify({ AgentId: agentid, Token: token, UserId: userId, MsgId: msgId, limit: limit }),
         });
 		if (!response.ok) {
 			console.log(response);

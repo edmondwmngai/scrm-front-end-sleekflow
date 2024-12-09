@@ -131,24 +131,6 @@
 
 	  };
 
-	  sendCannedFile(fileId, fileName, fileType)
-	  {  $.ajax({ type: "POST",
-			 url: 'http://172.17.6.11/shandler/api/socialmedia/GetCannedFiles',crossDomain: true,
-			  data: JSON.stringify({ "company": 'EPRO', "fileId": fileId }),	contentType: "application/json; charset=utf-8",	dataType: "json",
-			  success: function (r) {
-				  if (!/^success$/i.test(r.result || "")) {
-					  console.log('error in socialPopup');
-				  } else {  //cannot use this.selectedTicketId because the function is tiggerd in popup
-					  sendCannedAttachmentByHandler(fileId, fileName, fileType, r.data.FileBase64, chatService.selectedTicketId);
-				  }
-			  },
-			  error: function (r) {
-				  console.log('error in socialPopup');
-				  console.log(r);
-			  }
-		  });
-	  };
-  
 	  sendAttachmentReset()
 	  {
 		  $('#fileInput')[0].value = "";
@@ -174,6 +156,37 @@
 			  this.updateBubbleStatus(sMsg.TicketId, "Pending_Unread", false);
 			  this.moveBubbleToFirst(sMsg.TicketId);
 		  }
+	  };
+
+	  sendCannedAttachmentCallBack(fileId, fileName, fileType, base64, ticketId)
+	  {
+			var loginId = top.loginId;
+			var token = top.token;
+
+			const fileBlob = this.base64ToBlob(base64, fileType);
+
+			var fileInput = $('#fileInput')[0];
+			var file = fileInput.files[0];
+
+			var fileObj = new File([fileBlob], fileName, { type: fileType });
+			var dataTransfer = new DataTransfer();
+			dataTransfer.items.add(fileObj);
+			fileInput.files = dataTransfer.files;
+
+			var sTicket = parent.$('#phone-panel')[0].contentWindow.AssignedTicketList.filter(i => i.TicketId == ticketId);
+			parent.$('#phone-panel')[0].contentWindow.sendAttachmentByHandler(loginId, token, "file", file, sTicket[0]);
+	  };
+
+	  base64ToBlob(base64String, contentType = '') {
+			const byteCharacters = atob(base64String);
+			const byteArrays = [];
+
+			for (let i = 0; i < byteCharacters.length; i++) {
+				byteArrays.push(byteCharacters.charCodeAt(i));
+			}
+
+			const byteArray = new Uint8Array(byteArrays);
+			return new Blob([byteArray], { type: contentType });
 	  };
 
 	  endSession() {
@@ -208,6 +221,13 @@
 	  sessionTimeoutCallBack(ticketId)
 	  {
 		  this.updateChatSessionTimeout(ticketId);
+	  };
+	  returnMessagesByUserId(agentId)
+	  {
+		  var loginId = top.loginId;
+		  var token = top.token;
+
+		  parent.$('#phone-panel')[0].contentWindow.returnMessagesFromHandlerByUserId(loginId, token, TicketId)
 	  }
 
 	  //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
@@ -248,6 +268,8 @@
 
 		this.$histHeader.append(templateResponse(contextResponse));
 	  };
+
+
 
 	  returnPastTicketFromSameVisitor(ticketId)
 	  {
@@ -977,57 +999,5 @@
 		  if (entry == 'wechat') { channelImg = 'WeChat.png'; }
 		  return channelImg;
 	  }
-	  cannedResponse()
-	  {
-		
-		var popupCampaign = "";
-		var openWindows = parent.openWindows;
-		var socialPopup = window.open('./socialPopup.html?type=msg', 'socialPop', 'toolbar=0,location=0,top=50, left=100,menubar=0,resizable=0,scrollbars=1,width=692,height=726');
-		openWindows[openWindows.length] = socialPopup;
-		socialPopup.onload = function () {
-			socialPopup.onbeforeunload = function () {
-				for (var i = 0; i < openWindows.length; i++) {
-					if (openWindows[i] == socialPopup) {
-						openWindows.splice(i, 1);
-						break;
-					}
-				}
-			}
-		}
-	  
-	  
-	  
-	  }
   }
 
-
-function sendCannedAttachmentByHandler(fileId, fileName, fileType, base64, ticketId)
-{
-	var loginId = top.loginId;
-	var token = top.token;
-
-	const fileBlob = base64ToBlob(base64, fileType);
-
-	var fileInput = $('#fileInput')[0];
-	var file = fileInput.files[0];
-
-	var fileObj = new File([fileBlob], fileName, { type: fileType });
-	var dataTransfer = new DataTransfer();
-	dataTransfer.items.add(fileObj);
-	fileInput.files = dataTransfer.files;
-
-	var sTicket = parent.$('#phone-panel')[0].contentWindow.AssignedTicketList.filter(i => i.TicketId == ticketId);											
-	parent.$('#phone-panel')[0].contentWindow.sendAttachmentByHandler(loginId, token, "file", file, sTicket[0]);
-};
-
-function base64ToBlob(base64String, contentType = '') {
-	const byteCharacters = atob(base64String);
-	const byteArrays = [];
-
-	for (let i = 0; i < byteCharacters.length; i++) {
-		byteArrays.push(byteCharacters.charCodeAt(i));
-	}
-
-	const byteArray = new Uint8Array(byteArrays);
-	return new Blob([byteArray], { type: contentType });
-};

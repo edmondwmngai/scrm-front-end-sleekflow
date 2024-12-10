@@ -992,7 +992,8 @@ function sendAttachmentByHandler(agent, token, messageType, file, sTicket) {
 
 
 
-function sendCannedFileByHandler(fileId, fileName, fileType)
+
+function requestCannedFileInBase64ByHandler(fileId, fileName, fileType)
 {
             $.ajax({
                 type: "POST",
@@ -1003,7 +1004,7 @@ function sendCannedFileByHandler(fileId, fileName, fileType)
                         console.log('error in sendCannedFileByHandler');
 					} else {  //cannot use this.selectedTicketId because the function is tiggerd in popup
 						var sTicketId = parent.$('#social-media-main')[0].contentWindow.chatService.selectedTicketId;
-                        parent.$('#social-media-main')[0].contentWindow.chatService.sendCannedAttachmentCallBack(fileId, fileName, fileType, r.data.FileBase64, sTicketId);
+                        parent.$('#social-media-main')[0].contentWindow.chatService.requestCannedFileInBase64CallBack(fileId, fileName, fileType, r.data.FileBase64, sTicketId);
                     }
                 },
                 error: function (r) {

@@ -311,9 +311,10 @@ function shareBtnClicked(campaign) {
      //           }, i * delay);
               
                 console.log(sFile[i].FileName);
-                //sendCannedFileByHandler                                  
-                                                                    
-                setTimeout(parent.$('#phone-panel')[0].contentWindow.sendCannedFileByHandler, 3000+(i * delay), sFile[i].FileId, sFile[i].FileName, sFile[i].ContentType);
+                //sendCannedFileByHandler
+
+                
+                setTimeout(parent.$('#phone-panel')[0].contentWindow.requestCannedFileInBase64ByHandler, 3000+(i * delay), sFile[i].FileId, sFile[i].FileName, sFile[i].ContentType);
             }
             
 

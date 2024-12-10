@@ -157,8 +157,8 @@
 			  this.moveBubbleToFirst(sMsg.TicketId);
 		  }
 	  };
-
-	  sendCannedAttachmentCallBack(fileId, fileName, fileType, base64, ticketId)
+	  
+	  requestCannedFileInBase64CallBack(fileId, fileName, fileType, base64, ticketId)
 	  {
 			var loginId = top.loginId;
 			var token = top.token;

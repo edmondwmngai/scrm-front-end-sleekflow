@@ -309,10 +309,11 @@ function shareBtnClicked(campaign) {
    //             setTimeout(function () {
     //                parent.$('#social-media-main')[0].contentWindow.chatService.sendCannedFile(sFile[i].FileId, sFile[i].FileName, sFile[i].ContentType);
      //           }, i * delay);
-
+              
                 console.log(sFile[i].FileName);
-
-               setTimeout(parent.$('#social-media-main')[0].contentWindow.chatService.sendCannedFile, 3000+(i * delay), sFile[i].FileId, sFile[i].FileName, sFile[i].ContentType);
+                //sendCannedFileByHandler                                  
+                                                                    
+                setTimeout(parent.$('#phone-panel')[0].contentWindow.sendCannedFileByHandler, 3000+(i * delay), sFile[i].FileId, sFile[i].FileName, sFile[i].ContentType);
             }
             
 

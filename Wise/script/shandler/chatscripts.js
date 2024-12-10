@@ -163,7 +163,7 @@
 			var loginId = top.loginId;
 			var token = top.token;
 
-			const fileBlob = this.base64ToBlob(base64, fileType);
+			const fileBlob = base64ToBlob(base64, fileType);
 
 			var fileInput = $('#fileInput')[0];
 			var file = fileInput.files[0];
@@ -177,17 +177,7 @@
 			parent.$('#phone-panel')[0].contentWindow.sendAttachmentByHandler(loginId, token, "file", file, sTicket[0]);
 	  };
 
-	  base64ToBlob(base64String, contentType = '') {
-			const byteCharacters = atob(base64String);
-			const byteArrays = [];
 
-			for (let i = 0; i < byteCharacters.length; i++) {
-				byteArrays.push(byteCharacters.charCodeAt(i));
-			}
-
-			const byteArray = new Uint8Array(byteArrays);
-			return new Blob([byteArray], { type: contentType });
-	  };
 
 	  endSession() {
 
@@ -1000,4 +990,17 @@
 		  return channelImg;
 	  }
   }
+
+
+function base64ToBlob(base64String, contentType = '') {
+	const byteCharacters = atob(base64String);
+	const byteArrays = [];
+
+	for (let i = 0; i < byteCharacters.length; i++) {
+		byteArrays.push(byteCharacters.charCodeAt(i));
+	}
+
+	const byteArray = new Uint8Array(byteArrays);
+	return new Blob([byteArray], { type: contentType });
+};
 

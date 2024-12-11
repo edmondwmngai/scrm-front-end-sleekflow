@@ -111,6 +111,9 @@
 
 
                                 <input type="file" id="fileInput" onchange="chatService.sendAttachmentByClick();" style="display:none">
+
+                                <input type="file" id="fileInputByCode" style="display:none">
+
                                 <button data-toggle="tooltip" data-placement="top" onclick="chatService.sendAttachmentReset(); $(this).prev().trigger(&quot;click&quot;);"
                                         class="reply-end-container keyboard-icon">
                                     <span class="align-sub"><i class="fas fa-file-upload"></i></span>
@@ -562,6 +565,7 @@
             chatService.addTestBubble("Present", false, "Test", 419);
             chatService.addTestBubble("Present", false, "Mary", 420);
 
+            chatService.returnMessagesPastMessage(420);
 
         }
 

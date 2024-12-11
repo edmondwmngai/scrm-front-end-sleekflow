@@ -298,7 +298,7 @@ function shareBtnClicked(campaign) {
             var sFile = parent.$('#social-media-main')[0].contentWindow.chatService.selectedCannedFiles;
 
 
-            var delay = 2000;
+            var delay = 1000;
             //setTimeout(function () {
 
             for (var i = 0; i < sFile.length; i++)
@@ -314,7 +314,7 @@ function shareBtnClicked(campaign) {
                 //sendCannedFileByHandler
 
                 
-                setTimeout(parent.$('#phone-panel')[0].contentWindow.requestCannedFileInBase64ByHandler, 3000+(i * delay), sFile[i].FileId, sFile[i].FileName, sFile[i].ContentType);
+                setTimeout(parent.$('#phone-panel')[0].contentWindow.requestCannedFileInBase64ByHandler, (i * delay), sFile[i].FileId, sFile[i].FileName, sFile[i].ContentType);
             }
             
 

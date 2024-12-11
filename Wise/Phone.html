@@ -817,6 +817,12 @@ function acceptCall_Shandler(loginId, Token, Channel, deviceID)
                         const assignedTicket = Object.assign({}, currentTicket);
                         assignedTicket.messages = _messagelist;
 
+						//Area for handling data
+                        if (assignedTicket.Channel == "whatsapp") {
+							assignedTicket.EndUserPhone = _messagelist[0].EndUserId;
+                            currentTicket.EndUserPhone = _messagelist[0].EndUserId;
+                        }
+
                         AssignedTicketList.push(assignedTicket);
 
 						
@@ -989,7 +995,6 @@ function sendAttachmentByHandler(agent, token, messageType, file, sTicket) {
         //formData.append('channel', sTicket.Channel);
         formData.append('channel', "whatsappcloudapi");
 
-
         //formData.append('webClientSenderId', sTicket.webClientSenderId);
 
         formData.append('from', sTicket.DeviceId);
@@ -1000,6 +1005,16 @@ function sendAttachmentByHandler(agent, token, messageType, file, sTicket) {
         formData.append('files', file);
 
     }
+
+
+    var object = {};
+    formData.forEach(function (value, key) {
+        object[key] = value;
+    });
+	var json = JSON.stringify(object);
+
+	console.log(json);
+
 
 
             shandler.sendMessage(formData)
@@ -1097,13 +1112,16 @@ function returnMessagesByTicketID(loginId, Token, Channel, TicketId)
 }
 
 //Not finished
-function returnMessagesFromHandlerByUserId(loginId, Token, TicketId)
+										   
+function returnMessagesFromHandlerByUserId(agentId, token, userId, msgId, limit)
 {
-
+            
 		shandler.getMessagesByUserId({
-						agentid: loginId,
-						token: Token,
-						ticketId: TicketId,
+						agentid: agentId,
+						token: token,
+						userId: userId,
+						msgId: msgId,
+						limit: limit
 		   })
 		   .then(response=>{
 

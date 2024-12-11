@@ -99,14 +99,6 @@
 		  event.preventDefault(); // Prevent the default button click behavior
 		  parent.$('#phone-panel')[0].contentWindow.sendMessageReturned = null;
 
-		  
-		  if (sTicket[0].Channel == "whatsapp")
-		  {
-			  sTicket[0].EndUserPhone = sTicket[0].messages[0].EndUserId;
-		  }
-
-
-		  
 		  parent.$('#phone-panel')[0].contentWindow.sendMessageByHandler(loginId, token, "text", this.$textarea.val(), sTicket[0]);
 
 
@@ -127,10 +119,6 @@
 		  parent.$('#phone-panel')[0].contentWindow.sendMessageReturned = null;
 
 		  var sTicket = parent.$('#phone-panel')[0].contentWindow.AssignedTicketList.filter(i => i.TicketId == this.selectedTicketId);		
-
-		  if (sTicket[0].Channel == "whatsapp") {
-			  sTicket[0].EndUserPhone = sTicket[0].messages[0].EndUserId;
-		  }
 
 		  parent.$('#phone-panel')[0].contentWindow.sendAttachmentByHandler(loginId, token, "file", file, sTicket[0]);
 
@@ -169,19 +157,19 @@
 			var token = top.token;
 
 			const fileBlob = base64ToBlob(base64, fileType);
-			
-		    $('#fileInputByCode')[0].value = "";
 
-		    var fileInput = $('#fileInputByCode')[0];
-			var file = fileInput.files[0];
+			
+ //			var fileInput = $('#fileInput')[0];
+//			var file = fileInput.files[0];
 
 			var fileObj = new File([fileBlob], fileName, { type: fileType });
 			var dataTransfer = new DataTransfer();
-			dataTransfer.items.add(fileObj);
-			fileInput.files = dataTransfer.files;
 
+			//Use dataTransfer object insert into viewdata 
+	        dataTransfer.items.add(fileObj);
+			
 			var sTicket = parent.$('#phone-panel')[0].contentWindow.AssignedTicketList.filter(i => i.TicketId == ticketId);
-			parent.$('#phone-panel')[0].contentWindow.sendAttachmentByHandler(loginId, token, "file", file, sTicket[0]);
+			parent.$('#phone-panel')[0].contentWindow.sendAttachmentByHandler(loginId, token, "file", dataTransfer.files[0], sTicket[0]);
 	  };
 
 
@@ -219,12 +207,22 @@
 	  {
 		  this.updateChatSessionTimeout(ticketId);
 	  };
-	  returnMessagesByUserId(agentId)
+
+	  
+	  returnMessagesPastMessage(ticketId)
 	  {
+
+		  var TicketId = this.selectedTicketId;
 		  var loginId = top.loginId;
 		  var token = top.token;
 
-		  parent.$('#phone-panel')[0].contentWindow.returnMessagesFromHandlerByUserId(loginId, token, TicketId)
+		  //agentid, token, userId, msgId, limit
+
+
+
+		  var sTicket = parent.$('#phone-panel')[0].contentWindow.AssignedTicketList.filter(i => i.TicketId == ticketId);
+
+		  parent.$('#phone-panel')[0].contentWindow.returnMessagesFromHandlerByUserId(loginId, token, sTicket[0].EndUserId, sTicket[0].messages[sTicket[0].messages.length - 1].MessageId, 500);
 	  }
 
 	  //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
@@ -652,11 +650,6 @@
 
 		var sMsglist = selectedTicket[0].messages;
 
-
-		if (selectedTicket[0].Channel == "whatsapp") {
-			selectedTicket[0].EndUserPhone = sMsglist[0].EndUserId;
-	    }
-
 		this.reloadChatHistory(sMsglist);
 		this.updateChatHeader(this.selectedChatChannel, selectedTicket[0]);
 		searchInput(selectedTicket[0]);	
@@ -949,15 +942,15 @@
 		  //*****currentMsgList is only be used for getTicket
 		  var sMsgList = parent.$('#phone-panel')[0].contentWindow.currentMsglist;
 		  
-
-		  if (currentTicket.Channel == "whatsapp") { currentTicket.EndUserPhone = sMsgList[0].EndUserId; }
-
-			//2. Update Chat history header
+		  //2. Update Chat history header
 		  this.updateChatHeader(this.selectedChatChannel, currentTicket);
 				               
 
 		  //3. Update message list
 		  this.reloadChatHistory(sMsgList);
+
+
+		  //this.returnMessagesPastMessage();
 	  };
 
 	  //------------------------------------------------------------------------------------------------------------------------

@@ -99,7 +99,7 @@
 		  event.preventDefault(); // Prevent the default button click behavior
 		  parent.$('#phone-panel')[0].contentWindow.sendMessageReturned = null;
 
-
+		  
 		  if (sTicket[0].Channel == "whatsapp")
 		  {
 			  sTicket[0].EndUserPhone = sTicket[0].messages[0].EndUserId;
@@ -135,9 +135,9 @@
 		  parent.$('#phone-panel')[0].contentWindow.sendAttachmentByHandler(loginId, token, "file", file, sTicket[0]);
 
 	  };
-
+	  //This function is trigger on interface onClick
 	  sendAttachmentReset()
-	  {
+	  {	
 		  $('#fileInput')[0].value = "";
 	  };
 	  
@@ -169,8 +169,10 @@
 			var token = top.token;
 
 			const fileBlob = base64ToBlob(base64, fileType);
+			
+		    $('#fileInputByCode')[0].value = "";
 
-			var fileInput = $('#fileInput')[0];
+		    var fileInput = $('#fileInputByCode')[0];
 			var file = fileInput.files[0];
 
 			var fileObj = new File([fileBlob], fileName, { type: fileType });
@@ -239,9 +241,7 @@
 
 		var channelImg = this.returnChannelImgByEntry(entry);
 
-		  if (sTicket.Channel == "whatsapp") {
-			  sTicket.EndUserPhone = sTicket.messages[0].EndUserId;
-		  }
+		
 
 		  var contextResponse = {
 			  ticketId: sTicket.TicketId,
@@ -648,7 +648,15 @@
 
 	    var selectedTicket = parent.$('#phone-panel')[0].contentWindow.AssignedTicketList.filter(i => i.TicketId == e.getElementsByClassName('bubble-id')[0].innerHTML);
 
+
+
 		var sMsglist = selectedTicket[0].messages;
+
+
+		if (selectedTicket[0].Channel == "whatsapp") {
+			selectedTicket[0].EndUserPhone = sMsglist[0].EndUserId;
+	    }
+
 		this.reloadChatHistory(sMsglist);
 		this.updateChatHeader(this.selectedChatChannel, selectedTicket[0]);
 		searchInput(selectedTicket[0]);	
@@ -772,8 +780,8 @@
 				endUserId: sTicket[0].EndUserId,
 				Channel: sTicket[0].Channel,
 				AssignedTo: sTicket[0].AssignedTo,
-				endUserEmail: sTicket[0].endUserEmail,
-				endUserPhone: sTicket[0].endUserPhone,
+				endUserEmail: sTicket[0].EndUserEmail,
+				endUserPhone: sTicket[0].EndUserPhone,
 				channelImg: channelImg
 			};
 
@@ -936,15 +944,19 @@
 						this.addBubble("Pending", false, assignedLst[i], assignedLst[i].messages);
 					}
 				}
-			}
+		  }
+
+		  //*****currentMsgList is only be used for getTicket
+		  var sMsgList = parent.$('#phone-panel')[0].contentWindow.currentMsglist;
+		  
+
+		  if (currentTicket.Channel == "whatsapp") { currentTicket.EndUserPhone = sMsgList[0].EndUserId; }
 
 			//2. Update Chat history header
 		  this.updateChatHeader(this.selectedChatChannel, currentTicket);
 				               
 
 		  //3. Update message list
-			//*****currentMsgList is only be used for getTicket
-			var sMsgList= parent.$('#phone-panel')[0].contentWindow.currentMsglist;
 		  this.reloadChatHistory(sMsgList);
 	  };
 

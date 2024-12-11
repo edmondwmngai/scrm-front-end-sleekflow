@@ -919,10 +919,13 @@ function acceptCall_Shandler(loginId, Token, Channel, deviceID)
              formData.append('agentId', agent);
              formData.append('token', token);
              formData.append('ticketId', sTicket.TicketId);
-             formData.append('channel', sTicket.Channel);
+			//formData.append('channel', sTicket.Channel);
+             formData.append('channel', "whatsappcloudapi");
+
+
 			//formData.append('webClientSenderId', sTicket.webClientSenderId);
 
-			formData.append('from', sTicket.DeviceId);
+			 formData.append('from', sTicket.DeviceId);
              formData.append('to', sTicket.EndUserPhone);
 
              formData.append('messageType', messageType);
@@ -961,11 +964,13 @@ function sendAttachmentByHandler(agent, token, messageType, file, sTicket) {
             //	formData.append('messageContent', 'hello');
             //	formData.append('files', file);
 
+	var channel = sTicket.Channel;
+
             // Create a FormData object
             let formData = new FormData();
 
             // Append input field values to the FormData object
-
+    if (channel == "web") {
             formData.append('agentId', agent);
             formData.append('token', token);
 			formData.append('ticketId', sTicket.TicketId);
@@ -973,7 +978,29 @@ function sendAttachmentByHandler(agent, token, messageType, file, sTicket) {
 			formData.append('webClientSenderId', sTicket.EndUserId);
             formData.append('messageType', messageType);
             formData.append('messageContent', "");
-            formData.append('files', file);
+			formData.append('files', file);
+    }
+
+    if (channel == "whatsapp") {
+
+        formData.append('agentId', agent);
+        formData.append('token', token);
+        formData.append('ticketId', sTicket.TicketId);
+        //formData.append('channel', sTicket.Channel);
+        formData.append('channel', "whatsappcloudapi");
+
+
+        //formData.append('webClientSenderId', sTicket.webClientSenderId);
+
+        formData.append('from', sTicket.DeviceId);
+        formData.append('to', sTicket.EndUserPhone);
+
+        formData.append('messageType', messageType);
+        formData.append('messageContent', "");
+        formData.append('files', file);
+
+    }
+
 
             shandler.sendMessage(formData)
                 .then(response => {

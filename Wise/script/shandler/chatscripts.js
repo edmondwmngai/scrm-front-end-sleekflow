@@ -126,7 +126,12 @@
 		  event.preventDefault(); // Prevent the default button click behavior
 		  parent.$('#phone-panel')[0].contentWindow.sendMessageReturned = null;
 
-		  var sTicket = parent.$('#phone-panel')[0].contentWindow.AssignedTicketList.filter(i => i.TicketId == this.selectedTicketId);											
+		  var sTicket = parent.$('#phone-panel')[0].contentWindow.AssignedTicketList.filter(i => i.TicketId == this.selectedTicketId);		
+
+		  if (sTicket[0].Channel == "whatsapp") {
+			  sTicket[0].EndUserPhone = sTicket[0].messages[0].EndUserId;
+		  }
+
 		  parent.$('#phone-panel')[0].contentWindow.sendAttachmentByHandler(loginId, token, "file", file, sTicket[0]);
 
 	  };
@@ -234,7 +239,9 @@
 
 		var channelImg = this.returnChannelImgByEntry(entry);
 
-		  
+		  if (sTicket.Channel == "whatsapp") {
+			  sTicket.EndUserPhone = sTicket.messages[0].EndUserId;
+		  }
 
 		  var contextResponse = {
 			  ticketId: sTicket.TicketId,
@@ -536,6 +543,7 @@
 		  }
 
 		  if (ticketStatus == "timeout") {
+
 			  this.updateChatSessionTimeout(this.selectedTicketId);
 		  }
 	  };

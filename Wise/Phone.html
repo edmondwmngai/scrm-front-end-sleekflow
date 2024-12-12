@@ -1097,7 +1097,7 @@ function returnMessagesFromHandlerByUserId(ticketId, agentId, token, userId, msg
                    response = response.sort((a, b) => { return a.MessageId - b.MessageId; });
 
                    //   var msg_list = response.details.msg_list;
-                   parent.$('#social-media-main')[0].contentWindow.chatService.returnPastMessageByTicketId(ticketId, response);
+                   parent.$('#social-media-main')[0].contentWindow.chatService.returnPastMessageByTicketIdCallBack(ticketId, response);
                }
 		   })
 		   .catch(error => {

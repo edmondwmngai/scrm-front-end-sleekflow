@@ -199,7 +199,9 @@ class wsSHandler {
 	{
 		const { agentid, token, userId, msgId, limit } = data;
 		//const apiUrl = (tls) ? `https://${hostname}:8033` : `http://${hostname}:8033`;
-		const response = await fetch(this.apiUrl +'/api/GetMesssagesByUserId', {
+		//const response = await fetch(this.apiUrl +'/api/GetMesssagesByUserId', {
+		const response = await fetch(this.apiUrl +'/api/GetMessagesByUserId', {
+
             method: 'POST',
 			headers: {
 				"Content-Type": "application/json; charset=utf-8",

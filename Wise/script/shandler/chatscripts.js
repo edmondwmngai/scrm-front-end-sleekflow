@@ -211,7 +211,7 @@
 	  };
 
 	  
-	  returnMessagesPastMessage(ticketId)
+	  returnPastMessageByTicketId(ticketId)
 	  {
 
 		  var TicketId = this.selectedTicketId;
@@ -224,7 +224,32 @@
 
 		  var sTicket = parent.$('#phone-panel')[0].contentWindow.AssignedTicketList.filter(i => i.TicketId == ticketId);
 
-		  parent.$('#phone-panel')[0].contentWindow.returnMessagesFromHandlerByUserId(loginId, token, sTicket[0].EndUserId, sTicket[0].messages[sTicket[0].messages.length - 1].MessageId, 500);
+		  parent.$('#phone-panel')[0].contentWindow.returnMessagesFromHandlerByUserId(ticketId, loginId, token, sTicket[0].EndUserId, sTicket[0].messages[sTicket[0].messages.length - 1].MessageId, 20);
+	  };
+
+	  returnPastMessageByTicketIdCallBack(ticketId, msgList)
+	  {
+
+
+
+		  if (msgList != null)
+		  { 
+			var sTicket = parent.$('#phone-panel')[0].contentWindow.AssignedTicketList.filter(i => i.TicketId == ticketId);
+
+			  msgList = msgList.concat(sTicket[0].messages);
+
+			  msgList = msgList.sort((a, b) => { return a.MessageId - b.MessageId; });
+			  msgList.forEach(item => { item.TicketId = ticketId; });
+
+			  sTicket[0].messages = msgList;
+
+
+			  console.log(JSON.stringify(sTicket[0]));
+
+			  this.reloadChatHistory(sTicket[0].messages);
+
+		  }
+
 	  }
 
 	  //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
@@ -307,7 +332,8 @@
 	  //sMsg.MessageContent, sMsg.sendby
 	  receiveMessage(sMsg)
 	  {			
-			var sTicket = parent.$('#phone-panel')[0].contentWindow.AssignedTicketList.filter(i => i.TicketId == sMsg.TicketId);
+		    var sTicket = parent.$('#phone-panel')[0].contentWindow.AssignedTicketList.filter(i => i.TicketId == sMsg.TicketId);
+
 			var sEndUserName = sTicket[0].EndUserName;
 
 			this.messageReceived = sMsg.MessageContent;
@@ -397,7 +423,7 @@
 	  {
 
 
-		  var agentName = agentService.getAgentNameByID(this.selectedAgentId);
+		  var agentName = agentService.getAgentNameByID(sMsg.UpdatedBy);
 
 		  
 		  if (sMsg.MessageType = "text" && sMsg.FilesJson.length < 4)
@@ -520,6 +546,8 @@
 			  {
 				  //for (var i = sMsglist.length - 1; i >= 0; i--) {
 				  let sMsg = sMsglist[i];
+
+				  console.log(sMsg.MessageId);
 
 				  if (sMsg.SentBy == "user") {
 
@@ -659,7 +687,10 @@
 
 		this.reloadChatHistory(sMsglist);
 		this.updateChatHeader(this.selectedChatChannel, selectedTicket[0]);
-		searchInput(selectedTicket[0]);	
+		  searchInput(selectedTicket[0]);	
+
+
+		//  this.returnMessagesPastMessage(this.selectedTicketId);
 
 	  };
 
@@ -957,8 +988,11 @@
 		  this.reloadChatHistory(sMsgList);
 
 
-		  //this.returnMessagesPastMessage(this.selectedTicketId);
+		  this.returnMessagesPastMessage(this.selectedTicketId);
 	  };
+
+
+
 
 	  //------------------------------------------------------------------------------------------------------------------------
 	  //Unfinished AREA------------------------------------------------------------------------------------------------------------------------

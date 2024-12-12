@@ -201,13 +201,13 @@ class wsSHandler {
 		//const apiUrl = (tls) ? `https://${hostname}:8033` : `http://${hostname}:8033`;
 		//const response = await fetch(this.apiUrl +'/api/GetMesssagesByUserId', {
 		const response = await fetch(this.apiUrl +'/api/GetMessagesByUserId', {
-
+		
             method: 'POST',
 			headers: {
 				"Content-Type": "application/json; charset=utf-8",
 			},
 			//body: JSON.stringify({ AgentId: agentid, Token: token, UserId: userId, MsgId: msgId, Limit: limit }),
-			body: JSON.stringify({ AgentId: agentid, Token: token, UserId: userId, MsgId: msgId, limit: limit }),
+			body: JSON.stringify({ AgentId: agentid, Token: token, UserId: userId, MsgId: msgId, Limit: limit }),
         });
 		if (!response.ok) {
 			console.log(response);

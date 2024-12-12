@@ -1078,38 +1078,9 @@ function endSessionByHandler(loginId, token, ticketId)
 }
 
  
-
-//Not finished
-function returnMessagesByTicketID(loginId, Token, Channel, TicketId)
-{
-
-
-
-			shandler.getMessagesByTicketId({
-						agentid: loginId,
-						token: Token,
-						ticketId: TicketId,
-		   })
-		   .then(response=>{
-
-			   if (response.result == "success") {
-
-
-				   var msg_list = response.details.msg_list;
-				   return msg_list;
-				}
-		   })
-		   .catch(error => {
-			  console.log(error);
-			});
-
-
-
-}
-
 //Not finished
 										   
-function returnMessagesFromHandlerByUserId(agentId, token, userId, msgId, limit)
+function returnMessagesFromHandlerByUserId(ticketId, agentId, token, userId, msgId, limit)
 {
             
 		shandler.getMessagesByUserId({
@@ -1121,12 +1092,13 @@ function returnMessagesFromHandlerByUserId(agentId, token, userId, msgId, limit)
 		   })
 		   .then(response=>{
 
-			   if (response.result == "success") {
+			   if (response != null) {
+				   //sort in ascending
+                   response = response.sort((a, b) => { return a.MessageId - b.MessageId; });
 
-
-				   var msg_list = response.details.msg_list;
-				   return msg_list;
-				}
+                   //   var msg_list = response.details.msg_list;
+                   parent.$('#social-media-main')[0].contentWindow.chatService.returnPastMessageByTicketId(ticketId, response);
+               }
 		   })
 		   .catch(error => {
 			  console.log(error);

@@ -201,11 +201,13 @@
 	  endSessionCallBack(ticketId)
 	  {
 		  this.updateChatEndSession(ticketId);
+		  this.scrollToBottom();
 	  };
 
 	  sessionTimeoutCallBack(ticketId)
 	  {
 		  this.updateChatSessionTimeout(ticketId);
+		  this.scrollToBottom();
 	  };
 
 	  
@@ -602,6 +604,9 @@
 
 		  this.updateStatusInAssignedList(ticketId, "Status", "closed");
 		  this.updateChatStatus("Session Ended");
+
+		  this.scrollToBottom();
+
 	  };
 
 	  updateChatSessionTimeout(ticketId)
@@ -612,6 +617,8 @@
 		  this.updateStatusInAssignedList(ticketId, "Status", "timeout");
 		  this.updateChatStatus("Session Timeout");
 		  this.updateChatStatus("Session Ended");
+
+		  this.scrollToBottom();
 		  // "Session Timeout"
 		  // "Session Ended"
 	  };
@@ -950,7 +957,7 @@
 		  this.reloadChatHistory(sMsgList);
 
 
-		  //this.returnMessagesPastMessage();
+		  //this.returnMessagesPastMessage(this.selectedTicketId);
 	  };
 
 	  //------------------------------------------------------------------------------------------------------------------------
@@ -1005,6 +1012,9 @@
   }
 
 
+///////////////////////////////////////////////////
+///  Util functions
+//////////////////////////////////////////////////
 function base64ToBlob(base64String, contentType = '') {
 	const byteCharacters = atob(base64String);
 	const byteArrays = [];

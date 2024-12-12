@@ -988,7 +988,8 @@
 		  this.reloadChatHistory(sMsgList);
 
 
-		  this.returnMessagesPastMessage(this.selectedTicketId);
+		  //4. update the chat history if there is past message
+		  this.returnPastMessageByTicketId(this.selectedTicketId);
 	  };
 
 

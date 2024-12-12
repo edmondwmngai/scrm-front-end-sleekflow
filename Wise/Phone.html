@@ -1006,16 +1006,12 @@ function sendAttachmentByHandler(agent, token, messageType, file, sTicket) {
 
     }
 
+	// FOR DEBUG
+    //var object = {};
+    //formData.forEach(function (value, key) {        object[key] = value;    });
+	//var json = JSON.stringify(object);
 
-    var object = {};
-    formData.forEach(function (value, key) {
-        object[key] = value;
-    });
-	var json = JSON.stringify(object);
-
-	console.log(json);
-
-
+	//console.log(json);
 
             shandler.sendMessage(formData)
                 .then(response => {

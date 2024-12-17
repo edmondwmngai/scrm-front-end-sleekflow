@@ -19,7 +19,8 @@
 	    selectedwebClientSenderId = "";
 		selectedChatChannel = "";
 		selectedEndUserName = "";
-	  PresentTicket = true;
+		PresentTicket = true;
+	    isScrollToBottom = true;
 
 	     selectedCannedFiles = [];
 
@@ -28,8 +29,7 @@
 	  {
 		    this.cacheDOM();
 			this.bindEvents();
-		
-			 //this.updateStatus("Session Timeout");			 //this.updateStatus("Session Ended");
+
 	  };
 	  
 	  cacheDOM()
@@ -60,20 +60,38 @@
 		  
 	  };
 	  
-	  bindEvents()
-	  {
-		//this.$button.on('click', this.addReplyMessageByClick.bind(this));
-		this.$textarea.on('keypress', this.addReplyMessageEnter.bind(this));
+	  bindEvents() {
+		  //this.$button.on('click', this.addReplyMessageByClick.bind(this));
+		  this.$textarea.on('keypress', this.addReplyMessageEnter.bind(this));
 
-		this.$button.on('click', this.sendMessageByClick.bind(this));
+		  this.$button.on('click', this.sendMessageByClick.bind(this));
+
+
+		  this.$chatHistory.on('scroll', this.onChatHistoryScroll.bind(this));
 
 		  //this.$testbutton.on('click', this.sendMessageByClick.bind(this));
 
-		//  this.addTestBubble("Present", false, "Tiger", 418);
-      //    this.addTestBubble("Present", false, "Test", 419);
+		  //  this.addTestBubble("Present", false, "Tiger", 418);
+		  //    this.addTestBubble("Present", false, "Test", 419);
 		  //this.addTestBubble("Present", false, 3, 3333);
-//		  this.moveBubbleToFirst(2222);
+		  //		  this.moveBubbleToFirst(2222);
 
+		
+	  };
+
+	  onChatHistoryScroll()
+	  {
+		  if (this.$chatHistory.scrollTop() < 20) {
+			  console.log("scroll top" + this.$chatHistory.scrollTop());
+			  //parent.$('#phone-panel')[0].contentWindow.addTestMessageAtTop();
+
+			  //returnPastMessageByTicketId
+
+			  this.isScrollToBottom = false;
+			  this.returnPastMessageByTicketId(this.selectedTicketId);
+
+			  	// simulate the situation read the previous message;
+		  }
 	  };
 
 
@@ -97,12 +115,9 @@
 
 
 		  event.preventDefault(); // Prevent the default button click behavior
+		  this.isScrollToBottom = true;
 		  parent.$('#phone-panel')[0].contentWindow.sendMessageReturned = null;
-
 		  parent.$('#phone-panel')[0].contentWindow.sendMessageByHandler(loginId, token, "text", this.$textarea.val(), sTicket[0]);
-
-
-
 
 	  };
 
@@ -120,6 +135,7 @@
 
 		  var sTicket = parent.$('#phone-panel')[0].contentWindow.AssignedTicketList.filter(i => i.TicketId == this.selectedTicketId);		
 
+		  this.isScrollToBottom = true;
 		  parent.$('#phone-panel')[0].contentWindow.sendAttachmentByHandler(loginId, token, "file", file, sTicket[0]);
 
 	  };
@@ -157,10 +173,6 @@
 			var token = top.token;
 
 			const fileBlob = base64ToBlob(base64, fileType);
-
-			
- //			var fileInput = $('#fileInput')[0];
-//			var file = fileInput.files[0];
 
 			var fileObj = new File([fileBlob], fileName, { type: fileType });
 			var dataTransfer = new DataTransfer();
@@ -224,28 +236,32 @@
 
 		  var sTicket = parent.$('#phone-panel')[0].contentWindow.AssignedTicketList.filter(i => i.TicketId == ticketId);
 
-		  parent.$('#phone-panel')[0].contentWindow.returnMessagesFromHandlerByUserId(ticketId, loginId, token, sTicket[0].EndUserId, sTicket[0].messages[sTicket[0].messages.length - 1].MessageId, 20);
+		  //parent.$('#phone-panel')[0].contentWindow.returnMessagesFromHandlerByUserId(ticketId, loginId, token, sTicket[0].EndUserId, sTicket[0].messages[sTicket[0].messages.length - 1].MessageId, 20);
+		  parent.$('#phone-panel')[0].contentWindow.returnMessagesFromHandlerByUserId(ticketId, loginId, token, sTicket[0].EndUserId, sTicket[0].messages[0].MessageId, 5);
 	  };
 
 	  returnPastMessageByTicketIdCallBack(ticketId, msgList)
 	  {
-
-
-
 		  if (msgList != null)
 		  { 
 			var sTicket = parent.$('#phone-panel')[0].contentWindow.AssignedTicketList.filter(i => i.TicketId == ticketId);
 
-			  msgList = msgList.concat(sTicket[0].messages);
-
-			  msgList = msgList.sort((a, b) => { return a.MessageId - b.MessageId; });
+			  //Record the original TicketID
+			  msgList.forEach(item => { item.oTicketId = item.TicketId; });
+			  //Assign the display related TicketID
 			  msgList.forEach(item => { item.TicketId = ticketId; });
 
+			  //Append the message list at the beginning
+			  msgList = msgList.concat(sTicket[0].messages);
+
+			  //apply sorting
+			  msgList = msgList.sort((a, b) => { return a.MessageId - b.MessageId; });
+
+			  //update the current message list to ticket record in assignedList
 			  sTicket[0].messages = msgList;
 
 
-			  console.log(JSON.stringify(sTicket[0]));
-
+			 // console.log(JSON.stringify(sTicket[0]));
 			  this.reloadChatHistory(sTicket[0].messages);
 
 		  }
@@ -414,7 +430,7 @@
 		  }
 
 
-		  this.scrollToBottom();
+		 // this.scrollToBottom();
 	  };
 	  	  	  
 	  //Agent (Reply) side
@@ -501,7 +517,7 @@
 			  }
 		  }
 
-		  this.scrollToBottom();
+		  //this.scrollToBottom();
 		  this.$textarea.val('');
 	  };	  
 		
@@ -516,6 +532,16 @@
 			}
 	  };
 	  //--------------------------------------------------------------------
+	  scrollToGetPastMessages()
+	  {
+
+
+
+	  };
+	  scrollToTop() {
+		  this.$chatHistory.scrollTop(50);
+	  };
+
 	  scrollToBottom() {
 		   this.$chatHistory.scrollTop(this.$chatHistory[0].scrollHeight);
 	  };
@@ -535,19 +561,35 @@
 
 	  reloadChatHistory(sMsglist)
 	  {
+		  //***After reload the history, the chatHistory will be scrolled based on isScrollToBottom Flag (to the bottom / to Top)
+
+
 		  //Reset the chat history screen
 		  $('#chatHistory').html('');
 		  this.disableInput(false);
 
 		  var ticketID = 0;
 
-		  if (sMsglist != null) {
+		  if (sMsglist != null)
+		  {
+			  var LastTicketId = 0;
+
 			  for (var i = 0; i < sMsglist.length; i++)
 			  {
 				  //for (var i = sMsglist.length - 1; i >= 0; i--) {
 				  let sMsg = sMsglist[i];
+				  
 
-				  console.log(sMsg.MessageId);
+				  if (i != 0)
+				  {
+					  if (LastTicketId != sMsglist[i].oTicketId)
+					  {
+						  this.$chatHistory.append("<hr style='color:black' />");
+					  }
+				  }
+				  LastTicketId = sMsglist[i].oTicketId;
+
+				  //console.log(sMsg.MessageId);
 
 				  if (sMsg.SentBy == "user") {
 
@@ -557,7 +599,18 @@
 					  this.addReplyMessageByText(sMsg);
 				  }
 
-				  this.scrollToBottom();
+
+				  if (this.isScrollToBottom) {
+
+					  console.log("bottom");
+					  this.scrollToBottom();
+
+				  }
+				  else
+				  {
+					  console.log("top");
+					  this.scrollToTop();
+				  }
 			  }
 		  }
 
@@ -685,7 +738,7 @@
 
 		var sMsglist = selectedTicket[0].messages;
 
-		this.reloadChatHistory(sMsglist);
+		this.reloadChatHistory(sMsglist, true);
 		this.updateChatHeader(this.selectedChatChannel, selectedTicket[0]);
 		  searchInput(selectedTicket[0]);	
 
@@ -985,9 +1038,11 @@
 				               
 
 		  //3. Update message list
+		  this.isScrollToBottom = true;
 		  this.reloadChatHistory(sMsgList);
 
 
+		  
 		  //4. update the chat history if there is past message
 		  this.returnPastMessageByTicketId(this.selectedTicketId);
 	  };

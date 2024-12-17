@@ -10,10 +10,16 @@ class agent {
 
 	getAgentNameByID(id)
 	{
-		var name = top.agentList.find(l => l.AgentID == id).AgentName;
+
+		if (id != null) {
+			var name = top.agentList.find(l => l.AgentID == id).AgentName;
 
 
-		return name;
+			return name;
+		} else {
+
+			return "";
+		}
 	}
 
 

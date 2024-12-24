@@ -49,6 +49,12 @@ var loginId = parseInt(sessionStorage.getItem('scrmAgentId') || -1);
 var token = sessionStorage.getItem('scrmToken') || '';
 var agentName = sessionStorage.getItem('scrmAgentName') || '';
 
+//20241217 newly added for shandler
+var sAgentId = 0;
+var sToken = "";
+var sCompany = "";
+var sTo = "";
+
 // check if open from incomplete cases for an outbound call
 var winReplyConnId = '';
 var winReplyDetails = '';
@@ -58,6 +64,9 @@ if (openType == 'menu') {
     winReplyConnId = parent.frameElement.getAttribute('replyConnId') || '';
     winReplyDetails = parent.frameElement.getAttribute('replyDetails') || '';
 }
+
+//20241219 FOR shandler
+var selectedSendTemplate = null;
 
 
 // var SMSTemplateArr = [
@@ -1486,12 +1495,15 @@ function saveClicked(isTemp, callback) { // 1. declare 2. verify 3. update custo
             //     return;
             // }
             // Verify has selected template
+
+            /* //20241220 commented for shandler
             var selectedTP = $('input[name=tp]:checked').val();
             if (selectedTP == undefined) {
                 document.getElementById("case-save-btn").disabled = false;
                 alert('Please select at least one template');
                 return;
             }
+            
             // Verify customer selected
             if (replyDetails.length = 0) {
                 document.getElementById("case-save-btn").disabled = false;
@@ -1505,10 +1517,26 @@ function saveClicked(isTemp, callback) { // 1. declare 2. verify 3. update custo
                 alert('Template content props is not same length with the template props');
                 return;
             }
+            *//////////////////////////////////////////////////////////////
+
             replyDetails = replyDetails.replace(/ /g, '');
             $('#send-wa-section').append('<p><span><span><div id="circularG"><div id="circularG_1" class="circularG"></div><div id="circularG_2" class="circularG"></div><div id="circularG_3" class="circularG"></div>' +
                 '<div id="circularG_4" class="circularG"></div><div id="circularG_5" class="circularG"></div><div id="circularG_6" class="circularG"></div><div id="circularG_7" class="circularG"></div><div id="circularG_8" class="circularG"></div></div><span>&nbsp;&nbsp;Sending...</span></p>');
 
+
+            //if ($('#wa-other-input').value.l
+            //20241219
+            parent.parent.$('#phone-panel')[0].contentWindow.sendTemplateMessageByHandler(sAgentId, sToken, companyName, selectedSendTemplate, "85293498303", function (result)
+            {
+                if (result != null)
+                {
+                    alert("Success!");
+                }
+
+            });
+
+
+            /*
             parent.parent.document.getElementById("phone-panel").contentWindow.wiseSendWhatsAppMsgEx(campaign, replyDetails, selectedTP, tpPropsArr, function (replyObj) {
 
                 // send failed
@@ -1519,6 +1547,7 @@ function saveClicked(isTemp, callback) { // 1. declare 2. verify 3. update custo
                 }                
                 callUpdateCase();
             });
+            */
         }
     }
 }
@@ -1862,9 +1891,26 @@ function replyChannelChange(iThis) {
                 return false;
             }
         })
+
+
+
+
         $('#select-tp-btn').on('click', function () {
             var openWindows = parent.parent.openWindows;
-            var socialPopup = window.open('../../socialPopup.html?type=wa-template', 'reply-container', '_blank, toolbar=0,location=0,top=50, left=100,menubar=0,resizable=0,scrollbars=1,width=1000,height=928');
+
+            popupCampaign = campaign;
+            selectedSendTemplate = null;
+
+
+            //20241217 newly added for shandler
+            sAgentId = top.loginId;
+            sToken = top.token;
+            sCompany = "EPRO";
+            
+            //20241219 FOR shandler
+            //var socialPopup = window.open('../../socialPopup.html?type=wa-template', 'reply-container', '_blank, toolbar=0,location=0,top=50, left=100,menubar=0,resizable=0,scrollbars=1,width=1000,height=928');
+            var socialPopup = window.open('../../socialWaTemplateSL.html?type=wa-template', 'reply-container', '_blank, toolbar=0,location=0,top=50, left=100,menubar=0,resizable=0,scrollbars=1,width=1000,height=928');
+
             openWindows[openWindows.length] = socialPopup;
             socialPopup.onload = function () {
                 socialPopup.onbeforeunload = function () {
@@ -1874,8 +1920,15 @@ function replyChannelChange(iThis) {
                             break;
                         }
                     }
+
+                      //20241219 FOR shandler
+            if (selectedSendTemplate != null) { replyConfirmed = true; }
                 }
+
+                
             }
+          
+                
         })
         // } else {
 

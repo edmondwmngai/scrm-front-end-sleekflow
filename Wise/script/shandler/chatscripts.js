@@ -18,12 +18,13 @@
 		selectedAgentId = 0;
 	    selectedwebClientSenderId = "";
 		selectedChatChannel = "";
-		selectedEndUserName = "";
+	    selectedEndUserName = "";
+	  
 		PresentTicket = true;
 	    isScrollToBottom = true;
 
 	     selectedCannedFiles = [];
-
+		allowPastMessageCall = true;
 		//Contacted us in the last hour: Last Ticket ID: 1386264423 on 2024-11 - 29 12: 17: 37
 	  init()
 	  {
@@ -69,7 +70,7 @@
 
 		  this.$chatHistory.on('scroll', this.onChatHistoryScroll.bind(this));
 
-		  //this.$testbutton.on('click', this.sendMessageByClick.bind(this));
+		  this.$testbutton.on('click', this.callBackTest.bind(this));
 
 		  //  this.addTestBubble("Present", false, "Tiger", 418);
 		  //    this.addTestBubble("Present", false, "Test", 419);
@@ -87,9 +88,12 @@
 
 			  //returnPastMessageByTicketId
 
-			  this.isScrollToBottom = false;
-			  this.returnPastMessageByTicketId(this.selectedTicketId);
-
+			  if (this.allowPastMessageCall)
+			  { 
+				  this.allowPastMessageCall = false;
+				this.isScrollToBottom = false;
+				this.returnPastMessageByTicketId(this.selectedTicketId);
+			  }
 			  	// simulate the situation read the previous message;
 		  }
 	  };
@@ -139,6 +143,35 @@
 		  parent.$('#phone-panel')[0].contentWindow.sendAttachmentByHandler(loginId, token, "file", file, sTicket[0]);
 
 	  };
+
+	  sendMessageByTemplate(selectedTemplate)
+	  {
+
+
+		  var loginId = top.loginId;
+		  var token = top.token;
+		  var agentName = top.agentName;
+
+		  var sTicket = parent.$('#phone-panel')[0].contentWindow.AssignedTicketList.filter(i => i.TicketId == this.selectedTicketId);
+
+		  this.isScrollToBottom = true;
+		  parent.$('#phone-panel')[0].contentWindow.sendTemplateMessageByHandler(loginId, token, "EPRO", selectedTemplate, sTicket[0]);
+		  
+
+
+	  };
+
+	  sendMessageByTemplateCallBack(response)
+	  {
+		  //message
+		  //ticket
+		  this.updateChatMessageHistory(response);
+		  //this.updateChatHeader();
+		  this.addReplyMessageByText(response);
+
+		  this.scrollToBottom();
+	  }
+
 	  //This function is trigger on interface onClick
 	  sendAttachmentReset()
 	  {	
@@ -150,6 +183,11 @@
 		  this.updateChatMessageHistory(sMsg);
 		  //this.updateChatHeader();
 		  this.addReplyMessageByText(sMsg);
+
+		  if (this.selectedTicketId == sMsg.TicketId) {
+			  this.scrollToBottom();
+		  }
+		  
 	  };
 
 	  incomeMessageCallBack(sMsg)
@@ -165,6 +203,11 @@
 			  this.updateBubbleStatus(sMsg.TicketId, "Pending_Unread", false);
 			  this.moveBubbleToFirst(sMsg.TicketId);
 		  }
+
+		  if (this.selectedTicketId == sMsg.TicketId) {
+			  this.scrollToBottom();
+		  }
+
 	  };
 	  
 	  requestCannedFileInBase64CallBack(fileId, fileName, fileType, base64, ticketId)
@@ -184,7 +227,18 @@
 			parent.$('#phone-panel')[0].contentWindow.sendAttachmentByHandler(loginId, token, "file", dataTransfer.files[0], sTicket[0]);
 	  };
 
+	  callBackTest()
+	  {
+		  var json = '{ "MessageId": 2307930870, "TicketId": 418, "UniqueId": null, "EndUserId": "b5b6f193-0a3b-4560-aa33-573706309416", "Channel": "web", "SentBy": "user", "UpdatedBy": null, "UpdatedAt": "2024-11-27T09:54:27.827", "MessageType": "template", "TemplateHeaderType" : "image", "TemplateHeader" : "http://eimage.eprotel.com.hk/epro_01.png", "TemplateName":"greetings_1_image", "MessageContent": "Message 2", "FilesJson": "[]" }'; 
 
+		  var sMsg = JSON.parse(json);
+
+		  this.addReplyMessageByText(sMsg);
+
+		  if (this.selectedTicketId == sMsg.TicketId) {
+			  this.scrollToBottom();
+		  }
+	  };
 
 	  endSession() {
 
@@ -237,33 +291,50 @@
 		  var sTicket = parent.$('#phone-panel')[0].contentWindow.AssignedTicketList.filter(i => i.TicketId == ticketId);
 
 		  //parent.$('#phone-panel')[0].contentWindow.returnMessagesFromHandlerByUserId(ticketId, loginId, token, sTicket[0].EndUserId, sTicket[0].messages[sTicket[0].messages.length - 1].MessageId, 20);
-		  parent.$('#phone-panel')[0].contentWindow.returnMessagesFromHandlerByUserId(ticketId, loginId, token, sTicket[0].EndUserId, sTicket[0].messages[0].MessageId, 5);
+
+		  //parent.$('#phone-panel')[0].contentWindow.returnMessagesFromHandlerByUserId(ticketId, loginId, token, sTicket[0].EndUserId, sTicket[0].messages[0].MessageId, 5);
+
+		  parent.$('#phone-panel')[0].contentWindow.getPastMessageByHandler(ticketId, loginId, token, sTicket[0].EndUserId, sTicket[0].messages[0].MessageId, 5);
 	  };
 
 	  returnPastMessageByTicketIdCallBack(ticketId, msgList)
 	  {
 		  if (msgList != null)
-		  { 
-			var sTicket = parent.$('#phone-panel')[0].contentWindow.AssignedTicketList.filter(i => i.TicketId == ticketId);
+		  {
+			 // console.log(JSON.stringify(msgList));
+
+			  var sTicket = parent.$('#phone-panel')[0].contentWindow.AssignedTicketList.filter(i => i.TicketId == ticketId);
+			  var newList = JSON.parse(JSON.stringify(msgList));
+
+			  //console.log('before');
+			  //console.log(JSON.stringify(newList));
 
 			  //Record the original TicketID
-			  msgList.forEach(item => { item.oTicketId = item.TicketId; });
+			  newList.forEach(item => { item.oTicketId = item.TicketId; });
 			  //Assign the display related TicketID
-			  msgList.forEach(item => { item.TicketId = ticketId; });
+			  newList.forEach(item => { item.TicketId = ticketId; });
+
+			  //console.log('Updated');
+			  //console.log(JSON.stringify(newList));
 
 			  //Append the message list at the beginning
-			  msgList = msgList.concat(sTicket[0].messages);
+			  newList = newList.concat(sTicket[0].messages);
 
+			  //console.log('Concated');
+			  //console.log(JSON.stringify(newList));
 			  //apply sorting
-			  msgList = msgList.sort((a, b) => { return a.MessageId - b.MessageId; });
+			  newList = newList.sort((a, b) => { return a.MessageId - b.MessageId; });
 
 			  //update the current message list to ticket record in assignedList
-			  sTicket[0].messages = msgList;
+			  sTicket[0].messages = newList;
 
-
+			  //console.log("old");
+			  //console.log(JSON.parse(JSON.stringify(sTicket[0].messages)));
+			  //console.log("updated");
 			 // console.log(JSON.stringify(sTicket[0]));
 			  this.reloadChatHistory(sTicket[0].messages);
 
+			  this.allowPastMessageCall = true;
 		  }
 
 	  }
@@ -435,14 +506,70 @@
 	  	  	  
 	  //Agent (Reply) side
 	  //------------------------------------------------------------------
+
+	  addReplyMessageByTemplate()
+	  {
+
+
+
+	  }
+
 	  addReplyMessageByText(sMsg)
 	  {
 
 
 		  var agentName = agentService.getAgentNameByID(sMsg.UpdatedBy);
 
-		  
-		  if (sMsg.MessageType = "text" && sMsg.FilesJson.length < 4)
+		  console.log(JSON.stringify(sMsg));
+						
+
+		  if (sMsg.MessageType === "template")
+		  {
+			  //NOT finished
+			  var template = this.agentMessageTemplate;
+
+			  console.log(sMsg.MessageId);
+			  console.log(JSON.stringify(sMsg));
+
+			  var templateList = parent.$('#phone-panel')[0].contentWindow.waTempService.getTemplateList();
+
+			  var mTemplate = templateList.filter(i => i.TemplateName == sMsg.TemplateName)[0];
+
+			  var cContext = parent.$('#phone-panel')[0].contentWindow.waTempService.createContextFromTemplate(mTemplate);
+
+			  var htmlTemplate = parent.$('#phone-panel')[0].contentWindow.wa_template;
+
+			  var dateISO = sMsg.UpdatedAt.slice(0, 19);
+			  var mDate = moment(dateISO).format('HH:mm:ss');
+
+			  //this.$chatHistory.append(template(context));
+			  //cContext.displayBtnGroup1 = "";
+			  //cContext.displayBtnGroup2 = "";
+
+			  cContext.Message = sMsg.MessageContent;
+
+			  var MessageTemplate = htmlTemplate(cContext);
+			  MessageTemplate = MessageTemplate.replace("fa-image wa-card-img", "");
+
+
+			  var agentTemplate = this.agentMessageTemplate;
+
+			  var dateISO = sMsg.UpdatedAt.slice(0, 19);
+			  var mDate = moment(dateISO).format('HH:mm:ss');
+
+			  var context = {
+				  SentBy: agentName,
+				  messageOutput: "{{Content}}",
+				  time: mDate
+			  };
+
+			  var templateResult = agentTemplate(context);
+			  templateResult = templateResult.replace("{{Content}}", MessageTemplate);
+			  templateResult = templateResult.replace("content-bubble-content", "");
+
+			  this.$chatHistory.append(templateResult);
+		  }
+		  else if (sMsg.MessageType === "text" && sMsg.FilesJson.length < 4)
 		  {
 
 			  var template = this.agentMessageTemplate;
@@ -460,7 +587,7 @@
 			  this.$chatHistory.append(template(context));
 
 		  }
-		  else if (sMsg.MessageType = "file" || sMsg.FilesJson.length > 4)
+		  else if (sMsg.MessageType === "file" || sMsg.FilesJson.length > 4)
 		  {
 
 			  var FileList = [];
@@ -574,6 +701,9 @@
 		  {
 			  var LastTicketId = 0;
 
+			  console.log("before process");
+			  console.log(JSON.parse(JSON.stringify(sMsglist)));
+
 			  for (var i = 0; i < sMsglist.length; i++)
 			  {
 				  //for (var i = sMsglist.length - 1; i >= 0; i--) {
@@ -665,6 +795,8 @@
 
 	  };
  
+
+
 
 	  disableInput(sValue)
 	  {

@@ -116,6 +116,13 @@
                                         class="reply-end-container keyboard-icon">
                                     <span class="align-sub"><i class="fas fa-file-upload"></i></span>
                                 </button>
+
+                                <button class="s-standalone-btn keyboard-icon" onclick='waTemplate(&quot;campaignCRM&quot;)' title="WhatsApp Template">
+                                    <span class="align-sub"><i class="fab fa-whatsapp"></i> </span>
+                                </button>
+
+
+
                                 <button data-toggle="tooltip" data-placement="top" id="sendMsgButton" title="Send"
                                         class="reply-send-container">
                                     <img class="reply-icon-size" src="./images/send.svg">
@@ -128,10 +135,10 @@
                                     </span>
                                 </button>
 
-                                <button style="display:none" data-toggle="tooltip" data-placement="top" id="testSendMsgButton" title="Send"
-                                        class="reply-send-container">
+                                <button style="display:none" data-toggle="tooltip" data-placement="top" id="testSendMsgButton" title="Send" class="reply-send-container">
                                     <img class="reply-icon-size" src="./images/send.svg">
                                 </button>
+
                             </div>
                         </div>
 
@@ -461,7 +468,7 @@
     -->
 
     <script id="bubble_template" type="text/x-handlebars-template">
-         
+
 
         <div class="{{bubblestatus}}" style="height: 71px; overflow: hidden" id="bubble-ticket" campaign="campaignCRM" companycode="SM_Win2016-demoWebChat" enduserid="{{endUserId}}" onclick="chatService.selectTicket(this)">
             <div class="bubble-container-inner">
@@ -501,8 +508,6 @@
         </div>
     </script>
 
-
-
     <!-----End of loading template__-------------------------------------------------------------------------------------------------------------------------------------------------->
     <!-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------->
     <!-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------->
@@ -512,11 +517,6 @@
     <!----------------------------------------------------------------------------------------------------->
 
 
-    <script>
-        // For load template before loading chat service
-        //   $("#template").load("wise/script/shandler/chatTemplate.js");
-    </script>
-
 
 
     <script src='wise/script/shandler/handlebars.min.js'></script>
@@ -525,7 +525,7 @@
     <script src="wise/script/shandler/searchInput.js"></script>
     <script src="wise/script/shandler/chatscripts.js"></script>
     <script src="wise/script/shandler/agentscripts.js"></script>
-
+    <script src="wise/script/shandler/waTemplateService.js"></script>
 
     <script src="js/SocialContent.js"></script>
 
@@ -537,12 +537,12 @@
         var sMsglist = parent.$('#phone-panel')[0].contentWindow.currentMsglist;
         var reloadByGetTicket = parent.$('#phone-panel')[0].contentWindow.reloadedByGetTicket;
         var testMode = parent.$('#phone-panel')[0].contentWindow.testMode;
-
+        var waTemplateSerivce = new waTemplateService();
         var agentService = new agent();
         var chatService = new chat();
-        //      var ticketService = new ticket();
+        
+        //var ticketService = new ticket();
         chatService.init();
-
 
         //chatService.refreshTicketList();
 
@@ -563,13 +563,13 @@
             chatService.addTestBubble("Present", false, "Test", 419);
             chatService.addTestBubble("Present", false, "Mary", 420);
 
-            chatService.returnMessagesPastMessage(420);
+            //chatService.returnMessagesPastMessage(420);
 
         }
 
 
     </script>
     <script src="wise/script/shandler/socialMediaSL.js"></script>
-</body>f
+</body>
 </html>
 

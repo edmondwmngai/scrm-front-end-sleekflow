@@ -214,7 +214,7 @@ class wsSHandler {
 			return null;
 		}
 		const json = await response.json();
-		if(json.result=="success")
+		if (json.result == "success")
 			return json.details;
 		else
 			return null;

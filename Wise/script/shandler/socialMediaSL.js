@@ -24,6 +24,15 @@ var noFormInSocial = functions.indexOf('No-Form-In-Social') != -1 ? true : false
 var WATimeOutObj = {};
 var fbPostTimeoutObj = {};
 // for making outbound call, got reply conn id
+
+
+
+//20241217 newly added for shandler
+var sAgentId = 0;
+var sToken = "";
+var sCompany = "";
+var waTempService = null;
+
 function replyCallClick(lastCallType, lastCallID, confConnID, theTicketId) {
     if (theTicketId) {
         var iframeInputForm = document.getElementById('input-form-' + theTicketId);
@@ -278,6 +287,8 @@ function cannedBtnClicked(campaign) {
         }
     }
 }
+
+
 
 function shareBtnClicked(campaign) {
     popupCampaign = campaign;
@@ -1542,19 +1553,44 @@ function getFBComments(ticketId, commentIdArr, tryCount) {
     }
 }
 
+var selectedSendTemplate = null;
 function waTemplate(campaign) {
+
+
     popupCampaign = campaign;
-    var openWindows = parent.openWindows;
-    var socialPopup = window.open('./socialPopup.html?type=wa-template', 'socialPop', '_blank, toolbar=0,location=0,top=50, left=100,menubar=0,resizable=0,scrollbars=1,width=1000,height=928');
+    selectedSendTemplate = null;
+
+    sAgentId = top.loginId;
+    sToken = top.token;
+    sCompany = "EPRO";
+
+
+
+    var openWindows  = parent.openWindows;
+    waTempService = parent.document.getElementById("phone-panel").contentWindow.waTempService;
+
+    //20241218 for testing
+    var socialPopup = window.open('./socialWaTemplateSL.html?type=wa-template', 'socialPop', '_blank, toolbar=0,location=0,top=50, left=100,menubar=0,resizable=0,scrollbars=1,width=1000,height=928');
+
+    //var socialPopup = window.open('./socialPopupSL.html?type=wa-template', 'socialPop', '_blank, toolbar=0,location=0,top=50, left=100,menubar=0,resizable=0,scrollbars=1,width=1000,height=928');
+
     openWindows[openWindows.length] = socialPopup;
     socialPopup.onload = function () {
         socialPopup.onbeforeunload = function () {
+
+            
             for (var i = 0; i < openWindows.length; i++) {
                 if (openWindows[i] == socialPopup) {
                     openWindows.splice(i, 1);
                     break;
                 }
             }
+         
+            //windowOpener.chatService.sendMessageByTemplate(selectedTemplate[0]);
+
+            parent.$('#social-media-main')[0].contentWindow.chatService.sendMessageByTemplate(selectedSendTemplate);
+
+            //Not finished call chatService for update Bubblelist
         }
     }
 }

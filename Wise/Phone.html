@@ -177,6 +177,9 @@
 	<script src="script/shandler/socialMediaSL.js"></script>
 	<script src="script/shandler/SocialContentSL.js"></script>
 
+	<script src='script/shandler/handlebars.min.js'></script>
+	<script src="script/shandler/waTemplateService.js"></script>
+
 	<script src="script/constant.js"></script>
 	<script src="script/runtime.js"></script>
 	<script src="script/promise-polyfill.min.js"></script>
@@ -676,7 +679,7 @@ window.top.onfocus = function(){
 ///// Start----------------------------------------------------------New SHandler Session-----------------------------------------------------------------------////////
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-function onTicketEvent(e)
+function onTicketEvent(e) 
 {
 
 	console.log(e);
@@ -684,9 +687,9 @@ function onTicketEvent(e)
 	//Remove all queueListItem that are created in sHandler
 	queueList = queueList.filter(i=>i.source != 'sleekflow');
 
-    for (var i = 0; i < serviceList.length; i++) {
+	for (var i = 0; i < serviceList.length; i++) {
 		let service = serviceList[i];
-        if (service.source == 'sleekflow') {
+		if (service.source == 'sleekflow') {
 
 			let _list = e.filter(t => t.Channel == service.entry && t.DeviceId == service.deviceId);
 
@@ -697,28 +700,28 @@ function onTicketEvent(e)
 				queueList[a].waitCount = _list.length;
 				selectedQueuelist[0].waitCount = _list.length;
 			}
-			else
+			else 
 			{
-                queueList.push({
-                    callType: service.callType, name: service.name, caption: service.caption, entry: service.entry, source: service.source,
-                    dnis: service.deviceId, showPriority: 0, waitTime: 0, waitCount: _list.length, });
-			
+				queueList.push({
+					callType: service.callType, name: service.name, caption: service.caption, entry: service.entry, source: service.source,
+					dnis: service.deviceId, showPriority: 0, waitTime: 0, waitCount: _list.length, });
+
 			}
 		}
 	}
 
-	
+
 	//ticketList.push(q);
 
 
-    //Remove all queueListItem that waitCount is 0
+	//Remove all queueListItem that waitCount is 0
 	//queueList = queueList.filter(i=>i.source != 'sleekflow' && i.waitCount == 0);
 
 
-    showQueueList();
+	showQueueList();
 }
 
-function onMessageEvent(e)
+function onMessageEvent(e) 
 {
 	parent.$('#social-media-main')[0].contentWindow.chatService.incomeMessageCallBack(e.details);
 	console.log(e);
@@ -727,21 +730,40 @@ function onMessageEvent(e)
 
 //For development and debug //20241031
 //--------------------------------------------------------------------------------
-function acceptCall_test(loginId, Token, Channel, deviceID)
+function acceptCall_test(loginId, Token, Channel, deviceID) 
 {
 	testMode = true;
-	
+
 	//Function for redirect iframe to socialMedialHandler.html
 	window.parent.SocialMediaClicked();
 
 
-	var testAssignedList = '[{ "TicketId": 418, "EndUserId": "b5b6f193-0a3b-4560-aa33-573706309416", "EndUserProfileId": "53cf32e6-8914-4ffb-a935-fefb05caa9fd", "EndUserName": "TIGER", "EndUserEmail": "TIGER@TIGERTEST.COM", "EndUserPhone": "85291111111", "AssignedTo": 5, "Status": "timeout", "Channel": "web", "DeviceId": "", "CreatedBy": "user", "CreatedAt": "2024-11-27T09:54:24.763", "UpdatedAt": "2024-11-27T09:54:34.257", "LastMessage": "Message 3", "messages": [{ "MessageId": 2307930846, "TicketId": 418, "UniqueId": null, "EndUserId": "b5b6f193-0a3b-4560-aa33-573706309416", "Channel": "web", "SentBy": "user", "UpdatedBy": null, "UpdatedAt": "2024-11-27T09:54:24.763", "MessageType": "text", "MessageContent": "MEssage 1", "FilesJson": "[]" }, { "MessageId": 2307930870, "TicketId": 418, "UniqueId": null, "EndUserId": "b5b6f193-0a3b-4560-aa33-573706309416", "Channel": "web", "SentBy": "user", "UpdatedBy": null, "UpdatedAt": "2024-11-27T09:54:27.827", "MessageType": "text", "MessageContent": "Message 2", "FilesJson": "[]" }, { "MessageId": 2307930925, "TicketId": 418, "UniqueId": null, "EndUserId": "b5b6f193-0a3b-4560-aa33-573706309416", "Channel": "web", "SentBy": "user", "UpdatedBy": null, "UpdatedAt": "2024-11-27T09:54:34.257", "MessageType": "text", "MessageContent": "Message 3", "FilesJson": "[]" }] },' + 					 
-		'{ "TicketId": 419, "EndUserId": "037b1416-38c5-4c9e-aa4c-ce7dec02effa", "EndUserProfileId": "53cf32e6-8914-4ffb-a935-fefb05caa9fd", "EndUserName": "TEST", "EndUserEmail": "TEST@TESTER.COM", "EndUserPhone": "85291111111", "AssignedTo": 5, "Status": "open", "Channel": "web", "DeviceId": "", "CreatedBy": "user", "CreatedAt": "2024-11-27T09:58:11.51", "UpdatedAt": "2024-11-27T09:58:24.383", "LastMessage": "Message from tester 44", "messages": [{ "MessageId": 2307932310, "TicketId": 419, "UniqueId": null, "EndUserId": "037b1416-38c5-4c9e-aa4c-ce7dec02effa", "Channel": "web", "SentBy": "user", "UpdatedBy": null, "UpdatedAt": "2024-11-27T09:58:11.51", "MessageType": "text", "MessageContent": "Message from tester 1", "FilesJson": "[]" }, { "MessageId": 2307932360, "TicketId": 419, "UniqueId": null, "EndUserId": "037b1416-38c5-4c9e-aa4c-ce7dec02effa", "Channel": "web", "SentBy": "user", "UpdatedBy": null, "UpdatedAt": "2024-11-27T09:58:18.937", "MessageType": "text", "MessageContent": "Message from tester 2", "FilesJson": "[]" }, { "MessageId": 2307932376, "TicketId": 419, "UniqueId": null, "EndUserId": "037b1416-38c5-4c9e-aa4c-ce7dec02effa", "Channel": "web", "SentBy": "user", "UpdatedBy": null, "UpdatedAt": "2024-11-27T09:58:21.74", "MessageType": "text", "MessageContent": "Message from tester 33", "FilesJson": "[]" }, { "MessageId": 2307932391, "TicketId": 419, "UniqueId": null, "EndUserId": "037b1416-38c5-4c9e-aa4c-ce7dec02effa", "Channel": "web", "SentBy": "user", "UpdatedBy": null, "UpdatedAt": "2024-11-27T09:58:24.383", "MessageType": "text", "MessageContent": "Message from tester 44", "FilesJson": "[]" }] },' +　
+	var testAssignedList = '[{ "TicketId": 418, "EndUserId": "b5b6f193-0a3b-4560-aa33-573706309416", "EndUserProfileId": "53cf32e6-8914-4ffb-a935-fefb05caa9fd", "EndUserName": "TIGER", "EndUserEmail": "TIGER@TIGERTEST.COM", "EndUserPhone": "85291111111", "AssignedTo": 5, "Status": "open", "Channel": "web", "DeviceId": "", "CreatedBy": "user", "CreatedAt": "2024-11-27T09:54:24.763", "UpdatedAt": "2024-11-27T09:54:34.257", "LastMessage": "Message 3", "messages": ' +
+		'[{ "MessageId": 2307930846, "TicketId": 418, "UniqueId": null, "EndUserId": "b5b6f193-0a3b-4560-aa33-573706309416", "Channel": "web", "SentBy": "user", "UpdatedBy": null, "UpdatedAt": "2024-11-27T09:54:24.763", "MessageType": "text", "MessageContent": "MEssage 1", "FilesJson": "[]" }, ' +
+		'{ "MessageId": 2307930870, "TicketId": 418, "UniqueId": null, "EndUserId": "b5b6f193-0a3b-4560-aa33-573706309416", "Channel": "web", "SentBy": "user", "UpdatedBy": null, "UpdatedAt": "2024-11-27T09:54:27.827", "MessageType": "text", "MessageContent": "Message 2", "FilesJson": "[]" }, ' +
+		'{ "MessageId": 2307930871, "TicketId": 418, "UniqueId": null, "EndUserId": "b5b6f193-0a3b-4560-aa33-573706309416", "Channel": "web", "SentBy": "user", "UpdatedBy": null, "UpdatedAt": "2024-11-27T09:54:27.827", "MessageType": "text", "MessageContent": "Message 3", "FilesJson": "[]" }, ' +
+		'{ "MessageId": 2307930872, "TicketId": 418, "UniqueId": null, "EndUserId": "b5b6f193-0a3b-4560-aa33-573706309416", "Channel": "web", "SentBy": "user", "UpdatedBy": null, "UpdatedAt": "2024-11-27T09:54:27.827", "MessageType": "text", "MessageContent": "Message 4", "FilesJson": "[]" }, ' +
+		'{ "MessageId": 2307930873, "TicketId": 418, "UniqueId": null, "EndUserId": "b5b6f193-0a3b-4560-aa33-573706309416", "Channel": "web", "SentBy": "user", "UpdatedBy": null, "UpdatedAt": "2024-11-27T09:54:27.827", "MessageType": "text", "MessageContent": "Message 5", "FilesJson": "[]" }, ' +
+		'{ "MessageId": 2307930874, "TicketId": 418, "UniqueId": null, "EndUserId": "b5b6f193-0a3b-4560-aa33-573706309416", "Channel": "web", "SentBy": "user", "UpdatedBy": null, "UpdatedAt": "2024-11-27T09:54:27.827", "MessageType": "text", "MessageContent": "Message 6", "FilesJson": "[]" }, ' +
+		'{ "MessageId": 2307930875, "TicketId": 418, "UniqueId": null, "EndUserId": "b5b6f193-0a3b-4560-aa33-573706309416", "Channel": "web", "SentBy": "user", "UpdatedBy": null, "UpdatedAt": "2024-11-27T09:54:27.827", "MessageType": "text", "MessageContent": "Message 7", "FilesJson": "[]" }, ' +
+		'{ "MessageId": 2307930876, "TicketId": 418, "UniqueId": null, "EndUserId": "b5b6f193-0a3b-4560-aa33-573706309416", "Channel": "web", "SentBy": "user", "UpdatedBy": null, "UpdatedAt": "2024-11-27T09:54:27.827", "MessageType": "text", "MessageContent": "Message 8", "FilesJson": "[]" }, ' +
+		'{ "MessageId": 2307930877, "TicketId": 418, "UniqueId": null, "EndUserId": "b5b6f193-0a3b-4560-aa33-573706309416", "Channel": "web", "SentBy": "user", "UpdatedBy": null, "UpdatedAt": "2024-11-27T09:54:27.827", "MessageType": "text", "MessageContent": "Message 9", "FilesJson": "[]" }, ' +
+		'{ "MessageId": 2307930878, "TicketId": 418, "UniqueId": null, "EndUserId": "b5b6f193-0a3b-4560-aa33-573706309416", "Channel": "web", "SentBy": "user", "UpdatedBy": null, "UpdatedAt": "2024-11-27T09:54:27.827", "MessageType": "text", "MessageContent": "Message 10", "FilesJson": "[]" }, ' +
+		'{ "MessageId": 2307930879, "TicketId": 418, "UniqueId": null, "EndUserId": "b5b6f193-0a3b-4560-aa33-573706309416", "Channel": "web", "SentBy": "user", "UpdatedBy": null, "UpdatedAt": "2024-11-27T09:54:27.827", "MessageType": "text", "MessageContent": "Message 11", "FilesJson": "[]" }, ' +
+		'{ "MessageId": 2307930880, "TicketId": 418, "UniqueId": null, "EndUserId": "b5b6f193-0a3b-4560-aa33-573706309416", "Channel": "web", "SentBy": "user", "UpdatedBy": null, "UpdatedAt": "2024-11-27T09:54:27.827", "MessageType": "text", "MessageContent": "Message 12", "FilesJson": "[]" }, ' +
+		'{ "MessageId": 2307930881, "TicketId": 418, "UniqueId": null, "EndUserId": "b5b6f193-0a3b-4560-aa33-573706309416", "Channel": "web", "SentBy": "user", "UpdatedBy": null, "UpdatedAt": "2024-11-27T09:54:27.827", "MessageType": "text", "MessageContent": "Message 13", "FilesJson": "[]" }, ' +
+		'{ "MessageId": 2307930882, "TicketId": 418, "UniqueId": null, "EndUserId": "b5b6f193-0a3b-4560-aa33-573706309416", "Channel": "web", "SentBy": "user", "UpdatedBy": null, "UpdatedAt": "2024-11-27T09:54:27.827", "MessageType": "text", "MessageContent": "Message 14", "FilesJson": "[]" }, ' +
+		'{ "MessageId": 2307930883, "TicketId": 418, "UniqueId": null, "EndUserId": "b5b6f193-0a3b-4560-aa33-573706309416", "Channel": "web", "SentBy": "user", "UpdatedBy": null, "UpdatedAt": "2024-11-27T09:54:27.827", "MessageType": "text", "MessageContent": "Message 15", "FilesJson": "[]" }, ' +
+		'{ "MessageId": 2307930925, "TicketId": 418, "UniqueId": null, "EndUserId": "b5b6f193-0a3b-4560-aa33-573706309416", "Channel": "web", "SentBy": "user", "UpdatedBy": null, "UpdatedAt": "2024-11-27T09:54:34.257", "MessageType": "text", "MessageContent": "Message 16", "FilesJson": "[]" }] },' +
+
+		'{ "TicketId": 419, "EndUserId": "037b1416-38c5-4c9e-aa4c-ce7dec02effa", "EndUserProfileId": "53cf32e6-8914-4ffb-a935-fefb05caa9fd", "EndUserName": "TEST", "EndUserEmail": "TEST@TESTER.COM", "EndUserPhone": "85291111111", "AssignedTo": 5, "Status": "open", "Channel": "web", "DeviceId": "", "CreatedBy": "user", "CreatedAt": "2024-11-27T09:58:11.51", "UpdatedAt": "2024-11-27T09:58:24.383", "LastMessage": "Message from tester 44", "messages": [{ "MessageId": 2307932310, "TicketId": 419, "UniqueId": null, "EndUserId": "037b1416-38c5-4c9e-aa4c-ce7dec02effa", "Channel": "web", "SentBy": "user", "UpdatedBy": null, "UpdatedAt": "2024-11-27T09:58:11.51", "MessageType": "text", "MessageContent": "Message from tester 1", "FilesJson": "[]" }, { "MessageId": 2307932360, "TicketId": 419, "UniqueId": null, "EndUserId": "037b1416-38c5-4c9e-aa4c-ce7dec02effa", "Channel": "web", "SentBy": "user", "UpdatedBy": null, "UpdatedAt": "2024-11-27T09:58:18.937", "MessageType": "text", "MessageContent": "Message from tester 2", "FilesJson": "[]" }, { "MessageId": 2307932376, "TicketId": 419, "UniqueId": null, "EndUserId": "037b1416-38c5-4c9e-aa4c-ce7dec02effa", "Channel": "web", "SentBy": "user", "UpdatedBy": null, "UpdatedAt": "2024-11-27T09:58:21.74", "MessageType": "text", "MessageContent": "Message from tester 33", "FilesJson": "[]" }, { "MessageId": 2307932391, "TicketId": 419, "UniqueId": null, "EndUserId": "037b1416-38c5-4c9e-aa4c-ce7dec02effa", "Channel": "web", "SentBy": "user", "UpdatedBy": null, "UpdatedAt": "2024-11-27T09:58:24.383", "MessageType": "text", "MessageContent": "Message from tester 44", "FilesJson": "[]" }] },' +
 		'{ "TicketId": 420, "EndUserId": "b5b6f193-0a3b-4560-aa33-573706309416", "EndUserProfileId": "53cf32e6-8914-4ffb-a935-fefb05caa9fd", "EndUserName": "MARY", "EndUserEmail": "MARY@MARY.COM", "EndUserPhone": "85291111111", "AssignedTo": 5, "Status": "closed", "Channel": "web", "DeviceId": "", "CreatedBy": "user", "CreatedAt": "2024-12-02T14:54:24.363", "UpdatedAt": "2024-12-02T14:54:34.257", "LastMessage": "Message 3", "messages": [{ "MessageId": 2307930846, "TicketId": 420, "UniqueId": null, "EndUserId": "b5b6f193-0a3b-4560-aa33-573706309416", "Channel": "web", "SentBy": "user", "UpdatedBy": null, "UpdatedAt": "2024-11-27T09:54:24.763", "MessageType": "text", "MessageContent": "MEssage 1", "FilesJson": "[]" }, { "MessageId": 2307930870, "TicketId": 420, "UniqueId": null, "EndUserId": "b5b6f193-0a3b-4560-aa33-573706309416", "Channel": "web", "SentBy": "user", "UpdatedBy": null, "UpdatedAt": "2024-11-27T09:54:27.827", "MessageType": "text", "MessageContent": "Message 2", "FilesJson": "[]" }, { "MessageId": 2307930925, "TicketId": 420, "UniqueId": null, "EndUserId": "b5b6f193-0a3b-4560-aa33-573706309416", "Channel": "web", "SentBy": "user", "UpdatedBy": null, "UpdatedAt": "2024-12-02T14:54:34.257", "MessageType": "text", "MessageContent": "Message 3", "FilesJson": "[]" }] }]';
 
 
+
+
 	//var testQueueList = '[{ "callType": 16, "name": "campaignCRM", "caption": "EPRO", "entry": "whatsapp", "source": "sleekflow", "dnis": "85293909352", "showPriority": 0, "waitTime": 0, "waitCount": 0 }, { "callType": 10, "name": "campaignCRM", "caption": "EPRO", "entry": "web", "source": "sleekflow", "dnis": "", "showPriority": 0, "waitTime": 0, "waitCount": 0 }, { "callType": 7, "acdGroup": 1, "entry": "", "name": "campaignCRM", "caption": "9000", "dnis": "9000", "showPriority": 1, "waitTime": 582820, "waitCount": 1, "mediaCount": 0 }, { "callType": 6, "acdGroup": 7, "name": "campaignCRM", "caption": "EPRO", "dnis": "demo-cpb@eprotel.com.hk", "showPriority": 2, "waitTime": 632525, "waitCount": 1, "mediaCount": 17 }, { "callType": 7, "acdGroup": 1, "name": "campaignCRM", "caption": "9001", "dnis": "9001", "showPriority": 2, "waitTime": 582821, "waitCount": 0, "mediaCount": 2 }]';
-    AssignedTicketList = JSON.parse(testAssignedList);
+	AssignedTicketList = JSON.parse(testAssignedList);
 
 	//queueList = JSON.parse(testQueueList);
 
@@ -755,32 +777,32 @@ function acceptCall_test(loginId, Token, Channel, deviceID)
 	//chatService.addMessage();
 }
 
-// Function that trigger by user click the querylist on the top 
-function acceptCall_Shandler(loginId, Token, Channel, deviceID)
+// Function that trigger by user click the querylist on the top
+function acceptCall_Shandler(loginId, Token, Channel, deviceID) 
 {
-
+	
 
 		var ticket = null;
 		var msg	   = null;
 
 		//Step 1: get the ticket
-	   shandler.getTicket({
+       shandler.getTicket({
 					agentid: loginId,
 					token: Token,
 					channel: Channel,
 					deviceid: deviceID
-	   })
-	   .then(response=>{
-	   		if (response.result == "success") {
+		})
+       .then(response=>{
+               if (response.result == "success") {
 
-				if (response.details.ticket != null)
+				if (response.details.ticket != null) 
 				{
 					if (shandler.tickets.length != 0)
 					{
 
-                        //let _messagelist = response.details.messages.filter(t => t.TicketId == shandler.tickets[shandler.tickets.length-1].TicketId);
+						//let _messagelist = response.details.messages.filter(t => t.TicketId == shandler.tickets[shandler.tickets.length-1].TicketId);
 
-                        
+
 
 						let _messagelist = response.details.messages.filter(t => t.TicketId == response.details.ticket.TicketId);
 
@@ -788,21 +810,23 @@ function acceptCall_Shandler(loginId, Token, Channel, deviceID)
 						_messagelist = _messagelist.sort((a, b) => { return a.MessageId - b.MessageId; });
 
 
-                       // createOrUpdateBubbleFromHandler(shandler.tickets[0], _messagelist);
-					  // if (_messagelist == null)
-					  // {
-					//		shandler.tickets[0].shift;
-					 //  }
+						// createOrUpdateBubbleFromHandler(shandler.tickets[0], _messagelist);
+						// if (_messagelist == null)
+						// {
+						//		shandler.tickets[0].shift;
+						//  }
 
-					   	//Function for redirect iframe to socialMedialHandler.html
+						//Function for redirect iframe to socialMedialHandler.html
 						window.parent.SocialMediaClicked();
-						
+
 						currentTicket = response.details.ticket;
-						
-						//For Show last message in ticket double list 
-                        currentTicket.LastMessage = _messagelist[_messagelist.length-1].MessageContent;
+
+						//For Show last message in ticket double list
+						currentTicket.LastMessage = _messagelist[_messagelist.length-1].MessageContent;
 
 						//currentTicketlist = [].concat(shandler.tickets);
+						_messagelist.forEach(item => { item.oTicketId = item.TicketId; });
+
 						currentMsglist=  _messagelist;
 
 
@@ -813,67 +837,67 @@ function acceptCall_Shandler(loginId, Token, Channel, deviceID)
 						//All the chatService reload the ticket screen
 
 
-						
-                        const assignedTicket = Object.assign({}, currentTicket);
-                        assignedTicket.messages = _messagelist;
+
+						const assignedTicket = Object.assign({}, currentTicket);
+						assignedTicket.messages = _messagelist;
 
 						//Area for handling data
-                        if (assignedTicket.Channel == "whatsapp") {
+						if (assignedTicket.Channel == "whatsapp") {
 							assignedTicket.EndUserPhone = _messagelist[0].EndUserId;
-                            currentTicket.EndUserPhone = _messagelist[0].EndUserId;
-                        }
+							currentTicket.EndUserPhone = _messagelist[0].EndUserId;
+						}
 
-                        AssignedTicketList.push(assignedTicket);
+						AssignedTicketList.push(assignedTicket);
 
-						
+
 						reloadedByGetTicket = true;
 
 						pastMsglist = null;
 
-                        //var limit = "500";
-                        //shandler.getMessagesByUserId({
-                        //    agentid: loginId,
-                        //    token: Token,
-                        //    userId: currentTicket.EndUserId,
-                        //    msgId: _messagelist[_messagelist.length - 1].msgId,
-                        //    limit, limit,
-                        //    deviceid: deviceID
-                        //})
-                        //    .then(response => {
-                        //        pastMsglist = response.details.messages;
-                        //    })
-                        //    .catch(error => {
+						//var limit = "500";
+						//shandler.getMessagesByUserId({
+						//    agentid: loginId,
+						//    token: Token,
+						//    userId: currentTicket.EndUserId,
+						//    msgId: _messagelist[_messagelist.length - 1].msgId,
+						//    limit, limit,
+						//    deviceid: deviceID
+						//})
+						//    .then(response => {
+						//        pastMsglist = response.details.messages;
+						//    })
+						//    .catch(error => {
 
-                        //        console.log(error);
-                        //        return null;
-                        //    });
-						
+						//        console.log(error);
+						//        return null;
+						//    });
+
 					}
 
-					
+
 
 				}
 				//triggerEvent(window.parent.document, 'onWiseSocialMsg', );
 			}
-	   })
-	   .catch(error => {
-		  console.log(error);
+		})
+		.catch(error => {
+			console.log(error);
 		});
 
-		//-------------------------------------------//
-		//agentid, token, ticketId,
+				//-------------------------------------------//
+				//agentid, token, ticketId,
 
 				//			Msg object field name
 
-                 //         id: new Date().getUTCMilliseconds(),
-                 //         'nick_name': agentName,
-                 //         'send_by_flag': 1,							//發送者1:客服,2:enduser{			*****NEED all the message list for update bubble
-                 //         'sent_time': getSqlFormatTime(),
-                 //         msg_type: "text",
-                 //         msg_content: fileDetails.FileName + " failed to send to the customer<br>[THIS MESSAGE WILL NOT BE SHOWN IN CUSTOMER'S WINDOW]",
-                 //         isSuccess: false
+				//         id: new Date().getUTCMilliseconds(),
+				//         'nick_name': agentName,
+				//         'send_by_flag': 1,							//發送者1:客服,2:enduser{			*****NEED all the message list for update bubble
+				//         'sent_time': getSqlFormatTime(),
+				//         msg_type: "text",
+				//         msg_content: fileDetails.FileName + " failed to send to the customer<br>[THIS MESSAGE WILL NOT BE SHOWN IN CUSTOMER'S WINDOW]",
+				//         isSuccess: false
 
-				 //		"MessageId": 2281386826,	<= ID
+				//		"MessageId": 2281386826,	<= ID
 				//		"TicketId": 26,
 				//		"UniqueId": null,
 				//		"EndUserId": "537e41bd-d962-4244-a8bf-804b0803937d",
@@ -888,9 +912,9 @@ function acceptCall_Shandler(loginId, Token, Channel, deviceID)
 				//		AgentiD???
 }
 
-	 
+
 //function sendMessageByHandler(agent, token, channel, webClientSenderId, messageType, messageContent, ticketId)
- function sendMessageByHandler(agent, token, messageType, messageContent, sTicket)
+function sendMessageByHandler(agent, token, messageType, messageContent, sTicket)
 {
 		//Default example
 		//let formData = new FormData();
@@ -900,211 +924,295 @@ function acceptCall_Shandler(loginId, Token, Channel, deviceID)
 		//formData.append('channel', 'web');
 		//formData.append('WebClientSenderId', '11120-232-42323');      //user id
 		//formData.append('messageType', 'file');               //file or text
-	//	formData.append('messageContent', 'hello');
-	//	formData.append('files', file);
+		//	formData.append('messageContent', 'hello');
+		//	formData.append('files', file);
 
-		var channel = sTicket.Channel;
-	    // Create a FormData object
-		let formData = new FormData();
+	var channel = sTicket.Channel;
+	// Create a FormData object
+	let formData = new FormData();
 
-		// Append input field values to the FormData object
+	// Append input field values to the FormData object
 
-		if (channel == "web") {
-			formData.append('agentId',			agent);
-			formData.append('token',			token);
-            formData.append('ticketId',			sTicket.TicketId);
-            formData.append('channel',			sTicket.Channel);
-            formData.append('webClientSenderId',sTicket.EndUserId);
-			formData.append('messageType',		messageType);
-			formData.append('messageContent',	messageContent);
-			//formData.append('files',			file);
-		}
-		if (channel == "whatsapp")
-		{
+	if (channel == "web") {
+		formData.append('agentId',			agent);
+		formData.append('token',			token);
+		formData.append('ticketId',			sTicket.TicketId);
+		formData.append('channel',			sTicket.Channel);
+		formData.append('webClientSenderId',sTicket.EndUserId);
+		formData.append('messageType',		messageType);
+		formData.append('messageContent',	messageContent);
+		//formData.append('files',			file);
+	}
+	if (channel == "whatsapp") 
+	{
 
-             formData.append('agentId', agent);
-             formData.append('token', token);
-             formData.append('ticketId', sTicket.TicketId);
-			//formData.append('channel', sTicket.Channel);
-             formData.append('channel', "whatsappcloudapi");
-
-
-			//formData.append('webClientSenderId', sTicket.webClientSenderId);
-
-			 formData.append('from', sTicket.DeviceId);
-             formData.append('to', sTicket.EndUserPhone);
-
-             formData.append('messageType', messageType);
-             formData.append('messageContent', messageContent);
+		formData.append('agentId', agent);
+		formData.append('token', token);
+		formData.append('ticketId', sTicket.TicketId);
+		//formData.append('channel', sTicket.Channel);
+		formData.append('channel', "whatsappcloudapi");
 
 
-		 }
+		//formData.append('webClientSenderId', sTicket.webClientSenderId);
+
+		formData.append('from', sTicket.DeviceId);
+		formData.append('to', sTicket.EndUserPhone);
+
+		formData.append('messageType', messageType);
+		formData.append('messageContent', messageContent);
 
 
-		shandler.sendMessage(formData)
-	    .then(response=>{
-			if (response != null)
+	}
+
+
+	shandler.sendMessage(formData)
+		.then(response=>{
+			if (response != null) 
 			{
 				sendMessageReturned = response;
-                parent.$('#social-media-main')[0].contentWindow.chatService.sendMessageCallBack(sendMessageReturned);
+				parent.$('#social-media-main')[0].contentWindow.chatService.sendMessageCallBack(sendMessageReturned);
 			}
 		})
-	   .catch(error => {
+		.catch(error => {
 
-		  console.log(error);
-		  return null;
+			console.log(error);
+			return null;
 		});
 }
 
 
 
 function sendAttachmentByHandler(agent, token, messageType, file, sTicket) {
-            //Default example
-            //let formData = new FormData();
-            //formData.append('agentId', 111);
-            //formData.append('token', 'xxx');
-            //formData.append('ticketId', 112);
-            //formData.append('channel', 'web');
-            //formData.append('WebClientSenderId', '11120-232-42323');      //user id
-            //formData.append('messageType', 'file');               //file or text
-            //	formData.append('messageContent', 'hello');
-            //	formData.append('files', file);
+	//Default example
+	//let formData = new FormData();
+	//formData.append('agentId', 111);
+	//formData.append('token', 'xxx');
+	//formData.append('ticketId', 112);
+	//formData.append('channel', 'web');
+	//formData.append('WebClientSenderId', '11120-232-42323');      //user id
+	//formData.append('messageType', 'file');               //file or text
+	//	formData.append('messageContent', 'hello');
+	//	formData.append('files', file);
 
 	var channel = sTicket.Channel;
 
-            // Create a FormData object
-            let formData = new FormData();
+	// Create a FormData object
+	let formData = new FormData();
 
-            // Append input field values to the FormData object
-    if (channel == "web") {
-            formData.append('agentId', agent);
-            formData.append('token', token);
-			formData.append('ticketId', sTicket.TicketId);
-			formData.append('channel',	sTicket.Channel);
-			formData.append('webClientSenderId', sTicket.EndUserId);
-            formData.append('messageType', messageType);
-            formData.append('messageContent', "");
-			formData.append('files', file);
-    }
+	// Append input field values to the FormData object
+	if (channel == "web") {
+		formData.append('agentId', agent);
+		formData.append('token', token);
+		formData.append('ticketId', sTicket.TicketId);
+		formData.append('channel',	sTicket.Channel);
+		formData.append('webClientSenderId', sTicket.EndUserId);
+		formData.append('messageType', messageType);
+		formData.append('messageContent', "");
+		formData.append('files', file);
+	}
 
-    if (channel == "whatsapp") {
+	if (channel == "whatsapp") {
 
-        formData.append('agentId', agent);
-        formData.append('token', token);
-        formData.append('ticketId', sTicket.TicketId);
-        //formData.append('channel', sTicket.Channel);
-        formData.append('channel', "whatsappcloudapi");
+		formData.append('agentId', agent);
+		formData.append('token', token);
+		formData.append('ticketId', sTicket.TicketId);
+		//formData.append('channel', sTicket.Channel);
+		formData.append('channel', "whatsappcloudapi");
 
-        //formData.append('webClientSenderId', sTicket.webClientSenderId);
+		//formData.append('webClientSenderId', sTicket.webClientSenderId);
 
-        formData.append('from', sTicket.DeviceId);
-        formData.append('to', sTicket.EndUserPhone);
+		formData.append('from', sTicket.DeviceId);
+		formData.append('to', sTicket.EndUserPhone);
 
-        formData.append('messageType', messageType);
-        formData.append('messageContent', "");
-        formData.append('files', file);
+		formData.append('messageType', messageType);
+		formData.append('messageContent', "");
+		formData.append('files', file);
 
-    }
+	}
 
 	// FOR DEBUG
-    //var object = {};
-    //formData.forEach(function (value, key) {        object[key] = value;    });
+	//var object = {};
+	//formData.forEach(function (value, key) {        object[key] = value;    });
 	//var json = JSON.stringify(object);
 
 	//console.log(json);
 
-            shandler.sendMessage(formData)
-                .then(response => {
-                    if (response != null) {
-                        sendMessageReturned = response;
-                        parent.$('#social-media-main')[0].contentWindow.chatService.sendMessageCallBack(sendMessageReturned);
-                    }
-                })
-                .catch(error => {
+	shandler.sendMessage(formData)
+		.then(response => {
+			if (response != null) {
+				sendMessageReturned = response;
+				parent.$('#social-media-main')[0].contentWindow.chatService.sendMessageCallBack(sendMessageReturned);
+			}
+		})
+		.catch(error => {
 
-                    console.log(error);
-                    return null;
-                });
+			console.log(error);
+			return null;
+		});
 }
 
-
-
-
-
-function requestCannedFileInBase64ByHandler(fileId, fileName, fileType)
+function getPastMessageByHandler(ticketId, agentid,  token,userId,  msgId, limit)
 {
-            $.ajax({
-                type: "POST",
-                url: 'http://172.17.6.11/shandler/api/socialmedia/GetCannedFiles', crossDomain: true,
-                data: JSON.stringify({ "company": 'EPRO', "fileId": fileId }), contentType: "application/json; charset=utf-8", dataType: "json",
-                success: function (r) {
-                    if (!/^success$/i.test(r.result || "")) {
-                        console.log('error in sendCannedFileByHandler');
-					} else {  //cannot use this.selectedTicketId because the function is tiggerd in popup
-						var sTicketId = parent.$('#social-media-main')[0].contentWindow.chatService.selectedTicketId;
-                        parent.$('#social-media-main')[0].contentWindow.chatService.requestCannedFileInBase64CallBack(fileId, fileName, fileType, r.data.FileBase64, sTicketId);
-                    }
-                },
-                error: function (r) {
-                    console.log('error in sendCannedFileByHandler');
-                    console.log(r);
-                }
-            });
+    $.ajax({
+        type: "POST",
+        url: 'http://172.17.6.11:8033/api/GetMessagesByUserId', crossDomain: true,
+        data: JSON.stringify({ AgentId: agentid, Token: token, UserId: userId, MsgId: msgId, Limit: limit }),
+        contentType: "application/json; charset=utf-8", dataType: "json",
+        success: function (r) {
+            if (!/^success$/i.test(r.result || "")) {
+				console.log('error in function getPastMessageByHandler');
+				console.log(r);
+            } else {  //cannot use this.selectedTicketId because the function is tiggerd in popup
+   
+                //console.log(JSON.stringify(r.details));
+                parent.$('#social-media-main')[0].contentWindow.chatService.returnPastMessageByTicketIdCallBack(ticketId, r.details);
+
+            }
+        },
+        error: function (r) {
+            console.log('error in getPastMessageByHandler');
+            console.log(r);
+        }
+    });
+
+}
+
+//	function sendTemplateMessageByHandler(agent, token, companyName, sTemplate, sTicket) {
+function sendTemplateMessageByHandler(agent, token, companyName, sTemplate, sTicket) {
+	$.ajax({
+		type: "POST",
+		url: 'http://172.17.6.11:8033/api/sendTemplate', crossDomain: true,
+		data:
+			JSON.stringify({
+				"Agent_Id": agent,
+				"TicketId": sTicket.TicketId,
+				"Token": token,
+				"Company": companyName,
+				"TemplateName": sTemplate.TemplateName,
+				"From": sTicket.DeviceId,
+				"To": sTicket.EndUserPhone,
+				"BodyParams": sTemplate.inputList
+			}),
+		contentType: "application/json; charset=utf-8", dataType: "json",
+		success: function (r) {
+			if (!/^success$/i.test(r.result || "")) {
+				console.log('error in function sendTemplateMessageByHandler');
+			} else {  //cannot use this.selectedTicketId because the function is tiggerd in popup
+				//var sTicketId = parent.$('#social-media-main')[0].contentWindow.chatService.selectedTicketId;
+				//parent.$('#social-media-main')[0].contentWindow.chatService.requestCannedFileInBase64CallBack(fileId, fileName, fileType, r.data.FileBase64, sTicketId);
+
+				parent.$('#social-media-main')[0].contentWindow.chatService.sendMessageByTemplateCallBack(r.details);
+
+			}
+		},
+		error: function (r) {
+            console.log('error in sendTemplateMessageByHandler');
+			console.log(r);
+		}
+	});
+
+
+}
+function requestCannedFileInBase64ByHandler(fileId, fileName, fileType) 
+{
+	$.ajax({
+		type: "POST",
+		url: 'http://172.17.6.11/shandler/api/socialmedia/GetCannedFiles', crossDomain: true,
+		data: JSON.stringify({ "company": 'EPRO', "fileId": fileId }), contentType: "application/json; charset=utf-8", dataType: "json",
+		success: function (r) {
+			if (!/^success$/i.test(r.result || "")) {
+				console.log('error in sendCannedFileByHandler');
+			} else {  //cannot use this.selectedTicketId because the function is tiggerd in popup
+				var sTicketId = parent.$('#social-media-main')[0].contentWindow.chatService.selectedTicketId;
+				parent.$('#social-media-main')[0].contentWindow.chatService.requestCannedFileInBase64CallBack(fileId, fileName, fileType, r.data.FileBase64, sTicketId);
+			}
+		},
+		error: function (r) {
+			console.log('error in sendCannedFileByHandler');
+			console.log(r);
+		}
+	});
 };
 
 
-function endSessionByHandler(loginId, token, ticketId)
+function endSessionByHandler(loginId, token, ticketId) 
 {
-            // Append input field values to the FormData object
+	// Append input field values to the FormData object
 
-		    //agentid, token, ticketid
+	//agentid, token, ticketid
 
-				shandler.endTicket({
-					agentid: loginId,
-					token: token,
-                    ticketid: ticketId
-				})
-                .then(response => {
-					if (response)
-					{
-                        parent.$('#social-media-main')[0].contentWindow.chatService.endSessionCallBack(ticketId);
-                    }
-                })
-                .catch(error => {
-                    console.log('error in endSessionByHandler');
-                    console.log(error);
-                    return null;
-                });
+	shandler.endTicket({
+		agentid: loginId,
+		token: token,
+		ticketid: ticketId
+	})
+		.then(response => {
+			if (response) 
+			{
+				parent.$('#social-media-main')[0].contentWindow.chatService.endSessionCallBack(ticketId);
+			}
+		})
+		.catch(error => {
+			console.log('error in endSessionByHandler');
+			console.log(error);
+			return null;
+		});
 }
 
- 
-//Not finished
-										   
-function returnMessagesFromHandlerByUserId(ticketId, agentId, token, userId, msgId, limit)
+
+function returnMessagesFromHandlerByUserId(ticketId, agentId, token, userId, msgId, limit) 
 {
-            
-		shandler.getMessagesByUserId({
-						agentid: agentId,
-						token: token,
-						userId: userId,
-						msgId: msgId,
-						limit: limit
-		   })
-		   .then(response=>{
 
-			   if (response != null) {
-				   //sort in ascending
-                   response = response.sort((a, b) => { return a.MessageId - b.MessageId; });
+    shandler.getMessagesByUserId({
+		agentid: agentId,
+		token: token,
+		userId: userId,
+		msgId: msgId,
+		limit: limit
+	})
+		.then(response=>{
 
-                   //   var msg_list = response.details.msg_list;
-                   parent.$('#social-media-main')[0].contentWindow.chatService.returnPastMessageByTicketIdCallBack(ticketId, response);
-               }
-		   })
-		   .catch(error => {
-			  console.log(error);
-			});
+			if (response != null) {
+                console.log("getMessagesByUserId: ");
+                //   var msg_list = response.details.msg_list;
+				//sort in ascending
+				response = response.sort((a, b) => { return a.MessageId - b.MessageId; });
+
+                let lastApiResult = null;
+				lastApiResult = response;
+                console.log(lastApiResult);
+				parent.$('#social-media-main')[0].contentWindow.chatService.returnPastMessageByTicketIdCallBack(ticketId, lastApiResult);
+                lastApiResult = null;
+
+			}
+		})
+		.catch(error => {
+			console.log(error);
+		});
 
 }
+
+
+
+
+function addTestMessageAtTop() {
+
+
+
+	var messageToAdd = '[{ "MessageId": 2307920846, "TicketId": 410, "UniqueId": null, "EndUserId": "b5b6f193-0a3b-4560-aa33-573706309416", "Channel": "web", "SentBy": "user", "UpdatedBy": null, "UpdatedAt": "2024-11-27T09:54:24.763", "MessageType": "text", "MessageContent": "MEssage 111", "FilesJson": "[]" }, ' +
+		'{ "MessageId": 2307920870, "TicketId": 410, "UniqueId": null, "EndUserId": "b5b6f193-0a3b-4560-aa33-573706309416", "Channel": "web", "SentBy": "user", "UpdatedBy": null, "UpdatedAt": "2024-11-27T09:54:27.827", "MessageType": "text", "MessageContent": "Message 112", "FilesJson": "[]" }, ' +
+		'{ "MessageId": 2307920871, "TicketId": 412, "UniqueId": null, "EndUserId": "b5b6f193-0a3b-4560-aa33-573706309416", "Channel": "web", "SentBy": "user", "UpdatedBy": null, "UpdatedAt": "2024-11-27T09:54:27.827", "MessageType": "text", "MessageContent": "Message 113", "FilesJson": "[]" }, ' +
+		'{ "MessageId": 2307920925, "TicketId": 412, "UniqueId": null, "EndUserId": "b5b6f193-0a3b-4560-aa33-573706309416", "Channel": "web", "SentBy": "user", "UpdatedBy": null, "UpdatedAt": "2024-11-27T09:54:34.257", "MessageType": "text", "MessageContent": "Message 116", "FilesJson": "[]" }]'
+
+
+	var msgList = JSON.parse(messageToAdd);
+
+
+	parent.$('#social-media-main')[0].contentWindow.chatService.returnPastMessageByTicketIdCallBack(418, msgList);
+
+
+}
+
 
 
 
@@ -4059,6 +4167,47 @@ addEventListener(document, 'onWiseSocialStatus', function (e) {
 				$("head").append(s1);
 			}
 	</script>
+		<!--------------20241219 for shandler----start---------------------------------------------------------------->
+	<script id="wa_template" type="text/x-handlebars-template">
+
+		<div class="wa-qp-tp-container d-inline-block">
+			<span style="display: none;" class="wa-template-name">{{TemplateName}}</span>
+			<div class="wa-qp-card-container">
+				<div id="wa-header" style="{{displayHeader}}">
+					{{Header}}
+
+					<div class="wa-card-img-container" style="{{displayHeaderImage}}">
+						<i class="fa-image wa-card-img">
+							<img src="{{HeaderImageURL}}" style="margin-left: auto; margin-right: auto; max-width: 100%; max-height: 100%;">
+						</i>
+					</div>
+				</div>
+				<div class="wa-card-txt" id="wa-message" style="{{displayMessage}}">{{Message}}</div>
+				<div id="wa-footer" style="{{displayFooter}}">{{Footer}}</div>
+			</div>
+
+			<div class="wa-btn-group" id="wa-btn-group1" style="{{displayBtnGroup1}}">
+				<div class="wa-qp-btn">{{Button1}}</div>
+				<div class="wa-qp-btn">{{Button2}}</div>
+			</div>
+			<div class="wa-btn-group" id="wa-btn-group2" style="{{displayBtnGroup2}}">
+				<div class="wa-qp-btn">{{Button3}}</div>
+			</div>
+		
+		</div>
+	</script>
+
+	<script>
+		var wa_template = Handlebars.compile($('#wa_template').html());	// located at the end of the page
+		var waTempService = new waTemplateService();
+		var sCompany = "EPRO";
+		var sAgentId = loginId;
+		var sToken = top.token;
+
+		waTempService.getTemplateByAPI(sCompany, sAgentId, sToken);
+
+	</script>
+	<!---------------20241219 for shandler----End------------------------------------------------------------------------>
 </body>
 <!-- <script src="./script/SIPml-epro.js" type="text/javascript"> </script>
 <script src="./script/webRTC.js" type="text/javascript"> </script> -->

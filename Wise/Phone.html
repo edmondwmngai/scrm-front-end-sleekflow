@@ -1078,19 +1078,19 @@ function getPastMessageByHandler(ticketId, agentid,  token,userId,  msgId, limit
 }
 
 //	function sendTemplateMessageByHandler(agent, token, companyName, sTemplate, sTicket) {
-function sendTemplateMessageByHandler(agent, token, companyName, sTemplate, sTicket) {
+function sendTemplateMessageByHandler(agent, token, companyName, sTemplate, sFrom, sTo, sTicketId) {
 	$.ajax({
 		type: "POST",
 		url: 'http://172.17.6.11:8033/api/sendTemplate', crossDomain: true,
 		data:
 			JSON.stringify({
 				"Agent_Id": agent,
-				"TicketId": sTicket.TicketId,
+				"TicketId": sTicketId,
 				"Token": token,
 				"Company": companyName,
 				"TemplateName": sTemplate.TemplateName,
-				"From": sTicket.DeviceId,
-				"To": sTicket.EndUserPhone,
+                "From": sFrom,
+                "To": sTo,
 				"BodyParams": sTemplate.inputList
 			}),
 		contentType: "application/json; charset=utf-8", dataType: "json",
@@ -1100,8 +1100,18 @@ function sendTemplateMessageByHandler(agent, token, companyName, sTemplate, sTic
 			} else {  //cannot use this.selectedTicketId because the function is tiggerd in popup
 				//var sTicketId = parent.$('#social-media-main')[0].contentWindow.chatService.selectedTicketId;
 				//parent.$('#social-media-main')[0].contentWindow.chatService.requestCannedFileInBase64CallBack(fileId, fileName, fileType, r.data.FileBase64, sTicketId);
+				if (sTicketId != null) {
+					//Send from chatbot
+					parent.$('#social-media-main')[0].contentWindow.chatService.sendMessageByTemplateCallBack(r.details);
+				}
+				else
+				{
+					//Send from case
+					// Under iframe menu-main, there 3 sub-iframe, so use window[1]
+					// 0. media-content		// 1. input-form		// 2. search
+					parent.$('#menu-main')[0].contentWindow.window[1].sendTemplateMessageFromCaseByHandlerCallBack();
 
-				parent.$('#social-media-main')[0].contentWindow.chatService.sendMessageByTemplateCallBack(r.details);
+				}
 
 			}
 		},
@@ -4199,7 +4209,9 @@ addEventListener(document, 'onWiseSocialStatus', function (e) {
 
 	<script>
 		var wa_template = Handlebars.compile($('#wa_template').html());	// located at the end of the page
-		var waTempService = new waTemplateService();
+
+        var waTempService = new waTemplateService(wa_template);
+
 		var sCompany = "EPRO";
 		var sAgentId = loginId;
 		var sToken = top.token;

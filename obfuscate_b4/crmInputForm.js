@@ -54,6 +54,7 @@ var sAgentId = 0;
 var sToken = "";
 var sCompany = "";
 var sTo = "";
+var waTempService = null;
 
 // check if open from incomplete cases for an outbound call
 var winReplyConnId = '';
@@ -1517,7 +1518,7 @@ function saveClicked(isTemp, callback) { // 1. declare 2. verify 3. update custo
                 alert('Template content props is not same length with the template props');
                 return;
             }
-            *//////////////////////////////////////////////////////////////
+            *///end of 20241220 commented for shandler///////////////////////////////
 
             replyDetails = replyDetails.replace(/ /g, '');
             $('#send-wa-section').append('<p><span><span><div id="circularG"><div id="circularG_1" class="circularG"></div><div id="circularG_2" class="circularG"></div><div id="circularG_3" class="circularG"></div>' +
@@ -1525,12 +1526,14 @@ function saveClicked(isTemp, callback) { // 1. declare 2. verify 3. update custo
 
 
             //if ($('#wa-other-input').value.l
-            //20241219
-            parent.parent.$('#phone-panel')[0].contentWindow.sendTemplateMessageByHandler(sAgentId, sToken, companyName, selectedSendTemplate, "85293498303", function (result)
+
+            //20241219 for shandler send Whatsapp
+            parent.parent.$('#phone-panel')[0].contentWindow.sendTemplateMessageByHandler(sAgentId, sToken, "EPRO", selectedSendTemplate, "85293909352","85293498303", null, function (result)
             {
                 if (result != null)
                 {
-                    alert("Success!");
+                    $('#send-wa-section').text("");
+                    $('#send-wa-section').text("Send");
                 }
 
             });
@@ -1550,6 +1553,13 @@ function saveClicked(isTemp, callback) { // 1. declare 2. verify 3. update custo
             */
         }
     }
+}
+
+function sendTemplateMessageFromCaseByHandlerCallBack()
+{
+    $('#send-wa-section').text("");
+    $('#send-wa-section').text("Send");
+
 }
 
 // for customer service pop-up
@@ -1906,7 +1916,11 @@ function replyChannelChange(iThis) {
             sAgentId = top.loginId;
             sToken = top.token;
             sCompany = "EPRO";
-            
+
+            // The service location is different from chatbot (parent.parent)
+            // waTempService = parent.document.getElementById("phone-panel").contentWindow.waTempService;
+            waTempService = parent.parent.document.getElementById("phone-panel").contentWindow.waTempService;
+
             //20241219 FOR shandler
             //var socialPopup = window.open('../../socialPopup.html?type=wa-template', 'reply-container', '_blank, toolbar=0,location=0,top=50, left=100,menubar=0,resizable=0,scrollbars=1,width=1000,height=928');
             var socialPopup = window.open('../../socialWaTemplateSL.html?type=wa-template', 'reply-container', '_blank, toolbar=0,location=0,top=50, left=100,menubar=0,resizable=0,scrollbars=1,width=1000,height=928');
@@ -1921,8 +1935,22 @@ function replyChannelChange(iThis) {
                         }
                     }
 
-                      //20241219 FOR shandler
-            if (selectedSendTemplate != null) { replyConfirmed = true; }
+                    //20241219 FOR shandler
+                    if (selectedSendTemplate != null) { replyConfirmed = true; }
+
+
+
+
+
+
+                    $('#reply-container').css('height', '85px');
+                    $('#reply-container').css('overflow-y', 'scroll');
+
+                    const div = $("#reply-container");
+                    //div.scrollTop(div[0].scrollHeight);
+                    div.animate({ scrollTop: div[0].scrollHeight}, 'slow') ;
+                    waTempService.displayFilledTemplateOnWeb(selectedSendTemplate, $('#reply-container'));
+
                 }
 
                 

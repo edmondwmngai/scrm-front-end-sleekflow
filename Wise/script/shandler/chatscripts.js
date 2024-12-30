@@ -155,10 +155,10 @@
 		  var sTicket = parent.$('#phone-panel')[0].contentWindow.AssignedTicketList.filter(i => i.TicketId == this.selectedTicketId);
 
 		  this.isScrollToBottom = true;
-		  parent.$('#phone-panel')[0].contentWindow.sendTemplateMessageByHandler(loginId, token, "EPRO", selectedTemplate, sTicket[0]);
-		  
-
-
+		  parent.$('#phone-panel')[0].contentWindow.sendTemplateMessageByHandler(loginId, token, "EPRO", selectedTemplate,
+			  sTicket[0].DeviceId,		//From
+			  sTicket[0].EndUserPhone,  //To
+			  sTicket[0].TicketId);		//TicketId
 	  };
 
 	  sendMessageByTemplateCallBack(response)

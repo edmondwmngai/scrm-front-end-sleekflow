@@ -1504,6 +1504,7 @@ function saveClicked(isTemp, callback) { // 1. declare 2. verify 3. update custo
                 alert('Please select at least one template');
                 return;
             }
+             *///end of 20241220 commented for shandler///////////////////////////////
             
             // Verify customer selected
             if (replyDetails.length = 0) {
@@ -1512,6 +1513,7 @@ function saveClicked(isTemp, callback) { // 1. declare 2. verify 3. update custo
                 return;
             }
 
+             /* //20241220 commented for shandler
             var tpPropsNo = parseInt($('input[name=tp]:checked').attr('props'));
             if (tpPropsArr.length != tpPropsNo) {
                 document.getElementById("case-save-btn").disabled = false;
@@ -1519,6 +1521,35 @@ function saveClicked(isTemp, callback) { // 1. declare 2. verify 3. update custo
                 return;
             }
             *///end of 20241220 commented for shandler///////////////////////////////
+
+
+            // 20241231     New function for check template message input
+            if (parent.parent.$('#phone-panel')[0].contentWindow.waTempService.validateTemplateInput(selectedSendTemplate.inputList) == false)
+            {
+                document.getElementById("case-save-btn").disabled = false;
+                alert('Template content props is not same length with the template props');
+                return;
+            }
+            if (selectedSendTemplate == null)
+            {
+                document.getElementById("case-save-btn").disabled = false;
+                alert('Please select at least one template');
+                return;
+            }
+            var waTargetNumber = "";
+            if (document.getElementsByName('waList')[1].checked)         // second checkbox with textbox input
+            {
+                waTargetNumber = "852" + $('#wa-other-input')[0].value;
+            }
+
+            if (document.getElementsByName('waList')[0].checked)        // first (loaded from case) checkbox
+            {
+                waTargetNumber = "852" + document.getElementsByName('waList')[0].value;
+            }
+
+
+
+            //----------------------------------------------------------------
 
             replyDetails = replyDetails.replace(/ /g, '');
             $('#send-wa-section').append('<p><span><span><div id="circularG"><div id="circularG_1" class="circularG"></div><div id="circularG_2" class="circularG"></div><div id="circularG_3" class="circularG"></div>' +
@@ -1528,15 +1559,8 @@ function saveClicked(isTemp, callback) { // 1. declare 2. verify 3. update custo
             //if ($('#wa-other-input').value.l
 
             //20241219 for shandler send Whatsapp
-            parent.parent.$('#phone-panel')[0].contentWindow.sendTemplateMessageByHandler(sAgentId, sToken, "EPRO", selectedSendTemplate, "85293909352","85293498303", null, function (result)
-            {
-                if (result != null)
-                {
-                    $('#send-wa-section').text("");
-                    $('#send-wa-section').text("Send");
-                }
-
-            });
+            //parent.parent.$('#phone-panel')[0].contentWindow.sendTemplateMessageByHandler(sAgentId, sToken, "EPRO", selectedSendTemplate, "85293909352", "852XXXXX8303", null);
+            parent.parent.$('#phone-panel')[0].contentWindow.sendTemplateMessageByHandler(sAgentId, sToken, "EPRO", selectedSendTemplate, "85293909352", waTargetNumber, null);
 
 
             /*

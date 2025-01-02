@@ -1935,6 +1935,7 @@ function replyChannelChange(iThis) {
             popupCampaign = campaign;
             selectedSendTemplate = null;
 
+         
 
             //20241217 newly added for shandler
             sAgentId = top.loginId;
@@ -1960,20 +1961,21 @@ function replyChannelChange(iThis) {
                     }
 
                     //20241219 FOR shandler
-                    if (selectedSendTemplate != null) { replyConfirmed = true; }
+                    if (selectedSendTemplate != null)
+                    {
+                        replyConfirmed = true;
+                        document.getElementById("case-save-btn").disabled = false;
+                        $('#send-wa-section').text("");
+                    }
 
-
-
-
-
-
-                    $('#reply-container').css('height', '85px');
+                    $('#reply-container').css('height', '80px');
                     $('#reply-container').css('overflow-y', 'scroll');
 
                     const div = $("#reply-container");
                     //div.scrollTop(div[0].scrollHeight);
                     div.animate({ scrollTop: div[0].scrollHeight}, 'slow') ;
                     waTempService.displayFilledTemplateOnWeb(selectedSendTemplate, $('#reply-container'));
+                    //end of add
 
                 }
 

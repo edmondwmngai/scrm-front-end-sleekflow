@@ -1581,8 +1581,10 @@ function saveClicked(isTemp, callback) { // 1. declare 2. verify 3. update custo
 
 function sendTemplateMessageFromCaseByHandlerCallBack()
 {
+    callUpdateCase();
     $('#send-wa-section').text("");
     $('#send-wa-section').text("Send");
+
 
 }
 

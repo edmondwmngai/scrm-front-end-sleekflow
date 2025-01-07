@@ -151,15 +151,6 @@ class waTemplateService {
         var selectedTemplate = cList.filter(i => i.TemplateName === templateName)[0];
         return selectedTemplate;
     }
-    //templateInfo.Message,
-    updateMessageByInputList(inputList, message)
-    {
-
-        
-
-
-
-    };
 
     init(sCompany, sAgentId, sToken) {
 

@@ -16,6 +16,9 @@
     <link rel="stylesheet" href="../../css/fontawesome/css/all.css">
     <link rel="stylesheet" href="../../css/social.css">
     <script type="text/javascript" src="../../js/jquery.min.js"></script>
+    <script type="text/javascript" src="../../js/moment.js"></script>
+    
+
     <script type="text/javascript" src="../../js/bootstrap.min.js"></script>
     <script type="text/javascript" src="../../js/download.js"></script>
     <script type="text/javascript" src="../../js/tiff.min.js"></script>
@@ -183,14 +186,15 @@
             width: 79%;
         }
         
+
         .visitor-row {
             margin-right: 20%;
         }
-        
+
         .agent-row {
             margin-left: 20%;
         }
-        
+
         .user-icon {
             border-radius: 50%;
             text-align: center;
@@ -202,13 +206,13 @@
             margin-left: auto;
             margin-right: auto;
         }
-        
+
         .time-with-seconds {
             font-size: smaller;
             padding-top: 7px;
             text-align: center;
         }
-      
+
         .visitor-content-bubble {
             background: white;
             background-image: initial;
@@ -226,7 +230,7 @@
             margin-left: 18px;
             box-shadow: 0 3px 8px 1px lightgrey;
         }
-        
+
         .agent-content-bubble {
             margin-right: 18px;
             background: #d2e3ff;
@@ -237,7 +241,7 @@
             margin-left: 18px;
             box-shadow: 0 3px 8px 1px lightgrey;
         }
-     
+
         .content-bubble-name {
             font-weight: bold;
             max-width: 65%;
@@ -245,7 +249,7 @@
             overflow: hidden;
             height: 15px;
         }
-        
+
         .content-bubble-content {
             word-wrap: break-word;
             white-space: pre-line;
@@ -263,7 +267,7 @@
         }
 
         /* ============= To let content in span have next line e.g. Details ============= */
-        .col-sm-9>span {
+        .col-sm-9 > span {
             white-space: pre-line;
         }
     </style>
@@ -275,9 +279,14 @@
         <span class="navbar-brand ml-3" href="#"><span id="call-type-span"></span></span>
     </nav>
 
-    <div id="call-media-content" class='custom-scroll clearfix collapse show mx-3' style="overflow:auto;"></div>
+    <div id="call-media-content" class='custom-scroll clearfix collapse show mx-3' style="overflow:auto;">
+        <div class="content" style="display:none">
+            <div class="content-header"></div>
+            <div class="content-section-inner"></div>
+        </div>
+    </div>
     <nav class="navbar sticky-top bg-warning py-1 d-none remove-none mb-0" data-toggle="collapse"
-        data-target="#middle-content" aria-label="nav">
+         data-target="#middle-content" aria-label="nav">
         <span class="navbar-brand ml-3 l-form-case-details" href="#"></span>
     </nav>
 
@@ -342,10 +351,55 @@
         <span class="navbar-brand ml-3" id="reply-type-span"></span>
     </nav>
 
-    <div id="reply-media-content" class="mx-3 mb-3"></div>
+    <div id="reply-media-content" class="mx-3 mb-3">
+        <div class="content">
+            <div class="content-header"></div>
+            <div class="content-section-inner"></div>
+        </div>
+    </div>
+    <!--
+    <div id="reply-media-content_sl" class="mx-3 mb-3">
+        <div class="content">
+            <div class="content-header"></div>
+            <div class="content-section-inner"></div>
+        </div>
+    </div>
+        -->
+
 
     <script type="text/javascript" src="../../obfuscate_b4/crmCaseRecordPopup.js"></script>
 
+
+    <!---20250102 for shandler show message history--start-->
+    <script src="../../wise/script/shandler/casehistscripts.js"></script>
+    <script>
+
+        var caseLog = window.opener.selectedCaseLog;
+        var customerData = window.opener.customerData;
+        var caseHistService = window.opener.parent.parent.$('#phone-panel')[0].contentWindow.caHistService;
+        var waTempService = window.opener.parent.parent.$('#phone-panel')[0].contentWindow.waTempService;
+        var wa_template = window.opener.parent.parent.$('#phone-panel')[0].contentWindow.wa_template;
+
+        //call-media-content
+
+
+
+        // Check it is inbound or outbound
+        if (customerData.Call_Type.indexOf("Inbound") >= 0)
+        {
+            $('#call-media-content .content')[0].style.display = "block";
+            caseHistService.init(customerData, top.agentList, caseLog, wa_template, $('#call-media-content'), $('#call-media-content .content-header'), $('#call-media-content .content-section-inner' ));
+        }
+        if (customerData.Reply_Type.indexOf("Outbound") >= 0)
+        {
+            $('#reply-media-content .content')[0].style.display = "block";            
+            caseHistService.init(customerData, top.agentList, caseLog, wa_template, $('#reply-media-content'),$('#reply-media-content .content-header'),$('#reply-media-content .content-section-inner'));
+        }
+        //caseHistService.init(customerData, top.agentList, caseLog, wa_template, $('#reply-media-content'), $('#reply-media-content .content-header'), $('#reply-media-content .content-section-inner'));
+        caseHistService.returnCaseHistoryByAPI();
+        //updateCaseObj
+    </script>
+    <!---20250102 for shandler show message history--end-->
 </body>
 
 </html>

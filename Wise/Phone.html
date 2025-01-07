@@ -176,17 +176,19 @@
 	<!--<script src="script/shadler/main.js"></script>-->
 	<script src="script/shandler/socialMediaSL.js"></script>
 	<script src="script/shandler/SocialContentSL.js"></script>
+	<script src="../js/moment.js"></script>
 
 	<script src='script/shandler/handlebars.min.js'></script>
 	<script src="script/shandler/waTemplateService.js"></script>
+	<script src="script/shandler/casehistscripts.js"></script>
 
 	<script src="script/constant.js"></script>
 	<script src="script/runtime.js"></script>
 	<script src="script/promise-polyfill.min.js"></script>
 	<script type="text/javascript">
-		
-		
 
+		
+		
 if (!Array.prototype.findIndex) {
   Object.defineProperty(Array.prototype, 'findIndex', {
     value: function(predicate) {
@@ -1170,35 +1172,31 @@ function endSessionByHandler(loginId, token, ticketId)
 }
 
 
-function returnMessagesFromHandlerByUserId(ticketId, agentId, token, userId, msgId, limit) 
+function returnCaseHistoryFromHandler(agentId, token, ticketId) 
 {
 
-    shandler.getMessagesByUserId({
-		agentid: agentId,
-		token: token,
-		userId: userId,
-		msgId: msgId,
-		limit: limit
-	})
-		.then(response=>{
+			shandler.getMessagesByTicketId({
+				agentid: agentId,
+				token: token,
+				ticketId: ticketId
+			})
+				.then(response=>{
 
-			if (response != null) {
-                console.log("getMessagesByUserId: ");
-                //   var msg_list = response.details.msg_list;
-				//sort in ascending
-				response = response.sort((a, b) => { return a.MessageId - b.MessageId; });
+					if (response != null) {
+						console.log("getMessagesByTicketId: ");
+						//   var msg_list = response.details.msg_list;
+						//sort in ascending
+						response = response.sort((a, b) => { return a.MessageId - b.MessageId; });
 
-                let lastApiResult = null;
-				lastApiResult = response;
-                console.log(lastApiResult);
-				parent.$('#social-media-main')[0].contentWindow.chatService.returnPastMessageByTicketIdCallBack(ticketId, lastApiResult);
-                lastApiResult = null;
+						//parent.$('#social-media-main')[0].contentWindow.chatService.returnPastMessageByTicketIdCallBack(ticketId, lastApiResult);
+						parent.$('#phone-panel')[0].contentWindow.caHistService.returnCaseHistoryCallBack(response);
+						lastApiResult = null;
 
-			}
-		})
-		.catch(error => {
-			console.log(error);
-		});
+					}
+				})
+				.catch(error => {
+					console.log(error);
+				});
 
 }
 
@@ -4207,10 +4205,121 @@ addEventListener(document, 'onWiseSocialStatus', function (e) {
 		</div>
 	</script>
 
+	<!---20250102 for shandler show message history--start-->
+	<script id="chatlist_header_template" type="text/x-handlebars-template">
+		<a id="download-link" href="javascript:void(0);" class="btn btn-warning btn-sm text-capitalize rounded mt-3 align-top text-white" onclick="caseHistService.downloadHistoryAsHTML();">
+			Download History(HTML file)
+		</a>
+		<span class="custom-scroll content-basic-info" style="width: calc(100% - 290px); margin-top: 0px;">
+			<span class="cs-info-span">
+				<span class="content-gray-label">Platform:</span>&nbsp;{{channel}}
+			</span>
+			<span class="cs-info-span">
+				<span class="content-gray-label">Ticket ID:</span>{{ticketId}}
+			</span>
+			<span id="cs-basic">
+				<span>
+					<span class="content-gray-label">Name:</span>&nbsp;{{name}}
+				</span>
+			</span>
+			<span id="cs-info">
+				<span style="visibility:hidden"><span class="content-gray-label" style="visibility:hidden">Source:</span>&nbsp;{{source}}</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				<!--<span style="visibility:hidden"><span class="content-gray-label" >Language:</span>&nbsp;</span>-->
+				<span><span class="content-gray-label">Email:</span>&nbsp;{{email}}</span>
+				<span><span class="content-gray-label">Phone:</span>&nbsp;{{phone}}</span>
+				<br />
+				<span><span id="cs-info-additional" class="content-gray-label">{{additionalInfo}}</span></span>
+			</span>
+			<!--the image location is different from chatbot -->
+			<img id="channel" class="top-channel-img" style="margin-top: -20px; float: right;" data-toggle="tooltip" data-placement="left" src="../../Wise/img/{{channelImg}}">
+		</span>
+	</script>
+
+	<script id="visitor_message_template" type="text/x-handlebars-template">
+		<div id="{{messageid}}" class="message-row visitor-row">
+			<div>
+				<span class="user-icon"><i class="fas fa-user"></i></span>
+				<div class="time-with-seconds" title="{{time}}">
+					<span></span>
+					<span>{{time}}</span>
+				</div>
+			</div>
+			<div class="visitor-content-bubble content-bubble">
+				<div class="content-bubble-name">{{SentBy}}</div>
+				<div class="content-bubble-content">
+					{{response}}
+				</div>
+			</div>
+		</div>
+	</script>
+	<script id="agent_message_template" type="text/x-handlebars-template">
+		<div id="{{messageid}}" class="message-row agent-row">
+			<div class="agent-content-bubble content-bubble">
+				<div class="content-bubble-name">{{SentBy}}</div>
+				<div class="content-bubble-content">{{messageOutput}}</div>
+			</div>
+			<div>
+				<span class="user-icon"><i class="fas fa-user"></i></span>
+				<div class="time-with-seconds" title="{{time}}"><span></span><span>{{time}}</span></div>
+			</div>
+		</div>
+	</script>
+
+	<script id="agent_message_withimage_template" type="text/x-handlebars-template">
+		<div id="{{messageid}}" class="message-row agent-row">
+			<div class="agent-content-bubble content-bubble">
+				<div class="content-bubble-name">{{SentBy}}</div>
+				<div class="content-bubble-content">
+					<div style="text-align:center;">
+						<img onclick="enlargeImage(this);" class="content-image" style="{{displayImage}}" alt="{{FileName}}" style="max-width:100%;max-height:200px;" src="{{FileUrl}}">
+					</div>
+					<div class="position-relative">
+						<a href="{{FileUrl}}" target="_blank" download="">{{FileName}}</a>
+						<span class="wa-sent-success">sent</span>
+					</div>
+					<div></div>
+				</div>
+			</div>
+			<div>
+				<span class="user-icon"><i class="fas fa-user"></i></span>
+				<div class="time-with-seconds" title="{{time}}"><span></span><span>{{time}}</span></div>
+			</div>
+		</div>
+	</script>
+
+	<script id="visitor_message_withimage_template" type="text/x-handlebars-template">
+		<div id="{{messageid}}" class="message-row visitor-row">
+			<div>
+				<span class="user-icon"><i class="fas fa-user"></i></span>
+				<div class="time-with-seconds" title="{{time}}">
+					<span></span>
+					<span>{{time}}</span>
+				</div>
+			</div>
+			<div class="visitor-content-bubble content-bubble">
+				<div class="content-bubble-name">{{SentBy}}</div>
+				<div class="content-bubble-content">
+					<div style="text-align:center;">
+						<img onclick="enlargeImage(this);" class="content-image" alt="{{FileName}}" style="max-width:100%;max-height:200px;" src="{{FileUrl}}">
+					</div>
+					<div class="position-relative">
+						<a href="{{FileUrl}}" target="_blank" download="">{{FileName}}</a>
+					</div>
+					<div></div>
+				</div>
+			</div>
+		</div>
+	</script>
+	<!---20250102 for shandler show message history--end-->
+
+
+
 	<script>
 		var wa_template = Handlebars.compile($('#wa_template').html());	// located at the end of the page
 
-        var waTempService = new waTemplateService(wa_template);
+		var waTempService = new waTemplateService(wa_template);
+		var caHistService = new caseHistory();
+
 
 		var sCompany = "EPRO";
 		var sAgentId = loginId;

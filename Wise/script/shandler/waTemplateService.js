@@ -61,13 +61,26 @@ class waTemplateService {
         //Two buttons
         if (templateInfo.Button1 != null && templateInfo.Button2 != null && templateInfo.Button3 == null)
         {
+
+            context.Button1 = templateInfo.Button1;
+            context.Button2 = templateInfo.Button2;
             context.displayBtnGroup2 = "display: none";
         }
 
         //Only one buttons
-        if (templateInfo.Button1 != null && templateInfo.Button2 == null && templateInfo.Button3 == null) {
+        if (templateInfo.Button1 != null && templateInfo.Button2 == null && templateInfo.Button3 == null)
+        {
+            context.Button1 = templateInfo.Button1;
             context.displayBtnGroup2 = "display: none";
 
+        }
+
+        //three buttons
+        if (templateInfo.Button1 != null && templateInfo.Button2 != null && templateInfo.Button3 != null)
+        {
+            context.Button1 = templateInfo.Button1;
+            context.Button2 = templateInfo.Button2;
+            context.Button3 = templateInfo.Button3;
         }
 
         return context;

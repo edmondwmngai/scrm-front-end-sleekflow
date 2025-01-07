@@ -388,12 +388,12 @@
         if (customerData.Call_Type.indexOf("Inbound") >= 0)
         {
             $('#call-media-content .content')[0].style.display = "block";
-            caseHistService.init(customerData, top.agentList, caseLog, wa_template, $('#call-media-content'), $('#call-media-content .content-header'), $('#call-media-content .content-section-inner' ));
+            caseHistService.init(customerData, window.opener.agentList, caseLog, wa_template, $('#call-media-content'), $('#call-media-content .content-header'), $('#call-media-content .content-section-inner' ));
         }
         if (customerData.Reply_Type.indexOf("Outbound") >= 0)
         {
             $('#reply-media-content .content')[0].style.display = "block";            
-            caseHistService.init(customerData, top.agentList, caseLog, wa_template, $('#reply-media-content'),$('#reply-media-content .content-header'),$('#reply-media-content .content-section-inner'));
+            caseHistService.init(customerData, window.opener.agentList, caseLog, wa_template, $('#reply-media-content'),$('#reply-media-content .content-header'),$('#reply-media-content .content-section-inner'));
         }
         //caseHistService.init(customerData, top.agentList, caseLog, wa_template, $('#reply-media-content'), $('#reply-media-content .content-header'), $('#reply-media-content .content-section-inner'));
         caseHistService.returnCaseHistoryByAPI();

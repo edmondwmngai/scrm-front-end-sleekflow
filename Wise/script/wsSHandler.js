@@ -103,6 +103,7 @@ class wsSHandler {
 			}
 			else if(msg.type=="message") {
 				msg.details.MessageContent=this.#b64DecodeUnicode(msg.details.MessageContent);
+				msg.details.QuotedMsgBody=this.#b64DecodeUnicode(msg.details.QuotedMsgBody);
 				msg.details.FilesJson=this.#b64DecodeUnicode(msg.details.FilesJson);
 				this.onMessageEvent(msg);
 

@@ -2712,8 +2712,18 @@ function showQueueList()
 	$("#queueListBar").css("display", "none");
 	$("#queueListBar").empty();
 
+
+
 	for (i=0;i<queueList.length;i++)
 	{
+        //20240108 for skip showing zero count queue
+       // if (queueList[i].source.equals('sleekflow')) // && queueList[i].waitCount < 1)
+       // {
+       //     return;
+       // }
+
+
+
 		//console.log(queueList[i]);
 		var rCalltype=queueList[i].callType;
 		if (queueList[i].callType==CATY_BLOG && queueList[i].entry=="wechat") rCalltype=CATY_WECHAT;
@@ -2724,7 +2734,19 @@ function showQueueList()
 
 		var objDiv=document.createElement("div");
 		//objDiv.setAttribute("class","queue_content");
-		objDiv.setAttribute("style","display:inline-block;margin:5px 0px 0px 5px;box-shadow: 0 2px 4px 0 rgba(0,0,0,.14);border-radius: 3px;transition:.3s;background:#ffff;width:130px;height:80px;color:" + layout.color) ;
+		var source = queueList[i].source;
+
+		if (source != null && queueList[i].waitCount < 1)
+		{
+            objDiv.setAttribute("style", "display:none;margin:5px 0px 0px 5px;box-shadow: 0 2px 4px 0 rgba(0,0,0,.14);border-radius: 3px;transition:.3s;background:#ffff;width:130px;height:80px;color:" + layout.color);
+		}
+		else
+		{
+            objDiv.setAttribute("style", "display:inline-block;margin:5px 0px 0px 5px;box-shadow: 0 2px 4px 0 rgba(0,0,0,.14);border-radius: 3px;transition:.3s;background:#ffff;width:130px;height:80px;color:" + layout.color);
+		}
+
+
+		
 		//objDiv1.setAttribute("title","") ;
 
 		var objDiv_Img=document.createElement("div");
@@ -4195,16 +4217,37 @@ addEventListener(document, 'onWiseSocialStatus', function (e) {
 			</div>
 
 			<div class="wa-btn-group" id="wa-btn-group1" style="{{displayBtnGroup1}}">
-				<div class="wa-qp-btn">{{Button1}}</div>
-				<div class="wa-qp-btn">{{Button2}}</div>
+				<div class="wa-qp-btn" style="background-color:white">{{Button1}}</div>
+				<div class="wa-qp-btn" style="background-color:white">{{Button2}}</div>
 			</div>
 			<div class="wa-btn-group" id="wa-btn-group2" style="{{displayBtnGroup2}}">
-				<div class="wa-qp-btn">{{Button3}}</div>
+				<div class="wa-qp-btn" style="background-color:white">{{Button3}}</div>
 			</div>
 		
 		</div>
 	</script>
+	<script id="visit_quoted_message_template" type="text/x-handlebars-template">
+		<div id="{{messageid}}" class="message-row visitor-row">
+			<div>
+				<span class="user-icon"><i class="fas fa-user"></i></span>
+				<div class="time-with-seconds" title="{{time}}">
+					<span></span>
+					<span>{{time}}</span>
+				</div>
+			</div>
+			<div class="visitor-content-bubble content-bubble">
+				<div class="content-bubble-name">{{SentBy}}</div>
 
+				
+					<div class="visitor-content-bubble content-bubble" style="margin-top: 4px; margin-bottom: 6px">
+						{{QuotedMsgBody}}
+						
+					</div>
+						{{response}}
+				</div>
+				
+		</div>
+	</script>
 	<!---20250102 for shandler show message history--start-->
 	<script id="chatlist_header_template" type="text/x-handlebars-template">
 		<a id="download-link" href="javascript:void(0);" class="btn btn-warning btn-sm text-capitalize rounded mt-3 align-top text-white" onclick="caseHistService.downloadHistoryAsHTML();">
@@ -4316,8 +4359,9 @@ addEventListener(document, 'onWiseSocialStatus', function (e) {
 
 	<script>
 		var wa_template = Handlebars.compile($('#wa_template').html());	// located at the end of the page
+        var q_template = Handlebars.compile($('#visit_quoted_message_template').html());	// located at the end of the page
 
-		var waTempService = new waTemplateService(wa_template);
+		var waTempService = new waTemplateService(wa_template, q_template);
 		var caHistService = new caseHistory();
 
 

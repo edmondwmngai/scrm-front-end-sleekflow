@@ -157,12 +157,26 @@
 		  //Check the filejson is empty or not
 		  if (sMsg.FilesJson.length < 3)
 		  {
-			  var contextResponse = {
-				  response: sMsg.MessageContent,
-				  SentBy: sEndUserName,
-				  time: mDate
-			  };
-			  this.$chatHistory.append(templateResponse(contextResponse));
+			  if (sMsg.QuotedMsgBody === null || sMsg.QuotedMsgBody === "")
+			  { 
+				  var contextResponse = {
+					  response: sMsg.MessageContent,
+					  SentBy: sEndUserName,
+					  time: mDate
+				  };
+				  this.$chatHistory.append(templateResponse(contextResponse));
+			  }
+			  else
+			  {
+				  var quotedTemplate = parent.$('#phone-panel')[0].contentWindow.q_template;
+				  var contextResponse = {
+					  response: sMsg.MessageContent,
+					  SentBy: sEndUserName,
+					  QuotedMsgBody: sMsg.QuotedMsgBody,
+					  time: mDate
+				  };
+				  this.$chatHistory.append(quotedTemplate(contextResponse));
+			  }
 		  }
 		  else
 		  {
@@ -542,18 +556,4 @@
   }
 
 
-///////////////////////////////////////////////////
-///  Util functions
-//////////////////////////////////////////////////
-function base64ToBlob(base64String, contentType = '') {
-	const byteCharacters = atob(base64String);
-	const byteArrays = [];
-
-	for (let i = 0; i < byteCharacters.length; i++) {
-		byteArrays.push(byteCharacters.charCodeAt(i));
-	}
-
-	const byteArray = new Uint8Array(byteArrays);
-	return new Blob([byteArray], { type: contentType });
-};
 

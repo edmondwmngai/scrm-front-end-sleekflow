@@ -14,11 +14,13 @@ class waTemplateService {
 	};
 
     
-    constructor(waTemplate)
+    constructor(waTemplate, quotedTemplate)
     {
         //this.templateList = [];
 
         this.HTMLtemplate = waTemplate;
+
+        this.qHTMLtemplate = quotedTemplate;
     }
 
     createContextFromTemplate(templateInfo)

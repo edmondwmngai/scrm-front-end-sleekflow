@@ -433,12 +433,26 @@
 		  //Check the filejson is empty or not
 		  if (sMsg.FilesJson.length < 3)
 		  {
-			  var contextResponse = {
-				  response: sMsg.MessageContent,
-				  SentBy: sEndUserName,
-				  time: mDate
-			  };
-			  this.$chatHistory.append(templateResponse(contextResponse));
+			  if (sMsg.QuotedMsgBody === null || sMsg.QuotedMsgBody === "")
+			  {
+				  var contextResponse = {
+					  response: sMsg.MessageContent,
+					  SentBy: sEndUserName,
+					  time: mDate
+				  };
+				  this.$chatHistory.append(templateResponse(contextResponse));
+			  }
+			  else
+			  {
+				  var quotedTemplate = parent.$('#phone-panel')[0].contentWindow.q_template;
+				  var contextResponse = {
+					  response: sMsg.MessageContent,
+					  SentBy: sEndUserName,
+					  QuotedMsgBody: sMsg.QuotedMsgBody,
+					  time: mDate
+				  };
+				  this.$chatHistory.append(quotedTemplate(contextResponse));
+			  }
 		  }
 		  else
 		  {

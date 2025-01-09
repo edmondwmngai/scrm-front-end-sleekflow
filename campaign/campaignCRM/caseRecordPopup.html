@@ -391,9 +391,15 @@
         var waTempService = window.opener.parent.parent.$('#phone-panel')[0].contentWindow.waTempService;
         var wa_template = window.opener.parent.parent.$('#phone-panel')[0].contentWindow.wa_template;
 
-        //call-media-content
-
-
+        if (customerData === null)
+        {
+            customerData = {
+                Name_Eng: window.opener.$('#Name_Eng')[0].value,
+                Email: window.opener.$('#Email')[0].value,
+                Mobile_No: window.opener.$('#Mobile_No')[0].value,
+                Call_Type: window.opener.frameElement.getAttribute("callType")
+            };
+        }
 
         // Check it is inbound or outbound
         if (customerData.Call_Type.indexOf("Inbound") >= 0)
@@ -401,14 +407,13 @@
             $('#call-media-content .content')[0].style.display = "block";
             caseHistService.init(customerData, window.opener.agentList, caseLog, wa_template, $('#call-media-content'), $('#call-media-content .content-header'), $('#call-media-content .content-section-inner' ));
         }
-        if (customerData.Reply_Type.indexOf("Outbound") >= 0)
+        if (customerData.Call_Type.indexOf("Outbound") >= 0)
         {
             $('#reply-media-content .content')[0].style.display = "block";            
             caseHistService.init(customerData, window.opener.agentList, caseLog, wa_template, $('#reply-media-content'),$('#reply-media-content .content-header'),$('#reply-media-content .content-section-inner'));
         }
-        //caseHistService.init(customerData, top.agentList, caseLog, wa_template, $('#reply-media-content'), $('#reply-media-content .content-header'), $('#reply-media-content .content-section-inner'));
-        caseHistService.returnCaseHistoryByAPI();
-        //updateCaseObj
+
+        caseHistService.returnCaseHistoryByAPI();        
     </script>
     <!---20250102 for shandler show message history--end-->
 </body>

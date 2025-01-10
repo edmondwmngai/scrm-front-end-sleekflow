@@ -1966,7 +1966,7 @@ function replyChannelChange(iThis) {
                     if (selectedSendTemplate != null)
                     {
                         replyConfirmed = true;
-                        document.getElementById("case-save-btn").disabled = false;
+                        //document.getElementById("case-save-btn").disabled = false;   
                         $('#send-wa-section').text("");
                     }
 

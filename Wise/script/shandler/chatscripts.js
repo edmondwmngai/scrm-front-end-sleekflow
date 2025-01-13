@@ -366,6 +366,7 @@
 			  additionalInfo: ""
 		  };
 
+		  /*
 		  var pastTicket = this.returnPastTicketFromSameVisitor(sTicket.TicketId);
 		  if (pastTicket != null)
 		  {
@@ -373,7 +374,7 @@
 			  //Contacted us in the last hour: Last Ticket ID: 1386264423 on 2024-11 - 29 12: 17: 37
 			  contextResponse.additionalInfo = "Contacted us in the last hour: Last Ticket ID: " + pastTicket.TicketId + " on " + pastTicket.UpdatedAt.slice(0, 19);
 		  }
-
+		  */
 
 		this.$histHeader.append(templateResponse(contextResponse));
 	  };
@@ -762,6 +763,10 @@
 		  var sTicket = parent.$('#phone-panel')[0].contentWindow.AssignedTicketList.filter(i => i.TicketId == sMsglist[0].TicketId);
 		  var ticketStatus = sTicket[0].Status;
 
+		  //element.style.visibility = 'hidden';
+		  //element.style.visibility = 'visible';
+
+
 		  if (ticketStatus == "closed")
 		  {	
 			  this.updateChatEndSession(this.selectedTicketId);
@@ -770,6 +775,12 @@
 		  if (ticketStatus == "timeout") {
 
 			  this.updateChatSessionTimeout(this.selectedTicketId);
+		  }
+		  
+		  if (sTicket[0].Channel == "whatsapp") {
+			  document.getElementsByClassName('s-standalone-btn keyboard-icon')[0].style = "display:";
+		  } else { 
+			  document.getElementsByClassName('s-standalone-btn keyboard-icon')[0].style = "display:none";
 		  }
 	  };
 
@@ -885,10 +896,16 @@
 		var sMsglist = selectedTicket[0].messages;
 
 		this.reloadChatHistory(sMsglist, true);
-		this.updateChatHeader(this.selectedChatChannel, selectedTicket[0]);
+
+		
+		 this.updateChatHeader(selectedTicket[0].Channel, selectedTicket[0]);
 		  searchInput(selectedTicket[0]);	
 
-
+		  if (selectedTicket[0].Channel == "whatsapp") {
+			  document.getElementsByClassName('s-standalone-btn keyboard-icon')[0].style = "display:";
+		  } else {
+			  document.getElementsByClassName('s-standalone-btn keyboard-icon')[0].style = "display:none";
+		  }
 		//  this.returnMessagesPastMessage(this.selectedTicketId);
 
 	  };
@@ -930,7 +947,13 @@
 	  {
 		  //moment(date).format('D MMM YYYY, h:mm:ss A')
 		  console.log(JSON.stringify(ticket));
-         console.log(ticket.UpdatedAt);
+		  console.log(ticket.UpdatedAt);
+
+		  //handle the incoming message is closed when reloading
+		  if (ticket.Status == "closed" || ticket.Status == "timeout")
+		  {
+			  timeout = true;
+		  }
 		  
 		  var dateISO = ticket.UpdatedAt.slice(0, 19); 
 		  var mDate = moment(dateISO).format('HH:mm:ss');
@@ -993,6 +1016,14 @@
 			// Always insert the elements at first
 			this.$ticketList.prepend(template(context));
 
+
+		  //fix reload status when it is closed
+		  if (ticket.Status == "closed" || ticket.Status == "timeout")
+		  {
+			  this.updateBubbleStatus(ticket.TicketId, "Session_End", true);
+		  }
+			
+			
 	  };
 
 	  addTestBubble(status, timeout, name, ticketID)
@@ -1076,6 +1107,9 @@
 			  subDivs.forEach(sub => {
 				  if (sub.innerHTML.trim() === specifiedValue.toString())
 				  {
+
+					  
+
 					  parent.getElementsByClassName('bubble-message mr-auto')[0].innerHTML = sTicket.messages[sTicket.messages.length - 1].MessageContent;
 				  }
 			  });
@@ -1083,6 +1117,14 @@
 	  };
 
 	  updateBubbleStatus(inputTicketID, status, timeout) {
+
+		  //Check current status, 
+		  var sTicket = parent.$('#phone-panel')[0].contentWindow.AssignedTicketList.filter(i => i.TicketId == inputTicketID);
+		  var ticketStatus = sTicket[0].Status;
+
+		  //----------------------------------------------------------------------------------------------------------------
+
+		  
 		  const specifiedValue = inputTicketID;
 
 		  // Find the main parent div
@@ -1106,6 +1148,7 @@
 					  if (status == "Session_End" && timeout == true)
 					  {
 						  parent.classList.add("bubble-closed");
+						  parent.classList.remove("bubble-present");
 						  parent.getElementsByClassName('bubble-message mr-auto')[0].innerHTML = "Session Closed";
 						  parent.getElementsByClassName('bubble-icon')[0].style = "opacity: 0.1;";
 						  parent.getElementsByClassName('bubble-subject')[0].style = "color:grey";
@@ -1121,9 +1164,9 @@
 	  {
 		  var sTicket = parent.$('#phone-panel')[0].contentWindow.AssignedTicketList.filter(i => i.TicketId == ticketId);
 
-		  if (fieldName = "Status")
+		  if (fieldName == "Status")
 		  {
-			  sTicket[0].status = value;
+			  sTicket[0].Status = value;
 		  }
 	  }
 	 
@@ -1168,12 +1211,15 @@
 						this.PresentTicket = false;
 						this.addBubble("Present", false, assignedLst[i], assignedLst[i].messages);
 
+
 						//js that call from searchinput.js
 						searchInput(assignedLst[i]);
 					} else {
 						this.addBubble("Pending", false, assignedLst[i], assignedLst[i].messages);
 					}
 				}
+
+				
 		  }
 
 		  //*****currentMsgList is only be used for getTicket

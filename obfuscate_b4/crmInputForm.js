@@ -1968,15 +1968,28 @@ function replyChannelChange(iThis) {
                         replyConfirmed = true;
                         //document.getElementById("case-save-btn").disabled = false;   
                         $('#send-wa-section').text("");
+                        const div = $("#reply-container");
+                        //div.scrollTop(div[0].scrollHeight);
+                        
+                        waTempService.displayFilledTemplateOnWeb(selectedSendTemplate, $('#reply-container'));
+
+
+
+                        if (typeof parent[0].resize !== "undefined") {
+                            parent[0].resize();     //If send whatsapp template in chat room search case flow
+                        }
+                        else if (typeof parent[1].resize !== "undefined") {
+                            parent[1].resize();     //If send whatsapp template in search case flow
+                                                    //or pure create new customer flow
+                        }
+
+                        div.animate({ scrollTop: div[0].scrollHeight }, 'slow');
                     }
 
-                    $('#reply-container').css('height', '80px');
-                    $('#reply-container').css('overflow-y', 'scroll');
+                    //$('#reply-container').css('height', '80px');
+                    //$('#reply-container').css('overflow-y', 'scroll');
 
-                    const div = $("#reply-container");
-                    //div.scrollTop(div[0].scrollHeight);
-                    div.animate({ scrollTop: div[0].scrollHeight}, 'slow') ;
-                    waTempService.displayFilledTemplateOnWeb(selectedSendTemplate, $('#reply-container'));
+                 
                     //end of add
 
                 }
@@ -3483,6 +3496,34 @@ $(document).ready(function () {
             $(this).blur();
         }
     });
+
+
+    //20250113 for auto update phone when create phone number
+    //status update when openInputForm
+    if (parent.parent[3].callTypeAfteropenForm == "Inbound_Whatsapp") {
+        if (parent.parent[3].rowDataAfteropenForm == null)	//use this to check whether it is new case
+        {
+            // parent.parent[3]
+            // parent.$('#social-media-main')[0].
+
+            if (parent.parent[3].chatService != null)	// check chatService is loaded
+            {
+                var selectTicketId = parent.parent[3].chatService.selectedTicketId;
+                //parent.$('#phone-panel')[0]
+                             //parent.parent.$('#phone-panel')[0];
+                var sTicket = parent.parent.$('#phone-panel')[0].contentWindow.AssignedTicketList.filter(i => i.TicketId == selectTicketId)[0];
+
+                var sPhone = sTicket.EndUserPhone;
+                var firstThree = sTicket.EndUserPhone.substring(0, 3);
+                if (firstThree === "852")
+                {
+                    sPhone = sPhone.substring(3);
+                }
+                $('#Mobile_No').val(sPhone);
+            }
+        }
+    }
+    
 });
 // Prevent right click
 document.addEventListener('contextmenu', event => event.preventDefault());

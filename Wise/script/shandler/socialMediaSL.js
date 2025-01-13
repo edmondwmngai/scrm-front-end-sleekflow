@@ -2664,8 +2664,19 @@ function returnToSearch(theConnId) {
     $('#search-' + theConnId).show();
 }
 
+//20250113 for shandler update
+var callTypeAfteropenForm = null;
+var rowDataAfteropenForm = null;
+
+
 // called from serch.html
 function openInputForm(connId, callType, internalCaseNo, campaign, rowData, customerId) {
+
+    //20250113 for shandler update
+    callTypeAfteropenForm = callType;
+    rowDataAfteropenForm = rowData;
+
+
     var iframeInputForm = $('#input-form-' + connId);
     iframeInputForm.attr('src', './campaign/' + campaign + '/inputForm.html');
     iframeInputForm.removeClass('jit-inspected');

@@ -506,8 +506,8 @@
                         </div>
                         <div class="d-flex">
                             <span class="bubble-message mr-auto">{{lastMessage}}</span>
-                            <i class="fas fa-plus bubble-small-icon mr-2" id="bubble-add-agent" onclick="chatService.addAgent({{ticketId}},&quot;campaignCRM&quot;,&quot;webchat&quot;)" data-toggle="tooltip" data-placement="bottom" title="Conference Call"></i>
-                            <i class="fas fa-sign-out-alt leave-chat-icon bubble-small-icon" id="bubble-leave-chat" onclick="leaveChat({{ticketId}})" data-toggle="tooltip" data-placement="bottom" title="Leave Chat"></i>
+                            <i class="fas fa-plus bubble-small-icon mr-2" style="display: none;" id="bubble-add-agent" onclick="chatService.addAgent({{ticketId}},&quot;campaignCRM&quot;,&quot;webchat&quot;)" data-toggle="tooltip" data-placement="bottom" title="Conference Call"></i>
+                            <i class="fas fa-sign-out-alt leave-chat-icon bubble-small-icon" style="display: none;"  id="bubble-leave-chat" onclick="leaveChat({{ticketId}})" data-toggle="tooltip" data-placement="bottom" title="Leave Chat"></i>
                             <i class="fas fa-star private-i"></i>
                         </div>
                     </div>
@@ -575,7 +575,25 @@
             //chatService.returnMessagesPastMessage(420);
 
         }
+        //function initService() {
 
+        //    shandler = parent.$('#phone-panel')[0].contentWindow.shandler;
+        //    sTicket = parent.$('#phone-panel')[0].contentWindow.currentTicket;
+        //    sMsglist = parent.$('#phone-panel')[0].contentWindow.currentMsglist;
+        //    reloadByGetTicket = parent.$('#phone-panel')[0].contentWindow.reloadedByGetTicket;
+        //    testMode = parent.$('#phone-panel')[0].contentWindow.testMode;
+        //    //var waTemplateSerivce = new waTemplateService();
+        //    agentService = new agent();
+        //    chatService = new chat();
+
+        //    //var ticketService = new ticket();
+        //    chatService.init();
+        //}
+
+    </script>
+    <script>
+
+      
 
     </script>
     <script src="wise/script/shandler/socialMediaSL.js"></script>

@@ -552,5 +552,76 @@ function windowOnload() {
     }
 }
 
+
+
+//20250113 for end all the ticket before close()
+//Start-------------------------------------------------
+window.onbeforeunload = function () {
+
+    var sHandler = parent.$('#phone-panel')[0].contentWindow.shandler;
+
+    var sAssignedTicketList = parent.$('#phone-panel')[0].contentWindow.AssignedTicketList;
+
+    if (sHandler != null && sAssignedTicketList != null)
+    {
+        for (var i = 0; i < sAssignedTicketList.length; i++)
+        {
+    	    //endSessionByHandler
+    	    var item = sAssignedTicketList[i];
+    	    if (item.AssignedTo == loginId && item.Status == "open")
+    	    {
+    		    //endSessionByHandler(loginId, top.token, item.ticketId);
+
+    		    sHandler.endTicket({
+    			    agentid: loginId,
+    			    token: top.token,
+    			    ticketid: item.TicketId
+    		    })
+    				    .then(response => {
+    					    if (response)
+    					    {
+    						    //parent.$('#social-media-main')[0].contentWindow.chatService.endSessionCallBack(ticketId);
+    					    }
+    				    })
+    				    .catch(error => {
+    					    console.log('error in endSessionByHandler');
+    					    console.log(error);
+    					    return null;
+    				    });
+
+    				    /*
+                   $.ajax({
+                       type: "POST",
+                       url: 'http://172.17.6.11:8033/api/endticket', crossDomain: true,
+                       data: JSON.stringify({
+                           agentid: loginId,
+                           token: top.token,
+    				    ticketid: item.ticketId
+    			    }),
+                       contentType: "application/json; charset=utf-8", dataType: "json",
+                       success: function (r) {
+                           if (!/^success$/i.test(r.result || "")) {
+                               console.log('error in function endTicket at the end');
+                               console.log(r);
+                           } else {  //cannot use this.selectedTicketId because the function is tiggerd in popup
+
+                               //console.log(JSON.stringify(r.details));
+                               //
+
+                           }
+                       },
+                       error: function (r) {
+                           console.log('error in error in function endTicket at the end');
+                           console.log(r);
+                       }
+                   });*/
+    	    }
+
+        }
+    }
+}
+
+//End-------------------------------------------------
+
 // prevent right click
 document.addEventListener('contextmenu', event => event.preventDefault());

@@ -1111,10 +1111,17 @@ function sendTemplateMessageByHandler(agent, token, companyName, sTemplate, sFro
 					//Send from case
 					// Under iframe menu-main, there 3 sub-iframe, so use window[1]
 					// 0. media-content		// 1. input-form		// 2. search
-					parent.$('#menu-main')[0].contentWindow.window[1].sendTemplateMessageFromCaseByHandlerCallBack();
 
+
+                    
+					if (typeof parent.$('#menu-main')[0].contentWindow.window[1] !== 'undefined') {
+						parent.$('#menu-main')[0].contentWindow.window[1].sendTemplateMessageFromCaseByHandlerCallBack();
+					}
+					else
+					{
+                        parent.window[0].sendTemplateMessageFromCaseByHandlerCallBack();
+					}
 				}
-
 			}
 		},
 		error: function (r) {
@@ -2736,7 +2743,7 @@ function showQueueList()
 		//objDiv.setAttribute("class","queue_content");
 		var source = queueList[i].source;
 
-		if (source != null && queueList[i].waitCount < 1)
+		if (source != null && queueList[i].waitCount < 1 && (testMode == false))
 		{
             objDiv.setAttribute("style", "display:none;margin:5px 0px 0px 5px;box-shadow: 0 2px 4px 0 rgba(0,0,0,.14);border-radius: 3px;transition:.3s;background:#ffff;width:130px;height:80px;color:" + layout.color);
 		}

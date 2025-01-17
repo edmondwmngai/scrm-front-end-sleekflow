@@ -24,7 +24,9 @@
 	    isScrollToBottom = true;
 
 	     selectedCannedFiles = [];
-		allowPastMessageCall = true;
+	  allowPastMessageCall = true;
+
+	  isSendingMessage = false;
 		//Contacted us in the last hour: Last Ticket ID: 1386264423 on 2024-11 - 29 12: 17: 37
 	  init()
 	  {
@@ -105,8 +107,11 @@
 	  //On  UI level=>   sendByClick();
 	  //sendMessageByAPI ()
 	  //phone.html call sendMessageByHandler();
-	  //wss sendMessage(); 
+	  //wss sendMessage();
+
 	  sendMessageByClick() {
+		  
+
 		  //var loginId = parseInt(sessionStorage.getItem('scrmAgentId') || -1);
 		  //var token = sessionStorage.getItem('scrmToken') || '';
 		  //var agentName = sessionStorage.getItem('scrmAgentName') || '';
@@ -123,7 +128,25 @@
 		  parent.$('#phone-panel')[0].contentWindow.sendMessageReturned = null;
 		  parent.$('#phone-panel')[0].contentWindow.sendMessageByHandler(loginId, token, "text", this.$textarea.val(), sTicket[0]);
 
+
+		  this.isSendingMessage = true;
+		  this.$button[0].enabled = false;
+		  this.$button[0].style = "background: grey";
+		  
+
+		  setTimeout(() =>
+		  {
+			  if (this.isSendingMessage == true)
+			  {
+				  this.isSendingMessage = false;
+				  this.$button[0].enabled = true;
+				  this.$button[0].style = "background: blue";
+			  }
+			console.log("Delayed for 5 second.");
+		  }, 5000);
 	  };
+
+
 
 	  sendAttachmentByClick()
 	  {
@@ -180,6 +203,8 @@
 	  
 	  sendMessageCallBack(sMsg)
 	  {
+		  
+
 		  this.updateChatMessageHistory(sMsg);
 		  //this.updateChatHeader();
 		  this.addReplyMessageByText(sMsg);
@@ -187,12 +212,22 @@
 		  if (this.selectedTicketId == sMsg.TicketId) {
 			  this.scrollToBottom();
 		  }
-		  
+
+		  this.isSendingMessage = false;
+		  //this.$button[0].style = "background: lightgrey";
+		  this.$button[0].style = "background: blue";
+		  this.$button[0].enabled = true;
 	  };
 
 	  incomeMessageCallBack(sMsg)
 	  {
 		  this.updateChatMessageHistory(sMsg);
+
+		  if (sMsg.SendBy == "timeout")
+		  {
+			  this.updateChatSessionTimeout(ticketId);
+			  return;
+		  }
 
 		  //Current Bubble Message
 		  if (this.selectedTicketId == sMsg.TicketId) {
@@ -428,9 +463,15 @@
 	  		var templateResponse = this.visitorMessageTemplate;
 
 			//The moment js cannot handle the iso date format, if full date format the output is wrong. Please update the moment js above 2.16.0
-			var dateISO = sMsg.UpdatedAt.slice(0, 19); 
-			var mDate = moment(dateISO).format('HH:mm:ss');
-		  
+			//var dateISO = sMsg.UpdatedAt.slice(0, 19); 
+
+			
+
+			//var mDate = moment(dateISO).format('HH:mm:ss');
+
+
+		    var mDate = returnDateForCRM(sMsg.UpdatedAt);
+
 		  //Check the filejson is empty or not
 		  if (sMsg.FilesJson.length < 3)
 		  {
@@ -467,11 +508,11 @@
 			  var FileMime = FileList[0].MimeType;
 
 			  if (FileMime.startsWith('image/')) {
-				  
-				  var dateISO = sMsg.UpdatedAt.slice(0, 19); 
-				  
-				  var mDate = moment(dateISO).format('HH:mm:ss');
 
+				  //var dateISO = sMsg.UpdatedAt.slice(0, 19); 
+				  //var mDate = moment(dateISO).format('HH:mm:ss');
+				  var mDate = returnDateForCRM(sMsg.UpdatedAt);
+							
 				  var attachmentTemplate = this.visitorMessageWithImageTemplate;
 
 				  //var agentName = agentService.getAgentNameByID(this.currentSelectedAgentId);
@@ -498,8 +539,10 @@
 				  aTag = aTag.replace("{{FileUrl}}", Fileurl);
 				  aTag = aTag.replace("{{FileName}}", Filename);
 
-				  var dateISO = sMsg.UpdatedAt.slice(0, 19); 
-				  var mDate = moment(dateISO).format('HH:mm:ss');
+				 // var dateISO = sMsg.UpdatedAt.slice(0, 19); 
+				 // var mDate = moment(dateISO).format('HH:mm:ss');
+
+				  var mDate = returnDateForCRM(sMsg.UpdatedAt);
 
 				  var context = {
 					  SentBy: sEndUserName,
@@ -554,9 +597,10 @@
 
 			  var htmlTemplate = parent.$('#phone-panel')[0].contentWindow.wa_template;
 
-			  var dateISO = sMsg.UpdatedAt.slice(0, 19);
-			  var mDate = moment(dateISO).format('HH:mm:ss');
+			  //var dateISO = sMsg.UpdatedAt.slice(0, 19);
+			  //var mDate = moment(dateISO).format('HH:mm:ss');
 
+			  var mDate = returnDateForCRM(sMsg.UpdatedAt);
 			  //this.$chatHistory.append(template(context));
 			  //cContext.displayBtnGroup1 = "";
 			  //cContext.displayBtnGroup2 = "";
@@ -569,8 +613,9 @@
 
 			  var agentTemplate = this.agentMessageTemplate;
 
-			  var dateISO = sMsg.UpdatedAt.slice(0, 19);
-			  var mDate = moment(dateISO).format('HH:mm:ss');
+			  //var dateISO = sMsg.UpdatedAt.slice(0, 19);
+			  //var mDate = moment(dateISO).format('HH:mm:ss');
+			  var mDate = returnDateForCRM(sMsg.UpdatedAt);
 
 			  var context = {
 				  SentBy: agentName,
@@ -590,8 +635,9 @@
 			  var template = this.agentMessageTemplate;
 
 
-			  var dateISO = sMsg.UpdatedAt.slice(0, 19); 
-			  var mDate = moment(dateISO).format('HH:mm:ss');
+			  //var dateISO = sMsg.UpdatedAt.slice(0, 19); 
+			  //var mDate = moment(dateISO).format('HH:mm:ss');
+			  var mDate = returnDateForCRM(sMsg.UpdatedAt);
 
 			  var context = {
 				  SentBy: agentName,
@@ -617,8 +663,9 @@
 			  if (FileMime.startsWith('image/'))
 			  {
 				  var template = this.agentMessageWithImageTemplate;
-				  var dateISO = sMsg.UpdatedAt.slice(0, 19); 
-				  var mDate = moment(dateISO).format('HH:mm:ss');
+				  //var dateISO = sMsg.UpdatedAt.slice(0, 19); 
+				  //var mDate = moment(dateISO).format('HH:mm:ss');
+				  var mDate = returnDateForCRM(sMsg.UpdatedAt);
 
 				  var displayImage = "max-width:100%;max-height:200px";
 
@@ -644,8 +691,9 @@
 				  aTag = aTag.replace("{{FileUrl}}", Fileurl);
 				  aTag = aTag.replace("{{FileName}}", Filename);
 
-				  var dateISO = sMsg.UpdatedAt.slice(0, 19); 
-				  var mDate = moment(dateISO).format('HH:mm:ss');
+				  //var dateISO = sMsg.UpdatedAt.slice(0, 19); 
+				  //var mDate = moment(dateISO).format('HH:mm:ss');
+				  var mDate = returnDateForCRM(sMsg.UpdatedAt);
 
 				  var context = {
 					  SentBy: agentName,
@@ -685,7 +733,7 @@
 	  };
 
 	  scrollToBottom() {
-		   this.$chatHistory.scrollTop(this.$chatHistory[0].scrollHeight);
+		   this.$chatHistory.scrollTop(this.$chatHistory[0].scrollHeight + 500);
 	  };
 
 	  getCurrentTime() {
@@ -729,7 +777,7 @@
 				  {
 					  if (LastTicketId != sMsglist[i].oTicketId)
 					  {
-						  this.$chatHistory.append("<hr style='color:black' />");
+						  this.$chatHistory.append("<hr style='border: 1.5px dotted #000000; border-style: none none dotted; color: #fff; background-color: #fff;' />");
 					  }
 				  }
 				  LastTicketId = sMsglist[i].oTicketId;
@@ -740,7 +788,12 @@
 
 					  this.receiveMessage(sMsg);
 				  }
-				  else {
+				  else if(sMsg.SendBy == "timeout")
+				  {
+					  // Skip the message for timeout
+				  }
+				  else
+				  {
 					  this.addReplyMessageByText(sMsg);
 				  }
 
@@ -803,8 +856,9 @@
 
 		  elements.forEach((element, index) =>
 		  {
-			  var dateISO = sMsg.UpdatedAt.slice(0, 19); 
-			  var mDate = moment(dateISO).format('HH:mm:ss');
+			  //var dateISO = sMsg.UpdatedAt.slice(0, 19); 
+			  //var mDate = moment(dateISO).format('HH:mm:ss');
+			  var mDate = returnDateForCRM(sMsg.UpdatedAt);
 
 			  var bubbleId = element.getElementsByClassName('bubble-id')[0].innerHTML;
 
@@ -955,8 +1009,9 @@
 			  timeout = true;
 		  }
 		  
-		  var dateISO = ticket.UpdatedAt.slice(0, 19); 
-		  var mDate = moment(dateISO).format('HH:mm:ss');
+		  //var dateISO = ticket.UpdatedAt.slice(0, 19); 
+		  //var mDate = moment(dateISO).format('HH:mm:ss');
+		  var mDate = returnDateForCRM(ticket.UpdatedAt);
 		  
 		  	//var dateISO = new Date(ticket.UpdatedAt);
 			//var dateUpdateAt = dateISO.getFullYear()+'-' + (dateISO.getMonth()+1) + '-'+dateISO.getDate();//prints expected format.
@@ -1147,6 +1202,8 @@
 					  }
 					  if (status == "Session_End" && timeout == true)
 					  {
+
+						  
 						  parent.classList.add("bubble-closed");
 						  parent.classList.remove("bubble-present");
 						  parent.getElementsByClassName('bubble-message mr-auto')[0].innerHTML = "Session Closed";
@@ -1308,4 +1365,30 @@ function base64ToBlob(base64String, contentType = '') {
 	const byteArray = new Uint8Array(byteArrays);
 	return new Blob([byteArray], { type: contentType });
 };
+
+
+function returnDateForCRM(inputIsoDate)
+{
+
+	var dateISO = inputIsoDate.slice(0, 19)
+
+	if (isToday(dateISO))
+	{
+		return moment(dateISO).format('HH:mm:ss');
+	}
+	else
+	{
+		return moment(dateISO).format('YYYY-MM-DD HH:mm:ss');
+	}
+
+}
+
+
+function isToday(inputIsoDate)
+{
+	const today = moment().startOf('day'); // Get today's date at midnight 
+	const dateToCheck = moment(inputIsoDate).startOf('day'); // Get input date at midnight 
+	return today.isSame(dateToCheck);
+}
+// Example usage 
 

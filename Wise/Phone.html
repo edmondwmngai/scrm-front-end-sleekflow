@@ -1055,9 +1055,12 @@ function sendAttachmentByHandler(agent, token, messageType, file, sTicket) {
 
 function getPastMessageByHandler(ticketId, agentid,  token,userId,  msgId, limit)
 {
+
+
+	//parent.$('#phone-panel')[0].contentWindow.shandler.apiUrl 'http://172.17.6.11:8033'
     $.ajax({
         type: "POST",
-        url: 'http://172.17.6.11:8033/api/GetMessagesByUserId', crossDomain: true,
+        url:  shandler.apiUrl +	'/api/GetMessagesByUserId', crossDomain: true,
         data: JSON.stringify({ AgentId: agentid, Token: token, UserId: userId, MsgId: msgId, Limit: limit }),
         contentType: "application/json; charset=utf-8", dataType: "json",
         success: function (r) {
@@ -1079,11 +1082,12 @@ function getPastMessageByHandler(ticketId, agentid,  token,userId,  msgId, limit
 
 }
 
-//	function sendTemplateMessageByHandler(agent, token, companyName, sTemplate, sTicket) {
+		//	function sendTemplateMessageByHandler(agent, token, companyName, sTemplate, sTicket) {
+//****20250116 same API defined in crmInputForm .js*/
 function sendTemplateMessageByHandler(agent, token, companyName, sTemplate, sFrom, sTo, sTicketId) {
 	$.ajax({
 		type: "POST",
-		url: 'http://172.17.6.11:8033/api/sendTemplate', crossDomain: true,
+		url: shandler.apiUrl + '/api/sendTemplate', crossDomain: true,
 		data:
 			JSON.stringify({
 				"Agent_Id": agent,
@@ -1106,22 +1110,6 @@ function sendTemplateMessageByHandler(agent, token, companyName, sTemplate, sFro
 					//Send from chatbot
 					parent.$('#social-media-main')[0].contentWindow.chatService.sendMessageByTemplateCallBack(r.details);
 				}
-				else
-				{
-					//Send from case
-					// Under iframe menu-main, there 3 sub-iframe, so use window[1]
-					// 0. media-content		// 1. input-form		// 2. search
-
-
-                    
-					if (typeof parent.$('#menu-main')[0].contentWindow.window[1] !== 'undefined') {
-						parent.$('#menu-main')[0].contentWindow.window[1].sendTemplateMessageFromCaseByHandlerCallBack();
-					}
-					else
-					{
-                        parent.window[0].sendTemplateMessageFromCaseByHandlerCallBack();
-					}
-				}
 			}
 		},
 		error: function (r) {
@@ -1134,9 +1122,12 @@ function sendTemplateMessageByHandler(agent, token, companyName, sTemplate, sFro
 }
 function requestCannedFileInBase64ByHandler(fileId, fileName, fileType) 
 {
+	var api = shandler.apiUrl.replace("8033","");
+
 	$.ajax({
 		type: "POST",
-		url: 'http://172.17.6.11/shandler/api/socialmedia/GetCannedFiles', crossDomain: true,
+		
+		url: api+ '/shandler/api/socialmedia/GetCannedFiles', crossDomain: true,
 		data: JSON.stringify({ "company": 'EPRO', "fileId": fileId }), contentType: "application/json; charset=utf-8", dataType: "json",
 		success: function (r) {
 			if (!/^success$/i.test(r.result || "")) {

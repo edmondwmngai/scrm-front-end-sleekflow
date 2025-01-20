@@ -211,6 +211,9 @@
 
 		  if (this.selectedTicketId == sMsg.TicketId) {
 			  this.scrollToBottom();
+
+			  setTimeout(() => { this.scrollToBottom(); }, 2000);
+			  setTimeout(() => { this.scrollToBottom(); }, 4000);
 		  }
 
 		  this.isSendingMessage = false;
@@ -370,6 +373,8 @@
 			  this.reloadChatHistory(sTicket[0].messages);
 
 			  this.allowPastMessageCall = true;
+
+			  this.scrollToBottom();
 		  }
 
 	  }

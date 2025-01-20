@@ -397,17 +397,20 @@
                 Name_Eng: window.opener.$('#Name_Eng')[0].value,
                 Email: window.opener.$('#Email')[0].value,
                 Mobile_No: window.opener.$('#Mobile_No')[0].value,
-                Call_Type: window.opener.frameElement.getAttribute("callType")
+                Call_Type: window.opener.frameElement.getAttribute("callType"),
+                Reply_Type: ""
             };
         }
-
-        // Check it is inbound or outbound
-        if (customerData.Call_Type.indexOf("Inbound") >= 0)
+     
+        var call_type = caseLog.Call_Type; var reply_type = caseLog.Reply_Type;
+        
+        // Check it is inbound or outbound. then fill the case history on the top (or bottom) in pop up box
+        if (call_type.indexOf("Inbound") >= 0 || reply_type.indexOf("Inbound") >= 0)
         {
             $('#call-media-content .content')[0].style.display = "block";
             caseHistService.init(customerData, window.opener.agentList, caseLog, wa_template, $('#call-media-content'), $('#call-media-content .content-header'), $('#call-media-content .content-section-inner' ));
         }
-        if (customerData.Call_Type.indexOf("Outbound") >= 0)
+        if (call_type.indexOf("Outbound") >= 0 || reply_type.indexOf("Outbound") >= 0)
         {
             $('#reply-media-content .content')[0].style.display = "block";            
             caseHistService.init(customerData, window.opener.agentList, caseLog, wa_template, $('#reply-media-content'),$('#reply-media-content .content-header'),$('#reply-media-content .content-section-inner'));

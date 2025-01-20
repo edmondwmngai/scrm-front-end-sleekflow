@@ -106,6 +106,12 @@ class waTemplateService {
     displayFilledTemplateOnWeb(mTemplate, element)
     {
 
+
+    }
+
+    displayFilledTemplateOnWeb(mTemplate, element)
+    {
+
         var dRoot = element;
         var cContext = this.createContextFromTemplate(mTemplate);
         var inputList = mTemplate.inputList;
@@ -225,8 +231,10 @@ class waTemplateService {
         });
     };
 
-    validateTemplateInput(inputList)
+    validateTemplateInputFilled(sTemplate)
     {
+        var inputList = sTemplate.inputList;
+
         for (var r = 1; r < (inputList.length + 1); r++) {
 
             var inputText = inputList[r - 1].text;
@@ -235,9 +243,39 @@ class waTemplateService {
                 return false;
             }
         }
+
         return true;
     };
 
+    validateTemplateInputLength(sTemplate) {
+        var inputList = sTemplate.inputList;
+
+
+        //1024 is the maximum
+        var mLength = sTemplate.Message.length;
+
+        var iLength = 0;
+        for (var r = 1; r < (inputList.length + 1); r++) {
+
+            var inputText = inputList[r - 1].text;
+
+            if (isNullOrEmpty(inputText) == true) {
+                iLength = iLength + 0;
+            }
+            else {
+                iLength = iLength + inputText.length;
+            }
+        }
+
+        //Check total character of template message + all the input values length are larger than 1000 or not
+        if (1000 < (mLength + iLength)) {
+            return false;
+        } else {
+            return true;
+        }
+
+        
+    };
 }
 
 

@@ -1128,6 +1128,9 @@ function restorePage() {
     }
 }
 
+//20250116 for record the call type details when use new wa Template
+var waTargetNumber = "";
+
 function saveClicked(isTemp, callback) { // 1. declare 2. verify 3. update customer(if needed) 4. send reply(if needed) 5. update case 6. save call history
     event.preventDefault(); // if no this the line, return can be useless continue to proceed
     $('#case-save-btn').prop('disabled', true);
@@ -1524,19 +1527,26 @@ function saveClicked(isTemp, callback) { // 1. declare 2. verify 3. update custo
 
 
             // 20241231     New function for check template message input
-            if (parent.parent.$('#phone-panel')[0].contentWindow.waTempService.validateTemplateInput(selectedSendTemplate.inputList) == false)
+            if (parent.parent.$('#phone-panel')[0].contentWindow.waTempService.validateTemplateInputFilled(selectedSendTemplate) == false)
             {
                 document.getElementById("case-save-btn").disabled = false;
                 alert('Template content props is not same length with the template props');
                 return;
             }
+			if (parent.parent.$('#phone-panel')[0].contentWindow.waTempService.validateTemplateInputLength(selectedSendTemplate) == false)
+            {
+                document.getElementById("case-save-btn").disabled = false;
+                alert('Template input value length is larger than supported');
+                return;
+            }
+			
             if (selectedSendTemplate == null)
             {
                 document.getElementById("case-save-btn").disabled = false;
                 alert('Please select at least one template');
                 return;
             }
-            var waTargetNumber = "";
+            waTargetNumber = "";
             if (document.getElementsByName('waList')[1].checked)         // second checkbox with textbox input
             {
                 waTargetNumber = "852" + $('#wa-other-input')[0].value;
@@ -1560,9 +1570,8 @@ function saveClicked(isTemp, callback) { // 1. declare 2. verify 3. update custo
 
             //20241219 for shandler send Whatsapp
             //parent.parent.$('#phone-panel')[0].contentWindow.sendTemplateMessageByHandler(sAgentId, sToken, "EPRO", selectedSendTemplate, "85293909352", "852XXXXX8303", null);
-            parent.parent.$('#phone-panel')[0].contentWindow.sendTemplateMessageByHandler(sAgentId, sToken, "EPRO", selectedSendTemplate, "85293909352", waTargetNumber, null);
-
-
+            //parent.parent.$('#phone-panel')[0].contentWindow.sendTemplateMessageByHandler(sAgentId, sToken, "EPRO", selectedSendTemplate, "85293909352", waTargetNumber, null);
+            sendTemplateMessageByHandler(sAgentId, sToken, "EPRO", selectedSendTemplate, "85293909352", waTargetNumber, null);
             /*
             parent.parent.document.getElementById("phone-panel").contentWindow.wiseSendWhatsAppMsgEx(campaign, replyDetails, selectedTP, tpPropsArr, function (replyObj) {
 
@@ -1578,15 +1587,69 @@ function saveClicked(isTemp, callback) { // 1. declare 2. verify 3. update custo
         }
     }
 }
+//20250117 for shandler whatsapp template messaage
+//-------------------------start-----------------
+function sendTemplateMessageByHandler(agent, token, companyName, sTemplate, sFrom, sTo, sTicketId) {
+    
+	  //'http://172.17.6.11:8033
+	$.ajax({
+        type: "POST",
+		
+        url: parent.parent.$('#phone-panel')[0].contentWindow.shandler.apiUrl + '/api/sendTemplate', crossDomain: true,
+        data:
+            JSON.stringify({
+                "Agent_Id": agent,      "TicketId": sTicketId,                  "Token": token,
+                "Company": companyName, "TemplateName": sTemplate.TemplateName,
+                "From": sFrom,          "To": sTo,                              "BodyParams": sTemplate.inputList
+            }),
+        contentType: "application/json; charset=utf-8", dataType: "json",
+        success: function (r) {
+            if (!/^success$/i.test(r.result || "")) {
+                console.log('error in function sendTemplateMessageByHandler in crmInputForm.js');
+            } else {  //cannot use this.selectedTicketId because the function is tiggerd in popup
+                 // return to the same .js
+                sendTemplateMessageFromCaseByHandlerCallBack(r.details);
+            }
+        },
+        error: function (r) {
+            console.log('error in sendTemplateMessageByHandler in crmInputForm.js');
+            console.log(r);
+        }
+    });
 
-function sendTemplateMessageFromCaseByHandlerCallBack()
+
+}
+
+function sendTemplateMessageFromCaseByHandlerCallBack(sMsg)
 {
+    /*       updateCaseObj Sample.
+        "Conn_Id": null, "Internal_Case_No": 33948, "Agent_Id": 5, "Call_Nature": "Enquiry",
+       "Details": "AAAAA", "Status": "Follow-up Required", "Is_Junk_Mail": "N", "Escalated_To": null,
+       "Reply_Type": "Outbound_WhatsApp", "Reply_Details": "61354543", "Call_Type": "",
+       "Type_Details": "", "Reply_Time": "2025-01-16 14:39:55",
+        "Token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IjUiLCJuYmYiOjE3MzcwMDk0NzcsImV4cCI6MTczNzA5NTg3NywiaWF0IjoxNzM3MDA5NDc3fQ.nJ_b1y8HbTSoMKxAjyYjt2gqcVh1mL94dykLJJiU7bI"
+        }
+       */
+
+    if (updateCaseObj.Type_Details == "" && updateCaseObj.Call_Type == "Inbound_WhatsApp" )
+    {
+        updateCaseObj.Type_Details = waTargetNumber; // $('#Mobile_No').val();
+    }
+
+    updateCaseObj.Ticket_Id = sMsg.TicketId.toString();
+
+
     callUpdateCase();
+
+
+
+   
     $('#send-wa-section').text("");
     $('#send-wa-section').text("Send");
 
 
 }
+//-------------------------endt-----------------
 
 // for customer service pop-up
 var profilePicClick = function () {
@@ -1800,6 +1863,22 @@ function callSaveCallHistory(isSaved) { // if update reply details only, will no
 function callUpdateCase() {
     updateCaseObj.Agent_Id = loginId;
     updateCaseObj.Token = token;
+
+    //20250126 for shandler
+    if (updateCaseObj.Type_Details == "")
+    {
+        if (updateCaseObj.Call_Type == "Inbound_Whatsapp")
+        {
+            updateCaseObj.Type_Details = $('#Mobile_No').val();
+        }
+    }
+
+    if (updateCaseObj.Ticket_Id == null)
+    {
+        updateCaseObj.Ticket_Id = parent.parent[3].chatService.selectedTicketId.ToString();
+
+    }
+
     $.ajax({
         type: "PUT",
         url: mvcHost + '/mvc' + campaign + '/api/UpdateCase',
@@ -1965,6 +2044,10 @@ function replyChannelChange(iThis) {
                     //20241219 FOR shandler
                     if (selectedSendTemplate != null)
                     {
+						
+						
+						
+						
                         replyConfirmed = true;
                         //document.getElementById("case-save-btn").disabled = false;   
                         $('#send-wa-section').text("");
@@ -2634,21 +2717,6 @@ var loadCaseLog = function (initial) {
             resize();
         } else {
             var folowHistoryContent = res.details;
-
-
-            for (var i = 0; i < folowHistoryContent.length; i++)
-            {
-                var item = folowHistoryContent[0];
-
-                if (item.Call_Type == "Inbound_Whatsapp")
-                {
-                    if (item.Type_Details == "")
-                    {
-                        item.Type_Details = $('#Mobile_No').val();
-                    }
-                }
-                
-            }
 
 
             var follolwupString = '';

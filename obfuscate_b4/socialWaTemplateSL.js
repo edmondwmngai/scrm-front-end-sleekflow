@@ -70,6 +70,20 @@ function selectClicked(btn) {
     window.opener.selectedSendTemplate = selectedTemplate;
     //window.opener.parent.parent.document.getElementById("phone-panel").contentWindow.selectedSendTemplate = selectedTemplate;
 
+    //var error = false;
+
+    if (window.opener.waTempService.validateTemplateInputLength(selectedTemplate) == false)
+    {
+        alert('Template input value length is larger than supported');
+        return;
+    }
+
+    if (window.opener.waTempService.validateTemplateInputFilled(selectedTemplate) == false)
+    {
+        alert('Template content props is not same length with the template props');
+        return;
+    }
+
 //    windowOpener.chatService.sendMessageByTemplate(selectedTemplate[0]);
     window.close();
     

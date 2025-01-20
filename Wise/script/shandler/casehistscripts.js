@@ -90,8 +90,12 @@
 		  if (msgList != null)
 		  {
 			  this.updateChatHeader(msgList[0].Channel)
+			  
+			  
+			  //this.selectedTicketId
 			  this.caseHistoryList = msgList;
-			  this.reloadCaseHistory(msgList);
+			  
+			  this.reloadCaseHistory(this.caseHistoryList);
 		  }
 	  }
 			  
@@ -112,9 +116,9 @@
 
 		  var contextResponse = {
 			  ticketId: this.selectedTicketId,
-			  name: customerData.Name_Eng,
-			  email: customerData.Email, 
-			  phone: customerData.Mobile_No, 
+			  name: this.customerData.Name_Eng,
+			  email: this.customerData.Email, 
+			  phone: this.customerData.Mobile_No, 
 			  language: "English",
 			  channelImg: channelImg,
 			  channel: entry,

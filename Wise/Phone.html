@@ -4310,7 +4310,7 @@ addEventListener(document, 'onWiseSocialStatus', function (e) {
 		<div id="{{messageid}}" class="message-row agent-row">
 			<div class="agent-content-bubble content-bubble">
 				<div class="content-bubble-name">{{SentBy}}</div>
-				<div class="content-bubble-content">
+				<div class="content-bubble-content" style="white-space: nowrap">
 					<div style="text-align:center;">
 						<img onclick="enlargeImage(this);" class="content-image" style="{{displayImage}}" alt="{{FileName}}" style="max-width:100%;max-height:200px;" src="{{FileUrl}}">
 					</div>
@@ -4339,7 +4339,7 @@ addEventListener(document, 'onWiseSocialStatus', function (e) {
 			</div>
 			<div class="visitor-content-bubble content-bubble">
 				<div class="content-bubble-name">{{SentBy}}</div>
-				<div class="content-bubble-content">
+				<div class="content-bubble-content" style="white-space: nowrap">
 					<div style="text-align:center;">
 						<img onclick="enlargeImage(this);" class="content-image" alt="{{FileName}}" style="max-width:100%;max-height:200px;" src="{{FileUrl}}">
 					</div>
@@ -4358,8 +4358,8 @@ addEventListener(document, 'onWiseSocialStatus', function (e) {
 	<script>
 		var wa_template = Handlebars.compile($('#wa_template').html());	// located at the end of the page
         var q_template = Handlebars.compile($('#visit_quoted_message_template').html());	// located at the end of the page
-
-		var waTempService = new waTemplateService(wa_template, q_template);
+																		   
+        var waTempService = new waTemplateService(wa_template, q_template, config.shandlerUrl);
 		var caHistService = new caseHistory();
 
 

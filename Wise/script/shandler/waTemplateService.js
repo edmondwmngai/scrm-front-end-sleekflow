@@ -14,13 +14,13 @@ class waTemplateService {
 	};
 
     
-    constructor(waTemplate, quotedTemplate)
+    constructor(waTemplate, quotedTemplate, baseURL)
     {
         //this.templateList = [];
 
         this.HTMLtemplate = waTemplate;
-
         this.qHTMLtemplate = quotedTemplate;
+        this.baseURL = baseURL;
     }
 
     createContextFromTemplate(templateInfo)
@@ -204,16 +204,22 @@ class waTemplateService {
 
     getTemplateByAPI(sCompany, sAgentId, sToken)
     {
+        //"http://172.17.6.11:8033/api/getTemplate",
+
+      
+
+        var URL = this.baseURL;
+        var URL = "http://172.17.6.11:8033/api";
         const self = this;
         $.ajax({
             type: "POST",
-            url: "http://172.17.6.11:8033/api/getTemplate",
+            url: URL + "/getTemplate",
             data: JSON.stringify({ "Company": sCompany, "Agent_Id": sAgentId, "Token": sToken }),
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             success: function (r) {
                 if (!/^success$/i.test(r.result || "")) {
-                    console.log('error in WaTemplatePopup');
+                    console.log('error in getTemplateByAPI');
 
                     //callback(null, r);
                 } else {
@@ -224,7 +230,7 @@ class waTemplateService {
             },
 
             error: function (r) {
-                callback(null, r);
+                //callback(null, r);
                 console.log('error in socialPopup');
                 console.log(r);
             }

@@ -85,7 +85,7 @@
 	  onChatHistoryScroll()
 	  {
 		  if (this.$chatHistory.scrollTop() < 20) {
-			  console.log("scroll top" + this.$chatHistory.scrollTop());
+			  //console.log("scroll top" + this.$chatHistory.scrollTop());
 			  //parent.$('#phone-panel')[0].contentWindow.addTestMessageAtTop();
 
 			  //returnPastMessageByTicketId
@@ -142,7 +142,7 @@
 				  this.$button[0].enabled = true;
 				  this.$button[0].style = "background: blue";
 			  }
-			console.log("Delayed for 5 second.");
+			//console.log("Delayed for 5 second.");
 		  }, 5000);
 	  };
 
@@ -212,8 +212,8 @@
 		  if (this.selectedTicketId == sMsg.TicketId) {
 			  this.scrollToBottom();
 
-			  setTimeout(() => { this.scrollToBottom(); }, 2000);
-			  setTimeout(() => { this.scrollToBottom(); }, 4000);
+			  setTimeout(() => { this.scrollToBottom(); }, 500);
+			  setTimeout(() => { this.scrollToBottom(); }, 1500);
 		  }
 
 		  this.isSendingMessage = false;
@@ -235,6 +235,9 @@
 		  //Current Bubble Message
 		  if (this.selectedTicketId == sMsg.TicketId) {
 			  this.receiveMessage(sMsg);
+
+			  setTimeout(() => { this.scrollToBottom(); }, 500);
+			  setTimeout(() => { this.scrollToBottom(); }, 1500);
 		  }
 		  else
 		  {
@@ -242,9 +245,6 @@
 			  this.moveBubbleToFirst(sMsg.TicketId);
 		  }
 
-		  if (this.selectedTicketId == sMsg.TicketId) {
-			  this.scrollToBottom();
-		  }
 
 	  };
 	  
@@ -374,7 +374,7 @@
 
 			  this.allowPastMessageCall = true;
 
-			  this.scrollToBottom();
+			  //this.scrollToBottom();
 		  }
 
 	  }
@@ -512,17 +512,19 @@
 			  var Fileurl = FileList[0].EproFileUrl;
 			  var FileMime = FileList[0].MimeType;
 
+			  var template = this.visitorMessageTemplate;
+
 			  if (FileMime.startsWith('image/')) {
 
 				  //var dateISO = sMsg.UpdatedAt.slice(0, 19); 
 				  //var mDate = moment(dateISO).format('HH:mm:ss');
 				  var mDate = returnDateForCRM(sMsg.UpdatedAt);
-							
+
 				  var attachmentTemplate = this.visitorMessageWithImageTemplate;
 
 				  //var agentName = agentService.getAgentNameByID(this.currentSelectedAgentId);
 
-				 // this.selectedAgentId = currentTicket.AssignedTo;
+				  // this.selectedAgentId = currentTicket.AssignedTo;
 
 				  //Need to update to get AgentList function
 				  var contextResponse = {
@@ -535,9 +537,47 @@
 
 				  this.$chatHistory.append(attachmentTemplate(contextResponse));
 			  }
-			  else {
-				  var template = this.visitorMessageTemplate;
+			  else if (FileMime.startsWith('audio/ogg') || FileMime.startsWith('audio/mpeg'))
+			  {
+			  
+						var aTag = '<audio controls controlsList="nodownload">' +
+							'<source src="{{FileUrl}}" type="audio/ogg">' +
+							'<source src="{{FileUrl}}" type="audio/mpeg">' +
+				  'Your browser does not support the audio element.</audio>';
 
+					aTag = aTag.replace("{{FileUrl}}", Fileurl);
+					var mDate = returnDateForCRM(sMsg.UpdatedAt);
+
+				  var context = {
+					  SentBy: sEndUserName,
+					  response: "{{attachment}}",
+					  time: mDate
+					};
+
+				  var output = template(context);
+				  output = output.replace("{{attachment}}", aTag);
+				  this.$chatHistory.append(output);
+			  }
+			  else if (FileMime.startsWith('video/mp4'))
+			  {
+				  var aTag = '<video controls="controls" width="300" height="225" preload="none">' +
+					  '<source type="video/mp4" src="{{FileUrl}}"></video>';
+				  aTag = aTag.replace("{{FileUrl}}", Fileurl);
+
+				  var mDate = returnDateForCRM(sMsg.UpdatedAt);
+
+				  var context = {
+					  SentBy: sEndUserName,
+					  response: "{{attachment}}",
+					  time: mDate
+				  };
+				  var output = template(context);
+				  output = output.replace("{{attachment}}", aTag);
+				  this.$chatHistory.append(output);
+			  }
+			  else
+			  {
+				
 				  var aTag = "<div class='position-relative'>" +
 					  "<a href='{{FileUrl}}' target='_blank' download=''>{{FileName}}</a>" +
 					  "<span class='wa-sent-success'>sent</span></div>";
@@ -769,8 +809,8 @@
 		  {
 			  var LastTicketId = 0;
 
-			  console.log("before process");
-			  console.log(JSON.parse(JSON.stringify(sMsglist)));
+			  //console.log("before process");
+			  //console.log(JSON.parse(JSON.stringify(sMsglist)));
 
 			  for (var i = 0; i < sMsglist.length; i++)
 			  {
@@ -805,13 +845,13 @@
 
 				  if (this.isScrollToBottom) {
 
-					  console.log("bottom");
+					 // console.log("bottom");
 					  this.scrollToBottom();
 
 				  }
 				  else
 				  {
-					  console.log("top");
+					 // console.log("top");
 					  this.scrollToTop();
 				  }
 			  }
@@ -1005,8 +1045,8 @@
 	  addBubble(status, timeout, ticket, messageList)
 	  {
 		  //moment(date).format('D MMM YYYY, h:mm:ss A')
-		  console.log(JSON.stringify(ticket));
-		  console.log(ticket.UpdatedAt);
+		  //console.log(JSON.stringify(ticket));
+		  //console.log(ticket.UpdatedAt);
 
 		  //handle the incoming message is closed when reloading
 		  if (ticket.Status == "closed" || ticket.Status == "timeout")
@@ -1237,7 +1277,7 @@
 	//---------------------------------------------------------------------------------------------------------------------------------------------///
 	//Tiggered by click the quening list, all the information in chatbot will be reloaded
 
-		//------------------------------------------------------------------------------------------------------------------------
+	//----------------------------------------------------------------------------------------------------------------------------------------------
 		
 	  reloadByGetTicket()
 	  {
@@ -1295,10 +1335,15 @@
 		  this.isScrollToBottom = true;
 		  this.reloadChatHistory(sMsgList);
 
+		  //4. update the chat history if there is past message ((only whatsapp will execute this logic))
+		  if (this.selectedChatChannel == "whatsapp") {
+			  this.returnPastMessageByTicketId(this.selectedTicketId);
+		  }
 
-		  
-		  //4. update the chat history if there is past message
-		  this.returnPastMessageByTicketId(this.selectedTicketId);
+
+		  //5. scroll to bottom 
+		  setTimeout(() => { this.scrollToBottom(); }, 500);
+		  setTimeout(() => { this.scrollToBottom(); }, 1500);
 	  };
 
 
@@ -1338,6 +1383,45 @@
 			$('#agentListModal').modal('toggle');
 	  
 	  };
+	  ///NOT����������������B�@����@�������A�@��������@������B
+	  agentAddGroupChat(ticketId, toAddAgentId, typeId)
+	  {
+		  var statusMsg = "";
+		  var agentNameStr = parent.getAgentName(toAddAgentId) + ' (ID: ' + toAddAgentId + ')';
+
+		  // silent: typeId = 1, no notice now
+		  if (typeId == 0) {
+			  statusMsg = agentNameStr + ' has joined to the chatroom';
+		  } else if (typeId == 2) {
+			  statusMsg = agentNameStr + ' has barged into the chatroom';
+		  }
+		  $('#content-inner-scroll-' + ticketId).append('<div class="text-center my-3"><span class="status-bubble">' + statusMsg + '</span></div>');
+
+		  // scroll to the bottom
+		  var objDiv = document.getElementById('content-inner-scroll-' + ticketId);
+		  if (objDiv != null) {
+			  objDiv.scrollTop = objDiv.scrollHeight;
+		  }
+	  };
+
+	  agentleftGroupChat(ticketId, toRemoveAgentId, typeId)
+	  {
+		  if (toRemoveAgentId == loginId) {
+			  addSocialStatus({ ticket_id: ticketId, ticket_status: 'left' });
+		  } else {
+			  var statusMsg = "";
+			  var agentNameStr = parent.getAgentName(toRemoveAgentId) + ' (ID: ' + toRemoveAgentId + ')';
+			  if (typeId == 0) {
+				  statusMsg = agentNameStr + ' is not in the chat room anymore' // ' has left the chatroom'; Changed on 2020-3 the user could be left because of barge in
+			  }
+			  $('#content-inner-scroll-' + ticketId).append('<div class="text-center my-3"><span class="status-bubble">' + statusMsg + '</span></div>');
+			  // scroll to the bottom
+			  var objDiv = document.getElementById('content-inner-scroll-' + ticketId);
+			  if (objDiv != null) {
+				  objDiv.scrollTop = objDiv.scrollHeight;
+			  }
+		  }
+	  }
 
 	  //-----------------------------------------------------------------------------------------------------------------------------
 	  //Canned response

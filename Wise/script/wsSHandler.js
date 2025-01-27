@@ -9,6 +9,7 @@ class wsSHandler {
 	messages=[];
 	onTicketEvent =null;
 	onMessageEvent =null;
+	onInteractEvent =null;
 	constructor(data) {
 		//const {hostname, agentid, token, tls, listener} =data;
 		const {wsUrl, apiUrl, agentid, token, tickets, listener} = data;
@@ -24,6 +25,7 @@ class wsSHandler {
 		this.tickets=tickets;
 		this.onTicketEvent=listener.onTicketEvent;
 		this.onMessageEvent=listener.onMessageEvent;
+		this.onInteractEvent=listener.onInteractEvent;
 		this.tickets=[];
 		
 		this.#createWebSocket();
@@ -31,7 +33,7 @@ class wsSHandler {
 	};
 	static async create(data) 
 	{
-		const {hostname, agentid, token, tls, listener} =data;
+		const {hostname, agentid, agentname, token, tls, listener} =data;
 		const wsUrl=(tls)? `wss://${hostname}:8133` : `ws://${hostname}:8133`;
 		const apiUrl = (tls)? `https://${hostname}:8033` : `http://${hostname}:8033`;
 		
@@ -40,7 +42,7 @@ class wsSHandler {
 			headers: {
 				"Content-Type": "application/json; charset=utf-8",
 			},
-            body: JSON.stringify({Agent_Id: agentid, Token: token}),
+            body: JSON.stringify({Agent_Id: agentid, Agent_Name: agentname, Token: token}),
         });
 		console.log(response);
 		const json = await response.json();
@@ -107,7 +109,17 @@ class wsSHandler {
 				msg.details.FilesJson=this.#b64DecodeUnicode(msg.details.FilesJson);
 				this.onMessageEvent(msg);
 
-			};
+			}
+			else if(msg.type=="requestConference") {
+				msg.details.message=this.#b64DecodeUnicode(msg.details.message);
+				msg.details.ticket.EndUserName=this.#b64DecodeUnicode(msg.details.ticket.EndUserName);
+				msg.details.ticket.EndUserEmail=this.#b64DecodeUnicode(msg.details.ticket.EndUserEmail);
+				this.onInteractEvent(msg);
+			}
+			else if(msg.type=="responseConference") {
+				msg.details.message=this.#b64DecodeUnicode(msg.details.message);
+				this.onInteractEvent(msg);
+			}
 		};
 		//let seft=this;
 		this.websocket.onclose=(event)=> {
@@ -262,6 +274,42 @@ class wsSHandler {
 			console.log(json.details);
 			return null;
 	};
+	
+	async requestConference(data)
+	{
+		const { agentId, token, ticketId, targetAgentId, message } = data;
+		const response = await fetch(this.apiUrl +'/api/RequestConference', {
+            method: 'POST',
+			headers: {
+				"Content-Type": "application/json; charset=utf-8",
+			},
+            body: JSON.stringify({AgentId: agentId, Token: token, TicketId: ticketId, TargetAgentId : targetAgentId, Message: message }),
+        });
+		if (!response.ok) {
+			console.log(response);
+			return null;
+		}
+		const json = await response.json();
+		return json;
+	}
+	
+	async responseConference(data)
+	{
+		const { agentId, token, ticketId, requestAgentId, message, agentResponse } = data;
+		const response = await fetch(this.apiUrl +'/api/RequestConference', {
+            method: 'POST',
+			headers: {
+				"Content-Type": "application/json; charset=utf-8",
+			},
+            body: JSON.stringify({AgentId: agentId, Token: token, TicketId: ticketId, RequestAgentId: requestAgentId, Message: message, AgentResponse: agentResponse }),
+        });
+		if (!response.ok) {
+			console.log(response);
+			return null;
+		}
+		const json = await response.json();
+		return json;
+	}
 	/*
 	connect() {
 		if(this.wsUrl=="") return;

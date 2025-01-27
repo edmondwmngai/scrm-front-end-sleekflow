@@ -729,6 +729,10 @@ function onMessageEvent(e)
 	console.log(e);
 }
 
+function onInteractEvent(e) 
+{
+	console.log(e);
+}
 
 //For development and debug //20241031
 //--------------------------------------------------------------------------------
@@ -741,25 +745,25 @@ function acceptCall_test(loginId, Token, Channel, deviceID)
 
 
 	var testAssignedList = '[{ "TicketId": 418, "EndUserId": "b5b6f193-0a3b-4560-aa33-573706309416", "EndUserProfileId": "53cf32e6-8914-4ffb-a935-fefb05caa9fd", "EndUserName": "TIGER", "EndUserEmail": "TIGER@TIGERTEST.COM", "EndUserPhone": "85291111111", "AssignedTo": 5, "Status": "open", "Channel": "web", "DeviceId": "", "CreatedBy": "user", "CreatedAt": "2024-11-27T09:54:24.763", "UpdatedAt": "2024-11-27T09:54:34.257", "LastMessage": "Message 3", "messages": ' +
-		'[{ "MessageId": 2307930846, "TicketId": 418, "UniqueId": null, "EndUserId": "b5b6f193-0a3b-4560-aa33-573706309416", "Channel": "web", "SentBy": "user", "UpdatedBy": null, "UpdatedAt": "2024-11-27T09:54:24.763", "MessageType": "text", "MessageContent": "MEssage 1", "FilesJson": "[]" }, ' +
-		'{ "MessageId": 2307930870, "TicketId": 418, "UniqueId": null, "EndUserId": "b5b6f193-0a3b-4560-aa33-573706309416", "Channel": "web", "SentBy": "user", "UpdatedBy": null, "UpdatedAt": "2024-11-27T09:54:27.827", "MessageType": "text", "MessageContent": "Message 2", "FilesJson": "[]" }, ' +
-		'{ "MessageId": 2307930871, "TicketId": 418, "UniqueId": null, "EndUserId": "b5b6f193-0a3b-4560-aa33-573706309416", "Channel": "web", "SentBy": "user", "UpdatedBy": null, "UpdatedAt": "2024-11-27T09:54:27.827", "MessageType": "text", "MessageContent": "Message 3", "FilesJson": "[]" }, ' +
-		'{ "MessageId": 2307930872, "TicketId": 418, "UniqueId": null, "EndUserId": "b5b6f193-0a3b-4560-aa33-573706309416", "Channel": "web", "SentBy": "user", "UpdatedBy": null, "UpdatedAt": "2024-11-27T09:54:27.827", "MessageType": "text", "MessageContent": "Message 4", "FilesJson": "[]" }, ' +
-		'{ "MessageId": 2307930873, "TicketId": 418, "UniqueId": null, "EndUserId": "b5b6f193-0a3b-4560-aa33-573706309416", "Channel": "web", "SentBy": "user", "UpdatedBy": null, "UpdatedAt": "2024-11-27T09:54:27.827", "MessageType": "text", "MessageContent": "Message 5", "FilesJson": "[]" }, ' +
-		'{ "MessageId": 2307930874, "TicketId": 418, "UniqueId": null, "EndUserId": "b5b6f193-0a3b-4560-aa33-573706309416", "Channel": "web", "SentBy": "user", "UpdatedBy": null, "UpdatedAt": "2024-11-27T09:54:27.827", "MessageType": "text", "MessageContent": "Message 6", "FilesJson": "[]" }, ' +
-		'{ "MessageId": 2307930875, "TicketId": 418, "UniqueId": null, "EndUserId": "b5b6f193-0a3b-4560-aa33-573706309416", "Channel": "web", "SentBy": "user", "UpdatedBy": null, "UpdatedAt": "2024-11-27T09:54:27.827", "MessageType": "text", "MessageContent": "Message 7", "FilesJson": "[]" }, ' +
-		'{ "MessageId": 2307930876, "TicketId": 418, "UniqueId": null, "EndUserId": "b5b6f193-0a3b-4560-aa33-573706309416", "Channel": "web", "SentBy": "user", "UpdatedBy": null, "UpdatedAt": "2024-11-27T09:54:27.827", "MessageType": "text", "MessageContent": "Message 8", "FilesJson": "[]" }, ' +
-		'{ "MessageId": 2307930877, "TicketId": 418, "UniqueId": null, "EndUserId": "b5b6f193-0a3b-4560-aa33-573706309416", "Channel": "web", "SentBy": "user", "UpdatedBy": null, "UpdatedAt": "2024-11-27T09:54:27.827", "MessageType": "text", "MessageContent": "Message 9", "FilesJson": "[]" }, ' +
-		'{ "MessageId": 2307930878, "TicketId": 418, "UniqueId": null, "EndUserId": "b5b6f193-0a3b-4560-aa33-573706309416", "Channel": "web", "SentBy": "user", "UpdatedBy": null, "UpdatedAt": "2024-11-27T09:54:27.827", "MessageType": "text", "MessageContent": "Message 10", "FilesJson": "[]" }, ' +
-		'{ "MessageId": 2307930879, "TicketId": 418, "UniqueId": null, "EndUserId": "b5b6f193-0a3b-4560-aa33-573706309416", "Channel": "web", "SentBy": "user", "UpdatedBy": null, "UpdatedAt": "2024-11-27T09:54:27.827", "MessageType": "text", "MessageContent": "Message 11", "FilesJson": "[]" }, ' +
-		'{ "MessageId": 2307930880, "TicketId": 418, "UniqueId": null, "EndUserId": "b5b6f193-0a3b-4560-aa33-573706309416", "Channel": "web", "SentBy": "user", "UpdatedBy": null, "UpdatedAt": "2024-11-27T09:54:27.827", "MessageType": "text", "MessageContent": "Message 12", "FilesJson": "[]" }, ' +
-		'{ "MessageId": 2307930881, "TicketId": 418, "UniqueId": null, "EndUserId": "b5b6f193-0a3b-4560-aa33-573706309416", "Channel": "web", "SentBy": "user", "UpdatedBy": null, "UpdatedAt": "2024-11-27T09:54:27.827", "MessageType": "text", "MessageContent": "Message 13", "FilesJson": "[]" }, ' +
-		'{ "MessageId": 2307930882, "TicketId": 418, "UniqueId": null, "EndUserId": "b5b6f193-0a3b-4560-aa33-573706309416", "Channel": "web", "SentBy": "user", "UpdatedBy": null, "UpdatedAt": "2024-11-27T09:54:27.827", "MessageType": "text", "MessageContent": "Message 14", "FilesJson": "[]" }, ' +
-		'{ "MessageId": 2307930883, "TicketId": 418, "UniqueId": null, "EndUserId": "b5b6f193-0a3b-4560-aa33-573706309416", "Channel": "web", "SentBy": "user", "UpdatedBy": null, "UpdatedAt": "2024-11-27T09:54:27.827", "MessageType": "text", "MessageContent": "Message 15", "FilesJson": "[]" }, ' +
-		'{ "MessageId": 2307930925, "TicketId": 418, "UniqueId": null, "EndUserId": "b5b6f193-0a3b-4560-aa33-573706309416", "Channel": "web", "SentBy": "user", "UpdatedBy": null, "UpdatedAt": "2024-11-27T09:54:34.257", "MessageType": "text", "MessageContent": "Message 16", "FilesJson": "[]" }] },' +
+		'[{ "MessageId": 2307930846, "TicketId": 418, "UniqueId": null, "QuotedMsgBody": "", "EndUserId": "b5b6f193-0a3b-4560-aa33-573706309416", "Channel": "web", "SentBy": "user", "UpdatedBy": null, "UpdatedAt": "2024-11-27T09:54:24.763", "MessageType": "text", "MessageContent": "MEssage 1", "FilesJson": "[]" }, ' +
+		'{ "MessageId": 2307930870, "TicketId": 418, "UniqueId": null, "QuotedMsgBody": "",  "EndUserId": "b5b6f193-0a3b-4560-aa33-573706309416", "Channel": "web", "SentBy": "user", "UpdatedBy": null, "UpdatedAt": "2024-11-27T09:54:27.827", "MessageType": "text", "MessageContent": "Message 2", "FilesJson": "[]" }, ' +
+		'{ "MessageId": 2307930871, "TicketId": 418, "UniqueId": null, "QuotedMsgBody": "",  "EndUserId": "b5b6f193-0a3b-4560-aa33-573706309416", "Channel": "web", "SentBy": "user", "UpdatedBy": null, "UpdatedAt": "2024-11-27T09:54:27.827", "MessageType": "text", "MessageContent": "Message 3", "FilesJson": "[]" }, ' +
+		'{ "MessageId": 2307930872, "TicketId": 418, "UniqueId": null, "QuotedMsgBody": "",  "EndUserId": "b5b6f193-0a3b-4560-aa33-573706309416", "Channel": "web", "SentBy": "user", "UpdatedBy": null, "UpdatedAt": "2024-11-27T09:54:27.827", "MessageType": "text", "MessageContent": "Message 4", "FilesJson": "[]" }, ' +
+		'{ "MessageId": 2307930873, "TicketId": 418, "UniqueId": null, "QuotedMsgBody": "",  "EndUserId": "b5b6f193-0a3b-4560-aa33-573706309416", "Channel": "web", "SentBy": "user", "UpdatedBy": null, "UpdatedAt": "2024-11-27T09:54:27.827", "MessageType": "text", "MessageContent": "Message 5", "FilesJson": "[]" }, ' +
+		'{ "MessageId": 2307930874, "TicketId": 418, "UniqueId": null, "QuotedMsgBody": "",  "EndUserId": "b5b6f193-0a3b-4560-aa33-573706309416", "Channel": "web", "SentBy": "user", "UpdatedBy": null, "UpdatedAt": "2024-11-27T09:54:27.827", "MessageType": "text", "MessageContent": "Message 6", "FilesJson": "[]" }, ' +
+		'{ "MessageId": 2307930875, "TicketId": 418, "UniqueId": null, "QuotedMsgBody": "",  "EndUserId": "b5b6f193-0a3b-4560-aa33-573706309416", "Channel": "web", "SentBy": "user", "UpdatedBy": null, "UpdatedAt": "2024-11-27T09:54:27.827", "MessageType": "text", "MessageContent": "Message 7", "FilesJson": "[]" }, ' +
+		'{ "MessageId": 2307930876, "TicketId": 418, "UniqueId": null, "QuotedMsgBody": "",  "EndUserId": "b5b6f193-0a3b-4560-aa33-573706309416", "Channel": "web", "SentBy": "user", "UpdatedBy": null, "UpdatedAt": "2024-11-27T09:54:27.827", "MessageType": "text", "MessageContent": "Message 8", "FilesJson": "[]" }, ' +
+		'{ "MessageId": 2307930877, "TicketId": 418, "UniqueId": null, "QuotedMsgBody": "",  "EndUserId": "b5b6f193-0a3b-4560-aa33-573706309416", "Channel": "web", "SentBy": "user", "UpdatedBy": null, "UpdatedAt": "2024-11-27T09:54:27.827", "MessageType": "text", "MessageContent": "Message 9", "FilesJson": "[]" }, ' +
+		'{ "MessageId": 2307930878, "TicketId": 418, "UniqueId": null, "QuotedMsgBody": "",  "EndUserId": "b5b6f193-0a3b-4560-aa33-573706309416", "Channel": "web", "SentBy": "user", "UpdatedBy": null, "UpdatedAt": "2024-11-27T09:54:27.827", "MessageType": "text", "MessageContent": "Message 10", "FilesJson": "[]" }, ' +
+		'{ "MessageId": 2307930879, "TicketId": 418, "UniqueId": null, "QuotedMsgBody": "",  "EndUserId": "b5b6f193-0a3b-4560-aa33-573706309416", "Channel": "web", "SentBy": "user", "UpdatedBy": null, "UpdatedAt": "2024-11-27T09:54:27.827", "MessageType": "text", "MessageContent": "Message 11", "FilesJson": "[]" }, ' +
+		'{ "MessageId": 2307930880, "TicketId": 418, "UniqueId": null, "QuotedMsgBody": "",  "EndUserId": "b5b6f193-0a3b-4560-aa33-573706309416", "Channel": "web", "SentBy": "user", "UpdatedBy": null, "UpdatedAt": "2024-11-27T09:54:27.827", "MessageType": "text", "MessageContent": "Message 12", "FilesJson": "[]" }, ' +
+		'{ "MessageId": 2307930881, "TicketId": 418, "UniqueId": null, "QuotedMsgBody": "",  "EndUserId": "b5b6f193-0a3b-4560-aa33-573706309416", "Channel": "web", "SentBy": "user", "UpdatedBy": null, "UpdatedAt": "2024-11-27T09:54:27.827", "MessageType": "text", "MessageContent": "Message 13", "FilesJson": "[]" }, ' +
+		'{ "MessageId": 2307930882, "TicketId": 418, "UniqueId": null, "QuotedMsgBody": "",  "EndUserId": "b5b6f193-0a3b-4560-aa33-573706309416", "Channel": "web", "SentBy": "user", "UpdatedBy": null, "UpdatedAt": "2024-11-27T09:54:27.827", "MessageType": "text", "MessageContent": "Message 14", "FilesJson": "[]" }, ' +
+		'{ "MessageId": 2307930883, "TicketId": 418, "UniqueId": null, "QuotedMsgBody": "",  "EndUserId": "b5b6f193-0a3b-4560-aa33-573706309416", "Channel": "web", "SentBy": "user", "UpdatedBy": null, "UpdatedAt": "2024-11-27T09:54:27.827", "MessageType": "text", "MessageContent": "Message 15", "FilesJson": "[]" }, ' +
+		'{ "MessageId": 2307930925, "TicketId": 418, "UniqueId": null, "QuotedMsgBody": "",  "EndUserId": "b5b6f193-0a3b-4560-aa33-573706309416", "Channel": "web", "SentBy": "user", "UpdatedBy": null, "UpdatedAt": "2024-11-27T09:54:34.257", "MessageType": "text", "MessageContent": "Message 16", "FilesJson": "[]" }] },' +
 
-		'{ "TicketId": 419, "EndUserId": "037b1416-38c5-4c9e-aa4c-ce7dec02effa", "EndUserProfileId": "53cf32e6-8914-4ffb-a935-fefb05caa9fd", "EndUserName": "TEST", "EndUserEmail": "TEST@TESTER.COM", "EndUserPhone": "85291111111", "AssignedTo": 5, "Status": "open", "Channel": "web", "DeviceId": "", "CreatedBy": "user", "CreatedAt": "2024-11-27T09:58:11.51", "UpdatedAt": "2024-11-27T09:58:24.383", "LastMessage": "Message from tester 44", "messages": [{ "MessageId": 2307932310, "TicketId": 419, "UniqueId": null, "EndUserId": "037b1416-38c5-4c9e-aa4c-ce7dec02effa", "Channel": "web", "SentBy": "user", "UpdatedBy": null, "UpdatedAt": "2024-11-27T09:58:11.51", "MessageType": "text", "MessageContent": "Message from tester 1", "FilesJson": "[]" }, { "MessageId": 2307932360, "TicketId": 419, "UniqueId": null, "EndUserId": "037b1416-38c5-4c9e-aa4c-ce7dec02effa", "Channel": "web", "SentBy": "user", "UpdatedBy": null, "UpdatedAt": "2024-11-27T09:58:18.937", "MessageType": "text", "MessageContent": "Message from tester 2", "FilesJson": "[]" }, { "MessageId": 2307932376, "TicketId": 419, "UniqueId": null, "EndUserId": "037b1416-38c5-4c9e-aa4c-ce7dec02effa", "Channel": "web", "SentBy": "user", "UpdatedBy": null, "UpdatedAt": "2024-11-27T09:58:21.74", "MessageType": "text", "MessageContent": "Message from tester 33", "FilesJson": "[]" }, { "MessageId": 2307932391, "TicketId": 419, "UniqueId": null, "EndUserId": "037b1416-38c5-4c9e-aa4c-ce7dec02effa", "Channel": "web", "SentBy": "user", "UpdatedBy": null, "UpdatedAt": "2024-11-27T09:58:24.383", "MessageType": "text", "MessageContent": "Message from tester 44", "FilesJson": "[]" }] },' +
-		'{ "TicketId": 420, "EndUserId": "b5b6f193-0a3b-4560-aa33-573706309416", "EndUserProfileId": "53cf32e6-8914-4ffb-a935-fefb05caa9fd", "EndUserName": "MARY", "EndUserEmail": "MARY@MARY.COM", "EndUserPhone": "85291111111", "AssignedTo": 5, "Status": "closed", "Channel": "web", "DeviceId": "", "CreatedBy": "user", "CreatedAt": "2024-12-02T14:54:24.363", "UpdatedAt": "2024-12-02T14:54:34.257", "LastMessage": "Message 3", "messages": [{ "MessageId": 2307930846, "TicketId": 420, "UniqueId": null, "EndUserId": "b5b6f193-0a3b-4560-aa33-573706309416", "Channel": "web", "SentBy": "user", "UpdatedBy": null, "UpdatedAt": "2024-11-27T09:54:24.763", "MessageType": "text", "MessageContent": "MEssage 1", "FilesJson": "[]" }, { "MessageId": 2307930870, "TicketId": 420, "UniqueId": null, "EndUserId": "b5b6f193-0a3b-4560-aa33-573706309416", "Channel": "web", "SentBy": "user", "UpdatedBy": null, "UpdatedAt": "2024-11-27T09:54:27.827", "MessageType": "text", "MessageContent": "Message 2", "FilesJson": "[]" }, { "MessageId": 2307930925, "TicketId": 420, "UniqueId": null, "EndUserId": "b5b6f193-0a3b-4560-aa33-573706309416", "Channel": "web", "SentBy": "user", "UpdatedBy": null, "UpdatedAt": "2024-12-02T14:54:34.257", "MessageType": "text", "MessageContent": "Message 3", "FilesJson": "[]" }] }]';
+		'{ "TicketId": 419, "EndUserId": "037b1416-38c5-4c9e-aa4c-ce7dec02effa", "EndUserProfileId": "53cf32e6-8914-4ffb-a935-fefb05caa9fd", "EndUserName": "TEST", "EndUserEmail": "TEST@TESTER.COM", "EndUserPhone": "85291111111", "AssignedTo": 5, "Status": "open", "Channel": "web", "DeviceId": "", "CreatedBy": "user", "CreatedAt": "2024-11-27T09:58:11.51", "UpdatedAt": "2024-11-27T09:58:24.383", "LastMessage": "Message from tester 44", "messages": [{ "MessageId": 2307932310, "TicketId": 419, "UniqueId": null, "QuotedMsgBody": "", "EndUserId": "037b1416-38c5-4c9e-aa4c-ce7dec02effa", "Channel": "web", "SentBy": "user", "UpdatedBy": null, "UpdatedAt": "2024-11-27T09:58:11.51", "MessageType": "text", "MessageContent": "Message from tester 1", "FilesJson": "[]" }, { "MessageId": 2307932360, "TicketId": 419, "UniqueId": null, "QuotedMsgBody": "", "EndUserId": "037b1416-38c5-4c9e-aa4c-ce7dec02effa", "Channel": "web", "SentBy": "user", "UpdatedBy": null, "UpdatedAt": "2024-11-27T09:58:18.937", "MessageType": "text", "MessageContent": "Message from tester 2", "FilesJson": "[]" }, { "MessageId": 2307932376, "TicketId": 419, "UniqueId": null, "QuotedMsgBody": "", "EndUserId": "037b1416-38c5-4c9e-aa4c-ce7dec02effa", "Channel": "web", "SentBy": "user", "UpdatedBy": null, "UpdatedAt": "2024-11-27T09:58:21.74", "MessageType": "text", "MessageContent": "Message from tester 33", "FilesJson": "[]" }, { "MessageId": 2307932391, "TicketId": 419, "UniqueId": null,"QuotedMsgBody": "",  "EndUserId": "037b1416-38c5-4c9e-aa4c-ce7dec02effa", "Channel": "web", "SentBy": "user", "UpdatedBy": null, "UpdatedAt": "2024-11-27T09:58:24.383", "MessageType": "text", "MessageContent": "Message from tester 44", "FilesJson": "[]" }] },' +
+		'{ "TicketId": 420, "EndUserId": "b5b6f193-0a3b-4560-aa33-573706309416", "EndUserProfileId": "53cf32e6-8914-4ffb-a935-fefb05caa9fd", "EndUserName": "MARY", "EndUserEmail": "MARY@MARY.COM", "EndUserPhone": "85291111111", "AssignedTo": 5, "Status": "closed", "Channel": "web", "DeviceId": "", "CreatedBy": "user", "CreatedAt": "2024-12-02T14:54:24.363", "UpdatedAt": "2024-12-02T14:54:34.257", "LastMessage": "Message 3", "messages": [{ "MessageId": 2307930846, "TicketId": 420, "UniqueId": null, "QuotedMsgBody": "", "EndUserId": "b5b6f193-0a3b-4560-aa33-573706309416", "Channel": "web", "SentBy": "user", "UpdatedBy": null, "UpdatedAt": "2024-11-27T09:54:24.763", "MessageType": "text", "MessageContent": "MEssage 1", "FilesJson": "[]" }, { "MessageId": 2307930870, "TicketId": 420, "UniqueId": null, "QuotedMsgBody": "", "EndUserId": "b5b6f193-0a3b-4560-aa33-573706309416", "Channel": "web", "SentBy": "user", "UpdatedBy": null, "UpdatedAt": "2024-11-27T09:54:27.827", "MessageType": "text", "MessageContent": "Message 2", "FilesJson": "[]" }, { "MessageId": 2307930925, "TicketId": 420, "UniqueId": null, "QuotedMsgBody": "", "EndUserId": "b5b6f193-0a3b-4560-aa33-573706309416", "Channel": "web", "SentBy": "user", "UpdatedBy": null, "UpdatedAt": "2024-12-02T14:54:34.257", "MessageType": "text", "MessageContent": "Message 3", "FilesJson": "[]" }] }]';
 
 
 
@@ -777,6 +781,41 @@ function acceptCall_test(loginId, Token, Channel, deviceID)
 
 	//var chatService= parent.$('#social-media')[0].contentWindow.chatService;
 	//chatService.addMessage();
+}
+
+
+function acceptInvitedCall(loginId, Token, Channel, deviceID) 
+{
+	testMode = true;
+
+	//Function for redirect iframe to socialMedialHandler.html
+	//$('#beInvitedModal').modal('show');
+
+
+	//parent.window.$('#beInvitedModal').modal('show');
+
+
+
+	var testAssignedList = '[{ "TicketId": 421, "EndUserId": "b5b6f193-0a3b-4560-aa33-573706309416", "EndUserProfileId": "53cf32e6-8914-4ffb-a935-fefb05caa9fd", "EndUserName": "TOMMY", "EndUserEmail": "MARY@MARY.COM", "EndUserPhone": "85291111111", "AssignedTo": 6, "Status": "open", "Channel": "web", "DeviceId": "", "CreatedBy": "user", "CreatedAt": "2024-12-02T14:54:24.363", "UpdatedAt": "2024-12-02T14:54:34.257", "LastMessage": "Message 3", ' +
+		'"messages": [{ "MessageId": 2307930846, "TicketId": 421, "UniqueId": null, "QuotedMsgBody": "", "EndUserId": "b5b6f193-0a3b-4560-aa33-573706309416", "Channel": "web", "SentBy": "user", "UpdatedBy": null, "UpdatedAt": "2024-11-27T09:54:24.763", "MessageType": "text", "MessageContent": "MEssage 1", "FilesJson": "[]" }, { "MessageId": 2307930870, "TicketId": 421, "UniqueId": null, "EndUserId": "b5b6f193-0a3b-4560-aa33-573706309416", "Channel": "web", "SentBy": "user", "UpdatedBy": null, "UpdatedAt": "2024-11-27T09:54:27.827", "MessageType": "text", "MessageContent": "Message 2", "FilesJson": "[]" }, { "MessageId": 2307930925, "TicketId": 421, "UniqueId": null, "EndUserId": "b5b6f193-0a3b-4560-aa33-573706309416", "Channel": "web", "SentBy": "user", "UpdatedBy": null, "UpdatedAt": "2024-12-02T14:54:34.257", "MessageType": "text", "MessageContent": "Message 3", "FilesJson": "[]" }] }]';
+
+	var newList = JSON.parse(testAssignedList);
+	AssignedTicketList.push(newList[0]);
+	//queueList = JSON.parse(testQueueList);
+
+	currentTicket = newList[0];
+	selectedQueuelist = queueList.filter(i => i.source == 'sleekflow' && i.entry == 'web');
+
+    window.parent.SocialMediaClicked();
+
+
+	reloadedByGetTicket = true;
+
+	testMode = false;
+
+	
+
+
 }
 
 // Function that trigger by user click the querylist on the top
@@ -1055,10 +1094,7 @@ function sendAttachmentByHandler(agent, token, messageType, file, sTicket) {
 
 function getPastMessageByHandler(ticketId, agentid,  token,userId,  msgId, limit)
 {
-
-
-	//parent.$('#phone-panel')[0].contentWindow.shandler.apiUrl 'http://172.17.6.11:8033'
-    $.ajax({
+	$.ajax({	//parent.$('#phone-panel')[0].contentWindow.shandler.apiUrl 'http://172.17.6.11:8033'
         type: "POST",
         url:  shandler.apiUrl +	'/api/GetMessagesByUserId', crossDomain: true,
         data: JSON.stringify({ AgentId: agentid, Token: token, UserId: userId, MsgId: msgId, Limit: limit }),
@@ -1082,7 +1118,7 @@ function getPastMessageByHandler(ticketId, agentid,  token,userId,  msgId, limit
 
 }
 
-		//	function sendTemplateMessageByHandler(agent, token, companyName, sTemplate, sTicket) {
+//	function sendTemplateMessageByHandler(agent, token, companyName, sTemplate, sTicket) {
 //****20250116 same API defined in crmInputForm .js*/
 function sendTemplateMessageByHandler(agent, token, companyName, sTemplate, sFrom, sTo, sTicketId) {
 	$.ajax({
@@ -1279,11 +1315,13 @@ async function windowOnload() {
 	shandler=await wsSHandler.create({
 		hostname: "172.17.6.11",
 		agentid: loginId,
+		agentname: top.agentName,
 		token: top.token,
 		tls: false,
 		listener: {
 			onTicketEvent : onTicketEvent,
-			onMessageEvent : onMessageEvent
+			onMessageEvent : onMessageEvent,
+			onInteractEvent : onInteractEvent,
 		}
 	});
 	console.log(shandler.tickets);

@@ -119,6 +119,9 @@ function directCallClicked() {
     ppc.wiseAnswerDirectCall();
 }
 
+
+
+
 var windowOnBeforeUnload = function () {
     // for (let ticketId of toBeUnloadedPost) {
 
@@ -133,7 +136,50 @@ var windowOnBeforeUnload = function () {
     // if (!confirmedLogout) {
     //     logoutClicked();
     // }
+
+
+ 
 }
+
+
+
+
+//20250113 for end all the ticket before close()
+//Start-------------------------------------------------
+window.onbeforeunload = function () {
+
+    var sHandler = parent.$('#phone-panel')[0].contentWindow.shandler;
+    var sAssignedTicketList = parent.$('#phone-panel')[0].contentWindow.AssignedTicketList;
+
+    if (sHandler != null && sAssignedTicketList != null) {
+        for (var i = 0; i < sAssignedTicketList.length; i++) {
+            //endSessionByHandler
+            var item = sAssignedTicketList[i];
+            if (item.AssignedTo == loginId && item.Status == "open") {
+                //endSessionByHandler(loginId, top.token, item.ticketId);
+
+                sHandler.endTicket({
+                    agentid: loginId,
+                    token: top.token,
+                    ticketid: item.TicketId
+                })
+                    .then(response => {
+                        if (response) {
+                            //parent.$('#social-media-main')[0].contentWindow.chatService.endSessionCallBack(ticketId);
+                        }
+                    })
+                    .catch(error => {
+                        console.log('error in endSessionByHandler');
+                        console.log(error);
+                        return null;
+                    });
+            }
+
+        }
+    }
+}
+
+
 
 function sessionTimeout() {
     alert('Session Timeout');
@@ -413,6 +459,27 @@ function acceptRejectClicked(isAccept) {
     $('#beInvitedModal').modal('toggle');
     tmpAgentId = null;
 }
+
+//20240122 for shandler
+//--------------------------------------------------
+// 9. Got Conference Call Request
+function acceptInvitedClicked(isAccept) {
+    var replyMessage = $('#be-invited-message').val();
+    var ticketId = document.getElementById('be-invited-ticketid').innerHTML;
+    var phoneContent = document.getElementById("phone-panel").contentWindow;
+    if (isAccept) {
+        $('#beInvitedModal').modal('toggle');
+        SocialMediaClicked();
+        parent.$('#phone-panel')[0].contentWindow.acceptInvitedCall();
+        
+
+    } else {
+        $('#beInvitedModal').modal('toggle');
+    }
+    
+    tmpAgentId = null;
+}
+//--------------------------------------------------
 
 // 9.5  be invited to a chat room
 addEventListener(document, 'onWiseClientMsgID', function (e) {

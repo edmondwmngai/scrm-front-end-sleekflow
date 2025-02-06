@@ -1571,7 +1571,7 @@ function saveClicked(isTemp, callback) { // 1. declare 2. verify 3. update custo
             //20241219 for shandler send Whatsapp
             //parent.parent.$('#phone-panel')[0].contentWindow.sendTemplateMessageByHandler(sAgentId, sToken, "EPRO", selectedSendTemplate, "85293909352", "852XXXXX8303", null);
             //parent.parent.$('#phone-panel')[0].contentWindow.sendTemplateMessageByHandler(sAgentId, sToken, "EPRO", selectedSendTemplate, "85293909352", waTargetNumber, null);
-            sendTemplateMessageByHandler(sAgentId, sToken, "EPRO", selectedSendTemplate, "85293909352", waTargetNumber, null);
+            sendTemplateMessageFromCase(sAgentId, sToken, "EPRO", selectedSendTemplate, "85293909352", waTargetNumber, null);
             /*
             parent.parent.document.getElementById("phone-panel").contentWindow.wiseSendWhatsAppMsgEx(campaign, replyDetails, selectedTP, tpPropsArr, function (replyObj) {
 
@@ -1587,9 +1587,9 @@ function saveClicked(isTemp, callback) { // 1. declare 2. verify 3. update custo
         }
     }
 }
-//20250117 for shandler whatsapp template messaage
+//20250117 for shandler whatsapp template messaage	(copy from sendTemplateMessageByHandler on phone.html)
 //-------------------------start-----------------
-function sendTemplateMessageByHandler(agent, token, companyName, sTemplate, sFrom, sTo, sTicketId) {
+function sendTemplateMessageFromCase(agent, token, companyName, sTemplate, sFrom, sTo, sTicketId) {
     
 	  //'http://172.17.6.11:8033
 	$.ajax({
@@ -1605,10 +1605,10 @@ function sendTemplateMessageByHandler(agent, token, companyName, sTemplate, sFro
         contentType: "application/json; charset=utf-8", dataType: "json",
         success: function (r) {
             if (!/^success$/i.test(r.result || "")) {
-                console.log('error in function sendTemplateMessageByHandler in crmInputForm.js');
+                console.log('error in function sendTemplateMessageFromCase in crmInputForm.js');
             } else {  //cannot use this.selectedTicketId because the function is tiggerd in popup
                  // return to the same .js
-                sendTemplateMessageFromCaseByHandlerCallBack(r.details);
+                sendTemplateMessageFromCaseCallBack(r.details);
             }
         },
         error: function (r) {
@@ -1620,7 +1620,7 @@ function sendTemplateMessageByHandler(agent, token, companyName, sTemplate, sFro
 
 }
 
-function sendTemplateMessageFromCaseByHandlerCallBack(sMsg)
+function sendTemplateMessageFromCaseCallBack(sMsg)
 {
     /*       updateCaseObj Sample.
         "Conn_Id": null, "Internal_Case_No": 33948, "Agent_Id": 5, "Call_Nature": "Enquiry",

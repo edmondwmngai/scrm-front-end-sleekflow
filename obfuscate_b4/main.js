@@ -464,20 +464,8 @@ function acceptRejectClicked(isAccept) {
 //--------------------------------------------------
 // 9. Got Conference Call Request
 function acceptInvitedClicked(isAccept) {
-    var replyMessage = $('#be-invited-message').val();
-    var ticketId = document.getElementById('be-invited-ticketid').innerHTML;
-    var phoneContent = document.getElementById("phone-panel").contentWindow;
-    if (isAccept) {
-        $('#beInvitedModal').modal('toggle');
-        SocialMediaClicked();
-        parent.$('#phone-panel')[0].contentWindow.acceptInvitedCall();
-        
 
-    } else {
-        $('#beInvitedModal').modal('toggle');
-    }
-    
-    tmpAgentId = null;
+    parent.$('#phone-panel')[0].contentWindow.responseInvitedCall(isAccept);
 }
 //--------------------------------------------------
 

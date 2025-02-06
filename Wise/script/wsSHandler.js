@@ -295,12 +295,13 @@ class wsSHandler {
 	
 	async responseConference(data)
 	{
+		
 		const { agentId, token, ticketId, requestAgentId, message, agentResponse } = data;
-		const response = await fetch(this.apiUrl +'/api/RequestConference', {
+		const response = await fetch(this.apiUrl +'/api/ResponseConference', {
             method: 'POST',
 			headers: {
 				"Content-Type": "application/json; charset=utf-8",
-			},
+			},																						  
             body: JSON.stringify({AgentId: agentId, Token: token, TicketId: ticketId, RequestAgentId: requestAgentId, Message: message, AgentResponse: agentResponse }),
         });
 		if (!response.ok) {

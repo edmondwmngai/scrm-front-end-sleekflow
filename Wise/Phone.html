@@ -543,6 +543,7 @@ var pastMsglist = null;
 
 var reloadedByGetTicket = false;
 var AssignedTicketList= [];
+var JoinedConferenceList = [];
 var sendMessageReturned=null;
 var testMode = false;
 
@@ -853,6 +854,12 @@ function responseInvitedCall(isAccept)
     //$('#beInvitedModal').modal('toggle');
 }
 
+function responseInviteCallBack(response) {
+    //parent.window.$('#beInvitedModal').blur
+	parent.window.$('#beInvitedModal').modal('hide');
+	acceptCall_fromConference();
+}
+
 function acceptCall_fromConference() {
 
     //check websocket state, continue process is not allowed if false is returned;
@@ -860,13 +867,8 @@ function acceptCall_fromConference() {
     if (wssresult.result == false) { alert(wssresult.message); return; }
 	//-----
 
-    testMode = true;
-
-    //Function for redirect iframe to socialMedialHandler.html
-    $('#beInvitedModal').modal('show');
-
     //parent.window.$('#beInvitedModal').modal('show');
-    var testAssignedList = '[{ "TicketId": 421, "EndUserId": "b5b6f193-0a3b-4560-aa33-573706309416", "EndUserProfileId": "53cf32e6-8914-4ffb-a935-fefb05caa9fd", "EndUserName": "TOMMY", "EndUserEmail": "MARY@MARY.COM", "EndUserPhone": "85291111111", "AssignedTo": 6, "Status": "open", "Channel": "web", "DeviceId": "", "CreatedBy": "user", "CreatedAt": "2024-12-02T14:54:24.363", "UpdatedAt": "2024-12-02T14:54:34.257", "LastMessage": "Message 3", ' +
+    var testAssignedList = '[{ "TicketId": 421, "EndUserId": "b5b6f193-0a3b-4560-aa33-573706309416", "EndUserProfileId": "53cf32e6-8914-4ffb-a935-fefb05caa9fd", "EndUserName": "TOMMY", "EndUserEmail": "MARY@MARY.COM", "EndUserPhone": "85291111111", "AssignedTo": 6, "Status": "group", "Channel": "web", "DeviceId": "", "CreatedBy": "user", "CreatedAt": "2024-12-02T14:54:24.363", "UpdatedAt": "2024-12-02T14:54:34.257", "LastMessage": "Message 3", ' +
     	'"messages": [{ "MessageId": 2307930846, "TicketId": 421, "UniqueId": null, "QuotedMsgBody": "", "EndUserId": "b5b6f193-0a3b-4560-aa33-573706309416", "Channel": "web", "SentBy": "user", "UpdatedBy": null, "UpdatedAt": "2024-11-27T09:54:24.763", "MessageType": "text", "MessageContent": "MEssage 1", "FilesJson": "[]" }, { "MessageId": 2307930870, "TicketId": 421, "UniqueId": null, "EndUserId": "b5b6f193-0a3b-4560-aa33-573706309416", "Channel": "web", "SentBy": "user", "UpdatedBy": null, "UpdatedAt": "2024-11-27T09:54:27.827", "MessageType": "text", "MessageContent": "Message 2", "FilesJson": "[]" }, { "MessageId": 2307930925, "TicketId": 421, "UniqueId": null, "EndUserId": "b5b6f193-0a3b-4560-aa33-573706309416", "Channel": "web", "SentBy": "user", "UpdatedBy": null, "UpdatedAt": "2024-12-02T14:54:34.257", "MessageType": "text", "MessageContent": "Message 3", "FilesJson": "[]" }] }]';
 
     var newList = JSON.parse(testAssignedList);
@@ -878,10 +880,7 @@ function acceptCall_fromConference() {
 
     window.parent.SocialMediaClicked();
 
-
     reloadedByGetTicket = true;
-
-    testMode = false;
 
 }
 
@@ -1408,11 +1407,6 @@ function responseInviteByHandler(agentId, token, ticketId, requestAgentId, messa
 			});
 }
 
-function responseInviteCallBack(response)
-{
-    //parent.window.$('#beInvitedModal').blur
-    parent.window.$('#beInvitedModal').modal('toggle');	
-}
 
 function checkWebSocketState(websocket)
 {

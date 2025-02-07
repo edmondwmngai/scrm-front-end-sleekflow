@@ -128,11 +128,9 @@
 		  parent.$('#phone-panel')[0].contentWindow.sendMessageReturned = null;
 		  parent.$('#phone-panel')[0].contentWindow.sendMessageByHandler(loginId, token, "text", this.$textarea.val(), sTicket[0]);
 
-
 		  this.isSendingMessage = true;
 		  this.$button[0].enabled = false;
 		  this.$button[0].style = "background: grey";
-		  
 
 		  setTimeout(() =>
 		  {
@@ -141,12 +139,9 @@
 				  this.isSendingMessage = false;
 				  this.$button[0].enabled = true;
 				  this.$button[0].style = "background: blue";
-			  }
-			//console.log("Delayed for 5 second.");
+			  }		//console.log("Delayed for 5 second.");
 		  }, 5000);
 	  };
-
-
 
 	  sendAttachmentByClick()
 	  {
@@ -280,9 +275,13 @@
 
 	  endSession() {
 
+
+		  //***** may need to handle left the chat features
+
 		  var endSession = false;
 
 		  //Confirm by user to end the session
+
 		  if (confirm('End Session')) {
 			  endSession = true;
 		  }
@@ -344,32 +343,27 @@
 			  var sTicket = parent.$('#phone-panel')[0].contentWindow.AssignedTicketList.filter(i => i.TicketId == ticketId);
 			  var newList = JSON.parse(JSON.stringify(msgList));
 
-			  //console.log('before');
-			  //console.log(JSON.stringify(newList));
+			  //console.log('before');	  //console.log(JSON.stringify(newList));
 
 			  //Record the original TicketID
 			  newList.forEach(item => { item.oTicketId = item.TicketId; });
 			  //Assign the display related TicketID
 			  newList.forEach(item => { item.TicketId = ticketId; });
 
-			  //console.log('Updated');
-			  //console.log(JSON.stringify(newList));
+			  //console.log('Updated');		//console.log(JSON.stringify(newList));
 
 			  //Append the message list at the beginning
 			  newList = newList.concat(sTicket[0].messages);
 
-			  //console.log('Concated');
-			  //console.log(JSON.stringify(newList));
+			  //console.log('Concated');  //console.log(JSON.stringify(newList));
 			  //apply sorting
 			  newList = newList.sort((a, b) => { return a.MessageId - b.MessageId; });
 
 			  //update the current message list to ticket record in assignedList
 			  sTicket[0].messages = newList;
 
-			  //console.log("old");
-			  //console.log(JSON.parse(JSON.stringify(sTicket[0].messages)));
-			  //console.log("updated");
-			 // console.log(JSON.stringify(sTicket[0]));
+			  //console.log("old");		 //console.log(JSON.parse(JSON.stringify(sTicket[0].messages)));
+			  //console.log("updated");	 // console.log(JSON.stringify(sTicket[0]));
 			  this.reloadChatHistory(sTicket[0].messages);
 
 			  this.allowPastMessageCall = true;
@@ -468,12 +462,7 @@
 	  		var templateResponse = this.visitorMessageTemplate;
 
 			//The moment js cannot handle the iso date format, if full date format the output is wrong. Please update the moment js above 2.16.0
-			//var dateISO = sMsg.UpdatedAt.slice(0, 19); 
-
-			
-
-			//var mDate = moment(dateISO).format('HH:mm:ss');
-
+			//var dateISO = sMsg.UpdatedAt.slice(0, 19); 			//var mDate = moment(dateISO).format('HH:mm:ss');
 
 		    var mDate = returnDateForCRM(sMsg.UpdatedAt);
 
@@ -609,13 +598,6 @@
 	  	  	  
 	  //Agent (Reply) side
 	  //------------------------------------------------------------------
-
-	  addReplyMessageByTemplate()
-	  {
-
-
-
-	  }
 
 	  addReplyMessageByText(sMsg)
 	  {
@@ -767,12 +749,7 @@
 			}
 	  };
 	  //--------------------------------------------------------------------
-	  scrollToGetPastMessages()
-	  {
 
-
-
-	  };
 	  scrollToTop() {
 		  this.$chatHistory.scrollTop(50);
 	  };
@@ -833,16 +810,25 @@
 
 					  this.receiveMessage(sMsg);
 				  }
-				  else if(sMsg.SendBy == "timeout")
+				  else if(sMsg.SentBy == "timeout")
 				  {
 					  // Skip the message for timeout
+				  }
+				  else if (sMsg.SentBy == "group")
+				  {
+					  //show the joined conference when reload
+					  this.updateChatStatus(sMsg.MessageContent);
 				  }
 				  else
 				  {
 					  this.addReplyMessageByText(sMsg);
 				  }
 
+				  //------------------------------------------------
+			
 
+				  
+				  //------------------------------------------------
 				  if (this.isScrollToBottom) {
 
 					 // console.log("bottom");
@@ -1158,7 +1144,7 @@
 				this.selectedAgentId  = context.agentId;
 				this.selectedwebClientSenderId	= context.endUserId;
 				this.selectedChatChannel = context.Channel;
-				this.selectedEndUserName		= context.endUserName;
+				this.selectedEndUserName = context.endUserName;
 				context.bubblestatus = "bubble-container bubble-present";
 			}
 			else if (status == "Pending_Unread" && timeout == false)
@@ -1191,8 +1177,22 @@
 
 	  };
 
-	  updateBubbleInfo(sTicket)
+	  removeBubble(inputTicketID)
 	  {
+		  $('#bubble-list-inner #bubble-ticket .bubble-id').each(function () {
+
+			  if ($(this)[0].innerHTML == inputTicketID)
+			  {
+				  // => bubble-label-content-columns => bubble-container-inner => bubble-ticket
+				  $(this)[0].parentNode.parentNode.parentNode.remove();
+			  }
+		  });
+
+		  //(Need to implement update in assigned List)
+
+	  };
+
+	  updateBubbleInfo(inputTicketID) {
 		  const specifiedValue = inputTicketID;
 
 		  // Find the main parent div
@@ -1207,9 +1207,6 @@
 			  subDivs.forEach(sub => {
 				  if (sub.innerHTML.trim() === specifiedValue.toString())
 				  {
-
-					  
-
 					  parent.getElementsByClassName('bubble-message mr-auto')[0].innerHTML = sTicket.messages[sTicket.messages.length - 1].MessageContent;
 				  }
 			  });
@@ -1233,7 +1230,7 @@
 		  // Find all parent divs 
 		  const parentDivs = mainParentDiv.querySelectorAll('#bubble-ticket');
 
-		  // Iterate through each parent div 
+		  // Iterate through each parent div		  .bubble-id => #bubble-ticket => #bubble-list-inner
 		  parentDivs.forEach(parent => {
 			  const subDivs = parent.querySelectorAll('.bubble-id');
 
@@ -1350,60 +1347,144 @@
 
 
 	  //------------------------------------------------------------------------------------------------------------------------
-	  //Unfinished AREA------------------------------------------------------------------------------------------------------------------------
+	  //Conference features-----------------------------------------------------------------------------------------------------
 	  //------------------------------------------------------------------------------------------------------------------------
-	  addAgent()
+
+
+	  //------------------------------------------------------------------------------------------------------------------------
+	  //Interface
+	  //-------------------------------------------------------------------------------------------------------------------------
+	  addAgentToChat()	// call the interface to add agent to conference
 	  {
-			// The original logic come from socialMEdia.js addAgent then pass to  main.js 8.5 and 9  getAgentList and onWiseAgentList
-
-			
-	  
-			//function addAgent(ticketId, campaign, entry) {
-			//tempCampaign = campaign;
-			//tempEntry = entry;
-			//tempTicketId = ticketId;
-			//parent.getAgentList('social-media-main', campaign, entry);
-
-
-			//var ticketId = tempTicketId;
-
-			var tempCampaign= "";
-			var tempEntry	= "";
-			var message		= "";
-
-
-			var message = ($('#agent-list-message').val() || '').trim() || '';
-			var selectedInput = $("input[name='agentList']:checked");
-			var invitedAgentID = selectedInput.val();
-			var inviteMessage = 'systemMsg-`!^~' + tempCampaign + '-`!^~' + tempEntry + '-`!^~' + message;
-
-			//parent.document.getElementById("phone-panel").contentWindow.wiseInviteAgentToChat(invitedAgentID, ticketId, inviteMessage);
-
-			//tempTicketId = null;
-			$('#agentListModal').modal('toggle');
-	  
-	  };
-	  ///NOT����������������B�@����@�������A�@��������@������B
-	  agentAddGroupChat(ticketId, toAddAgentId, typeId)
-	  {
-		  var statusMsg = "";
-		  var agentNameStr = parent.getAgentName(toAddAgentId) + ' (ID: ' + toAddAgentId + ')';
-
-		  // silent: typeId = 1, no notice now
-		  if (typeId == 0) {
-			  statusMsg = agentNameStr + ' has joined to the chatroom';
-		  } else if (typeId == 2) {
-			  statusMsg = agentNameStr + ' has barged into the chatroom';
-		  }
-		  $('#content-inner-scroll-' + ticketId).append('<div class="text-center my-3"><span class="status-bubble">' + statusMsg + '</span></div>');
-
-		  // scroll to the bottom
-		  var objDiv = document.getElementById('content-inner-scroll-' + ticketId);
-		  if (objDiv != null) {
-			  objDiv.scrollTop = objDiv.scrollHeight;
-		  }
+		this.gotAgentList();
+		  //tempTicketId = null;
+		$('#agentListModal').modal('toggle');
 	  };
 
+
+	  gotAgentList()
+	  {	//copy from original function
+
+			var agentArr = top.agentList;
+			$('#agent-list-campaign').html(tempCampaign);
+			$('#agent-list-entry').html(this.selectedChatChannel);
+			$('#agent-list-ticketid').html(this.selectedTicketId);
+			$('#agent-list-message').val('');
+
+			$('#agentListModal').modal('show');
+			var agentArrDiv = $('#agent-list-arr');
+			var agentArrDivs= '';			var availableAgent = 0;
+
+			for (let theAgent of agentArr) {
+				var theAgentId = theAgent.AgentID;
+				if (theAgentId != loginId) {
+					var agentStatus = theAgent.Status;
+
+					if (agentStatus == undefined) {		agentStatus = 'IDLE';	}	// only for testing, should be commented
+
+					if (agentStatus == 'IDLE' || agentStatus == 'WORKING' || agentStatus == 'READY') 
+					{ 
+						agentArrDivs += ('<div style="display:table-row;"><div class="form-check"><label class="form-check-label"><input class="form-check-input" type="radio" name="agentList" value="' + theAgentId + '" id="agent-' + theAgentId + '">' + theAgent.AgentName + '&nbsp;(ID: ' + theAgentId + ')<span class="circle"><span class="check"></span></span></label></div><label class="agent-list-cell pl-3" for="agent-' + theAgentId + '">' + agentStatus + '</label></div>');
+						availableAgent += 1;
+					}
+				}
+			}
+			if (availableAgent == 0) {
+				agentArrDivs = '<div>--- ' + langJson['l-social-no-agents-available'] + ' ---</div>';
+			}
+
+			agentArrDiv.html(agentArrDivs);
+	  };
+
+	  showBeInvitedModal(response)
+	  {
+
+		var agent = top.agentList.filter(i => i.AgentID == response.requestAgentId)[0];
+		var agentName = agent.AgentName;
+		//acceptInvitedClicked
+
+		parent.window.$('#be-invited-campaign')[0].innerHTML = parent.window[1].campaign;
+		parent.window.$('#be-invited-entry')[0].innerHTML = response.ticket.Channel;  // need ...............response.channel;
+		parent.window.$('#be-invited-ticketid')[0].innerHTML = response.ticket.TicketId;
+
+		parent.window.$('#be-invited-agent')[0].innerHTML = agentName + " (ID: <span id='be-invited-agentId'>" + response.requestAgentId + "</span>)";
+		parent.window.$('#be-invited-request')[0].innerHTML = response.message.length > 0 ? response.message : '[empty]';
+		parent.window.$('#beInvitedModal').modal('show');
+
+	  };
+
+	  //-----------------------------------------------------------------------------------------------------------------------------------------
+	  // API and WebSocket
+	  //-----------------------------------------------------------------------------------------------------------------------------------------
+	  sendInviteRequestClicked()		//original function name is sendRequestClicked
+	  {
+		  var ticketId = this.selectedTicketId;
+		  var message = ($('#agent-list-message').val() || '').trim() || '';
+		  var selectedInput = $("input[name='agentList']:checked");
+		  var invitedAgentID = selectedInput.val();
+		  var inviteMessage = message;				  //var inviteMessage = 'systemMsg-`!^~' + tempCampaign + '-`!^~' + tempEntry + '-`!^~' + message;
+		  var token = top.token;
+		  var agentId = loginId;
+
+		  parent.$('#phone-panel')[0].contentWindow.inviteAgentByHandler(agentId, token, ticketId, parseInt(invitedAgentID), inviteMessage)
+		  $('#agentListModal').modal('toggle');
+	  };
+
+
+	  testInviteRequestCallBack()
+	  {
+		  var res = '{ "type": "responseConference", "details": { "targentAgentId": 6, "ticketId": 418, "message": "RESPONSE YOU", "agentResponse": "Y" }, "agentResponse": "Y", "targentAgentId": 6 }';
+
+		  var response = JSON.parse(res);
+
+		  this.sendInviteRequestcallBack(response);
+	  }
+
+	  sendInviteRequestcallBack(result)		//****not direct callback from  inviteAgentByHandler except error return
+	  {
+		  //{ "type": "responseConference", "details": { "targentAgentId": 6, "ticketId": 1023, "message": "RESPONSE YOU", "agentResponse": "Y" }, "agentResponse": "Y", "targentAgentId": 6 }
+
+		  // returned from inviteAgentByHandler
+		  if (result.details.agentResponse == undefined) {		// error in calling sHandler API
+			  alert(result.details.message);
+		  }
+		  else
+		  { 
+			  var agentName = agentService.getAgentNameByID(result.details.targentAgentId);
+			  var agentNameStr = agentName + ' (ID: ' + result.details.targentAgentId + ')';
+
+			// returned from onInteractEvent
+			  if (result.details.agentResponse == 'N') {
+				  var alertMessage = agentNameStr + ' rejected your conference call request to the ticket ID: ' + result.details.ticketId;
+				  alert(alertMessage);
+			  }
+			  else if (result.details.agentResponse == 'Y') {
+				  var statusMsg = "";
+				  statusMsg = agentNameStr + ' has joined to the chatroom';
+				  this.updateChatStatus(statusMsg);
+
+				  var sTicketLst = parent.$('#phone-panel')[0].contentWindow.AssignedTicketList.filter(i => i.TicketId == result.details.ticketId);
+				  var sTicket = sTicketLst[0];
+				  var sMsglist = sTicket.messages;
+				  var sLastItem = sMsglist[sMsglist.length - 1];
+
+				  //Copy array item
+				  var newItem = JSON.parse(JSON.stringify(sLastItem));
+
+				  newItem.SentBy = "group";			newItem.UpdateBy = result.details.targentAgentId;
+				  newItem.MessageType = "text";		newItem.MessageContent = statusMsg;
+				  newItem.FileJson = "[]";			newItem.QuotedMsgBody = "";
+
+				  sMsglist.push(newItem);
+
+				  //parent.$('#phone-panel')[0].contentWindow.JoinedConferenceList.push(joinedConference);
+				  setTimeout(() => { this.scrollToBottom(); }, 500);
+			  }
+		  }
+
+	  };
+	  
+	
 	  agentleftGroupChat(ticketId, toRemoveAgentId, typeId)
 	  {
 		  if (toRemoveAgentId == loginId) {
@@ -1422,6 +1503,8 @@
 			  }
 		  }
 	  }
+
+
 
 	  //-----------------------------------------------------------------------------------------------------------------------------
 	  //Canned response

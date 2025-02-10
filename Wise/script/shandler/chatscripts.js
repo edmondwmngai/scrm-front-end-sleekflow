@@ -27,6 +27,7 @@
 	  allowPastMessageCall = true;
 
 	  isSendingMessage = false;
+	  interval = null;
 		//Contacted us in the last hour: Last Ticket ID: 1386264423 on 2024-11 - 29 12: 17: 37
 	  init()
 	  {
@@ -1356,52 +1357,86 @@
 	  //-------------------------------------------------------------------------------------------------------------------------
 	  addAgentToChat()	// call the interface to add agent to conference
 	  {
-		this.gotAgentList();
-		  //tempTicketId = null;
-		$('#agentListModal').modal('toggle');
+		  parent.$('#phone-panel')[0].contentWindow.getAgentListFromWise();
+		  setTimeout(() => { this.getWiseAgentList(); }, 500);		// Wait until Wise return the agentList
+	  };
+	  getWiseAgentList()
+	  {	  //agentList come from LogonAgentEx in phone.html
+		  if (parent.$('#phone-panel')[0].contentWindow.currentAgentList != null) {
+			  chatService.gotAgentSelectList();		//create the radiobutton list for selection
+			  $('#agentListModal').modal('toggle');
+		  }
+		  else
+		  {
+			  parent.$('#phone-panel')[0].contentWindow.getAgentListFromWise();
+			  setTimeout(() => { this.getWiseAgentList(); }, 500); // Wait until Wise return the agentList
+		  }
+	  };
+	  gotAgentSelectList() {	//copy from original function
+
+		  var agentList = parent.$('#phone-panel')[0].contentWindow.currentAgentList;
+
+		  $('#agent-list-campaign').html(tempCampaign);
+		  $('#agent-list-entry').html(this.selectedChatChannel);
+		  $('#agent-list-ticketid').html(this.selectedTicketId);
+		  $('#agent-list-message').val('');
+
+		  $('#agentListModal').modal('show');
+		  var agentArrDiv = $('#agent-list-arr');
+		  var agentArrDivs = ''; var availableAgent = 0;
+
+		  for (var i = 0; i < agentList.length; i++) {
+			  var theAgentId = agentList[i].AgentID;
+			  if (theAgentId != loginId) {
+				  var agentStatus = agentList[i].Status;
+
+				  if (agentStatus == undefined) { agentStatus = 'IDLE'; }	// only for testing, should be commented
+
+				  if (agentStatus == 'IDLE' || agentStatus == 'WORKING' || agentStatus == 'READY') {
+					  agentArrDivs += ('<div style="display:table-row;"><div class="form-check"><label class="form-check-label"><input class="form-check-input" type="radio" name="agentList" value="' + theAgentId + '" id="agent-' + theAgentId + '">' + agentList[i].AgentName + '&nbsp;(ID: ' + theAgentId + ')<span class="circle"><span class="check"></span></span></label></div><label class="agent-list-cell pl-3" for="agent-' + theAgentId + '">' + agentStatus + '</label></div>');
+					  availableAgent += 1;
+				  }
+			  }
+		  }
+		  if (availableAgent == 0) {
+			  agentArrDivs = '<div>--- ' + langJson['l-social-no-agents-available'] + ' ---</div>';
+		  }
+
+		  agentArrDiv.html(agentArrDivs);
 	  };
 
-
-	  gotAgentList()
+	  gotAgentListTest()
 	  {	//copy from original function
-
-			var agentArr = top.agentList;
-			$('#agent-list-campaign').html(tempCampaign);
-			$('#agent-list-entry').html(this.selectedChatChannel);
-			$('#agent-list-ticketid').html(this.selectedTicketId);
-			$('#agent-list-message').val('');
-
-			$('#agentListModal').modal('show');
-			var agentArrDiv = $('#agent-list-arr');
-			var agentArrDivs= '';			var availableAgent = 0;
+			var agentArr = top.agentList;		  var agentArr = parent.$('#phone-panel')[0].contentWindow.currentAgentList;
+			$('#agent-list-campaign').html(tempCampaign);			$('#agent-list-entry').html(this.selectedChatChannel);
+			$('#agent-list-ticketid').html(this.selectedTicketId);	$('#agent-list-message').val('');				$('#agentListModal').modal('show');
+			var agentArrDiv = $('#agent-list-arr');		var agentArrDivs= '';			var availableAgent = 0;
 
 			for (let theAgent of agentArr) {
 				var theAgentId = theAgent.AgentID;
 				if (theAgentId != loginId) {
 					var agentStatus = theAgent.Status;
-
 					if (agentStatus == undefined) {		agentStatus = 'IDLE';	}	// only for testing, should be commented
-
-					if (agentStatus == 'IDLE' || agentStatus == 'WORKING' || agentStatus == 'READY') 
-					{ 
+					if (agentStatus == 'IDLE' || agentStatus == 'WORKING' || agentStatus == 'READY') { 
 						agentArrDivs += ('<div style="display:table-row;"><div class="form-check"><label class="form-check-label"><input class="form-check-input" type="radio" name="agentList" value="' + theAgentId + '" id="agent-' + theAgentId + '">' + theAgent.AgentName + '&nbsp;(ID: ' + theAgentId + ')<span class="circle"><span class="check"></span></span></label></div><label class="agent-list-cell pl-3" for="agent-' + theAgentId + '">' + agentStatus + '</label></div>');
 						availableAgent += 1;
 					}
 				}
 			}
-			if (availableAgent == 0) {
-				agentArrDivs = '<div>--- ' + langJson['l-social-no-agents-available'] + ' ---</div>';
-			}
-
+			if (availableAgent == 0) {				agentArrDivs = '<div>--- ' + langJson['l-social-no-agents-available'] + ' ---</div>';			}
 			agentArrDiv.html(agentArrDivs);
 	  };
 
 	  showBeInvitedModal(response)
 	  {
 
+
 		var agent = top.agentList.filter(i => i.AgentID == response.requestAgentId)[0];
 		var agentName = agent.AgentName;
-		//acceptInvitedClicked
+
+		  
+
+	  //acceptInvitedClicked
 
 		parent.window.$('#be-invited-campaign')[0].innerHTML = parent.window[1].campaign;
 		parent.window.$('#be-invited-entry')[0].innerHTML = response.ticket.Channel;  // need ...............response.channel;
@@ -1446,7 +1481,7 @@
 
 		  // returned from inviteAgentByHandler
 		  if (result.details.agentResponse == undefined) {		// error in calling sHandler API
-			  alert(result.details.message);
+			  alert(result.details);
 		  }
 		  else
 		  { 

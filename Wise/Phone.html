@@ -538,6 +538,7 @@ var currentMsglist    = null;
 var SelectedChannel   = null;
 var SelectedDeviceID  = null;
 var selectedQueuelist = null;
+var currentAgentList = null;
 
 var pastMsglist = null;
 
@@ -2585,6 +2586,8 @@ addEventListener(document, 'LogonAgentEx ', function (e){
 		// } else { theMember.Status=agentStatus[theMember.StatusID]; }
 		// /NO DEL
 	}
+	currentAgentList = obj.Member;
+
 	triggerEvent(window.parent.document, 'onWiseAgentList', obj);
 });
 
@@ -4026,6 +4029,12 @@ function WiseGetAgentListEx()
 	wsWiseAgent.GetLogonAgentEx();
 }
 
+
+
+function getAgentListFromWise()
+{
+	wsWiseAgent.GetLogonAgentEx();
+}
 function WiseStartMonitorCall(agentId, typeId)
 {
 	/*

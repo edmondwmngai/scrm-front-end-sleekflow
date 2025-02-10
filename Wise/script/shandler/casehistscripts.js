@@ -150,19 +150,18 @@
 				
 		  var sEndUserName = this.EndUserName; // this.caseLog
 
-			this.messageReceived = sMsg.MessageContent;
+		    this.messageReceived = sMsg.MessageContent;
 	  		var templateResponse = this.visitorMessageTemplate;
 
 			//The moment js cannot handle the iso date format, if full date format the output is wrong. Please update the moment js above 2.16.0
 		  var dateISO = sMsg.UpdatedAt.slice(0, 19); 
-		  var mDate = moment(dateISO).format('HH:mm:ss');
+		  //var mDate = moment(dateISO).format('HH:mm:ss');
 
+		  var mDate = returnDateForHist(dateISO);
 					  
 		  //Check the filejson is empty or not
-		  if (sMsg.FilesJson.length < 3)
-		  {
-			  if (sMsg.QuotedMsgBody === null || sMsg.QuotedMsgBody === "")
-			  { 
+		  if (sMsg.FilesJson.length < 3) {
+			  if (sMsg.QuotedMsgBody === null || sMsg.QuotedMsgBody === "") {
 				  var contextResponse = {
 					  response: sMsg.MessageContent,
 					  SentBy: sEndUserName,
@@ -193,17 +192,19 @@
 			  var Fileurl = FileList[0].EproFileUrl;
 			  var FileMime = FileList[0].MimeType;
 
+			  var template = this.visitorMessageTemplate;
+
 			  if (FileMime.startsWith('image/')) {
-				  
-				  var dateISO = sMsg.UpdatedAt.slice(0, 19); 
-				  
-				  var mDate = moment(dateISO).format('HH:mm:ss');
+
+				  //var dateISO = sMsg.UpdatedAt.slice(0, 19); 
+				  //var mDate = moment(dateISO).format('HH:mm:ss');
+				  var mDate = returnDateForHist(sMsg.UpdatedAt);
 
 				  var attachmentTemplate = this.visitorMessageWithImageTemplate;
 
 				  //var agentName = agentService.getAgentNameByID(this.currentSelectedAgentId);
 
-				 // this.selectedAgentId = currentTicket.AssignedTo;
+				  // this.selectedAgentId = currentTicket.AssignedTo;
 
 				  //Need to update to get AgentList function
 				  var contextResponse = {
@@ -216,17 +217,16 @@
 
 				  this.$chatHistory.append(attachmentTemplate(contextResponse));
 			  }
-			  else {
-				  var template = this.visitorMessageTemplate;
+			  else if (FileMime.startsWith('audio/ogg') || FileMime.startsWith('audio/mpeg'))
+			  {
 
-				  var aTag = "<div class='position-relative'>" +
-					  "<a href='{{FileUrl}}' target='_blank' download=''>{{FileName}}</a>" +
-					  "<span class='wa-sent-success'>sent</span></div>";
+				  var aTag = '<audio controls controlsList="nodownload">' +
+					  '<source src="{{FileUrl}}" type="audio/ogg">' +
+					  '<source src="{{FileUrl}}" type="audio/mpeg">' +
+					  'Your browser does not support the audio element.</audio>';
+
 				  aTag = aTag.replace("{{FileUrl}}", Fileurl);
-				  aTag = aTag.replace("{{FileName}}", Filename);
-
-				  var dateISO = sMsg.UpdatedAt.slice(0, 19); 
-				  var mDate = moment(dateISO).format('HH:mm:ss');
+				  var mDate = returnDateForHist(sMsg.UpdatedAt);
 
 				  var context = {
 					  SentBy: sEndUserName,
@@ -237,12 +237,52 @@
 				  var output = template(context);
 				  output = output.replace("{{attachment}}", aTag);
 				  this.$chatHistory.append(output);
-				  this.$textarea.val('');
-
 			  }
+			  else if (FileMime.startsWith('video/mp4'))
+			  {
+				  var aTag = '<video controls="controls" width="300" height="225" preload="none">' +
+					  '<source type="video/mp4" src="{{FileUrl}}"></video>';
+				  aTag = aTag.replace("{{FileUrl}}", Fileurl);
+
+				  var mDate = returnDateForHist(sMsg.UpdatedAt);
+
+				  var context = {
+					  SentBy: sEndUserName,
+					  response: "{{attachment}}",
+					  time: mDate
+				  };
+				  var output = template(context);
+				  output = output.replace("{{attachment}}", aTag);
+				  this.$chatHistory.append(output);
+			  }
+			  else
+			  {
+
+					  var aTag = "<div class='position-relative'>" +
+						  "<a href='{{FileUrl}}' target='_blank' download=''>{{FileName}}</a>" +
+						  "<span class='wa-sent-success'>sent</span></div>";
+					  aTag = aTag.replace("{{FileUrl}}", Fileurl);
+					  aTag = aTag.replace("{{FileName}}", Filename);
+
+					  var dateISO = sMsg.UpdatedAt.slice(0, 19); 
+					  // var mDate = moment(dateISO).format('HH:mm:ss');
+
+					  var mDate = returnDateForHist(dateISO);
+
+					  var context = {
+						  SentBy: sEndUserName,
+						  response: "{{attachment}}",
+						  time: mDate
+					  };
+
+					  var output = template(context);
+					  output = output.replace("{{attachment}}", aTag);
+					  this.$chatHistory.append(output);
+					  this.$textarea.val('');
+				
+			  }
+
 		  }
-
-
 		 // this.scrollToBottom();
 	  };
 	  	  	  
@@ -275,7 +315,8 @@
 			  var htmlTemplate = this.htmlTemplate;
 
 			  var dateISO = sMsg.UpdatedAt.slice(0, 19);
-			  var mDate = moment(dateISO).format('HH:mm:ss');
+			  //var mDate = moment(dateISO).format('HH:mm:ss');
+			  var mDate = returnDateForHist(dateISO);
 
 			  //this.$chatHistory.append(template(context));
 			  //cContext.displayBtnGroup1 = "";
@@ -290,7 +331,8 @@
 			  var agentTemplate = this.agentMessageTemplate;
 
 			  var dateISO = sMsg.UpdatedAt.slice(0, 19);
-			  var mDate = moment(dateISO).format('HH:mm:ss');
+			  //var mDate = moment(dateISO).format('HH:mm:ss');
+			  var mDate = returnDateForHist(dateISO);
 
 			  var context = {
 				  SentBy: agentName,
@@ -311,7 +353,8 @@
 
 
 			  var dateISO = sMsg.UpdatedAt.slice(0, 19); 
-			  var mDate = moment(dateISO).format('HH:mm:ss');
+			  //var mDate = moment(dateISO).format('HH:mm:ss');
+			  var mDate = returnDateForHist(dateISO);
 
 			  var context = {
 				  SentBy: agentName,
@@ -338,7 +381,8 @@
 			  {
 				  var template = this.agentMessageWithImageTemplate;
 				  var dateISO = sMsg.UpdatedAt.slice(0, 19); 
-				  var mDate = moment(dateISO).format('HH:mm:ss');
+				  //var mDate = moment(dateISO).format('HH:mm:ss');
+				  var mDate = returnDateForHist(dateISO);
 
 				  var displayImage = "max-width:100%;max-height:200px";
 
@@ -365,7 +409,8 @@
 				  aTag = aTag.replace("{{FileName}}", Filename);
 
 				  var dateISO = sMsg.UpdatedAt.slice(0, 19); 
-				  var mDate = moment(dateISO).format('HH:mm:ss');
+				  //var mDate = moment(dateISO).format('HH:mm:ss');
+				  var mDate = returnDateForHist(dateISO);
 
 				  var context = {
 					  SentBy: agentName,
@@ -443,12 +488,12 @@
 
 				  if (this.isScrollToBottom)
 				  {
-					  console.log("bottom");
 					  this.scrollToBottom();
 				  }
 				  else
-				  {   console.log("top");
-					  this.scrollToTop();  }
+				  {
+					  this.scrollToTop();
+				  }
 			  }
 		  }
 
@@ -510,7 +555,8 @@
 		  list.forEach(item => {
 
 			  var dateISO = item.UpdatedAt.slice(0, 19);
-			  var mDate = moment(dateISO).format('YYYY-MM-DD HH:mm:ss');
+			  //var mDate = moment(dateISO).format('YYYY-MM-DD HH:mm:ss');
+			  var mDate = returnDateForHist(dateISO);
 
 			  var sendBy = "";
 			  if (item.SentBy === "user") {
@@ -559,5 +605,21 @@
 	  };
   }
 
+function returnDateForHist(inputIsoDate) {
 
+	var dateISO = inputIsoDate.slice(0, 19)
 
+	if (isToday(dateISO)) {
+		return moment(dateISO).format('HH:mm:ss');
+	}
+	else {
+		return moment(dateISO).format('YYYY-MM-DD HH:mm:ss');
+	}
+
+}
+
+function isToday(inputIsoDate) {
+	const today = moment().startOf('day'); // Get today's date at midnight 
+	const dateToCheck = moment(inputIsoDate).startOf('day'); // Get input date at midnight 
+	return today.isSame(dateToCheck);
+}

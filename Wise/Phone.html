@@ -875,6 +875,8 @@ function responseInviteCallBack(response) {
     //parent.window.$('#beInvitedModal').blur
 	parent.window.$('#beInvitedModal').modal('hide');
 	//responseInviteByHandler(parseInt(agentId), token, parseInt(ticketId), parseInt(targetAgentId), message, agentResponse);
+	responseInvite = false;
+
 	acceptCall_fromConference(response);
 }
 
@@ -1390,7 +1392,7 @@ function responseInviteByHandler()
     if (wssresult.result == false) { alert(wssresult.message); return; }
 	//-----
     var agentId = loginId;		var requestAgentId	= parseInt(inviteTargetAgentId);	var agentResponse = inviteAgentResponse;
-	var token	= top.token;	var ticketId		= parseInt(inviteTicketId);			var message = inviteMessage; 				
+	var token	= top.token;	var ticketId			= parseInt(inviteTicketId);			var message = inviteMessage; 				
 
 	//agentResponse: Y/N
 	shandler.responseConference({

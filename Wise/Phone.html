@@ -543,7 +543,6 @@ var currentAgentList = null;
 var pastMsglist = null;
 
 var reloadedByGetTicket = false;
-var reloadedByGroupChat = false;
 var responseInvite = false;
 var AssignedTicketList= [];
 var JoinedConferenceList = [];
@@ -968,6 +967,7 @@ function acceptCall_Shandler(loginId, Token, Channel, deviceID)
 
 
 						reloadedByGetTicket = true;
+						responseInvite = false;
 
 						pastMsglist = null;
 

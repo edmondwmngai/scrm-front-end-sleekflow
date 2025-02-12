@@ -902,6 +902,10 @@
 		  //Update the client side Ticket AssignedList Message List for specified ticket
 		  var sTicketLst = parent.$('#phone-panel')[0].contentWindow.AssignedTicketList.filter(i => i.TicketId == sMsg.TicketId);
 		  var sTicket = sTicketLst[0];
+
+		  if (sMsg.oTicketId == undefined) { sMsg.oTicketId = sMsg.TicketId; }
+
+
 		  var sMsglist = sTicket.messages;
 		  sMsglist.push(sMsg);
 

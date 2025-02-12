@@ -543,6 +543,8 @@ var currentAgentList = null;
 var pastMsglist = null;
 
 var reloadedByGetTicket = false;
+var reloadedByGroupChat = false;
+var responseInvite = false;
 var AssignedTicketList= [];
 var JoinedConferenceList = [];
 var sendMessageReturned=null;
@@ -727,10 +729,12 @@ function onTicketEvent(e)
 
 function onMessageEvent(e) 
 {
-	parent.$('#social-media-main')[0].contentWindow.chatService.incomeMessageCallBack(e.details);
-	console.log(e);
+    parent.$('#social-media-main')[0].contentWindow.chatService.incomeMessageCallBack(e.details);
+    console.log(e);
 }
 
+
+var invitedTicket = null;
 function onInteractEvent(e) 
 {
 	//{"type":"responseConference","details":{"targentAgentId":6,"ticketId":1023,"message":"RESPONSE YOU","agentResponse":"Y"}}
@@ -738,7 +742,7 @@ function onInteractEvent(e)
 	//for handling conference with agent
 	if (e.type == "requestConference")
 	{
-    	
+		invitedTicket = e.details.ticket;
 		showBeInvitedModal(e);
 		console.log(e);
 	}
@@ -829,7 +833,10 @@ function acceptCall_test(loginId, Token, Channel, deviceID)
 	//chatService.addMessage();
 }
 
-
+var inviteTicketId = "";
+var inviteTargetAgentId = "";
+var inviteMessage = "";
+var inviteAgentResponse = "N";
 function responseInvitedCall(isAccept) 
 {
     //check websocket state, continue process is not allowed if false is returned;
@@ -837,51 +844,48 @@ function responseInvitedCall(isAccept)
     if (wssresult.result == false) { alert(wssresult.message); return; }
     //-----
 
-	var token = top.token;
-	var agentId = loginId;
+	inviteTicketId		= parent.window.$('#be-invited-ticketid')[0].innerHTML;
+    inviteTargetAgentId = parent.window.$('#be-invited-agentId')[0].innerHTML;
+    inviteMessage		= parent.window.$('#be-invited-message').val();
+    inviteAgentResponse = "N";	
+
+	if (isAccept) {
+        inviteAgentResponse = "Y";
+		currentTicket = invitedTicket;
+		currentTicket.messages = [];
+		AssignedTicketList.push(currentTicket);
+		//queueList = JSON.parse(testQueueList);
+
+		window.parent.SocialMediaClicked();
 
 
-    
-	var ticketId		= parent.window.$('#be-invited-ticketid')[0].innerHTML;
-	var targetAgentId   = parent.window.$('#be-invited-agentId')[0].innerHTML;
-	var message			= parent.window.$('#be-invited-message').val();
-	var agentResponse = "N";
-
-	if (isAccept)	{        agentResponse = "Y";		}
-
-	responseInviteByHandler(parseInt(agentId), token, parseInt(ticketId), parseInt(targetAgentId), message, agentResponse)
-
+		//Call the function after load the page
+		
+		reloadedByGetTicket = true;
+		responseInvite = true;
+		
+	}
 
     //$('#beInvitedModal').modal('toggle');
 }
+		let runCount = 0;
+
 
 function responseInviteCallBack(response) {
     //parent.window.$('#beInvitedModal').blur
 	parent.window.$('#beInvitedModal').modal('hide');
-	acceptCall_fromConference();
+	//responseInviteByHandler(parseInt(agentId), token, parseInt(ticketId), parseInt(targetAgentId), message, agentResponse);
+	acceptCall_fromConference(response);
 }
 
-function acceptCall_fromConference() {
+function acceptCall_fromConference(response) {
 
-    //check websocket state, continue process is not allowed if false is returned;
-    var wssresult = checkWebSocketState(shandler.websocket);
-    if (wssresult.result == false) { alert(wssresult.message); return; }
-	//-----
 
-    //parent.window.$('#beInvitedModal').modal('show');
-    var testAssignedList = '[{ "TicketId": 421, "EndUserId": "b5b6f193-0a3b-4560-aa33-573706309416", "EndUserProfileId": "53cf32e6-8914-4ffb-a935-fefb05caa9fd", "EndUserName": "TOMMY", "EndUserEmail": "MARY@MARY.COM", "EndUserPhone": "85291111111", "AssignedTo": 6, "Status": "group", "Channel": "web", "DeviceId": "", "CreatedBy": "user", "CreatedAt": "2024-12-02T14:54:24.363", "UpdatedAt": "2024-12-02T14:54:34.257", "LastMessage": "Message 3", ' +
-    	'"messages": [{ "MessageId": 2307930846, "TicketId": 421, "UniqueId": null, "QuotedMsgBody": "", "EndUserId": "b5b6f193-0a3b-4560-aa33-573706309416", "Channel": "web", "SentBy": "user", "UpdatedBy": null, "UpdatedAt": "2024-11-27T09:54:24.763", "MessageType": "text", "MessageContent": "MEssage 1", "FilesJson": "[]" }, { "MessageId": 2307930870, "TicketId": 421, "UniqueId": null, "EndUserId": "b5b6f193-0a3b-4560-aa33-573706309416", "Channel": "web", "SentBy": "user", "UpdatedBy": null, "UpdatedAt": "2024-11-27T09:54:27.827", "MessageType": "text", "MessageContent": "Message 2", "FilesJson": "[]" }, { "MessageId": 2307930925, "TicketId": 421, "UniqueId": null, "EndUserId": "b5b6f193-0a3b-4560-aa33-573706309416", "Channel": "web", "SentBy": "user", "UpdatedBy": null, "UpdatedAt": "2024-12-02T14:54:34.257", "MessageType": "text", "MessageContent": "Message 3", "FilesJson": "[]" }] }]';
+    //parent.$('#social-media-main')[0].contentWindow.chatService.updateChatHeader(invitedTicket.Channel, invitedTicket);
+	//parent.$('#social-media-main')[0].contentWindow.chatService.resetChatHistory();
 
-    var newList = JSON.parse(testAssignedList);
-    AssignedTicketList.push(newList[0]);
-    //queueList = JSON.parse(testQueueList);
-
-    currentTicket = newList[0];
-    selectedQueuelist = queueList.filter(i => i.source == 'sleekflow' && i.entry == 'web');
-
-    window.parent.SocialMediaClicked();
-
-    reloadedByGetTicket = true;
+    //  this.updateChatHeader(selectedTicket[0].Channel, selectedTicket[0]);
+   
 
 }
 
@@ -1281,8 +1285,8 @@ function requestCannedFileInBase64ByHandler(fileId, fileName, fileType)
 function endSessionByHandler(loginId, token, ticketId) 
 {
     //check websocket state, continue process is not allowed if false is returned;
-    var wssresult = checkWebSocketState(shandler.websocket);
-    if (wssresult.result == false) { alert(wssresult.message); return; }
+  //  var wssresult = checkWebSocketState(shandler.websocket);
+  //  if (wssresult.result == false) { alert(wssresult.message); return; }
 	//-----
 
 	// Append input field values to the FormData object
@@ -1375,12 +1379,18 @@ function inviteAgentByHandler(agentId,	token, ticketId,  targetAgentId, message)
 }
 
 // Conference invitee side
-function responseInviteByHandler(agentId, token, ticketId, requestAgentId, message, agentResponse)
+		//function responseInviteByHandler(agentId, token, ticketId, requestAgentId, message, agentResponse)
+function responseInviteByHandler()
 {
+
+	
+
     //check websocket state, continue process is not allowed if false is returned;
     var wssresult = checkWebSocketState(shandler.websocket);
     if (wssresult.result == false) { alert(wssresult.message); return; }
 	//-----
+    var agentId = loginId;		var requestAgentId	= parseInt(inviteTargetAgentId);	var agentResponse = inviteAgentResponse;
+	var token	= top.token;	var ticketId		= parseInt(inviteTicketId);			var message = inviteMessage; 				
 
 	//agentResponse: Y/N
 	shandler.responseConference({

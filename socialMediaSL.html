@@ -179,11 +179,13 @@
                             <label>
                                 <span class='l-social-campaign'></span>:
                             </label>&nbsp;<span id='agent-list-campaign'></span>
-                        </span><span style='flex:1;'>
+                        </span>
+                        <span style='flex:1;'>
                             <label>
                                 <span class='l-social-platform'></span>:
                             </label>&nbsp;<span id='agent-list-entry'></span>
-                        </span><span style="margin-right:5px;">
+                        </span>
+                        <span style="margin-right:5px;">
                             <label>
                                 <span class='l-social-ticket-id'></span>:
                             </label>&nbsp;<span id='agent-list-ticketid'></span>
@@ -191,8 +193,7 @@
                     </p>
                     <p>
                         <span class="l-social-message-to-the-invited-agent"></span>:
-                        <input type="text" id="agent-list-message" style='width:98%;padding:5px;border-radius:5px;'
-                               autocomplete="off">
+                        <input type="text" id="agent-list-message" style='width:98%;padding:5px;border-radius:5px;' autocomplete="off">
                     </p>
                     <p>
                         <span class='l-social-agent-to-invite'></span>&nbsp;(IDLE, WORKING and READY only):
@@ -203,8 +204,7 @@
                     <button type="button" class="btn btn-sm btn-default text-capitalize mr-3" data-dismiss="modal">
                         <i class="fas fa-times-circle mr-2"></i><span class="l-general-cancel"></span>
                     </button>
-                    <button onclick="sendRequestClicked()" type="button"
-                            class="btn btn-sm btn-warning text-capitalize">
+                    <button onclick="chatService.sendInviteRequestClicked()" type="button" class="btn btn-sm btn-warning text-capitalize">
                         <i class="fas fa-check-double mr-2"></i><span class="l-social-send-request"></span>
                     </button>
                 </div>
@@ -506,7 +506,7 @@
                         </div>
                         <div class="d-flex">
                             <span class="bubble-message mr-auto">{{lastMessage}}</span>
-                            <i class="fas fa-plus bubble-small-icon mr-2" style="display: none;" id="bubble-add-agent" onclick="chatService.addAgent({{ticketId}},&quot;campaignCRM&quot;,&quot;webchat&quot;)" data-toggle="tooltip" data-placement="bottom" title="Conference Call"></i>
+                            <i class="fas fa-plus bubble-small-icon mr-2" id="bubble-add-agent" onclick="chatService.addAgentToChat({{ticketId}},&quot;campaignCRM&quot;,&quot;webchat&quot;)" data-toggle="tooltip" data-placement="bottom" title="Conference Call"></i>
                             <i class="fas fa-sign-out-alt leave-chat-icon bubble-small-icon" style="display: none;"  id="bubble-leave-chat" onclick="leaveChat({{ticketId}})" data-toggle="tooltip" data-placement="bottom" title="Leave Chat"></i>
                             <i class="fas fa-star private-i"></i>
                         </div>
@@ -531,10 +531,10 @@
     <script src='wise/script/shandler/handlebars.min.js'></script>
     <script src='https://cdnjs.cloudflare.com/ajax/libs/list.js/1.1.1/list.min.js'></script>
 
-    <script src="wise/script/shandler/searchInput.js"></script>
-    <script src="wise/script/shandler/chatscripts.js"></script>
-    <script src="wise/script/shandler/agentscripts.js"></script>
-    <script src="wise/script/shandler/waTemplateService.js"></script>
+    <script src="wise/script/shandler/searchInput.js?v=20250213"></script>
+    <script src="wise/script/shandler/chatscripts.js?v=20250213"></script>
+    <script src="wise/script/shandler/agentscripts.js?v=20250212"></script>
+    <script src="wise/script/shandler/waTemplateService.js?v=20250212"></script>
 
     <script src="js/SocialContent.js"></script>
 
@@ -545,6 +545,7 @@
         var sTicket = parent.$('#phone-panel')[0].contentWindow.currentTicket;
         var sMsglist = parent.$('#phone-panel')[0].contentWindow.currentMsglist;
         var reloadByGetTicket = parent.$('#phone-panel')[0].contentWindow.reloadedByGetTicket;
+        var responseInvite = parent.$('#phone-panel')[0].contentWindow.responseInvite;
         var testMode = parent.$('#phone-panel')[0].contentWindow.testMode;
         //var waTemplateSerivce = new waTemplateService();
         var agentService = new agent();
@@ -566,6 +567,13 @@
             //chatService.reloadBySwitchChannel();
 
         }
+
+        if (responseInvite)
+        {
+            chatService.resetChatHistory();
+            parent.$('#phone-panel')[0].contentWindow.responseInviteByHandler();
+        }
+        reloadedByGroupChat = false;
 
         if (testMode) {
             chatService.addTestBubble("Present", false, "Tiger", 418);

@@ -222,7 +222,7 @@
 	  {
 		  this.updateChatMessageHistory(sMsg);
 
-		  if (sMsg.SendBy == "timeout")
+		  if (sMsg.SentBy == "timeout")
 		  {
 			  this.updateChatSessionTimeout(ticketId);
 			  return;
@@ -457,7 +457,18 @@
 	  {			
 		    var sTicket = parent.$('#phone-panel')[0].contentWindow.AssignedTicketList.filter(i => i.TicketId == sMsg.TicketId);
 
-			var sEndUserName = sTicket[0].EndUserName;
+
+			var loginId = top.loginId;
+
+
+
+			var sSentBy = sTicket[0].EndUserName;
+
+		  if (sMsg.SentBy == "agent")
+		  {
+			  var agentName = agentService.getAgentNameByID(sMsg.UpdatedBy);
+			  sSentBy = agentName
+		  }
 
 			this.messageReceived = sMsg.MessageContent;
 	  		var templateResponse = this.visitorMessageTemplate;
@@ -474,7 +485,7 @@
 			  {
 				  var contextResponse = {
 					  response: sMsg.MessageContent,
-					  SentBy: sEndUserName,
+					  SentBy: sSentBy,
 					  time: mDate
 				  };
 				  this.$chatHistory.append(templateResponse(contextResponse));
@@ -484,7 +495,7 @@
 				  var quotedTemplate = parent.$('#phone-panel')[0].contentWindow.q_template;
 				  var contextResponse = {
 					  response: sMsg.MessageContent,
-					  SentBy: sEndUserName,
+					  SentBy: sSentBy,
 					  QuotedMsgBody: sMsg.QuotedMsgBody,
 					  time: mDate
 				  };
@@ -519,7 +530,7 @@
 				  //Need to update to get AgentList function
 				  var contextResponse = {
 					  response: sMsg.MessageContent,
-					  SentBy: sEndUserName,
+					  SentBy: sSentBy,
 					  time: mDate,
 					  FileFileName: Filename,
 					  FileUrl: Fileurl
@@ -539,7 +550,7 @@
 					var mDate = returnDateForCRM(sMsg.UpdatedAt);
 
 				  var context = {
-					  SentBy: sEndUserName,
+					  SentBy: sSentBy,
 					  response: "{{attachment}}",
 					  time: mDate
 					};
@@ -557,7 +568,7 @@
 				  var mDate = returnDateForCRM(sMsg.UpdatedAt);
 
 				  var context = {
-					  SentBy: sEndUserName,
+					  SentBy: sSentBy,
 					  response: "{{attachment}}",
 					  time: mDate
 				  };
@@ -580,7 +591,7 @@
 				  var mDate = returnDateForCRM(sMsg.UpdatedAt);
 
 				  var context = {
-					  SentBy: sEndUserName,
+					  SentBy: sSentBy,
 					  response: "{{attachment}}",
 					  time: mDate
 				  };
@@ -772,10 +783,18 @@
 		  this.$chatHistory.append(template(context));
 	  };
 
+	  resetChatHistory()
+	  {
+		  $('#chatHistory').html('');
+	  }
+
 	  reloadChatHistory(sMsglist)
 	  {
 		  //***After reload the history, the chatHistory will be scrolled based on isScrollToBottom Flag (to the bottom / to Top)
-
+		  if (sMsglist == undefined)
+		  {
+			  return;
+		  }
 
 		  //Reset the chat history screen
 		  $('#chatHistory').html('');
@@ -786,7 +805,7 @@
 		  if (sMsglist != null)
 		  {
 			  var LastTicketId = 0;
-
+			  var loginId = top.loginId;
 			  //console.log("before process");
 			  //console.log(JSON.parse(JSON.stringify(sMsglist)));
 
@@ -811,7 +830,15 @@
 
 					  this.receiveMessage(sMsg);
 				  }
-				  else if(sMsg.SentBy == "timeout")
+				  else if (sMsg.SentBy == "agent" && sMsg.UpdatedBy != loginId)
+				  {
+					  this.receiveMessage(sMsg);
+				  }
+				  else if (sMsg.SentBy == "agent" && sMsg.UpdatedBy == loginId)
+				  {
+					  this.addReplyMessageByText(sMsg);
+				  }
+				  else if (sMsg.SentBy == "timeout")
 				  {
 					  // Skip the message for timeout
 				  }
@@ -1358,7 +1385,7 @@
 	  addAgentToChat()	// call the interface to add agent to conference
 	  {
 		  parent.$('#phone-panel')[0].contentWindow.getAgentListFromWise();
-		  setTimeout(() => { this.getWiseAgentList(); }, 500);		// Wait until Wise return the agentList
+		  this.gotAgentListTest() // enable for testing
 	  };
 	  getWiseAgentList()
 	  {	  //agentList come from LogonAgentEx in phone.html
@@ -1407,7 +1434,8 @@
 
 	  gotAgentListTest()
 	  {	//copy from original function
-			var agentArr = top.agentList;		  var agentArr = parent.$('#phone-panel')[0].contentWindow.currentAgentList;
+		  var agentArr = top.agentList;
+		  
 			$('#agent-list-campaign').html(tempCampaign);			$('#agent-list-entry').html(this.selectedChatChannel);
 			$('#agent-list-ticketid').html(this.selectedTicketId);	$('#agent-list-message').val('');				$('#agentListModal').modal('show');
 			var agentArrDiv = $('#agent-list-arr');		var agentArrDivs= '';			var availableAgent = 0;
@@ -1430,12 +1458,8 @@
 	  showBeInvitedModal(response)
 	  {
 
-
 		var agent = top.agentList.filter(i => i.AgentID == response.requestAgentId)[0];
 		var agentName = agent.AgentName;
-
-		  
-
 	  //acceptInvitedClicked
 
 		parent.window.$('#be-invited-campaign')[0].innerHTML = parent.window[1].campaign;

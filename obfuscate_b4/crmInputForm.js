@@ -2883,26 +2883,28 @@ function windowOnload() {
     setCustomerInfo();
 
     //20250113 for auto update phone when create phone number
-    //status update when openInputForm
-    if (parent.parent[3].callTypeAfteropenForm == "Inbound_Whatsapp") {
-        if (parent.parent[3].rowDataAfteropenForm == null)	//use this to check whether it is new case
-        {
-            // parent.parent[3]
-            // parent.$('#social-media-main')[0].
-
-            if (parent.parent[3].chatService != null)	// check chatService is loaded
+    //status update when openInputForm  
+    if (parent.parent[3].callTypeAfteropenForm != undefined) {  //detect it is in case create
+        if (parent.parent[3].callTypeAfteropenForm == "Inbound_Whatsapp") {
+            if (parent.parent[3].rowDataAfteropenForm == null)	//use this to check whether it is new case
             {
-                var selectTicketId = parent.parent[3].chatService.selectedTicketId;
-                //parent.$('#phone-panel')[0]
-                //parent.parent.$('#phone-panel')[0];
-                var sTicket = parent.parent.$('#phone-panel')[0].contentWindow.AssignedTicketList.filter(i => i.TicketId == selectTicketId)[0];
+                // parent.parent[3]
+                // parent.$('#social-media-main')[0].
 
-                var sPhone = sTicket.EndUserPhone;
-                var firstThree = sTicket.EndUserPhone.substring(0, 3);
-                if (firstThree === "852") {
-                    sPhone = sPhone.substring(3);
+                if (parent.parent[3].chatService != null)	// check chatService is loaded
+                {
+                    var selectTicketId = parent.parent[3].chatService.selectedTicketId;
+                    //parent.$('#phone-panel')[0]
+                    //parent.parent.$('#phone-panel')[0];
+                    var sTicket = parent.parent.$('#phone-panel')[0].contentWindow.AssignedTicketList.filter(i => i.TicketId == selectTicketId)[0];
+
+                    var sPhone = sTicket.EndUserPhone;
+                    var firstThree = sTicket.EndUserPhone.substring(0, 3);
+                    if (firstThree === "852") {
+                        sPhone = sPhone.substring(3);
+                    }
+                    $('#Mobile_No').val(sPhone);
                 }
-                $('#Mobile_No').val(sPhone);
             }
         }
     }

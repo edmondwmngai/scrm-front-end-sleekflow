@@ -230,7 +230,15 @@
 
 		  //Current Bubble Message
 		  if (this.selectedTicketId == sMsg.TicketId) {
-			  this.receiveMessage(sMsg);
+
+			  if (sMsg.SentBy == "agent")
+			  {
+				  this.addReplyMessageByText(sMsg);
+			  }
+			  else
+			  {
+				  this.receiveMessage(sMsg);
+			  }
 
 			  setTimeout(() => { this.scrollToBottom(); }, 500);
 			  setTimeout(() => { this.scrollToBottom(); }, 1500);
@@ -464,11 +472,11 @@
 
 			var sSentBy = sTicket[0].EndUserName;
 
-		  if (sMsg.SentBy == "agent")
-		  {
-			  var agentName = agentService.getAgentNameByID(sMsg.UpdatedBy);
-			  sSentBy = agentName
-		  }
+		  //if (sMsg.SentBy == "agent")
+		  //{
+		//	  var agentName = agentService.getAgentNameByID(sMsg.UpdatedBy);
+		//	  sSentBy = agentName
+		 // }
 
 			this.messageReceived = sMsg.MessageContent;
 	  		var templateResponse = this.visitorMessageTemplate;
@@ -541,7 +549,7 @@
 			  else if (FileMime.startsWith('audio/ogg') || FileMime.startsWith('audio/mpeg'))
 			  {
 			  
-						var aTag = '<audio controls controlsList="nodownload">' +
+					var aTag = '<audio controls controlsList="nodownload">' +
 							'<source src="{{FileUrl}}" type="audio/ogg">' +
 							'<source src="{{FileUrl}}" type="audio/mpeg">' +
 				  'Your browser does not support the audio element.</audio>';
@@ -830,11 +838,11 @@
 
 					  this.receiveMessage(sMsg);
 				  }
-				  else if (sMsg.SentBy == "agent" && sMsg.UpdatedBy != loginId)
-				  {
-					  this.receiveMessage(sMsg);
-				  }
-				  else if (sMsg.SentBy == "agent" && sMsg.UpdatedBy == loginId)
+				  //else if (sMsg.SentBy == "agent" && sMsg.UpdatedBy != loginId)
+				  //{
+				//	  this.receiveMessage(sMsg);
+				 // }
+				  else if (sMsg.SentBy == "agent")
 				  {
 					  this.addReplyMessageByText(sMsg);
 				  }
@@ -1389,7 +1397,8 @@
 	  addAgentToChat()	// call the interface to add agent to conference
 	  {
 		  parent.$('#phone-panel')[0].contentWindow.getAgentListFromWise();
-		  this.gotAgentListTest() // enable for testing
+		  this.gotAgentListTest(); // enable for testing  (((wait the API implementation)))
+		  //this.getWiseAgentList();
 	  };
 	  getWiseAgentList()
 	  {	  //agentList come from LogonAgentEx in phone.html

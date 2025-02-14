@@ -1373,7 +1373,7 @@
 		  this.reloadChatHistory(sMsgList);
 
 		  //4. update the chat history if there is past message ((only whatsapp will execute this logic))
-		  if (this.selectedChatChannel == "whatsapp") {
+		  if (this.selectedChatChannel == "whatsapp" && responseInvite== false) {
 			  this.returnPastMessageByTicketId(this.selectedTicketId);
 		  }
 
@@ -1555,8 +1555,18 @@
 		  }
 
 	  };
-	  
-	
+
+	  updateChatForResponseInvite()		//call after initialized reloadTicketScreen
+	  {
+		  this.resetChatHistory();
+		  parent.$('#phone-panel')[0].contentWindow.responseInviteByHandler();
+		  //this.returnPastMessageByTicketId();
+
+	  }
+	  updateChatForResponseInviteCallBack(ticketId)
+	  {
+		  this.returnPastMessageByTicketId(ticketId);
+	  }
 	  agentleftGroupChat(ticketId, toRemoveAgentId, typeId)
 	  {
 		  if (toRemoveAgentId == loginId) {

@@ -192,11 +192,11 @@
                         </span>
                     </p>
                     <p>
-                        <span class="l-social-message-to-the-invited-agent"></span>:
+                        <!--<span class="l-social-message-to-the-invited-agent"></span>:-->
                         <input type="text" id="agent-list-message" style='width:98%;padding:5px;border-radius:5px;' autocomplete="off">
                     </p>
                     <p>
-                        <span class='l-social-agent-to-invite'></span>&nbsp;(IDLE, WORKING and READY only):
+                        <!--<span class='l-social-agent-to-invite'></span>&nbsp;(IDLE, WORKING and READY only):-->
                         <form id="agent-list-arr"></form>
                     </p>
                 </div>
@@ -532,7 +532,7 @@
     <script src='https://cdnjs.cloudflare.com/ajax/libs/list.js/1.1.1/list.min.js'></script>
 
     <script src="wise/script/shandler/searchInput.js?v=20250213"></script>
-    <script src="wise/script/shandler/chatscripts.js?v=20250213"></script>
+    <script src="wise/script/shandler/chatscripts.js?v=20250214"></script>
     <script src="wise/script/shandler/agentscripts.js?v=20250212"></script>
     <script src="wise/script/shandler/waTemplateService.js?v=20250212"></script>
 
@@ -570,8 +570,7 @@
 
         if (responseInvite)
         {
-            chatService.resetChatHistory();
-            parent.$('#phone-panel')[0].contentWindow.responseInviteByHandler();
+            chatService.updateChatForResponseInvite();            
         }
         reloadedByGroupChat = false;
 

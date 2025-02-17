@@ -852,8 +852,14 @@
 				  }
 				  else if (sMsg.SentBy == "group")
 				  {
+					  var message = sMsg.MessageContent.split(",");
+
+					  // xxx has accepted your request with message:
+					  this.updateChatStatus(message[0]);
+
 					  //show the joined conference when reload
-					  this.updateChatStatus(sMsg.MessageContent);
+					  this.updateChatStatus(message[1]);
+
 				  }
 				  else
 				  {
@@ -1433,7 +1439,8 @@
 				  if (agentStatus == undefined) { agentStatus = 'IDLE'; }	// only for testing, should be commented
 
 				  if (agentStatus == 'IDLE' || agentStatus == 'WORKING' || agentStatus == 'READY') {
-					  agentArrDivs += ('<div style="display:table-row;"><div class="form-check"><label class="form-check-label"><input class="form-check-input" type="radio" name="agentList" value="' + theAgentId + '" id="agent-' + theAgentId + '">' + agentList[i].AgentName + '&nbsp;(ID: ' + theAgentId + ')<span class="circle"><span class="check"></span></span></label></div><label class="agent-list-cell pl-3" for="agent-' + theAgentId + '">' + agentStatus + '</label></div>');
+					  //agentArrDivs += ('<div style="display:table-row;"><div class="form-check"><label class="form-check-label"><input class="form-check-input" type="radio" name="agentList" value="' + theAgentId + '" id="agent-' + theAgentId + '">' + agentList[i].AgentName + '&nbsp;(ID: ' + theAgentId + ')<span class="circle"><span class="check"></span></span></label></div><label class="agent-list-cell pl-3" for="agent-' + theAgentId + '">' + agentStatus + '</label></div>');
+					  agentArrDivs += ('<div style="display:table-row;"><div class="form-check"><label class="form-check-label"><input class="form-check-input" type="radio" name="agentList" value="' + theAgentId + '" id="agent-' + theAgentId + '">' + agentList[i].AgentName + '&nbsp;(ID: ' + theAgentId + ')<span class="circle"><span class="check"></span></span></label></div><label class="agent-list-cell pl-3" for="agent-' + theAgentId + '"></label></div>');
 					  availableAgent += 1;
 				  }
 			  }
@@ -1459,7 +1466,8 @@
 					var agentStatus = theAgent.Status;
 					if (agentStatus == undefined) {		agentStatus = 'IDLE';	}	// only for testing, should be commented
 					if (agentStatus == 'IDLE' || agentStatus == 'WORKING' || agentStatus == 'READY') { 
-						agentArrDivs += ('<div style="display:table-row;"><div class="form-check"><label class="form-check-label"><input class="form-check-input" type="radio" name="agentList" value="' + theAgentId + '" id="agent-' + theAgentId + '">' + theAgent.AgentName + '&nbsp;(ID: ' + theAgentId + ')<span class="circle"><span class="check"></span></span></label></div><label class="agent-list-cell pl-3" for="agent-' + theAgentId + '">' + agentStatus + '</label></div>');
+//						agentArrDivs += ('<div style="display:table-row;"><div class="form-check"><label class="form-check-label"><input class="form-check-input" type="radio" name="agentList" value="' + theAgentId + '" id="agent-' + theAgentId + '">' + theAgent.AgentName + '&nbsp;(ID: ' + theAgentId + ')<span class="circle"><span class="check"></span></span></label></div><label class="agent-list-cell pl-3" for="agent-' + theAgentId + '">' + agentStatus + '</label></div>');
+						agentArrDivs += ('<div style="display:table-row;"><div class="form-check"><label class="form-check-label"><input class="form-check-input" type="radio" name="agentList" value="' + theAgentId + '" id="agent-' + theAgentId + '">' + theAgent.AgentName + '&nbsp;(ID: ' + theAgentId + ')<span class="circle"><span class="check"></span></span></label></div><label class="agent-list-cell pl-3" for="agent-' + theAgentId + '"></label></div>');
 						availableAgent += 1;
 					}
 				}
@@ -1531,9 +1539,16 @@
 				  alert(alertMessage);
 			  }
 			  else if (result.details.agentResponse == 'Y') {
+				  var acceptMsg = "";
 				  var statusMsg = "";
+
+				  acceptMsg = agentNameStr + ' has accepted your request with message: ' + result.details.message;
+				  this.updateChatStatus(acceptMsg);
+
 				  statusMsg = agentNameStr + ' has joined to the chatroom';
 				  this.updateChatStatus(statusMsg);
+
+				  //Tam Lee(ID: 6) is not in the chat room anymore
 
 				  var sTicketLst = parent.$('#phone-panel')[0].contentWindow.AssignedTicketList.filter(i => i.TicketId == result.details.ticketId);
 				  var sTicket = sTicketLst[0];
@@ -1543,8 +1558,8 @@
 				  //Copy array item
 				  var newItem = JSON.parse(JSON.stringify(sLastItem));
 
-				  newItem.SentBy = "group";			newItem.UpdateBy = result.details.targentAgentId;
-				  newItem.MessageType = "text";		newItem.MessageContent = statusMsg;
+				  newItem.SentBy = "group";			newItem.UpdatedBy = result.details.targentAgentId;
+				  newItem.MessageType = "text";		newItem.MessageContent = acceptMsg + "," + statusMsg;
 				  newItem.FileJson = "[]";			newItem.QuotedMsgBody = "";
 
 				  sMsglist.push(newItem);

@@ -120,6 +120,16 @@ class wsSHandler {
 				msg.details.message=this.#b64DecodeUnicode(msg.details.message);
 				this.onInteractEvent(msg);
 			}
+			else if(msg.type=="leaveConference") {
+				this.onInteractEvent(msg);
+			}
+			else if(msg.type=="endTicket") {
+				this.onInteractEvent(msg);
+			}
+			else if(msg.type=="timeout") {
+				this.onInteractEvent(msg);
+			}
+			
 		};
 		//let seft=this;
 		this.websocket.onclose=(event)=> {

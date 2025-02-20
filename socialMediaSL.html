@@ -483,7 +483,7 @@
             <div class="bubble-container-inner">
                 <span class="bubble-label-content-columns">
                     <span style="display: none;" class="bubble-id">{{ticketId}}</span>
-                    <span style="display: none;" class="bubble-agent-id">{{AssignedTo}}</span>
+                    <span style="display: none;" class="bubble-agent-id">{{agentId}}</span>
                     <span style="display: none;" class="bubble-user-id">{{endUserId}}</span>
                     <span style="display: none;" class="bubble-user-email">{{endUserEmail}}</span>
                     <span style="display: none;" class="bubble-user-phone">{{endUserPhone}}</span>
@@ -507,7 +507,7 @@
                         <div class="d-flex">
                             <span class="bubble-message mr-auto">{{lastMessage}}</span>
                             <i class="fas fa-plus bubble-small-icon mr-2" id="bubble-add-agent" onclick="chatService.addAgentToChat({{ticketId}},&quot;campaignCRM&quot;,&quot;webchat&quot;)" data-toggle="tooltip" data-placement="bottom" title="Conference Call"></i>
-                            <i class="fas fa-sign-out-alt leave-chat-icon bubble-small-icon" style="display: none;"  id="bubble-leave-chat" onclick="leaveChat({{ticketId}})" data-toggle="tooltip" data-placement="bottom" title="Leave Chat"></i>
+                            <i class="fas fa-sign-out-alt leave-chat-icon bubble-small-icon" id="bubble-leave-chat" onclick="chatService.leaveChatClicked({{ticketId}})" data-toggle="tooltip" data-placement="bottom" title="Leave Chat"></i>
                             <i class="fas fa-star private-i"></i>
                         </div>
                     </div>
@@ -531,10 +531,10 @@
     <script src='wise/script/shandler/handlebars.min.js'></script>
     <script src='https://cdnjs.cloudflare.com/ajax/libs/list.js/1.1.1/list.min.js'></script>
 
-    <script src="wise/script/shandler/searchInput.js?v=20250213"></script>
-    <script src="wise/script/shandler/chatscripts.js?v=20250214"></script>
-    <script src="wise/script/shandler/agentscripts.js?v=20250212"></script>
-    <script src="wise/script/shandler/waTemplateService.js?v=20250212"></script>
+    <script src="wise/script/shandler/searchInput.js"></script>
+    <script src="wise/script/shandler/chatscripts.js"></script>
+    <script src="wise/script/shandler/agentscripts.js"></script>
+    <script src="wise/script/shandler/waTemplateService.js"></script>
 
     <script src="js/SocialContent.js"></script>
 

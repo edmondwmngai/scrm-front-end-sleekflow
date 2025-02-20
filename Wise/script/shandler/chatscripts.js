@@ -1589,16 +1589,6 @@
 		  $('#agentListModal').modal('toggle');
 	  };
 
-
-	  testInviteRequestCallBack()
-	  {
-		  var res = '{ "type": "responseConference", "details": { "targentAgentId": 6, "ticketId": 418, "message": "RESPONSE YOU", "agentResponse": "Y" }, "agentResponse": "Y", "targentAgentId": 6 }';
-
-		  var response = JSON.parse(res);
-
-		  this.sendInviteRequestcallBack(response);
-	  }
-
 	  sendInviteRequestcallBack(result)		//****not direct callback from  inviteAgentByHandler except error return
 	  {
 		  //{ "type": "responseConference", "details": { "targentAgentId": 6, "ticketId": 1023, "message": "RESPONSE YOU", "agentResponse": "Y" }, "agentResponse": "Y", "targentAgentId": 6 }
@@ -1629,17 +1619,17 @@
 
 				  //Tam Lee(ID: 6) is not in the chat room anymore
 
-				  var sTicketLst = parent.$('#phone-panel')[0].contentWindow.AssignedTicketList.filter(i => i.TicketId == result.details.ticketId);
-				  var sTicket = sTicketLst[0];
-				  var sMsglist = sTicket.messages;
+				  var sTicketLst= parent.$('#phone-panel')[0].contentWindow.AssignedTicketList.filter(i => i.TicketId == result.details.ticketId);
+				  var sTicket	= sTicketLst[0];
+				  var sMsglist	= sTicket.messages;
 				  var sLastItem = sMsglist[sMsglist.length - 1];
 
 				  //Copy array item
 				  var newItem = JSON.parse(JSON.stringify(sLastItem));
 
-				  newItem.SentBy = "group";			newItem.UpdatedBy = result.details.targentAgentId;
-				  newItem.MessageType = "text";		newItem.MessageContent = acceptMsg + "," + statusMsg;
-				  newItem.FileJson = "[]";			newItem.QuotedMsgBody = "";
+				  newItem.SentBy = "group";		newItem.UpdatedBy = result.details.targentAgentId;		newItem.FileJson = "[]";
+				  newItem.MessageType = "text"; newItem.MessageContent = acceptMsg + "," + statusMsg;	newItem.QuotedMsgBody = "";
+						
 
 				  sMsglist.push(newItem);
 
@@ -1650,7 +1640,7 @@
 
 	  };
 
-	  updateChatForResponseInvite()		//call after initialized reloadTicketScreen
+	  updateChatForResponseInvite()		//responseInvitedCall set responseInvite = true in phone.html	=> call after initialized reloadTicketScreen   
 	  {
 		  this.resetChatHistory();
 		  parent.$('#phone-panel')[0].contentWindow.responseInviteByHandler();
@@ -1678,9 +1668,11 @@
 			  this.removeBubble(response.details.ticketId);
 			  this.updateStatusInAssignedList(response.details.ticketId, "Status", "selfLeave");			  
 
-			  this.resetChatHistory();
-			  this.$histHeader.html('');
-			
+			  if (response.details.ticketId == this.selectedTicketId)
+			  {
+					this.resetChatHistory();
+					this.$histHeader.html('');
+			  }
 		  }
 		  else
 		  {
@@ -1691,23 +1683,21 @@
 	  //Message Come from another agent for leave the chat
 	  receiveMessageForMemberLeave(ticketId, toRemoveAgentId)
 	  {
-		  var statusMsg = "";
-		  var agentName = agentService.getAgentNameByID(toRemoveAgentId);
-		  var agentNameStr = agentName + ' (ID: ' + toRemoveAgentId + ')';
+		  var statusMsg		= "";
+		  var agentName		= agentService.getAgentNameByID(toRemoveAgentId);
+		  var agentNameStr	= agentName + ' (ID: ' + toRemoveAgentId + ')';
 
 		  statusMsg = agentNameStr + ' is not in the chat room anymore' // ' has left the chatroom'; Changed on 2020-3 the user could be left because of barge in
 
-		  var sTicketLst = parent.$('#phone-panel')[0].contentWindow.AssignedTicketList.filter(i => i.TicketId == ticketId);
-		  var sTicket = sTicketLst[0];
-		  var sMsglist = sTicket.messages;
-		  var sLastItem = sMsglist[sMsglist.length - 1];
+		  var sTicketLst= parent.$('#phone-panel')[0].contentWindow.AssignedTicketList.filter(i => i.TicketId == ticketId);
+		  var sTicket	= sTicketLst[0];					  var sMsglist = sTicket.messages;
+		  var sLastItem	= sMsglist[sMsglist.length - 1];
 
 		  //Copy array item
 		  var newItem = JSON.parse(JSON.stringify(sLastItem));
 
-		  newItem.SentBy = "memberLeave";	newItem.UpdatedBy = toRemoveAgentId;
-		  newItem.MessageType = "text";		newItem.MessageContent = statusMsg;
-		  newItem.FileJson = "[]";			newItem.QuotedMsgBody = "";
+		  newItem.SentBy	= "memberLeave";	newItem.MessageType		= "text";		newItem.QuotedMsgBody	= "";	
+		  newItem.UpdatedBy = toRemoveAgentId;	newItem.MessageContent	= statusMsg;	newItem.FileJson		= "[]";		  
 
 		  sMsglist.push(newItem);
 
@@ -1737,6 +1727,13 @@
 		  }
 	  }
 	  
+	  testInviteRequestCallBack() {
+		  var res = '{ "type": "responseConference", "details": { "targentAgentId": 6, "ticketId": 418, "message": "RESPONSE YOU", "agentResponse": "Y" }, "agentResponse": "Y", "targentAgentId": 6 }';
+
+		  var response = JSON.parse(res);
+
+		  this.sendInviteRequestcallBack(response);
+	  }
 
 
 	  //-----------------------------------------------------------------------------------------------------------------------------

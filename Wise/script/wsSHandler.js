@@ -321,6 +321,25 @@ class wsSHandler {
 		const json = await response.json();
 		return json;
 	}
+
+	async leaveConference(data) {
+
+		const { agentId, token, ticketId} = data;
+		const response = await fetch(this.apiUrl + '/api/leaveConference', {
+			method: 'POST',
+			headers: {
+				"Content-Type": "application/json; charset=utf-8",
+			},
+			body: JSON.stringify({ AgentId: agentId, Token: token, TicketId: ticketId}),
+		});
+		if (!response.ok) {
+			console.log(response);
+			return null;
+		}
+		const json = await response.json();
+		return json;
+	}
+
 	/*
 	connect() {
 		if(this.wsUrl=="") return;

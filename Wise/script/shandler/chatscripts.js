@@ -312,14 +312,42 @@
 	  //endSessionCallBack(sTicket)
 	  endSessionCallBack(ticketId)
 	  {
+		  
 		  this.updateChatEndSession(ticketId);
-		  this.scrollToBottom();
+
+		  if (ticketId == this.selectedTicketId)
+		  { 
+			  this.disableInput(true);
+			  this.updateChatStatus("Session Ended");
+			  this.scrollToBottom();
+		  }
+
+		  var ticket = parent.$('#phone-panel')[0].contentWindow.AssignedTicketList.filter(i => i.TicketId == ticketId)[0];
+
+		  //check whether the ticket is not origially assigned to login agent
+		  if (ticket.AssignedTo != top.loginId)
+		  {
+			  this.removeBubble(ticketId);
+
+			  if (ticketId == this.selectedTicketId)
+			  {
+				  this.resetChatHistory();
+				  this.$histHeader.html('');
+			  }
+		  }
 	  };
 
 	  sessionTimeoutCallBack(ticketId)
 	  {
 		  this.updateChatSessionTimeout(ticketId);
-		  this.scrollToBottom();
+
+		  if (ticketId == this.selectedTicketId)
+		  {
+			  this.disableInput(true);
+			  this.updateChatStatus("Session Timeout");
+			  this.updateChatStatus("Session Ended");
+			  this.scrollToBottom();
+		  }
 	  };
 
 	  
@@ -846,7 +874,7 @@
 				  {
 					  this.addReplyMessageByText(sMsg);
 				  }
-				  else if (sMsg.SentBy == "timeout")
+				  else if (sMsg.SentBy == "timeout" || sMsg.SentBy == "selfLeave")
 				  {
 					  // Skip the message for timeout
 				  }
@@ -860,6 +888,10 @@
 					  //show the joined conference when reload
 					  this.updateChatStatus(message[1]);
 
+				  }
+				  else if (sMsg.SentBy == "memberLeave")
+				  {
+					  this.updateChatStatus(sMsg.MessageContent);
 				  }
 				  else
 				  {
@@ -886,7 +918,7 @@
 		  }
 
 		  //Current present (selected ticket)
-		  var sTicket = parent.$('#phone-panel')[0].contentWindow.AssignedTicketList.filter(i => i.TicketId == sMsglist[0].TicketId);
+		  var sTicket = parent.$('#phone-panel')[0].contentWindow.AssignedTicketList.filter(i => i.TicketId == this.selectedTicketId);
 		  var ticketStatus = sTicket[0].Status;
 
 		  //element.style.visibility = 'hidden';
@@ -968,29 +1000,67 @@
 
 	  updateChatEndSession(ticketId)
 	  {
-		  this.disableInput(true);
+		//  this.disableInput(true);
 		  this.updateBubbleStatus(ticketId, "Session_End", true);
 
 		  this.updateStatusInAssignedList(ticketId, "Status", "closed");
-		  this.updateChatStatus("Session Ended");
+		//  this.updateChatStatus("Session Ended");
 
-		  this.scrollToBottom();
+		//  this.scrollToBottom();
 
 	  };
 
 	  updateChatSessionTimeout(ticketId)
 	  {
 		  // "Session Ended"
-		  this.disableInput(true);
+		  
 		  this.updateBubbleStatus(ticketId, "Session_End", true);
 		  this.updateStatusInAssignedList(ticketId, "Status", "timeout");
 		  this.updateChatStatus("Session Timeout");
 		  this.updateChatStatus("Session Ended");
 
 		  this.scrollToBottom();
+
+		  this.disableInput(true);
+
 		  // "Session Timeout"
 		  // "Session Ended"
 	  };
+
+	  updateChatLoginAgentLeave(ticketId)
+	  {
+		  // "Session Ended"
+		  //this.disableInput(true);
+		  this.updateBubbleStatus(ticketId, "Session", true);
+		  this.updateStatusInAssignedList(ticketId, "Status", "leave");
+		//  this.drop
+
+		  // "Session Timeout"
+		  // "Session Ended"
+	  };
+
+	  //B is current Login user but A end the chat
+	  updateChatEndSessionByMember(ticketId)
+	  {
+		  this.updateBubbleStatus(ticketId, "Session_End", true);
+		  this.updateStatusInAssignedList(ticketId, "Status", "leave");
+		  this.removeBubble(ticketId);
+
+	  }
+	  //B is current Login user but received mesage for A leave the chat
+	  updateChatByMemberLeave(ticketId, statusMsg)
+	  {
+
+		  if (this.selectedTicketId == ticketId)
+		  {
+			  this.updateChatStatus(statusMsg);
+			  this.scrollToBottom();
+			  setTimeout(() => { this.scrollToBottom(); }, 500);
+			  setTimeout(() => { this.scrollToBottom(); }, 1500);
+		  }
+
+	  }
+
 
 	  // For ticket (bubble) list
 	  //-----------------------------------------------------------------------------------------------------------------------------------------------------
@@ -1023,13 +1093,21 @@
 	    var selectedTicket = parent.$('#phone-panel')[0].contentWindow.AssignedTicketList.filter(i => i.TicketId == e.getElementsByClassName('bubble-id')[0].innerHTML);
 
 
+		//closed case is for not reload the group chat closed by member
+		if (this.selectedAgentId != top.loginId && selectedTicket[0].Status == "closed") { return; }
+
 
 		var sMsglist = selectedTicket[0].messages;
 
-		this.reloadChatHistory(sMsglist, true);
 
+		  //Skip load message 
 		
-		 this.updateChatHeader(selectedTicket[0].Channel, selectedTicket[0]);
+		  if (selectedTicket.Status != "selfLeave" || selectedTicket.Status != "memberLeave")
+		  { 
+				this.reloadChatHistory(sMsglist, true);
+				this.updateChatHeader(selectedTicket[0].Channel, selectedTicket[0]);
+		  }
+
 		  searchInput(selectedTicket[0]);	
 
 		  if (selectedTicket[0].Channel == "whatsapp") {
@@ -1084,6 +1162,10 @@
 		  if (ticket.Status == "closed" || ticket.Status == "timeout")
 		  {
 			  timeout = true;
+		  }
+		  if (ticket.Status == "selfLeave" || ticket.Status == "memberClosed")
+		  {
+			  return;		//ignore this buuble when reload
 		  }
 		  
 		  //var dateISO = ticket.UpdatedAt.slice(0, 19); 
@@ -1233,10 +1315,7 @@
 				  $(this)[0].parentNode.parentNode.parentNode.remove();
 			  }
 		  });
-
-		  //(Need to implement update in assigned List)
-
-	  };
+	   };
 
 	  updateBubbleInfo(inputTicketID) {
 		  const specifiedValue = inputTicketID;
@@ -1580,27 +1659,84 @@
 	  }
 	  updateChatForResponseInviteCallBack(ticketId)
 	  {
+		  this.updateBubbleStatus(ticketId, "Pending_Unread", false);
 		  this.returnPastMessageByTicketId(ticketId);
 	  }
-	  agentleftGroupChat(ticketId, toRemoveAgentId, typeId)
+
+	  leaveChatClicked(ticketId)
 	  {
-		  if (toRemoveAgentId == loginId) {
-			  addSocialStatus({ ticket_id: ticketId, ticket_status: 'left' });
-		  } else {
-			  var statusMsg = "";
-			  var agentNameStr = parent.getAgentName(toRemoveAgentId) + ' (ID: ' + toRemoveAgentId + ')';
-			  if (typeId == 0) {
-				  statusMsg = agentNameStr + ' is not in the chat room anymore' // ' has left the chatroom'; Changed on 2020-3 the user could be left because of barge in
-			  }
-			  $('#content-inner-scroll-' + ticketId).append('<div class="text-center my-3"><span class="status-bubble">' + statusMsg + '</span></div>');
-			  // scroll to the bottom
-			  var objDiv = document.getElementById('content-inner-scroll-' + ticketId);
-			  if (objDiv != null) {
-				  objDiv.scrollTop = objDiv.scrollHeight;
-			  }
+		  var loginId = top.loginId;
+		  var token = top.token;
+		  var selectedId = ticketId;
+		  parent.$('#phone-panel')[0].contentWindow.leaveConferenceByHandler(loginId, token, selectedId);
+	  }
+
+	  leaveChatCallBack(response)
+	  {
+		  if (response.result == 'success')
+		  {
+			  this.removeBubble(response.details.ticketId);
+			  this.updateStatusInAssignedList(response.details.ticketId, "Status", "selfLeave");			  
+
+			  this.resetChatHistory();
+			  this.$histHeader.html('');
+			
+		  }
+		  else
+		  {
+			  alert(response.details);
 		  }
 	  }
 
+	  //Message Come from another agent for leave the chat
+	  receiveMessageForMemberLeave(ticketId, toRemoveAgentId)
+	  {
+		  var statusMsg = "";
+		  var agentName = agentService.getAgentNameByID(toRemoveAgentId);
+		  var agentNameStr = agentName + ' (ID: ' + toRemoveAgentId + ')';
+
+		  statusMsg = agentNameStr + ' is not in the chat room anymore' // ' has left the chatroom'; Changed on 2020-3 the user could be left because of barge in
+
+		  var sTicketLst = parent.$('#phone-panel')[0].contentWindow.AssignedTicketList.filter(i => i.TicketId == ticketId);
+		  var sTicket = sTicketLst[0];
+		  var sMsglist = sTicket.messages;
+		  var sLastItem = sMsglist[sMsglist.length - 1];
+
+		  //Copy array item
+		  var newItem = JSON.parse(JSON.stringify(sLastItem));
+
+		  newItem.SentBy = "memberLeave";	newItem.UpdatedBy = toRemoveAgentId;
+		  newItem.MessageType = "text";		newItem.MessageContent = statusMsg;
+		  newItem.FileJson = "[]";			newItem.QuotedMsgBody = "";
+
+		  sMsglist.push(newItem);
+
+		  this.updateChatByMemberLeave(ticketId, statusMsg);
+
+	  }
+	  //Message Come from another agent for end the group chat session
+	  receiveMessageForEndTicket(details)
+	  {
+		  //assignedTo: 5, closedBy: 5, ticketId: XXXX
+		  if (details.assignedTo == top.loginId)
+		  {
+			this.endSessionCallBack(details.ticketId)
+		  }
+		  else
+		  { 
+
+			  this.updateStatusInAssignedList(details.ticketId, "Status", "closed");
+			  this.removeBubble(details.ticketId);
+
+			  //Only reset the screen if the case is ended by conference member AND the ticket is currently SHown on screen
+			  if (details.ticketId == this.selectedTicketId)
+			  {
+				  this.resetChatHistory();	 
+				  this.$histHeader.html('');
+			  }
+		  }
+	  }
+	  
 
 
 	  //-----------------------------------------------------------------------------------------------------------------------------

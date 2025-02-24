@@ -28,6 +28,8 @@
 
 	  isSendingMessage = false;
 	  interval = null;
+	  disableReloadMsg = false;
+
 		//Contacted us in the last hour: Last Ticket ID: 1386264423 on 2024-11 - 29 12: 17: 37
 	  init()
 	  {
@@ -822,15 +824,22 @@
 	  resetChatHistory()
 	  {
 		  $('#chatHistory').html('');
+
 	  }
 
 	  reloadChatHistory(sMsglist)
 	  {
+
 		  //***After reload the history, the chatHistory will be scrolled based on isScrollToBottom Flag (to the bottom / to Top)
 		  if (sMsglist == undefined)
 		  {
 			  return;
 		  }
+		  if (this.disableReloadMsg == true)
+		  {
+			  this.disableReloadMsg = false;
+		  }
+
 
 		  //Reset the chat history screen
 		  $('#chatHistory').html('');
@@ -1045,6 +1054,7 @@
 		  this.updateBubbleStatus(ticketId, "Session_End", true);
 		  this.updateStatusInAssignedList(ticketId, "Status", "leave");
 		  this.removeBubble(ticketId);
+		  this.disableReloadMsg = false;
 
 	  }
 	  //B is current Login user but received mesage for A leave the chat
@@ -1057,6 +1067,7 @@
 			  this.scrollToBottom();
 			  setTimeout(() => { this.scrollToBottom(); }, 500);
 			  setTimeout(() => { this.scrollToBottom(); }, 1500);
+			  this.disableReloadMsg = false;
 		  }
 
 	  }
@@ -1093,6 +1104,12 @@
 	    var selectedTicket = parent.$('#phone-panel')[0].contentWindow.AssignedTicketList.filter(i => i.TicketId == e.getElementsByClassName('bubble-id')[0].innerHTML);
 
 
+		  // for not reload the chat room is ticket is not originally assigned to login agent AND it is closed / leave)
+		  if (((selectedTicket[0].Status == "closed" || selectedTicket[0].Status == "selfLeave" || selectedTicket[0].Status == "memberLeave")) && this.selectedAgentId != top.loginId) {
+			  return;
+		  }
+
+
 		//closed case is for not reload the group chat closed by member
 		if (this.selectedAgentId != top.loginId && selectedTicket[0].Status == "closed") { return; }
 
@@ -1102,7 +1119,9 @@
 
 		  //Skip load message 
 		
-		  if (selectedTicket.Status != "selfLeave" || selectedTicket.Status != "memberLeave")
+		  if (selectedTicket[0].Status != "selfLeave" ||
+			  selectedTicket[0].Status != "memberLeave" ||
+			  this.selectedAgentId == top.loginId ||  (selectedTicket[0].Status != "closed" && this.selectedAgentId != top.loginId))
 		  { 
 				this.reloadChatHistory(sMsglist, true);
 				this.updateChatHeader(selectedTicket[0].Channel, selectedTicket[0]);
@@ -1693,6 +1712,8 @@
 		  var sTicket	= sTicketLst[0];					  var sMsglist = sTicket.messages;
 		  var sLastItem	= sMsglist[sMsglist.length - 1];
 
+		  this.updateStatusInAssignedList(ticketId, "Status", "memberLeave");
+		  
 		  //Copy array item
 		  var newItem = JSON.parse(JSON.stringify(sLastItem));
 
@@ -1702,6 +1723,7 @@
 		  sMsglist.push(newItem);
 
 		  this.updateChatByMemberLeave(ticketId, statusMsg);
+
 
 	  }
 	  //Message Come from another agent for end the group chat session
@@ -1714,9 +1736,11 @@
 		  }
 		  else
 		  { 
-
-			  this.updateStatusInAssignedList(details.ticketId, "Status", "closed");
+			  this.disableReloadMsg = true;
+			  this.updateStatusInAssignedList(details.ticketId, "Status", "memberClosed");
 			  this.removeBubble(details.ticketId);
+
+			  
 
 			  //Only reset the screen if the case is ended by conference member AND the ticket is currently SHown on screen
 			  if (details.ticketId == this.selectedTicketId)

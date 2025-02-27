@@ -64,7 +64,7 @@ function addCustomerInfo(data) {
     // prevent user clicked customer table multiple time at once, show the user info when they are not exist only
     if ($('#input-form').length == 0) {
         $('#search-contact-body').prepend(
-            '<button id="back-btn" class="float-right btn btn-circle btn-warning mt-1 mb-3" onclick=' + backStr + ' title="' + langJson["l-general-previous-page"] + '"><i class="fas fa-arrow-left"></i></button>' +
+            '<button id="back-btn" class="float-end btn btn-circle btn-warning mt-1 mb-3" onclick=' + backStr + ' title="' + langJson["l-general-previous-page"] + '"><i class="fas fa-arrow-left"></i></button>' +
             '<iframe id="input-form" customer-only="true" customerId=' + data.Customer_Id + ' style="border:none" width="100%" src ="../campaign/' + campaign + '/inputForm.html" />');
     }
 }
@@ -221,7 +221,7 @@ function addCaseAutoSearchTable(data, oThis) {
                     columnDefs: [{
                         targets: 0,
                         data: null,
-                        defaultContent: '<i title="' + langJson['l-search-update-case'] + '" class="fas fa-edit table-btn select" data-toggle="tooltip"></i>',
+                        defaultContent: '<i title="' + langJson['l-search-update-case'] + '" class="fas fa-edit table-btn select" data-bs-toggle="tooltip"></i>',
                         className: 'btnColumn',
                         orderable: false,
                     }, {
@@ -230,7 +230,7 @@ function addCaseAutoSearchTable(data, oThis) {
                             if (data && data.length > 0) {
                                 return data.replace('Inbound_', '');
                             } else {
-                                return '<span class="ml-2">-</span> ';
+                                return '<span class="ms-2">-</span> ';
                             }
                         }
                     }, {
@@ -619,7 +619,7 @@ function submitClicked(type, clickedByPop) {
         var columnDefs = [{
             targets: 0,
             colVis: false,
-            defaultContent: '<i title="' + langJson['l-search-create-case'] + '" class="fas fa-edit table-btn create" data-toggle="tooltip"></i>',
+            defaultContent: '<i title="' + langJson['l-search-create-case'] + '" class="fas fa-edit table-btn create" data-bs-toggle="tooltip"></i>',
             className: 'btnColumn',
             orderable: false,
         }, {
@@ -627,7 +627,7 @@ function submitClicked(type, clickedByPop) {
             orderable: false,
             render: function (data, type, row) {
                 if (data) {
-                    return '<i title="' + langJson['l-search-search-case-to-update'] + '" class="table-btn fas fa-search-plus search-case" data-toggle="tooltip"></i>';
+                    return '<i title="' + langJson['l-search-search-case-to-update'] + '" class="table-btn fas fa-search-plus search-case" data-bs-toggle="tooltip"></i>';
                 } else {
                     return ''
                 }
@@ -637,7 +637,7 @@ function submitClicked(type, clickedByPop) {
             targets: 2,
             orderable: false,
             render: function (data, type, row) {
-                return '<i class="fas fa-user-edit open" title="' + langJson['l-search-edit-user'] + '" data-toggle="tooltip"></i>';
+                return '<i class="fas fa-user-edit open" title="' + langJson['l-search-edit-user'] + '" data-bs-toggle="tooltip"></i>';
             },
             className: 'btnColumn'
         }];
@@ -659,7 +659,7 @@ function submitClicked(type, clickedByPop) {
                         return '<div class="form-check form-check-content" style="margin-top:-16px">' +
                             '<label class="form-check-label">' +
                             '<input class="form-check-input" type="checkbox" id="' + mobileNo + '" value="' + mobileNo + '">' +
-                            '<span class="form-check-sign"><span class="check" data-toggle="tooltip" data-placement="right" title="Send template to the customer"></span></span></label></div>';
+                            '<span class="form-check-sign"><span class="check" data-bs-toggle="tooltip" data-bs-placement="right" title="Send template to the customer"></span></span></label></div>';
                     } else {
                         return '';
                     }
@@ -893,7 +893,7 @@ function selectChange(type, iThis) {
         for (let theOption of selectedOptions) {
             optionStr += '<option value="' + theOption + '">' + theOption.replace('_', ' ') + '</option>'
         }
-        $("<select class='select-value form-control'>" + optionStr + "</select>").insertAfter(selectedInput);
+        $("<select class='select-value form-select'>" + optionStr + "</select>").insertAfter(selectedInput);
     } else {
         selectedInput.show();
         selectedInput.siblings('.select-value').remove();
@@ -1079,7 +1079,7 @@ function confirmSendTp() {
         // send failed, success resultID will be "4"
         if (replyObj.resultID == "1") {
             $('#' + sendPhoneArr[0]).first().parent().parent().parent().empty().append('<i class="fas fa-times"></i>');
-            $('#error-log').append('<div><i class="fas fa-exclamation-triangle mr-2"></i><span>Failed to send template to: ' + sendPhoneArr[0] + '</span></div>');
+            $('#error-log').append('<div><i class="fas fa-exclamation-triangle me-2"></i><span>Failed to send template to: ' + sendPhoneArr[0] + '</span></div>');
         } else {
             $('#' + sendPhoneArr[0]).first().parent().parent().parent().empty().append('<i class="fas fa-check"></i>');
         }
@@ -1087,7 +1087,7 @@ function confirmSendTp() {
         // remove the first item of an array
         sendPhoneArr.shift();
         if (sendPhoneArr.length == 0) {
-            $('#send-status').empty().append('<div><i class="fas fa-check mr-2"></i><span>Complete sent out template to all customers!</span></div>');
+            $('#send-status').empty().append('<div><i class="fas fa-check me-2"></i><span>Complete sent out template to all customers!</span></div>');
             waChecked = false;
         } else {
             confirmSendTp();
@@ -1105,12 +1105,12 @@ function confirmSendTp() {
 //             $('#send-wa-section').show();
 //         } else {
 //             var templateSectionStr = '<div id="send-wa-section" class="mt-2">' +
-//                 '<label class="form-label mb-0"><span>Template Prop(s):</span><input id="tpl-content" class="rounded ml-3 mr-2" autocomplete="off">4 July,8pm</label>' +
+//                 '<label class="form-label mb-0"><span>Template Prop(s):</span><input id="tpl-content" class="rounded ms-3 me-2" autocomplete="off">4 July,8pm</label>' +
 //                 '<div class="form-check form-check-radio"><label class="form-check-label" for="tp-1"><input class="form-check-input" type="radio" name="tp" id="tp-1" value="1">Your appointment is coming up on {{1}} at {{2}}<span class="circle"><span class="check"></span></span></label></div>' +
 //                 '<div class="form-check form-check-radio"><label class="form-check-label" for="tp-2"><input class="form-check-input" type="radio" name="tp" id="tp-2" value="2">易寶通訊提醒你, 預約日期是{{1}}{{2}}。<span class="circle"><span class="check"></span></span></label></div>' +
 //                 '<div class="form-check form-check-radio"><label class="form-check-label" for="tp-3"><input class="form-check-input" type="radio" name="tp" id="tp-3" value="3">Epro Notice: Thank you for your application, the application no is {{1}}.<span class="circle"><span class="check"></span></span></label></div>' +
 //                 '<div class="form-check form-check-radio"><label class="form-check-label" for="tp-4"><input class="form-check-input" type="radio" name="tp" id="tp-4" value="4">易寶：謝謝你的申請, 你的申編號是 {{1}}.<span class="circle"><span class="check"></span></span></label></div>' +
-//                 '<div class="form-group text-center"><a class="btn rounded btn-sm btn-warning mt-3 mb-0 text-capitalize" data-toggle="confirmation" data-placement="bottom" data-popout="true" data-btn-ok-class="btn-info" href="javascript:(sendTP())" data-original-title="" title=""><i class="fas fa-paper-plane mr-2"></i><span class="align-middle">Send</span></a></div>' +
+//                 '<div class="mb-3 text-center"><a class="btn rounded btn-sm btn-warning mt-3 mb-0 text-capitalize" data-bs-toggle="confirmation" data-bs-placement="bottom" data-popout="true" data-btn-ok-class="btn-info" href="javascript:(sendTP())" data-original-title="" title=""><i class="fas fa-paper-plane me-2"></i><span class="align-middle">Send</span></a></div>' +
 //                 '</div>';
 //             $('#send-wa-container').append(templateSectionStr)
 //         }

@@ -19,7 +19,7 @@
     <link rel="stylesheet" href="./css/search.css" type="TEXT/CSS">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <script type="text/javascript" src="./config.js"></script>
-    <script type="text/javascript" src="./js/jquery.min.js"></script>
+    <!--<script type="text/javascript" src="./js/jquery.min.js"></script>--><script type="text/javascript" src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script type="text/javascript" src="./js/jquery.dataTables.min.js"></script>
     <script type="text/javascript" src="./js/jquery-ui.min.js"></script>
 
@@ -97,11 +97,11 @@
             </div>
 
             <div>
-                <label class="label-control mr-2 l-campaign-date">Date</label>
+                <label class="label-control me-2 l-campaign-date">Date</label>
                 <input type="text" id="calendar">
-                <!-- <input type="text" id="date" data-format="YYYY-MM-DD" data-template="YYYY / MM / DD " name="date"> -->
+                <!-- <input type="text" id="date" data-format="YYYY-MM-DD" data-bs-template="YYYY / MM / DD " name="date"> -->
                 <label class="label-control mx-2 l-campaign-time">Time</label>
-                <input type="text" id="time" data-format="HH:mm" data-template="HH : mm" name="time">
+                <input type="text" id="time" data-format="HH:mm" data-bs-template="HH : mm" name="time">
                 <span class="error-span col-sm-10" id="reminder-date-time-error"></span>
             </div>
 
@@ -115,9 +115,9 @@
             <div class="text-center">
                 <span id='validation-result' style="display:none"></span>
                 <button id="r-popup-submit-btn" class="btn btn-round btn-sm btn-warning mt-3 mb-0 text-capitalize"><i
-                        class="fas fa-save mr-2"></i><span class="l-general-save">Save</span></button>
+                        class="fas fa-save me-2"></i><span class="l-general-save">Save</span></button>
                 <button class="btn btn-round btn-sm btn-default mt-3 mb-0 text-capitalize" onclick="clearForm()"><i
-                        class="fas fa-times-circle mr-2"></i><span class="l-general-cancel">Cancel</span></button>
+                        class="fas fa-times-circle me-2"></i><span class="l-general-cancel">Cancel</span></button>
             </div>
         </div>
     </div>

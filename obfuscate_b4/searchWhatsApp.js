@@ -65,13 +65,13 @@ function buildHistory(msg_list) {
                 theMsgContentDisplay += '<div class="mt-1">'
                 let cmds = theMsg.msg_json.Commands;
                 for (let cmd of cmds) {
-                    theMsgContentDisplay += ('<button class="btn-primary mr-2">' + cmd.Title + '</button>')
+                    theMsgContentDisplay += ('<button class="btn-primary me-2">' + cmd.Title + '</button>')
                 }
                 theMsgContentDisplay += '</div>'
             }
 
             if (theMsg.msg_completed && theMsg.msg_completed == '-1') {
-                theMsgContentDisplay += ('<span class="text-danger ml-5"><i class="fas fa-exclamation-circle mr-2"></i>Failed to send the message</span>');
+                theMsgContentDisplay += ('<span class="text-danger ms-5"><i class="fas fa-exclamation-circle me-2"></i>Failed to send the message</span>');
             }
             // when refresh, the nick_name from agent will become visitor, not agent name
             // contentScrollDiv.append('<div id="' + msgId + '" class="message-row agent-row"><div class="agent-content-bubble"><div class="content-bubble-name">' + agentBubbleName + '</div><div class="content-bubble-content">' + theMsgContentDisplay + '</div></div><div><span class="user-icon"><i class="fas fa-user"></i></span><div class="time-with-seconds"><span>' + theMsgDate + '</span><span>' + theMsgTime + '</span></div></div></div>');

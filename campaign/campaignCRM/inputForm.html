@@ -20,7 +20,7 @@
     <link rel="stylesheet" href="../../css/social.css">
 
     <script type="text/javascript" src="../../config.js"></script>
-    <script type="text/javascript" src="../../js/jquery.min.js"></script>
+    <!--<script type="text/javascript" src="../../js/jquery.min.js"></script>--><script type="text/javascript" src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script type="text/javascript" src="../../js/jquery.dataTables.min.js"></script>
     <script type="text/javascript" src="../../js/generalFn.js"></script>
     <script type="text/javascript" src="../../js/popper.min.js"></script>
@@ -185,7 +185,7 @@
     <div id='customer-id-section' class='mt-2 d-print-none'>
         <!-- <label class='l-form-customer-id mt-3'></label>:&nbsp;
         <span id='customer-id'></span> -->
-        <button id="form-back-btn" class="float-right btn btn-circle btn-warning l-general-previous-page mt-1"
+        <button id="form-back-btn" class="float-end btn btn-circle btn-warning l-general-previous-page mt-1"
         style="margin-bottom:35px;"
             onclick="returnToSearch();"><i class="fas fa-arrow-left"></i></button>
     </div>
@@ -201,12 +201,12 @@
                     &nbsp;&nbsp;(<span class="l-form-customer-id"></span>:&nbsp;<span id="customer-id-title"></span>)
                 </span>
                 <button id="form-print-btn"
-                    class="float-right btn btn-circle btn-warning l-form-print d-print-none ml-2" style="display:none;"
+                    class="float-end btn btn-circle btn-warning l-form-print d-print-none ms-2" style="display:none;"
                     onclick="window.print();"><i class="fas fa-print"></i></button>
                 <button id="scheduled-reminder"
-                    class="float-right btn btn-circle btn-warning l-form-scheduled-reminder d-print-none ml-2"
+                    class="float-end btn btn-circle btn-warning l-form-scheduled-reminder d-print-none ms-2"
                     style="display:none;" onclick="scheduleClick();"><i class="fas fa-calendar-alt"></i></button>
-                <button id="export-word-btn" class="float-right btn btn-circle btn-warning d-print-none l-form-exoprt-word"
+                <button id="export-word-btn" class="float-end btn btn-circle btn-warning d-print-none l-form-exoprt-word"
                     onclick="exportCustDoc()" style="display:none;"><i class="fas fa-file-word"></i></button>
             </h5>
         </div>
@@ -229,7 +229,7 @@
                                     <label for='Title' class='px-2 l-form-title'></label>
                                 </td>
                                 <td>
-                                    <select class="form-control edit-field" name="Title" id='Title'>
+                                    <select class="form-select edit-field" name="Title" id='Title'>
                                         <option selected="selected" value=''></option>
                                         <option class="l-form-miss" value="Miss">Miss</option>
                                         <option class="l-form-mr" value="Mr">Mr</option>
@@ -242,7 +242,7 @@
                                     <label for='Lang' class='px-2 l-form-language'></label>
                                 </td>
                                 <td>
-                                    <select class="form-control edit-field pr-0" name="Lang" id='Lang'>
+                                    <select class="form-select edit-field pe-0" name="Lang" id='Lang'>
                                         <option selected="selected" value=''></option>
                                         <option class="l-form-cantonese" value="Cantonese">Cantonese</option>
                                         <option class="l-form-english" value="English">English</option>
@@ -253,31 +253,31 @@
                             </tr>
 
                             <td><label class='px-2' for='Nationality_Id'>
-                                    <i class="far fa-flag mr-2"></i><span class="l-form-nationality">Nationality</span>
+                                    <i class="far fa-flag me-2"></i><span class="l-form-nationality">Nationality</span>
                                 </label></td>
                             <td>
-                                <select class="form-control edit-field mt-1" id='Nationality_Id'
+                                <select class="form-select edit-field mt-1" id='Nationality_Id'
                                     onchange='nationalityChanged(this)'>
                                     <option value=""></option>
                                 </select>
                             </td>
                             <td>
                                 <label for='Market_Id' class='px-2'>
-                                    <i class="fas fa-globe-asia mr-2"></i><span class="l-form-market"></span>
+                                    <i class="fas fa-globe-asia me-2"></i><span class="l-form-market"></span>
                                 </label>
                             </td>
                             <td>
-                                <select class="form-control edit-field" id='Market_Id'>
+                                <select class="form-select edit-field" id='Market_Id'>
                                     <option value=""></option>
                                 </select>
                             </td>
                             <td>
                                 <label for='Profile_Id' class='px-2'>
-                                    <i class="far fa-user-circle mr-2"></i><span class='l-form-profile'></span>
+                                    <i class="far fa-user-circle me-2"></i><span class='l-form-profile'></span>
                                 </label>
                             </td>
                             <td>
-                                <select class="form-control edit-field" id='Profile_Id' style="max-width:90px;">
+                                <select class="form-select edit-field" id='Profile_Id' style="max-width:90px;">
                                     <option value=""></option>
                                 </select>
                             </td>
@@ -286,7 +286,7 @@
                             <tr>
                                 <td>
                                     <label for='Mobile_No' class='px-2'>
-                                        <i class='fa fa-phone mr-2'></i><span class="l-form-mobile"></span>
+                                        <i class='fa fa-phone me-2'></i><span class="l-form-mobile"></span>
                                     </label>
                                 </td>
                                 <td>
@@ -295,7 +295,7 @@
                                         autocomplete="off" />
                                 </td>
                                 <td>
-                                    <label for='Other_Phone_No' class='px-2'><i class='fa fa-phone mr-2'></i><span
+                                    <label for='Other_Phone_No' class='px-2'><i class='fa fa-phone me-2'></i><span
                                             class='l-form-other'></span></label>
                                 </td>
                                 <td>
@@ -304,7 +304,7 @@
                                         id="Other_Phone_No" autocomplete="off" />
                                 </td>
                                 <td>
-                                    <label for='Fax_No' class='px-2'><i class='fa fa-fax mr-2'></i><span
+                                    <label for='Fax_No' class='px-2'><i class='fa fa-fax me-2'></i><span
                                             class="l-form-fax"></span></label>
                                 </td>
                                 <td>
@@ -314,14 +314,14 @@
                                 </td>
                             </tr>
 
-                            <td><label class='px-2' for='Email'><i class='fa fa-envelope mr-2'></i><span
+                            <td><label class='px-2' for='Email'><i class='fa fa-envelope me-2'></i><span
                                         class="l-form-email"></span></label></td>
                             <td>
                                 <input class="form-control edit-field mt-1" type='search' maxLength="50" id="Email"
                                     autocomplete="off" />
                             </td>
                             <td>
-                                <label for='Address1' class="px-2"><i class="far fa-address-book mr-2"></i><span
+                                <label for='Address1' class="px-2"><i class="far fa-address-book me-2"></i><span
                                         class="l-form-address">Address</span></label>
                             </td>
                             <td colspan="3">
@@ -336,7 +336,7 @@
                                 <td colspan="6">
                                     <div class="form-check mt-1">
                                         <label class="form-check-label">
-                                            <i class="fas fa-info-circle mr-2"></i>
+                                            <i class="fas fa-info-circle me-2"></i>
                                             <input id="Agree_To_Disclose_Info"
                                                 class="form-check-input edit-field l-form-agree-to-disclose-information"
                                                 type="checkbox">
@@ -355,7 +355,7 @@
                     <div class='col-sm-2'>
                         <div class='mx-auto'>
                             <div class='row'>
-                                <span class="col-md-11 pl-4 text-center"><img class='img-raised profile-pic'
+                                <span class="col-md-11 ps-4 text-center"><img class='img-raised profile-pic'
                                         onclick='profilePicClick();' id="profile-pic" src="../../images/user.png" />
                                     <input type="file" id="file-to-upload" accept="image/x-png,image/gif,image/jpeg"
                                         onchange="previewPhoto(this);" style="display:none">
@@ -372,10 +372,10 @@
                 <div id="updateCsSection" class='mt-1 text-center'>
                     <button id="edit-save-btn" class='cs-button btn btn-warning rounded btn-sm text-capitalize'
                         onclick="updateClicked()">
-                        <i class="fa fa-save mr-2"></i><span class="l-form-save"></span></button>
+                        <i class="fa fa-save me-2"></i><span class="l-form-save"></span></button>
                     <button id="change-customer-btn" class="cs-button btn rounded btn-sm text-capitalize"
                         onclick="changeCustomerClicked()" title="Change Customer">
-                        <i class="fas fa-exchange-alt mr-2"></i><span
+                        <i class="fas fa-exchange-alt me-2"></i><span
                             class="l-search-change-customer-for-this-case"></span></button>
                 </div>
             </div>
@@ -393,11 +393,11 @@
             </div>
             <div class="collapse show" data-parent="#accordion" id='case-details-body'>
                 <div class="card-body">
-                    <div class='row form-inline'>
-                        <div class='form-group col-sm-3'>
+                    <div class='row d-flex align-items-center'>
+                        <div class='mb-3 col-sm-3'>
                             <label for='case-nature' class='control-label custom-form-label'><span
                                     class="l-form-nature"></span>&nbsp;<span class="text-danger">*</span></label>
-                            <select class="form-control" name='case-nature' id='case-nature' style="width:59%;">
+                            <select class="form-select" name='case-nature' id='case-nature' style="width:59%;">
                                 <option selected="selected" value=''></option>
                                 <option value="Enquiry">Enquiry</option>
                                 <option value="Complaint">Complaint</option>
@@ -405,25 +405,25 @@
                                 <option value="Compliment">Compliment</option>
                             </select>
                         </div>
-                        <div class='form-group col-sm-3'>
+                        <div class='mb-3 col-sm-3'>
                             <label for='case-status' class='control-label custom-form-label'><span
                                     class="l-form-status"></span>&nbsp;<span class="text-danger">*</span></label>
-                            <select class="form-control" id='case-status' onchange='statusChange(this)'>
+                            <select class="form-select" id='case-status' onchange='statusChange(this)'>
                                 <option selected="selected" value=''></option>
                                 <option value="Follow-up Required">Follow-up
                                     Required</option>
                             </select>
                         </div>
-                        <div class='form-group col-sm-5' id='case-escalated-container' style='display:none;'>
+                        <div class='mb-3 col-sm-5' id='case-escalated-container' style='display:none;'>
                             <label for='case-status' class='col-sm-4 control-label l-form-escalated-to'></label>
-                            <select class="form-control col-sm-8" id='case-escalated' value=null>
+                            <select class="form-select col-sm-8" id='case-escalated' value=null>
                                 <option selected="selected" value=''></option>
                             </select>
                         </div>
                     </div>
 
-                    <div class='row form-inline'>
-                        <div class='form-group col-sm-12 mb-1'>
+                    <div class='row d-flex align-items-center'>
+                        <div class='mb-3 col-sm-12 mb-1'>
                             <label for='case-details' class='control-label custom-form-label'><span
                                     class="l-form-details"></span>&nbsp;<span class="text-danger">*</span></label>
                             <textarea class="mt-2" name='case-details' id='case-details' rows="3" cols="20"
@@ -431,8 +431,8 @@
                         </div>
                     </div>
 
-                    <!-- <div class='row form-inline'> NO DEL not sure will this field be added back
-                        <div class="form-check ml-5 my-0">
+                    <!-- <div class='row d-flex align-items-center'> NO DEL not sure will this field be added back
+                        <div class="form-check ms-5 my-0">
                             <label class="form-check-label">
                                 <input id="Long_Call" class="form-check-input l-form-long-call-duration" type="checkbox"
                                     onchange="longCallChanged(this);">
@@ -442,8 +442,8 @@
                                 </span>
                             </label>
                         </div>
-                        <label for='Long_Call_Reason' class='control-label pl-4 pr-3 l-form-reason-for-long-call'></label>
-                        <select class="form-control" id='Long_Call_Reason' disabled>
+                        <label for='Long_Call_Reason' class='control-label ps-4 pe-3 l-form-reason-for-long-call'></label>
+                        <select class="form-select" id='Long_Call_Reason' disabled>
                             <option selected="selected" value=''></option>
                             <option value="Long complaint / Feedback details">Long complaint / Feedback details</option>
                             <option value="Caller raised unreasonable requests">Caller raised unreasonable requests
@@ -452,13 +452,13 @@
                         </select>
                     </div> /NO DEL not sure will this field be added back-->
 
-                    <div class='row form-inline'>
-                        <div class='form-group col-sm-12 pl-0'>
-                            <label class='col-sm-1 control-label pl-4 mt-2'><span class="l-form-reply"></span></label>
-                            <div class='col-sm-11 pl-0'>
-                                <div id="reply-radio-group" class='form-group form-inline'>
+                    <div class='row d-flex align-items-center'>
+                        <div class='mb-3 col-sm-12 ps-0'>
+                            <label class='col-sm-1 control-label ps-4 mt-2'><span class="l-form-reply"></span></label>
+                            <div class='col-sm-11 ps-0'>
+                                <div id="reply-radio-group" class='mb-3 d-flex align-items-center'>
 
-                                    <div class="form-check ml-3">
+                                    <div class="form-check ms-3">
                                         <label class="form-check-label">
                                             <input class='form-check-input dial-yes-disable l-form-none'
                                                 onclick='replyChannelChange(this)' type="radio" id="reply-none"
@@ -470,7 +470,7 @@
                                         </label>
                                     </div>
 
-                                    <div class="form-check ml-3">
+                                    <div class="form-check ms-3">
                                         <label class="form-check-label">
                                             <input class='form-check-input dial-yes-disable l-form-radio-email'
                                                 onclick='replyChannelChange(this)' type="radio" id="reply-email"
@@ -482,7 +482,7 @@
                                     </div>
 
 
-                                    <div class="form-check ml-3">
+                                    <div class="form-check ms-3">
                                         <label class="form-check-label">
                                             <input class='form-check-input dial-yes-disable l-form-radio-fax'
                                                 onclick='replyChannelChange(this)' type="radio" id="reply-fax"
@@ -494,7 +494,7 @@
                                     </div>
 
 
-                                    <div class="form-check ml-3">
+                                    <div class="form-check ms-3">
                                         <label class="form-check-label">
                                             <input class='form-check-input dial-yes-disable l-form-sms'
                                                 onclick='replyChannelChange(this)' type="radio" id="reply-sms"
@@ -505,7 +505,7 @@
                                         </label>
                                     </div>
 
-                                    <div class="form-check ml-2">
+                                    <div class="form-check ms-2">
                                         <label class="form-check-label">
                                             <input class='form-check-input dial-yes-disable l-form-call'
                                                 onclick='replyChannelChange(this)' type="radio" id="reply-call"
@@ -521,11 +521,11 @@
                     </div>
 
 
-                    <span class='ml-5'>
+                    <span class='ms-5'>
                         <span id='reply-details'>
                             <span style='display:none;' id='email-details'>
                                 <span style='display:inline-block;' id="email-other-container">
-                                    <div class="form-check ml-2" style='display:inline;'>
+                                    <div class="form-check ms-2" style='display:inline;'>
                                         <label class="form-check-label">
                                             <input type="checkbox"
                                                 class="form-check-input reply-checkbox email-list l-form-radio-other"
@@ -546,7 +546,7 @@
 
                             <span style='display:none;' id='fax-details'>
                                 <span id="fax-other-container">
-                                    <div class="form-check ml-2" style='display:inline;'><label
+                                    <div class="form-check ms-2" style='display:inline;'><label
                                             class="form-check-label">
                                             <input type="checkbox"
                                                 class="form-check-input reply-checkbox fax-list l-form-radio-other"
@@ -566,7 +566,7 @@
 
                             <span style='display:none;' id='sms-details'>
                                 <span id="sms-other-container">
-                                    <div class="form-check ml-2" style='display:inline;'>
+                                    <div class="form-check ms-2" style='display:inline;'>
                                         <label class="form-check-label">
                                             <input type="checkbox"
                                                 class="form-check-input reply-checkbox sms-list l-form-radio-other"
@@ -587,7 +587,7 @@
 
                             <span style='display:none;' id='call-details'>
                                 <span id="call-other-container">
-                                    <div class="form-check ml-2" style='display:inline;'>
+                                    <div class="form-check ms-2" style='display:inline;'>
                                         <label class="form-check-label">
                                             <input type="radio"
                                                 class="form-check-input reply-checkbox call-list dial-yes-disable l-form-radio-other"
@@ -612,7 +612,7 @@
                     <div id='reply-container'></div>
                     <div id="save-btn-section" style="text-align:center;margin-top:10px;">
                         <button id="case-save-btn" class='btn btn-warning rounded btn-sm text-capitalize'
-                            onclick='saveClicked()'><i class="fa fa-save mr-2"></i><span
+                            onclick='saveClicked()'><i class="fa fa-save me-2"></i><span
                                 class="l-form-save"></span></button>
                     </div>
                 </div>

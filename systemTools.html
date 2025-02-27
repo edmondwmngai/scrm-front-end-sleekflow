@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="./css/dataTables.alphabetSearch.css">
     <link rel="stylesheet" href="./css/media.css">
     <script type="text/javascript" src="./config.js"></script>
-    <script type="text/javascript" src="./js/jquery.min.js"></script>
+    <!--<script type="text/javascript" src="./js/jquery.min.js"></script>--><script type="text/javascript" src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script type="text/javascript" src="./js/jquery.dataTables.min.js"></script>
     <script type="text/javascript" src="./js/dataTables.alphabetSearch.min.js"></script>
     <script type="text/javascript" src="./js/generalFn.js"></script>
@@ -33,7 +33,7 @@
         }
 
         .nav-pills .nav-link.active,
-        .nav-pills .show>.nav-link {
+        .nav-pills .show > .nav-link {
             background-color: #00bcd4 !important;
         }
 
@@ -80,32 +80,32 @@
             background-color: #f9eeee;
         }
 
-        #repeated-customer-table tbody tr:hover,
-        #difficult-customer-table tbody tr:hover,
-        #repeated-caller-table tbody tr:hover,
-        #difficult-caller-table tbody tr:hover {
-            background-color: rgba(0, 0, 0, 0.075);
-        }
+            #repeated-customer-table tbody tr:hover,
+            #difficult-customer-table tbody tr:hover,
+            #repeated-caller-table tbody tr:hover,
+            #difficult-caller-table tbody tr:hover {
+                background-color: rgba(0, 0, 0, 0.075);
+            }
 
-        #repeated-customer-table tbody tr.alphabet-group>td,
-        #difficult-customer-table tbody tr.alphabet-group>td,
-        #repeated-caller-table tbody tr.alphabet-group>td,
-        #difficult-caller-table tbody tr.alphabet-group>td {
-            background: white;
-        }
+            #repeated-customer-table tbody tr.alphabet-group > td,
+            #difficult-customer-table tbody tr.alphabet-group > td,
+            #repeated-caller-table tbody tr.alphabet-group > td,
+            #difficult-caller-table tbody tr.alphabet-group > td {
+                background: white;
+            }
 
-        .dataTables_filter>label>input {
+        .dataTables_filter > label > input {
             border-radius: 5px;
             margin-left: 5px;
         }
 
-        .nav-pills>.nav-link {
+        .nav-pills > .nav-link {
             text-transform: unset;
         }
 
-        .nav-pills>.nav-link:not(.active):hover {
-            color: #0299a9;
-        }
+            .nav-pills > .nav-link:not(.active):hover {
+                color: #0299a9;
+            }
 
         div.alphabet a.empty {
             color: #d4d0d0 !important;
@@ -127,46 +127,46 @@
     </style>
 </head>
 
-<body class='custom-scroll max-width-container' onload="windowOnload()" onkeydown='return (event.keyCode != 116)'>
-    <div class="d-flex pl-2 pr-3 py-3">
+<body class='custom-scroll max-collapse-horizontal-container' onload="windowOnload()" onkeydown='return (event.keyCode != 116)'>
+    <div class="d-flex ps-2 pe-3 py-3">
         <div style="width:227px;">
             <ul class="nav flex-column nav-pills d-none" id="v-pills-tab" role="tablist" aria-orientation="vertical">
                 <li><a id="junk-mail-tab" class="nav-link active show" onclick="emailSetting('Junk Mail', 'GetSetting')"
-                        data-toggle="pill" href="#junk-mail-content" role="tab" aria-controls="junk-mail-content"
-                        aria-selected="false"><i class='fa fa-envelope align-middle mr-2 font-large'></i>
+                        data-bs-toggle="pill" href="#junk-mail-content" role="tab" aria-controls="junk-mail-content"
+                        aria-selected="false"><i class='fa fa-envelope align-middle me-2 font-large'></i>
                         <span class="align-middle l-st-junk-mail-list"></span>
                     </a></li>
                 <li><a id="junk-history-tab" class="nav-link" onclick="emailSetting('Junk Mail', 'GetJunkMails')"
-                        data-toggle="pill" href="#junk-history-content" role="tab" aria-controls="junk-history-content"
-                        aria-selected="false"><i class='fa fa-envelope align-middle mr-2 font-large'></i><span
+                        data-bs-toggle="pill" href="#junk-history-content" role="tab" aria-controls="junk-history-content"
+                        aria-selected="false"><i class='fa fa-envelope align-middle me-2 font-large'></i><span
                             class="align-middle l-st-junk-mail-history"></span></a></li>
                 <div class="dropdown-divider"></div>
                 <div class="st-title l-st-repeated-list"></div>
-                <li class="pl-4">
+                <li class="ps-4">
                     <a id="repeated-customer-tab" class="nav-link"
-                        onclick="emailSetting('Repeated Customer', 'GetSetting')" data-toggle="pill"
+                        onclick="emailSetting('Repeated Customer', 'GetSetting')" data-bs-toggle="pill"
                         href="#repeated-customer-content" role="tab" aria-controls="repeated-customer-content"
-                        aria-selected="false"><i class='fa fa-envelope align-middle mr-2 font-large'></i><span
+                        aria-selected="false"><i class='fa fa-envelope align-middle me-2 font-large'></i><span
                             class="align-middle l-form-repeated-sender"></span></a>
                 </li>
-                <li class="pl-4"><a id="repeated-caller-tab" class="nav-link"
-                        onclick="callSetting('Repeated Caller', 'GetCallFilter')" data-toggle="pill"
+                <li class="ps-4"><a id="repeated-caller-tab" class="nav-link"
+                        onclick="callSetting('Repeated Caller', 'GetCallFilter')" data-bs-toggle="pill"
                         href="#repeated-caller-content" role="tab" aria-controls="repeated-caller-content"
-                        aria-selected="false"><i class="fas fa-phone-square align-middle mr-2 font-large"></i><span
+                        aria-selected="false"><i class="fas fa-phone-square align-middle me-2 font-large"></i><span
                             class="align-middle l-form-repeated-caller"></span></a></li>
                 <div class="st-title l-st-special-list"></div>
-                <li class="pl-4">
+                <li class="ps-4">
                     <a id="difficult-customer-tab" class="nav-link"
-                        onclick="emailSetting('Difficult Customer', 'GetSetting')" data-toggle="pill"
+                        onclick="emailSetting('Difficult Customer', 'GetSetting')" data-bs-toggle="pill"
                         href="#difficult-customer-content" role="tab" aria-controls="difficult-customer-content"
-                        aria-selected="false"><i class='fa fa-envelope align-middle mr-2 font-large'></i><span
+                        aria-selected="false"><i class='fa fa-envelope align-middle me-2 font-large'></i><span
                             class="align-middle l-form-difficult-sender"></span></a>
                 </li>
-                <li class="pl-4">
+                <li class="ps-4">
                     <a id="difficult-caller-content-tab" class="nav-link"
-                        onclick="callSetting('Difficult Caller', 'GetCallFilter')" data-toggle="pill"
+                        onclick="callSetting('Difficult Caller', 'GetCallFilter')" data-bs-toggle="pill"
                         href="#difficult-caller-content" role="tab" aria-controls="difficult-caller-content"
-                        aria-selected="false"><i class="fas fa-phone-square align-middle mr-2 font-large"></i><span
+                        aria-selected="false"><i class="fas fa-phone-square align-middle me-2 font-large"></i><span
                             class="align-middle l-form-difficult-caller"></span></a>
                 </li>
             </ul>
@@ -197,8 +197,8 @@
 
                                 <a class="btn btn-sm btn-danger rounded text-capitalize"
                                     href="javascript:(emailSetting('Junk Mail', 'DelSetting'))"
-                                    data-toggle="confirmation" data-popout="true" data-btn-ok-class="btn-info"><i
-                                        class="fa fa-trash mr-2"></i><span class="l-st-delete-from-list"></span></a>
+                                    data-bs-toggle="confirmation" data-popout="true" data-btn-ok-class="btn-info"><i
+                                        class="fa fa-trash me-2"></i><span class="l-st-delete-from-list"></span></a>
                             </div>
                             <div class="col">
                                 <h5 class='l-st-email'></h5>
@@ -206,7 +206,7 @@
                                     onkeydown="return junkMailPressed();" />
                                 <button class="btn btn-sm btn-warning rounded text-capitalize mt-1"
                                     onclick="emailSetting('Junk Mail','AddSetting')"><i
-                                        class="fa fa-plus mr-2"></i><span class="l-st-add-to-list"></span></button>
+                                        class="fa fa-plus me-2"></i><span class="l-st-add-to-list"></span></button>
                             </div>
                         </div>
                     </div>
@@ -226,23 +226,23 @@
                     </div>
                     <div id="junk-mail-custom-card" class="custom-card px-4 py-3 mt-3 mb-5" style="display:none;">
                         <div class="row mb-1 px-3 py-1">
-                            <label class="mr-2 col-sm-2 pl-0 mb-0 py-1"><span
+                            <label class="me-2 col-sm-2 ps-0 mb-0 py-1"><span
                                     class="l-email-sender"></span>:</label><span id="junk-mail-from"></span>
                         </div>
                         <!-- <div class="row mb-1 px-3 py-1">
-                                    <label class="mr-2 col-sm-2 pl-0 mb-0 py-1">To:</label><span id="junk-mail-to"></span>
+                                    <label class="me-2 col-sm-2 ps-0 mb-0 py-1">To:</label><span id="junk-mail-to"></span>
                                 </div> -->
                         <div class="row mb-1 px-3 py-1">
-                            <label class="mr-2 col-sm-2 pl-0 mb-0 py-1"><span
+                            <label class="me-2 col-sm-2 ps-0 mb-0 py-1"><span
                                     class="l-email-subject"></span>:</label><span id="junk-mail-subject"></span>
                         </div>
                         <div class="row mb-1 px-3 py-1">
-                            <label class="mr-2 word-break col-sm-2 pl-0"><span class="l-email-content"></span>:</label>
+                            <label class="me-2 word-break col-sm-2 ps-0"><span class="l-email-content"></span>:</label>
                             <span id="junk-mail-body" class="custom-scroll col px-0 rounded p-2"
                                 style="height:170px;max-height:170px;border:1px solid lightgray"></span>
                         </div>
                         <div class="row mb-1 px-3 py-1">
-                            <label class="mr-2 col-sm-2 pl-0 mb-0 py-1"><span
+                            <label class="me-2 col-sm-2 ps-0 mb-0 py-1"><span
                                     class="l-st-attachments"></span>:</label><span id="junk-mail-attachment"
                                 class="row"></span>
                         </div>
@@ -263,7 +263,7 @@
                             </div>
                             <button id="repeated-customer-create" class="btn btn-success rounded btn-sm text-capitalize"
                                 onclick="addClicked('repeated-customer')" style="display:block;"><i
-                                    class="fas fa-plus mr-2"></i><span
+                                    class="fas fa-plus me-2"></i><span
                                     class="l-form-add-repeated-sender"></span></button>
                         </div>
                     </div>
@@ -271,13 +271,13 @@
                         style="display:none;">
                         <div class="row mb-1 px-3 py-1">
                             <div class="col-sm-5">
-                                <label class="mr-2 pl-0 mb-0 py-1 l-form-full-name"></label>
+                                <label class="me-2 ps-0 mb-0 py-1 l-form-full-name"></label>
                                 <input id="repeated-customer-full-name" class="form-control" type="search"
                                     autocomplete="off" disabled />
                             </div>
                             <div class="col-sm-3">
-                                <label class="mr-2 pl-0 mb-0 py-1 l-form-title"></label>
-                                <select id="repeated-customer-title" class="form-control" disabled>
+                                <label class="me-2 ps-0 mb-0 py-1 l-form-title"></label>
+                                <select id="repeated-customer-title" class="form-select" disabled>
                                     <option selected="selected" value=''></option>
                                     <option value="Miss">Miss</option>
                                     <option value="Mr">Mr</option>
@@ -286,33 +286,33 @@
                                 </select>
                             </div>
                             <div class="col-sm-4">
-                                <label class="mr-2 pl-0 mb-0 py-1"><i class='fa fa-envelope mr-2'></i>Email</label>
+                                <label class="me-2 ps-0 mb-0 py-1"><i class='fa fa-envelope me-2'></i>Email</label>
                                 <input id="repeated-customer-email" class="form-control" type="search"
                                     autocomplete="off" disabled />
                             </div>
                         </div>
                         <div class="row mb-1 px-3 py-1">
                             <div class="col-sm-12">
-                                <label class="mr-2 pl-0 mb-0 py-1 l-form-remarks"></label>
+                                <label class="me-2 ps-0 mb-0 py-1 l-form-remarks"></label>
                                 <input id="repeated-customer-remarks" class="form-control" type="search"
                                     autocomplete="off" />
                             </div>
                         </div>
                         <div class="px-3 pt-1 text-center">
                             <button id="repeated-customer-edit" class="btn btn-warning rounded btn-sm text-capitalize"
-                                onclick="editClicked('repeated-customer')"><i class="fa fa-edit mr-2"></i><span
+                                onclick="editClicked('repeated-customer')"><i class="fa fa-edit me-2"></i><span
                                     class="l-form-edit"></span></button>
                             <button id="repeated-customer-add" class="btn btn-success rounded btn-sm text-capitalize"
                                 onclick="emailSetting('Repeated Customer', 'AddSetting', null, true)"><i
-                                    class="fa fa-edit mr-2"></i><span class="l-form-add">Add</span></button>
+                                    class="fa fa-edit me-2"></i><span class="l-form-add">Add</span></button>
                             <button id="repeated-customer-save" class="btn btn-warning rounded btn-sm text-capitalize"
                                 onclick="emailSetting('Repeated Customer', 'DelSetting', true);"
-                                style="display:none;"><i class="fa fa-edit mr-2"></i><span
+                                style="display:none;"><i class="fa fa-edit me-2"></i><span
                                     class="l-form-save"></span></button>
                             <a id="repeated-customer-delete" class="btn btn-danger rounded btn-sm text-capitalize"
                                 href="javascript:(emailSetting('Repeated Customer', 'DelSetting'))"
-                                data-toggle="confirmation" data-popout="true" data-btn-ok-class="btn-info">
-                                <i class="fa fa-trash mr-2"></i><span class='l-st-delete'></span></a>
+                                data-bs-toggle="confirmation" data-popout="true" data-btn-ok-class="btn-info">
+                                <i class="fa fa-trash me-2"></i><span class='l-st-delete'></span></a>
                         </div>
                     </div>
                 </div>
@@ -332,7 +332,7 @@
                             <button id="difficult-customer-create"
                                 class="btn btn-success rounded btn-sm text-capitalize"
                                 onclick="addClicked('difficult-customer')" style="display:block;"><i
-                                    class="fas fa-plus mr-2"></i><span
+                                    class="fas fa-plus me-2"></i><span
                                     class="l-form-add-special-sender"></span></button>
                         </div>
                     </div>
@@ -340,13 +340,13 @@
                         style="display:none;">
                         <div class="row mb-1 px-3 py-1">
                             <div class="col-sm-5">
-                                <label class="mr-2 pl-0 mb-0 py-1"><span class="l-form-full-name"></span></label>
+                                <label class="me-2 ps-0 mb-0 py-1"><span class="l-form-full-name"></span></label>
                                 <input id="difficult-customer-full-name" class="form-control" type="search"
                                     autocomplete="off" disabled />
                             </div>
                             <div class="col-sm-3">
-                                <label class="mr-2 pl-0 mb-0 py-1 l-form-title"></label>
-                                <select id="difficult-customer-title" class="form-control" disabled>
+                                <label class="me-2 ps-0 mb-0 py-1 l-form-title"></label>
+                                <select id="difficult-customer-title" class="form-select" disabled>
                                     <option selected="selected" value=''></option>
                                     <option value="Miss">Miss</option>
                                     <option value="Mr">Mr</option>
@@ -355,7 +355,7 @@
                                 </select>
                             </div>
                             <div class="col-sm-4">
-                                <label class="mr-2 pl-0 mb-0 py-1"><i class='fa fa-envelope mr-2'></i><span
+                                <label class="me-2 ps-0 mb-0 py-1"><i class='fa fa-envelope me-2'></i><span
                                         class="l-form-email"></span></label>
                                 <input id="difficult-customer-email" class="form-control" type="search"
                                     autocomplete="off" disabled />
@@ -363,26 +363,26 @@
                         </div>
                         <div class="row mb-1 px-3 py-1">
                             <div class="col-sm-12">
-                                <label class="mr-2 pl-0 mb-0 py-1 l-form-remarks"></label>
+                                <label class="me-2 ps-0 mb-0 py-1 l-form-remarks"></label>
                                 <input id="difficult-customer-remarks" class="form-control" type="search"
                                     autocomplete="off" />
                             </div>
                         </div>
                         <div class="px-3 pt-1 text-center">
                             <button id="difficult-customer-edit" class="btn btn-warning rounded btn-sm text-capitalize"
-                                onclick="editClicked('difficult-customer')"><i class="fa fa-edit mr-2"></i><span
+                                onclick="editClicked('difficult-customer')"><i class="fa fa-edit me-2"></i><span
                                     class="l-form-edit"></span></button>
                             <button id="difficult-customer-add" class="btn btn-success rounded btn-sm text-capitalize"
                                 onclick="emailSetting('Difficult Customer', 'AddSetting', null, true)"><i
-                                    class="fa fa-edit mr-2"></i><span class="l-form-add">Add</span></button>
+                                    class="fa fa-edit me-2"></i><span class="l-form-add">Add</span></button>
                             <button id="difficult-customer-save" class="btn btn-warning rounded btn-sm text-capitalize"
                                 onclick="emailSetting('Difficult Customer', 'DelSetting', true);"
-                                style="display:none;"><i class="fa fa-edit mr-2"></i><span
+                                style="display:none;"><i class="fa fa-edit me-2"></i><span
                                     class="l-form-save"></span></button>
                             <a id="difficult-customer-delete" class="btn btn-danger rounded btn-sm text-capitalize"
                                 href="javascript:(emailSetting('Difficult Customer', 'DelSetting'))"
-                                data-toggle="confirmation" data-popout="true" data-btn-ok-class="btn-info">
-                                <i class="fa fa-trash mr-2"></i><span class='l-st-delete'></span></a>
+                                data-bs-toggle="confirmation" data-popout="true" data-btn-ok-class="btn-info">
+                                <i class="fa fa-trash me-2"></i><span class='l-st-delete'></span></a>
                         </div>
                     </div>
                 </div>
@@ -401,7 +401,7 @@
                             </div>
                             <button id="repeated-caller-create" class="btn btn-success rounded btn-sm text-capitalize"
                                 onclick="addClicked('repeated-caller')" style="display:block;"><i
-                                    class="fas fa-plus mr-2"></i><span
+                                    class="fas fa-plus me-2"></i><span
                                     class="l-form-add-repeated-caller"></span></button>
                         </div>
                     </div>
@@ -409,13 +409,13 @@
                         style="display:none;">
                         <div class="row mb-1 px-3 py-1">
                             <div class="col-sm-5">
-                                <label class="mr-2 pl-0 mb-0 py-1 l-form-full-name"></label>
+                                <label class="me-2 ps-0 mb-0 py-1 l-form-full-name"></label>
                                 <input id="repeated-caller-full-name" class="form-control" type="search"
                                     autocomplete="off" disabled />
                             </div>
                             <div class="col-sm-3">
-                                <label class="mr-2 pl-0 mb-0 py-1 l-form-title"></label>
-                                <select id="repeated-caller-title" class="form-control" disabled>
+                                <label class="me-2 ps-0 mb-0 py-1 l-form-title"></label>
+                                <select id="repeated-caller-title" class="form-select" disabled>
                                     <option selected="selected" value=''></option>
                                     <option value="Miss">Miss</option>
                                     <option value="Mr">Mr</option>
@@ -424,7 +424,7 @@
                                 </select>
                             </div>
                             <div class="col-sm-4">
-                                <label class="mr-2 pl-0 mb-0 py-1"><i class='fa fa-phone mr-2'></i><span
+                                <label class="me-2 ps-0 mb-0 py-1"><i class='fa fa-phone me-2'></i><span
                                         class="l-form-mobile"></span></label>
                                 <input id="repeated-caller-mobile" class="form-control" type="search" autocomplete="off"
                                     disabled />
@@ -432,32 +432,32 @@
                         </div>
                         <div class="row mb-1 px-3 py-1">
                             <div class="col-sm-4">
-                                <label class="mr-2 pl-0 mb-0 py-1"><i class='fa fa-phone mr-2'></i><span
+                                <label class="me-2 ps-0 mb-0 py-1"><i class='fa fa-phone me-2'></i><span
                                         class="l-form-other"></span></label>
                                 <input id="repeated-caller-other" class="form-control" type="search" autocomplete="off"
                                     disabled />
                             </div>
                             <div class="col-sm-8">
-                                <label class="mr-2 pl-0 mb-0 py-1 l-form-remarks"></label>
+                                <label class="me-2 ps-0 mb-0 py-1 l-form-remarks"></label>
                                 <input id="repeated-caller-remarks" class="form-control" type="search"
                                     autocomplete="off" />
                             </div>
                         </div>
                         <div class="px-3 pt-1 text-center">
                             <button id="repeated-caller-edit" class="btn btn-warning rounded btn-sm text-capitalize"
-                                onclick="editClicked('repeated-caller')"><i class="fa fa-edit mr-2"></i><span
+                                onclick="editClicked('repeated-caller')"><i class="fa fa-edit me-2"></i><span
                                     class="l-form-edit"></span></button>
                             <button id="repeated-caller-add" class="btn btn-success rounded btn-sm text-capitalize"
                                 onclick="callSetting('Repeated Caller', 'AddSetting')"><i
-                                    class="fa fa-edit mr-2"></i><span class="l-form-add">Add</span></button>
+                                    class="fa fa-edit me-2"></i><span class="l-form-add">Add</span></button>
                             <button id="repeated-caller-save" class="btn btn-warning rounded btn-sm text-capitalize"
                                 onclick="callSetting('Repeated Caller', 'UpdateCallFilter', 'Y')"
-                                style="display:none;"><i class="fa fa-edit mr-2"></i><span
+                                style="display:none;"><i class="fa fa-edit me-2"></i><span
                                     class="l-form-save"></span></button>
                             <a id="repeated-caller-delete" class="btn btn-danger rounded btn-sm text-capitalize"
                                 href="javascript:(callSetting('Repeated Caller', 'UpdateCallFilter', 'N'))"
-                                data-toggle="confirmation" data-popout="true" data-btn-ok-class="btn-info">
-                                <i class="fa fa-trash mr-2"></i><span class='l-st-delete'></span></a>
+                                data-bs-toggle="confirmation" data-popout="true" data-btn-ok-class="btn-info">
+                                <i class="fa fa-trash me-2"></i><span class='l-st-delete'></span></a>
                         </div>
                     </div>
                 </div>
@@ -476,7 +476,7 @@
                             </div>
                             <button id="difficult-caller-create" class="btn btn-success rounded btn-sm text-capitalize"
                                 onclick="addClicked('difficult-caller')" style="display:block;"><i
-                                    class="fas fa-plus mr-2"></i><span
+                                    class="fas fa-plus me-2"></i><span
                                     class="l-form-add-special-caller"></span></button>
                         </div>
                     </div>
@@ -484,13 +484,13 @@
                         style="display:none;">
                         <div class="row mb-1 px-3 py-1">
                             <div class="col-sm-5">
-                                <label class="mr-2 pl-0 mb-0 py-1 l-form-full-name"></label>
+                                <label class="me-2 ps-0 mb-0 py-1 l-form-full-name"></label>
                                 <input id="difficult-caller-full-name" class="form-control" type="search"
                                     autocomplete="off" disabled />
                             </div>
                             <div class="col-sm-3">
-                                <label class="mr-2 pl-0 mb-0 py-1 l-form-title"></label>
-                                <select id="difficult-caller-title" class="form-control" disabled>
+                                <label class="me-2 ps-0 mb-0 py-1 l-form-title"></label>
+                                <select id="difficult-caller-title" class="form-select" disabled>
                                     <option selected="selected" value=''></option>
                                     <option value="Miss">Miss</option>
                                     <option value="Mr">Mr</option>
@@ -499,7 +499,7 @@
                                 </select>
                             </div>
                             <div class="col-sm-4">
-                                <label class="mr-2 pl-0 mb-0 py-1"><i class='fa fa-phone mr-2'></i><span
+                                <label class="me-2 ps-0 mb-0 py-1"><i class='fa fa-phone me-2'></i><span
                                         class="l-form-mobile"></span></label>
                                 <input id="difficult-caller-mobile" class="form-control" type="search"
                                     autocomplete="off" disabled />
@@ -507,32 +507,32 @@
                         </div>
                         <div class="row mb-1 px-3 py-1">
                             <div class="col-sm-4">
-                                <label class="mr-2 pl-0 mb-0 py-1"><i class='fa fa-phone mr-2'></i><span
+                                <label class="me-2 ps-0 mb-0 py-1"><i class='fa fa-phone me-2'></i><span
                                         class="l-form-other"></span></label>
                                 <input id="difficult-caller-other" class="form-control" type="search" autocomplete="off"
                                     disabled />
                             </div>
                             <div class="col-sm-8">
-                                <label class="mr-2 pl-0 mb-0 py-1 l-form-remarks"></label>
+                                <label class="me-2 ps-0 mb-0 py-1 l-form-remarks"></label>
                                 <input id="difficult-caller-remarks" class="form-control" type="search"
                                     autocomplete="off" />
                             </div>
                         </div>
                         <div class="px-3 pt-1 text-center">
                             <button id="difficult-caller-edit" class="btn btn-warning rounded btn-sm text-capitalize"
-                                onclick="editClicked('difficult-caller')"><i class="fa fa-edit mr-2"></i><span
+                                onclick="editClicked('difficult-caller')"><i class="fa fa-edit me-2"></i><span
                                     class="l-form-edit"></span></button>
                             <button id="difficult-caller-add" class="btn btn-success rounded btn-sm text-capitalize"
                                 onclick="callSetting('Difficult Caller', 'AddSetting')"><i
-                                    class="fa fa-edit mr-2"></i><span class="l-form-add">Add</span></button>
+                                    class="fa fa-edit me-2"></i><span class="l-form-add">Add</span></button>
                             <button id="difficult-caller-save" class="btn btn-warning rounded btn-sm text-capitalize"
                                 onclick="callSetting('Difficult Caller', 'UpdateCallFilter', 'Y')"
-                                style="display:none;"><i class="fa fa-edit mr-2"></i><span
+                                style="display:none;"><i class="fa fa-edit me-2"></i><span
                                     class="l-form-save"></span></button>
                             <a id="difficult-caller-delete" class="btn btn-danger rounded btn-sm text-capitalize"
                                 href="javascript:(callSetting('Difficult Caller', 'UpdateCallFilter', 'N'))"
-                                data-toggle="confirmation" data-popout="true" data-btn-ok-class="btn-info">
-                                <i class="fa fa-trash mr-2"></i><span class='l-st-delete'></span></a>
+                                data-bs-toggle="confirmation" data-popout="true" data-btn-ok-class="btn-info">
+                                <i class="fa fa-trash me-2"></i><span class='l-st-delete'></span></a>
                         </div>
                     </div>
                 </div>

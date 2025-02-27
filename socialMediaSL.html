@@ -17,7 +17,7 @@
     <link rel="stylesheet" href="./css/social.css" type="text/css">
 
     <script type="text/javascript" src="./config.js"></script>
-    <script type="text/javascript" src="./js/jquery.min.js"></script>
+    <!--<script type="text/javascript" src="./js/jquery.min.js"></script>--><script type="text/javascript" src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script type="text/javascript" src="./js/popper.min.js"></script>
     <script type="text/javascript" src="./js/bootstrap.min.js"></script>
 
@@ -73,7 +73,7 @@
     <!--<link rel="stylesheet" href="wise/script/shandler/style.css">-->
 </head>
        
-<body class='custom-scroll max-width-container' style='height: 100%; font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size:14px' onkeydown='return (event.keyCode != 116)'
+<body class='custom-scroll max-collapse-horizontal-container' style='height: 100%; font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size:14px' onkeydown='return (event.keyCode != 116)'
       onload="setLanguage();">
 
     <div style="width:100%;" id="construction-page">
@@ -104,7 +104,7 @@
                             <textarea class="reply-textarea" id="replyTextarea" rows="2"></textarea>
                             <div class="reply-icon-group">
                                 <!--reply-canned-container reply-btns-disable  keyboard-icon -->
-                                <button data-toggle="tooltip" data-placement="top" id="cannedButton"
+                                <button data-bs-toggle="tooltip" data-bs-placement="top" id="cannedButton"
                                         class="reply-canned-container keyboard-icon"
                                         onclick="cannedBtnClicked(&quot;campaignCRM&quot;)">
                                     <span class="align-sub">
@@ -112,7 +112,7 @@
                                     </span>
                                 </button>
 
-                                <button id="share-1528995597" class="reply-share-container keyboard-icon" data-toggle="tooltip" data-placement="top" title="Select File" onclick="shareBtnClicked(&quot;campaignCRM&quot;)">
+                                <button id="share-1528995597" class="reply-share-container keyboard-icon" data-bs-toggle="tooltip" data-bs-placement="top" title="Select File" onclick="shareBtnClicked(&quot;campaignCRM&quot;)">
                                     <span class="align-sub">
                                         <i class="far fa-file"></i>
                                     </span>
@@ -121,7 +121,7 @@
 
                                 <input type="file" id="fileInput" onchange="chatService.sendAttachmentByClick();" style="display:none">
 
-                                <button data-toggle="tooltip" data-placement="top" onclick="chatService.sendAttachmentReset(); $(this).prev().trigger(&quot;click&quot;);"
+                                <button data-bs-toggle="tooltip" data-bs-placement="top" onclick="chatService.sendAttachmentReset(); $(this).prev().trigger(&quot;click&quot;);"
                                         class="reply-end-container keyboard-icon">
                                     <span class="align-sub"><i class="fas fa-file-upload"></i></span>
                                 </button>
@@ -132,26 +132,26 @@
 
 
 
-                                <button data-toggle="tooltip" data-placement="top" id="sendMsgButton" title="Send"
+                                <button data-bs-toggle="tooltip" data-bs-placement="top" id="sendMsgButton" title="Send"
                                         class="reply-send-container">
                                     <img class="reply-icon-size" src="./images/send.svg">
                                 </button>
 
                                 <!--End the session?-->
-                                <button id="end" class="reply-end-container keyboard-icon" data-toggle="tooltip" data-placement="top" title="End Session" entry="webchat" onclick="chatService.endSession()">
+                                <button id="end" class="reply-end-container keyboard-icon" data-bs-toggle="tooltip" data-bs-placement="top" title="End Session" entry="webchat" onclick="chatService.endSession()">
                                     <span class="align-sub">
                                         <i class="fas fa-times"></i>
                                     </span>
                                 </button>
 
-                                <button style="display:none" data-toggle="tooltip" data-placement="top" id="testSendMsgButton" title="Send" class="reply-send-container">
+                                <button style="display:none" data-bs-toggle="tooltip" data-bs-placement="top" id="testSendMsgButton" title="Send" class="reply-send-container">
                                     <img class="reply-icon-size" src="./images/send.svg">
                                 </button>
 
                             </div>
                         </div>
 
-                        <div class="reply-container" style="display:none"><textarea id="reply-textarea-1123724117" class="reply-textarea" maxlength="1000" rows="2" placeholder="Type your text here..." onkeypress="textareaPressed(event);" onkeyup="sendCSInput(1123724117)"></textarea><div class="reply-icon-group"><button id="canned-1123724117" class="reply-canned-container keyboard-icon" data-toggle="tooltip" data-placement="top" title="Select Message" onclick="cannedBtnClicked(&quot;campaignCRM&quot;)"><span class="align-sub"><i class="far fa-keyboard"></i></span></button><button id="share-1123724117" class="reply-share-container keyboard-icon" data-toggle="tooltip" data-placement="top" title="Select File" onclick="shareBtnClicked(&quot;campaignCRM&quot;)"><span class="align-sub"><i class="far fa-file"></i></span></button><input type="file" onchange="uploadAttachment(this, 1123724117);" style="display:none"><button id="upload-1123724117" class="reply-share-container keyboard-icon" data-toggle="tooltip" data-placement="top" title="Send File" onclick="$(this).prev().trigger(&quot;click&quot;);"><span class="align-sub"><i class="fas fa-file-upload"></i></span></button><button id="end-1123724117" class="reply-end-container keyboard-icon" data-toggle="tooltip" data-placement="top" title="End Session" entry="webchat" onclick="endClicked(1123724117,this)"><span class="align-sub"><i class="fas fa-times"></i></span></button><button id="reply-btn-1123724117" class="reply-send-container" entry="webchat" onclick="replyClicked(1123724117)" data-toggle="tooltip" data-placement="top" title="Send Message"><img class="reply-icon-size" src="./images/send.svg"></button></div></div>
+                        <div class="reply-container" style="display:none"><textarea id="reply-textarea-1123724117" class="reply-textarea" maxlength="1000" rows="2" placeholder="Type your text here..." onkeypress="textareaPressed(event);" onkeyup="sendCSInput(1123724117)"></textarea><div class="reply-icon-group"><button id="canned-1123724117" class="reply-canned-container keyboard-icon" data-bs-toggle="tooltip" data-bs-placement="top" title="Select Message" onclick="cannedBtnClicked(&quot;campaignCRM&quot;)"><span class="align-sub"><i class="far fa-keyboard"></i></span></button><button id="share-1123724117" class="reply-share-container keyboard-icon" data-bs-toggle="tooltip" data-bs-placement="top" title="Select File" onclick="shareBtnClicked(&quot;campaignCRM&quot;)"><span class="align-sub"><i class="far fa-file"></i></span></button><input type="file" onchange="uploadAttachment(this, 1123724117);" style="display:none"><button id="upload-1123724117" class="reply-share-container keyboard-icon" data-bs-toggle="tooltip" data-bs-placement="top" title="Send File" onclick="$(this).prev().trigger(&quot;click&quot;);"><span class="align-sub"><i class="fas fa-file-upload"></i></span></button><button id="end-1123724117" class="reply-end-container keyboard-icon" data-bs-toggle="tooltip" data-bs-placement="top" title="End Session" entry="webchat" onclick="endClicked(1123724117,this)"><span class="align-sub"><i class="fas fa-times"></i></span></button><button id="reply-btn-1123724117" class="reply-send-container" entry="webchat" onclick="replyClicked(1123724117)" data-bs-toggle="tooltip" data-bs-placement="top" title="Send Message"><img class="reply-icon-size" src="./images/send.svg"></button></div></div>
 
 
                     </div>
@@ -169,7 +169,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h6 id="agentListModalTitle" class="modal-title l-social-add-agent-to-chat-room"></h6>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
@@ -201,11 +201,11 @@
                     </p>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-sm btn-default text-capitalize mr-3" data-dismiss="modal">
-                        <i class="fas fa-times-circle mr-2"></i><span class="l-general-cancel"></span>
+                    <button type="button" class="btn btn-sm btn-default text-capitalize me-3" data-bs-dismiss="modal">
+                        <i class="fas fa-times-circle me-2"></i><span class="l-general-cancel"></span>
                     </button>
                     <button onclick="chatService.sendInviteRequestClicked()" type="button" class="btn btn-sm btn-warning text-capitalize">
-                        <i class="fas fa-check-double mr-2"></i><span class="l-social-send-request"></span>
+                        <i class="fas fa-check-double me-2"></i><span class="l-social-send-request"></span>
                     </button>
                 </div>
 
@@ -229,7 +229,7 @@
                           class="l-social-pass-input-form-to-agent">
                         Transfer Form
                     </span>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
@@ -247,12 +247,12 @@
                     </p>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-sm btn-default text-capitalize mr-3" data-dismiss="modal">
-                        <i class="fas fa-times-circle mr-2"></i><span class="l-general-cancel"></span>
+                    <button type="button" class="btn btn-sm btn-default text-capitalize me-3" data-bs-dismiss="modal">
+                        <i class="fas fa-times-circle me-2"></i><span class="l-general-cancel"></span>
                     </button>
                     <button onclick="passFormConfirmClicked()" type="button"
                             class="btn btn-sm btn-warning text-capitalize">
-                        <i class="fas fa-clipboard-check mr-2"></i><span class="l-general-confirm"></span>
+                        <i class="fas fa-clipboard-check me-2"></i><span class="l-general-confirm"></span>
                     </button>
                 </div>
             </div>
@@ -271,7 +271,7 @@
                     <span class="message-data-time">{{time}}, Today</span> &nbsp; &nbsp;
                     <span class="message-data-name">{{sendBy}}</span> <i class="fa fa-circle me"></i>
                 </div>
-                <div class="message other-message float-right">
+                <div class="message other-message float-end">
                     {{messageOutput}}
                 </div>
             </li>
@@ -429,9 +429,8 @@
                     <br />
                     <span><span id="cs-info-additional" class="content-gray-label">{{additionalInfo}}</span></span>
                 </span>
-                <img id="channel" class="top-channel-img" style="margin-top: -20px; float: right;" data-toggle="tooltip" data-placement="left" src="./Wise/img/{{channelImg}}">
+                <img id="channel" class="top-channel-img" style="margin-top: -20px; float: right;" data-bs-toggle="tooltip" data-bs-placement="left" src="./Wise/img/{{channelImg}}">
             </span>
-    </div>
     </script>
 
     <script id="chatlist_header_template1" type="text/x-handlebars-template">
@@ -447,7 +446,7 @@
                     <span style="white-space:pre;"><span class="content-gray-label">Language:</span>&nbsp;English</span>
                 </span>
             </span>
-            <img id="channel-357761895" class="top-channel-img" data-toggle="tooltip" data-placement="left" src="./Wise/img/webchat-icon-217.png">
+            <img id="channel-357761895" class="top-channel-img" data-bs-toggle="tooltip" data-bs-placement="left" src="./Wise/img/webchat-icon-217.png">
         </div>
     </script>
     <script id="chatlist_header_template2" type="text/x-handlebars-template">
@@ -464,7 +463,7 @@
                     <span style="white-space:pre;"><span class="content-gray-label">Contacted us in the last hour:</span>&nbsp;Last Ticket ID: 357761895 on 2024-12-02 12:05:46</span>
                 </span>
             </span>
-            <img id="channel-145056642" class="top-channel-img" data-toggle="tooltip" data-placement="left" src="./Wise/img/webchat-icon-217.png">
+            <img id="channel-145056642" class="top-channel-img" data-bs-toggle="tooltip" data-bs-placement="left" src="./Wise/img/webchat-icon-217.png">
         </div>
     </script>
     <!--
@@ -505,9 +504,9 @@
                             </span>
                         </div>
                         <div class="d-flex">
-                            <span class="bubble-message mr-auto">{{lastMessage}}</span>
-                            <i class="fas fa-plus bubble-small-icon mr-2" id="bubble-add-agent" onclick="chatService.addAgentToChat({{ticketId}},&quot;campaignCRM&quot;,&quot;webchat&quot;)" data-toggle="tooltip" data-placement="bottom" title="Conference Call"></i>
-                            <i class="fas fa-sign-out-alt leave-chat-icon bubble-small-icon" id="bubble-leave-chat" onclick="chatService.leaveChatClicked({{ticketId}})" data-toggle="tooltip" data-placement="bottom" title="Leave Chat"></i>
+                            <span class="bubble-message me-auto">{{lastMessage}}</span>
+                            <i class="fas fa-plus bubble-small-icon me-2" id="bubble-add-agent" onclick="chatService.addAgentToChat({{ticketId}},&quot;campaignCRM&quot;,&quot;webchat&quot;)" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Conference Call"></i>
+                            <i class="fas fa-sign-out-alt leave-chat-icon bubble-small-icon" id="bubble-leave-chat" onclick="chatService.leaveChatClicked({{ticketId}})" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Leave Chat"></i>
                             <i class="fas fa-star private-i"></i>
                         </div>
                     </div>
@@ -532,7 +531,7 @@
     <script src='https://cdnjs.cloudflare.com/ajax/libs/list.js/1.1.1/list.min.js'></script>
 
     <script src="wise/script/shandler/searchInput.js"></script>
-    <script src="wise/script/shandler/chatscripts.js"></script>
+    <script src="wise/script/shandler/chatscripts.js?v=20250224b"></script>
     <script src="wise/script/shandler/agentscripts.js"></script>
     <script src="wise/script/shandler/waTemplateService.js"></script>
 

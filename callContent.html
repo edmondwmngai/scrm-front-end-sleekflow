@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="./css/material-kit/css/material-kit.min.css" type="TEXT/CSS">
     <link rel="stylesheet" href="./css/material-overwrite.css" type="TEXT/CSS">
     <link rel="stylesheet" href="./css/loading.css">
-    <script type="text/javascript" src="./js/jquery.min.js"></script>
+    <!--<script type="text/javascript" src="./js/jquery.min.js"></script>--><script type="text/javascript" src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script type="text/javascript" src="./config.js"></script>
     <style>
         body {
@@ -55,7 +55,7 @@
     </style>
 </head>
 
-<body onload='return windowOnload()' class='media-content-body custom-scroll' onkeydown='return (event.keyCode != 116)'>
+<body onload='return windowOnload()' class='d-flex-content-body custom-scroll' onkeydown='return (event.keyCode != 116)'>
     <div class="main-card">
         <div class="line-bottom-container-first vertical-center">
             <span style='width:90px; display:inline-block;'>
@@ -72,14 +72,14 @@
                 <span class="gray-bg-label-span"><span class="l-form-play-call"></span>:</span>
             </span>
             <span id="audio-player"><span id='video' class='text-gray'><i
-                        class='fa fa-exclamation-triangle mr-2'></i><span id="repload-later" class="d-none">Please try
+                        class='fa fa-exclamation-triangle me-2'></i><span id="repload-later" class="d-none">Please try
                         to reload later</span></span></span>
-            <button id="reload-btn" class="btn rounded btn-sm btn-warning text-capitalize ml-3"
+            <button id="reload-btn" class="btn rounded btn-sm btn-warning text-capitalize ms-3"
                 onclick="windowOnload(true);">
                 <span class="l-call-reload"></span>
                 <i class="fas fa-redo-alt"></i>
             </button>
-            <span id="loading-icon" class="ml-2 d-none">
+            <span id="loading-icon" class="ms-2 d-none">
                 <div id="circularG">
                     <div id="circularG_1" class="circularG"></div>
                     <div id="circularG_2" class="circularG"></div>

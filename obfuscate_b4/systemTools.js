@@ -44,13 +44,16 @@ function setLanguage() {
     $('.l-st-delete').text(langJson['l-st-delete']);
     $('.l-st-delete-from-list').text(langJson['l-st-delete-from-list']);
     $('.l-st-email').text(langJson['l-st-email']);
-    $('[data-toggle=confirmation]').confirmation({
-        rootSelector: '[data-toggle=confirmation]',
+
+    /*
+    $('[data-bs-toggle=confirmation]').confirmation({
+        rootSelector: '[data-bs-toggle=confirmation]',
         popout: true,
         title: langJson['l-general-are-you-sure'],
         btnOkLabel: langJson['l-general-ok-label'],
         btnCancelLabel: langJson['l-general-cancel-label']
     });
+    */
 }
 
 function restorePage() {
@@ -578,7 +581,7 @@ function windowOnload() {
                 optionStr += '<option value=' + option.Field_Name + '>' + option.Field_Display + '</option>';
             }
         }
-        $('body').prepend('<div class="form-group form-inline ml-4 mt-2 mb-0 text-info"><i class="far fa-building mr-2"></i><select id="st-campaign-select" class="form-control">' + optionStr + '</select></div>');
+        $('body').prepend('<div class="mb-3 d-flex align-items-center ms-4 mt-2 mb-0 text-info"><i class="far fa-building me-2"></i><select id="st-campaign-select" class="form-select">' + optionStr + '</select></div>');
         $('#st-campaign-select').change(function () {
             selectedCompany = $(this).val();
             restorePage();

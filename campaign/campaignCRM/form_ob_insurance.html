@@ -16,8 +16,8 @@
                         &nbsp;&nbsp;(<span class="l-ob-call-id">Call ID</span>:&nbsp;<span
                             id="customer-id-title"></span>)
                     </span>
-                    <span id="scheduled-reminder" class="mt-0 mb-0 ml-3 rounded btn btn-sm btn-warning text-capitalize"
-                        style="display:none;" onclick="scheduleClick()"><i class="fas fa-calendar-alt mr-2"></i><span
+                    <span id="scheduled-reminder" class="mt-0 mb-0 ms-3 rounded btn btn-sm btn-warning text-capitalize"
+                        style="display:none;" onclick="scheduleClick()"><i class="fas fa-calendar-alt me-2"></i><span
                             class='l-form-scheduled-reminder'></span></span>
                 </h5>
             </div>
@@ -28,7 +28,7 @@
                     <div id="updateCsSection" class='mt-1 text-center d-none'>
                         <button id="edit-save-btn" class='cs-button btn btn-warning rounded btn-sm text-capitalize'
                             onclick="updateClicked()">
-                            <i class="fa fa-save mr-2"></i><span class="l-form-save"></span></button>
+                            <i class="fa fa-save me-2"></i><span class="l-form-save"></span></button>
                     </div>
                 </div>
             </div>
@@ -45,29 +45,29 @@
             </div>
             <div class="collapse show" data-parent="#accordion" id='case-details-body'>
                 <div class="card-body">
-                    <div class='row form-inline'>
-                        <div class='form-group col-sm-5'>
+                    <div class='row d-flex align-items-center'>
+                        <div class='mb-3 col-sm-5'>
                             <label for='call-status' class='custom-form-label col-1-w'><span
                                     class="l-campaign-callstatus">Call
                                     Status</span>&nbsp;<span class="text-danger">*</span></label>
-                            <select class="form-control select-min-w" id='call-status'>
+                            <select class="form-select select-min-w" id='call-status'>
                                 <option value="" selected>- Please select -</option>
                                 <option value="Unreach">Unreach</option>
                                 <option value="Reached">Reached</option>
                                 <option value="Successful Order">Successful Order</option>
                             </select>
                         </div>
-                        <div class='form-group col-sm-7'>
+                        <div class='mb-3 col-sm-7'>
 
                             <label id="call-status-label" for='call-status' class='custom-form-label d-none' style="width: 163px;"><span
                                     class="l-campaign-reason">Reason</span>&nbsp;<span
                                     class="text-danger">*</span></label>
 
-                            <select id="successful-reason" class="d-none form-control select-min-w">
+                            <select id="successful-reason" class="d-none form-select select-min-w">
                                 <option value="Accept Offer" selected>Accept Offer</option>
                             </select>
 
-                            <select id="unreach-reason" class="d-none form-control select-min-w">
+                            <select id="unreach-reason" class="d-none form-select select-min-w">
                                 <option value="" selected>- Please Select -</option>
                                 <option value="No Answered">No Answered</option>
                                 <option value="Voice Mail">Voice Mail</option>
@@ -78,7 +78,7 @@
                                 <option value="Not Here/Meeting">Not Here/Meeting</option>
                             </select>
 
-                            <select id="reached-reason" class="d-none form-control select-min-w">
+                            <select id="reached-reason" class="d-none form-select select-min-w">
                                 <option value="" selected>- Please Select -</option>
                                 <option value="Consider">Consider</option>
                                 <option value="Reject">Reject</option>
@@ -90,9 +90,9 @@
                     <div id="form-insurance-plan" style="display: none;">
                         <div id="policy-plan-details">
                             <hr />
-                            <div class="form-row"><span style="font-size: 20px; padding-bottom: 30px;">Policy / Plan
+                            <div class="row"><span style="font-size: 20px; padding-bottom: 30px;">Policy / Plan
                                     Details</span></div>
-                            <div class='form-row form-inline'>
+                            <div class='row d-flex align-items-center'>
 
                                 <!-- application number -->
                                 <label for="application-no-input" class='col-1-w col-form-label'>Application
@@ -102,7 +102,7 @@
                                         placeholder="TPLHK600xxxxxx001" pattern="TPLHK600[0-9]{6}001">
                                 </div>
                             </div>
-                            <div class='form-row form-inline '>
+                            <div class='row d-flex align-items-center '>
 
                                 <!-- producer number -->
                                 <label for="producer-no-input" class="col-1-w col-form-label">Producer No.</label>
@@ -111,7 +111,7 @@
                                 </div>
                             </div>
 
-                            <div class='form-row form-inline '>
+                            <div class='row d-flex align-items-center '>
 
                                 <!-- application signing date -->
                                 <label for='application-signing-date ' class='col-1-w col-form-label'>Application
@@ -121,7 +121,7 @@
                                         placeholder="yyyy-mm-dd" autocomplete="off">
                                 </div>
                             </div>
-                            <div class='form-row form-inline '>
+                            <div class='row d-flex align-items-center '>
 
                                 <!-- commencement date -->
                                 <label for='commencement-date ' class='col-1-w col-form-label'>Commencement
@@ -132,7 +132,7 @@
                                 </div>
                             </div>
 
-                            <div class='form-row form-inline '>
+                            <div class='row d-flex align-items-center '>
 
                                 <!-- Plan code -->
                                 <label for="plan-code-select" class='col-1-w col-form-label'>Plan
@@ -141,13 +141,13 @@
                                     <input id="plan-code-input" class="form-control mt-1" type="search" value="1411SC2">
                                 </div>
                             </div>
-                            <div class='form-row form-inline '>
+                            <div class='row d-flex align-items-center '>
 
                                 <!-- Plan level -->
                                 <label for="plan-level-select" class='col-1-w col-form-label'>Plan
                                     Type</label>
                                 <div class="col-2-sw">
-                                    <select id="plan-level-select" class="form-control select-min-w">
+                                    <select id="plan-level-select" class="form-select select-min-w">
                                         <option value="" selected>- Please select -</option>
                                         <option value="1">Plan 1</option>
                                         <option value="2">Plan 2</option>
@@ -158,13 +158,13 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class='form-row form-inline '>
+                            <div class='row d-flex align-items-center '>
 
                                 <!-- Discount type -->
                                 <label for="discount-type-select" class='col-1-w col-form-label'>Discount
                                     type</label>
                                 <div class="col-2-sw">
-                                    <select id="discount-type-select" class="form-control select-min-w">
+                                    <select id="discount-type-select" class="form-select select-min-w">
                                         <option value="" selected>- Please select -</option>
                                         <option value="no">Not applicable</option>
                                         <option value="family10%">Family discount(10% off premium)</option>
@@ -172,19 +172,19 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class='form-row form-inline '>
+                            <div class='row d-flex align-items-center '>
 
                                 <!-- campaign code -->
                                 <label for='campaign-code-input ' class='col-1-w col-form-label'>Campaign
                                     Code</label>
                                 <div class="col-2-sw">
-                                    <select id="campaign-code-select" class="form-control select-min-w">
+                                    <select id="campaign-code-select" class="form-select select-min-w">
                                         <option value="" selected>- Please select -</option>
                                         <option value="30">30(Vaccine Offer till 31 DEC 2021)</option>
                                     </select>
                                 </div>
                             </div>
-                            <div class='form-row form-inline '>
+                            <div class='row d-flex align-items-center '>
 
                                 <!-- initial premium -->
                                 <label for="initial-premium-display" class='col-1-w col-form-label'>Initial
@@ -193,7 +193,7 @@
                                     <input id="initial-premium-display" class="form-control" type="search" disabled>
                                 </div>
                             </div>
-                            <div class='form-row form-inline '>
+                            <div class='row d-flex align-items-center '>
 
                                 <!-- payment mode -->
                                 <label for="payment-mode-display" class='col-1-w col-form-label'>Payment
@@ -206,40 +206,40 @@
                         </div>
                         <div id="applicant-personal-info">
                             <hr />
-                            <div class="form-row"><span class="is-header">Applicant's
+                            <div class="row"><span class="is-header">Applicant's
                                     Personal
                                     Information</span></div>
-                            <div class='form-row form-inline'>
+                            <div class='row d-flex align-items-center'>
 
                                 <!-- CDF -->
                                 <label for="applicant-cdf-select" class='col-1-w col-form-label'>CDF</label>
                                 <div class="col-2-sw">
-                                    <select id="applicant-cdf-select" class="form-control select-min-w">
+                                    <select id="applicant-cdf-select" class="form-select select-min-w">
                                         <option value="" selected>- Please select -</option>
                                         <option value="Y">Y</option>
                                         <option value="N">N</option>
                                     </select>
                                 </div>
                             </div>
-                            <div class='form-row form-inline'>
+                            <div class='row d-flex align-items-center'>
 
                                 <!-- Fatca appliciant -->
                                 <label for="applicant-facta-select"
                                     class='col-1-w col-form-label'>FATCA_APPLICANT</label>
                                 <div class="col-2-sw">
-                                    <select id="applicant-fatca-select" class="form-control select-min-w">
+                                    <select id="applicant-fatca-select" class="form-select select-min-w">
                                         <option value="" selected>- Please select -</option>
                                         <option value="Y">Y</option>
                                         <option value="N">N</option>
                                     </select>
                                 </div>
                             </div>
-                            <div class='form-row form-inline'>
+                            <div class='row d-flex align-items-center'>
 
                                 <!-- CRS -->
                                 <label for="applicant-crs-select" class='col-1-w col-form-label'>CRS</label>
                                 <div class="col-2-sw">
-                                    <select id="applicant-crs-select" class="form-control select-min-w">
+                                    <select id="applicant-crs-select" class="form-select select-min-w">
                                         <option value="" selected>- Please select -</option>
                                         <option value="1">只是香港稅務居民</option>
                                         <option value="2">是香港稅務居民及擁有其他稅務管轄區或國家的稅務居民身份</option>
@@ -247,7 +247,7 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class='form-row form-inline'>
+                            <div class='row d-flex align-items-center'>
 
                                 <!-- jurisdiction -->
                                 <label for="applicant-jurisdiction-input"
@@ -257,7 +257,7 @@
                                         disabled>
                                 </div>
                             </div>
-                            <div class='form-row form-inline'>
+                            <div class='row d-flex align-items-center'>
 
                                 <!-- TIN no. -->
                                 <label for="applicant-tin-no-input" class='col-1-w col-form-label'>TIN
@@ -266,13 +266,13 @@
                                     <input id="applicant-tin-no-input" class="form-control mt-1" type="search">
                                 </div>
                             </div>
-                            <div class='form-row form-inline'>
+                            <div class='row d-flex align-items-center'>
 
                                 <!-- crs reason -->
                                 <label for="applicant-crs-reason-select" class='col-1-w col-form-label'>CRS
                                     Reason</label>
                                 <div class="col-2-sw">
-                                    <select id="applicant-crs-reason-select" class="form-control select-min-w">
+                                    <select id="applicant-crs-reason-select" class="form-select select-min-w">
                                         <option value="" selected>- Please select -</option>
                                         <option value="A">保單申請人/持有人的居留司法管轄區並沒有向其居民發出稅務編號。</option>
                                         <option value="B">保單申請人/持有人不能取得稅務編號。</option>
@@ -280,7 +280,7 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class='form-row form-inline'>
+                            <div class='row d-flex align-items-center'>
 
                                 <!-- crs reason details -->
                                 <label for="applicant-crs-reason-details-input" class='col-1-w col-form-label'>CRS
@@ -290,25 +290,25 @@
                                         type="search" disabled>
                                 </div>
                             </div>
-                            <div class='form-row form-inline'>
+                            <div class='row d-flex align-items-center'>
 
                                 <!-- residency -->
                                 <label for="applicant-residency-select" class='col-1-w col-form-label'>Residency</label>
                                 <div class="col-2-sw">
-                                    <select id="applicant-residency-select" class="form-control select-min-w">
+                                    <select id="applicant-residency-select" class="form-select select-min-w">
                                         <option value="" selected>- Please select -</option>
                                         <option value="A">香港永久居民</option>
                                         <option value="B">香港居民</option>
                                     </select>
                                 </div>
                             </div>
-                            <div class='form-row form-inline'>
+                            <div class='row d-flex align-items-center'>
 
                                 <!-- Eng Last Name -->
                                 <label for="applicant-eng-last-name-input" class='col-1-w col-form-label'>Last
                                     Name(English)</label>
 
-                                <div class='form-group col-2-sw'>
+                                <div class='mb-3 col-2-sw'>
                                     <input id="applicant-eng-last-name-input" class="form-control mt-1" type="search"
                                         style="width: 76%;">
                                 </div>
@@ -316,7 +316,7 @@
 
                             </div>
 
-                            <div class='form-row form-inline'>
+                            <div class='row d-flex align-items-center'>
 
                                 <!-- Eng First Name -->
                                 <label for="applicant-eng-first-name-input" class='col-1-w col-form-label'>First
@@ -326,18 +326,18 @@
                                 </div>
                             </div>
 
-                            <div class='form-row form-inline'>
+                            <div class='row d-flex align-items-center'>
 
                                 <!-- Chi Last Name -->
                                 <label for="applicant-eng-last-name-input" class='col-1-w col-form-label'>Last
                                     Name(Chinese)</label>
-                                <div class='form-group col-2-sw'>
+                                <div class='mb-3 col-2-sw'>
                                     <input id="applicant-eng-last-name-input" class="form-control mt-1" type="search"
                                         style="width: 76%;">
                                 </div>
                             </div>
 
-                            <div class='form-row form-inline'>
+                            <div class='row d-flex align-items-center'>
 
                                 <!-- Chi First Name -->
                                 <label for="applicant-chi-first-name-input" class='col-1-w col-form-label'>First
@@ -347,7 +347,7 @@
                                 </div>
                             </div>
 
-                            <div class='form-row form-inline'>
+                            <div class='row d-flex align-items-center'>
 
                                 <!-- HKID -->
                                 <label for="applicant-hkid-input" class='col-1-w col-form-label'>HKID</label>
@@ -355,7 +355,7 @@
                                     <input id="applicant-hkid-input" class="form-control mt-1" type="search">
                                 </div>
                             </div>
-                            <div class='form-row form-inline'>
+                            <div class='row d-flex align-items-center'>
 
                                 <!-- Nationality -->
                                 <label for="applicant-nationality-input"
@@ -364,7 +364,7 @@
                                     <input id="applicant-nationality-input" class="form-control mt-1" type="search">
                                 </div>
                             </div>
-                            <div class='form-row form-inline'>
+                            <div class='row d-flex align-items-center'>
 
                                 <!-- DOB -->
                                 <label for='applicant-dob-date' class='col-1-w col-form-label'>Date of
@@ -374,9 +374,9 @@
                                         placeholder="yyyy-mm-dd" autocomplete="off">
                                 </div>
 
-                                <span class="font-weight-700 ml-5 mr-3">Age:&nbsp;&nbsp;<span id="applicant-dob-date-age"></span></span>
+                                <span class="font-weight-700 ms-5 me-3">Age:&nbsp;&nbsp;<span id="applicant-dob-date-age"></span></span>
                             </div>
-                            <div class='form-row form-inline'>
+                            <div class='row d-flex align-items-center'>
 
                                 <!-- place of birth -->
                                 <label for="applicant-place-of-birth-input" class='col-1-w col-form-label'>Place of
@@ -385,19 +385,19 @@
                                     <input id="applicant-palce-of-birth-input" class="form-control mt-1" type="search">
                                 </div>
                             </div>
-                            <div class='form-row form-inline'>
+                            <div class='row d-flex align-items-center'>
 
                                 <!-- gender -->
                                 <label for="applicant-gender-select" class='col-1-w col-form-label'>Gender</label>
                                 <div class="col-2-sw">
-                                    <select id="applicant-gender-select" class="form-control select-min-w">
+                                    <select id="applicant-gender-select" class="form-select select-min-w">
                                         <option value="" selected>- Please select -</option>
                                         <option value="M">Male</option>
                                         <option value="F">Female</option>
                                     </select>
                                 </div>
                             </div>
-                            <div class='form-row form-inline'>
+                            <div class='row d-flex align-items-center'>
 
                                 <!-- mobile no -->
                                 <label for="applicant-mobile-no-input" class='col-1-w col-form-label'>Mobile
@@ -406,7 +406,7 @@
                                     <input id="applicant-mobile-no-input" class="form-control mt-1" type="search">
                                 </div>
                             </div>
-                            <div class='form-row form-inline'>
+                            <div class='row d-flex align-items-center'>
 
                                 <!-- address Line 1 -->
                                 <label for="applicant-address1-input" class='col-1-w col-form-label'>Address
@@ -415,7 +415,7 @@
                                     <input id="applicant-address1-input" class="form-control mt-1" type="search">
                                 </div>
                             </div>
-                            <div class='form-row form-inline'>
+                            <div class='row d-flex align-items-center'>
 
                                 <!-- address Line 2 -->
                                 <label for="applicant-address2-input" class='col-1-w col-form-label'>Address
@@ -424,7 +424,7 @@
                                     <input id="applicant-address-input" class="form-control mt-1" type="search">
                                 </div>
                             </div>
-                            <div class='form-row form-inline'>
+                            <div class='row d-flex align-items-center'>
 
                                 <!-- address Line 3 -->
                                 <label for="applicant-address3-input" class='col-1-w col-form-label'>Address
@@ -433,7 +433,7 @@
                                     <input id="applicant-address3-input" class="form-control mt-1" type="search">
                                 </div>
                             </div>
-                            <div class='form-row form-inline'>
+                            <div class='row d-flex align-items-center'>
 
                                 <!-- email -->
                                 <label for="applicant-email-input" class='col-1-w col-form-label'>Email</label>
@@ -442,20 +442,20 @@
                                         pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$">
                                 </div>
                             </div>
-                            <div class='form-row form-inline'>
+                            <div class='row d-flex align-items-center'>
 
                                 <!-- policy language -->
                                 <label for="applicant-policy-language-select" class='col-1-w col-form-label'>Policy
                                     Language</label>
                                 <div class="col-2-sw">
-                                    <select id="applicant-policy-language-select" class="form-control select-min-w">
+                                    <select id="applicant-policy-language-select" class="form-select select-min-w">
                                         <option value="" selected>- Please select -</option>
                                         <option value="Chi">中文</option>
                                         <option value="Eng">English</option>
                                     </select>
                                 </div>
                             </div>
-                            <div class='form-row form-inline'>
+                            <div class='row d-flex align-items-center'>
 
                                 <!-- education -->
                                 <label for="applicant-education-input" class='col-1-w col-form-label'>Education</label>
@@ -463,27 +463,27 @@
                                     <input id="applicant-education-input" class="form-control mt-1" type="search">
                                 </div>
                             </div>
-                            <div class='form-row form-inline'>
+                            <div class='row d-flex align-items-center'>
                                 <!-- occupation -->
                                 <label for="applicant-occupation-select"
                                     class='col-1-w col-form-label'>Occupation</label>
                                 <div class="col-2-sw">
-                                    <select id="applicant-occupation-select" class="form-control select-min-w">
+                                    <select id="applicant-occupation-select" class="form-select select-min-w">
                                         <option value="" selected>- Please select -</option>
                                     </select>
                                 </div>
                             </div>
-                            <div class='form-row form-inline'>
+                            <div class='row d-flex align-items-center'>
 
                                 <!-- title -->
                                 <label for="applicant-title-select" class='col-1-w col-form-label'>Title</label>
                                 <div class="col-2-sw">
-                                    <select id="applicant-title-select" class="form-control select-min-w">
+                                    <select id="applicant-title-select" class="form-select select-min-w">
                                         <option value="" selected>- Please select -</option>
                                     </select>
                                 </div>
                             </div>
-                            <div class='form-row form-inline'>
+                            <div class='row d-flex align-items-center'>
 
                                 <!-- income -->
                                 <label for="applicant-income-input" class='col-1-w col-form-label'>Income</label>
@@ -494,10 +494,10 @@
                         </div>
                         <div id="insured-person-selector">
                             <hr />
-                            <div class="form-row"><span class="is-header">Insured
+                            <div class="row"><span class="is-header">Insured
                                     Person</span>
                             </div>
-                            <div class="form-row form-inline">
+                            <div class="row d-flex align-items-center">
 
                                 <!-- main -->
                                 <div class="form-check form-check-inline">
@@ -511,7 +511,7 @@
                                 </div>
 
                                 <!-- spouse -->
-                                <div class="form-check form-check-inline ml-4">
+                                <div class="form-check form-check-inline ms-4">
                                     <label class="form-check-label">
                                         <input class="form-check-input" type="checkbox" id="insured-person-spouse-check"
                                             value="false">Spouse
@@ -522,10 +522,10 @@
                                 </div>
 
                                 <!-- child -->
-                                <div class="form-inline ml-4">
+                                <div class="d-flex align-items-center ms-4">
                                     <label for="insured-person-child-select"
-                                        class='col-form-label pb-0 mr-2'>Child</label>
-                                    <select id="insured-person-child-select" class="form-control select-min-w pb-0">
+                                        class='col-form-label pb-0 me-2'>Child</label>
+                                    <select id="insured-person-child-select" class="form-select select-min-w pb-0">
                                         <option value="0" selected>None</option>
                                         <option value="1">1</option>
                                         <option value="2">2</option>
@@ -549,9 +549,9 @@
                         </div>
                         <div id="insured-personal-info-test" style="display: none;">
                             <hr />
-                            <div class="form-row"><span class="is-header">Insured's Personal
+                            <div class="row"><span class="is-header">Insured's Personal
                                     Information - test</span></div>
-                            <div class='form-row form-inline '>
+                            <div class='row d-flex align-items-center '>
 
                                 <!-- relationship -->
                                 <label for="test-relationship-display"
@@ -562,31 +562,31 @@
                                 </div>
                             </div>
 
-                            <div class='form-row form-inline'>
+                            <div class='row d-flex align-items-center'>
 
                                 <!-- residency -->
                                 <label for="test-residency-select" class='col-1-w col-form-label'>Residency</label>
                                 <div class="col-2-sw">
-                                    <select id="test-residencyt-select" class="form-control select-min-w">
+                                    <select id="test-residencyt-select" class="form-select select-min-w">
                                         <option value="" selected>- Please select -</option>
                                         <option value="A">香港永久居民</option>
                                         <option value="B">香港居民</option>
                                     </select>
                                 </div>
                             </div>
-                            <div class='form-row form-inline'>
+                            <div class='row d-flex align-items-center'>
 
                                 <!-- Eng Last Name -->
                                 <label for="test-eng-last-name-input" class='col-1-w col-form-label'>Last
                                     Name(English)</label>
 
-                                <div class='form-group col-2-sw'>
+                                <div class='mb-3 col-2-sw'>
                                     <input id="test-eng-last-name-input" class="form-control mt-1" type="search"
                                         style="width: 76%;">
                                 </div>
                             </div>
 
-                            <div class='form-row form-inline'>
+                            <div class='row d-flex align-items-center'>
 
                                 <!-- Eng First Name -->
                                 <label for="test-eng-first-name-input" class='col-1-w col-form-label'>First
@@ -596,18 +596,18 @@
                                 </div>
                             </div>
 
-                            <div class='form-row form-inline'>
+                            <div class='row d-flex align-items-center'>
 
                                 <!-- chi Last Name -->
                                 <label for="test-chi-last-name-input" class='col-1-w col-form-label'>Last
                                     Name(Chinese)</label>
-                                <div class='form-group col-2-sw'>
+                                <div class='mb-3 col-2-sw'>
                                     <input id="test-chi-last-name-input" class="form-control mt-1" type="search"
                                         style="width: 76%;">
                                 </div>
                             </div>
 
-                            <div class='form-row form-inline'>
+                            <div class='row d-flex align-items-center'>
 
                                 <!-- chi First Name -->
                                 <label for="test-chi-first-name-input" class='col-1-w col-form-label'>First
@@ -617,7 +617,7 @@
                                 </div>
                             </div>
 
-                            <div class='form-row form-inline'>
+                            <div class='row d-flex align-items-center'>
 
                                 <!-- hkid -->
                                 <label for="test-hkid-input" class='col-1-w col-form-label'>HKID</label>
@@ -625,7 +625,7 @@
                                     <input id="test-hkid-input" class="form-control mt-1" type="search">
                                 </div>
                             </div>
-                            <div class='form-row form-inline'>
+                            <div class='row d-flex align-items-center'>
 
                                 <!-- nationality -->
                                 <label for="test-nationality-input" class='col-1-w col-form-label'>Nationality</label>
@@ -633,7 +633,7 @@
                                     <input id="test-nationality-input" class="form-control mt-1" type="search">
                                 </div>
                             </div>
-                            <div class='form-row form-inline'>
+                            <div class='row d-flex align-items-center'>
 
                                 <!-- dob -->
                                 <label for='test-dob-date' class='col-1-w col-form-label'>Date of
@@ -643,7 +643,7 @@
                                         placeholder="yyyy-mm-dd" autocomplete="off">
                                 </div>
                             </div>
-                            <div class='form-row form-inline'>
+                            <div class='row d-flex align-items-center'>
                                 <!-- place of birth -->
                                 <label for="test-place-of-birth-input" class='col-1-w col-form-label'>Place
                                     of Birth</label>
@@ -651,12 +651,12 @@
                                     <input id="test-palce-of-birth-input" class="form-control mt-1" type="search">
                                 </div>
                             </div>
-                            <div class='form-row form-inline'>
+                            <div class='row d-flex align-items-center'>
 
                                 <!-- gender -->
                                 <label for="test-gender-select" class='col-1-w col-form-label'>Gender</label>
                                 <div class="col-2-sw">
-                                    <select id="test-gender-select" class="form-control select-min-w">
+                                    <select id="test-gender-select" class="form-select select-min-w">
                                         <option value="" selected>- Please select -</option>
                                         <option value="M">Male</option>
                                         <option value="F">Female</option>
@@ -664,22 +664,22 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class='form-row form-inline'>
+                            <div class='row d-flex align-items-center'>
 
                                 <!-- occupation -->
                                 <label for="test-occupation-select" class='col-1-w col-form-label'>Occupation</label>
                                 <div class="col-2-sw">
-                                    <select id="test-occupation-select" class="form-control select-min-w">
+                                    <select id="test-occupation-select" class="form-select select-min-w">
                                         <option value="" selected>- Please select -</option>
                                     </select>
                                 </div>
                             </div>
-                            <div class='form-row form-inline'>
+                            <div class='row d-flex align-items-center'>
 
                                 <!-- title -->
                                 <label for="test-title-select" class='col-1-w col-form-label'>Title</label>
                                 <div class="col-2-sw">
-                                    <select id="test-title-select" class="form-control select-min-w">
+                                    <select id="test-title-select" class="form-select select-min-w">
                                         <option value="" selected>- Please select -</option>
                                     </select>
                                 </div>
@@ -688,22 +688,22 @@
 
                         <div id="payment-info">
                             <hr />
-                            <div class="form-row"><span class="is-header">Payment
+                            <div class="row"><span class="is-header">Payment
                                     Information</span></div>
-                            <div class='form-row form-inline'>
+                            <div class='row d-flex align-items-center'>
 
                                 <!-- payment mode -->
                                 <label for="payment-mode-select" class='col-1-w col-form-label'>Payment
                                     Mode</label>
                                 <div class="col-2-sw">
-                                    <select id="payment-mode-select" class="form-control select-min-w">
+                                    <select id="payment-mode-select" class="form-select select-min-w">
                                         <option value="" selected>- Please select -</option>
                                         <option value="SDDA">SDDA</option>
                                         <option value="CCA">CCA</option>
                                     </select>
                                 </div>
                             </div>
-                            <div class='form-row form-inline'>
+                            <div class='row d-flex align-items-center'>
 
                                 <!-- card holder name -->
                                 <label for="card-holder-name-input" class='col-1-w col-form-label'>Card
@@ -713,7 +713,7 @@
                                         placeholder="Must be same as applicant's name">
                                 </div>
                             </div>
-                            <div class='form-row form-inline'>
+                            <div class='row d-flex align-items-center'>
 
                                 <!-- card no -->
                                 <label for="card-no-input" class='col-1-w col-form-label'>Credit Card
@@ -723,7 +723,7 @@
                                         pattern="([4-6]+[0-9]{15})|(3+[0-9]{14})">
                                 </div>
                             </div>
-                            <div class='form-row form-inline'>
+                            <div class='row d-flex align-items-center'>
 
                                 <!-- card expiry date -->
                                 <label for="card-expiry-date-input" class='col-1-w col-form-label'>Credit
@@ -733,7 +733,7 @@
                                         placeholder="MM/YY">
                                 </div>
                             </div>
-                            <div class='form-row form-inline'>
+                            <div class='row d-flex align-items-center'>
 
                                 <!-- bank acc holder name -->
                                 <label for="bank-acc-holder-name-input" class='col-1-w col-form-label'>Bank
@@ -743,18 +743,18 @@
                                         placeholder="Must be same as applicant's name">
                                 </div>
                             </div>
-                            <div class='form-row form-inline'>
+                            <div class='row d-flex align-items-center'>
 
                                 <!-- bank code -->
                                 <label for="bank-code-select" class='col-1-w col-form-label'>Bank
                                     Code</label>
                                 <div class="col-2-sw">
-                                    <select id="bank-code-select" class="form-control select-min-w">
+                                    <select id="bank-code-select" class="form-select select-min-w">
                                         <option value="" selected>- Please select -</option>
                                     </select>
                                 </div>
                             </div>
-                            <div class='form-row form-inline'>
+                            <div class='row d-flex align-items-center'>
 
                                 <!-- branch code -->
                                 <label for="branch-code-input" class='col-1-w col-form-label'>Branch
@@ -764,7 +764,7 @@
                                         pattern="[0-9]{3}">
                                 </div>
                             </div>
-                            <div class='form-row form-inline'>
+                            <div class='row d-flex align-items-center'>
 
                                 <!-- bank account no -->
                                 <label for="bank-acc-no-input" class='col-1-w col-form-label'>Bank
@@ -779,9 +779,9 @@
                         </div>
 
                         <div id="dm-consent">
-                            <div class="form-row form-inline">
+                            <div class="row d-flex align-items-center">
                                 <label for="dm-consent-select" class='col-1-w col-form-label'>DM Consent</label>
-                                <select id="dm-consent-select" class="form-control select-min-w">
+                                <select id="dm-consent-select" class="form-select select-min-w">
                                     <option value="" selected>- Please select -</option>
                                     <option value="Y">Y</option>
                                     <option value="N">N</option>
@@ -794,8 +794,8 @@
 
                     <!-- //////////////////////////////////////////////////// -->
 
-                    <div class='row form-inline'>
-                        <div class='form-group col-sm-12 mb-1'>
+                    <div class='row d-flex align-items-center'>
+                        <div class='mb-3 col-sm-12 mb-1'>
                             <label for='case-details' class='custom-form-label col-1-w'><span
                                     class="l-campaign-callback">Callback</span></label>
                             <input id="callback-datetime" class="form-control mt-1" type="search"
@@ -803,8 +803,8 @@
                         </div>
                     </div>
 
-                    <div class='row form-inline'>
-                        <div class='form-group col-sm-12 mb-1'>
+                    <div class='row d-flex align-items-center'>
+                        <div class='mb-3 col-sm-12 mb-1'>
                             <label for='case-details' class='custom-form-label col-1-w'><span
                                     class="l-form-remarks">Remarks</span></label>
                             <textarea class="mt-2" name='case-details' id='call-remarks' rows="3" cols="20"
@@ -812,13 +812,13 @@
                         </div>
                     </div>
 
-                    <div class='row form-inline'>
-                        <div class='form-group col-sm-12 pl-0'>
-                            <label class='col-sm-1 pl-4 mt-2'>&nbsp;&nbsp;<span>&nbsp;</span></label>
-                            <div class='col-sm-11 pl-0'>
-                                <div id="reply-radio-group" class='form-group form-inline'>
+                    <div class='row d-flex align-items-center'>
+                        <div class='mb-3 col-sm-12 ps-0'>
+                            <label class='col-sm-1 ps-4 mt-2'>&nbsp;&nbsp;<span>&nbsp;</span></label>
+                            <div class='col-sm-11 ps-0'>
+                                <div id="reply-radio-group" class='mb-3 d-flex align-items-center'>
 
-                                    <div class="form-check ml-3">
+                                    <div class="form-check ms-3">
                                         <label class="form-check-label">
                                             <input class='form-check-input dial-yes-disable l-form-none'
                                                 onclick='replyChannelChange(this)' type="radio" id="reply-none"
@@ -830,7 +830,7 @@
                                         </label>
                                     </div>
 
-                                    <div class="form-check ml-2">
+                                    <div class="form-check ms-2">
                                         <label class="form-check-label">
                                             <input class='form-check-input dial-yes-disable l-form-call'
                                                 onclick='replyChannelChange(this)' type="radio" id="reply-call"
@@ -846,11 +846,11 @@
                     </div>
 
 
-                    <span class='ml-5'>
+                    <span class='ms-5'>
                         <span id='reply-details'>
                             <span style='display:none;' id='email-details'>
                                 <span style='display:inline-block;' id="email-other-container">
-                                    <div class="form-check ml-2" style='display:inline;'>
+                                    <div class="form-check ms-2" style='display:inline;'>
                                         <label class="form-check-label">
                                             <input type="checkbox"
                                                 class="form-check-input reply-checkbox email-list l-form-radio-other"
@@ -870,7 +870,7 @@
 
                             <span style='display:none;' id='fax-details'>
                                 <span id="fax-other-container">
-                                    <div class="form-check ml-2" style='display:inline;'><label
+                                    <div class="form-check ms-2" style='display:inline;'><label
                                             class="form-check-label">
                                             <input type="checkbox"
                                                 class="form-check-input reply-checkbox fax-list l-form-radio-other"
@@ -890,7 +890,7 @@
 
                             <span style='display:none;' id='sms-details'>
                                 <span id="sms-other-container">
-                                    <div class="form-check ml-2" style='display:inline;'>
+                                    <div class="form-check ms-2" style='display:inline;'>
                                         <label class="form-check-label">
                                             <input type="checkbox"
                                                 class="form-check-input reply-checkbox sms-list l-form-radio-other"
@@ -911,7 +911,7 @@
 
                             <span style='display:none;' id='call-details'>
                                 <span id="call-other-container">
-                                    <div class="form-check ml-2" style='display:inline;'>
+                                    <div class="form-check ms-2" style='display:inline;'>
                                         <label class="form-check-label">
                                             <input type="radio"
                                                 class="form-check-input reply-checkbox call-list dial-yes-disable l-form-radio-other"
@@ -936,9 +936,9 @@
                     <div id='reply-container'></div>
                     <div id="save-btn-section" style="text-align:center;margin-top:10px;">
                         <button id="fm-save-btn" class='btn btn-warning rounded btn-sm text-capitalize'><i
-                                class="fa fa-save mr-2"></i><span class="l-form-save"></span></button>
+                                class="fa fa-save me-2"></i><span class="l-form-save"></span></button>
                         <button id="fm-close-btn" type="button" class="btn btn-sm rounded btn-default text-capitalize"><i
-                            class="fas fa-times-circle mr-2"></i><span>Close</span></button>
+                            class="fas fa-times-circle me-2"></i><span>Close</span></button>
                     </div>
                 </div>
             </div>

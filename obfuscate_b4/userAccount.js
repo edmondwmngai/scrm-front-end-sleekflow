@@ -115,7 +115,7 @@ var loadUserAccounts = function (intitial) {
                         if (row.AgentName == 'Super No Delete') {
                             return '<i class="fas fa-key text-warning"></i>';
                         } else {
-                            return '<i class="fas fa-edit table-btn open" data-toggle="tooltip" data-placement="right" title="' + langJson['l-account-edit-account'] + '"></i>';
+                            return '<i class="fas fa-edit table-btn open" data-bs-toggle="tooltip" data-bs-placement="right" title="' + langJson['l-account-edit-account'] + '"></i>';
                         }
                     },
 

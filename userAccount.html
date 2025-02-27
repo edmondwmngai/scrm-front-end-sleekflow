@@ -16,7 +16,7 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script type="text/javascript" src="./config.js"></script>
-    <script type="text/javascript" src="./js/jquery.min.js"></script>
+    <!--<script type="text/javascript" src="./js/jquery.min.js"></script>--><script type="text/javascript" src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script type="text/javascript" src="./js/popper.min.js"></script>
     <script type="text/javascript" src="./js/bootstrap.min.js"></script>
     <script type="text/javascript" src="./js/jquery.dataTables.min.js"></script>
@@ -90,7 +90,7 @@
     </script>
 </head>
 
-<body class='custom-scroll max-width-body px-4' onload="windowOnload(true)">
+<body class='custom-scroll max-collapse-horizontal-body px-4' onload="windowOnload(true)">
     <div class='card my-5'>
         <div class='card-header card-header-text card-header-info'>
             <h5 class="my-0">
@@ -101,7 +101,7 @@
 
         <div class='card-body'>
             <button class="btn rounded btn-sm btn-warning mt-3 mb-0 text-capitalize" onclick="createClicked()"><i
-                    class="fas fa-plus-square mr-2"></i><span class="l-account-create-new-user"></span></button>
+                    class="fas fa-plus-square me-2"></i><span class="l-account-create-new-user"></span></button>
             <table id='account-table' style="width:100%;" class="table table-hover mt-3 clearfix"></table>
         </div>
     </div>

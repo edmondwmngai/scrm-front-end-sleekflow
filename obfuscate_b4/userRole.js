@@ -89,7 +89,7 @@ var loadUserRoles = function (intitial) {
                         if (row.RoleName == 'Super No Delete') {
                             return '<i class="fas fa-key text-warning"></i>';
                         } else {
-                            return '<i class="fas fa-edit table-btn open" data-toggle="tooltip" data-placement="right" title="' + langJson['l-role-edit-role'] + '"></i>';
+                            return '<i class="fas fa-edit table-btn open" data-bs-toggle="tooltip" data-bs-placement="right" title="' + langJson['l-role-edit-role'] + '"></i>';
                         }
                     },
 

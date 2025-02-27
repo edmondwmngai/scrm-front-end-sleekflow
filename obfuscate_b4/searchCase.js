@@ -282,7 +282,7 @@ function submitClicked(type) {
         var columnDefs = [{
             targets: 0,
             data: null,
-            defaultContent: '<i data-toggle="tooltip" title="' + langJson['l-search-update-case'] + '" class="fas fa-edit table-btn select" data-toggle="tooltip"></i>',
+            defaultContent: '<i data-bs-toggle="tooltip" title="' + langJson['l-search-update-case'] + '" class="fas fa-edit table-btn select" data-bs-toggle="tooltip"></i>',
             className: 'btnColumn',
             orderable: false,
         }, {
@@ -297,7 +297,7 @@ function submitClicked(type) {
                 if (data && data.length > 0) {
                     return data.replace('Inbound_', '');
                 } else {
-                    return '<span class="ml-2">-</span> ';
+                    return '<span class="ms-2">-</span> ';
                 }
             }
         }, {
@@ -330,9 +330,9 @@ function submitClicked(type) {
                 render: function (data, type, row) {
                     var recordCallType = row.Call_Type;
                     if (recordCallType == 'Inbound_Wechat' || recordCallType == 'Inbound_Facebook') {
-                        return '<i data-toggle="tooltip" data-placement="top" title="' + langJson['l-search-change-customer-for-this-case'] + '" class="table-btn-disabled fas fa-exchange-alt">'
+                        return '<i data-bs-toggle="tooltip" data-bs-placement="top" title="' + langJson['l-search-change-customer-for-this-case'] + '" class="table-btn-disabled fas fa-exchange-alt">'
                     } else {
-                        return '<i data-toggle="tooltip" data-placement="top" title="' + langJson['l-search-change-customer-for-this-case'] + '" class="table-btn fas fa-exchange-alt change">'
+                        return '<i data-bs-toggle="tooltip" data-bs-placement="top" title="' + langJson['l-search-change-customer-for-this-case'] + '" class="table-btn fas fa-exchange-alt change">'
                     }
                 }
             });
@@ -545,7 +545,7 @@ function selectChange(type, iThis) {
         for (let theOption of selectedOptions) {
             optionStr += '<option value="' + theOption + '">' + theOption.replace('_', ' ') + '</option>'
         }
-        $("<select class='select-value form-control'>" + optionStr + "</select>").insertAfter(selectedInput);
+        $("<select class='select-value form-select'>" + optionStr + "</select>").insertAfter(selectedInput);
     } else {
         selectedInput.show();
         selectedInput.siblings('.select-value').remove();

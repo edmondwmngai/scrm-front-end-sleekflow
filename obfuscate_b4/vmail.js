@@ -62,7 +62,7 @@ function vmailOnload() {
             return '<div class="form-check" style="margin-top:-8px">' +
                 '<label class="form-check-label">' +
                 '<input class="form-check-input" type="checkbox" id="' + data + '" value="' + data + '">' +
-                '<span class="form-check-sign"><span class="check" data-toggle="tooltip" data-placement="right" title="' + langJson["l-vmail-change-admin"] + '"></span></span></label></div>';
+                '<span class="form-check-sign"><span class="check" data-bs-toggle="tooltip" data-bs-placement="right" title="' + langJson["l-vmail-change-admin"] + '"></span></span></label></div>';
             // eturn '<input type="checkbox">';
         }
     }
@@ -75,7 +75,7 @@ function vmailOnload() {
         columnDefs.unshift(
             {
                 targets: 0,
-                defaultContent: '<i title="' + langJson['l-vmail-select-voicemail'] + '" class="table-btn fas fa-search-plus create-or-update" data-toggle="tooltip"></i>',
+                defaultContent: '<i title="' + langJson['l-vmail-select-voicemail'] + '" class="table-btn fas fa-search-plus create-or-update" data-bs-toggle="tooltip"></i>',
                 orderable: false,
                 className: 'btnColumn'
             }
@@ -160,7 +160,7 @@ function vmailOnload() {
             });
 
             // $("body").tooltip({
-            // 	selector: '[data-toggle=tooltip]',
+            // 	selector: '[data-bs-toggle=tooltip]',
             // 	trigger: 'hover',
             // 	animation: false
             // });

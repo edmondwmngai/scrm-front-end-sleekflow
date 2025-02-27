@@ -19,7 +19,7 @@
     <link rel="stylesheet" href="./css/loading.css">
     <link rel="stylesheet" href="./css/outbound.css">
 
-    <script type="text/javascript" src="./js/jquery.min.js"></script>
+    <!--<script type="text/javascript" src="./js/jquery.min.js"></script>--><script type="text/javascript" src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script type="text/javascript" src="./js/popper.min.js"></script>
     <script type="text/javascript" src="./js/bootstrap.min.js"></script>
     <script type="text/javascript" src="./js/jquery.dataTables.min.js"></script>
@@ -40,14 +40,14 @@
         <div id="left-menu" class="d-none sidebar" style="width:135px;">
             <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
             <ul class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                <li id="m-open-content-tab"><a id="open-tab" class="nav-link text-capitalize mx-2" data-toggle="pill" href="#open-content" role="tab" aria-controls="open-content" aria-selected="false"><i
-                            class="far fa-folder-open mr-2"></i><span class="align-middle l-form-open">Open</span></a>
+                <li id="m-open-content-tab"><a id="open-tab" class="nav-link text-capitalize mx-2" data-bs-toggle="pill" href="#open-content" role="tab" aria-controls="open-content" aria-selected="false"><i
+                            class="far fa-folder-open me-2"></i><span class="align-middle l-form-open">Open</span></a>
                 </li>
             </ul>
         </div>
 
         <div id="main" style="position: relative;margin-left:135px;">
-            <button class="openbtn text-info mt-3 ml-2" onclick="openNav()">☰</button>
+            <button class="openbtn text-info mt-3 ms-2" onclick="openNav()">☰</button>
             <!-- <div style="width: calc(100% - 129px);display: inline-block;"> -->
 
             <div class="tab-content p-0" id="v-pills-tabContent">
@@ -56,7 +56,7 @@
                     <div class="card mb-0">
                         <div class='card-header card-header-text card-header-info'>
                             <h5 class="my-0">
-                                <i class="fas fa-plus mr-2"></i><span class="align-middle l-social-campaign">Campaign</span>
+                                <i class="fas fa-plus me-2"></i><span class="align-middle l-social-campaign">Campaign</span>
                             </h5>
                         </div>
                         <div id="c-container" class="card-body">
@@ -69,7 +69,7 @@
                     <div class="card mb-0">
                         <div class='card-header card-header-text card-header-info'>
                             <h5 class="my-0">
-                                <i class="fas fa-pencil-ruler mr-2"></i><span class="align-middle">Form Builder</span>
+                                <i class="fas fa-pencil-ruler me-2"></i><span class="align-middle">Form Builder</span>
                             </h5>
                         </div>
                         <div id="b-container" class="card-body">
@@ -82,7 +82,7 @@
                     <div class="card mb-0">
                         <div class='card-header card-header-text card-header-info'>
                             <h5 class="my-0">
-                                <i class="fas fa-plus mr-2"></i><span class="align-middle">Form Structure</span>
+                                <i class="fas fa-plus me-2"></i><span class="align-middle">Form Structure</span>
                             </h5>
                         </div>
                         <div id="f-container" class="card-body">
@@ -95,7 +95,7 @@
                     <div class="card mb-0">
                         <div class='card-header card-header-text card-header-info'>
                             <h5 class="my-0">
-                                <i class="fas fa-pencil-ruler mr-2"></i><span class="align-middle">Form Builder</span>
+                                <i class="fas fa-pencil-ruler me-2"></i><span class="align-middle">Form Builder</span>
                             </h5>
                         </div>
                         <div id="b-container" class="card-body">
@@ -108,7 +108,7 @@
                     <div class="card mb-0">
                         <div class='card-header card-header-text card-header-info'>
                             <h5 class="my-0">
-                                <i class="fas fa-upload mr-2"></i><span class="align-middle l-outbound-upload-batch">Upload Batch</span>
+                                <i class="fas fa-upload me-2"></i><span class="align-middle l-outbound-upload-batch">Upload Batch</span>
                             </h5>
                         </div>
                         <div id="u-container" class="card-body">
@@ -119,9 +119,9 @@
 
                 <div class="tab-pane fade pt-1 px-0 mb-5" id="manage-content" role="tabpanel" aria-labelledby="manage-tab">
                     <div id="a-assign-call-list-card" class="card mb-0">
-                        <div class='card-header card-header-text card-header-warning' data-toggle="collapse" data-target="#a-batch-body">
+                        <div class='card-header card-header-text card-header-warning' data-bs-toggle="collapse" data-bs-target="#a-batch-body">
                             <h5 class="my-0 d-inline">
-                                <i class="fas fa-tasks mr-2"></i><span class="align-middle l-outbound-assign-call-to-agent">Assign Call List To
+                                <i class="fas fa-tasks me-2"></i><span class="align-middle l-outbound-assign-call-to-agent">Assign Call List To
                                     Agents</span>
                             </h5>
 
@@ -143,9 +143,9 @@
                 <div class="tab-pane fade pt-1 px-0" id="open-content" role="tabpanel" aria-labelledby="open-tab">
 
                     <div id="cust-search-container" class="card mb-5">
-                        <div class='card-header card-header-text card-header-warning' data-toggle="collapse" data-target="#o-search-customer-body">
+                        <div class='card-header card-header-text card-header-warning' data-bs-toggle="collapse" data-bs-target="#o-search-customer-body">
                             <h5 class="my-0">
-                                <i class="fas fa-search mr-2"></i><span class="align-middle l-menu-search-customer">Search Customer</span>
+                                <i class="fas fa-search me-2"></i><span class="align-middle l-menu-search-customer">Search Customer</span>
                             </h5>
                         </div>
                         <div id="o-search-customer-body" class="show">
@@ -154,34 +154,34 @@
                                     <div class="form">
                                         <table>
                                             <tr>
-                                                <td class="pr-1"><span class="l-outbound-campaign-code">Campaign&nbsp;<span class="text-danger">*</span></span>
+                                                <td class="pe-1"><span class="l-outbound-campaign-code">Campaign&nbsp;<span class="text-danger">*</span></span>
                                                 </td>
-                                                <td class="pr-3"><select id="o-search-campaign-select" class="form-control"></select></td>
-                                                <td class="pr-1"><span class="l-outbound-batch-code">Batch&nbsp;<span
+                                                <td class="pe-3"><select id="o-search-campaign-select" class="form-select"></select></td>
+                                                <td class="pe-1"><span class="l-outbound-batch-code">Batch&nbsp;<span
                                                             class="text-danger">*</span></span>
                                                 </td>
-                                                <td class="pr-3"><select id="o-search-batch" class="form-control mr-4" disabled="true"></select>
+                                                <td class="pe-3"><select id="o-search-batch" class="form-select me-4" disabled="true"></select>
                                                 </td>
-                                                <td class="pr-1"><span class="l-outbound-phone-number">Phone No.</span>
+                                                <td class="pe-1"><span class="l-outbound-phone-number">Phone No.</span>
                                                 </td>
-                                                <td class="pr-3"><input id="o-phone" class="form-control mr-4" type="search" autocomplete="off"></td>
-                                                <td class="pr-1"><span class="l-main-name">Name</span></td>
-                                                <td class="pr-3"><input id="o-name" class="form-control mr-4" type="search" autocomplete="off"></td>
+                                                <td class="pe-3"><input id="o-phone" class="form-control me-4" type="search" autocomplete="off"></td>
+                                                <td class="pe-1"><span class="l-main-name">Name</span></td>
+                                                <td class="pe-3"><input id="o-name" class="form-control me-4" type="search" autocomplete="off"></td>
                                             </tr>
 
                                             <tr>
-                                                <td class="pr-1"><span class="l-form-gender">Gender</span></td>
-                                                <td class="pr-3"><select id="o-gender" class="form-control c-customer-input">
+                                                <td class="pe-1"><span class="l-form-gender">Gender</span></td>
+                                                <td class="pe-3"><select id="o-gender" class="form-select c-customer-input">
                                                         <option value="">- Please Select -</option>
                                                         <option value="M">Male</option>
                                                         <option value="F">Female</option>
                                                     </select></td>
-                                                <td class="pr-1"><span class="l-campaign-agefrom">Age From</span></td>
-                                                <td class="pr-3"><input id="o-age-from" class="form-control" type="number" min="0"></td>
-                                                <td class="pr-1"><span class="l-campaign-ageto">Age To</span></td>
-                                                <td class="pr-3"><input id="o-age-to" class="form-control" type="number" min="0"></td>
-                                                <td class="pr-1"><span class="l-campaign-callstatus">Call Status</span></td>
-                                                <td class="pr-3"><select id="o-call-status" class="form-control">
+                                                <td class="pe-1"><span class="l-campaign-agefrom">Age From</span></td>
+                                                <td class="pe-3"><input id="o-age-from" class="form-control" type="number" min="0"></td>
+                                                <td class="pe-1"><span class="l-campaign-ageto">Age To</span></td>
+                                                <td class="pe-3"><input id="o-age-to" class="form-control" type="number" min="0"></td>
+                                                <td class="pe-1"><span class="l-campaign-callstatus">Call Status</span></td>
+                                                <td class="pe-3"><select id="o-call-status" class="form-select">
                                                         <option value="">- Please Select -</option>
                                                         <option value="NewLead">Null</option>
                                                         <option value="Unreach">Unreach</option>
@@ -191,8 +191,8 @@
                                             </tr>
 
                                             <tr>
-                                                <td class="pr-1"><span class="l-campaign-callback">Callback</span></td>
-                                                <td class="pr-3"><select id="o-callback" class="form-control">
+                                                <td class="pe-1"><span class="l-campaign-callback">Callback</span></td>
+                                                <td class="pe-3"><select id="o-callback" class="form-select">
                                                         <option value="">- Please Select -</option>
                                                         <option value="all">All Time</option>
                                                         <option value="09:00 - 11:00">09:00 - 11:00</option>
@@ -201,15 +201,15 @@
                                                         <option value="16:01 - 18:00">16:01 - 18:00</option>
                                                         <option value="> 18:00">&gt; 18:00</option>
                                                     </select></td>
-                                                <td class="pr-2" colspan="6">
-                                                    <div class="form-check d-inline mr-2 mt-0"><label class="form-check-label l-campaign-mycalllistonly"><input
+                                                <td class="pe-2" colspan="6">
+                                                    <div class="form-check d-inline me-2 mt-0"><label class="form-check-label l-campaign-mycalllistonly"><input
                                                                 type="radio" name="agent-list" class="form-check-input"
                                                                 value="myself" checked>My Call List
                                                             Only<span class="circle"><span
                                                                     class="check"></span></span></label>
                                                     </div>
 
-                                                    <div class="form-check d-inline mt-0 mr-3"><label class="form-check-label l-campaign-allcustomers"><input
+                                                    <div class="form-check d-inline mt-0 me-3"><label class="form-check-label l-campaign-allcustomers"><input
                                                                 type="radio" name="agent-list" class="form-check-input"
                                                                 value="all">All
                                                             Customers<span class="circle"><span
@@ -224,12 +224,12 @@
                                                     </label>
                                                     </span>
 
-                                                    <button id="o-search-btn" class='btn btn-sm rounded btn-warning text-capitalize mr-2 ml-3'><i
-                                                            class="fas fa-search mr-2"></i><span
+                                                    <button id="o-search-btn" class='btn btn-sm rounded btn-warning text-capitalize me-2 ms-3'><i
+                                                            class="fas fa-search me-2"></i><span
                                                             class="l-search-search">Search</span></button>
 
                                                     <button id="o-cancel-btn" class="btn rounded btn-sm btn-default mb-0 text-capitalize"><i
-                                                            class="fas fa-undo-alt mr-2"></i><span>Cancel</span></button>
+                                                            class="fas fa-undo-alt me-2"></i><span>Cancel</span></button>
                                                 </td>
                                             </tr>
                                         </table>
@@ -243,9 +243,9 @@
                     </div>
 
                     <div id="o-contact-status-container" class="card d-none mb-0">
-                        <div class='card-header card-header-text card-header-info' data-toggle="collapse" data-target="#o-contact-status-body">
+                        <div class='card-header card-header-text card-header-info' data-bs-toggle="collapse" data-bs-target="#o-contact-status-body">
                             <h5 class="my-0">
-                                <i class="fas fa-th-list mr-2"></i><span class="align-middle l-campaign-contact-status">Contact Status</span>
+                                <i class="fas fa-th-list me-2"></i><span class="align-middle l-campaign-contact-status">Contact Status</span>
                             </h5>
                         </div>
                         <div id="o-contact-status-body" class="show">
@@ -271,8 +271,8 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="logModalLabel">Log Details</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                            
                         </button>
                     </div>
                     <div class="modal-body">
@@ -281,7 +281,7 @@
                         </table>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     </div>
                 </div>
             </div>

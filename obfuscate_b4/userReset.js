@@ -90,7 +90,7 @@ var loadUserAccounts = function (intitial) {
                     }, {
                         targets: 5,
                         render: function (data, type, row) {
-                            return '<i class="fas fa-edit table-btn open" data-toggle="tooltip" data-placement="right" title="' + langJson['l-account-edit-account'] + '"></i>';
+                            return '<i class="fas fa-edit table-btn open" data-bs-toggle="tooltip" data-bs-placement="right" title="' + langJson['l-account-edit-account'] + '"></i>';
                         },
 
                         orderable: false,

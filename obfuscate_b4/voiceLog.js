@@ -163,7 +163,7 @@ function buildVoiceTbl(tblData) {
                 data: "CallId",
             },
             {
-                title: '<span class="text-success"><i class="fas fa-arrow-right mr-1"></i><i class="fas fa-phone-volume"></i></span> In /<div><span class="text-danger"><i class="fas fa-arrow-left mr-1"></i><i class="fas fa-phone-volume"></i></span> Out /</div><div><span class="text-info"><i class="fas fa-exchange-alt"></i></span> Intercom</div>',
+                title: '<span class="text-success"><i class="fas fa-arrow-right me-1"></i><i class="fas fa-phone-volume"></i></span> In /<div><span class="text-danger"><i class="fas fa-arrow-left me-1"></i><i class="fas fa-phone-volume"></i></span> Out /</div><div><span class="text-info"><i class="fas fa-exchange-alt"></i></span> Intercom</div>',
                 data: "CallType",
                 className: 'btnColumn'
             },
@@ -199,11 +199,11 @@ function buildVoiceTbl(tblData) {
             orderable: false,
             render: function (data, type, row) {
                 if (data == 'Inbound') {
-                    return '<span class="text-success"><i class="fas fa-arrow-right mr-1"></i><i class="fas fa-phone-volume"></i></span>'
+                    return '<span class="text-success"><i class="fas fa-arrow-right me-1"></i><i class="fas fa-phone-volume"></i></span>'
                 } else if (data == 'Conference') {
                     return '<span class="text-info"><i class="fas fa-exchange-alt"></i></span>'
                 } else {
-                    return '<span class="text-danger"><i class="fas fa-arrow-left mr-1"></i><i class="fas fa-phone-volume"></i></span>'
+                    return '<span class="text-danger"><i class="fas fa-arrow-left me-1"></i><i class="fas fa-phone-volume"></i></span>'
                 }
             }
         }, {

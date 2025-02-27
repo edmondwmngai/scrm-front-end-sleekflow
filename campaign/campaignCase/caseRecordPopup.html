@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="../../css/material-kit/css/material-kit.min.css" type="TEXT/CSS">
     <link rel="stylesheet" href="../../css/material-overwrite.css" type="TEXT/CSS">
     <link rel="stylesheet" href="../../css/fontawesome/css/all.css">
-    <script type="text/javascript" src="../../js/jquery.min.js"></script>
+    <!--<script type="text/javascript" src="../../js/jquery.min.js"></script>--><script type="text/javascript" src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script type="text/javascript" src="../../js/bootstrap.min.js"></script>
     <script type="text/javascript" src="../../js/download.js"></script>
     <script type="text/javascript" src="../../js/tiff.min.js"></script>
@@ -262,18 +262,18 @@
 </head>
 
 <body onload='caseRecordPopupOnload()' class='custom-scroll' onkeydown='return (event.keyCode != 116)'>
-    <nav class="navbar sticky-top bg-info position-relative py-1 mb-0 d-none remove-none" data-toggle="collapse"
-        data-target="#call-media-content">
-        <span class="navbar-brand ml-3" href="#"><span id="call-type-span"></span></span>
+    <nav class="navbar sticky-top bg-info position-relative py-1 mb-0 d-none remove-none" data-bs-toggle="collapse"
+        data-bs-target="#call-media-content">
+        <span class="navbar-brand ms-3" href="#"><span id="call-type-span"></span></span>
     </nav>
 
     <div id="call-media-content" class='custom-scroll clearfix collapse show mx-3' style="overflow:auto;"></div>
-    <nav class="navbar sticky-top bg-warning py-1 d-none remove-none mb-0" data-toggle="collapse"
-        data-target="#middle-content">
-        <span class="navbar-brand ml-3 l-form-case-details" href="#"></span>
+    <nav class="navbar sticky-top bg-warning py-1 d-none remove-none mb-0" data-bs-toggle="collapse"
+        data-bs-target="#middle-content">
+        <span class="navbar-brand ms-3 l-form-case-details" href="#"></span>
     </nav>
 
-    <div id="middle-content" class="ml-3 my-3 d-none remove-none collapse show">
+    <div id="middle-content" class="ms-3 my-3 d-none remove-none collapse show">
         <div class="row mb-1 mx-0">
             <span class="col-sm-3 text-gray l-form-nature"></span>
             <div class="col-sm-9">
@@ -331,7 +331,7 @@
     </div>
 
     <nav id="reply-navbar" class="navbar sticky-top bg-info py-1 d-none remove-none">
-        <span class="navbar-brand ml-3" id="reply-type-span"></span>
+        <span class="navbar-brand ms-3" id="reply-type-span"></span>
     </nav>
 
     <div id="reply-media-content" class="mx-3 mb-3"></div>

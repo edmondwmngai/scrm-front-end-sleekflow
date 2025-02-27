@@ -14,11 +14,11 @@
     <meta http-equiv="pragma" content="no-cache">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 
-    <script type="text/javascript" src="./js/jquery.min.js"></script>
+    <!--<script type="text/javascript" src="./js/jquery.min.js"></script>--><script type="text/javascript" src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script type="text/javascript" src="./js/popper.min.js"></script>
     <script type="text/javascript" src="./js/bootstrap.min.js"></script>
     <script type="text/javascript" src="./js/jquery.dataTables.min.js"></script>
-    <script type="text/javascript" src="./js/bootstrap-confirmation.js"></script>
+    <!--<script type="text/javascript" src="./js/bootstrap-confirmation.js"></script>-->
     <script type="text/javascript" src="./js/Chart.min.js"></script>
     <script type="text/javascript" src="./js/Gauge.js"></script>
     <script type="text/javascript" src="./js/jquery-ui.min.js"></script>
@@ -64,12 +64,12 @@
             box-shadow: unset !important;
         }
 
-        .nav-btn.bg-info:hover {
-            background-color: inherit !important;
-        }
+            .nav-btn.bg-info:hover {
+                background-color: inherit !important;
+            }
 
-        .dropdown-menu li>a:hover,
-        .dropdown-menu li>a:focus {
+        .dropdown-menu li > a:hover,
+        .dropdown-menu li > a:focus {
             background: #00bcd4 !important;
         }
 
@@ -170,7 +170,8 @@
         }
 
         .bg-Monitor {
-            background: rgb(153, 102, 255);;
+            background: rgb(153, 102, 255);
+            ;
         }
 
         /* .bg-Dialing { background: rgb(201, 203, 207); } */
@@ -186,9 +187,9 @@
             margin-left: 10px;
         }
 
-        .tbl-dropdown-btn:after {
-            margin-bottom: -0.1rem;
-        }
+            .tbl-dropdown-btn:after {
+                margin-bottom: -0.1rem;
+            }
 
         .agent-column {
             border-left: 1px solid darkgray;
@@ -203,7 +204,7 @@
             padding-left: 20px !important;
         }
 
-        #agent-status-tbl>tbody>tr>td>.bg-info:hover {
+        #agent-status-tbl > tbody > tr > td > .bg-info:hover {
             background: #17a2b8 !important;
         }
 
@@ -235,12 +236,12 @@
         }
 
         /* == Fixed Header Scroll Content CSS == */
-        .dataTables_scrollHeadInner>table,
+        .dataTables_scrollHeadInner > table,
         .dataTable {
             margin-bottom: 0 !important;
         }
 
-        .dataTables_scrollBody>table>thead {
+        .dataTables_scrollBody > table > thead {
             visibility: collapse;
             /* Cannot be display none, as still need their width behind */
         }
@@ -262,10 +263,10 @@
             background: #AECBFC;
         }
 
-        /* Handle on hover */
-        .dataTables_scrollBody::-webkit-scrollbar-thumb:hover {
-            background: #6da0f7;
-        }
+            /* Handle on hover */
+            .dataTables_scrollBody::-webkit-scrollbar-thumb:hover {
+                background: #6da0f7;
+            }
 
         #agent-status-tbl_wrapper,
         #agent-status-tbl-2_wrapper,
@@ -273,23 +274,23 @@
             font-weight: 750;
         }
 
-        #agent-status-tbl_wrapper thead th,
-        #agent-status-tbl-2_wrapper thead th,
-        #q-tbl_wrapper thead th {
-            font-weight: 750;
-        }
+            #agent-status-tbl_wrapper thead th,
+            #agent-status-tbl-2_wrapper thead th,
+            #q-tbl_wrapper thead th {
+                font-weight: 750;
+            }
 
-        #acd-tbl_wrapper>.dataTables_scroll>.dataTables_scrollHead>.dataTables_scrollHeadInner>table>thead>tr>th {
+        #acd-tbl_wrapper > .dataTables_scroll > .dataTables_scrollHead > .dataTables_scrollHeadInner > table > thead > tr > th {
             background-color: rgba(255, 235, 59, 0.3);
             color: black;
         }
 
-        #acd-tbl_wrapper>.dataTables_scroll>.dataTables_scrollHead>.dataTables_scrollHeadInner>table>thead>tr>th,
-        #acd-cb-tbl_wrapper>.dataTables_scroll>.dataTables_scrollHead>.dataTables_scrollHeadInner>table>thead>tr>th,
-        #agent-tbl_wrapper>.dataTables_scroll>.dataTables_scrollHead>.dataTables_scrollHeadInner>table>thead>tr>th,
-        #agent-cb-tbl_wrapper>.dataTables_scroll>.dataTables_scrollHead>.dataTables_scrollHeadInner>table>thead>tr>th,
-        #super-tbl_wrapper>.dataTables_scroll>.dataTables_scrollHead>.dataTables_scrollHeadInner>table>thead>tr>th,
-        #super-acd-tbl_wrapper>.dataTables_scroll>.dataTables_scrollHead>.dataTables_scrollHeadInner>table>thead>tr>th {
+        #acd-tbl_wrapper > .dataTables_scroll > .dataTables_scrollHead > .dataTables_scrollHeadInner > table > thead > tr > th,
+        #acd-cb-tbl_wrapper > .dataTables_scroll > .dataTables_scrollHead > .dataTables_scrollHeadInner > table > thead > tr > th,
+        #agent-tbl_wrapper > .dataTables_scroll > .dataTables_scrollHead > .dataTables_scrollHeadInner > table > thead > tr > th,
+        #agent-cb-tbl_wrapper > .dataTables_scroll > .dataTables_scrollHead > .dataTables_scrollHeadInner > table > thead > tr > th,
+        #super-tbl_wrapper > .dataTables_scroll > .dataTables_scrollHead > .dataTables_scrollHeadInner > table > thead > tr > th,
+        #super-acd-tbl_wrapper > .dataTables_scroll > .dataTables_scrollHead > .dataTables_scrollHeadInner > table > thead > tr > th {
             background-color: rgba(255, 235, 59, 0.3);
             color: black;
         }
@@ -324,11 +325,11 @@
             font-size: 16px;
             margin-left: 10px;
         }
-        
-        /* the style of triangle */
-        .act-btn:after {
-            margin-bottom: -0.1rem;
-        }
+
+            /* the style of triangle */
+            .act-btn:after {
+                margin-bottom: -0.1rem;
+            }
     </style>
 </head>
 
@@ -336,9 +337,9 @@
 
     <div class="my-0 w-100 bg-info text-light d-inline-block" style="height:25px; line-height:25px;">
         &nbsp;&nbsp;<span><i class="far fa-eye"></i>&nbsp;&nbsp;Live Mon</span>
-        <div class="dropdown-btn-container btn-group my-0 float-right">
+        <div class="dropdown-btn-container btn-group my-0 float-end">
             <button id="dropdown-btn" class="btn dropdown-toggle py-0 bg-info nav-btn text-capitalize"
-                data-toggle="dropdown" style="font-size:16px;line-height:25px;">Live Monitor&nbsp;</button>
+                data-bs-toggle="dropdown" style="font-size:16px;line-height:25px;">Live Monitor&nbsp;</button>
             <ul id="cat-dropdown-menu" class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu">
                 <li><a tabindex="-1" href="#">Agent & ACD</a></li>
                 <li><a tabindex="-1" href="#">Live Monitor</a></li>
@@ -348,21 +349,21 @@
     <!-- =================== 1/3 Agent & ACD =================== -->
     <div id="agent-acd" class="d-none mx-4">
         <div class="row">
-            <div class="w-50 pr-1">
+            <div class="w-50 pe-1">
                 <div class="card mt-5 mb-0" style="height:90vh;">
                     <div class='card-header card-header-info'>
-                        <h5 class="my-0 float-left">
+                        <h5 class="my-0 float-start">
                             <i class="fas fa-users card-header-icon"></i><span class="align-middle">ACD
                                 Assignment</span>
                         </h5>
-                        <ul class="nav nav-tabs float-right" data-tabs="tabs">
+                        <ul class="nav nav-tabs float-end" data-tabs="tabs">
                             <li class="nav-item cursor-pointer">
-                                <a class="nav-link active title-button left-btn" data-toggle="tab" href="#acd-agents">
+                                <a class="nav-link active title-button left-btn" data-bs-toggle="tab" href="#acd-agents">
                                     ACD <i class="fas fa-long-arrow-alt-right"></i> Agent(s)
                                 </a>
                             </li>
                             <li class="nav-item cursor-pointer">
-                                <a class="nav-link title-button right-btn" data-toggle="tab" href="#agent-acds">
+                                <a class="nav-link title-button right-btn" data-bs-toggle="tab" href="#agent-acds">
                                     Agent <i class="fas fa-long-arrow-alt-right"></i> ACD(s)
                                 </a>
                             </li>
@@ -377,13 +378,13 @@
                                     </div>
                                     <div class="flex-fill" style="max-width:49%;">
                                         <table id="agent-cb-tbl" class="w-100 table" aria-describedby="agent-cb-tbl"></table>
-                                        <div class="form-group text-center">
+                                        <div class="mb-3 text-center">
                                             <a id="save-acd-agent-selected-a"
                                                 class="btn rounded btn-sm btn-warning mt-2 mb-0 text-capitalize"
-                                                data-toggle="confirmation" data-placement="bottom" data-popout="true"
+                                                data-bs-toggle="confirmation" data-bs-placement="bottom" data-popout="true"
                                                 data-btn-ok-class="btn-info"
                                                 href="javascript:(saveAcdAgentSelected())"><i
-                                                    class="fas fa-save mr-2"></i><span
+                                                    class="fas fa-save me-2"></i><span
                                                     class="align-middle">Save</span></a>
                                         </div>
                                     </div>
@@ -396,13 +397,13 @@
                                     </div>
                                     <div class="flex-fill" style="max-width:49%;">
                                         <table id="acd-cb-tbl" class="w-100 table" aria-describedby="acd-cb-tbl"></table>
-                                        <div class="form-group text-center mt-4">
+                                        <div class="mb-3 text-center mt-4">
                                             <a id="save-agent-acd-selected-a"
                                                 class="btn rounded btn-sm btn-warning mt-2 mb-0 text-capitalize"
-                                                data-toggle="confirmation" data-placement="bottom" data-popout="true"
+                                                data-bs-toggle="confirmation" data-bs-placement="bottom" data-popout="true"
                                                 data-btn-ok-class="btn-info"
                                                 href="javascript:(saveAgentAcdSelected())"><i
-                                                    class="fas fa-save mr-2"></i><span
+                                                    class="fas fa-save me-2"></i><span
                                                     class="align-middle">Save</span></a>
                                         </div>
                                     </div>
@@ -412,10 +413,10 @@
                     </div>
                 </div>
             </div>
-            <div class="w-50 pl-1">
+            <div class="w-50 ps-1">
                 <div class="card mt-5 mb-0" style="height:90vh;">
                     <div class='card-header card-header-info'>
-                        <h5 class="my-0 float-left">
+                        <h5 class="my-0 float-start">
                             <i class="fas fa-users card-header-icon"></i><span class="align-middle">Supervisor
                                 Accessibility</span>
                         </h5>
@@ -428,7 +429,7 @@
                                 </div>
                                 <div class="flex-fill" style="max-width:49%;">
                                     <table id="super-acd-tbl" class="w-100 table" aria-describedby="super-acd-tbl"></table>
-                                    <div id="super-acd-btn-container" class="form-group text-center">
+                                    <div id="super-acd-btn-container" class="mb-3 text-center">
                                         <!-- Button only show when user is supervisor -->
                                     </div>
                                 </div>
@@ -455,26 +456,26 @@
 
                 <!-- Please notet the col-sm when add to below in javascript, becasue can just have 1 agent table -->
 
-                <div id="tra-bar-container" class="pl-2">
+                <div id="tra-bar-container" class="ps-2">
                     <canvas id="ib-traditional-bar"></canvas>
                 </div>
 
-                <div id="as-tb-1-container" class="pr-2" id="agent-status-tbl-container">
+                <div id="as-tb-1-container" class="pe-2" id="agent-status-tbl-container">
                     <table id="agent-status-tbl" class="table table-hover" aria-describedby="agent-status-tbl"></table>
                 </div>
 
-                <div id="as-tb-2-container" class="pl-2" id="agent-status-tbl-2-container">
+                <div id="as-tb-2-container" class="ps-2" id="agent-status-tbl-2-container">
                     <table id="agent-status-tbl-2" class="table table-hover d-none" aria-describedby="agent-status-tbl-2"></table>
                 </div>
 
-                <div id="social-bar-container" class="pl-2" style="float:right;">
+                <div id="social-bar-container" class="ps-2" style="float:right;">
                     <canvas id="ib-social-bar"></canvas>
                 </div>
 
             </div>
         </div>
 
-        <div class="col-lg-5 pl-0">
+        <div class="col-lg-5 ps-0">
             <div class="card mt-3.5 mb-0" style="height:calc(100vh - 586px)">
                 <div class="card-header card-header-rose shadow d-flex justify-content-between">
                     <h5 class="my-0 d-inline-block">
@@ -483,7 +484,7 @@
                     <h5 class="my-0 d-inline-block">
                         IVR No.<span id="ivr-num">0</span>
                     </h5>
-                    <select id="wm-service-select" class="form-control card-header-select w-auto">
+                    <select id="wm-service-select" class="form-select card-header-select w-auto">
                         <option class="queue-header-option" value="All" selected="">All</option>
                     </select>
                 </div>
@@ -498,7 +499,7 @@
         <div class="col-lg-7 px-0">
             <div class="d-flex w-100 m-0">
                 <h5 class="flex-fill p-0 m-0">
-                    <span class="text-secondary pl-1">ACD: </span>
+                    <span class="text-secondary ps-1">ACD: </span>
                     <span id="selected-acd"></span>
                 </h5>
                 <h5 class="flex-fill p-0 m-0">
@@ -537,7 +538,7 @@
                     <div class="mx-auto my-auto">
                         <div class="w-100 text-nowrap d-flex">
                             <div class="w-50 d-inline-block">
-                                <div class="pr-2" style="width:18vw;">
+                                <div class="pe-2" style="width:18vw;">
                                     <h6 class="mt-2 mb-2 sla-gauge-title sla-gauge-title-call d-none">SLA - Abandoned
                                         Call%</h6>
                                     <h6 class="mt-2 mb-2 sla-gauge-title sla-gauge-title-chat d-none">SLA - Abandoned
@@ -546,7 +547,7 @@
                                 </div>
                             </div>
                             <div class="w-50 d-inline-block">
-                                <div class="pr-2" style="width:18vw;">
+                                <div class="pe-2" style="width:18vw;">
                                     <h6 class="mt-3 mb-2 sla-gauge-title sla-gauge-title-sec d-none"
                                         style="font-weight:600;color:#666666;text-align: center;">SLA - Avg Abandoned
                                         Sec.</h6>
@@ -577,7 +578,7 @@
                 </div>
             </div>
             <div>
-                <label class="float-right mr-3 mt-3">Last update on&nbsp;<span id="wall-update-time"></span></label>
+                <label class="float-end me-3 mt-3">Last update on&nbsp;<span id="wall-update-time"></span></label>
             </div>
         </div>
     </div>
@@ -587,16 +588,16 @@
         <div class="card mt-5 mb-3 mx-2" id="lower-part-container">
             <div class='card-header card-header-text card-header-info'>
                 <h5 class="my-0">
-                    <i class="fas fa-microphone mr-2"></i>
+                    <i class="fas fa-microphone me-2"></i>
                     Search Voice
                 </h5>
             </div>
             <div id="search-case-body" class='card-body'>
                 <div class="mx-auto">
-                    <div class="form-inline"><span>Match all of the following filled fields</span>
+                    <div class="d-flex align-items-center"><span>Match all of the following filled fields</span>
                     </div>
                     <div id='voice-fm-container' class="display" style="width:100%">
-                        <div class="case-search-item form-group form-inline mb-1">
+                        <div class="case-search-item mb-3 d-flex align-items-center mb-1">
                             <span class="voice-input-container">
                                 <span class="voice-lbl">Start Date<span class="text-danger">*</span></span>
                                 <span>
@@ -625,7 +626,7 @@
                             </span>
                             <span id="voice-select-container" class="voice-input-container d-none">
                                 <span class="voice-lbl">Service</span>
-                                <select id="voice-service-select" class="form-control w-auto d-inline">
+                                <select id="voice-service-select" class="form-select w-auto d-inline">
                                     <option value="" selected=""></option>
                                 </select>
                             </span>
@@ -634,7 +635,7 @@
                     <div class="mt-2">
                         <button class='submit-btn btn btn-sm rounded btn-warning text-capitalize'
                             onclick="return searchVoiceClicked();"><i
-                                class="fas fa-search mr-2"></i><span>Search</span></button>
+                                class="fas fa-search me-2"></i><span>Search</span></button>
                     </div>
 
                     <div id="voice-res-container">

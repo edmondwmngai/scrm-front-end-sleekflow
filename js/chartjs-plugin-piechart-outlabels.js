@@ -1,4 +1,4 @@
-﻿/*!
+/*!
  * chartjs-plugin-piechart-outlabels
  * http://chartjs.org/
  * Version: 0.1.4

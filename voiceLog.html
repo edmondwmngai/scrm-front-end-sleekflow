@@ -14,7 +14,7 @@
     <meta http-equiv="pragma" content="no-cache">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 
-    <script type="text/javascript" src="./js/jquery.min.js"></script>
+    <!--<script type="text/javascript" src="./js/jquery.min.js"></script>--><script type="text/javascript" src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script type="text/javascript" src="./js/popper.min.js"></script>
     <script type="text/javascript" src="./js/bootstrap.min.js"></script>
     <script type="text/javascript" src="./js/jquery.dataTables.min.js"></script>
@@ -53,16 +53,16 @@
         <div class="card mt-5 mb-3 mx-2" id="lower-part-container">
             <div class='card-header card-header-text card-header-info'>
                 <h5 class="my-0">
-                    <i class="fas fa-microphone mr-2"></i>
+                    <i class="fas fa-microphone me-2"></i>
                     Search Voice
                 </h5>
             </div>
             <div id="search-case-body" class='card-body'>
                 <div class="mx-auto">
-                    <div class="form-inline"><span>Match all of the following filled fields</span>
+                    <div class="d-flex align-items-center"><span>Match all of the following filled fields</span>
                     </div>
                     <div id='voice-fm-container' class="display" style="width:100%">
-                        <div class="case-search-item form-group form-inline mb-1">
+                        <div class="case-search-item mb-3 d-flex align-items-center mb-1">
                             <span class="voice-input-container">
                                 <span class="voice-lbl">Start Date<span class="text-danger">*</span></span>
                                 <span>
@@ -91,7 +91,7 @@
                             </span>
                             <span id="voice-select-container" class="voice-input-container d-none">
                                 <span class="voice-lbl">Service</span>
-                                <select id="voice-service-select" class="form-control w-auto d-inline">
+                                <select id="voice-service-select" class="form-select w-auto d-inline">
                                     <option value="" selected="">-- Please Select --</option>
                                 </select>
                             </span>
@@ -100,7 +100,7 @@
                     <div class="mt-2">
                         <button class='submit-btn btn btn-sm rounded btn-warning text-capitalize'
                             onclick="return searchVoiceClicked();"><i
-                                class="fas fa-search mr-2"></i><span>Search</span></button>
+                                class="fas fa-search me-2"></i><span>Search</span></button>
                     </div>
 
                     <div id="voice-res-container">

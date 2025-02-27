@@ -17,7 +17,7 @@
     <link rel="stylesheet" href="./css/fontawesome/css/all.css">
 
     <script type="text/javascript" src="./config.js"></script>
-    <script type="text/javascript" src="./js/jquery.min.js"></script>
+    <!--<script type="text/javascript" src="./js/jquery.min.js"></script>--><script type="text/javascript" src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script type="text/javascript" src="./css/material-kit/js/core/popper.min.js"></script>
     <script type="text/javascript" src="./js/bootstrap.min.js"></script>
 
@@ -80,21 +80,21 @@
     <div class="card-header bg-success" style="min-height: 34px;">
         <div class="nav-tabs-navigation">
             <div class="nav-tabs-wrapper">
-                <ul class="nav nav-tabs pl-0">
-                    <li id="campaign-section" class="nav-item form-group form-inline mr-3 text-light">
-                        <span><i class="far fa-building mr-2"></i></span>
+                <ul class="nav nav-tabs ps-0">
+                    <li id="campaign-section" class="nav-item mb-3 d-flex align-items-center me-3 text-light">
+                        <span><i class="far fa-building me-2"></i></span>
                     </li>
-                    <li id='right-btn-section' class="nav-item menu-title-items ml-auto d-none">
+                    <li id='right-btn-section' class="nav-item menu-title-items ms-auto d-none">
                         <span id="update-campaign-list" class='btn rounded btn-sm btn-warning text-capitalize py-1 my-1'
                             style="font-size:12px important;" onclick='loadTitleBarData();'><i
-                                class="fas fa-sync mr-2"></i><span class="l-menu-refresh">Refresh</span></span>
+                                class="fas fa-sync me-2"></i><span class="l-menu-refresh">Refresh</span></span>
                     </li>
                 </ul>
             </div>
         </div>
     </div>
     <div style="height:calc(100vh - 71px);">
-        <div class="max-width-body">
+        <div class="max-collapse-horizontal-body">
             <iframe src="" id="media-content" width='100%' height='auto' frameborder="0" openType="menu"
                 style='border-radius:5px;display:none' title="menu frame"></iframe>
             <iframe id='input-form' width='100%' height='auto' frameborder="0" openType="menu"

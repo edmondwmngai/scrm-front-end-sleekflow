@@ -147,7 +147,7 @@ function readOrDeletedMsg(msgObj) {
     if (msgObj.deleted_msg_id) {
         $('#content-inner-scroll-' + msgObj.ticket_id).find('#' + msgObj.deleted_msg_id).find('.content-bubble').addClass('my-auto')
             .empty().
-            append('<span class="deleted-msg"><i class="fas fa-ban mr-1"></i>This message was deleted</span>')
+            append('<span class="deleted-msg"><i class="fas fa-ban me-1"></i>This message was deleted</span>')
     }
 }
 
@@ -372,10 +372,10 @@ function sendSocialFile(ticketId, filePath, msgIdArr, commentIdArr) {
             var suffix = replyData.suffix;
             if (suffix == 'jpg' || suffix == '.png' || suffix == '.gif') {
                 $('#content-inner-scroll-' + ticketId).find('img[title="' + repliedFileName + '"]').last().after(
-                    '<span class="text-gray"><i class="fas fa-exclamation-circle mr-2"></i>' + langJson['l-alert-send-file-failed'] + '</span>');
+                    '<span class="text-gray"><i class="fas fa-exclamation-circle me-2"></i>' + langJson['l-alert-send-file-failed'] + '</span>');
             } else {
                 $('#content-inner-scroll-' + ticketId).find('a[href*="' + repliedFileName + '"]').last().after(
-                    '<span class="text-gray ml-5"><i class="fas fa-exclamation-circle mr-2"></i>' + langJson['l-alert-send-file-failed'] + '</span>');
+                    '<span class="text-gray ms-5"><i class="fas fa-exclamation-circle me-2"></i>' + langJson['l-alert-send-file-failed'] + '</span>');
             }
         } else {
 
@@ -844,7 +844,7 @@ function handleSystemMsg(sentMsgAgent, msgType, ticketId, MsgOrHtml, formData, f
         // NO DEL no need for now
         // if ($('#search-input-' + ticketId).length > 0) {
         //     // if having the input form, have forward button
-        //     $('<i class="fas fa-share pass-form-icon bubble-small-icon mr-2" onclick="return passFormClicked(' + ticketId + ');"></i>').insertBefore(bubbleTicket.find('.leave-chat-icon'));
+        //     $('<i class="fas fa-share pass-form-icon bubble-small-icon me-2" onclick="return passFormClicked(' + ticketId + ');"></i>').insertBefore(bubbleTicket.find('.leave-chat-icon'));
         // }
         // /NO DEL
 
@@ -864,7 +864,7 @@ function handleSystemMsg(sentMsgAgent, msgType, ticketId, MsgOrHtml, formData, f
     } else if (msgType == 'search') {
 
         // NO DEL
-        // $('<i class="fas fa-share pass-form-icon bubble-small-icon mr-2" onclick="return passFormClicked(' + ticketId + ');"></i>').insertBefore(bubbleTicket.find('.leave-chat-icon'));
+        // $('<i class="fas fa-share pass-form-icon bubble-small-icon me-2" onclick="return passFormClicked(' + ticketId + ');"></i>').insertBefore(bubbleTicket.find('.leave-chat-icon'));
         // /NO DEL
 
         $('#search-input-section').append(MsgOrHtml);
@@ -879,7 +879,7 @@ function handleSystemMsg(sentMsgAgent, msgType, ticketId, MsgOrHtml, formData, f
     } else if (msgType == 'input') {
 
         // NO DEL
-        // $('<i class="fas fa-share pass-form-icon mr-2 bubble-small-icon" onclick="return passFormClicked(' + ticketId + ');"></i>').insertBefore(bubbleTicket.find('.leave-chat-icon'));
+        // $('<i class="fas fa-share pass-form-icon me-2 bubble-small-icon" onclick="return passFormClicked(' + ticketId + ');"></i>').insertBefore(bubbleTicket.find('.leave-chat-icon'));
         // /NO DEL
 
         alert(agentNameStr + langJson['l-alert-passed-input-form'] + ticketId);
@@ -963,7 +963,7 @@ function addOldHistory(msgObj, ticketId, ticketLength) {
                     var userNameStr = theMsg.msg_completed == -2 ? '' : '<div><span class="content-bubble-name">' + SC.handleBubbleName(theMsg.nick_name, null, null, true) + formNameStr + '</span></div>';
                     var bubbleClassStr = 'visitor-content-bubble content-bubble';
                     if (theMsg.msg_completed == -2) {
-                        theMsgContentDisplay = '<span class="deleted-msg"><i class="fas fa-ban mr-1"></i>This message was deleted</span>'
+                        theMsgContentDisplay = '<span class="deleted-msg"><i class="fas fa-ban me-1"></i>This message was deleted</span>'
                         bubbleClassStr += ' my-2';
                     }
 
@@ -1148,7 +1148,7 @@ function savedCase(ticketId) {
     var noFollowupBtn = $('#input-form-' + ticketId).contents().find('#no-followup-btn');
 
     if (noFollowupBtn.length == 0) {
-        $('#input-form-' + ticketId).contents().find('#save-btn-section').append('<button id="no-followup-btn" class="btn btn-warning rounded btn-sm text-capitalize" onclick="return parent.leaveChat(' + ticketId + ',true)"><i class="fa fa-sign-out-alt mr-2"></i><span>Leave Without Follow-up Action</span></button>');
+        $('#input-form-' + ticketId).contents().find('#save-btn-section').append('<button id="no-followup-btn" class="btn btn-warning rounded btn-sm text-capitalize" onclick="return parent.leaveChat(' + ticketId + ',true)"><i class="fa fa-sign-out-alt me-2"></i><span>Leave Without Follow-up Action</span></button>');
     }
 }
 
@@ -1217,11 +1217,11 @@ function loadFBReplies(oThis, ticketId, scrollDown) {
                         } else {
                             theTag.after('<div' + lastBubbleId + ' class="fb-reply-row"><div id="' + msgRowId + '">' +
                                 '<img class="user-icon" src="' + theMsg.profile_pic + '" onerror="if (this.src != \'./images/user.png\') this.src = \'./images/user.png\';" />' +
-                                '<div class="time-with-seconds"><span>' + theMsgDate + '</span><span>' + theMsgTime + '</span></div></div><div class="visitor-content-bubble fb-visitor-reply-bubble ml-0"><div class="content-bubble-name">' + SC.handleBubbleName(theMsg.nick_name, null, null, true) + '</div><div class="content-bubble-content">' + theMsgContentDisplay + '</div></div></div>');
+                                '<div class="time-with-seconds"><span>' + theMsgDate + '</span><span>' + theMsgTime + '</span></div></div><div class="visitor-content-bubble fb-visitor-reply-bubble ms-0"><div class="content-bubble-name">' + SC.handleBubbleName(theMsg.nick_name, null, null, true) + '</div><div class="content-bubble-content">' + theMsgContentDisplay + '</div></div></div>');
                         }
                     } else {
                         var agentBubbleName = theMsg.sender == '0' ? 'SYSTEM' : isNaN(theMsg.sender) ? (isNaN(theMsg.nick_name) ? theMsg.nick_name : parent.getAgentName(Number(theMsg.nick_name))) : parent.getAgentName(Number(theMsg.sender)); // FB messenger greeting's nick name is customer
-                        theTag.after('<div' + lastBubbleId + ' class="fb-reply-row"><div><span class="user-icon"><i class="fas fa-user"></i></span><div class="time-with-seconds"><span>' + theMsgDate + '</span><span>' + theMsgTime + '</span></div></div><div class="fb-agent-bubble ml-0 w-auto"><div class="content-bubble-name">' + agentBubbleName + '</div><div class="content-bubble-content">' + theMsgContentDisplay + '</div></div></div>');
+                        theTag.after('<div' + lastBubbleId + ' class="fb-reply-row"><div><span class="user-icon"><i class="fas fa-user"></i></span><div class="time-with-seconds"><span>' + theMsgDate + '</span><span>' + theMsgTime + '</span></div></div><div class="fb-agent-bubble ms-0 w-auto"><div class="content-bubble-name">' + agentBubbleName + '</div><div class="content-bubble-content">' + theMsgContentDisplay + '</div></div></div>');
                     }
                 }
                 theTag.remove();
@@ -1326,7 +1326,7 @@ function fbMoreComments(ticketId, aboveMsgId, oThis) {
                         var theReply = replyCount == 1 ? 'Reply' : 'Replies';
 
                         // The reply-commentid- is for clicking reply link
-                        prependDiv += '<div id="reply-commentid-' + commentId + '" style="margin-left:100px;" commentId="' + commentId + '" onclick="loadFBReplies(this,' + ticketId + ')"><i class="fb right mr-2"></i><span class="link-span">View ' + replyCount + ' ' + theReply + '</span></div>';
+                        prependDiv += '<div id="reply-commentid-' + commentId + '" style="margin-left:100px;" commentId="' + commentId + '" onclick="loadFBReplies(this,' + ticketId + ')"><i class="fb right me-2"></i><span class="link-span">View ' + replyCount + ' ' + theReply + '</span></div>';
                     }
                 }
                 contentScrollDiv.prepend(prependDiv);
@@ -1338,7 +1338,7 @@ function fbMoreComments(ticketId, aboveMsgId, oThis) {
                         var theCommentS = remainNo == 1 ? '' : 's';
                         viewComments = 'View ' + remainNo + ' more comment' + theCommentS;
                     }
-                    contentScrollDiv.prepend('<span class="fb-more-comment-span" onclick="fbMoreComments(' + ticketId + ', ' + data[0].msg_id + ', this)"><i class="fb up mr-2"></i><span class="link-span">' + viewComments + '</span></span>');
+                    contentScrollDiv.prepend('<span class="fb-more-comment-span" onclick="fbMoreComments(' + ticketId + ', ' + data[0].msg_id + ', this)"><i class="fb up me-2"></i><span class="link-span">' + viewComments + '</span></span>');
                 }
             }
         },
@@ -1440,7 +1440,7 @@ function getFBComments(ticketId, commentIdArr, tryCount) {
                             var theCommentS = remainNo == 1 ? '' : 's';
                             viewComments = 'View ' + remainNo + ' more comment' + theCommentS;
                         }
-                        contentScrollDiv.append('<span class="fb-more-comment-span" onclick="fbMoreComments(' + ticketId + ', ' + data[0].msg_id + ', this)"><i class="fb up mr-2"></i><span class="link-span">' + viewComments + '</span></span>');
+                        contentScrollDiv.append('<span class="fb-more-comment-span" onclick="fbMoreComments(' + ticketId + ', ' + data[0].msg_id + ', this)"><i class="fb up me-2"></i><span class="link-span">' + viewComments + '</span></span>');
                     }
                     var titleCommentS = total > 1 ? 's' : '';
                     $('#no-of-comment-' + ticketId).text(total + " comment" + titleCommentS);
@@ -1491,7 +1491,7 @@ function getFBComments(ticketId, commentIdArr, tryCount) {
                             var theReply = replyCount == 1 ? 'Reply' : 'Replies';
 
                             // The reply-commentid- is for clicking reply link
-                            contentScrollDiv.append('<div id="reply-commentid-' + commentId + '" style="margin-left:100px;" commentId="' + commentId + '" onclick="loadFBReplies(this,' + ticketId + ')"><i class="fb right mr-2"></i><span class="link-span">View ' + replyCount + ' ' + theReply + '</span></div>');
+                            contentScrollDiv.append('<div id="reply-commentid-' + commentId + '" style="margin-left:100px;" commentId="' + commentId + '" onclick="loadFBReplies(this,' + ticketId + ')"><i class="fb right me-2"></i><span class="link-span">View ' + replyCount + ' ' + theReply + '</span></div>');
                         }
                     }
                     // ============== Reply Clicked history now ===========
@@ -1669,7 +1669,7 @@ function gotAgentList(agentArr) {
         if (theAgentId != loginId) {
             var agentStatus = theAgent.Status;
             if (agentStatus == 'IDLE' || agentStatus == 'WORKING' || agentStatus == 'READY') {
-                agentArrDivs += ('<div style="display:table-row;"><div class="form-check"><label class="form-check-label"><input class="form-check-input" type="radio" name="agentList" value="' + theAgentId + '" id="agent-' + theAgentId + '">' + theAgent.AgentName + '&nbsp;(ID: ' + theAgentId + ')<span class="circle"><span class="check"></span></span></label></div><label class="agent-list-cell pl-3" for="agent-' + theAgentId + '">' + theAgent.Status + '</label></div>');
+                agentArrDivs += ('<div style="display:table-row;"><div class="form-check"><label class="form-check-label"><input class="form-check-input" type="radio" name="agentList" value="' + theAgentId + '" id="agent-' + theAgentId + '">' + theAgent.AgentName + '&nbsp;(ID: ' + theAgentId + ')<span class="circle"><span class="check"></span></span></label></div><label class="agent-list-cell ps-3" for="agent-' + theAgentId + '">' + theAgent.Status + '</label></div>');
                 availableAgent += 1;
             }
         }
@@ -2059,9 +2059,9 @@ function createOrUpdateBubble(msgObj) {
         if (entry != 'fb_comment' && entry != 'fb_post') {
 
             // conference call button and leave button
-            conferenceStr = isMonitor ? '<i class="fas fa-sign-out-alt leave-chat-icon bubble-small-icon" onclick="endMonitor(' + ticketId + ')" data-toggle="tooltip" data-placement="bottom" title="' + langJson['l-social-leave-chat'] + '"></i>' :
-                (parent.tmpTicketId == ticketId ? '' : '<i class="fas fa-plus bubble-small-icon mr-2" onclick=' + addAgentStr + ' data-toggle="tooltip" data-placement="bottom" title="' + langJson['l-social-conference-call'] + '"></i>') +
-                '<i class="fas fa-sign-out-alt leave-chat-icon bubble-small-icon" onclick="leaveChat(' + ticketId + ')" data-toggle="tooltip" data-placement="bottom" title="' + langJson['l-social-leave-chat'] + '"></i>' + (parent.tmpTicketId == ticketId ? '' : '<i class="fas fa-star private-i"></i>');
+            conferenceStr = isMonitor ? '<i class="fas fa-sign-out-alt leave-chat-icon bubble-small-icon" onclick="endMonitor(' + ticketId + ')" data-bs-toggle="tooltip" data-bs-placement="bottom" title="' + langJson['l-social-leave-chat'] + '"></i>' :
+                (parent.tmpTicketId == ticketId ? '' : '<i class="fas fa-plus bubble-small-icon me-2" onclick=' + addAgentStr + ' data-bs-toggle="tooltip" data-bs-placement="bottom" title="' + langJson['l-social-conference-call'] + '"></i>') +
+                '<i class="fas fa-sign-out-alt leave-chat-icon bubble-small-icon" onclick="leaveChat(' + ticketId + ')" data-bs-toggle="tooltip" data-bs-placement="bottom" title="' + langJson['l-social-leave-chat'] + '"></i>' + (parent.tmpTicketId == ticketId ? '' : '<i class="fas fa-star private-i"></i>');
         } else {
 
             // fbpost, 10 minutes and 12 seconds later, if this ticket still here, assign again
@@ -2069,7 +2069,7 @@ function createOrUpdateBubble(msgObj) {
                 fbPostAddContinus(p.ticketId);
             }.bind(this, {ticketId: ticketId}), 612000)
         }
-        $('#bubble-list-inner').prepend('<div ' + bubbleStyle + 'class="' + offlineFormStr + 'bubble-container bubble-present" id="bubble-' + ticketId + '" onclick="bubbleClicked(' + ticketId + ')"' + inviteAgentIdStr + ' campaign="' + campaign + '" companycode="' + msgObj.company_code + '" enduserid="' + enduserId + '"><div class="bubble-container-inner"><span class="bubble-label-content-columns"><div class="bubble-channel-logo"><img class="bubble-icon" src="./Wise/img/' + channelImg + '.png"/></div><div class="buble-content-column"><div><span class="bubble-subject">' + SC.handleBubbleName((entry != 'fb_comment' && entry != 'fb_post' && entry != 'fb_post' && msgList.length != 0 ? msgList[0].nick_name : String(ticketId)), formData, ticketId) + '</span><span style="float:right;"><span class="bubble-short-name">' + bubbleShortNameStr + '</span>&nbsp;<span class="bubble-datetime"><span class="bubble-date">' + lastMsgDate + '</span><span class="bubble-time">' + lastMsgTime + '</span></span></span></div><div class="d-flex"><span class="bubble-message mr-auto">' + bubbleMsg + '</span>' + conferenceStr + '</div></span></div></div>');
+        $('#bubble-list-inner').prepend('<div ' + bubbleStyle + 'class="' + offlineFormStr + 'bubble-container bubble-present" id="bubble-' + ticketId + '" onclick="bubbleClicked(' + ticketId + ')"' + inviteAgentIdStr + ' campaign="' + campaign + '" companycode="' + msgObj.company_code + '" enduserid="' + enduserId + '"><div class="bubble-container-inner"><span class="bubble-label-content-columns"><div class="bubble-channel-logo"><img class="bubble-icon" src="./Wise/img/' + channelImg + '.png"/></div><div class="buble-content-column"><div><span class="bubble-subject">' + SC.handleBubbleName((entry != 'fb_comment' && entry != 'fb_post' && entry != 'fb_post' && msgList.length != 0 ? msgList[0].nick_name : String(ticketId)), formData, ticketId) + '</span><span style="float:right;"><span class="bubble-short-name">' + bubbleShortNameStr + '</span>&nbsp;<span class="bubble-datetime"><span class="bubble-date">' + lastMsgDate + '</span><span class="bubble-time">' + lastMsgTime + '</span></span></span></div><div class="d-flex"><span class="bubble-message me-auto">' + bubbleMsg + '</span>' + conferenceStr + '</div></span></div></div>');
         
         // change the tab of the parent for new ticket
         window.parent.$('.nav-tabs a[href="#social-media"]').tab('show');
@@ -2096,7 +2096,7 @@ function createOrUpdateBubble(msgObj) {
 
         // upload originally hidden, appear when needed
         var uploadBtnClickFn = '$(this).prev().trigger("click");';
-        var uploadBtnStr = '<input type="file" onchange="uploadAttachment(this, ' + ticketId + ');" style="display:none"><button id="upload-' + ticketId + '" class="reply-share-container keyboard-icon" data-toggle="tooltip" data-placement="top" title="Send File" onclick=' + uploadBtnClickFn + '><span class="align-sub"><i class="fas fa-file-upload"></i></span></button>';
+        var uploadBtnStr = '<input type="file" onchange="uploadAttachment(this, ' + ticketId + ');" style="display:none"><button id="upload-' + ticketId + '" class="reply-share-container keyboard-icon" data-bs-toggle="tooltip" data-bs-placement="top" title="Send File" onclick=' + uploadBtnClickFn + '><span class="align-sub"><i class="fas fa-file-upload"></i></span></button>';
 
         var contentInnerHeight = (entry == 'fb_comment' || entry == 'fb_post' || noFormInSocial) ? 'calc(100vh - 262px)' : (isOfflineForm ? '413px' : '520px');
 
@@ -2107,14 +2107,14 @@ function createOrUpdateBubble(msgObj) {
         var textareaId = 'reply-textarea-' + ticketId;
         var sendCSInputStr = (entry == 'webchat' ? (' onkeyup="sendCSInput(' + ticketId + ')"') : '');
         var replyContainerStr = isOfflineForm ? '' : (isMonitor ?
-            ('<div class="reply-container"><div class="text-center silent-btn-group"><textarea id="txt-coach-' + ticketId + '" class="reply-textarea d-none" maxlength="1000" placeholder="Type coach message here..." onkeydown="coachTextareaPressed(event)"></textarea><div id="silent-btn-container-' + ticketId + '" class="mt-4"><button class="btn btn-warning btn-sm rounded text-capitalize mr-2" onclick="monitorConference(' + ticketId + ')"><i class="fas fa-user-friends mr-2"></i>Conference</button><button class="btn btn-warning btn-sm rounded text-capitalize mr-2" onclick="monitorBargeIn(' + ticketId + ')"><i class="fas fa-door-open mr-2"></i>Barge-In</button><button class="btn btn-warning btn-sm rounded text-capitalize mr-2" onclick="monitorCoach(' + ticketId + ')"><i class="fas fa-paper-plane mr-2"></i>Coach</button><button class="btn btn-warning btn-sm rounded text-capitalize" onclick="endMonitor(' + ticketId + ')"><i class="fas fa-sign-out-alt mr-2"></i>Quit Monitor</button><label class="silent-agent-lbl">Monitoring Agent ID:&nbsp;<span id="mon-agent-id-' + ticketId + '">' + parent.tmpAgentId + '</span></lable></div><div id="coach-btn-container-' + ticketId + '" class="d-none"><button class="btn btn-warning btn-sm rounded text-capitalize mr-2" onclick="quitCoach(' + ticketId + ')"><i class="fas fa-sign-out-alt mr-2"></i>Quit Coach</button><button class="btn btn-warning btn-sm rounded text-capitalize" onclick="endMonitor(' + ticketId + ')"><i class="fas fa-sign-out-alt mr-2"></i>Quit Monitor</button><button class="reply-send-container" onclick="sendCoach(' + ticketId + ')" title="Send Coach Message"><img class="reply-icon-size" src="./images/send.svg"></button></div></div>' +
-                '<div class="d-none stop-silent-group"><textarea id="' + textareaId + '" class="reply-textarea" maxlength="1000" rows="2" placeholder="' + langJson['l-social-type-your-text-here'] + '" onkeydown="textareaPressed(event)"></textarea><div class="reply-icon-group"><button id="canned-' + ticketId + '" class="reply-canned-container keyboard-icon" data-toggle="tooltip" data-placement="top" title="' + langJson['l-social-select-message'] + '" onclick=' + cannedBtnClickFn + '><span class="align-sub"><i class="far fa-keyboard"></i></span></button><button id="share-' + ticketId + '" class="reply-share-container keyboard-icon" data-toggle="tooltip" data-placement="top" title="' + langJson['l-social-select-file'] + '" onclick=' + shareBtnClickFn + '><span class="align-sub"><i class="far fa-file"></i></span></button><button id="end-' + ticketId + '" class="reply-end-container keyboard-icon" data-toggle="tooltip" data-placement="top" title="' + langJson['l-social-end-session'] + '" entry="' + entry + '" onclick="endClicked(' + ticketId + ',this)"><span class="align-sub"><i class="fas fa-times"></i></span></button><button id="reply-btn-' + ticketId + '" class="reply-send-container" entry="' + entry + '" onclick="replyClicked(' + ticketId + ')" data-toggle="tooltip" data-placement="top" title="' + langJson['l-social-send-message'] + '"><img class="reply-icon-size" src="./images/send.svg" /></button></div></div>'
+            ('<div class="reply-container"><div class="text-center silent-btn-group"><textarea id="txt-coach-' + ticketId + '" class="reply-textarea d-none" maxlength="1000" placeholder="Type coach message here..." onkeydown="coachTextareaPressed(event)"></textarea><div id="silent-btn-container-' + ticketId + '" class="mt-4"><button class="btn btn-warning btn-sm rounded text-capitalize me-2" onclick="monitorConference(' + ticketId + ')"><i class="fas fa-user-friends me-2"></i>Conference</button><button class="btn btn-warning btn-sm rounded text-capitalize me-2" onclick="monitorBargeIn(' + ticketId + ')"><i class="fas fa-door-open me-2"></i>Barge-In</button><button class="btn btn-warning btn-sm rounded text-capitalize me-2" onclick="monitorCoach(' + ticketId + ')"><i class="fas fa-paper-plane me-2"></i>Coach</button><button class="btn btn-warning btn-sm rounded text-capitalize" onclick="endMonitor(' + ticketId + ')"><i class="fas fa-sign-out-alt me-2"></i>Quit Monitor</button><label class="silent-agent-lbl">Monitoring Agent ID:&nbsp;<span id="mon-agent-id-' + ticketId + '">' + parent.tmpAgentId + '</span></lable></div><div id="coach-btn-container-' + ticketId + '" class="d-none"><button class="btn btn-warning btn-sm rounded text-capitalize me-2" onclick="quitCoach(' + ticketId + ')"><i class="fas fa-sign-out-alt me-2"></i>Quit Coach</button><button class="btn btn-warning btn-sm rounded text-capitalize" onclick="endMonitor(' + ticketId + ')"><i class="fas fa-sign-out-alt me-2"></i>Quit Monitor</button><button class="reply-send-container" onclick="sendCoach(' + ticketId + ')" title="Send Coach Message"><img class="reply-icon-size" src="./images/send.svg"></button></div></div>' +
+                '<div class="d-none stop-silent-group"><textarea id="' + textareaId + '" class="reply-textarea" maxlength="1000" rows="2" placeholder="' + langJson['l-social-type-your-text-here'] + '" onkeydown="textareaPressed(event)"></textarea><div class="reply-icon-group"><button id="canned-' + ticketId + '" class="reply-canned-container keyboard-icon" data-bs-toggle="tooltip" data-bs-placement="top" title="' + langJson['l-social-select-message'] + '" onclick=' + cannedBtnClickFn + '><span class="align-sub"><i class="far fa-keyboard"></i></span></button><button id="share-' + ticketId + '" class="reply-share-container keyboard-icon" data-bs-toggle="tooltip" data-bs-placement="top" title="' + langJson['l-social-select-file'] + '" onclick=' + shareBtnClickFn + '><span class="align-sub"><i class="far fa-file"></i></span></button><button id="end-' + ticketId + '" class="reply-end-container keyboard-icon" data-bs-toggle="tooltip" data-bs-placement="top" title="' + langJson['l-social-end-session'] + '" entry="' + entry + '" onclick="endClicked(' + ticketId + ',this)"><span class="align-sub"><i class="fas fa-times"></i></span></button><button id="reply-btn-' + ticketId + '" class="reply-send-container" entry="' + entry + '" onclick="replyClicked(' + ticketId + ')" data-bs-toggle="tooltip" data-bs-placement="top" title="' + langJson['l-social-send-message'] + '"><img class="reply-icon-size" src="./images/send.svg" /></button></div></div>'
             )
-            : '<div class="reply-container"><textarea id="' + textareaId + '" class="reply-textarea" maxlength="1000" rows="2" placeholder="' + langJson['l-social-type-your-text-here'] + '" onkeypress="textareaPressed(event);"' + sendCSInputStr + '></textarea><div class="reply-icon-group"><button id="canned-' + ticketId + '" class="reply-canned-container keyboard-icon" data-toggle="tooltip" data-placement="top" title="' + langJson['l-social-select-message'] + '" onclick=' + cannedBtnClickFn + '><span class="align-sub"><i class="far fa-keyboard"></i></span></button><button id="share-' + ticketId + '" class="reply-share-container keyboard-icon" data-toggle="tooltip" data-placement="top" title="' + langJson['l-social-select-file'] + '" onclick=' + shareBtnClickFn + '><span class="align-sub"><i class="far fa-file"></i></span></button>' + uploadBtnStr + '<button id="end-' + ticketId + '" class="reply-end-container keyboard-icon" data-toggle="tooltip" data-placement="top" title="' + langJson['l-social-end-session'] + '" entry="' + entry + '" onclick="endClicked(' + ticketId + ',this)"><span class="align-sub"><i class="fas fa-times"></i></span></button><button id="reply-btn-' + ticketId + '" class="reply-send-container" entry="' + entry + '" onclick="replyClicked(' + ticketId + ')" data-toggle="tooltip" data-placement="top" title="' + langJson['l-social-send-message'] + '"><img class="reply-icon-size" src="./images/send.svg" /></button></div></div>');
+            : '<div class="reply-container"><textarea id="' + textareaId + '" class="reply-textarea" maxlength="1000" rows="2" placeholder="' + langJson['l-social-type-your-text-here'] + '" onkeypress="textareaPressed(event);"' + sendCSInputStr + '></textarea><div class="reply-icon-group"><button id="canned-' + ticketId + '" class="reply-canned-container keyboard-icon" data-bs-toggle="tooltip" data-bs-placement="top" title="' + langJson['l-social-select-message'] + '" onclick=' + cannedBtnClickFn + '><span class="align-sub"><i class="far fa-keyboard"></i></span></button><button id="share-' + ticketId + '" class="reply-share-container keyboard-icon" data-bs-toggle="tooltip" data-bs-placement="top" title="' + langJson['l-social-select-file'] + '" onclick=' + shareBtnClickFn + '><span class="align-sub"><i class="far fa-file"></i></span></button>' + uploadBtnStr + '<button id="end-' + ticketId + '" class="reply-end-container keyboard-icon" data-bs-toggle="tooltip" data-bs-placement="top" title="' + langJson['l-social-end-session'] + '" entry="' + entry + '" onclick="endClicked(' + ticketId + ',this)"><span class="align-sub"><i class="fas fa-times"></i></span></button><button id="reply-btn-' + ticketId + '" class="reply-send-container" entry="' + entry + '" onclick="replyClicked(' + ticketId + ')" data-bs-toggle="tooltip" data-bs-placement="top" title="' + langJson['l-social-send-message'] + '"><img class="reply-icon-size" src="./images/send.svg" /></button></div></div>');
 
         var whatsappStr = entry == 'whatsapp' ? '<span style="white-space:pre;"><span class="content-gray-label">Phone:</span>&nbsp;<span id="phone-' + ticketId + '">' + enduserId.replace('whatsapp:+', '') + '</span></span>' : '';
 
-        $('#content-section').append('<div id="content-' + ticketId + '"><div style="padding:7px 10px 0px 10px;">' + companyLogoStr + '<span class="custom-scroll content-basic-info"><span class="cs-info-span"><span class="content-gray-label">' + langJson['l-social-platform'] + ':</span>&nbsp;' + entry + '</span>' + companyShortNameStr + '<span class="cs-info-span"><span class="content-gray-label">' + langJson['l-social-ticket-id'] + ':</span>&nbsp;' + ticketId + '</span><span id="cs-basic-' + ticketId + '">' + SC.handleContentFormData(formData) + whatsappStr + '</span><span id="cs-info-' + ticketId + '"></span></span><img id="channel-' + ticketId + '" class="top-channel-img" data-toggle="tooltip" data-placement="left" src="./Wise/img/' + channelImg + '.png" />' +
+        $('#content-section').append('<div id="content-' + ticketId + '"><div style="padding:7px 10px 0px 10px;">' + companyLogoStr + '<span class="custom-scroll content-basic-info"><span class="cs-info-span"><span class="content-gray-label">' + langJson['l-social-platform'] + ':</span>&nbsp;' + entry + '</span>' + companyShortNameStr + '<span class="cs-info-span"><span class="content-gray-label">' + langJson['l-social-ticket-id'] + ':</span>&nbsp;' + ticketId + '</span><span id="cs-basic-' + ticketId + '">' + SC.handleContentFormData(formData) + whatsappStr + '</span><span id="cs-info-' + ticketId + '"></span></span><img id="channel-' + ticketId + '" class="top-channel-img" data-bs-toggle="tooltip" data-bs-placement="left" src="./Wise/img/' + channelImg + '.png" />' +
             '</div><div class="content-section-inner"><div style="padding:15px;"><div id="content-inner-scroll-' + ticketId + '" style="height:' + contentInnerHeight + ';overflow-y:auto;" class="custom-scroll"></div>' + replyContainerStr + '</div></div></div>');
 
         $('#' + textareaId).keydown(function (e) {
@@ -2245,7 +2245,7 @@ function createOrUpdateBubble(msgObj) {
         if (entry == 'fb_comment' || entry == 'fb_post') {
             var commentId = theMsg.sc_comment_id;
             fbCommentStr = 'msgId="' + msgId + '" commentId="' + commentId + '" onclick="commentRowClicked(this,' + msgId + ')"';
-            fbToHistorStr = '<div class="mr-2" onclick="fbHandClicked(event,' + ticketId + ',' + commentId + ')"><i class="far fa-hand-pointer to-history-hand"></i></div>';
+            fbToHistorStr = '<div class="me-2" onclick="fbHandClicked(event,' + ticketId + ',' + commentId + ')"><i class="far fa-hand-pointer to-history-hand"></i></div>';
             
             // msg content null and msg object path null, is a balnk message means the enduser deleted a message by themself
             if (theMsgContentDisplay == '') {
@@ -2277,12 +2277,12 @@ function createOrUpdateBubble(msgObj) {
                     theMsgContentDisplay += '<div class="mt-1">'
                     var cmds = theMsg.msg_json.Commands
                     for (let cmd of cmds) {
-                        theMsgContentDisplay += ('<button class="btn-primary mr-2">' + cmd.Title + '</button>')
+                        theMsgContentDisplay += ('<button class="btn-primary me-2">' + cmd.Title + '</button>')
                     }
                     theMsgContentDisplay += '</div>'
                 }
                 if (theMsg.msg_completed && theMsg.msg_completed == '-1') {
-                    theMsgContentDisplay += ('<span class="text-danger ml-5"><i class="fas fa-exclamation-circle mr-2"></i>Failed to send the message</span>');
+                    theMsgContentDisplay += ('<span class="text-danger ms-5"><i class="fas fa-exclamation-circle me-2"></i>Failed to send the message</span>');
                 }
 
                 // when refresh, the nick_name from agent will become visitor, not agent name
@@ -2494,7 +2494,7 @@ function createOrUpdateBubble(msgObj) {
 
             // add FB Content
             getFBPostContent(ticketId);
-            $('#reply-btn-' + ticketId).before('<button class="s-standalone-btn" data-toggle="tooltip" data-placement="top" title="Select all messages" onclick="selectAllClicked(' + ticketId + ')"><span class="align-sub"><i class="far fa-check-square keyboard-icon"></i></span></button><button class="reply-discard-container" data-toggle="tooltip" data-placement="top" title="No need to answer for selected comment(s)" onclick="discardClicked(' + ticketId + ')"><span><i class="far fa-times-circle keyboard-icon"></i></span></button>');
+            $('#reply-btn-' + ticketId).before('<button class="s-standalone-btn" data-bs-toggle="tooltip" data-bs-placement="top" title="Select all messages" onclick="selectAllClicked(' + ticketId + ')"><span class="align-sub"><i class="far fa-check-square keyboard-icon"></i></span></button><button class="reply-discard-container" data-bs-toggle="tooltip" data-bs-placement="top" title="No need to answer for selected comment(s)" onclick="discardClicked(' + ticketId + ')"><span><i class="far fa-times-circle keyboard-icon"></i></span></button>');
             parent.toBeUnloadedPost.push(ticketId);
             resize();
             getFBComments(ticketId);

@@ -129,7 +129,7 @@ function selectClicked(btn) {
 
                     // clone he selected row to opener container
                     var waContainerStr = (
-                        '<div class="form-check form-check-radio ml-4"><label class="form-check-label" for="tp-5"><input checked class="form-check-input" type="radio" name="tp" id="tp-' + tpId + '" value="' + tpId + '" props=' + tpPropsArr.length + '>Selected Template ID: ' + tpId + '</div><span class="circle"><span class="check"></span></span></label></div>'
+                        '<div class="form-check form-check-radio ms-4"><label class="form-check-label" for="tp-5"><input checked class="form-check-input" type="radio" name="tp" id="tp-' + tpId + '" value="' + tpId + '" props=' + tpPropsArr.length + '>Selected Template ID: ' + tpId + '</div><span class="circle"><span class="check"></span></span></label></div>'
                     )
 
                     // NO DEL: just display of method in input form different
@@ -144,11 +144,11 @@ function selectClicked(btn) {
                     } else if (msg_type == 'tp_cta') {
                         waContainerStr += SC.handleWATpCTAMsg(msg_content, null, tpId).text;
                     } else {
-                        waContainerStr += ('<div class="ml-5">' + msg_content + '</div>');
+                        waContainerStr += ('<div class="ms-5">' + msg_content + '</div>');
                     }
 
                     if (window.name == 'custSendWA') {
-                        waContainerStr += ('<div class="form-group text-center"><button id="send-tp-btn" class="btn rounded btn-sm btn-warning mt-3 mb-0 text-capitalize" onclick="sendTP()" data-original-title="" title=""><i class="fas fa-paper-plane mr-2"></i><span class="align-middle">Send</span></button></div>');
+                        waContainerStr += ('<div class="mb-3 text-center"><button id="send-tp-btn" class="btn rounded btn-sm btn-warning mt-3 mb-0 text-capitalize" onclick="sendTP()" data-original-title="" title=""><i class="fas fa-paper-plane me-2"></i><span class="align-middle">Send</span></button></div>');
                         if (windowOpener.customerTable.column(8)) {
                             windowOpener.customerTable.column(8).visible(true);
                         }
@@ -251,7 +251,7 @@ function uploadTpFile(campaign, whatsappNo, index, tpPropsArr, input) {
             var msg_content = crmText.replace(/\{\{1}}/g, crmProps[0]).replace(/\{\{2}}/g, crmProps[1]).replace(/\{\{3}}/g, crmProps[2]).replace(/\{\{4}}/g, crmProps[3]).replace(/\{\{5}}/g, crmProps[4]);
             if (window.name == 'custSendWA' || window.name == 'marketingWA' || window.name == 'reply-container') {
                 var waContainerStr = (
-                    '<div class="form-check form-check-radio ml-4"><label class="form-check-label" for="tp-5"><input checked class="form-check-input" type="radio" name="tp" id="tp-' + tpId + '" value="' + tpId + '" props=' + tpPropsArr.length + '>Selected Template ID: ' + tpId + '</div><span class="circle"><span class="check"></span></span></label></div>'
+                    '<div class="form-check form-check-radio ms-4"><label class="form-check-label" for="tp-5"><input checked class="form-check-input" type="radio" name="tp" id="tp-' + tpId + '" value="' + tpId + '" props=' + tpPropsArr.length + '>Selected Template ID: ' + tpId + '</div><span class="circle"><span class="check"></span></span></label></div>'
                 )
                 for (var i = 0; i < tpPropsArr.length; i++) {
                     // NO DEL: just prsent method different: waContainerStr += '<div><label>Prop ' + (i + 1) + ':&nbsp;&nbsp;&nbsp;</label><input id="tpl-content-' + i + '" type="text" value="' + tpPropsArr[i] + '" class="w-50" /></div>'
@@ -263,7 +263,7 @@ function uploadTpFile(campaign, whatsappNo, index, tpPropsArr, input) {
                     waContainerStr += SC.handleWATpCTAMsg(msg_content, null, tpId).text;
                 }
                 if (window.name == 'custSendWA') {
-                    waContainerStr += ('<div class="form-group text-center"><button id="send-tp-btn" class="btn rounded btn-sm btn-warning mt-3 mb-0 text-capitalize" onclick="sendTP()" data-original-title="" title=""><i class="fas fa-paper-plane mr-2"></i><span class="align-middle">Send</span></button></div>');
+                    waContainerStr += ('<div class="mb-3 text-center"><button id="send-tp-btn" class="btn rounded btn-sm btn-warning mt-3 mb-0 text-capitalize" onclick="sendTP()" data-original-title="" title=""><i class="fas fa-paper-plane me-2"></i><span class="align-middle">Send</span></button></div>');
                     if (windowOpener.customerTable.column(8)) {
                         windowOpener.customerTable.column(8).visible(true);
                     }
@@ -451,7 +451,7 @@ $(document).ready(function () {
             crmText = crmText + wa_config;
 
             var selectBtnStr = 'selectClicked(this)';
-            fileContainer.append('<tr class="row-container"><td id="display-msg-' + tpId + '" style="border: 2px solid darkgray;">' + crmText + '</td><td class="btn-cell"><button class="btn btn-sm rounded btn-info text-capitalize" onclick=' + selectBtnStr + '><i class="fas fa-mouse-pointer mr-2"></i><span>' + langJson['l-campaign-select'] + '</span></button></td></tr>')
+            fileContainer.append('<tr class="row-container"><td id="display-msg-' + tpId + '" style="border: 2px solid darkgray;">' + crmText + '</td><td class="btn-cell"><button class="btn btn-sm rounded btn-info text-capitalize" onclick=' + selectBtnStr + '><i class="fas fa-mouse-pointer me-2"></i><span>' + langJson['l-campaign-select'] + '</span></button></td></tr>')
         }
 
       
@@ -527,7 +527,7 @@ $(document).ready(function () {
                 crmText = SC.handleWATpCTAMsg(crmText, true, tpId);
             }
             var selectBtnStr = 'selectClicked(' + i + ')';
-            fileContainer.append('<tr class="row-container"><td id="display-msg-' + tpId + '" class="canned-cell">' + crmText + '</td><td class="btn-cell"><button class="btn btn-sm rounded btn-info text-capitalize" onclick=' + selectBtnStr + '><i class="fas fa-mouse-pointer mr-2"></i><span>' + langJson['l-campaign-select'] + '</span></button></td></tr>')
+            fileContainer.append('<tr class="row-container"><td id="display-msg-' + tpId + '" class="canned-cell">' + crmText + '</td><td class="btn-cell"><button class="btn btn-sm rounded btn-info text-capitalize" onclick=' + selectBtnStr + '><i class="fas fa-mouse-pointer me-2"></i><span>' + langJson['l-campaign-select'] + '</span></button></td></tr>')
         }
     }
 

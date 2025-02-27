@@ -169,22 +169,22 @@ function windowOnload() {
     var channelPic = $('#traditional-call-type-pic');
     if (channelPic.children().length == 0) {
         if (channel == 'Inbound_Email') {
-            channelPic.append('<img class="float-right mr-3 mt-1" style="width:48px;border-radius:3px;background: linear-gradient(60deg,#FFC83D,#fb8c00);box-shadow:3px 3px 4px 0 rgba(0,0,0,.36);" src="./Wise/img/email-icon-512-2.png">');
+            channelPic.append('<img class="float-end me-3 mt-1" style="width:48px;border-radius:3px;background: linear-gradient(60deg,#FFC83D,#fb8c00);box-shadow:3px 3px 4px 0 rgba(0,0,0,.36);" src="./Wise/img/email-icon-512-2.png">');
         } else if (channel == 'Inbound_Fax') {
-            channelPic.append('<img class="float-right mr-3 mt-1" style="width:48px;border-radius:3px;background:linear-gradient(60deg,#6AD1D8,#00acc1);box-shadow:3px 3px 4px 0 rgba(0,0,0,.36);" src="./Wise/img/fax-icon-512-2.png">');
+            channelPic.append('<img class="float-end me-3 mt-1" style="width:48px;border-radius:3px;background:linear-gradient(60deg,#6AD1D8,#00acc1);box-shadow:3px 3px 4px 0 rgba(0,0,0,.36);" src="./Wise/img/fax-icon-512-2.png">');
         } else if (channel == 'Inbound_Voicemail') {
-            channelPic.append('<img class="float-right mr-3 mt-1" style="width:48px;border-radius:3px;background: linear-gradient(60deg,#86B784,#43a047);box-shadow:3px 3px 4px 0 rgba(0,0,0,.36);" src="./Wise/img/vmail-icon-512-2.png">');
+            channelPic.append('<img class="float-end me-3 mt-1" style="width:48px;border-radius:3px;background: linear-gradient(60deg,#86B784,#43a047);box-shadow:3px 3px 4px 0 rgba(0,0,0,.36);" src="./Wise/img/vmail-icon-512-2.png">');
         } else if (channel == 'Inbound_Call') {
             // ================== Call Icon will have Pop-over if have IVR ==================
             var ivrStr = (window.frameElement.getAttribute('ivrInfo') || '').toString() || '';
             if (ivrStr.length > 0) {
-                channelPic.append('<img class="float-right mr-3 mt-1" style="width:48px;border-radius:3px;background: linear-gradient(60deg,#EF7C50,#e53935);box-shadow:3px 3px 4px 0 rgba(0,0,0,.36);cursor:pointer;" src="./Wise/img/call-icon-512-2.png" title="IVR Info" data-content="' + ivrStr + '" data-toggle="popover" data-placement="left">');
-                $('img[data-toggle="popover"]').popover();
+                channelPic.append('<img class="float-end me-3 mt-1" style="width:48px;border-radius:3px;background: linear-gradient(60deg,#EF7C50,#e53935);box-shadow:3px 3px 4px 0 rgba(0,0,0,.36);cursor:pointer;" src="./Wise/img/call-icon-512-2.png" title="IVR Info" data-bs-content="' + ivrStr + '" data-bs-toggle="popover" data-bs-placement="left">');
+                $('img[data-bs-toggle="popover"]').popover();
                 setTimeout(function () {
-                    $('img[data-toggle="popover"]').click();
+                    $('img[data-bs-toggle="popover"]').click();
                 }, 400);
             } else {
-                channelPic.append('<img class="float-right mr-3 mt-1" style="width:48px;border-radius:3px;background: linear-gradient(60deg,#EF7C50,#e53935);box-shadow:3px 3px 4px 0 rgba(0,0,0,.36);" src="./Wise/img/call-icon-512-2.png">');
+                channelPic.append('<img class="float-end me-3 mt-1" style="width:48px;border-radius:3px;background: linear-gradient(60deg,#EF7C50,#e53935);box-shadow:3px 3px 4px 0 rgba(0,0,0,.36);" src="./Wise/img/call-icon-512-2.png">');
             }
         }
     }

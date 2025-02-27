@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="./css/basic.css" type="text/css">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <script type="text/javascript" src="./config.js"></script>
-    <script type="text/javascript" src="./js/jquery.min.js"></script>
+    <!--<script type="text/javascript" src="./js/jquery.min.js"></script>--><script type="text/javascript" src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script type="text/javascript" src="./js/popper.min.js"></script>
     <script type="text/javascript" src="./js/bootstrap.min.js"></script>
     <style>
@@ -50,7 +50,7 @@
 </head>
 
 <body class='custom-scroll mb-5' onLoad="windowOnload()" onkeydown='return (event.keyCode != 116)'>
-    <div class="max-width-body">
+    <div class="max-collapse-horizontal-body">
         <div id='traditional-header' class="d-flex bd-highlight mt-2">
             <div class="flex-fill" style='position:relative;'>
                 <img id='traditional-company-pic' class='company-logo'
@@ -58,19 +58,19 @@
             </div>
             <div class="flex-fill my-auto"><span class="text-center">
                     <span id="junk-mail-header" class="rounded bg-warning mx-3 p-3 display-5" style="display:none;"
-                        data-toggle="tooltip"><i class="fa fa-envelope mr-2"></i><span
+                        data-bs-toggle="tooltip"><i class="fa fa-envelope me-2"></i><span
                             class="l-traditional-junk-mail"></span></span>
                     <span id="repeated-customer-header" class="rounded bg-warning mx-3 p-3 display-5"
-                        style="display:none;" data-toggle="tooltip"><i class="fa fa-envelope mr-2"></i><span
+                        style="display:none;" data-bs-toggle="tooltip"><i class="fa fa-envelope me-2"></i><span
                             class="l-traditional-repeated-sender"></span></span>
                     <span id="difficult-customer-header" class="rounded bg-warning mx-3 p-3 display-5"
-                        style="display:none;" data-toggle="tooltip"><i class="fa fa-envelope mr-2"></i><span
+                        style="display:none;" data-bs-toggle="tooltip"><i class="fa fa-envelope me-2"></i><span
                             class="l-traditional-difficult-sender"></span></span>
                     <span id="repeated-caller-header" class="rounded bg-warning mx-3 p-3 display-5"
-                        style="display:none;" data-toggle="tooltip"><i class="fas fa-phone mr-2"></i><span
+                        style="display:none;" data-bs-toggle="tooltip"><i class="fas fa-phone me-2"></i><span
                             class="l-traditional-repeated-caller"></span></span>
                     <span id="difficult-caller-header" class="rounded bg-warning mx-3 p-3 display-5"
-                        style="display:none;" data-toggle="tooltip"><i class="fas fa-phone mr-2"></i><span
+                        style="display:none;" data-bs-toggle="tooltip"><i class="fas fa-phone me-2"></i><span
                             class="l-traditional-difficult-caller"></span></span>
                 </span>
             </div>

@@ -38,8 +38,14 @@
     <script type="text/javascript" src="./js/generalFn.js"></script>
     <script type="text/javascript" src="./js/popper.min.js"></script>
     <script type="text/javascript" src="./js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="./js/bootstrap-confirmation.js"></script>
+    <!--<script type="text/javascript" src="./js/bootstrap-confirmation.js"></script>-->
     <script type="text/javascript" src="./js/messagebox.min.js"></script>
+    <script>
+        var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="confirmation"]'));
+        var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
+            return new bootstrap.Popover(popoverTriggerEl);
+        });
+    </script>
 </head>
 
 <body class='scroll-hidden' TopMargin="0" LeftMargin="0" onbeforeunload="windowOnBeforeUnload()" onkeydown='return (event.keyCode != 116)'>
@@ -48,14 +54,14 @@
         <div class="w-100">
             <div class="navbar-collapse" id="navbarSupportedContent">
 
-                <div class="nav-item ml-2">
+                <div class="nav-item ms-2">
                     <span>
                         <span class="l-main-tel">Tel</span>:&nbsp;&nbsp;
                     <input id="phone-panel-no" class="form-control tel-input" type="search" style="display: inline-block; width: 170px" maxlength="17" />
                     </span>
                 </div>
 
-                <div class="nav-item btn btn-warning hover-black ml-2 py-1" style='position:relative;' title="Make Call" onclick="phoneClicked('make')">
+                <div class="nav-item btn btn-warning hover-black ms-2 py-1" style='position:relative;' title="Make Call" onclick="phoneClicked('make')">
                     <span>
                         <i class="fas fa-phone font-size-large"></i>
                     </span>
@@ -91,42 +97,42 @@
                     </span>
                 </div>
 
-                <div id="agent-list-dropdown-container" class="nav-item dropdown hover-black ml-1">
-                    <a class="nav-link dropdown-toggle px-0 text-white" href="#" id="agent-list-dropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <div id="agent-list-dropdown-container" class="nav-item dropdown hover-black ms-1">
+                    <a class="nav-link dropdown-toggle px-0 text-white" href="#" id="agent-list-dropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i class="fas fa-columns font-size-large mt-1" title="Agent List"></i>
                     </a>
                     <div class="dropdown-menu" aria-labelledby="agent-list-dropdown">
                         <div id="phone-submenu" class="d-table mt-1"></div>
                         <div class="dropdown-divider"></div>
                         <a id="phone-dropdown-close" class="dropdown-item" href="#">
-                            <i class="fa fa-caret-up font-bg mr-2"></i><span class="l-main-close">
+                            <i class="fa fa-caret-up font-bg me-2"></i><span class="l-main-close">
                         </a>
                     </div>
                 </div>
 
                 <div id="phone-dropdown" class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle text-light px-0" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle text-light px-0" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <img src="./images/dialpad.png" class="w-auto">
                     </a>
                     <div class="dropdown-menu mt-1" aria-labelledby="navbarDropdown">
                         <div class="dropdown-item text-center bg-white shadow-none">
-                            <button class='btn rounded btn-sm mr-1 btn-info' onclick="phoneNoClicked(1)">1</button>&nbsp;
-                            <button class='btn rounded btn-sm mr-1 btn-info' onclick="phoneNoClicked(2)">2</button>
+                            <button class='btn rounded btn-sm me-1 btn-info' onclick="phoneNoClicked(1)">1</button>&nbsp;
+                            <button class='btn rounded btn-sm me-1 btn-info' onclick="phoneNoClicked(2)">2</button>
                             <button class='btn rounded btn-sm btn-info' onclick="phoneNoClicked(3)">3</button>
                         </div>
                         <div class="dropdown-item text-center bg-white shadow-none">
-                            <button class='btn rounded btn-sm mr-1 btn-info' onclick="phoneNoClicked(4)">4</button>&nbsp;
-                            <button class='btn rounded btn-sm mr-1 btn-info' onclick="phoneNoClicked(5)">5</button>
+                            <button class='btn rounded btn-sm me-1 btn-info' onclick="phoneNoClicked(4)">4</button>&nbsp;
+                            <button class='btn rounded btn-sm me-1 btn-info' onclick="phoneNoClicked(5)">5</button>
                             <button class='btn rounded btn-sm btn-info' onclick="phoneNoClicked(6)">6</button>
                         </div>
                         <div class="dropdown-item text-center bg-white shadow-none">
-                            <button class='btn rounded btn-sm mr-1 btn-info' onclick="phoneNoClicked(7)">7</button>&nbsp;
-                            <button class='btn rounded btn-sm mr-1 btn-info' onclick="phoneNoClicked(8)">8</button>
+                            <button class='btn rounded btn-sm me-1 btn-info' onclick="phoneNoClicked(7)">7</button>&nbsp;
+                            <button class='btn rounded btn-sm me-1 btn-info' onclick="phoneNoClicked(8)">8</button>
                             <button class='btn rounded btn-sm btn-info' onclick="phoneNoClicked(9)">9</button>
                         </div>
                         <div class="dropdown-item text-center bg-white shadow-none">
-                            <button class='btn rounded btn-sm mr-1 btn-info' onclick="phoneNoClicked('*')">*</button>&nbsp;
-                            <button class='btn rounded btn-sm mr-1 btn-info' onclick="phoneNoClicked(0)">0</button>
+                            <button class='btn rounded btn-sm me-1 btn-info' onclick="phoneNoClicked('*')">*</button>&nbsp;
+                            <button class='btn rounded btn-sm me-1 btn-info' onclick="phoneNoClicked(0)">0</button>
                             <button class='btn rounded btn-sm btn-info' onclick="phoneNoClicked('#')">#</button>
                         </div>
                         <div class="dropdown-divider"></div>
@@ -137,7 +143,7 @@
                 </div>
 
 
-                <ul class="navbar-nav mr-auto">
+                <ul class="navbar-nav me-auto">
                 </ul>
                 <div id="direct-call-container" class="nav-item text-center d-none"
                     style="min-width:122px;cursor: pointer;" onclick="directCallClicked();">
@@ -148,29 +154,29 @@
                     </div>
 
                     <div id="agent-info-dropdown" class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle text-light pr-0" href="#" id="navbarDropdown1" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <a class="nav-link dropdown-toggle text-light pe-0" href="#" id="navbarDropdown1" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <i class="fas fa-user-circle font-large align-middle" title="Profile"></i>
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown1">
                             <div class="dropdown-item bg-white shadow-none">
-                                <span class="text-gray text-right" style="width:51px;"><span
-                                    class='l-account-seller-id'></span></span><span class='text-gray mr-1'>:</span><span id="dropdown-login-id" class="text-dark"></span><br>
+                                <span class="text-gray text-end" style="width:51px;"><span
+                                    class='l-account-seller-id'></span></span><span class='text-gray me-1'>:</span><span id="dropdown-login-id" class="text-dark"></span><br>
                             </div>
                             <div class="dropdown-item bg-white shadow-none">
-                                <span class="text-gray" style="width:51px;"><span class='l-main-name'></span></span><span class='text-gray mr-1'>:</span><span id="dropdown-agent-name" class="text-dark"></span><br>
+                                <span class="text-gray" style="width:51px;"><span class='l-main-name'></span></span><span class='text-gray me-1'>:</span><span id="dropdown-agent-name" class="text-dark"></span><br>
                             </div>
                             <div id="role-field-container" class="dropdown-item bg-white shadow-none">
-                                <span class="text-gray" style="width:51px;"><span class='l-main-role'></span></span><span class='text-gray mr-1'>:</span><span id="dropdown-role-name" class="text-dark"></span>
+                                <span class="text-gray" style="width:51px;"><span class='l-main-role'></span></span><span class='text-gray me-1'>:</span><span id="dropdown-role-name" class="text-dark"></span>
                             </div>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="#">
-                                <i class="fa fa-caret-up font-bg mr-2"></i><span class="l-main-close"></span>
+                                <i class="fa fa-caret-up font-bg me-2"></i><span class="l-main-close"></span>
                             </a>
                         </div>
                     </div>
                     <div class="nav-item dropdown text-center" style="min-width:122px;">
-                        <a id="panel-agent-status" class="nav-link dropdown-toggle text-white" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style='font-weight:bold !important;height:33px;line-height: 25px;background:#6c757d;'>
-                            <i class="fas fa-square mr-2"></i><span id="agent-status-text" class="l-user-status-LOGOUT">LOGOUT</span>&nbsp;
+                        <a id="panel-agent-status" class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style='font-weight:bold !important;height:33px;line-height: 25px;background:#6c757d;'>
+                            <i class="fas fa-square me-2"></i><span id="agent-status-text" class="l-user-status-LOGOUT">LOGOUT</span>&nbsp;
                         </a>
                         <div class="dropdown-menu" aria-labelledby="panel-agent-status">
                             <a href="#" class="dropdown-item py-auto" onclick="statusChange('break');">
@@ -191,8 +197,8 @@
                         <b id="panel-time-count" class="nav-link text-light p-0">00:00</b>
                     </div>
                     <div class="nav-item">
-                        <a class="nav-link text-light" data-toggle="confirmation" data-placement="bottom" data-popout="true" data-btn-ok-class="btn-info" href="javascript:(logoutClicked())"><i
-                            class="fa fa-sign-out-alt mr-2"></i><span class="l-main-logout"></span></a>
+                        <a class="nav-link text-light" data-bs-toggle="confirmation" data-bs-placement="bottom" data-popout="true" data-btn-ok-class="btn-info" href="javascript:(logoutClicked())"><i
+                            class="fa fa-sign-out-alt me-2"></i><span class="l-main-logout"></span></a>
                     </div>
                 </div>
             </div>
@@ -225,7 +231,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h6 class="modal-title" id="beInvitedModalTitle">Got invite to a chatroom</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true"><i class="fas fa-times"></i></span>
                         </button>
                 </div>
@@ -245,15 +251,15 @@
                 </div>
                 <div class="modal-footer">
 				<!--
-                    <button onclick="acceptRejectClicked(false);" type="button" class="btn btn-default btn-sm text-capitalize mr-3 rounded" data-dismiss="modal"><i
-                            class="fas fa-times mr-2"></i><span>Reject</span></button>
+                    <button onclick="acceptRejectClicked(false);" type="button" class="btn btn-default btn-sm text-capitalize me-3 rounded" data-bs-dismiss="modal"><i
+                            class="fas fa-times me-2"></i><span>Reject</span></button>
                     <button onclick="acceptRejectClicked(true);" type="button" class="btn btn-warning btn-sm text-capitalize rounded"><i
-                            class="fas fa-check mr-2"></i><span>Accept</span></button>
+                            class="fas fa-check me-2"></i><span>Accept</span></button>
 				-->
-				    <button onclick="acceptInvitedClicked(false);" type="button" class="btn btn-default btn-sm text-capitalize mr-3 rounded" data-dismiss="modal"><i
-                            class="fas fa-times mr-2"></i><span>Reject</span></button>
+				    <button onclick="acceptInvitedClicked(false);" type="button" class="btn btn-default btn-sm text-capitalize me-3 rounded" data-bs-dismiss="modal"><i
+                            class="fas fa-times me-2"></i><span>Reject</span></button>
                     <button onclick="acceptInvitedClicked(true);" type="button" class="btn btn-warning btn-sm text-capitalize rounded"><i
-                            class="fas fa-check mr-2"></i><span>Accept</span></button>
+                            class="fas fa-check me-2"></i><span>Accept</span></button>
                 </div>
             </div>
         </div>

@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="../css/material-kit/css/material-kit.min.css" type="TEXT/CSS">
     <link rel="stylesheet" href="../css/material-overwrite.css" type="TEXT/CSS">
     <link rel="stylesheet" href="../css/fontawesome/css/all.css">
-    <script type="text/javascript" src="../js/jquery.min.js"></script>
+    <!--<script type="text/javascript" src="../js/jquery.min.js"></script>--><script type="text/javascript" src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <style>
         body {
             /* margin: 15px; */
@@ -44,11 +44,11 @@
     </style>
 </head>
 
-<body class='custom-scroll max-width-body' onload="windowOnload()">
-    <div class="mt-4 ml-4">
+<body class='custom-scroll max-collapse-horizontal-body' onload="windowOnload()">
+    <div class="mt-4 ms-4">
 
-        <div class="form-group form-inline mb-1">
-            <div class="form-check mr-3">
+        <div class="mb-3 d-flex align-items-center mb-1">
+            <div class="form-check me-3">
                 <label class="form-check-label">
                     <input type="radio" class='form-check-input dial-yes-disable l-menu-all' checked name="channel"
                         value="All">
@@ -58,7 +58,7 @@
                     </span>
                 </label>
             </div>
-            <div class="form-check mr-3">
+            <div class="form-check me-3">
                 <label class="form-check-label">
                     <input type="radio" class='form-check-input dial-yes-disable l-menu-email' name="channel"
                         value="Inbound_Email">
@@ -68,7 +68,7 @@
                     </span>
                 </label>
             </div>
-            <div class="form-check mr-3">
+            <div class="form-check me-3">
                 <label class="form-check-label">
                     <input type="radio" class='form-check-input dial-yes-disable l-menu-voicemail' name="channel"
                         value="Inbound_Voicemail">
@@ -78,7 +78,7 @@
                     </span>
                 </label>
             </div>
-            <div class="form-check mr-3">
+            <div class="form-check me-3">
                 <label class="form-check-label">
                     <input type="radio" class='form-check-input dial-yes-disable l-menu-fax' name="channel"
                         value="Inbound_Fax">
@@ -93,7 +93,7 @@
         <div>
             <span class="l-menu-transfer-from"></span>:
             <!-- Transfer From: -->
-            <select class="form-control d-inline" id="from-agent-list" style="width:200px;" onchange="confirmClicked();">
+            <select class="form-select d-inline" id="from-agent-list" style="width:200px;" onchange="confirmClicked();">
                 <option selected="selected " value=""></option>
             </select>
         </div>

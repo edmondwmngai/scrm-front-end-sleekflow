@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="../css/media.css" type="text/css">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <script type="text/javascript" src="../config.js"></script>
-    <script type="text/javascript" src="../js/jquery.min.js"></script>
+    <!--<script type="text/javascript" src="../js/jquery.min.js"></script>--><script type="text/javascript" src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script type="text/javascript" src="../js/jquery.dataTables.min.js"></script>
     <script type="text/javascript" src="../js/popper.min.js"></script>
     <script type="text/javascript" src="../js/bootstrap.min.js"></script>
@@ -37,7 +37,7 @@
     </style>
 </head>
 
-<body class='custom-scroll max-width-body' onload="windowOnload(true)">
+<body class='custom-scroll max-collapse-horizontal-body' onload="windowOnload(true)">
     <div id="lower-part-container" class='card mt-5 mb-3'>
         <div class='card-header card-header-text card-header-info'>
             <h5 class="my-0">
@@ -48,11 +48,11 @@
         <div class='card-body'>
             <table class="table table-hover" id="lower-part-table" style='width:100%'></table>
             <div class="d-flex w-100">
-                <div class="form-group flex-fill text-center" id="bottom">
+                <div class="mb-3 flex-fill text-center" id="bottom">
                     <a id="confirm-btn" class="btn rounded btn-sm btn-warning mx-0 text-capitalize disabled"
-                        style="display:inline-block;" data-toggle="confirmation" data-placement="top"
+                        style="display:inline-block;" data-bs-toggle="confirmation" data-bs-placement="top"
                         data-popout="true" data-btn-ok-class="btn-info" href="javascript:(confirmClicked())">
-                        <i class="fas fa-save mr-2"></i><span
+                        <i class="fas fa-save me-2"></i><span
                         class="align-middle l-incopmlete-mark-invalid"></span></a>
                 </div>
             </div>

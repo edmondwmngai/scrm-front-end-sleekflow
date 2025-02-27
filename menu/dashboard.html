@@ -216,7 +216,7 @@
                                 <div class="card-footer">
                                     <div class="stats">
                                         <i class="material-icons">date_range</i>
-                                        <select class="form-control card-footer-select"
+                                        <select class="form-select card-footer-select"
                                             onchange="md.initData1Line(this.value)">
                                             <option value="last7" class="l-dashboard-last-7-days">Last 7 days</option>
                                             <option value="last14" class="l-dashboard-last-14-days">Last 14 days
@@ -240,7 +240,7 @@
                                 <div class="card-footer">
                                     <div class="stats">
                                         <i class="material-icons">date_range</i>
-                                        <select class="form-control card-footer-select"
+                                        <select class="form-select card-footer-select"
                                             onchange="md.initData2Line(this.value)">
                                             <option value="last7" class="l-dashboard-last-7-days">Last 7 days</option>
                                             <option value="last14" class="l-dashboard-last-14-days">Last 14 days
@@ -264,7 +264,7 @@
                                 <div class="card-footer">
                                     <div class="stats">
                                         <i class="material-icons">date_range</i>
-                                        <select class="form-control card-footer-select"
+                                        <select class="form-select card-footer-select"
                                             onchange="md.initData3Line(this.value)">
                                             <option value="last7" class="l-dashboard-last-7-days">Last 7 days</option>
                                             <option value="last14" class="l-dashboard-last-14-days">Last 14 days
@@ -288,7 +288,7 @@
                                 <div class="card-footer">
                                     <div class="stats">
                                         <i class="material-icons">date_range</i>
-                                        <select class="form-control card-footer-select"
+                                        <select class="form-select card-footer-select"
                                             onchange="md.initData4Line(this.value)">
                                             <option value="last7" class="l-dashboard-last-7-days">Last 7 days</option>
                                             <option value="last14" class="l-dashboard-last-14-days">Last 14 days
@@ -309,9 +309,9 @@
                                     <canvas id="ib-trad-bar"></canvas>
                                 </div>
                                 <div class="card-body">
-                                    <h4 class="card-title l-dashboard-ib-trad-media">I/B Traditional Media</h4>
+                                    <h4 class="card-title l-dashboard-ib-trad-d-flex">I/B Traditional Media</h4>
                                     <p class="card-category">
-                                        <span id="daily-chart-in-decrease" class="l-dashboard-ib-trad-media-sub">Call,
+                                        <span id="daily-chart-in-decrease" class="l-dashboard-ib-trad-d-flex-sub">Call,
                                             VM, Email and Fax</span>
                                 </div>
                                 <div class="card-footer">
@@ -328,8 +328,8 @@
                                     <canvas id="ob-trad-bar"></canvas>
                                 </div>
                                 <div class="card-body">
-                                    <h4 class="card-title l-dashboard-ob-trad-media">O/B Traditional Media</h4>
-                                    <p class="card-category l-dashboard-ob-trad-media-sub">Call, SMS, Email and Fax</p>
+                                    <h4 class="card-title l-dashboard-ob-trad-d-flex">O/B Traditional Media</h4>
+                                    <p class="card-category l-dashboard-ob-trad-d-flex-sub">Call, SMS, Email and Fax</p>
                                 </div>
                                 <div class="card-footer">
                                     <div class="stats">
@@ -345,8 +345,8 @@
                                     <canvas id="ib-social-bar"></canvas>
                                 </div>
                                 <div class="card-body">
-                                    <h4 class="card-title l-dashboard-ib-social-media">I/B Social Media</h4>
-                                    <p class="card-category l-dashboard-social-media-sub">Web Chat, WeChat and FB
+                                    <h4 class="card-title l-dashboard-ib-social-d-flex">I/B Social Media</h4>
+                                    <p class="card-category l-dashboard-social-d-flex-sub">Web Chat, WeChat and FB
                                         Messenger</p>
                                 </div>
                                 <div class="card-footer">
@@ -362,10 +362,10 @@
                     <div class="row">
                         <div class="card card-chart mt-0 mx-3">
                             <div class="card-body">
-                                <h4 class="card-title l-dashboard-ib-trad-media">I/B Traditional Media</h4>
-                                <p class="card-category my-0 l-dashboard-ib-trad-media-sub">Call, VM, Email and Fax</p>
+                                <h4 class="card-title l-dashboard-ib-trad-d-flex">I/B Traditional Media</h4>
+                                <p class="card-category my-0 l-dashboard-ib-trad-d-flex-sub">Call, VM, Email and Fax</p>
                                 <div class="row" style="height: 200px;">
-                                    <div class="pl-2" style="width:calc(100% - 360px);">
+                                    <div class="ps-2" style="width:calc(100% - 360px);">
                                         <canvas id="ib-traditional-line"></canvas>
                                     </div>
                                     <div style="width: 360px;">
@@ -376,7 +376,7 @@
                             <div class="card-footer">
                                 <div class="stats">
                                     <i class="material-icons">date_range</i>
-                                    <select class="form-control card-footer-select" onchange="md.initIBTra(this.value)">
+                                    <select class="form-select card-footer-select" onchange="md.initIBTra(this.value)">
                                         <option value="last7" class="l-dashboard-last-7-days">Last 7 days</option>
                                         <option value="last14" class="l-dashboard-last-14-days">Last 14 days</option>
                                         <option value="last30" class="l-dashboard-last-30-days" selected>Last 30 days
@@ -390,13 +390,13 @@
                     <div class="row">
                         <div class="card card-chart mt-0 mx-3">
                             <div class="card-body">
-                                <h4 class="card-title l-dashboard-ob-trad-media">O/B Traditional Media</h4>
-                                <p class="card-category my-0 l-dashboard-ob-trad-media-sub">Call, SMS, Email and Fax</p>
+                                <h4 class="card-title l-dashboard-ob-trad-d-flex">O/B Traditional Media</h4>
+                                <p class="card-category my-0 l-dashboard-ob-trad-d-flex-sub">Call, SMS, Email and Fax</p>
                                 <div class="row" style="height: 200px;">
                                     <div style="width: 360px;">
                                         <canvas id="ob-traditional-doughnut"></canvas>
                                     </div>
-                                    <div class="pr-2" style="width:calc(100% - 360px);">
+                                    <div class="pe-2" style="width:calc(100% - 360px);">
                                         <canvas id="ob-traditional-line"></canvas>
                                     </div>
                                 </div>
@@ -404,7 +404,7 @@
                             <div class="card-footer">
                                 <div class="stats">
                                     <i class="material-icons">date_range</i>
-                                    <select class="form-control card-footer-select" onchange="md.initOBTra(this.value)">
+                                    <select class="form-select card-footer-select" onchange="md.initOBTra(this.value)">
                                         <option value="last7" class="l-dashboard-last-7-days">Last 7 days</option>
                                         <option value="last14" class="l-dashboard-last-14-days">Last 14 days</option>
                                         <option value="last30" class="l-dashboard-last-30-days" selected>Last 30 days
@@ -418,12 +418,12 @@
                     <div class="row">
                         <div class="card card-chart mt-0 mx-3">
                             <div class="card-body">
-                                <h4 class="card-title l-dashboard-ib-social-media">I/B Social Media</h4>
-                                <p class="card-category my-0 l-dashboard-social-media-sub">Web Chat, WeChat and FB
+                                <h4 class="card-title l-dashboard-ib-social-d-flex">I/B Social Media</h4>
+                                <p class="card-category my-0 l-dashboard-social-d-flex-sub">Web Chat, WeChat and FB
                                     Messenger</p>
                                 <div class="row" style="height: 200px;">
                                     <!-- fb messenger lbl is too long so, not 280px, but 300px -->
-                                    <div class="pl-2" style="width:calc(100% - 360px);">
+                                    <div class="ps-2" style="width:calc(100% - 360px);">
                                         <canvas id="ib-social-line"></canvas>
                                     </div>
                                     <div style="width: 360px;">
@@ -434,7 +434,7 @@
                             <div class="card-footer">
                                 <div class="stats">
                                     <i class="material-icons">date_range</i>
-                                    <select class="form-control card-footer-select" onchange="md.initIBSo(this.value)">
+                                    <select class="form-select card-footer-select" onchange="md.initIBSo(this.value)">
                                         <option value="last7" class="l-dashboard-last-7-days">Last 7 days</option>
                                         <option value="last14" class="l-dashboard-last-14-days">Last 14 days</option>
                                         <option value="last30" class="l-dashboard-last-30-days" selected>Last 30 days
@@ -446,16 +446,16 @@
                     </div>
                     <!-- 7th row -->
                     <div class="row mb-5">
-                        <div class="col-lg-6 col-md-12 pr-1">
+                        <div class="col-lg-6 col-md-12 pe-1">
                             <div class="card fixed-card-height">
                                 <div class="card-header card-header-tabs card-header-primary">
                                     <div class="nav-tabs-navigation">
                                         <div class="nav-tabs-wrapper">
-                                            <span class="float-left">
+                                            <span class="float-start">
                                                 <h4 class="card-title mt-2 l-dashboard-created-new-case-nature">Created
                                                     New Case Nature</h4>
                                             </span>
-                                            <select class="form-control card-header-select"
+                                            <select class="form-select card-header-select"
                                                 onchange="md.loadAgentNature(this.value)">
                                                 <option class="l-dashboard-today" style="background: #8e24aa"
                                                     value="Today" selected>Today</option>
@@ -485,28 +485,28 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-6 col-md-12 pl-1">
+                        <div class="col-lg-6 col-md-12 ps-1">
                             <div class="card fixed-card-height">
                                 <div class="card-header card-header-warning">
-                                    <ul class="nav nav-tabs float-left" data-tabs="tabs">
+                                    <ul class="nav nav-tabs float-start" data-tabs="tabs">
                                         <li class="nav-item c-pointer" onclick="channelTypeChanged('ib')">
-                                            <p class="nav-link active" data-toggle="tab">
+                                            <p class="nav-link active" data-bs-toggle="tab">
                                                 I/B Trad
                                             </p>
                                         </li>
                                         <li class="nav-item c-pointer" onclick="channelTypeChanged('ob')">
-                                            <p class="nav-link" data-toggle="tab">
+                                            <p class="nav-link" data-bs-toggle="tab">
                                                 O/B Trad
                                             </p>
                                         </li>
                                         <li class="nav-item c-pointer" onclick="channelTypeChanged('social')">
-                                            <p class="nav-link" data-toggle="tab">
+                                            <p class="nav-link" data-bs-toggle="tab">
                                                 I/B SM
                                             </p>
                                         </li>
                                     </ul>
 
-                                    <select class="form-control card-header-select"
+                                    <select class="form-select card-header-select"
                                         onchange="channelTimeChanged(this.value)">
                                         <option class="l-dashboard-today" style="background: #fb8c00" value="last30"
                                             selected>Today</option>

@@ -91,9 +91,9 @@ function generateContent(contentType, callType, r, mediaId) { //contentType: 'ca
     // if Media Content(=r.data) not loaded properly, show error
     // if (r.responseJSON && r.Message) {
     //     if (r.Message == 'An error has occurred.') {
-    //         $('<div class="ml-3">Send failed</div><br /><br />').appendTo('#' + contentType + '-media-content');
+    //         $('<div class="ms-3">Send failed</div><br /><br />').appendTo('#' + contentType + '-media-content');
     //     } else {
-    //         $('<div class="ml-3">' + r.Message + '</div><br /><br />').appendTo('#' + contentType + '-media-content');
+    //         $('<div class="ms-3">' + r.Message + '</div><br /><br />').appendTo('#' + contentType + '-media-content');
     //     }
     // } else 
     if (!r || r.data == undefined) {
@@ -103,11 +103,11 @@ function generateContent(contentType, callType, r, mediaId) { //contentType: 'ca
                 $('<span class="my-3">' + failReason + '</span>').appendTo('#reply-call-span');
             } else {
                 if (failReason == 'An error has occurred.') {
-                    $('<div class="ml-3">Sending or Send Failed</div><br /><br />').appendTo('#' + contentType + '-media-content');
+                    $('<div class="ms-3">Sending or Send Failed</div><br /><br />').appendTo('#' + contentType + '-media-content');
                 } else {
-                    $('<div class="ml-3">' + failReason + '</div><br /><br />').appendTo('#' + contentType + '-media-content');
+                    $('<div class="ms-3">' + failReason + '</div><br /><br />').appendTo('#' + contentType + '-media-content');
                 }
-                // $('<span class="text-center text-danger ml-3"><i class="fa fa-exclamation-triangle mr-2"></i>' + failReason + '</span><br /><br />').appendTo('#' + contentType + '-media-content');
+                // $('<span class="text-center text-danger ms-3"><i class="fa fa-exclamation-triangle me-2"></i>' + failReason + '</span><br /><br />').appendTo('#' + contentType + '-media-content');
             }
             return;
         }
@@ -202,7 +202,7 @@ function generateContent(contentType, callType, r, mediaId) { //contentType: 'ca
             var timestamp = theMedia.TimeStamp;
             var handledTime = timestamp.slice(0, timestamp.indexOf("."));
             var newTime = handledTime.replace(/[T]/g, " ");
-            $('<span class="mr-3">' + newTime + '</span>').appendTo('#call-reply-timestamp');
+            $('<span class="me-3">' + newTime + '</span>').appendTo('#call-reply-timestamp');
             $('#reply-call-span').append('<video controls="" name="media" style="height:27px;width:95%;"' + downloadVoiceStr + '><source src="' + theMedia.FileUrl + '" type="audio/wav"></video>');
         }
     } else if (callType == 'Inbound_Fax' || callType == 'Outbound_Fax') {
@@ -344,19 +344,19 @@ function addMsgRow(msgList, entry, onlineFormArr) {
             var userNameStr = theMsg.msg_completed == -2 ? '' : '<div><span class="content-bubble-name">' + SC.handleBubbleName(theMsg.nick_name, onlineFormArr, null, true) + '</span></div>';
             var bubbleClassStr = 'visitor-content-bubble content-bubble';
             if (theMsg.msg_completed == -2) {
-                theMsgContentDisplay = '<span class="deleted-msg"><i class="fas fa-ban mr-1"></i>This message was deleted</span>'
+                theMsgContentDisplay = '<span class="deleted-msg"><i class="fas fa-ban me-1"></i>This message was deleted</span>'
                 bubbleClassStr += ' my-2';
             }
             rows += '<div class="message-row visitor-row"><div><span class="user-icon"><i class="fas fa-user"></i></span><div class="time-with-seconds"><span>' + theMsgDate + '</span><span>' + theMsgTime + '</span></div></div><div class="' + bubbleClassStr + '">' + replyMsgStr + userNameStr + '<div class="content-bubble-content">' + theMsgContentDisplay + '</div></div></div>';
         } else {
-            var msgFailStr = theMsg.msg_completed == -1 ? '<span class="text-gray"><i class="fas fa-exclamation-circle mr-2"></i>Send Failed</span>' : '';
+            var msgFailStr = theMsg.msg_completed == -1 ? '<span class="text-gray"><i class="fas fa-exclamation-circle me-2"></i>Send Failed</span>' : '';
             var agentBubbleName = theMsg.sender == '0' ? 'SYSTEM' : isNaN(theMsg.sender) ? (isNaN(theMsg.nick_name) ? theMsg.nick_name : (nonPopup ? (openType == 'menu' ? parent.parent.getAgentName(theMsg.nick_name) : parent.parent.parent.getAgentName(theMsg.nick_name)) : (window.opener.getAgentName(theMsg.nick_name)))) : (nonPopup ? (openType == 'menu' ? parent.parent.getAgentName(theMsg.sender) : parent.parent.parent.getAgentName(theMsg.sender)) : (window.opener.getAgentName(theMsg.sender)));
             // for chatbot will show selection
             if (theMsg.msg_json && theMsg.msg_json.Commands && theMsg.msg_json.Commands.length > 0) {
                 theMsgContentDisplay += '<div class="mt-1">'
                 var cmdArr = theMsg.msg_json.Commands
                 for (let cmd of cmdArr) {
-                    theMsgContentDisplay += ('<button class="btn-primary mr-2">' + cmd.Title + '</button>')
+                    theMsgContentDisplay += ('<button class="btn-primary me-2">' + cmd.Title + '</button>')
                 }
                 theMsgContentDisplay += '</div>'
             }

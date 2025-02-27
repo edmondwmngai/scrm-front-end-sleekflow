@@ -88,7 +88,7 @@ var SC = {
                     '<p><span class="text-danger">&nbsp;*&nbsp;</span>{{1}}: Upload Photo</p>' +
                     '<input type="file" id="file-to-upload-' + tpId + '" accept="image/x-png,image/gif,image/jpeg" onchange="previewPhoto(this,' + tpId + ');" style="display:none">' +
                     '<button class="edit-field btn rounded btn-sm btn-warning text-capitalize l-general-upload" style="width:fit-content" title="Upload Photo"' +
-                    'onclick="' + onClickStr + '"><i class="fas fa-cloud-upload-alt mr-2"></i><span>Upload</span></button>')
+                    'onclick="' + onClickStr + '"><i class="fas fa-cloud-upload-alt me-2"></i><span>Upload</span></button>')
             }
             if (txtStr.indexOf('{{') != -1 && txtStr.indexOf('}}') != -1) {
                 if (/\{\{1}}/g.test(txtStr || "")) {
@@ -148,7 +148,7 @@ var SC = {
             for (let theBtn of msg_btn_arr) {
                 if (theBtn.type == 'hotline') {
                     btnStr += ('<div class="wa-cta-btn"' + (theBtn.num ? ' title=' + theBtn.num : '') + '>' +
-                        '<i class="fas fa-phone mr-2"></i>' + theBtn.display +
+                        '<i class="fas fa-phone me-2"></i>' + theBtn.display +
                         '</div>')
                 } else if (theBtn.type == 'website') {
                     var onClickStr = '';
@@ -157,17 +157,17 @@ var SC = {
                         if (forPopup) {
                             urlIdxArr.push(urlObj)
                             btnStr += ('<div class="wa-cta-btn"' + (urlObj.link ? ' title=' + urlObj.link : '') + '>' +
-                                '<i class="fas fa-external-link-alt mr-2"></i>' + theBtn.display +
+                                '<i class="fas fa-external-link-alt me-2"></i>' + theBtn.display +
                                 '</div>')
                         } else {
                             var newLink = urlObj.link + urlObj.no;
                             btnStr += ('<a target="_blank" class="wa-cta-btn cursor-pointer" href="' + newLink + '">' +
-                                '<i class="fas fa-external-link-alt mr-2"></i>' + theBtn.display +
+                                '<i class="fas fa-external-link-alt me-2"></i>' + theBtn.display +
                                 '</a>')
                         }
                     } else {
                         btnStr += ('<div class="wa-cta-btn"' + (urlObj.link ? ' title=' + urlObj.link : '') + '>' +
-                            '<i class="fas fa-external-link-alt mr-2"></i>' + theBtn.display +
+                            '<i class="fas fa-external-link-alt me-2"></i>' + theBtn.display +
                             '</div>')
                     }
                 }
@@ -195,7 +195,7 @@ var SC = {
                     '<p><span class="text-danger">&nbsp;*&nbsp;</span>{{1}}: Upload Photo</p>' +
                     '<input type="file" id="file-to-upload-' + tpId + '" accept="image/x-png,image/gif,image/jpeg" onchange="previewPhoto(this,' + tpId + ');" style="display:none">' +
                     '<button class="edit-field btn rounded btn-sm btn-warning text-capitalize l-general-upload" style="width:fit-content" title="Upload Photo"' +
-                    'onclick="' + onClickStr + '"><i class="fas fa-cloud-upload-alt mr-2"></i><span>Upload</span></button>')
+                    'onclick="' + onClickStr + '"><i class="fas fa-cloud-upload-alt me-2"></i><span>Upload</span></button>')
                 propIdx += 1;
             }
             if (txtStr.indexOf('{{') != -1 && txtStr.indexOf('}}') != -1) {

@@ -196,9 +196,9 @@
 
 			  if (FileMime.startsWith('image/')) {
 
-				  //var dateISO = sMsg.UpdatedAt.slice(0, 19); 
+				  var dateISO = sMsg.UpdatedAt.slice(0, 19); 
 				  //var mDate = moment(dateISO).format('HH:mm:ss');
-				  var mDate = returnDateForHist(sMsg.UpdatedAt);
+				  var mDate = returnDateForHist(dateISO);
 
 				  var attachmentTemplate = this.visitorMessageWithImageTemplate;
 
@@ -480,6 +480,10 @@
 				  if (sMsg.SentBy == "user") {
 
 					  this.receiveMessage(sMsg);
+				  }
+				  else if (sMsg.SentBy == "agent") {
+
+					  this.addReplyMessageByText(sMsg);
 				  }
 				  else {
 					  this.addReplyMessageByText(sMsg);

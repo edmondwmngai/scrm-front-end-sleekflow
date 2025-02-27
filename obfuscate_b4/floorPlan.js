@@ -17,7 +17,7 @@ var legendStr = '<span class="single-legend-container"><span class="legend-squre
 var htmlStr = '<div id="floor-plan" class="mx-2 row d-none"><input id="hidden-fp-id" class="d-none" /><input id="hidden-ordering" type="number" class="d-none" />' + 
         '<div class="card"><div class="card-body">' + 
         '<span class="d-flex justify-content-between">' +
-        '<select id="existing-fp-select" class="form-control existing-fp-ele w-auto"></select>' +
+        '<select id="existing-fp-select" class="form-select existing-fp-ele w-auto"></select>' +
         '<div class="togglebutton existing-fp-ele">' +
         '<label>' +
         '<input id="no-inactive-input" type="checkbox" checked="">' +
@@ -25,30 +25,30 @@ var htmlStr = '<div id="floor-plan" class="mx-2 row d-none"><input id="hidden-fp
         '<span>Active Only</span>' +
         '</label>' +
         '</div>' +
-        '<div class="form-group form-inline add-fp-ele" style="display:none;"><label for="fp-name">Name</label><input id="fp-name" type="text" class="form-control ml-2" maxlength="100" /></div>' +
-        '<button id="show-map-btn" class="btn rounded btn-sm btn-warning text-capitalize existing-fp-ele fp-long-btn mr-2"><i class="far fa-folder-open mr-2"></i><span>Show FP</span></button>' +
-        '<div class="form-group form-inline add-fp-ele" style="display:none;"><label for="term-name-input">Terminal Name / IP</label>' +
-        '<input id="term-name-input" type="text" class="form-control ml-2" maxlength="30" />' +
+        '<div class="mb-3 d-flex align-items-center add-fp-ele" style="display:none;"><label for="fp-name">Name</label><input id="fp-name" type="text" class="form-control ms-2" maxlength="100" /></div>' +
+        '<button id="show-map-btn" class="btn rounded btn-sm btn-warning text-capitalize existing-fp-ele fp-long-btn me-2"><i class="far fa-folder-open me-2"></i><span>Show FP</span></button>' +
+        '<div class="mb-3 d-flex align-items-center add-fp-ele" style="display:none;"><label for="term-name-input">Terminal Name / IP</label>' +
+        '<input id="term-name-input" type="text" class="form-control ms-2" maxlength="30" />' +
         '<i id="insert-term-btn" class="fas fa-plus-circle add-fp-ele text-warning icon-btn"></i>' +
         '</div>' +
-        '<button id="insert-map-btn" class="btn rounded btn-sm btn-warning text-capitalize existing-fp-ele fp-long-btn"><i class="fas fa-plus-square mr-2"></i>Add FP</button>' +
-        '<div class="form-group form-inline add-fp-ele" style="display:none;" title="Upload Background"><label for="bg-width-input" class="mr-2">Self BG (Optional)</label>' +
+        '<button id="insert-map-btn" class="btn rounded btn-sm btn-warning text-capitalize existing-fp-ele fp-long-btn"><i class="fas fa-plus-square me-2"></i>Add FP</button>' +
+        '<div class="mb-3 d-flex align-items-center add-fp-ele" style="display:none;" title="Upload Background"><label for="bg-width-input" class="me-2">Self BG (Optional)</label>' +
         '<input type="file" id="file-to-upload" accept="image/x-png,image/gif,image/jpeg" style="display:none">' +
-        '<button id="upload-bg-btn" class="edit-field btn rounded btn-sm btn-warning text-capitalize fp-long-btn" title="Upload Background" style="display:none;"><i class="fas fa-cloud-upload-alt mr-2"></i><span>Upload</span></button>' +
-        '<button id="remove-bg-btn" class="edit-field btn rounded btn-sm text-capitalize fp-long-btn" title="Remove Background" style="display:none;"><i class="far fa-trash-alt mr-2"></i><span>Remove</span></button>' +
+        '<button id="upload-bg-btn" class="edit-field btn rounded btn-sm btn-warning text-capitalize fp-long-btn" title="Upload Background" style="display:none;"><i class="fas fa-cloud-upload-alt me-2"></i><span>Upload</span></button>' +
+        '<button id="remove-bg-btn" class="edit-field btn rounded btn-sm text-capitalize fp-long-btn" title="Remove Background" style="display:none;"><i class="far fa-trash-alt me-2"></i><span>Remove</span></button>' +
         '</div>' +
-        '<div class="form-group form-inline add-fp-ele" style="display:none;"><label for="bg-width-input">BG Width</label>' +
-        '<input id="bg-width-input" type="number" min="1" class="form-control ml-2" maxlength="100" value="' + fpBgDfWidth + '" /></div>' +
-        '<div class="form-group form-inline add-fp-ele" style="display:none;"><label for="bg-height-input">BG Height</label>' +
-        '<input id="bg-height-input" type="number" min="1" class="form-control ml-2" maxlength="100" value="' + fpBgDfHeight + '" /></div>' +
-        '<div class="form-group form-inline add-fp-ele" style="display:none;"><label for="pc-size-input">PC Size</label>' +
-        '<input id="pc-size-input" type="number" min="1" class="form-control ml-2" maxlength="100" value="' + fpPcDfSize + '" /></div>' +
-        '<div class="form-group form-inline add-fp-ele" style="display:none;"><label for="font-size-input">Font Size</label>' +
-        '<input id="font-size-input" type="number" min="1" class="form-control ml-2" maxlength="100" value="' + fpFontDf + '" /></div>' +
-        '<div class="form-group form-inline add-fp-ele" style="display:none;"><label for="is-active-select">Is Active</label>' +
-        '<select id="is-active-select" class="form-control"><option>True</option><option>False</option></select></div>' +
-        '<span><button id="fp-save-btn" class="btn rounded btn-sm btn-warning text-capitalize add-fp-ele fp-long-btn mr-2" style="display:none;"><i class="fa fa-save mr-2"></i><span>Save</span></button>' +
-        '<button id="fp-cancel-btn" class="btn rounded btn-sm text-capitalize add-fp-ele fp-long-btn" style="display:none;"><i class="fas fa-times-circle mr-2"></i><span>Cancel</span></button>' +
+        '<div class="mb-3 d-flex align-items-center add-fp-ele" style="display:none;"><label for="bg-width-input">BG Width</label>' +
+        '<input id="bg-width-input" type="number" min="1" class="form-control ms-2" maxlength="100" value="' + fpBgDfWidth + '" /></div>' +
+        '<div class="mb-3 d-flex align-items-center add-fp-ele" style="display:none;"><label for="bg-height-input">BG Height</label>' +
+        '<input id="bg-height-input" type="number" min="1" class="form-control ms-2" maxlength="100" value="' + fpBgDfHeight + '" /></div>' +
+        '<div class="mb-3 d-flex align-items-center add-fp-ele" style="display:none;"><label for="pc-size-input">PC Size</label>' +
+        '<input id="pc-size-input" type="number" min="1" class="form-control ms-2" maxlength="100" value="' + fpPcDfSize + '" /></div>' +
+        '<div class="mb-3 d-flex align-items-center add-fp-ele" style="display:none;"><label for="font-size-input">Font Size</label>' +
+        '<input id="font-size-input" type="number" min="1" class="form-control ms-2" maxlength="100" value="' + fpFontDf + '" /></div>' +
+        '<div class="mb-3 d-flex align-items-center add-fp-ele" style="display:none;"><label for="is-active-select">Is Active</label>' +
+        '<select id="is-active-select" class="form-select"><option>True</option><option>False</option></select></div>' +
+        '<span><button id="fp-save-btn" class="btn rounded btn-sm btn-warning text-capitalize add-fp-ele fp-long-btn me-2" style="display:none;"><i class="fa fa-save me-2"></i><span>Save</span></button>' +
+        '<button id="fp-cancel-btn" class="btn rounded btn-sm text-capitalize add-fp-ele fp-long-btn" style="display:none;"><i class="fas fa-times-circle me-2"></i><span>Cancel</span></button>' +
         '</span></span><div id="fp-container"></div>' +
         '<div id="legends-container"><div class="d-flex">' + legendStr + '</div></div>' +
         '</div></div></div>';
@@ -564,7 +564,7 @@ function showFullfContent(fpFull) {
                                 'px;"><i class="fas fa-desktop" style="font-size:' + pcSize +
                                 'px;"></i><span class="agent-name">' + termName +
                                 '</span><span class="d-inline-flex"><span class="agent-duration"></span>' +
-                                '<div class="fp-agent-dropdown-btn d-none"><button class="btn dropdown-toggle agent-dropdown-toggle py-0 bg-info nav-btn text-capitalize px-2 tbl-dropdown-btn" data-toggle="dropdown"></button><ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu"><li><a tabindex="-1" href="#">Silent</a></li><li><a tabindex="-1" href="#">Coach</a></li><li><a tabindex="-1" href="#">Conference</a></li><li><a tabindex="-1" href="#">Stop Listen</a></li><li><a tabindex="-1" href="#">Barge In</a></li></ul></div>' +
+                                '<div class="fp-agent-dropdown-btn d-none"><button class="btn dropdown-toggle agent-dropdown-toggle py-0 bg-info nav-btn text-capitalize px-2 tbl-dropdown-btn" data-bs-toggle="dropdown"></button><ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu"><li><a tabindex="-1" href="#">Silent</a></li><li><a tabindex="-1" href="#">Coach</a></li><li><a tabindex="-1" href="#">Conference</a></li><li><a tabindex="-1" href="#">Stop Listen</a></li><li><a tabindex="-1" href="#">Barge In</a></li></ul></div>' +
                                 '<button class="social-btn d-none btn btn-sm btn-warning" title="Silent To Social Media Chat">S</button>' +
                                 '<span class="na-txt d-none">&nbsp;&nbsp;&nbsp;N/A</span></span>' +
                                 '</div>');

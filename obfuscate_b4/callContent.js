@@ -40,7 +40,7 @@ function loadCallData() {
             if (!/^success$/i.test(r.result || "")) {
                 // As for Inbound Call may be still talking, so will not have successful result
                 // if ($('#video').length == 0) {
-                //     $("<span id='video' class='text-gray'><i class='fa fa-exclamation-triangle mr-2'></i><span>Please try to reload later</span></span>").appendTo('#audio-player');
+                //     $("<span id='video' class='text-gray'><i class='fa fa-exclamation-triangle me-2'></i><span>Please try to reload later</span></span>").appendTo('#audio-player');
                 // }
                 $('#reload-later').removeClass('d-none');
                 $('#loading-icon').addClass('d-none');
@@ -69,7 +69,7 @@ function loadCallData() {
         error: function (r) {
             // As for Inbound Call may be still talking, so will not have successful result
             if ($('#video').length == 0) {
-                $("<span id='video' class='text-gray'><i class='fa fa-exclamation-triangle mr-2'></i><span>Please try to reload later</span></span>").appendTo('#audio-player');
+                $("<span id='video' class='text-gray'><i class='fa fa-exclamation-triangle me-2'></i><span>Please try to reload later</span></span>").appendTo('#audio-player');
             }
             $('#loading-icon').addClass('d-none');
             resize();

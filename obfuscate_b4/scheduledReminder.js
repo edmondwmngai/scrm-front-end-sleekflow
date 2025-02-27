@@ -21,8 +21,8 @@ function setLanguage() {
     $('.l-reminder-scheduled-reminder-list').text(langJson['l-main-scheduled-reminder']);
     $('.l-reminder-please-select-agent').text(langJson['l-reminder-please-select-agent']);
     $('.l-reminder-update').text(langJson['l-reminder-update']);
-    $('[data-toggle=confirmation]').confirmation({
-        rootSelector: '[data-toggle=confirmation]',
+    $('[data-bs-toggle=confirmation]').confirmation({
+        rootSelector: '[data-bs-toggle=confirmation]',
         popout: true,
         title: langJson['l-general-are-you-sure'],
         btnOkLabel: langJson['l-general-ok-label'],
@@ -180,13 +180,13 @@ function loadScheduledReminder() {
                         columnDefs: [{
                             targets: 0,
                             orderable: false,
-                            defaultContent: '<i title="' + langJson['l-search-update-case'] + '" class="fas fa-edit table-btn select" data-toggle="tooltip"></i>'
+                            defaultContent: '<i title="' + langJson['l-search-update-case'] + '" class="fas fa-edit table-btn select" data-bs-toggle="tooltip"></i>'
                         }, {
                             targets: 1,
                             render: function (data, type, row) {
                                 var datetime = data.replace('T', ' ').substring(0, 16); // replace the T
                                 if (row.isOverdue) {
-                                    return datetime + '<i class="fas fa-bell ml-2 text-danger" title="Overdue Reminder"></i>';   
+                                    return datetime + '<i class="fas fa-bell ms-2 text-danger" title="Overdue Reminder"></i>';   
                                 } else {
                                     return datetime;
                                 }
@@ -211,7 +211,7 @@ function loadScheduledReminder() {
                                 return '<div class="form-check" style="margin-top:-16px">' +
                                     '<label class="form-check-label">' +
                                     '<input class="form-check-input" type="checkbox" id="' + row.Case_No + '" value="' + row.Case_No + '">' +
-                                    '<span class="form-check-sign"><span class="check" data-toggle="tooltip" data-placement="right" title="' + langJson['l-reminder-mark-as-read'] + '"></span></span></label></div>';
+                                    '<span class="form-check-sign"><span class="check" data-bs-toggle="tooltip" data-bs-placement="right" title="' + langJson['l-reminder-mark-as-read'] + '"></span></span></label></div>';
                             },
                             orderable: false
                         }
@@ -369,7 +369,7 @@ function windowOnload() {
                 optionStr += '<option value=' + option.Field_Name + '>' + option.Field_Display + '</option>';
             }
         }
-        $('body').prepend('<div class="form-group form-inline ml-4 mt-2 mb-0 text-info"><i class="far fa-building mr-2"></i><select id="st-campaign-select" class="form-control">' + optionStr + '</select></div>');
+        $('body').prepend('<div class="mb-3 d-flex align-items-center ms-4 mt-2 mb-0 text-info"><i class="far fa-building me-2"></i><select id="st-campaign-select" class="form-select">' + optionStr + '</select></div>');
         $('#st-campaign-select').change(function () {
             selectedCompany = $(this).val();
             loadScheduledReminder(); // load reminder after select of company
@@ -377,8 +377,8 @@ function windowOnload() {
         });
     }
 
-    $('[data-toggle=confirmation]').confirmation({
-        rootSelector: '[data-toggle=confirmation]'
+    $('[data-bs-toggle=confirmation]').confirmation({
+        rootSelector: '[data-bs-toggle=confirmation]'
     });
 
     if (parent.iframeRecheck) {

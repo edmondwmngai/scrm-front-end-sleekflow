@@ -57,7 +57,7 @@ function loadFBReplies(oThis, ticketId, scrollDown) {
                     if (theMsg.send_by_flag == 2) { //發送者1:客服,2:enduser{
                         var userIconSrc = "./images/user.png";
                         var msgHandled = theMsg.msg_completed;
-                        var notYetHandleStr = (msgHandled == 1) ? '<span></span>' : '<span class="ml-2">NOT YET HANDLED</span>';
+                        var notYetHandleStr = (msgHandled == 1) ? '<span></span>' : '<span class="ms-2">NOT YET HANDLED</span>';
 
                         // NO DEL - iXServer cannot provide correct profile pic to us yet
                         // if (theMsg.profile_pic != undefined && theMsg.profile_pic != '') {
@@ -140,7 +140,7 @@ function getFBComments(ticketId, commentIdArr) {
                         var theCommentS = remainNo == 1 ? '' : 's';
                         viewComments = 'View ' + remainNo + ' more comment' + theCommentS;
                     }
-                    contentScrollDiv.append('<span style="margin-left:35px;" onclick="fbMoreComments(' + ticketId + ', ' + data[0].msg_id + ', this)"><i class="fb up mr-2"></i><span class="link-span">' + viewComments + '</span></span>');
+                    contentScrollDiv.append('<span style="margin-left:35px;" onclick="fbMoreComments(' + ticketId + ', ' + data[0].msg_id + ', this)"><i class="fb up me-2"></i><span class="link-span">' + viewComments + '</span></span>');
                 }
                 var titleCommentS = total > 1 ? 's' : '';
                 $('#modal-comment-no').text(total + " comment" + titleCommentS);
@@ -194,7 +194,7 @@ function getFBComments(ticketId, commentIdArr) {
                         var theReply = replyCount == 1 ? 'Reply' : 'Replies';
                         var commentId = theMsg.sc_comment_id;
                         // The reply-commentid- is for clicking reply link
-                        contentScrollDiv.append('<div id="reply-commentid-' + commentId + '" style="margin-left:100px;" commentId="' + commentId + '" onclick="loadFBReplies(this,' + ticketId + ')"><i class="fb right mr-2"></i><span class="link-span">View ' + replyCount + ' ' + theReply + '</span></div>');
+                        contentScrollDiv.append('<div id="reply-commentid-' + commentId + '" style="margin-left:100px;" commentId="' + commentId + '" onclick="loadFBReplies(this,' + ticketId + ')"><i class="fb right me-2"></i><span class="link-span">View ' + replyCount + ' ' + theReply + '</span></div>');
                     }
                 }
                 // ============== Reply Clicked history now ===========
@@ -302,7 +302,7 @@ function fbMoreComments(ticketId, aboveMsgId, oThis) {
                         var theReply = replyCount == 1 ? 'Reply' : 'Replies';
                         var commentId = theMsg.sc_comment_id;
                         // The reply-commentid- is for clicking reply link
-                        prependDiv += '<div id="reply-commentid-' + commentId + '" style="margin-left:100px;" commentId="' + commentId + '" onclick="loadFBReplies(this,' + ticketId + ')"><i class="fb right mr-2"></i><span class="link-span">View ' + replyCount + ' ' + theReply + '</span></div>';
+                        prependDiv += '<div id="reply-commentid-' + commentId + '" style="margin-left:100px;" commentId="' + commentId + '" onclick="loadFBReplies(this,' + ticketId + ')"><i class="fb right me-2"></i><span class="link-span">View ' + replyCount + ' ' + theReply + '</span></div>';
                     }
                 }
                 contentScrollDiv.prepend(prependDiv);
@@ -314,7 +314,7 @@ function fbMoreComments(ticketId, aboveMsgId, oThis) {
                         var theCommentS = remainNo == 1 ? '' : 's';
                         viewComments = 'View ' + remainNo + ' more comment' + theCommentS;
                     }
-                    $('#modal-fb-history').prepend('<span style="margin-left:35px;" onclick="fbMoreComments(' + ticketId + ', ' + data[0].msg_id + ', this)"><i class="fb up mr-2"></i><span class="link-span">' + viewComments + '</span></span>');
+                    $('#modal-fb-history').prepend('<span style="margin-left:35px;" onclick="fbMoreComments(' + ticketId + ', ' + data[0].msg_id + ', this)"><i class="fb up me-2"></i><span class="link-span">' + viewComments + '</span></span>');
                 }
             }
         },

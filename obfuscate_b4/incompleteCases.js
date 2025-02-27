@@ -138,7 +138,7 @@ function windowOnload(removeOriginal) {
             targets: 0,
             data: null,
             // colVis: false,
-            defaultContent: '<i class="fas fa-edit table-btn select l-menu-update-case" data-toggle="tooltip" title="Update"></i>',
+            defaultContent: '<i class="fas fa-edit table-btn select l-menu-update-case" data-bs-toggle="tooltip" title="Update"></i>',
             className: 'btnColumn',
             // className: 'noVis', //NOTES: no column visibility
             orderable: false,
@@ -180,7 +180,7 @@ function windowOnload(removeOriginal) {
                 return '<div class="form-check" style="margin-top:-15px">' +
                     '<label class="form-check-label">' +
                     '<input class="form-check-input" type="checkbox" id="' + data + '" value="' + data + '">' +
-                    '<span class="form-check-sign"><span class="check" data-placement="right" title="Mark Invalid"></span></span></label></div>';
+                    '<span class="form-check-sign"><span class="check" data-bs-placement="right" title="Mark Invalid"></span></span></label></div>';
             }
         }],
         "language": {
@@ -198,7 +198,7 @@ function windowOnload(removeOriginal) {
         },
         initComplete: function (settings, json) {
             // var header = '<h5>' +
-            //     '<i class="far fa-folder-open title-icon mr-2"></i>Incomplete Call Cases' +
+            //     '<i class="far fa-folder-open title-icon me-2"></i>Incomplete Call Cases' +
             //     '</h5>';
             // $(header).insertBefore('#lower-part-table')
             resize();
@@ -344,8 +344,8 @@ function windowOnload(removeOriginal) {
     }
 
     // define after boostrap-confirmation.js loaded
-    $('[data-toggle=confirmation]').confirmation({
-        rootSelector: '[data-toggle=confirmation]',
+    $('[data-bs-toggle=confirmation]').confirmation({
+        rootSelector: '[data-bs-toggle=confirmation]',
         popout: true,
         title: langJson['l-general-are-you-sure'],
         btnOkLabel: langJson['l-general-ok-label'],

@@ -56,7 +56,7 @@ function addCustomerInfo(tabName, data, callback) { // tabName: 'home' or 'menu2
     if ($(searchTabStr).find('#input-form-' + tabName).length == 0) {
         var backStr = 'returnToNewCase("' + tabName + '")';
         $(searchTabStr).prepend(
-            '<button id="back-btn-' + tabName + '" class="float-right btn btn-circle btn-warning mt-1 mb-3" onclick=' + backStr + ' title="' + langJson["l-general-previous-page"] + '"><i class="fas fa-arrow-left"></i></button>' +
+            '<button id="back-btn-' + tabName + '" class="float-end btn btn-circle btn-warning mt-1 mb-3" onclick=' + backStr + ' title="' + langJson["l-general-previous-page"] + '"><i class="fas fa-arrow-left"></i></button>' +
             '<iframe id="input-form-' + tabName + '" customer-only="true" customerId=' + data.Customer_Id + ' style="border:none" width="100%" src ="./campaign/' + campaign + '/inputForm.html" />');
     }
     callback();
@@ -187,7 +187,7 @@ function addCaseAutoSearchTable(tabName, data, oThis) {
                         targets: 0,
                         data: null,
                         // colVis: false,
-                        defaultContent: '<i title="' + langJson['l-search-update-case'] + '" class="fas fa-edit table-btn select" data-toggle="tooltip"></i>',
+                        defaultContent: '<i title="' + langJson['l-search-update-case'] + '" class="fas fa-edit table-btn select" data-bs-toggle="tooltip"></i>',
                         className: 'btnColumn',
                         // className: 'noVis', //NOTES: no column visibility
                         orderable: false,
@@ -224,7 +224,7 @@ function addCaseAutoSearchTable(tabName, data, oThis) {
                     }],
                     initComplete: function (settings, json) {
                         // var header = '<h5>' +
-                        //     '<i class="far fa-folder-open title-icon mr-2"></i>Case List' +
+                        //     '<i class="far fa-folder-open title-icon me-2"></i>Case List' +
                         //     '</h5>';
                         // $(header).insertBefore('#search-' + tabName + '-case-table')
                         resize();
@@ -263,7 +263,7 @@ function addCaseAutoSearchTable(tabName, data, oThis) {
                         }
                     ]
                 });
-                // $('#' + tabName + '-customer-container').find('i[data-toggle="popover"]').popover();
+                // $('#' + tabName + '-customer-container').find('i[data-bs-toggle="popover"]').popover();
 
                 // Add event listener for opening and closing details
                 $('#search-' + tabName + '-case-table').on('click', 'td.details-control', function () {
@@ -441,7 +441,7 @@ function submitClicked(type) {
             $('#search-menu2').append(
                 '<div id="menu2-customer-container">' +
                 // '<h5>' +
-                // '<i class="fas fa-users title-icon mr-2"></i><span class="align-middle">' + langJson['l-search-customer-list'] +
+                // '<i class="fas fa-users title-icon me-2"></i><span class="align-middle">' + langJson['l-search-customer-list'] +
                 // '</span></h5>' +
                 '<table id="search-menu2-customer-table" class="table table-hover display" style="width:100%" data-page-length=' + recordPerPage + '>' +
                 '</table>' +
@@ -477,7 +477,7 @@ function submitClicked(type) {
                         columnDefs: [{
                             targets: 0,
                             colVis: false,
-                            defaultContent: '<i title="' + langJson['l-search-create-case'] + '" class="fas fa-edit table-btn create" data-toggle="tooltip"></i>',
+                            defaultContent: '<i title="' + langJson['l-search-create-case'] + '" class="fas fa-edit table-btn create" data-bs-toggle="tooltip"></i>',
                             className: 'btnColumn',
                             // className: 'noVis', //NOTES: no column visibility
                             orderable: false,
@@ -486,7 +486,7 @@ function submitClicked(type) {
                             orderable: false,
                             render: function (data, type, row) {
                                 if (data) {
-                                    return '<i title="' + langJson['l-search-search-case-to-update'] + '" class="table-btn fas fa-search-plus search-case" data-toggle="tooltip"></i>';
+                                    return '<i title="' + langJson['l-search-search-case-to-update'] + '" class="table-btn fas fa-search-plus search-case" data-bs-toggle="tooltip"></i>';
                                 } else {
                                     return '';
                                 }
@@ -601,7 +601,7 @@ function submitClicked(type) {
                             targets: 0,
                             data: null,
                             // colVis: false,
-                            defaultContent: '<i title="' + langJson['l-search-update-case'] + '" class="fas fa-edit table-btn select" data-toggle="tooltip"></i>',
+                            defaultContent: '<i title="' + langJson['l-search-update-case'] + '" class="fas fa-edit table-btn select" data-bs-toggle="tooltip"></i>',
                             className: 'btnColumn',
                             // className: 'noVis', //NOTES: no column visibility
                             orderable: false,
@@ -674,7 +674,7 @@ function submitClicked(type) {
                         }
                     });
 
-                    // $('#search-menu3-case-table').find('i[data-toggle="popover"]').popover();
+                    // $('#search-menu3-case-table').find('i[data-bs-toggle="popover"]').popover();
 
                     // Add event listener for opening and closing details
                     $('#search-menu3-case-table').on('click', 'td.details-control', function () {
@@ -950,7 +950,7 @@ function generateManualSearchTbl(customerData) {
         columnDefs: [{
             targets: 0,
             colVis: false,
-            defaultContent: '<i title="' + langJson['l-search-create-case'] + '" class="fas fa-edit table-btn create" data-toggle="tooltip"></i>',
+            defaultContent: '<i title="' + langJson['l-search-create-case'] + '" class="fas fa-edit table-btn create" data-bs-toggle="tooltip"></i>',
             className: 'btnColumn',
             // className: 'noVis', //NOTES: no column visibility
             orderable: false,
@@ -961,7 +961,7 @@ function generateManualSearchTbl(customerData) {
             orderable: false,
             render: function (data, type, row) {
                 if (data) {
-                    return '<i title="' + langJson['l-search-search-case-to-update'] + '" class="table-btn fas fa-search-plus search-case" data-toggle="tooltip"></i>';
+                    return '<i title="' + langJson['l-search-search-case-to-update'] + '" class="table-btn fas fa-search-plus search-case" data-bs-toggle="tooltip"></i>';
                 } else {
                     return ''
                 }
@@ -1042,7 +1042,7 @@ function generateCaseManualSearchTbl(caseDetails) {
             targets: 0,
             data: null,
             // colVis: false,
-            defaultContent: '<i title="' + langJson['l-search-update-case'] + '" class="fas fa-edit table-btn select" data-toggle="tooltip"></i>',
+            defaultContent: '<i title="' + langJson['l-search-update-case'] + '" class="fas fa-edit table-btn select" data-bs-toggle="tooltip"></i>',
             className: 'btnColumn',
             // className: 'noVis', //NOTES: no column visibility
             orderable: false,
@@ -1117,7 +1117,7 @@ function generateCaseManualSearchTbl(caseDetails) {
         ]
     });
 
-    // $('#auto-case-table').find('i[data-toggle="popover"]').popover();
+    // $('#auto-case-table').find('i[data-bs-toggle="popover"]').popover();
 
     // Add event listener for opening and closing details
     $('#auto-case-table').on('click', 'td.details-control', function () {
@@ -1244,7 +1244,7 @@ function loadGrid() { // (connId, callType, details) {
         }
     }
     // when tab changed resize iframe
-    // $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+    // $('a[data-bs-toggle="tab"]').on('shown.bs.tab', function (e) {
     //     resize();
     // });
 
@@ -1323,7 +1323,7 @@ function selectChange(type, iThis) {
         for (let theOption of selectedOptions) {
             optionStr += '<option value="' + theOption + '">' + theOption.replace('_', ' ') + '</option>'
         }
-        $("<select class='select-value form-control'>" + optionStr + "</select>").insertAfter(selectedInput);
+        $("<select class='select-value form-select'>" + optionStr + "</select>").insertAfter(selectedInput);
     } else {
         selectedInput.show();
         selectedInput.siblings('.select-value').remove();

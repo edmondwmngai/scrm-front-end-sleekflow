@@ -212,16 +212,16 @@ function clearCreate(step) {
 }
 
 function initFBLayout() {
-    var initContainerStr = '<div><table><tr><td><label class="mr-2 form-label">Form Layout</label></td><td><select id="form-layout-select" class="form-control"></select></td></tr></table></div>' +
+    var initContainerStr = '<div><table><tr><td><label class="me-2 form-label">Form Layout</label></td><td><select id="form-layout-select" class="form-select"></select></td></tr></table></div>' +
         '<div>Form Name</div>';
     $('#b-container').empty().append(initContainerStr);
 }
 
 function initFBTbl() {
     // if no free form layout, should hide form layout container and shows "Please create Form Layout First"
-    // $('#b-container').append('<div clas="form-inline"><label class="mr-2 form-label">Form Layout</label><select id="form-layout-select" class="form-control"></select></div>');
+    // $('#b-container').append('<div clas="form-inline"><label class="me-2 form-label">Form Layout</label><select id="form-layout-select" class="form-select"></select></div>');
     // $('#form-layout-select').append('')
-    var initContainerStr = '<button id="add-Form-btn" class="btn rounded btn-sm btn-warning mt-3 mb-2 text-capitalize"><i class="fas fa-plus-square mr-2"></i><span>Add Form</span></button>' +
+    var initContainerStr = '<button id="add-Form-btn" class="btn rounded btn-sm btn-warning mt-3 mb-2 text-capitalize"><i class="fas fa-plus-square me-2"></i><span>Add Form</span></button>' +
         '<table id="b-tbl" class="table w-100">';
     $('#b-container').empty().append(initContainerStr);
     $('#add-form-btn').on('click', function () {
@@ -243,17 +243,17 @@ function initFBTbl() {
     }]
 
     var columns = [{
-        defaultContent: '<i title="Re-Use Form" class="table-btn fas fa-redo reuse-design" data-toggle="tooltip"></i>',
+        defaultContent: '<i title="Re-Use Form" class="table-btn fas fa-redo reuse-design" data-bs-toggle="tooltip"></i>',
         orderable: false,
         className: 'btnColumn'
     }, {
         orderable: false,
         className: 'btnColumn',
-        defaultContent: '<i title="Remove Form" class="table-btn fas fa-trash-alt remove-design" data-toggle="tooltip"></i>'
+        defaultContent: '<i title="Remove Form" class="table-btn fas fa-trash-alt remove-design" data-bs-toggle="tooltip"></i>'
     }, {
         orderable: false,
         className: 'btnColumn',
-        defaultContent: '<i title="Preview Form" class="table-btn fas fa-search design-details" data-toggle="tooltip"></i>'
+        defaultContent: '<i title="Preview Form" class="table-btn fas fa-search design-details" data-bs-toggle="tooltip"></i>'
     },
     {
         title: "ID",
@@ -313,16 +313,16 @@ function initFBTbl() {
 }
 
 function initFormLayout() {
-    var initContainerStr = '<div><table><tr><td><label class="mr-2 form-label">Form Layout</label></td><td><select id="form-layout-select" class="form-control"></select></td></tr></table></div>' +
+    var initContainerStr = '<div><table><tr><td><label class="me-2 form-label">Form Layout</label></td><td><select id="form-layout-select" class="form-select"></select></td></tr></table></div>' +
         '<div>Form Name</div>';
     $('#b-container').empty().append(initContainerStr);
 }
 
 function initFormTbl() {
     // if no free form layout, should hide form layout container and shows "Please create Form Layout First"
-    // $('#b-container').append('<div clas="form-inline"><label class="mr-2 form-label">Form Layout</label><select id="form-layout-select" class="form-control"></select></div>');
+    // $('#b-container').append('<div clas="form-inline"><label class="me-2 form-label">Form Layout</label><select id="form-layout-select" class="form-select"></select></div>');
     // $('#form-layout-select').append('')
-    var initContainerStr = '<button id="add-Form-btn" class="btn rounded btn-sm btn-warning mt-3 mb-2 text-capitalize"><i class="fas fa-plus-square mr-2"></i><span>Add Form</span></button>' +
+    var initContainerStr = '<button id="add-Form-btn" class="btn rounded btn-sm btn-warning mt-3 mb-2 text-capitalize"><i class="fas fa-plus-square me-2"></i><span>Add Form</span></button>' +
         '<table id="b-tbl" class="table w-100">';
     $('#b-container').empty().append(initContainerStr);
     $('#add-form-btn').on('click', function () {
@@ -344,17 +344,17 @@ function initFormTbl() {
     }]
 
     var columns = [{
-        defaultContent: '<i title="Re-Use Form" class="table-btn fas fa-redo reuse-design" data-toggle="tooltip"></i>',
+        defaultContent: '<i title="Re-Use Form" class="table-btn fas fa-redo reuse-design" data-bs-toggle="tooltip"></i>',
         orderable: false,
         className: 'btnColumn'
     }, {
         orderable: false,
         className: 'btnColumn',
-        defaultContent: '<i title="Remove Form" class="table-btn fas fa-trash-alt remove-design" data-toggle="tooltip"></i>'
+        defaultContent: '<i title="Remove Form" class="table-btn fas fa-trash-alt remove-design" data-bs-toggle="tooltip"></i>'
     }, {
         orderable: false,
         className: 'btnColumn',
-        defaultContent: '<i title="Preview Form" class="table-btn fas fa-search design-details" data-toggle="tooltip"></i>'
+        defaultContent: '<i title="Preview Form" class="table-btn fas fa-search design-details" data-bs-toggle="tooltip"></i>'
     },
     {
         title: "ID",
@@ -501,7 +501,7 @@ function loadFormBatchTbl(isOpen) {
                     columnDefs: [{
                         targets: 0,
                         data: null,
-                        defaultContent: '<button class="btn btn-sm rounded btn-warning text-capitalize"><i class="fas fa-mouse-pointer mr-2"></i><span>' + langJson['l-campaign-select'] + '</span></button>',
+                        defaultContent: '<button class="btn btn-sm rounded btn-warning text-capitalize"><i class="fas fa-mouse-pointer me-2"></i><span>' + langJson['l-campaign-select'] + '</span></button>',
                         className: 'btnColumn',
                         orderable: false
                     }],
@@ -676,21 +676,21 @@ function uploadPageInit(campaignArr) {
 
     var uploadFileStr = "$('#u-file-to-upload').trigger('click')"
     var uploadBtnStr = ' <table id="upload-page-tbl" class="custom-tbl">' +
-        '<tr><td style="min-width:167px;">' + langJson['l-outbound-campaign-code'] + '</td><td><select id="u-campaign-select" class="form-control" style="min-width:35vw"><option value="" style="display:none;" selected>-- Please Select --</option>' + campaignStr + '</select> </td></tr>' +
+        '<tr><td style="min-width:167px;">' + langJson['l-outbound-campaign-code'] + '</td><td><select id="u-campaign-select" class="form-select" style="min-width:35vw"><option value="" style="display:none;" selected>-- Please Select --</option>' + campaignStr + '</select> </td></tr>' +
         '<tr><td>' + langJson['l-outbound-batch-code'] + '</td><td><input id="u-batch-code" type="search" class="form-control" /></td></tr>' +
-        '<tr><td>' + langJson['l-search-start-date'] + '</td><td><input id="u-start-calendar" pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}" class="rounded pl-2" type="text" placeholder="yyyy-mm-dd" autocomplete="off"></td></tr>' +
-        '<tr><td>' + langJson['l-search-end-date'] + '</td><td><input id="u-end-calendar" pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}" class="rounded pl-2" type="text" placeholder="yyyy-mm-dd" autocomplete="off"></td></tr>' +
-        '<tr id="u-upload-btn-tr" class="d-none"><td></td><td id="u-upload-btn-td"> <input type="file" id="u-file-to-upload" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" onchange="uploadedExcelFile(this);" style="display:none"> <button id="u-upload-btn" class="btn rounded btn-sm btn-warning text-capitalize" onclick=' + uploadFileStr + '><i class="fas fa-upload mr-2"></i><span>' + langJson['l-outbound-upload-excel-btn'] + '</span></button> </td></tr>' +
+        '<tr><td>' + langJson['l-search-start-date'] + '</td><td><input id="u-start-calendar" pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}" class="rounded ps-2" type="text" placeholder="yyyy-mm-dd" autocomplete="off"></td></tr>' +
+        '<tr><td>' + langJson['l-search-end-date'] + '</td><td><input id="u-end-calendar" pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}" class="rounded ps-2" type="text" placeholder="yyyy-mm-dd" autocomplete="off"></td></tr>' +
+        '<tr id="u-upload-btn-tr" class="d-none"><td></td><td id="u-upload-btn-td"> <input type="file" id="u-file-to-upload" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" onchange="uploadedExcelFile(this);" style="display:none"> <button id="u-upload-btn" class="btn rounded btn-sm btn-warning text-capitalize" onclick=' + uploadFileStr + '><i class="fas fa-upload me-2"></i><span>' + langJson['l-outbound-upload-excel-btn'] + '</span></button> </td></tr>' +
         '<tr id="u-select-sheet-tr" class="d-none">' +
         '<td>' + langJson['l-outbound-sheet-call-list'] + '</td>' +
-        '<td><select id="u-excel-sheet-select" class="form-control"></select></td>' +
+        '<td><select id="u-excel-sheet-select" class="form-select"></select></td>' +
         '</tr>' +
         '<tr id="u-results-row" class="d-none"><td id="u-excel-resposne-1st-td">' + langJson['l-outbound-results'] + '</td><td id="u-excel-resposne-2nd-td"></td></tr>' +
         '</table>' +
-        '<p id="u-warning-txt" class="text-danger ml-2" style="white-space:pre-line"></p>' +
+        '<p id="u-warning-txt" class="text-danger ms-2" style="white-space:pre-line"></p>' +
         '<div class="text-center">' +
-        '<button id="u-save-btn" class="btn btn-sm rounded btn-warning text-capitalize mr-2"><i class="fa fa-save mr-2"></i><span>' + langJson['l-outbound-confirm-to-upload'] + '</span></button>' +
-        '<button id="u-cancel-btn" class="btn btn-sm rounded btn-gray text-capitalize"><i class="far fa-times-circle mr-2"></i><span>' + langJson['l-general-cancel'] + '</span></button>' +
+        '<button id="u-save-btn" class="btn btn-sm rounded btn-warning text-capitalize me-2"><i class="fa fa-save me-2"></i><span>' + langJson['l-outbound-confirm-to-upload'] + '</span></button>' +
+        '<button id="u-cancel-btn" class="btn btn-sm rounded btn-gray text-capitalize"><i class="far fa-times-circle me-2"></i><span>' + langJson['l-general-cancel'] + '</span></button>' +
         '</div>';
 
     $('#u-container').empty().append(uploadBtnStr);
@@ -958,11 +958,11 @@ function assignmentAllToOne(data) {
             '<div class="card-body">' +
 
             '<table>' +
-            '<tr><td class="pr-2">' +
+            '<tr><td class="pe-2">' +
             langJson['l-campaign-callstatus'] +
-            '</td><td><select id="m-call-result" class="form-control d-table-cell"><option value="NewLead" selected>Null</option><option value="Unreach">Unreach</option><option value="Reached">Reached</option></select></td><td></td></tr>' +
+            '</td><td><select id="m-call-result" class="form-select d-table-cell"><option value="NewLead" selected>Null</option><option value="Unreach">Unreach</option><option value="Reached">Reached</option></select></td><td></td></tr>' +
 
-            '<tr><td></td><td><select id="m-unreach-reason" class="d-none form-control">' +
+            '<tr><td></td><td><select id="m-unreach-reason" class="d-none form-select">' +
             '<option value="" selected>- Please Select -</option>' +
             '<option value="No Answered">No Answered</option>' +
             '<option value="Voice Mail">Voice Mail</option>' +
@@ -973,16 +973,16 @@ function assignmentAllToOne(data) {
             '<option value="Not Here/Meeting">Not Here/Meeting</option>' +
             '</select></td><td></td><tr>' +
 
-            '<tr><td></td><td><select id="m-reached-reason" class="d-none form-control">' +
+            '<tr><td></td><td><select id="m-reached-reason" class="d-none form-select">' +
             '<option value="" selected>- Please Select -</option>' +
             '<option value="Consider">Consider</option>' +
             '<option value="Reject">Reject</option>' +
             '</select></td><td></td><tr>' +
 
-            '<tr><td><span class="form-label pr-3 d-table-cell">' + langJson['l-campaign-assignto'] + '</span></td><td><select id="m-assign-to" class="form-control d-table-cell"><option value=0 unused=' + unassignment + '>Pool</option>' + agentOptionStr + '</select></td><td><span id="m-to-description" class="text-secondary d-table-cell pl-2">' + langJson['l-outbound-unassignment'] + unassignment + '</span></td></tr>' +
-            '<tr><td><span class="mr-2 d-table-cell">' + langJson['l-campaign-numrecords'] + '&nbsp;&nbsp;</span></td><td><input id="m-assign-no" type="number" min="1" class"form-control w-auto d-table-cell" autocomplete="off" maxlength="6" disabled></td><td><span id="m-assignable-description" class="text-secondary pl-2"></span></td></tr>' +
+            '<tr><td><span class="form-label pe-3 d-table-cell">' + langJson['l-campaign-assignto'] + '</span></td><td><select id="m-assign-to" class="form-select d-table-cell"><option value=0 unused=' + unassignment + '>Pool</option>' + agentOptionStr + '</select></td><td><span id="m-to-description" class="text-secondary d-table-cell ps-2">' + langJson['l-outbound-unassignment'] + unassignment + '</span></td></tr>' +
+            '<tr><td><span class="me-2 d-table-cell">' + langJson['l-campaign-numrecords'] + '&nbsp;&nbsp;</span></td><td><input id="m-assign-no" type="number" min="1" class"form-control w-auto d-table-cell" autocomplete="off" maxlength="6" disabled></td><td><span id="m-assignable-description" class="text-secondary ps-2"></span></td></tr>' +
             '</table>' +
-            '<button id="m-confirm-single-btn" class="btn rounded btn-sm btn-warning text-capitalize ml-2 mt-3"><i class="fas fa-clipboard-check mr-2"></i><span>' + langJson['l-general-confirm'] + '</span></button>' +
+            '<button id="m-confirm-single-btn" class="btn rounded btn-sm btn-warning text-capitalize ms-2 mt-3"><i class="fas fa-clipboard-check me-2"></i><span>' + langJson['l-general-confirm'] + '</span></button>' +
             '</div>');
 
         $('#m-lower-part').append(lowerPartStr);
@@ -1155,29 +1155,29 @@ function assignmentAgentTblLoad(data) {
         var unassignment = data.Unassigned;
         lowerPartStr += '<div id="a-agent-be-assigned-container" class="card my-2">' +
             '<div class="card-body">' +
-            '<div class="form-group form-inline mb-1">' +
-            '<span class="form-label pr-3 d-table-cell">' + langJson['l-outbound-assign-from'] + '</span>' +
-            '<select id="m-assign-from" class="form-control d-table-cell"><option value=0 unused=' + unassignment + '>Pool</option>' + agentOptionStr + '</select>' +
-            '<span id="m-from-description" class="text-secondary d-table-cell pl-2">' + langJson['l-outbound-unassignment'] + unassignment + '</span>' +
+            '<div class="mb-3 d-flex align-items-center mb-1">' +
+            '<span class="form-label pe-3 d-table-cell">' + langJson['l-outbound-assign-from'] + '</span>' +
+            '<select id="m-assign-from" class="form-select d-table-cell"><option value=0 unused=' + unassignment + '>Pool</option>' + agentOptionStr + '</select>' +
+            '<span id="m-from-description" class="text-secondary d-table-cell ps-2">' + langJson['l-outbound-unassignment'] + unassignment + '</span>' +
             '<span style="position: absolute;right:0">' +
-            '<div class="form-group form-inline mr-3 mb-0 d-inline">' +
-            '<span>' + langJson['l-form-gender'] + '</span><select id="m-filter-gender" class="form-control c-customer-input"> <option value="">- Please Select -</option>' +
+            '<div class="mb-3 d-flex align-items-center me-3 mb-0 d-inline">' +
+            '<span>' + langJson['l-form-gender'] + '</span><select id="m-filter-gender" class="form-select c-customer-input"> <option value="">- Please Select -</option>' +
             '<option value="M">Male</option> <option value="F">Female</option> </select>' +
             '</div>' +
-            '<div class="form-group form-inline mb-0 d-inline">' +
+            '<div class="mb-3 d-flex align-items-center mb-0 d-inline">' +
             '<span>' + langJson['l-campaign-agefrom'] + '</span> <input id="m-filter-age-from" class="form-control" type="number" min="0" style="width:5rem">' +
             '</div>' +
-            '<div class="form-group form-inline mb-0 d-inline">' +
-            '<span class="pl-2">' + langJson['l-campaign-ageto'] + '</span> <input id="m-filter-age-to" class="form-control" type="number" min="0" style="width:5rem">' +
+            '<div class="mb-3 d-flex align-items-center mb-0 d-inline">' +
+            '<span class="ps-2">' + langJson['l-campaign-ageto'] + '</span> <input id="m-filter-age-to" class="form-control" type="number" min="0" style="width:5rem">' +
             '</div>' +
-            '<button id="m-filter-btn" class="btn rounded btn-sm btn-warning text-capitalize ml-2"><i class="fas fa-filter mr-2"></i><span>' + langJson['l-outbound-filter'] + '</span></button>' +
+            '<button id="m-filter-btn" class="btn rounded btn-sm btn-warning text-capitalize ms-2"><i class="fas fa-filter me-2"></i><span>' + langJson['l-outbound-filter'] + '</span></button>' +
             '</span>' +
             '</div>';
 
         // add Optional Call Result
-        lowerPartStr += '<div id="m-call-result-container" class="form-group form-inline mb-1 d-none"><span class="d-table-cell mr-2">' + langJson['l-campaign-callstatus'] + '&nbsp;&nbsp;</span><select id="m-call-result" class="form-control d-table-cell"><option value="NewLead" selected>Null</option><option value="Unreach" style="display:none;">Unreach</option><option value="Reached" style="display:none;">Reached</option></select>' +
+        lowerPartStr += '<div id="m-call-result-container" class="mb-3 d-flex align-items-center mb-1 d-none"><span class="d-table-cell me-2">' + langJson['l-campaign-callstatus'] + '&nbsp;&nbsp;</span><select id="m-call-result" class="form-select d-table-cell"><option value="NewLead" selected>Null</option><option value="Unreach" style="display:none;">Unreach</option><option value="Reached" style="display:none;">Reached</option></select>' +
 
-            '<select id="m-unreach-reason" class="d-none form-control">' +
+            '<select id="m-unreach-reason" class="d-none form-select">' +
             '<option value="" selected>- Please Select -</option>' +
             '<option value="No Answered">No Answered</option>' +
             '<option value="Voice Mail">Voice Mail</option>' +
@@ -1188,7 +1188,7 @@ function assignmentAgentTblLoad(data) {
             '<option value="Not Here/Meeting">Not Here/Meeting</option>' +
             '</select>' +
 
-            '<select id="m-reached-reason" class="d-none form-control">' +
+            '<select id="m-reached-reason" class="d-none form-select">' +
             '<option value="" selected>- Please Select -</option>' +
             '<option value="Consider">Consider</option>' +
             '<option value="Reject">Reject</option>' +
@@ -1196,12 +1196,12 @@ function assignmentAgentTblLoad(data) {
 
         // Add To Select
         lowerPartStr += (
-            '<div class="form-group form-inline mb-1 m-single-assign-row d-none"><span class="form-label pr-3 d-table-cell">' + langJson['l-campaign-assignto'] + '</span><select id="m-assign-to" class="form-control d-table-cell"><option value=0 unused=' + unassignment + '>Pool</option>' + agentOptionStr + '</select><span id="m-to-description" class="text-secondary d-table-cell pl-2">' + langJson['l-outbound-unassignment'] + unassignment + '</span></div>' +
-            '<div class="form-group m-single-assign-row d-none">&nbsp;</div>' +
-            '<div class="form-group m-single-assign-row d-none"><span class="mr-2 d-table-cell">' + langJson['l-campaign-numrecords'] + '&nbsp;&nbsp;</span><input id="m-assign-no" type="number" min="1" class"form-control w-auto d-table-cell" autocomplete="off" maxlength="6"><span id="m-assignable-description" class="text-secondary d-table-cell pl-2">' + langJson['l-outbound-available-no'] + ': ' + unassignment + '</span></div>' +
-            '<button id="m-confirm-single-btn" class="btn rounded btn-sm btn-warning text-capitalize ml-2 mt-3 m-single-assign-ele d-none"><i class="fas fa-clipboard-check mr-2"></i><span>' + langJson['l-general-confirm'] + '</span></button>' +
+            '<div class="mb-3 d-flex align-items-center mb-1 m-single-assign-row d-none"><span class="form-label pe-3 d-table-cell">' + langJson['l-campaign-assignto'] + '</span><select id="m-assign-to" class="form-select d-table-cell"><option value=0 unused=' + unassignment + '>Pool</option>' + agentOptionStr + '</select><span id="m-to-description" class="text-secondary d-table-cell ps-2">' + langJson['l-outbound-unassignment'] + unassignment + '</span></div>' +
+            '<div class="mb-3 m-single-assign-row d-none">&nbsp;</div>' +
+            '<div class="mb-3 m-single-assign-row d-none"><span class="me-2 d-table-cell">' + langJson['l-campaign-numrecords'] + '&nbsp;&nbsp;</span><input id="m-assign-no" type="number" min="1" class"form-control w-auto d-table-cell" autocomplete="off" maxlength="6"><span id="m-assignable-description" class="text-secondary d-table-cell ps-2">' + langJson['l-outbound-available-no'] + ': ' + unassignment + '</span></div>' +
+            '<button id="m-confirm-single-btn" class="btn rounded btn-sm btn-warning text-capitalize ms-2 mt-3 m-single-assign-ele d-none"><i class="fas fa-clipboard-check me-2"></i><span>' + langJson['l-general-confirm'] + '</span></button>' +
             '<div class="m-multiple-assign-ele mt-2"><table id="m-agent-tbl" class="table table-hover w-100"></table></div>' +
-            '<button id="m-confirm-multiple-btn" class="btn rounded btn-sm btn-warning text-capitalize ml-2 mt-3 m-multiple-assign-ele"><i class="fas fa-clipboard-check mr-2"></i><span>' + langJson['l-general-confirm'] + '</span></button>' +
+            '<button id="m-confirm-multiple-btn" class="btn rounded btn-sm btn-warning text-capitalize ms-2 mt-3 m-multiple-assign-ele"><i class="fas fa-clipboard-check me-2"></i><span>' + langJson['l-general-confirm'] + '</span></button>' +
             '</div>');
 
         $('#m-lower-part').append(lowerPartStr);
@@ -1861,8 +1861,8 @@ function loadBatchTbl(isOpen) {
 
                                 // TBD                                
                                 // var selectTblHtml = '<div class="card my-2"><div class="card-body pt-0 bg-azure"><div class="c-section"><div class="my-1"><h5 class="d-inline">Selected Batch</h5>' +
-                                // '<button id="a-assign-agent-btn" class="btn btn-sm rounded btn-warning text-capitalize float-right" style="margin-top: -5px;"><i class="fas fa-mouse-pointer mr-2"></i><span>Assign to Agents</span></button>' +
-                                // '<button id="a-return-select-batch-tbl" class="btn btn-sm rounded btn-lightgray text-capitalize float-right d-none" style="margin-top: -5px;"><i class="fas fa-arrow-left mr-2"></i><span>Return</span></button></div>' +
+                                // '<button id="a-assign-agent-btn" class="btn btn-sm rounded btn-warning text-capitalize float-end" style="margin-top: -5px;"><i class="fas fa-mouse-pointer me-2"></i><span>Assign to Agents</span></button>' +
+                                // '<button id="a-return-select-batch-tbl" class="btn btn-sm rounded btn-lightgray text-capitalize float-end d-none" style="margin-top: -5px;"><i class="fas fa-arrow-left me-2"></i><span>Return</span></button></div>' +
                                 // '<table id="m-selected-tbl" class="table w-100"></table></div></div></div>';
 
                                 $('#m-lower-part').append(selectTblHtml);
@@ -1905,11 +1905,11 @@ function loadBatchTbl(isOpen) {
 
                                             // both assign table and call list will not shown the batch not between start date and end date
                                             if (endDate >= today) {
-                                                return '<button id="a-assign-cancel-btn" class="btn btn-sm rounded btn-default text-capitalize float-right a-selected-batch-btn ml-2" style="display:none;"><i class="fas fa-times-circle mr-2"></i><span>Cancel</span></button>' +
-                                                    '<button id="a-assign-agent-btn" class="btn btn-sm rounded btn-warning text-capitalize float-right a-selected-batch-btn ml-2"><i class="fas fa-mouse-pointer mr-2"></i><span>' +
+                                                return '<button id="a-assign-cancel-btn" class="btn btn-sm rounded btn-default text-capitalize float-end a-selected-batch-btn ms-2" style="display:none;"><i class="fas fa-times-circle me-2"></i><span>Cancel</span></button>' +
+                                                    '<button id="a-assign-agent-btn" class="btn btn-sm rounded btn-warning text-capitalize float-end a-selected-batch-btn ms-2"><i class="fas fa-mouse-pointer me-2"></i><span>' +
                                                     langJson['l-outbound-assign-to-agents'] +
                                                     '</span></button>' +
-                                                    '<button id="a-assign-all-btn" class="btn btn-sm rounded btn-success text-capitalize float-right a-selected-batch-btn"><i class="fas fa-mouse-pointer mr-2"></i><span>All To One</span></button>'
+                                                    '<button id="a-assign-all-btn" class="btn btn-sm rounded btn-success text-capitalize float-end a-selected-batch-btn"><i class="fas fa-mouse-pointer me-2"></i><span>All To One</span></button>'
                                             } else {
                                                 return 'Exprired batches no assignment allowed'
                                             }
@@ -2099,7 +2099,7 @@ function initCampaignTbl(tblDataArr) {
         eproFormColumns.unshift({
             orderable: false,
             className: 'btnColumn',
-            defaultContent: '<i title="Remove Campaign" class="table-btn fas fa-trash-alt remove-design cursor-pointer" data-toggle="tooltip"></i>'
+            defaultContent: '<i title="Remove Campaign" class="table-btn fas fa-trash-alt remove-design cursor-pointer" data-bs-toggle="tooltip"></i>'
         })
     }
 
@@ -2172,19 +2172,19 @@ function campaignInitTbl(returnToNonEpro) {
     }
     $('#c-container').empty();
     var customerTblStr =
-   //     '<ul id="tabs" class="nav nav-tabs nav-fill" role="tablist"> <li class="nav-item case-element"> <a class="nav-link active pt-2" data-toggle="tab" href="#c-epro-form-list" aria-selected="true"><span>' + langJson['l-outbound-epro-created-form'] + '</span><i class="fas fa-user ml-2"></i></a> </li><li class="nav-item"> <a class="nav-link pt-2" data-toggle="tab" href="#c-non-epro-form-list" aria-selected="false"><span>' + langJson['l-outbound-form-builder-form'] + '</span><i class="fas fa-file-alt ml-2"></i></a> </li></ul>' +
+   //     '<ul id="tabs" class="nav nav-tabs nav-fill" role="tablist"> <li class="nav-item case-element"> <a class="nav-link active pt-2" data-bs-toggle="tab" href="#c-epro-form-list" aria-selected="true"><span>' + langJson['l-outbound-epro-created-form'] + '</span><i class="fas fa-user ms-2"></i></a> </li><li class="nav-item"> <a class="nav-link pt-2" data-bs-toggle="tab" href="#c-non-epro-form-list" aria-selected="false"><span>' + langJson['l-outbound-form-builder-form'] + '</span><i class="fas fa-file-alt ms-2"></i></a> </li></ul>' +
    //     '<div class="tab-content c-tab-content">' +
 		
-        '<ul id="tabs" class="nav nav-tabs nav-fill" role="tablist"> <li class="nav-item case-element"> <a class="nav-link active pt-2" data-toggle="tab" href="#c-epro-form-list" aria-selected="true"><span>' + langJson['l-outbound-epro-created-form'] + '</span><i class="fas fa-file-alt ml-2"></i></a> </li></ul>' +
+        '<ul id="tabs" class="nav nav-tabs nav-fill" role="tablist"> <li class="nav-item case-element"> <a class="nav-link active pt-2" data-bs-toggle="tab" href="#c-epro-form-list" aria-selected="true"><span>' + langJson['l-outbound-epro-created-form'] + '</span><i class="fas fa-file-alt ms-2"></i></a> </li></ul>' +
         '<div class="tab-content c-tab-content">' +		
         '<div id="c-epro-form-list" class="tab-pane' + eproActiveStr + '">' +
 
-        (isCampaignSetup ? '<button id="c-add-epro-form-design-btn" class="btn rounded btn-sm btn-warning mb-3 text-capitalize"><i class="fas fa-plus-square mr-2"></i><span>' + langJson['l-outbound-add-campaign-epro'] + '</span></button>' : '') +
+        (isCampaignSetup ? '<button id="c-add-epro-form-design-btn" class="btn rounded btn-sm btn-warning mb-3 text-capitalize"><i class="fas fa-plus-square me-2"></i><span>' + langJson['l-outbound-add-campaign-epro'] + '</span></button>' : '') +
         '<table id="c-epro-campaign-tbl" class="table w-100"></table>' +
         '</div>' +
         '<div id="c-non-epro-form-list" class="tab-pane' + nonEproActiveStr + '">' +
 
-        '<button id="c-add-non-epro-form-design-btn" class="btn rounded btn-sm btn-warning mb-3 text-capitalize"><i class="fas fa-plus-square mr-2"></i><span>' + langJson['l-outbound-add-campaign-form-builder'] + '</span></button>' +
+        '<button id="c-add-non-epro-form-design-btn" class="btn rounded btn-sm btn-warning mb-3 text-capitalize"><i class="fas fa-plus-square me-2"></i><span>' + langJson['l-outbound-add-campaign-form-builder'] + '</span></button>' +
         '<table id="c-non-epro-campaign-tbl" class="table w-100"></table>'
     '</div></div>';
 
@@ -2228,7 +2228,7 @@ function campaignInitTbl(returnToNonEpro) {
         Is_Form_Builder: true,
         Got_Form_Structure: true,
         Got_Form_JSON: true,
-        Form_Name: '<button class="btn rounded btn-sm btn-warning mt-3 mb-2 text-capitalize"><i class="fas fa-plus-square mr-2"></i><span>View Form Structure</span></button>', // "[Form Builder Created]"
+        Form_Name: '<button class="btn rounded btn-sm btn-warning mt-3 mb-2 text-capitalize"><i class="fas fa-plus-square me-2"></i><span>View Form Structure</span></button>', // "[Form Builder Created]"
         D_Arr_JSON: [{
             Excel_Header: "ABC_REF",
             DB_Header: "REF_ID",
@@ -2371,21 +2371,21 @@ function campaignInitTbl(returnToNonEpro) {
     }]
 
     var nonEproFormColumns = [{
-        defaultContent: '<i title="Re-Use Design" class="table-btn fas fa-redo reuse-design" data-toggle="tooltip"></i>',
+        defaultContent: '<i title="Re-Use Design" class="table-btn fas fa-redo reuse-design" data-bs-toggle="tooltip"></i>',
         orderable: false,
         className: 'btnColumn'
     }, {
         orderable: false,
         className: 'btnColumn',
-        defaultContent: '<i title="Remove Design" class="table-btn fas fa-trash-alt remove-design" data-toggle="tooltip"></i>'
+        defaultContent: '<i title="Remove Design" class="table-btn fas fa-trash-alt remove-design" data-bs-toggle="tooltip"></i>'
     }, {
         orderable: false,
         className: 'btnColumn',
-        defaultContent: '<i title="See Design" class="table-btn far fa-list-alt design-details" data-toggle="tooltip"></i>'
+        defaultContent: '<i title="See Design" class="table-btn far fa-list-alt design-details" data-bs-toggle="tooltip"></i>'
     }, {
         orderable: false,
         className: 'btnColumn',
-        defaultContent: '<i title="Preview Form" class="table-btn fas fa-search design-details" data-toggle="tooltip"></i>'
+        defaultContent: '<i title="Preview Form" class="table-btn fas fa-search design-details" data-bs-toggle="tooltip"></i>'
     },
     {
         title: "ID",
@@ -2426,9 +2426,9 @@ function campaignInitTbl(returnToNonEpro) {
                 return 'Active';
             } else {
                 if (row.Got_Form_Structure === false) {
-                    return '<button onclick="return campaignBuildForm()" class="btn rounded btn-sm btn-warning text-capitalize" style="width:278px;text-align: left;"><i class="fas fa-plus-square mr-2"></i><span>' + langJson['l-outbound-build-form-required'] + '</span></button>';
+                    return '<button onclick="return campaignBuildForm()" class="btn rounded btn-sm btn-warning text-capitalize" style="width:278px;text-align: left;"><i class="fas fa-plus-square me-2"></i><span>' + langJson['l-outbound-build-form-required'] + '</span></button>';
                 } else { // no form json
-                    return '<button onclick="return campaignAddFormStructure()" class="btn rounded btn-sm btn-warning text-capitalize" style="width:278px;text-align: left"><i class="fas fa-plus-square mr-2"></i><span>' + langJson['l-outbound-form-structure-required'] + '</span></button>';
+                    return '<button onclick="return campaignAddFormStructure()" class="btn rounded btn-sm btn-warning text-capitalize" style="width:278px;text-align: left"><i class="fas fa-plus-square me-2"></i><span>' + langJson['l-outbound-form-structure-required'] + '</span></button>';
                 }
             }
         }
@@ -2657,7 +2657,7 @@ function campaignLoadDBHeader(headerArr, isReadOnly) {
         if (isReadOnly) {
             for (let theHeader of headerArr) {
                 var selectedDbHeader = theHeader.DB_Field_Name;
-                var dbSelectStr = '<select class="form-control pr-2 c-db-header c-template-field" disabled><option value="">-- Please Select --</option>';
+                var dbSelectStr = '<select class="form-select pe-2 c-db-header c-template-field" disabled><option value="">-- Please Select --</option>';
                 for (let theDbHeader of dbHeaderArr) {
                     var theDBHeaderName = theDbHeader.Name;
                     if (theDBHeaderName == selectedDbHeader) {
@@ -2673,14 +2673,14 @@ function campaignLoadDBHeader(headerArr, isReadOnly) {
                 } else {
                     checkTypeOptStr = '<option value="">N/A</option><option value="Date" selected>Date Time [YYYY-MM-DD]</option>'
                 }
-                uploadTblStr += ('<tr><td>' + theHeader.Excel_Field_Order + '</td><td>' + theHeader.Excel_Field_Name + '</td><td>' + dbSelectStr + '</td><td><select class="form-control pr-2" disabled>' + checkTypeOptStr + '</select></td></tr>');
+                uploadTblStr += ('<tr><td>' + theHeader.Excel_Field_Order + '</td><td>' + theHeader.Excel_Field_Name + '</td><td>' + dbSelectStr + '</td><td><select class="form-select pe-2" disabled>' + checkTypeOptStr + '</select></td></tr>');
             }
         } else {
             var dbHeaderArr = JSON.parse($('#c-form-select option:selected').attr('dbheader'));
             var uploadTblStr = '<table class="custom-tbl"><tr><th>Order</th><th>Excel Header</th><th>' + langJson['l-outbound-db-header'] + '</th><th>' + langJson['l-outbound-check-type'] + '</th></tr><tbody id="c-header-tbody">';
             for (var i = 0; i < headerArr.length; i++) {
                 var theHeader = headerArr[i];
-                var dbSelectStr = '<select class="form-control pr-2 c-db-header"><option value="">-- Please Select --</option>';
+                var dbSelectStr = '<select class="form-select pe-2 c-db-header"><option value="">-- Please Select --</option>';
                 for (let theDbHeader of dbHeaderArr) {
                     var theDBHeaderName = theDbHeader.Name;
                     if (theDBHeaderName == theHeader) {
@@ -2690,7 +2690,7 @@ function campaignLoadDBHeader(headerArr, isReadOnly) {
                     }
                 }
                 dbSelectStr += '</select>';
-                uploadTblStr += ('<tr><td>' + (i + 1) + '</td><td>' + theHeader + '</td><td>' + dbSelectStr + '</td><td><select class="form-control pr-2"><option value="">N/A</option><option value="Date">Date Time [YYYY-MM-DD]</option></select></td></tr>');
+                uploadTblStr += ('<tr><td>' + (i + 1) + '</td><td>' + theHeader + '</td><td>' + dbSelectStr + '</td><td><select class="form-select pe-2"><option value="">N/A</option><option value="Date">Date Time [YYYY-MM-DD]</option></select></td></tr>');
             }
         }
 
@@ -2712,20 +2712,20 @@ function campaignLoadDBHeader(headerArr, isReadOnly) {
 
 function uploadeExcelHeaderNonEpro() {
 
-    var dbSelectStr = '<select class="form-control pr-2"><option value="">-- Please Select --</option><option>First_Name</option><option>Last_Name</option><option>Mobile_No</option><option>Age</option><option>AC_Open_Date</option><option>Last_Contact_Date</option><option>Last_Purchase_Date</option><option>Custom_Field_1</option><option>Custom_Field_2</option><option>Custom_Field_3</option></select>';
-    var dbSelectStr1 = '<select class="form-control pr-2"><option value="">-- Please Select --</option><option selected>First_Name</option><option>Last_Name</option><option>Mobile_No</option><option>Age</option><option>AC_Open_Date</option><option>Last_Contact_Date</option><option>Last_Purchase_Date</option><option>Custom_Field_1</option><option>Custom_Field_2</option><option>Custom_Field_3</option></select>';
-    var dbSelectStr2 = '<select class="form-control pr-2"><option value="">-- Please Select --</option><option>First_Name</option><option selected>Last_Name</option><option>Mobile_No</option><option>Age</option><option>AC_Open_Date</option><option>Last_Contact_Date</option><option>Last_Purchase_Date</option><option>Custom_Field_1</option><option>Custom_Field_2</option><option>Custom_Field_3</option></select>';
-    var dbSelectStr3 = '<select class="form-control pr-2"><option value="">-- Please Select --</option><option>First_Name</option><option>Last_Name</option><option selected>Mobile_No</option><option>Age</option><option>AC_Open_Date</option><option>Last_Contact_Date</option><option>Last_Purchase_Date</option><option>Custom_Field_1</option><option>Custom_Field_2</option><option>Custom_Field_3</option></select>';
-    var dbSelectStr4 = '<select class="form-control pr-2"><option value="">-- Please Select --</option><option>First_Name</option><option>Last_Name</option><option>Mobile_No</option><option selected>Age</option><option>AC_Open_Date</option><option>Last_Contact_Date</option><option>Last_Purchase_Date</option><option>Custom_Field_1</option><option>Custom_Field_2</option><option>Custom_Field_3</option></select>';
+    var dbSelectStr = '<select class="form-select pe-2"><option value="">-- Please Select --</option><option>First_Name</option><option>Last_Name</option><option>Mobile_No</option><option>Age</option><option>AC_Open_Date</option><option>Last_Contact_Date</option><option>Last_Purchase_Date</option><option>Custom_Field_1</option><option>Custom_Field_2</option><option>Custom_Field_3</option></select>';
+    var dbSelectStr1 = '<select class="form-select pe-2"><option value="">-- Please Select --</option><option selected>First_Name</option><option>Last_Name</option><option>Mobile_No</option><option>Age</option><option>AC_Open_Date</option><option>Last_Contact_Date</option><option>Last_Purchase_Date</option><option>Custom_Field_1</option><option>Custom_Field_2</option><option>Custom_Field_3</option></select>';
+    var dbSelectStr2 = '<select class="form-select pe-2"><option value="">-- Please Select --</option><option>First_Name</option><option selected>Last_Name</option><option>Mobile_No</option><option>Age</option><option>AC_Open_Date</option><option>Last_Contact_Date</option><option>Last_Purchase_Date</option><option>Custom_Field_1</option><option>Custom_Field_2</option><option>Custom_Field_3</option></select>';
+    var dbSelectStr3 = '<select class="form-select pe-2"><option value="">-- Please Select --</option><option>First_Name</option><option>Last_Name</option><option selected>Mobile_No</option><option>Age</option><option>AC_Open_Date</option><option>Last_Contact_Date</option><option>Last_Purchase_Date</option><option>Custom_Field_1</option><option>Custom_Field_2</option><option>Custom_Field_3</option></select>';
+    var dbSelectStr4 = '<select class="form-select pe-2"><option value="">-- Please Select --</option><option>First_Name</option><option>Last_Name</option><option>Mobile_No</option><option selected>Age</option><option>AC_Open_Date</option><option>Last_Contact_Date</option><option>Last_Purchase_Date</option><option>Custom_Field_1</option><option>Custom_Field_2</option><option>Custom_Field_3</option></select>';
 
     var uploadTblStr = '<table class="custom-tbl"><tr><th>Order</th><th>Excel Header</th><th>' + langJson['l-outbound-db-header'] + '</th><th>' + langJson['l-outbound-check-type'] + '</th></tr><tbody>' +
-        '<tr><td>1</td><td>First_Name</td><td>' + dbSelectStr1 + '</td><td><select class="form-control pr-2"><option value="">N/A</option><option value="datetime">Date Time [YYYY-MM-DD]</option></select></td></td></tr>' +
-        '<tr><td>2</td><td>Last_Name</td><td>' + dbSelectStr2 + '</td><td><select class="form-control pr-2"><option value="">N/A</option><option value="datetime">Date Time [YYYY-MM-DD]</option></select></td></tr>' +
-        '<tr><td>3</td><td>Mobile</td><td>' + dbSelectStr + '</td><td><select class="form-control pr-2"><option value="">N/A</option><option value="datetime">Date Time [YYYY-MM-DD]</option></select></td></tr>' +
-        '<tr><td>4</td><td>Age</td><td>' + dbSelectStr4 + '</td><td><select class="form-control pr-2"><option value="">N/A</option><option value="datetime">Date Time [YYYY-MM-DD]</option></select></td></tr>' +
-        '<tr><td>5</td><td>A/C Open Date</td><td>' + dbSelectStr + '</td><td><select class="form-control pr-2"><option value="">N/A</option><option value="datetime">Date Time [YYYY-MM-DD]</option></select></td></tr>' +
-        '<tr><td>6</td><td>Last Contact Date</td><td>' + dbSelectStr + '</td><td><select class="form-control pr-2"><option value="">N/A</option><option value="datetime">Date Time [YYYY-MM-DD]</option></select></td></tr>' +
-        '<tr><td>7</td><td>Last Purchase Product</td><td>' + dbSelectStr + '</td><td><select class="form-control pr-2"><option value="">N/A</option><option value="datetime">Date Time [YYYY-MM-DD]</option></select></td></tr>' +
+        '<tr><td>1</td><td>First_Name</td><td>' + dbSelectStr1 + '</td><td><select class="form-select pe-2"><option value="">N/A</option><option value="datetime">Date Time [YYYY-MM-DD]</option></select></td></td></tr>' +
+        '<tr><td>2</td><td>Last_Name</td><td>' + dbSelectStr2 + '</td><td><select class="form-select pe-2"><option value="">N/A</option><option value="datetime">Date Time [YYYY-MM-DD]</option></select></td></tr>' +
+        '<tr><td>3</td><td>Mobile</td><td>' + dbSelectStr + '</td><td><select class="form-select pe-2"><option value="">N/A</option><option value="datetime">Date Time [YYYY-MM-DD]</option></select></td></tr>' +
+        '<tr><td>4</td><td>Age</td><td>' + dbSelectStr4 + '</td><td><select class="form-select pe-2"><option value="">N/A</option><option value="datetime">Date Time [YYYY-MM-DD]</option></select></td></tr>' +
+        '<tr><td>5</td><td>A/C Open Date</td><td>' + dbSelectStr + '</td><td><select class="form-select pe-2"><option value="">N/A</option><option value="datetime">Date Time [YYYY-MM-DD]</option></select></td></tr>' +
+        '<tr><td>6</td><td>Last Contact Date</td><td>' + dbSelectStr + '</td><td><select class="form-select pe-2"><option value="">N/A</option><option value="datetime">Date Time [YYYY-MM-DD]</option></select></td></tr>' +
+        '<tr><td>7</td><td>Last Purchase Product</td><td>' + dbSelectStr + '</td><td><select class="form-select pe-2"><option value="">N/A</option><option value="datetime">Date Time [YYYY-MM-DD]</option></select></td></tr>' +
         '</tbody></table>'
 
     $('#c-upload-field-content-td').empty().append(uploadTblStr);
@@ -2786,10 +2786,10 @@ function campaignAddFormStructure() {
     }
 
     var rowUploadArr = row.Upload_Arr;
-    var dbSelectStr = '<select class="form-control pr-2"><option value="">-- Please Select --</option><option>Custom_Field_1</option><option>Custom_Field_2</option><option>Custom_Field_3</option></select>';
-    var emptyFieldRowStr = '<tr><td></td><td></td><td>' + dbSelectStr + '</td><td></td><td class="bg-lavender"><select class="form-control pr-2"><option vlaue="text">Text Field</option><option vlaue="radio">Radio</option><option vlaue="textarea">Textarea</option><option vlaue="date">Date</option></select></td><td class="bg-lavender"><input type="search" class="form-control" value=""></td></tr>';
+    var dbSelectStr = '<select class="form-select pe-2"><option value="">-- Please Select --</option><option>Custom_Field_1</option><option>Custom_Field_2</option><option>Custom_Field_3</option></select>';
+    var emptyFieldRowStr = '<tr><td></td><td></td><td>' + dbSelectStr + '</td><td></td><td class="bg-lavender"><select class="form-select pe-2"><option vlaue="text">Text Field</option><option vlaue="radio">Radio</option><option vlaue="textarea">Textarea</option><option vlaue="date">Date</option></select></td><td class="bg-lavender"><input type="search" class="form-control" value=""></td></tr>';
 
-    var selectStr = '<select class="form-control pr-2"><option vlaue="text">Text Field</option><option vlaue="radio">Radio</option><option vlaue="textarea">Textarea</option><option vlaue="date">Date</option></select>';
+    var selectStr = '<select class="form-select pe-2"><option vlaue="text">Text Field</option><option vlaue="radio">Radio</option><option vlaue="textarea">Textarea</option><option vlaue="date">Date</option></select>';
     var uploadTblStr = '<table id="upload-tbl" class="custom-tbl">' +
         '<tr><th>' + langJson['l-outbound-order'] + '</th><th>' + langJson['l-outbound-excel-header'] + '</th><th>' + langJson['l-outbound-db-header'] + '</th><th>' + langJson['l-outbound-check-type'] + '</th><th class="bg-lavender">' + langJson['l-outbound-input-type'] + '</th><th class="bg-lavender">' + langJson['l-outbound-label-name'] + '</th></tr><tbody id="c-other-field-tbody">';
     for (let fieldObj of rowUploadArr) {
@@ -2798,7 +2798,7 @@ function campaignAddFormStructure() {
     uploadTblStr += emptyFieldRowStr
     uploadTblStr += '</tbody></table>';
 
-    var detailsStr = '<div><button id="c-return-btn" class="btn rounded btn-sm btn-gray mb-2 text-capitalize float-right"><i class="fas fa-arrow-circle-left mr-2"></i><span>' + langJson['l-outbound-return'] + '</span></button></div>' +
+    var detailsStr = '<div><button id="c-return-btn" class="btn rounded btn-sm btn-gray mb-2 text-capitalize float-end"><i class="fas fa-arrow-circle-left me-2"></i><span>' + langJson['l-outbound-return'] + '</span></button></div>' +
         '<div class="non-epro-badge-container my-2">' +
         '<span class="badge bg-lightgray text-capitalize">' + langJson['l-outbound-upload-field'] + '</span>' +
         '<span class="badge text-dark"><i class="fas fa-arrow-right"></i></span>' +
@@ -2806,13 +2806,13 @@ function campaignAddFormStructure() {
         '<span class="badge text-dark"><i class="fas fa-arrow-right"></i></span>' +
         '<span class="badge bg-lightgray text-capitalize">' + langJson['l-outbound-build-form'] + '</span>' +
         '</div>' +
-        '<table id="after-save-clear-tbl" class="pl-2">' +
+        '<table id="after-save-clear-tbl" class="ps-2">' +
         '<tr>' +
         '<td>' + langJson['l-outbound-campaign-code'] + '</td>' +
         '<td>' + row.C_Name + '</td>' +
         '</tr>' +
         '<tr>' +
-        '<td class="pr-3">' + langJson['l-outbound-campaign-description'] + '</td>' +
+        '<td class="pe-3">' + langJson['l-outbound-campaign-description'] + '</td>' +
         '<td>' + row.C_Description + '</td>' +
         '</tr>' +
         '<tr>' +
@@ -2823,7 +2823,7 @@ function campaignAddFormStructure() {
         '<td></td>' +
         '<td><button id="c-add-other-fields" class="btn btn-sm btn-circle btn-warning"><i class="fas fa-plus"></i></button></td>' +
         '</tr>' +
-        '</table><div><button id="c-save-form-structure-btn" class="btn btn-warning rounded btn-sm text-capitalize"><i class="fa fa-save mr-2"></i><span>' + langJson['l-general-save'] + '</span></button></div>';
+        '</table><div><button id="c-save-form-structure-btn" class="btn btn-warning rounded btn-sm text-capitalize"><i class="fa fa-save me-2"></i><span>' + langJson['l-general-save'] + '</span></button></div>';
     $('#c-container').empty().append(detailsStr);
 
     $('#c-save-form-structure-btn').on('click', function () {
@@ -2837,7 +2837,7 @@ function campaignAddFormStructure() {
             '<span class="badge active-arrow-color"><i class="fas fa-arrow-right"></i></span>' +
             '<span class="badge bg-lightgray text-capitalize">' + langJson['l-outbound-build-form'] + '</span>' +
             '</div>' +
-            '<button id="c-build-form-btn" class="btn btn-warning rounded btn-sm text-capitalize"><i class="fas fa-arrow-right mr-2"></i><span>' + langJson['l-outbound-build-form'] + '</span></button><p class="mt-2"><i>The Camaign is Inactive now, you will need to Build Form to make the Campaign Active. You can work on it now or later.</i></p>'
+            '<button id="c-build-form-btn" class="btn btn-warning rounded btn-sm text-capitalize"><i class="fas fa-arrow-right me-2"></i><span>' + langJson['l-outbound-build-form'] + '</span></button><p class="mt-2"><i>The Camaign is Inactive now, you will need to Build Form to make the Campaign Active. You can work on it now or later.</i></p>'
         $('#after-save-clear-tbl').empty().append(afterSaveStr);
         $('#c-build-form-btn').on('click', function () {
             campaignBuildForm();
@@ -2955,7 +2955,7 @@ function campaignAddFormEpro(formDetailsArr, campaignObj) {
 
     var triggerFileUploadOnClickStr = '$("#file-to-upload").trigger("click");';
 
-    var uploadBtnStr = '<input type="file" id="file-to-upload" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" onchange="campaignUploadedExcelHeader(this);" style="display:none"><button class="btn rounded btn-sm btn-warning text-capitalize my-2" onclick=' + triggerFileUploadOnClickStr + '><i class="fas fa-upload mr-2"></i><span>' + langJson['l-outbound-upload-excel-header'] + '</span></button>'
+    var uploadBtnStr = '<input type="file" id="file-to-upload" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" onchange="campaignUploadedExcelHeader(this);" style="display:none"><button class="btn rounded btn-sm btn-warning text-capitalize my-2" onclick=' + triggerFileUploadOnClickStr + '><i class="fas fa-upload me-2"></i><span>' + langJson['l-outbound-upload-excel-header'] + '</span></button>'
     // load different form
     var campaignFieldStr = '';
     var campaignDesStr = '';
@@ -2975,7 +2975,7 @@ function campaignAddFormEpro(formDetailsArr, campaignObj) {
 
         // formFieldStr
         // TO DO: Need to check is that no batch created firstly. c-form-select make it editable (add c-edit-field class) when have time, it require time to update all db select fields
-        formFieldStr += '<select id="c-form-select" class="form-control" disabled>';
+        formFieldStr += '<select id="c-form-select" class="form-select" disabled>';
         for (let theForm of formDetailsArr) {
             if (theForm.Form_Status == 'Active') {
                 var theFormDetails = JSON.parse(theForm.Form_Details);
@@ -2991,10 +2991,10 @@ function campaignAddFormEpro(formDetailsArr, campaignObj) {
 
         //btnStr To Do
         if (isCampaignSetup) {
-            btnStr += ('<button id="c-save-btn" class="btn btn-warning rounded btn-sm text-capitalize d-none"><i class="fa fa-save mr-2"></i><span>' + langJson['l-form-save'] + '</span></button>' +
-                '<button id="c-update-btn" class="btn btn-warning rounded btn-sm text-capitalize d-none"><i class="fa fa-save mr-2"></i><span>' + langJson['l-reminder-update'] + '</span></button>' +
-                '<button id="c-edit-btn" class="btn btn-warning rounded btn-sm text-capitalize mr-2"><i class="far fa-edit mr-2"></i><span>' + langJson['l-outbound-edit-campaign'] + '</span></button>' +
-                '<button id="c-add-template-btn" class="btn btn-warning rounded btn-sm text-capitalize"><i class="far fa-copy mr-2"></i><span>' + langJson['l-outbound-use-as-template'] + '</span></button>');
+            btnStr += ('<button id="c-save-btn" class="btn btn-warning rounded btn-sm text-capitalize d-none"><i class="fa fa-save me-2"></i><span>' + langJson['l-form-save'] + '</span></button>' +
+                '<button id="c-update-btn" class="btn btn-warning rounded btn-sm text-capitalize d-none"><i class="fa fa-save me-2"></i><span>' + langJson['l-reminder-update'] + '</span></button>' +
+                '<button id="c-edit-btn" class="btn btn-warning rounded btn-sm text-capitalize me-2"><i class="far fa-edit me-2"></i><span>' + langJson['l-outbound-edit-campaign'] + '</span></button>' +
+                '<button id="c-add-template-btn" class="btn btn-warning rounded btn-sm text-capitalize"><i class="far fa-copy me-2"></i><span>' + langJson['l-outbound-use-as-template'] + '</span></button>');
         }
     } else {
 
@@ -3005,7 +3005,7 @@ function campaignAddFormEpro(formDetailsArr, campaignObj) {
         campaignDesStr += '<input id="c-description" type="search" class="form-control" placeholder="(optional)" />';
 
         // formFieldStr
-        formFieldStr += '<select id="c-form-select" class="form-control"><option value="" style="display:none" selected>-- Please Select --</option>';
+        formFieldStr += '<select id="c-form-select" class="form-select"><option value="" style="display:none" selected>-- Please Select --</option>';
 
         // dbheader need to be warped by single quote(') becasue it contains a JSON
         for (let formObj of formDetailsArr) {
@@ -3024,36 +3024,36 @@ function campaignAddFormEpro(formDetailsArr, campaignObj) {
             '</tr>' +
             '<tr id="c-select-sheet-tr" class="d-none">' +
             '<td>Sheet Contains Header</td>' +
-            '<td><select id="c-excel-sheet-select" class="form-control"></select></td>' +
+            '<td><select id="c-excel-sheet-select" class="form-select"></select></td>' +
             '</tr>')
 
         // headerFieldTrStr
         headerFieldTrStr = ' id="c-header-field-tr" class="d-none"'
 
         //btnStr
-        btnStr += '<button id="c-save-btn" class="btn btn-warning rounded btn-sm text-capitalize"><i class="fa fa-save mr-2"></i><span>' + langJson['l-form-save'] + '</span></button>';
+        btnStr += '<button id="c-save-btn" class="btn btn-warning rounded btn-sm text-capitalize"><i class="fa fa-save me-2"></i><span>' + langJson['l-form-save'] + '</span></button>';
     }
 
-    var detailsStr = '<div><button id="c-return-btn" class="btn rounded btn-sm btn-gray mb-2 text-capitalize float-right"><i class="fas fa-arrow-circle-left mr-2"></i><span>' + langJson['l-outbound-return'] + '</span></button></div>' +
-        '<table id="after-save-clear-tbl" class="pl-2">' +
+    var detailsStr = '<div><button id="c-return-btn" class="btn rounded btn-sm btn-gray mb-2 text-capitalize float-end"><i class="fas fa-arrow-circle-left me-2"></i><span>' + langJson['l-outbound-return'] + '</span></button></div>' +
+        '<table id="after-save-clear-tbl" class="ps-2">' +
         '<tr>' +
         '<td>' + langJson['l-outbound-campaign-code'] + ' </td>' +
         '<td style="min-width:660px;">' + campaignFieldStr + '</td>' +
         '</tr>' +
         '<tr>' +
-        '<td class="pr-3">' + langJson['l-outbound-campaign-description'] + '</td>' +
+        '<td class="pe-3">' + langJson['l-outbound-campaign-description'] + '</td>' +
         '<td>' + campaignDesStr + '</td>' +
         '</tr>' +
-        '<td class="pr-3">' + langJson['l-outbound-select-form'] + '</td>' +
+        '<td class="pe-3">' + langJson['l-outbound-select-form'] + '</td>' +
         '<td>' + formFieldStr + '</td>' +
         '</tr>' +
         uploadRelatedStr +
         '<tr' + headerFieldTrStr + '>' +
-        '<td>' + langJson['l-outbound-upload-fields'] + '<i class="fas fa-info-circle ml-2 text-gray" title="If DB Header remains \'-- Please Select --\', the call list upload excel file should not have the column"></i></td>' +
+        '<td>' + langJson['l-outbound-upload-fields'] + '<i class="fas fa-info-circle ms-2 text-gray" title="If DB Header remains \'-- Please Select --\', the call list upload excel file should not have the column"></i></td>' +
         '<td id="c-upload-field-content-td"></td>' +
         '</tr>' +
         '</table>' +
-        '<p id="c-warning-txt" class="text-danger ml-2" style="white-space:pre-line"></p>' +
+        '<p id="c-warning-txt" class="text-danger ms-2" style="white-space:pre-line"></p>' +
         '<div class="text-center">' + btnStr + '</div>';
 
     $('#c-container').empty().append(detailsStr);
@@ -3276,11 +3276,11 @@ function campaignAddFormNonEpro() {
 
     var triggerFileUploadOnClickStr = '$("#file-to-upload").trigger("click");';
 
-    var uploadBtnStr = '<input type="file" id="file-to-upload" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" onchange="uploadeExcelHeaderNonEpro();" style="display:none"><button class="btn rounded btn-sm btn-warning mt-3 mb-2 text-capitalize" onclick=' + triggerFileUploadOnClickStr + '><i class="fas fa-upload mr-2"></i><span>' + langJson['l-outbound-upload-excel-header'] + '</span></button>'
+    var uploadBtnStr = '<input type="file" id="file-to-upload" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" onchange="uploadeExcelHeaderNonEpro();" style="display:none"><button class="btn rounded btn-sm btn-warning mt-3 mb-2 text-capitalize" onclick=' + triggerFileUploadOnClickStr + '><i class="fas fa-upload me-2"></i><span>' + langJson['l-outbound-upload-excel-header'] + '</span></button>'
 
-    '<tbody><tr><td class="pr-2"><input type="search" class="form-control" /></td><td class="pr-2"><select class="form-control pr-2"><option value="">-- Please Select --</option><option>Last_Name</option><option>Surname</option><option>Mobile</option><option>Age</option></select></td><td class="pr-2"><select class="form-control pr-2"><option vlaue="text">Text Field</option><option vlaue="radio">Radio</option><option vlaue="textarea">Textarea</option><option vlaue="date">Date</option></selet></td><td></td></tr></tbody></table>' //<i class="fas fa-trash-alt mr-2"></i>
+    '<tbody><tr><td class="pe-2"><input type="search" class="form-control" /></td><td class="pe-2"><select class="form-select pe-2"><option value="">-- Please Select --</option><option>Last_Name</option><option>Surname</option><option>Mobile</option><option>Age</option></select></td><td class="pe-2"><select class="form-select pe-2"><option vlaue="text">Text Field</option><option vlaue="radio">Radio</option><option vlaue="textarea">Textarea</option><option vlaue="date">Date</option></selet></td><td></td></tr></tbody></table>' //<i class="fas fa-trash-alt me-2"></i>
 
-    var detailsStr = '<div><button id="c-return-btn" class="btn rounded btn-sm btn-gray mb-2 text-capitalize float-right"><i class="fas fa-arrow-circle-left mr-2"></i><span>' + langJson['l-outbound-return'] + '</span></button></div>' +
+    var detailsStr = '<div><button id="c-return-btn" class="btn rounded btn-sm btn-gray mb-2 text-capitalize float-end"><i class="fas fa-arrow-circle-left me-2"></i><span>' + langJson['l-outbound-return'] + '</span></button></div>' +
         // '<h3 id="c-after-save-remove-header" class="mt-0">1/3 Upload Field Define</h3>' +
         '<div class="non-epro-badge-container my-2">' +
         '<span class="badge bg-primary text-capitalize">' + langJson['l-outbound-upload-field'] + '</span>' +
@@ -3289,20 +3289,20 @@ function campaignAddFormNonEpro() {
         '<span class="badge text-dark"><i class="fas fa-arrow-right"></i></span>' +
         '<span class="badge bg-lightgray text-capitalize">' + langJson['l-outbound-build-form'] + '</span>' +
         '</div>' +
-        '<table id="after-save-clear-tbl" class="pl-2">' +
+        '<table id="after-save-clear-tbl" class="ps-2">' +
         '<tr>' +
         '<td>' + langJson['l-outbound-campaign-code'] + '</td>' +
         '<td><input id="c-campaign-code-input" type="search" class="form-control" placeholder="Example: ABC_01" /></td>' +
         '</tr>' +
         '<tr>' +
-        '<td class="pr-3">' + langJson['l-outbound-campaign-description'] + '</td>' +
+        '<td class="pe-3">' + langJson['l-outbound-campaign-description'] + '</td>' +
         '<td><input type="search" class="form-control" placeholder="(optional)" /></td>' +
         '</tr>' +
         '<tr>' +
-        '<td>' + langJson['l-outbound-upload-fields'] + '<i class="fas fa-info-circle ml-2 text-gray" title="If DB Header remains \'-- Please Select --\', the call list upload excel file should not have the column"></i></td>' +
+        '<td>' + langJson['l-outbound-upload-fields'] + '<i class="fas fa-info-circle ms-2 text-gray" title="If DB Header remains \'-- Please Select --\', the call list upload excel file should not have the column"></i></td>' +
         '<td id="c-upload-field-content-td">' + uploadBtnStr + '</td>' +
         '</tr>' +
-        '</table><div><button id="c-save-campaign-btn-non-epro" class="btn btn-warning rounded btn-sm text-capitalize"><i class="fa fa-save mr-2"></i><span>' + langJson['l-general-save'] + '</span></button></div>';
+        '</table><div><button id="c-save-campaign-btn-non-epro" class="btn btn-warning rounded btn-sm text-capitalize"><i class="fa fa-save me-2"></i><span>' + langJson['l-general-save'] + '</span></button></div>';
     $('#c-container').empty().append(detailsStr);
 
     $('#c-campaign-code-input').focus();
@@ -3329,7 +3329,7 @@ function campaignAddFormNonEpro() {
             '<span class="badge text-dark"><i class="fas fa-arrow-right"></i></span>' +
             '<span class="badge bg-lightgray text-capitalize">' + langJson['l-outbound-build-form'] + '</span>' +
             '</div>' +
-            '<button id="c-form-structure-btn" class="btn btn-warning rounded btn-sm text-capitalize"><i class="fas fa-arrow-right mr-2"></i><span>2/3 Create Form Structure</span></button><p class="mt-2"><i>' + langJson['l-outbound-campaign-inactive-now'] + '</i></p>';
+            '<button id="c-form-structure-btn" class="btn btn-warning rounded btn-sm text-capitalize"><i class="fas fa-arrow-right me-2"></i><span>2/3 Create Form Structure</span></button><p class="mt-2"><i>' + langJson['l-outbound-campaign-inactive-now'] + '</i></p>';
         $('#after-save-clear-tbl').empty().append(afterSaveStr);
         $('#c-form-structure-btn').on('click', function () {
             campaignAddFormStructure();
@@ -3339,7 +3339,7 @@ function campaignAddFormNonEpro() {
 }
 
 function campaignBuildForm() {
-    var detailsStr = '<div><button id="c-return-btn" class="btn rounded btn-sm btn-gray mb-2 text-capitalize float-right" style="width:124.95px;"><i class="fas fa-arrow-circle-left mr-2"></i><span>' + langJson['l-outbound-return'] + '</span></button><button id="c-save-build-form-btn" class="btn rounded btn-sm btn-warning mb-2 text-capitalize mr-3 float-right"><i class="fa fa-save mr-2"></i><span>' + langJson['l-outbound-save-form'] + '</span></button></div>' +
+    var detailsStr = '<div><button id="c-return-btn" class="btn rounded btn-sm btn-gray mb-2 text-capitalize float-end" style="width:124.95px;"><i class="fas fa-arrow-circle-left me-2"></i><span>' + langJson['l-outbound-return'] + '</span></button><button id="c-save-build-form-btn" class="btn rounded btn-sm btn-warning mb-2 text-capitalize me-3 float-end"><i class="fa fa-save me-2"></i><span>' + langJson['l-outbound-save-form'] + '</span></button></div>' +
         '<div class="non-epro-badge-container my-2">' +
         '<span class="badge bg-lightgray text-capitalize">' + langJson['l-outbound-upload-field'] + '</span>' +
         '<span class="badge text-dark"><i class="fas fa-arrow-right"></i></span>' +
@@ -3457,7 +3457,7 @@ function showLogForm(showForm) {
                 {
                     title: '',
                     render: function (data, type, row) {
-                        return '<i title="Details" class="table-btn fas fa-search-plus open" data-toggle="modal" data-target="#logModal"></i>';
+                        return '<i title="Details" class="table-btn fas fa-search-plus open" data-bs-toggle="modal" data-bs-target="#logModal"></i>';
                     },
                     orderable: false,
                     className: 'btnColumn'
@@ -3521,7 +3521,7 @@ function showLogForm(showForm) {
                 }
 
                 tbodyStr += '<tr><td>&nbsp;</td><td></td></tr>';
-                tbodyStr += '<tr><td class="font-weight-bold">I/B Conn ID</td><td>' + connId + '</td></tr>';
+                tbodyStr += '<tr><td class="fw-bold">I/B Conn ID</td><td>' + connId + '</td></tr>';
                 if (isAdmin && connId != 'N/A') {
                     // String(data.Conn_Id)
                     $.ajax({
@@ -3545,7 +3545,7 @@ function showLogForm(showForm) {
                                         voiceUrl = voiceUrl.replace(voiceUrl.substr(0, voiceUrl.indexOf("/wisepbx/")), wiseHost);
                                     }
                                     tbodyStr += (
-                                        '<tr><td class="font-weight-bold pr-3">I/B Timestamp</td><td>' +
+                                        '<tr><td class="fw-bold pe-3">I/B Timestamp</td><td>' +
                                         mediaContent.TimeStamp.replace("T", " ") +
                                         '</td></tr><tr><td></td><td>' +
                                         '<audio id="video" controls="" name="media" class="video-tag"' +
@@ -3572,7 +3572,7 @@ function showLogForm(showForm) {
 
 function replyConnHandle(tbodyStr, replyConnId) {
     tbodyStr += '<tr><td>&nbsp;</td><td></td></tr>';
-    tbodyStr += '<tr><td class="font-weight-bold">O/B Conn ID</td><td>' + replyConnId + '</td></tr>';
+    tbodyStr += '<tr><td class="fw-bold">O/B Conn ID</td><td>' + replyConnId + '</td></tr>';
 
     if (isAdmin && replyConnId != 'N/A') {
         $.ajax({
@@ -3599,8 +3599,8 @@ function replyConnHandle(tbodyStr, replyConnId) {
                             voiceUrl = voiceUrl.replace(voiceUrl.substr(0, voiceUrl.indexOf("/wisepbx/")), wiseHost);
                         }
                         tbodyStr += (
-                            '<tr><td class="font-weight-bold">O/B Phone Number</td><td>' + mediaContent.CallerDisplay + '</td></tr>' +
-                            '<tr><td class="font-weight-bold pr-3">O/B Timestamp</td><td>' +
+                            '<tr><td class="fw-bold">O/B Phone Number</td><td>' + mediaContent.CallerDisplay + '</td></tr>' +
+                            '<tr><td class="fw-bold pe-3">O/B Timestamp</td><td>' +
                             mediaContent.TimeStamp.replace("T", " ") +
                             '</td></tr><tr><td colspan="2" class="pt-2">' +
                             '<audio id="video" controls="" name="media"' +
@@ -3621,9 +3621,9 @@ function replyConnHandle(tbodyStr, replyConnId) {
 $(document).ready(function () {
     if (isAdmin) {
         $('#v-pills-tab').prepend(
-            '<li id="m-design-content-tab"><a id="design-tab" class="nav-link text-capitalize mx-2" data-toggle="pill" href="#design-content" role="tab" aria-controls="design-content" aria-selected="false"><i class="fas fa-plus mr-2"></i><span class="align-middle">' + langJson['l-social-campaign'] + '</span></a></li>' +
-            '<li id="m-upload-content-tab"><a id="upload-tab" class="nav-link text-capitalize mx-2" data-toggle="pill" href="#upload-content" role="tab" aria-controls="upload-content" aria-selected="false"><i class="fas fa-upload mr-2"></i><span class="align-middle">' + langJson['l-campaign-upload'] + '</span></a></li>' +
-            '<li id="m-manage-content-tab"><a id="manage-tab" class="nav-link text-capitalize mx-2" data-toggle="pill" href="#manage-content" role="tab" aria-controls="manage-content" aria-selected="false"><i class="fas fa-tasks mr-2"></i><span class="align-middle">' + langJson['l-outbound-assign'] + '</span></a></li>'
+            '<li id="m-design-content-tab"><a id="design-tab" class="nav-link text-capitalize mx-2" data-bs-toggle="pill" href="#design-content" role="tab" aria-controls="design-content" aria-selected="false"><i class="fas fa-plus me-2"></i><span class="align-middle">' + langJson['l-social-campaign'] + '</span></a></li>' +
+            '<li id="m-upload-content-tab"><a id="upload-tab" class="nav-link text-capitalize mx-2" data-bs-toggle="pill" href="#upload-content" role="tab" aria-controls="upload-content" aria-selected="false"><i class="fas fa-upload me-2"></i><span class="align-middle">' + langJson['l-campaign-upload'] + '</span></a></li>' +
+            '<li id="m-manage-content-tab"><a id="manage-tab" class="nav-link text-capitalize mx-2" data-bs-toggle="pill" href="#manage-content" role="tab" aria-controls="manage-content" aria-selected="false"><i class="fas fa-tasks me-2"></i><span class="align-middle">' + langJson['l-outbound-assign'] + '</span></a></li>'
         );
     }
 
@@ -3889,7 +3889,7 @@ $(document).ready(function () {
                     data: "Agent_Id",
                     render: function (data) {
                         if (isAdmin || data == loginId) {
-                            return '<button class="btn btn-sm rounded btn-warning text-capitalize"><i class="fas fa-mouse-pointer mr-2"></i><span>' + langJson['l-campaign-select'] + '</span></button>'
+                            return '<button class="btn btn-sm rounded btn-warning text-capitalize"><i class="fas fa-mouse-pointer me-2"></i><span>' + langJson['l-campaign-select'] + '</span></button>'
                         } else {
                             return ''
                         }
@@ -3993,7 +3993,7 @@ $(document).ready(function () {
                         if ((isAdmin || row.Agent_Id == loginId) && data) {
                             var theTime = (data || '').replace('T', ' ').replace(/\.\d+/, "");
                             if (new Date(theTime) < new Date()) {
-                                return theTime.replace('T', ' ').replace(/\.\d+/, "") + '<i class="fas fa-bell ml-2 text-danger"></i>';
+                                return theTime.replace('T', ' ').replace(/\.\d+/, "") + '<i class="fas fa-bell ms-2 text-danger"></i>';
                             } else {
                                 return theTime.replace('T', ' ').replace(/\.\d+/, "");
                             }

@@ -405,7 +405,7 @@ function switchContent(switchType) {
             '<table id="scheduler-tbl" class="table table-hover" style="width:100%" data-page-length="5"></table>' +
             '</div>' +
             '<button id="add-scheduler-btn" class="btn btn-warning rounded btn-sm text-capitalize mt-3" style="display:block;">' +
-            '<i class="fas fa-plus mr-2"></i><span>' + langJson['l-scheduler-add-scheduler'] + '</span></button>' +
+            '<i class="fas fa-plus me-2"></i><span>' + langJson['l-scheduler-add-scheduler'] + '</span></button>' +
             '</div>' +
             '</div>' +
 
@@ -414,39 +414,39 @@ function switchContent(switchType) {
             '<div class="row mb-1 px-3 pt-2 pb-1">' +
             '<input id="s-id" class="d-none" val=""/>' +
             '<input id="s-service" class="d-none" val=""/>' +
-            '<label class="mr-2 pl-0 mb-0 py-1">' + langJson['l-scheduler-message'] + '</label>' +
+            '<label class="me-2 ps-0 mb-0 py-1">' + langJson['l-scheduler-message'] + '</label>' +
             '<input id="s-msg" class="form-control" type="search" autocomplete="off" max-length="500" />' +
             '</div>' +
             '<div class="row mb-1 px-3 py-1">' +
-            '<div class="col-sm-3 pl-0">' +
-            '<label class="mr-2 pl-0 mb-0 py-1">' + langJson['l-scheduler-type'] + '</label>' +
-            '<select id="s-type" class="form-control">' +
+            '<div class="col-sm-3 ps-0">' +
+            '<label class="me-2 ps-0 mb-0 py-1">' + langJson['l-scheduler-type'] + '</label>' +
+            '<select id="s-type" class="form-select">' +
             '<option selected="selected" value="specific">specific</option>' +
             '<option value="daily">daily</option>' +
             '</select>' +
             '</div>' +
             '<div id="s-date-container" class="col-sm-3">' +
-            '<label class="mr-2 pl-0 mb-0 py-1">' + langJson['l-campaign-date'] + '</label>' +
+            '<label class="me-2 ps-0 mb-0 py-1">' + langJson['l-campaign-date'] + '</label>' +
             '<div>' +
             '<input id="s-calendar" class="rounded form-control" type="text" placeholder="yyyy-mm-dd" pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}" />' +
             '</div>' +
             '</div>' +
             '<div class="col-sm-3">' +
-            '<label class="mr-2 pl-0 mb-0 py-1">' + langJson['l-campaign-time'] + '</label>' +
-            '<input type="text" id="s-time" class=" form-control" data-format="HH:mm" data-template="HH : mm" name="time">' +
+            '<label class="me-2 ps-0 mb-0 py-1">' + langJson['l-campaign-time'] + '</label>' +
+            '<input type="text" id="s-time" class=" form-control" data-format="HH:mm" data-bs-template="HH : mm" name="time">' +
             '</div>' +
             '</div>' +
             '<div class="text-center mt-3">' +
-            '<button id="update-scheduler-btn" class="btn btn-warning rounded btn-sm text-capitalize mr-2">' +
-            '<i class="fas fa-pen mr-2"></i><span>' + langJson['l-scheduler-update-scheduler'] + '</span></button>' +
+            '<button id="update-scheduler-btn" class="btn btn-warning rounded btn-sm text-capitalize me-2">' +
+            '<i class="fas fa-pen me-2"></i><span>' + langJson['l-scheduler-update-scheduler'] + '</span></button>' +
 
-            '<a id="del-scheduler-btn" class="btn btn-danger rounded btn-sm text-capitalize mr-2" data-toggle="confirmation" data-placement="top" data-popout="true" data-btn-ok-class="btn-info" href="javascript:()">' +
-            '<i class="fas fa-trash-alt mr-2"></i><span class="align-middle">' + langJson['l-scheduler-delete-scheduler'] + '</span></a>' +
+            '<a id="del-scheduler-btn" class="btn btn-danger rounded btn-sm text-capitalize me-2" data-bs-toggle="confirmation" data-bs-placement="top" data-popout="true" data-btn-ok-class="btn-info" href="javascript:()">' +
+            '<i class="fas fa-trash-alt me-2"></i><span class="align-middle">' + langJson['l-scheduler-delete-scheduler'] + '</span></a>' +
 
-            '<button id="save-scheduler-btn" class="btn btn-warning rounded btn-sm text-capitalize mr-2">' +
-            '<i class="fas fa-plus mr-2"></i><span>' + langJson['l-scheduler-save-scheduler'] + '</span></button>' +
-            '<button id="s-cancel-btn" class="btn btn-gray rounded btn-sm text-capitalize mr-2">' +
-            '<i class="fas fa-times mr-2"></i></i><span>' + langJson['l-general-cancel'] + '</span></button>' +
+            '<button id="save-scheduler-btn" class="btn btn-warning rounded btn-sm text-capitalize me-2">' +
+            '<i class="fas fa-plus me-2"></i><span>' + langJson['l-scheduler-save-scheduler'] + '</span></button>' +
+            '<button id="s-cancel-btn" class="btn btn-gray rounded btn-sm text-capitalize me-2">' +
+            '<i class="fas fa-times me-2"></i></i><span>' + langJson['l-general-cancel'] + '</span></button>' +
             '</div>' +
             '</div>' +
             '</div>' +
@@ -630,8 +630,8 @@ function switchContent(switchType) {
                     }
                 });
             });
-            $('[data-toggle=confirmation]').confirmation({
-                rootSelector: '[data-toggle=confirmation]',
+            $('[data-bs-toggle=confirmation]').confirmation({
+                rootSelector: '[data-bs-toggle=confirmation]',
                 popout: true,
                 title: langJson['l-general-are-you-sure'],
                 btnOkLabel: langJson['l-general-ok-label'],
@@ -677,12 +677,12 @@ function switchContent(switchType) {
             '<h5 class="my-0 d-inline" style="line-height:31px;">' +
             '<i class="fas fa-history card-header-icon"></i><span class="align-middle">' + langJson['l-scheduler-history'] + '</span>' +
             '</h5>' +
-            '<ul class="nav nav-tabs float-right" data-tabs="tabs">' +
+            '<ul class="nav nav-tabs float-end" data-tabs="tabs">' +
             '<li id="month-nav-item" class="nav-item">' +
-            '<p class="nav-link active show header-btn" data-toggle="tab">' + langJson['l-scheduler-within-a-month'] + '</p>' +
+            '<p class="nav-link active show header-btn" data-bs-toggle="tab">' + langJson['l-scheduler-within-a-month'] + '</p>' +
             '</li>' +
             '<li id="year-nav-item" class="nav-item">' +
-            '<p class="nav-link header-btn" data-toggle="tab">' + langJson['l-scheduler-within-a-year'] + '</p>' +
+            '<p class="nav-link header-btn" data-bs-toggle="tab">' + langJson['l-scheduler-within-a-year'] + '</p>' +
             '</li>' +
             '</ul>' +
             '</div>' +
@@ -708,8 +708,8 @@ function switchContent(switchType) {
 
             '<div class="text-center mt-3">' +
 
-            '<button id="history-cancel-btn" class="btn btn-gray rounded btn-sm text-capitalize mr-2">' +
-            '<i class="fas fa-times mr-2"></i></i><span>' + langJson['l-scheduler-close'] + '</span></button>' +
+            '<button id="history-cancel-btn" class="btn btn-gray rounded btn-sm text-capitalize me-2">' +
+            '<i class="fas fa-times me-2"></i></i><span>' + langJson['l-scheduler-close'] + '</span></button>' +
 
             '</div>' +
             '</div>' +
@@ -739,8 +739,8 @@ $(document).ready(function() {
     // default load current
     $('#current-task-a').click();
     if (isAdmin) {
-        $('#current-task-li').before('<li class="nav-item"><a id="admin-scheduler-a" class="nav-link pt-2" href="#" data-toggle="tab" aria-selected="false"><i class="fas fa-user-cog mr-2"></i>' + langJson['l-scheduler-admin'] + '</a></li>');
-        $('#current-task-li').after('<li class="nav-item"><a id="history-task-a" class="nav-link pt-2" href="#" data-toggle="tab" aria-selected="false"><i class="fas fa-history mr-2"></i>' + langJson['l-scheduler-history'] + '</a></li>');
+        $('#current-task-li').before('<li class="nav-item"><a id="admin-scheduler-a" class="nav-link pt-2" href="#" data-bs-toggle="tab" aria-selected="false"><i class="fas fa-user-cog me-2"></i>' + langJson['l-scheduler-admin'] + '</a></li>');
+        $('#current-task-li').after('<li class="nav-item"><a id="history-task-a" class="nav-link pt-2" href="#" data-bs-toggle="tab" aria-selected="false"><i class="fas fa-history me-2"></i>' + langJson['l-scheduler-history'] + '</a></li>');
     }
     $('.nav-link').on('click', function() {
         var switchType = $(this).attr('id');
@@ -759,7 +759,7 @@ function windowOnload() {
 }
 
 function setLanguage() {
-    $('.l-scheduler-current').html('<iclass="fas fa-tasks mr-2"></i>' + langJson['l-scheduler-current'] + '<i id="current-alarm" class="fas fa-bell ml-1 text-danger d-none"></i>');
+    $('.l-scheduler-current').html('<iclass="fas fa-tasks me-2"></i>' + langJson['l-scheduler-current'] + '<i id="current-alarm" class="fas fa-bell ms-1 text-danger d-none"></i>');
     $('.l-scheduler-current').text(langJson['l-scheduler-current']);
     $('.l-scheduler-message').text(langJson['l-scheduler-message']);
     $('.l-scheduler-comment').text(langJson['l-scheduler-comment']);

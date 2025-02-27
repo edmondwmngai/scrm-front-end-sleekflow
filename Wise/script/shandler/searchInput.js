@@ -174,7 +174,7 @@ function searchInput(sTicket)
 
             // add FB Content
             getFBPostContent(ticketId);
-            $('#reply-btn-' + ticketId).before('<button class="s-standalone-btn" data-toggle="tooltip" data-placement="top" title="Select all messages" onclick="selectAllClicked(' + ticketId + ')"><span class="align-sub"><i class="far fa-check-square keyboard-icon"></i></span></button><button class="reply-discard-container" data-toggle="tooltip" data-placement="top" title="No need to answer for selected comment(s)" onclick="discardClicked(' + ticketId + ')"><span><i class="far fa-times-circle keyboard-icon"></i></span></button>');
+            $('#reply-btn-' + ticketId).before('<button class="s-standalone-btn" data-bs-toggle="tooltip" data-bs-placement="top" title="Select all messages" onclick="selectAllClicked(' + ticketId + ')"><span class="align-sub"><i class="far fa-check-square keyboard-icon"></i></span></button><button class="reply-discard-container" data-bs-toggle="tooltip" data-bs-placement="top" title="No need to answer for selected comment(s)" onclick="discardClicked(' + ticketId + ')"><span><i class="far fa-times-circle keyboard-icon"></i></span></button>');
             parent.toBeUnloadedPost.push(ticketId);
             resize();
             getFBComments(ticketId);

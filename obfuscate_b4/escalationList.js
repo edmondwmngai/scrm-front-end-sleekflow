@@ -36,7 +36,7 @@ function escalationListOnload(removeOriginal) {
             targets: 0,
             data: null,
             // colVis: false,
-            defaultContent: '<i class="fas fa-edit table-btn select" data-toggle="tooltip" title="' + langJson['l-menu-update-case'] + '"></i>',
+            defaultContent: '<i class="fas fa-edit table-btn select" data-bs-toggle="tooltip" title="' + langJson['l-menu-update-case'] + '"></i>',
             className: 'btnColumn',
             // className: 'noVis', //NOTES: no column visibility
             orderable: false,
@@ -119,7 +119,7 @@ $(document).ready(function () {
 });
 // $(document).ready(function () {
 //     $("body").tooltip({
-//         selector: '[data-toggle=tooltip]',
+//         selector: '[data-bs-toggle=tooltip]',
 //         trigger: 'hover',
 //         animation: false
 //     });

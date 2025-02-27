@@ -281,7 +281,7 @@ function getProduct() {
                                 var productCodeWDescription = $('#form-product-select option[productcode="' + theProductCode + '"]').text();
 
                                 // the productCodeWDescription will be empty string ('') if no existing product, will just show the product code then
-                                var previousProductStr = '<div id="top-record-container-' + saId + '" class="top-border-container"><select class="form-control select-min-w" disabled="true"><option selected>' + (productCodeWDescription.length > 0 ? productCodeWDescription : productCode) + '</option></select></div>';
+                                var previousProductStr = '<div id="top-record-container-' + saId + '" class="top-border-container"><select class="form-select select-min-w" disabled="true"><option selected>' + (productCodeWDescription.length > 0 ? productCodeWDescription : productCode) + '</option></select></div>';
                                 $('#form-product-select').before(previousProductStr);
                                 var thePlanDetailsArr = theProjectObj.PlanDetails;
                                 var originalPlanCode = recordObj.Plan_Code;
@@ -309,14 +309,14 @@ function getProduct() {
 
                                 theCodePriceStr += '</div>'
                                 theCodePriceStr += ('<div class="text-center mt-3 mb-2">' +
-                                    '<button said="' + saId + '" class="btn btn-warning rounded btn-sm text-capitalize edit-record-btn" style="margin-left:-16px;"><i class="fa fa-edit mr-2"></i><span class="l-form-edit">Edit</span></button>' +
+                                    '<button said="' + saId + '" class="btn btn-warning rounded btn-sm text-capitalize edit-record-btn" style="margin-left:-16px;"><i class="fa fa-edit me-2"></i><span class="l-form-edit">Edit</span></button>' +
 
                                     // NO DEL depends customer need, may need to delete product
-                                    // '<button said="' + saId + '" class="btn btn-danger rounded btn-sm text-capitalize del-record-btn" style="margin-right:-16px;"><i class="fas fa-trash-alt mr-2"></i><span class="l-st-delete">Delete</span></button>' +
+                                    // '<button said="' + saId + '" class="btn btn-danger rounded btn-sm text-capitalize del-record-btn" style="margin-right:-16px;"><i class="fas fa-trash-alt me-2"></i><span class="l-st-delete">Delete</span></button>' +
                                     // /NO DEL
 
-                                    '<button said="' + saId + '" class="btn btn-lightgray rounded btn-sm text-capitalize undo-edit-record-btn" plancode="' + originalPlanCode + '" price="' + originalPrice + '"style="display:none;"><i class="fa fa-undo mr-2"></i><span class="l-st-delete">Cancel Edit</span></button>' +
-                                    '<button said="' + saId + '" class="btn btn-lightgray rounded btn-sm text-capitalize undo-del-record-btn" style="display:none;"><i class="fa fa-undo mr-2"></i><span class="l-st-delete">Cancel Delete</span></button>' +
+                                    '<button said="' + saId + '" class="btn btn-lightgray rounded btn-sm text-capitalize undo-edit-record-btn" plancode="' + originalPlanCode + '" price="' + originalPrice + '"style="display:none;"><i class="fa fa-undo me-2"></i><span class="l-st-delete">Cancel Edit</span></button>' +
+                                    '<button said="' + saId + '" class="btn btn-lightgray rounded btn-sm text-capitalize undo-del-record-btn" style="display:none;"><i class="fa fa-undo me-2"></i><span class="l-st-delete">Cancel Delete</span></button>' +
                                     '</div>')
                                 theCodePriceStr += '</div>'
                                 $('#form-prodcut-code-price').before(theCodePriceStr);
@@ -934,12 +934,12 @@ function replyChannelChange(iThis) {
         var mobileNo = $('#Mobile_No').val() || '';
         var mobileNoStr = '';
         if (mobileNo.length > 0) {
-            mobileNoStr = '<span id="reply-wa-mobile-container" style="display:inline-block;"><div class="form-check ml-2"><label class="form-check-label"><input type="radio" name="waList" class="form-check-input reply-checkbox wa-list" value="' + mobileNo + '" id="oCallMobile_No" onchange="WAOtherChanged(this)">' + mobileNo + '<span class="circle"><span class="check"></span></span></label></div></span>'
+            mobileNoStr = '<span id="reply-wa-mobile-container" style="display:inline-block;"><div class="form-check ms-2"><label class="form-check-label"><input type="radio" name="waList" class="form-check-input reply-checkbox wa-list" value="' + mobileNo + '" id="oCallMobile_No" onchange="WAOtherChanged(this)">' + mobileNo + '<span class="circle"><span class="check"></span></span></label></div></span>'
         }
         var waContainerStr = '<span class="reply-wa-container" style="display:inline;">' + mobileNoStr +
-            '<span id="wa-other-container" style="display:inline-block;"><div class="form-check ml-2" style="display:inline;"><label class="form-check-label"><input type="radio" class="form-check-input reply-checkbox wa-list" name="waList" value="other" id="call-other-check" onchange="WAOtherChanged(this)">Other<span class="circle"><span class="check"></span></span></label></div>&nbsp;<input type="tel" onkeyup="this.value=numberOnly(this.value)" maxlength="50" disabled="true" id="wa-other-input" style="border-radius:5px;" autocomplete="off"></span>' +
+            '<span id="wa-other-container" style="display:inline-block;"><div class="form-check ms-2" style="display:inline;"><label class="form-check-label"><input type="radio" class="form-check-input reply-checkbox wa-list" name="waList" value="other" id="call-other-check" onchange="WAOtherChanged(this)">Other<span class="circle"><span class="check"></span></span></label></div>&nbsp;<input type="tel" onkeyup="this.value=numberOnly(this.value)" maxlength="50" disabled="true" id="wa-other-input" style="border-radius:5px;" autocomplete="off"></span>' +
             '<div id="send-wa-section" class="mt-2">' +
-            '<label class="form-label mb-0"><span>Template Prop(s):</span><input id="tpl-content" class="rounded ml-3 mr-2" autocomplete="off">e.g. 4 July,8pm</label>' +
+            '<label class="form-label mb-0"><span>Template Prop(s):</span><input id="tpl-content" class="rounded ms-3 me-2" autocomplete="off">e.g. 4 July,8pm</label>' +
             '<div class="form-check form-check-radio"><label class="form-check-label" name="tpl-lbl" for="tp-1"><input class="form-check-input" type="radio" name="tp" id="tp-1" value="1">Your appointment is coming up on {{1}} at {{2}}<span class="circle"><span class="check"></span></span></label></div>' +
             '<div class="form-check form-check-radio"><label class="form-check-label" name="tpl-lbl" for="tp-2"><input class="form-check-input" type="radio" name="tp" id="tp-2" value="2">易寶通訊提醒你, 預約日期是{{1}}{{2}}。<span class="circle"><span class="check"></span></span></label></div>' +
             '<div class="form-check form-check-radio"><label class="form-check-label" name="tpl-lbl" for="tp-3"><input class="form-check-input" type="radio" name="tp" id="tp-3" value="3">Epro Notice: Thank you for your application, the application no is {{1}}.<span class="circle"><span class="check"></span></span></label></div>' +
@@ -963,10 +963,10 @@ function replyChannelChange(iThis) {
 
         // text of the confirm button of details
         if (channel == 'email' || channel == 'fax' || channel == 'sms') {
-            $('#reply-submit-btn').html('<i class="fas fa-clipboard-check mr-2"></i><span>' + langJson["l-form-confirm"] + '</span>');
+            $('#reply-submit-btn').html('<i class="fas fa-clipboard-check me-2"></i><span>' + langJson["l-form-confirm"] + '</span>');
             $('#reply-submit-btn').show();
         } else if (channel == 'call') {
-            $('#reply-submit-btn').html('<i class="fas fa-phone mr-2"></i><span>' + langJson["l-form-dial"] + '</span>');
+            $('#reply-submit-btn').html('<i class="fas fa-phone me-2"></i><span>' + langJson["l-form-dial"] + '</span>');
             $('#reply-submit-btn').show();
         } else {
             $('#reply-submit-btn').hide();
@@ -1018,7 +1018,7 @@ var replySubmitClicked = function () {
         }
         var areYouSure = $('#are-you-sure');
         if (areYouSure.length == 0) {
-            $('<span id="are-you-sure">&nbsp;&nbsp;&nbsp;' + langJson['l-form-are-you-sure'] + '?&nbsp;&nbsp;&nbsp;<button class="btn btn-sm btn-warning text-capitalize rounded" onclick="dialYesClicked();"><i class="fas fa-check mr-2"></i><span>' + langJson['l-form-yes'] + '</span></button>&nbsp;<button onclick="dialNoClicked();" class="btn btn-sm btn-warning text-capitalize rounded"><i class="fas fa-times mr-2"></i><span>' + langJson['l-form-no'] + '</span></button></span>').insertAfter('#reply-submit-btn');
+            $('<span id="are-you-sure">&nbsp;&nbsp;&nbsp;' + langJson['l-form-are-you-sure'] + '?&nbsp;&nbsp;&nbsp;<button class="btn btn-sm btn-warning text-capitalize rounded" onclick="dialYesClicked();"><i class="fas fa-check me-2"></i><span>' + langJson['l-form-yes'] + '</span></button>&nbsp;<button onclick="dialNoClicked();" class="btn btn-sm btn-warning text-capitalize rounded"><i class="fas fa-times me-2"></i><span>' + langJson['l-form-no'] + '</span></button></span>').insertAfter('#reply-submit-btn');
             $('.dial-yes-disable').prop('disabled', true);
         }
     } else if (replyChannel == 'sms') {
@@ -1034,12 +1034,12 @@ var replySubmitClicked = function () {
             return;
         }
 
-        $('<div id="reply-card" class="my-2 jumbotron py-3"><div class="text-center mb-3 bg-info rounded text-white"><h5 class="mt-0 mb-0">Send SMS</h5></div>' +
-            '<div class="row form-inline"><div class="form-group col-sm-12 pl-0">' +
-            '<label class="col-sm-1 control-label pl-4">&nbsp;&nbsp;&nbsp;From</label>' +
-            '<div class="col-sm-11 pl-2">' + companyName + '</div></div>' +
-            '<div class="form-group col-sm-12 pl-0"><label for="sms-content" class="col-sm-1 control-label pl-4">&nbsp;&nbsp;&nbsp;Content</label>' +
-            '<div class="col-sm-11 pl-2">' +
+        $('<div id="reply-card" class="my-2 bg-light mb-4 rounded-2 py-5 px-3 py-3"><div class="text-center mb-3 bg-info rounded text-white"><h5 class="mt-0 mb-0">Send SMS</h5></div>' +
+            '<div class="row d-flex align-items-center"><div class="mb-3 col-sm-12 ps-0">' +
+            '<label class="col-sm-1 control-label ps-4">&nbsp;&nbsp;&nbsp;From</label>' +
+            '<div class="col-sm-11 ps-2">' + companyName + '</div></div>' +
+            '<div class="mb-3 col-sm-12 ps-0"><label for="sms-content" class="col-sm-1 control-label ps-4">&nbsp;&nbsp;&nbsp;Content</label>' +
+            '<div class="col-sm-11 ps-2">' +
             '<textarea class="mt-3" id="sms-content" rows="3" cols="20" style="font-family:inherit;width:100%;" maxlength="500" onKeyUp="smsWordCount()"></textarea></textarea></div></div>' +
             '<div class="w-100"><span style="float:right;margin-right:30px;"><span id="sms-word-count" class="align-right">0/170</span>&nbsp;&nbsp;<span id="sms-msg-count">1</span>&nbsp;message(s)</span></div>' +
             +'</div></div>').appendTo('#reply-container');
@@ -1099,20 +1099,20 @@ function insertInsuredPersonalInfoForm(person) {
         relationship = "子女";
     }
 
-    $("<hr/> <div class='form-row'><span class='is-header'>Insured's Personal Information - " + name + "</span></div>" +
-        "<div class='form-row form-inline '> <!-- relationship --> <label for='" + person + "-relationship-display' class='col-1-w control-label col-form-label '>Relationship</label> <div class='col-2-sw'> <input id='" + person + "-relationship-display' class='form-control' type='search' disabled value='" + relationship + "'></div></div>" +
-        "<div class='form-row form-inline'> <!-- residency --> <label for='" + person + "-residency-select' class='col-1-w control-label col-form-label'>Residency</label> <div class='col-2-sw'> <select id='" + person + "-residency-select' class='form-control select-min-w'> <option value='' selected>- Please select -</option> <option value='A'>香港永久居民</option> <option value='B'>香港居民</option> </select></div></div>" +
-        "<div class='form-row form-inline'> <!-- Eng Last Name --> <label for='" + person + "-eng-last-name-input' class='col-1-w control-label col-form-label'>Last Name(English)</label>  <div class='form-group col-sm-4'> <input id='" + person + "-eng-last-name-input' class='form-control mt-1' type='search' style='width: 76%;'></div></div>" +
-        "<div class='form-row form-inline'> <!-- Eng First Name --> <label for='" + person + "-eng-first-name-input' class='col-1-w control-label col-form-label'>First Name(English)</label>  <div class='form-group col-sm-4'> <input id='" + person + "-eng-first-name-input' class='form-control mt-1' type='search' style='width: 76%;'></div></div>" +
-        "<div class='form-row form-inline'> <!-- Chi Last Name --> <label for='" + person + "-chi-last-name-input' class='col-1-w control-label col-form-label'>Last Name(Chinese)</label> <div class='form-group col-sm-4'> <input id='" + person + "-chi-last-name-input' class='form-control mt-1' type='search' style='width: 76%;'></div></div>" +
-        "<div class='form-row form-inline'> <!-- Chi First Name --> <label for='" + person + "-chi-first-name-input' class='col-1-w control-label col-form-label'>First Name(Chinese)</label> <div class='form-group col-sm-4'> <input id='" + person + "-chi-first-name-input' class='form-control mt-1' type='search' style='width: 76%;'></div></div>" +
-        "<div class='form-row form-inline'> <!-- HKID --> <label for='" + person + "-hkid-input' class='col-1-w control-label col-form-label'>HKID</label> <div class='col-2-sw'> <input id='" + person + "-hkid-input' class='form-control mt-1' type='search'></div></div>" +
-        "<div class='form-row form-inline'> <!-- Nationality --> <label for='" + person + "-nationality-input' class='col-1-w control-label col-form-label'>Nationality</label> <div class='col-2-sw'> <input id='" + person + "-nationality-input' class='form-control mt-1' type='search'></div></div>" +
-        "<div class='form-row form-inline'> <!-- DOB --> <label for='" + person + "-dob-date' class='col-1-w control-label col-form-label'>Date of Birth</label> <div class='col-2-sw'> <input id='" + person + "-dob-date' class='form-control mt-1' type='search' placeholder='yyyy-mm-dd' autocomplete='off'></div><span class='font-weight-700 ml-5 mr-3'>Age:&nbsp;&nbsp;<span id='" + person + "-dob-date-age'></span></span></div>" +
-        "<div class='form-row form-inline'> <!-- place of birth --> <label for='" + person + "-place-of-birth-input' class='col-1-w control-label col-form-label'>Place of Birth</label> <div class='col-2-sw'> <input id='" + person + "-palce-of-birth-input' class='form-control mt-1' type='search'></div></div>" +
-        "<div class='form-row form-inline'> <!-- gender --> <label for='" + person + "-gender-select' class='col-1-w control-label col-form-label'>Gender</label> <div class='col-2-sw'> <select id='" + person + "-gender-select' class='form-control select-min-w'> <option value='' selected>- Please select -</option> <option value='M'>Male</option> <option value='F'>Female</option> <option value='O'>Other</option> </select></div></div>" +
-        "<div class='form-row form-inline'> <!-- occupation --> <label for='" + person + "-occupation-select' class='col-1-w control-label col-form-label'>Occupation</label> <div class='col-2-sw'> <select id='" + person + "-occupation-select' class='form-control select-min-w'> <option value='' selected>- Please select -</option> </select></div></div>" +
-        "<div class='form-row form-inline'> <!-- title --> <label for='" + person + "-title-select' class='col-1-w control-label col-form-label'>Title</label> <div class='col-2-sw'> <select id='" + person + "-title-select' class='form-control select-min-w'> <option value='' selected>- Please select -</option> </select></div></div>")
+    $("<hr/> <div class='row'><span class='is-header'>Insured's Personal Information - " + name + "</span></div>" +
+        "<div class='row d-flex align-items-center '> <!-- relationship --> <label for='" + person + "-relationship-display' class='col-1-w control-label col-form-label '>Relationship</label> <div class='col-2-sw'> <input id='" + person + "-relationship-display' class='form-control' type='search' disabled value='" + relationship + "'></div></div>" +
+        "<div class='row d-flex align-items-center'> <!-- residency --> <label for='" + person + "-residency-select' class='col-1-w control-label col-form-label'>Residency</label> <div class='col-2-sw'> <select id='" + person + "-residency-select' class='form-select select-min-w'> <option value='' selected>- Please select -</option> <option value='A'>香港永久居民</option> <option value='B'>香港居民</option> </select></div></div>" +
+        "<div class='row d-flex align-items-center'> <!-- Eng Last Name --> <label for='" + person + "-eng-last-name-input' class='col-1-w control-label col-form-label'>Last Name(English)</label>  <div class='mb-3 col-sm-4'> <input id='" + person + "-eng-last-name-input' class='form-control mt-1' type='search' style='width: 76%;'></div></div>" +
+        "<div class='row d-flex align-items-center'> <!-- Eng First Name --> <label for='" + person + "-eng-first-name-input' class='col-1-w control-label col-form-label'>First Name(English)</label>  <div class='mb-3 col-sm-4'> <input id='" + person + "-eng-first-name-input' class='form-control mt-1' type='search' style='width: 76%;'></div></div>" +
+        "<div class='row d-flex align-items-center'> <!-- Chi Last Name --> <label for='" + person + "-chi-last-name-input' class='col-1-w control-label col-form-label'>Last Name(Chinese)</label> <div class='mb-3 col-sm-4'> <input id='" + person + "-chi-last-name-input' class='form-control mt-1' type='search' style='width: 76%;'></div></div>" +
+        "<div class='row d-flex align-items-center'> <!-- Chi First Name --> <label for='" + person + "-chi-first-name-input' class='col-1-w control-label col-form-label'>First Name(Chinese)</label> <div class='mb-3 col-sm-4'> <input id='" + person + "-chi-first-name-input' class='form-control mt-1' type='search' style='width: 76%;'></div></div>" +
+        "<div class='row d-flex align-items-center'> <!-- HKID --> <label for='" + person + "-hkid-input' class='col-1-w control-label col-form-label'>HKID</label> <div class='col-2-sw'> <input id='" + person + "-hkid-input' class='form-control mt-1' type='search'></div></div>" +
+        "<div class='row d-flex align-items-center'> <!-- Nationality --> <label for='" + person + "-nationality-input' class='col-1-w control-label col-form-label'>Nationality</label> <div class='col-2-sw'> <input id='" + person + "-nationality-input' class='form-control mt-1' type='search'></div></div>" +
+        "<div class='row d-flex align-items-center'> <!-- DOB --> <label for='" + person + "-dob-date' class='col-1-w control-label col-form-label'>Date of Birth</label> <div class='col-2-sw'> <input id='" + person + "-dob-date' class='form-control mt-1' type='search' placeholder='yyyy-mm-dd' autocomplete='off'></div><span class='font-weight-700 ms-5 me-3'>Age:&nbsp;&nbsp;<span id='" + person + "-dob-date-age'></span></span></div>" +
+        "<div class='row d-flex align-items-center'> <!-- place of birth --> <label for='" + person + "-place-of-birth-input' class='col-1-w control-label col-form-label'>Place of Birth</label> <div class='col-2-sw'> <input id='" + person + "-palce-of-birth-input' class='form-control mt-1' type='search'></div></div>" +
+        "<div class='row d-flex align-items-center'> <!-- gender --> <label for='" + person + "-gender-select' class='col-1-w control-label col-form-label'>Gender</label> <div class='col-2-sw'> <select id='" + person + "-gender-select' class='form-select select-min-w'> <option value='' selected>- Please select -</option> <option value='M'>Male</option> <option value='F'>Female</option> <option value='O'>Other</option> </select></div></div>" +
+        "<div class='row d-flex align-items-center'> <!-- occupation --> <label for='" + person + "-occupation-select' class='col-1-w control-label col-form-label'>Occupation</label> <div class='col-2-sw'> <select id='" + person + "-occupation-select' class='form-select select-min-w'> <option value='' selected>- Please select -</option> </select></div></div>" +
+        "<div class='row d-flex align-items-center'> <!-- title --> <label for='" + person + "-title-select' class='col-1-w control-label col-form-label'>Title</label> <div class='col-2-sw'> <select id='" + person + "-title-select' class='form-select select-min-w'> <option value='' selected>- Please select -</option> </select></div></div>")
         .appendTo("#insured-personal-info-" + person)
 
     $(person + "-hkid-input").on('blur', function () {
@@ -1385,7 +1385,7 @@ $(document).ready(function () {
     }
     if (disableMode) {
         $('.edit-field').prop('disabled', true);
-        $('#edit-save-btn').html('<i class="fa fa-edit mr-2"></i><span>' + langJson['l-form-edit'] + '</span>');
+        $('#edit-save-btn').html('<i class="fa fa-edit me-2"></i><span>' + langJson['l-form-edit'] + '</span>');
     }
     if (customerData != undefined) {
 
@@ -1466,17 +1466,17 @@ $(document).ready(function () {
         newOther = ' ';
     }
 
-    $('<span style="display:' + mobileStyle + ';" name="sms" class="cMobile_No" id="reply-sms-mobile-container"><div class="form-check mr-2"><label class="form-check-label"><input type="checkbox" class="form-check-input reply-checkbox sms-list dial-yes-disable" value="' + Mobile_No + '" id="oSmsMobile_No">' + newMobile + '<span class="form-check-sign"><span class="check"></span></span></label></div></span>').insertBefore('#sms-other-container');
-    $('<span style="display:' + mobileStyle + ';" name="call" class="cMobile_No" id="reply-call-mobile-container"><div class="form-check ml-2"><label class="form-check-label"><input type="radio" name="callList" class="form-check-input reply-checkbox call-list dial-yes-disable" onchange="replyCallChanged(this)" value="' + Mobile_No + '" id="oCallMobile_No">' + newMobile + '<span class="circle"><span class="check"></span></span></label></div></span>').insertBefore('#call-other-container');
+    $('<span style="display:' + mobileStyle + ';" name="sms" class="cMobile_No" id="reply-sms-mobile-container"><div class="form-check me-2"><label class="form-check-label"><input type="checkbox" class="form-check-input reply-checkbox sms-list dial-yes-disable" value="' + Mobile_No + '" id="oSmsMobile_No">' + newMobile + '<span class="form-check-sign"><span class="check"></span></span></label></div></span>').insertBefore('#sms-other-container');
+    $('<span style="display:' + mobileStyle + ';" name="call" class="cMobile_No" id="reply-call-mobile-container"><div class="form-check ms-2"><label class="form-check-label"><input type="radio" name="callList" class="form-check-input reply-checkbox call-list dial-yes-disable" onchange="replyCallChanged(this)" value="' + Mobile_No + '" id="oCallMobile_No">' + newMobile + '<span class="circle"><span class="check"></span></span></label></div></span>').insertBefore('#call-other-container');
 
-    $('<span style="display:' + homeStyle + ';" name="sms" class="cMobile_No" id="reply-sms-mobile-container"><div class="form-check mr-2"><label class="form-check-label"><input type="checkbox" class="form-check-input reply-checkbox sms-list dial-yes-disable" value="' + Home_No + '" id="oSmsMobile_No">' + newHome + '<span class="form-check-sign"><span class="check"></span></span></label></div></span>').insertBefore('#sms-other-container');
-    $('<span style="display:' + homeStyle + ';" name="call" class="cMobile_No" id="reply-call-mobile-container"><div class="form-check ml-2"><label class="form-check-label"><input type="radio" name="callList" class="form-check-input reply-checkbox call-list dial-yes-disable" onchange="replyCallChanged(this)" value="' + Home_No + '" id="oCallMobile_No">' + newHome + '<span class="circle"><span class="check"></span></span></label></div></span>').insertBefore('#call-other-container');
+    $('<span style="display:' + homeStyle + ';" name="sms" class="cMobile_No" id="reply-sms-mobile-container"><div class="form-check me-2"><label class="form-check-label"><input type="checkbox" class="form-check-input reply-checkbox sms-list dial-yes-disable" value="' + Home_No + '" id="oSmsMobile_No">' + newHome + '<span class="form-check-sign"><span class="check"></span></span></label></div></span>').insertBefore('#sms-other-container');
+    $('<span style="display:' + homeStyle + ';" name="call" class="cMobile_No" id="reply-call-mobile-container"><div class="form-check ms-2"><label class="form-check-label"><input type="radio" name="callList" class="form-check-input reply-checkbox call-list dial-yes-disable" onchange="replyCallChanged(this)" value="' + Home_No + '" id="oCallMobile_No">' + newHome + '<span class="circle"><span class="check"></span></span></label></div></span>').insertBefore('#call-other-container');
 
-    $('<span style="display:' + officeStyle + ';" name="sms" class="cMobile_No" id="reply-sms-mobile-container"><div class="form-check mr-2"><label class="form-check-label"><input type="checkbox" class="form-check-input reply-checkbox sms-list dial-yes-disable" value="' + Office_No + '" id="oSmsMobile_No">' + newOffice + '<span class="form-check-sign"><span class="check"></span></span></label></div></span>').insertBefore('#sms-other-container');
-    $('<span style="display:' + officeStyle + ';" name="call" class="cMobile_No" id="reply-call-mobile-container"><div class="form-check ml-2"><label class="form-check-label"><input type="radio" name="callList" class="form-check-input reply-checkbox call-list dial-yes-disable" onchange="replyCallChanged(this)" value="' + Office_No + '" id="oCallMobile_No">' + newOffice + '<span class="circle"><span class="check"></span></span></label></div></span>').insertBefore('#call-other-container');
+    $('<span style="display:' + officeStyle + ';" name="sms" class="cMobile_No" id="reply-sms-mobile-container"><div class="form-check me-2"><label class="form-check-label"><input type="checkbox" class="form-check-input reply-checkbox sms-list dial-yes-disable" value="' + Office_No + '" id="oSmsMobile_No">' + newOffice + '<span class="form-check-sign"><span class="check"></span></span></label></div></span>').insertBefore('#sms-other-container');
+    $('<span style="display:' + officeStyle + ';" name="call" class="cMobile_No" id="reply-call-mobile-container"><div class="form-check ms-2"><label class="form-check-label"><input type="radio" name="callList" class="form-check-input reply-checkbox call-list dial-yes-disable" onchange="replyCallChanged(this)" value="' + Office_No + '" id="oCallMobile_No">' + newOffice + '<span class="circle"><span class="check"></span></span></label></div></span>').insertBefore('#call-other-container');
 
     $('<span style="display:' + otherStyle + ';" name="sms" class="cOther_Phone_No" id="reply-sms-other-container"><div class="form-check"><label class="form-check-label"><input type="checkbox" class="form-check-input reply-checkbox sms-list dial-yes-disable" value="' + Other_Phone_No + '" id="oSmsOther_Phone_No">' + newOther + '<span class="form-check-sign"><span class="check"></span></span></label></div></span>').insertBefore('#sms-other-container');
-    $('<span style="display:' + otherStyle + ';" name="call" class="cOther_Phone_No" id="reply-call-other-container"><div class="form-check ml-2"><label class="form-check-label"><input type="radio" name="callList" class="form-check-input reply-checkbox call-list dial-yes-disable" onchange="replyCallChanged(this)" value="' + Other_Phone_No + '" id="oCallOther_Phone_No">' + newOther + '<span class="circle"><span class="check"></span></span></label></div></span>').insertBefore('#call-other-container');
+    $('<span style="display:' + otherStyle + ';" name="call" class="cOther_Phone_No" id="reply-call-other-container"><div class="form-check ms-2"><label class="form-check-label"><input type="radio" name="callList" class="form-check-input reply-checkbox call-list dial-yes-disable" onchange="replyCallChanged(this)" value="' + Other_Phone_No + '" id="oCallOther_Phone_No">' + newOther + '<span class="circle"><span class="check"></span></span></label></div></span>').insertBefore('#call-other-container');
 
 
     // // deprecated - if not admin and call list not belongs to the agent, disable all fields
@@ -1592,7 +1592,7 @@ function updateClicked(isTemp) {
     }
     if (disableMode) {
         disableMode = false;
-        $('#edit-save-btn').html('<i class="fa fa-save mr-2"></i><span>' + langJson["l-form-save"] + '</span>');
+        $('#edit-save-btn').html('<i class="fa fa-save me-2"></i><span>' + langJson["l-form-save"] + '</span>');
         $('.edit-field').prop('disabled', false);
         return;
     }
@@ -1632,7 +1632,7 @@ function updateClicked(isTemp) {
 
             // turn to disable mode
             disableMode = true;
-            $('#edit-save-btn').html('<i class="fa fa-edit mr-2"></i><span>' + langJson['l-form-edit'] + '</span>');
+            $('#edit-save-btn').html('<i class="fa fa-edit me-2"></i><span>' + langJson['l-form-edit'] + '</span>');
             $('.edit-field').prop('disabled', true);
 
             // update reply container

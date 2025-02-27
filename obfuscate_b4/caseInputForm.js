@@ -819,7 +819,7 @@ var dialYesClicked = function (incompleteCase) {
     var areYouSure = $('#are-you-sure');
     areYouSure.remove();
     replyConfirmed = true;
-    $('<span id="call-result-container" class="form-group" style="display:inline;"><label>&nbsp;&nbsp;&nbsp;' + langJson['l-form-call-result'] + '&nbsp;&nbsp;&nbsp;</label><select class="form-control" id="call-result-select" value="" style="display:inline;width:130px"><option value="" selected></option><option>Answered</option><option>Busy Call Again</option><option>Busy Tone</option><option>No Answer</option><option>Voicemail</option></select></span>').insertAfter('#reply-submit-btn');
+    $('<span id="call-result-container" class="mb-3" style="display:inline;"><label>&nbsp;&nbsp;&nbsp;' + langJson['l-form-call-result'] + '&nbsp;&nbsp;&nbsp;</label><select class="form-select" id="call-result-select" value="" style="display:inline;width:130px"><option value="" selected></option><option>Answered</option><option>Busy Call Again</option><option>Busy Tone</option><option>No Answer</option><option>Voicemail</option></select></span>').insertAfter('#reply-submit-btn');
     $('.dial-yes-disable').prop('disabled', true);
     if (!incompleteCase) {
         var callDetails = $('.call-list:checked')[0].value;
@@ -1087,7 +1087,7 @@ function callUpdateCase() {
             $('#scheduled-reminder').show();
             // if no case no showed before
             if ($('#case-no-span').length == 0) {
-                $('<span id="case-no-span" class="ml-3"><label class="mt-3">' + langJson['l-search-case-no'] + ':</label>&nbsp;' + caseNo + '</span>').insertAfter($('#customer-id'));
+                $('<span id="case-no-span" class="ms-3"><label class="mt-3">' + langJson['l-search-case-no'] + ':</label>&nbsp;' + caseNo + '</span>').insertAfter($('#customer-id'));
             }
             // parent.caseNo = details.Case_No || -1;
             var caseLogContainer = $('#case-log-container');
@@ -1153,11 +1153,11 @@ function replyChannelChange(iThis) {
     }
     // Text of the confirm button of details
     if (channel == 'email' || channel == 'fax' || channel == 'sms') {
-        $('#reply-submit-btn').html('<i class="fas fa-clipboard-check mr-2"></i><span>' + langJson["l-form-confirm"] + '</span>');
+        $('#reply-submit-btn').html('<i class="fas fa-clipboard-check me-2"></i><span>' + langJson["l-form-confirm"] + '</span>');
         // $('#reply-submit-btn').prop('value', 'Confirm');
         $('#reply-submit-btn').show();
     } else if (channel == 'call') {
-        $('#reply-submit-btn').html('<i class="fas fa-phone mr-2"></i><span>' + langJson["l-form-dial"] + '</span>');
+        $('#reply-submit-btn').html('<i class="fas fa-phone me-2"></i><span>' + langJson["l-form-dial"] + '</span>');
         // $('#reply-submit-btn').prop('value', 'Dial');
         $('#reply-submit-btn').show();
     } else {
@@ -1210,7 +1210,7 @@ var replySubmitClicked = function () {
         }
         var areYouSure = $('#are-you-sure');
         if (areYouSure.length == 0) {
-            $('<span id="are-you-sure">&nbsp;&nbsp;&nbsp;' + langJson['l-form-are-you-sure'] + '?&nbsp;&nbsp;&nbsp;<button class="btn btn-sm btn-warning text-capitalize rounded" onclick="dialYesClicked();"><i class="fas fa-check mr-2"></i><span>' + langJson['l-form-yes'] + '</span></button>&nbsp;<button onclick="dialNoClicked();" class="btn btn-sm btn-warning text-capitalize rounded"><i class="fas fa-times mr-2"></i><span>' + langJson['l-form-no'] + '</span></button></span>').insertAfter('#reply-submit-btn');
+            $('<span id="are-you-sure">&nbsp;&nbsp;&nbsp;' + langJson['l-form-are-you-sure'] + '?&nbsp;&nbsp;&nbsp;<button class="btn btn-sm btn-warning text-capitalize rounded" onclick="dialYesClicked();"><i class="fas fa-check me-2"></i><span>' + langJson['l-form-yes'] + '</span></button>&nbsp;<button onclick="dialNoClicked();" class="btn btn-sm btn-warning text-capitalize rounded"><i class="fas fa-times me-2"></i><span>' + langJson['l-form-no'] + '</span></button></span>').insertAfter('#reply-submit-btn');
             $('.dial-yes-disable').prop('disabled', true);
         }
     } else if (replyChannel == 'email' || replyChannel == 'fax' || replyChannel == 'sms') {
@@ -1249,26 +1249,26 @@ var replySubmitClicked = function () {
             //     '<tr><td width="1"><label for="email-cc">CC</label></td><td><input id="email-cc" type="search" style="width:100%;" maxlength="100"></td></tr>' +
             //     '<tr><td><label for="email-subject">Subject</label></td><td><input id="email-subject" style="width:100%;" maxlength="100" value=' + subjectStr + '></td></tr>' +
             //     '<tr><td valign="top"><label for="email-content">Content</label><br><label>(html)</label></td><td><textarea id="email-content" style="font-family:Helvetica Neue,Helvetica,Arial,sans-serif;width:100%;" rows="10" cols="20" maxlength="8000">' + contentStr + '</textarea></td></tr>' +
-            //     '<tr><td><label class="mr-5">Attachment</label></td><td id="emailFile-attachment"><input type="file" id="upload-emailFile" onchange=' + emailFileUploadStr + ' style="display:none" multiple>' +
+            //     '<tr><td><label class="me-5">Attachment</label></td><td id="emailFile-attachment"><input type="file" id="upload-emailFile" onchange=' + emailFileUploadStr + ' style="display:none" multiple>' +
             //     '<input type="button" class="btn btn-warning btn-sm" title="Upload Attachment" value="Upload" onclick=' + emailFileTriggerStr + ' /></td></tr>' +
             //     '<tr><td&nbsp;</td><td>&nbsp;</td></tr></tbody></table></td></tr></tbody></table>').appendTo('#reply-container');
-            var replyCardStr = '<div id="reply-card" class="my-2 jumbotron py-3"><div class="text-center mb-3 bg-info rounded text-white"><h5 class="mt-0 mb-0">Send Email</h5></div><div class="row form-inline">' +
+            var replyCardStr = '<div id="reply-card" class="my-2 bg-light mb-4 rounded-2 py-5 px-3 py-3"><div class="text-center mb-3 bg-info rounded text-white"><h5 class="mt-0 mb-0">Send Email</h5></div><div class="row d-flex align-items-center">' +
 
-                '<div class="form-group col-sm-12 pl-0">' +
-                '<label class="col-sm-1 control-label pl-4">From</label>' +
-                '<div class="col-sm-11 pl-2">' + companyName + ' (' + companyEmail + ')</div></div>' +
+                '<div class="mb-3 col-sm-12 ps-0">' +
+                '<label class="col-sm-1 control-label ps-4">From</label>' +
+                '<div class="col-sm-11 ps-2">' + companyName + ' (' + companyEmail + ')</div></div>' +
 
-                '<div class="form-group col-sm-12 pl-0"><label for="email-cc" class="col-sm-1 control-label pl-4">CC</label>' +
-                '<input class="form-control col-sm-6 col-offset-5 ml-2" id="email-cc" type="search" maxlength="100" autocomplete="off">' +
+                '<div class="mb-3 col-sm-12 ps-0"><label for="email-cc" class="col-sm-1 control-label ps-4">CC</label>' +
+                '<input class="form-control col-sm-6 col-offset-5 ms-2" id="email-cc" type="search" maxlength="100" autocomplete="off">' +
 
-                '<div class="form-group col-sm-12 pl-0"><label for="email-subject" class="col-sm-1 control-label pl-4">Subject</label>' +
-                '<input class="form-control col-sm-6 col-offset-5 ml-2" id="email-subject" type="search" maxlength="100" autocomplete="off" value=' + subjectStr + '></div></div>' +
+                '<div class="mb-3 col-sm-12 ps-0"><label for="email-subject" class="col-sm-1 control-label ps-4">Subject</label>' +
+                '<input class="form-control col-sm-6 col-offset-5 ms-2" id="email-subject" type="search" maxlength="100" autocomplete="off" value=' + subjectStr + '></div></div>' +
 
-                '<div class="form-group col-sm-12 pl-0 mt-1"><label for="editor" class="col-sm-1 control-label pl-4">Content<br />&nbsp;&nbsp;(html)</label>' +
-                '<div class="col-sm-11 pl-2">' +
+                '<div class="mb-3 col-sm-12 ps-0 mt-1"><label for="editor" class="col-sm-1 control-label ps-4">Content<br />&nbsp;&nbsp;(html)</label>' +
+                '<div class="col-sm-11 ps-2">' +
                 '<div id="editor">' + contentStr + '</div>' +
-                '</div></div><div class="form-group col-sm-12 pl-0 mt-2"><label for="emailFile-attachment" class="col-sm-1 control-label pl-4">Attachment</label>' +
-                '<div id="emailFile-attachment" class="col-sm-11 pl-2">' +
+                '</div></div><div class="mb-3 col-sm-12 ps-0 mt-2"><label for="emailFile-attachment" class="col-sm-1 control-label ps-4">Attachment</label>' +
+                '<div id="emailFile-attachment" class="col-sm-11 ps-2">' +
                 '<input type="file" id="upload-emailFile" onchange=' + emailFileUploadStr + ' style="display:none" multiple>' +
                 '<input type="button" class="btn btn-warning btn-sm text-capitalize" title="Upload Attachment" value="Upload" onclick=' + emailFileTriggerStr + ' /></div></div>' +
                 '</div></div>';
@@ -1302,34 +1302,34 @@ var replySubmitClicked = function () {
             //     '<tr><td><label>Fax File</label></td><td id="faxFile-attachment"><input type="file" accept=".doc,.docx,.pdf,.xls,.xlsx,.ppt,.pptx,.txt" id="upload-faxFile" onchange=' + faxFileUploadStr + ' style="display:none" multiple>' +
             //     '<input type="button" class="btn btn-warning btn-sm" title="Upload Fax File" value="Upload" style="margin-left:5px;" onclick=' + faxFileTriggerStr + ' /></td></tr>' +
             //     '</tbody></table></td></tr></tbody></table>').appendTo('#reply-container');
-            $('<div id="reply-card" class="my-2 jumbotron py-3"><div class="text-center mb-3 bg-info rounded text-white"><h5 class="mt-0 mb-0">Send Fax</h5></div><div class="row form-inline">' +
-                '<div class="form-group col-sm-12 pl-3">' +
-                '<label class="col-sm-2 control-label pl-5 justify-content-start">Cover Sender</label>' +
-                '<div class="col-sm-10 pl-3">' + agentName + '</div></div>' +
-                '<div class="form-group col-sm-12 pl-3">' +
-                '<label class="col-sm-2 control-label pl-5 justify-content-start">Cover Company</label>' +
-                '<div class="col-sm-10 pl-3">' + companyName + '</div></div>' +
-                '<div class="form-group col-sm-12 pl-3">' +
-                '<label for="fax-attn" class="col-sm-2 control-label pl-5 justify-content-start">Cover Attention</label>' +
-                '<div class="col-sm-10 pl-3"><input id="fax-attn" class="form-control" /></div></div>' +
-                '<div class="form-group col-sm-12 pl-3">' +
-                '<label for="fax-subject" class="col-sm-2 control-label pl-5 justify-content-start">Cover Subject</label>' +
-                '<div class="col-sm-10 pl-3"><input id="fax-subject" class="form-control" /></div></div>' +
-                '<div class="form-group col-sm-12 pl-3"><label for="fax-msg" class="col-sm-2 control-label  pl-5 justify-content-start">Content</label>' +
-                '<div class="col-sm-10 pl-3">' +
+            $('<div id="reply-card" class="my-2 bg-light mb-4 rounded-2 py-5 px-3 py-3"><div class="text-center mb-3 bg-info rounded text-white"><h5 class="mt-0 mb-0">Send Fax</h5></div><div class="row d-flex align-items-center">' +
+                '<div class="mb-3 col-sm-12 ps-3">' +
+                '<label class="col-sm-2 control-label ps-5 justify-content-start">Cover Sender</label>' +
+                '<div class="col-sm-10 ps-3">' + agentName + '</div></div>' +
+                '<div class="mb-3 col-sm-12 ps-3">' +
+                '<label class="col-sm-2 control-label ps-5 justify-content-start">Cover Company</label>' +
+                '<div class="col-sm-10 ps-3">' + companyName + '</div></div>' +
+                '<div class="mb-3 col-sm-12 ps-3">' +
+                '<label for="fax-attn" class="col-sm-2 control-label ps-5 justify-content-start">Cover Attention</label>' +
+                '<div class="col-sm-10 ps-3"><input id="fax-attn" class="form-control" /></div></div>' +
+                '<div class="mb-3 col-sm-12 ps-3">' +
+                '<label for="fax-subject" class="col-sm-2 control-label ps-5 justify-content-start">Cover Subject</label>' +
+                '<div class="col-sm-10 ps-3"><input id="fax-subject" class="form-control" /></div></div>' +
+                '<div class="mb-3 col-sm-12 ps-3"><label for="fax-msg" class="col-sm-2 control-label  ps-5 justify-content-start">Content</label>' +
+                '<div class="col-sm-10 ps-3">' +
                 '<textarea class="mt-2" id="fax-msg" rows="3" cols="20" style="font-family:inherit;width:100%;" maxlength="500" onchange="changeCaseSavedFalse()"></textarea></div></div>' +
-                '<div class="form-group col-sm-12 pl-3">' +
-                '<label class="col-sm-2 control-label pl-5 justify-content-start">Fax File</label>' +
-                '<div id="faxFile-attachment" class="col-sm-10 pl-3"><input type="file" accept=".doc,.docx,.pdf,.xls,.xlsx,.ppt,.pptx,.txt" id="upload-faxFile" onchange=' + faxFileUploadStr + ' style="display:none" multiple>' +
-                '<input type="button" class="btn btn-warning btn-sm ml-0 text-capitalize" title="Upload Fax File" value="Upload" style="margin-left:5px;" onclick=' + faxFileTriggerStr + ' /></div></div></div></div>' +
+                '<div class="mb-3 col-sm-12 ps-3">' +
+                '<label class="col-sm-2 control-label ps-5 justify-content-start">Fax File</label>' +
+                '<div id="faxFile-attachment" class="col-sm-10 ps-3"><input type="file" accept=".doc,.docx,.pdf,.xls,.xlsx,.ppt,.pptx,.txt" id="upload-faxFile" onchange=' + faxFileUploadStr + ' style="display:none" multiple>' +
+                '<input type="button" class="btn btn-warning btn-sm ms-0 text-capitalize" title="Upload Fax File" value="Upload" style="margin-left:5px;" onclick=' + faxFileTriggerStr + ' /></div></div></div></div>' +
                 +'</div>').appendTo('#reply-container');
         } else if (replyChannel === 'sms') {
-            $('<div id="reply-card" class="my-2 jumbotron py-3"><div class="text-center mb-3 bg-info rounded text-white"><h5 class="mt-0 mb-0">Send SMS</h5></div>' +
-                '<div class="row form-inline"><div class="form-group col-sm-12 pl-0">' +
-                '<label class="col-sm-1 control-label pl-4">&nbsp;&nbsp;&nbsp;From</label>' +
-                '<div class="col-sm-11 pl-2">' + companyName + '</div></div>' +
-                '<div class="form-group col-sm-12 pl-0"><label for="sms-content" class="col-sm-1 control-label pl-4">&nbsp;&nbsp;&nbsp;Content</label>' +
-                '<div class="col-sm-11 pl-2">' +
+            $('<div id="reply-card" class="my-2 bg-light mb-4 rounded-2 py-5 px-3 py-3"><div class="text-center mb-3 bg-info rounded text-white"><h5 class="mt-0 mb-0">Send SMS</h5></div>' +
+                '<div class="row d-flex align-items-center"><div class="mb-3 col-sm-12 ps-0">' +
+                '<label class="col-sm-1 control-label ps-4">&nbsp;&nbsp;&nbsp;From</label>' +
+                '<div class="col-sm-11 ps-2">' + companyName + '</div></div>' +
+                '<div class="mb-3 col-sm-12 ps-0"><label for="sms-content" class="col-sm-1 control-label ps-4">&nbsp;&nbsp;&nbsp;Content</label>' +
+                '<div class="col-sm-11 ps-2">' +
                 '<textarea class="mt-3" id="sms-content" rows="3" cols="20" style="font-family:inherit;width:100%;" maxlength="500" onKeyUp="smsWordCount()"></textarea></textarea></div></div>' +
                 '<div class="w-100"><span style="float:right;margin-right:30px;"><span id="sms-word-count" class="align-right">0/170</span>&nbsp;&nbsp;<span id="sms-msg-count">1</span>&nbsp;message(s)</span></div>' +
                 +'</div></div>').appendTo('#reply-container');
@@ -1337,7 +1337,7 @@ var replySubmitClicked = function () {
             //     '<td style="font-family: Arial, Helvetica, sans-serif; font-size: small; background-color: #CCCCCC; text-align: center;"><h5 class="mt-0 mb-0">Send SMS</h5></td></tr>' +
             //     '<tr><td><table style="width: 100%; font-family: Arial, Helvetica, sans-serif; font-size: small;"><tbody>' +
             //     '<tr><td><label>From</label></td><td style="width:99%;">' + companyName + '</td></tr>' +
-            //     '<tr><td valign="top"><label for="sms-content" class="mr-5">Content</label></td><td><textarea id="sms-content" rows="10" cols="20" style="width:99%;" maxlength="300"></textarea></td></tr>' +
+            //     '<tr><td valign="top"><label for="sms-content" class="me-5">Content</label></td><td><textarea id="sms-content" rows="10" cols="20" style="width:99%;" maxlength="300"></textarea></td></tr>' +
             //     '<tr><td&nbsp;</td><td>&nbsp;</td></tr>' +
             //     '</tbody></table></td></tr></tbody></table>').appendTo('#reply-container');
         }
@@ -1390,7 +1390,7 @@ function loadCaseLog(initial) {
             var folowHistoryContent = res.details;
             var follolwupString = '';
             $('<div id="case-log-container" class="card mt-5 mb-5">' +
-                '<div class="card-header card-header-text card-header-info" data-toggle="collapse" data-target="#case-log-body">' +
+                '<div class="card-header card-header-text card-header-info" data-bs-toggle="collapse" data-bs-target="#case-log-body">' +
                 '<h5 class="mt-0 mb-0"><i class="fa fa-table card-header-icon"></i><span class="align-middle">' + langJson['l-form-case-log'] + '</span><span class="align-middle" style="color:darkblue;">&nbsp;&nbsp;(' + langJson['l-search-case-no'] + ':&nbsp;' + caseNo + ')</span></h5>' +
                 '</div><div class="collapse show mt-1" id="case-log-body">' + '<div class="card-body">' +
                 '<table class="table table-hover" style="width:100%" id="case-log-table" data-page-length=' + caseLogLength + '></div></div></div>').insertAfter('#accordion');
@@ -1640,7 +1640,7 @@ function windowOnload() {
     }
     if (disableMode) {
         $('.edit-field').prop('disabled', true);
-        $('#edit-save-btn').html('<i class="fa fa-edit mr-2"></i><span>' + langJson['l-form-edit'] + '</span>');
+        $('#edit-save-btn').html('<i class="fa fa-edit me-2"></i><span>' + langJson['l-form-edit'] + '</span>');
     }
     if (customerData != undefined) {
         // get specific data
@@ -1733,18 +1733,18 @@ function windowOnload() {
         newMobile = ' ';
     }
 
-    $('<span style="display:' + mobileStyle + ';" name="sms" class="cMobile_No" id="reply-sms-mobile-container"><div class="form-check mr-2"><label class="form-check-label"><input type="checkbox" class="form-check-input reply-checkbox sms-list dial-yes-disable" value="' + Mobile_No + '" id="oSmsMobile_No">' + newMobile + '<span class="form-check-sign"><span class="check"></span></span></label></div></span>').insertBefore('#sms-other-container');
-    $('<span style="display:' + mobileStyle + ';" name="call" class="cMobile_No" id="reply-call-mobile-container"><div class="form-check ml-2"><label class="form-check-label"><input type="radio" name="callList" class="form-check-input reply-checkbox call-list dial-yes-disable" onchange="replyCallChanged(this)" value="' + Mobile_No + '" id="oCallMobile_No">' + newMobile + '<span class="circle"><span class="check"></span></span></label></div></span>').insertBefore('#call-other-container');
+    $('<span style="display:' + mobileStyle + ';" name="sms" class="cMobile_No" id="reply-sms-mobile-container"><div class="form-check me-2"><label class="form-check-label"><input type="checkbox" class="form-check-input reply-checkbox sms-list dial-yes-disable" value="' + Mobile_No + '" id="oSmsMobile_No">' + newMobile + '<span class="form-check-sign"><span class="check"></span></span></label></div></span>').insertBefore('#sms-other-container');
+    $('<span style="display:' + mobileStyle + ';" name="call" class="cMobile_No" id="reply-call-mobile-container"><div class="form-check ms-2"><label class="form-check-label"><input type="radio" name="callList" class="form-check-input reply-checkbox call-list dial-yes-disable" onchange="replyCallChanged(this)" value="' + Mobile_No + '" id="oCallMobile_No">' + newMobile + '<span class="circle"><span class="check"></span></span></label></div></span>').insertBefore('#call-other-container');
 
     // if (Home_No != null && Home_No.length > 0) {
     //     homeStyle = 'inline-block';
     // }
-    // $('<span style="display:none;" name="call" class="cHome_No" id="reply-call-home-container"><span style="display:inline-block;" class="cHome_No"><div class="form-check ml-2"><label class="form-check-label"><input type="radio" name="callList" class="form-check-input reply-checkbox call-list dial-yes-disable" onchange="replyCallChanged(this)" value="' + Home_No + '" id="oCallHome_No">' + Home_No + '<span class="circle"><span class="check"></span></span></label></div></span>').insertBefore('#call-other-container');
+    // $('<span style="display:none;" name="call" class="cHome_No" id="reply-call-home-container"><span style="display:inline-block;" class="cHome_No"><div class="form-check ms-2"><label class="form-check-label"><input type="radio" name="callList" class="form-check-input reply-checkbox call-list dial-yes-disable" onchange="replyCallChanged(this)" value="' + Home_No + '" id="oCallHome_No">' + Home_No + '<span class="circle"><span class="check"></span></span></label></div></span>').insertBefore('#call-other-container');
 
     // if (Office_No != null && Office_No.length > 0) {
     //     officeStyle = 'inline-block';
     // }
-    // $('<span style="display:' + officeStyle + ';" name="call" class="cOffice_No" id="reply-call-office-container"><div class="form-check ml-2"><label class="form-check-label"><input type="radio" name="callList" class="form-check-input reply-checkbox call-list dial-yes-disable" onchange="replyCallChanged(this)" value="' + Office_No + '" id="oCallOffice_No">' + Office_No + '<span class="circle"><span class="check"></span></span></label></div></span>').insertBefore('#call-other-container');
+    // $('<span style="display:' + officeStyle + ';" name="call" class="cOffice_No" id="reply-call-office-container"><div class="form-check ms-2"><label class="form-check-label"><input type="radio" name="callList" class="form-check-input reply-checkbox call-list dial-yes-disable" onchange="replyCallChanged(this)" value="' + Office_No + '" id="oCallOffice_No">' + Office_No + '<span class="circle"><span class="check"></span></span></label></div></span>').insertBefore('#call-other-container');
     var newOther = Other_Phone_No;
     if (Other_Phone_No != null && Other_Phone_No.length > 0) {
         otherStyle = 'inline-block';
@@ -1752,7 +1752,7 @@ function windowOnload() {
         newOther = ' ';
     }
     $('<span style="display:' + otherStyle + ';" name="sms" class="cOther_Phone_No" id="reply-sms-other-container"><div class="form-check"><label class="form-check-label"><input type="checkbox" class="form-check-input reply-checkbox sms-list dial-yes-disable" value="' + Other_Phone_No + '" id="oSmsOther_Phone_No">' + newOther + '<span class="form-check-sign"><span class="check"></span></span></label></div></span>').insertBefore('#sms-other-container');
-    $('<span style="display:' + otherStyle + ';" name="call" class="cOther_Phone_No" id="reply-call-other-container"><div class="form-check ml-2"><label class="form-check-label"><input type="radio" name="callList" class="form-check-input reply-checkbox call-list dial-yes-disable" onchange="replyCallChanged(this)" value="' + Other_Phone_No + '" id="oCallOther_Phone_No">' + newOther + '<span class="circle"><span class="check"></span></span></label></div></span>').insertBefore('#call-other-container');
+    $('<span style="display:' + otherStyle + ';" name="call" class="cOther_Phone_No" id="reply-call-other-container"><div class="form-check ms-2"><label class="form-check-label"><input type="radio" name="callList" class="form-check-input reply-checkbox call-list dial-yes-disable" onchange="replyCallChanged(this)" value="' + Other_Phone_No + '" id="oCallOther_Phone_No">' + newOther + '<span class="circle"><span class="check"></span></span></label></div></span>').insertBefore('#call-other-container');
     var newFax = Fax_No;
     if (Fax_No != null && Fax_No.length > 0) {
         faxStyle = 'inline-block';
@@ -2003,7 +2003,7 @@ function windowOnload() {
     if (caseNo != -1) {
         $('#scheduled-reminder').show();
         if ($('#case-no-span').length == 0) {
-            $('<span id="case-no-span" class="ml-3"><label class="mt-3">' + langJson['l-search-case-no'] + ':</label>&nbsp;' + caseNo + '</span>').insertAfter($('#customer-id'));
+            $('<span id="case-no-span" class="ms-3"><label class="mt-3">' + langJson['l-search-case-no'] + ':</label>&nbsp;' + caseNo + '</span>').insertAfter($('#customer-id'));
         }
     }
 }
@@ -2079,7 +2079,7 @@ function updateClicked(isTemp) {
     }
     if (disableMode) {
         disableMode = false;
-        $('#edit-save-btn').html('<i class="fa fa-save mr-2"></i><span>' + langJson["l-form-save"] + '</span>');
+        $('#edit-save-btn').html('<i class="fa fa-save me-2"></i><span>' + langJson["l-form-save"] + '</span>');
         $('.edit-field').prop('disabled', false);
         return;
     }
@@ -2117,7 +2117,7 @@ function updateClicked(isTemp) {
         } else {
             // turn to disable mode
             disableMode = true;
-            $('#edit-save-btn').html('<i class="fa fa-edit mr-2"></i><span>' + langJson['l-form-edit'] + '</span>');
+            $('#edit-save-btn').html('<i class="fa fa-edit me-2"></i><span>' + langJson['l-form-edit'] + '</span>');
             $('.edit-field').prop('disabled', true);
 
             // update reply container

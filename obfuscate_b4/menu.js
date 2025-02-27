@@ -473,7 +473,7 @@ function loadFunctions() {
                 var theSecondWord = wordArr[1];
                 var fileName = wordArr[0].toLowerCase() + (theSecondWord != null ? theSecondWord.charAt(0).toUpperCase() + theSecondWord.slice(1) : '');
                 var onClickStr = 'titleClicked("' + fileName + '")';
-                $('#campaign-section').after('<li class="nav-item menu-title-items" style="display: list-item;"><a id="' + contentId + '-link" class="nav-link pt-2" href="#" onclick=' + onClickStr + ' data-toggle="tab" aria-selected="true">' + langJson['l-menu-' + contentId] + '<span id="' + contentId + '-no"></span></a></li>');
+                $('#campaign-section').after('<li class="nav-item menu-title-items" style="display: list-item;"><a id="' + contentId + '-link" class="nav-link pt-2" href="#" onclick=' + onClickStr + ' data-bs-toggle="tab" aria-selected="true">' + langJson['l-menu-' + contentId] + '<span id="' + contentId + '-no"></span></a></li>');
             }
         }
     }
@@ -519,7 +519,7 @@ function windowOnload() {
         });
         $('.menu-title-items').show()
     } else {
-        campaignSection.append('<select class="form-control campaign-search-condition d-inline text-white py-0" style="max-width:150px;height:25px" onchange="menuCampaignChange(this);"><option disabled="disabled" selected="selected"></option></select>');
+        campaignSection.append('<select class="form-select campaign-search-condition d-inline text-white py-0" style="max-width:150px;height:25px" onchange="menuCampaignChange(this);"><option disabled="disabled" selected="selected"></option></select>');
         var sessionCampaignList = sessionStorage.getItem('scrmCampaignList') || [];
         var campaignList = JSON.parse(sessionCampaignList);
         var authorizedCompanies = sessionStorage.getItem('scrmCompanies') || '';
@@ -557,6 +557,8 @@ function windowOnload() {
 //20250113 for end all the ticket before close()
 //Start-------------------------------------------------
 window.onbeforeunload = function () {
+
+    return;
 
     var sHandler = parent.$('#phone-panel')[0].contentWindow.shandler;
 

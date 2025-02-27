@@ -156,7 +156,7 @@ function submitClicked() {
         $('#lower-part-container').append(
             '<div id="search-customer-container">' +
             // '<h5>' +
-            // '<i class="fas fa-users title-icon mr-2"></i>' + langJson['l-search-customer-list'] +
+            // '<i class="fas fa-users title-icon me-2"></i>' + langJson['l-search-customer-list'] +
             // '</h5>' +
             '<table id="search-customer-table" class="table table-hover display" style="width:100%" data-page-length=' + recordPerPage + '>' +
             '</table>' +
@@ -183,7 +183,7 @@ function submitClicked() {
                 if (row.Customer_Id == changeContactCustomerId) {
                     return '';
                 } else {
-                    return '<i data-toggle="tooltip" data-placement="top" title="' + langJson['l-search-change-the-case-to-this-customer'] + '" class="table-btn fas fa-clipboard-check confirm">'
+                    return '<i data-bs-toggle="tooltip" data-bs-placement="top" title="' + langJson['l-search-change-the-case-to-this-customer'] + '" class="table-btn fas fa-clipboard-check confirm">'
                 }
             }
         }
@@ -310,7 +310,7 @@ function selectChange(type, iThis) {
         for (let theOption of selectedOptions) {
             optionStr += '<option value="' + theOption + '">' + theOption.replace('_', ' ') + '</option>'
         }
-        $("<select class='select-value form-control'>" + optionStr + "</select>").insertAfter(selectedInput);
+        $("<select class='select-value form-select'>" + optionStr + "</select>").insertAfter(selectedInput);
     } else {
         selectedInput.show();
         selectedInput.siblings('.select-value').remove();
@@ -412,7 +412,7 @@ $(document).ready(function () {
 function alertEnhanced(alertId, message, status) {
     const delayMiliSec = 8000;   
     if(alertId != alertCache){
-        let alertStr = `<div id="${alertId}" class="alert alert-danger d-grid"><i class="fas fa-bell mr-2"></i>${message}<button type="button" class="close alertButton" data-dismiss="alert">x</button></div>`; 
+        let alertStr = `<div id="${alertId}" class="alert alert-danger d-grid"><i class="fas fa-bell me-2"></i>${message}<button type="button" class="close alertButton" data-bs-dismiss="alert">x</button></div>`; 
         $('#alert-container').html(alertStr);
         alertCache = alertId; 
         $('.close.alertButton').on('click', () => {

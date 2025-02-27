@@ -149,7 +149,7 @@ $(document).ready(function () {
         var sStr = dateDiff > 1 ? 's' : ''
         $('#force-info-lbl').text('Your password will expire in ' + dateDiff + ' day' + sStr + ', you can change your password now or later');
         // add skip button
-        $('#cp-btn-group').append('<button id="cp-skip-btn" class="btn rounded btn-sm btn-default mt-3 mb-0 text-capitalize"><i class="fas fa-times-circle mr-2"></i><span>Skip</span></button>');
+        $('#cp-btn-group').append('<button id="cp-skip-btn" class="btn rounded btn-sm btn-default mt-3 mb-0 text-capitalize"><i class="fas fa-times-circle me-2"></i><span>Skip</span></button>');
         $('#cp-skip-btn').on('click', function () {
             event.preventDefault();
             sessionStorage.removeItem('scrmExpireInDay');

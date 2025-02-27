@@ -106,13 +106,15 @@ $(document).ready(function () {
     }
     $('.dropdown-toggle').dropdown();
     // Acd assignment confirm
-    $('[data-toggle=confirmation]').confirmation({
-        rootSelector: '[data-toggle=confirmation]',
+    /*
+    $('[data-bs-toggle=confirmation]').confirmation({
+        rootSelector: '[data-bs-toggle=confirmation]',
         popout: true,
         title: "Are you sure?",
         btnOkLabel: "YES",
         btnCancelLabel: "NO"
     });
+    */
     // When tab changed resize iframe
     $('a.nav-link').on('click', function (e) {
         $('.tab-pane').removeClass('in active show');
@@ -817,13 +819,13 @@ function initAgentStatus() {
                         // return '<span class="personal-td"></span>';
                         // }
                         // } else {
-                        // return '<button class="btn btn-sm rounded py-0 bg-info nav-btn text-capitalize px-2 stop-btn mr-2">Stop</button><button class="btn btn-sm rounded py-0 bg-info nav-btn text-capitalize px-2 barge-in-btn">Barge In</button>'
+                        // return '<button class="btn btn-sm rounded py-0 bg-info nav-btn text-capitalize px-2 stop-btn me-2">Stop</button><button class="btn btn-sm rounded py-0 bg-info nav-btn text-capitalize px-2 barge-in-btn">Barge In</button>'
                         // }
                     } else {
-                        return '<div class="agent-dropdown-btn-container"><button class="btn dropdown-toggle agent-dropdown-toggle py-0 bg-info nav-btn text-capitalize px-2 tbl-dropdown-btn" data-toggle="dropdown"></button><ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu"><li><a tabindex="-1" href="#">Silent</a></li><li><a tabindex="-1" href="#">Coach</a></li><li><a tabindex="-1" href="#">Conference</a></li><li><a tabindex="-1" href="#">Stop Listen</a></li><li><a tabindex="-1" href="#">Barge In</a></li></ul></div>';
+                        return '<div class="agent-dropdown-btn-container"><button class="btn dropdown-toggle agent-dropdown-toggle py-0 bg-info nav-btn text-capitalize px-2 tbl-dropdown-btn" data-bs-toggle="dropdown"></button><ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu"><li><a tabindex="-1" href="#">Silent</a></li><li><a tabindex="-1" href="#">Coach</a></li><li><a tabindex="-1" href="#">Conference</a></li><li><a tabindex="-1" href="#">Stop Listen</a></li><li><a tabindex="-1" href="#">Barge In</a></li></ul></div>';
                     }
                     // else if (row.agentStatus == 'Talk') {
-                    // return '<div class="agent-dropdown-btn-container"><button class="btn dropdown-toggle agent-dropdown-toggle py-0 bg-info nav-btn text-capitalize px-2 tbl-dropdown-btn" data-toggle="dropdown" style="font-size:16px;line-height:25px;"></button><ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu"><li><a tabindex="-1" href="#">Silent</a></li><li><a tabindex="-1" href="#">Coach</a></li><li><a tabindex="-1" href="#">Conference</a></li></ul></div>';
+                    // return '<div class="agent-dropdown-btn-container"><button class="btn dropdown-toggle agent-dropdown-toggle py-0 bg-info nav-btn text-capitalize px-2 tbl-dropdown-btn" data-bs-toggle="dropdown" style="font-size:16px;line-height:25px;"></button><ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu"><li><a tabindex="-1" href="#">Silent</a></li><li><a tabindex="-1" href="#">Coach</a></li><li><a tabindex="-1" href="#">Conference</a></li></ul></div>';
                     // } else {
                     // return "";
                     // }
@@ -956,7 +958,7 @@ function initAgentStatus() {
             //     // $(td).html('<span class="personal-td"></span>');
             //     // var monitoringTd = $('#agent-status-tbl2').find('.monitor-td');
             //     // if (monitoringTd) {
-            //     //     $(monitoringTd).html('<div class="agent-dropdown-btn-container"><button class="btn dropdown-toggle agent-dropdown-toggle py-0 bg-info nav-btn text-capitalize px-2 tbl-dropdown-btn" data-toggle="dropdown" style="font-size:16px;line-height:25px;"></button><ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu"><li><a tabindex="-1" href="#">Silent</a></li><li><a tabindex="-1" href="#">Coach</a></li><li><a tabindex="-1" href="#">Conference</a></li></ul></div>');
+            //     //     $(monitoringTd).html('<div class="agent-dropdown-btn-container"><button class="btn dropdown-toggle agent-dropdown-toggle py-0 bg-info nav-btn text-capitalize px-2 tbl-dropdown-btn" data-bs-toggle="dropdown" style="font-size:16px;line-height:25px;"></button><ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu"><li><a tabindex="-1" href="#">Silent</a></li><li><a tabindex="-1" href="#">Coach</a></li><li><a tabindex="-1" href="#">Conference</a></li></ul></div>');
             //     // }
             //     monitoringAgentId = 0;
             // });
@@ -990,7 +992,7 @@ function initAgentStatus() {
                         // var td = $(this).closest('td');
                         // $(td).html('<span class="text-center monitor-td">' + selected + '</span>');
                         // var personalTd = $('#agent-status-tbl2').find('.personal-td');
-                        // personalTd.html('<button class="btn btn-sm rounded py-0 bg-info text-capitalize px-2 stop-btn mr-2">Stop</button><button class="btn btn-sm rounded py-0 bg-info text-capitalize px-2 barge-in-btn">Barge In</button>');
+                        // personalTd.html('<button class="btn btn-sm rounded py-0 bg-info text-capitalize px-2 stop-btn me-2">Stop</button><button class="btn btn-sm rounded py-0 bg-info text-capitalize px-2 barge-in-btn">Barge In</button>');
                         window.opener.document.getElementById("phone-panel").contentWindow.WiseStartMonitorCall(targetAgentId, typeId);
                     }
                 }
@@ -1075,7 +1077,7 @@ function initAgentStatus() {
             // $(td).html('<span class="personal-td"></span>');
             var monitoringTd = $('#agent-status-tbl').find('.monitor-td');
             if (monitoringTd) {
-                $(monitoringTd).html('<div class="agent-dropdown-btn-container"><button class="btn dropdown-toggle agent-dropdown-toggle py-0 bg-info nav-btn text-capitalize px-2 tbl-dropdown-btn" data-toggle="dropdown"></button><ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu"><li><a tabindex="-1" href="#">Silent</a></li><li><a tabindex="-1" href="#">Coach</a></li><li><a tabindex="-1" href="#">Conference</a></li></ul></div>');
+                $(monitoringTd).html('<div class="agent-dropdown-btn-container"><button class="btn dropdown-toggle agent-dropdown-toggle py-0 bg-info nav-btn text-capitalize px-2 tbl-dropdown-btn" data-bs-toggle="dropdown"></button><ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu"><li><a tabindex="-1" href="#">Silent</a></li><li><a tabindex="-1" href="#">Coach</a></li><li><a tabindex="-1" href="#">Conference</a></li></ul></div>');
             }
             monitoringAgentId = 0;
         });
@@ -1108,7 +1110,7 @@ function initAgentStatus() {
                     // var td = $(this).closest('td');
                     // $(td).html('<span class="text-center monitor-td">' + selected + '</span>');
                     // var personalTd = $('#agent-status-tbl').find('.personal-td');
-                    // personalTd.html('<button class="btn btn-sm rounded py-0 bg-info text-capitalize px-2 stop-btn mr-2">Stop</button><button class="btn btn-sm rounded py-0 bg-info text-capitalize px-2 barge-in-btn">Barge In</button>');
+                    // personalTd.html('<button class="btn btn-sm rounded py-0 bg-info text-capitalize px-2 stop-btn me-2">Stop</button><button class="btn btn-sm rounded py-0 bg-info text-capitalize px-2 barge-in-btn">Barge In</button>');
                     window.opener.document.getElementById("phone-panel").contentWindow.WiseStartMonitorCall(targetAgentId, typeId);
                 }
             }
@@ -1488,7 +1490,7 @@ function initACDTbl() {
                     return '<div class="form-check" style="margin-top:-16px">' +
                         '<label class="form-check-label">' +
                         '<input class="form-check-input" type="checkbox" id="' + row.AcdGroupID + '" value="' + row.AcdGroupID + '">' +
-                        '<span class="form-check-sign"><span class="check" data-toggle="tooltip" data-placement="right"></span></span></label></div>';
+                        '<span class="form-check-sign"><span class="check" data-bs-toggle="tooltip" data-bs-placement="right"></span></span></label></div>';
                 }
             }
         ],
@@ -1537,7 +1539,7 @@ function initACDTbl() {
                         return '<div class="form-check" style="margin-top:-16px">' +
                             '<label class="form-check-label">' +
                             '<input class="form-check-input" type="checkbox" id="spa-' + row.AcdGroupID + '" value="' + row.AcdGroupID + '">' +
-                            '<span class="form-check-sign"><span class="check" data-toggle="tooltip" data-placement="right"></span></span></label></div>';
+                            '<span class="form-check-sign"><span class="check" data-bs-toggle="tooltip" data-bs-placement="right"></span></span></label></div>';
                     } else {
                         return '<span id="spa-' + row.AcdGroupID + '"><span>';
                     }
@@ -1552,9 +1554,9 @@ function initACDTbl() {
     });
 
     if (amIXR) {
-        $('#super-acd-btn-container').append('<a id="super-acd-btn" class="btn rounded btn-sm btn-warning mt-2 mb-0 text-capitalize" data-toggle="confirmation" data-placement="bottom" data-popout="true" data-btn-ok-class="btn-info" href="javascript:(saveSuperAcdSelected())"><i class="fas fa-save mr-2"></i><span class="align-middle">Save</span></a>');
+        $('#super-acd-btn-container').append('<a id="super-acd-btn" class="btn rounded btn-sm btn-warning mt-2 mb-0 text-capitalize" data-bs-toggle="confirmation" data-bs-placement="bottom" data-popout="true" data-btn-ok-class="btn-info" href="javascript:(saveSuperAcdSelected())"><i class="fas fa-save me-2"></i><span class="align-middle">Save</span></a>');
         $('#super-acd-btn').confirmation({
-            rootSelector: '[data-toggle=confirmation]',
+            rootSelector: '[data-bs-toggle=confirmation]',
             popout: true,
             title: "Are you sure?",
             btnOkLabel: "YES",
@@ -1662,7 +1664,7 @@ function onAddAcdMember(res) {
 
     if (isAcdToAgent) {
         if (res.result == 'success') {
-            var alertStr = '<div id="' + alertId + '" class="alert alert-success d-grid"><strong>Success!</strong>&nbsp;&nbsp;ACD ID: ' + changingId + ' added Agent ID: ' + toAddId + '&nbsp;&nbsp;&nbsp;<button type="button" class="close" data-dismiss="alert">x</button></div>'
+            var alertStr = '<div id="' + alertId + '" class="alert alert-success d-grid"><strong>Success!</strong>&nbsp;&nbsp;ACD ID: ' + changingId + ' added Agent ID: ' + toAddId + '&nbsp;&nbsp;&nbsp;<button type="button" class="btn-close" data-bs-dismiss="alert">x</button></div>'
             $('#alert-container').append(alertStr);
             var acdGroup = acdMembersArr.filter(function (v) { return v.AcdGroupID == changingId })[0];
             acdGroup.selectedCount += 1;
@@ -1671,7 +1673,7 @@ function onAddAcdMember(res) {
             agentObj.selectedCount += 1;
             agentObj.selected.push(changingId);
         } else {
-            var alertStr = '<div id="' + alertId + '" class="alert alert-danger d-grid"><strong>Fail!</strong>&nbsp;&nbsp;ACD ID: ' + changingId + ' failed to add Agent ID: ' + toAddId + '&nbsp;&nbsp;&nbsp;<button type="button" class="close" data-dismiss="alert">x</button></div>'
+            var alertStr = '<div id="' + alertId + '" class="alert alert-danger d-grid"><strong>Fail!</strong>&nbsp;&nbsp;ACD ID: ' + changingId + ' failed to add Agent ID: ' + toAddId + '&nbsp;&nbsp;&nbsp;<button type="button" class="btn-close" data-bs-dismiss="alert">x</button></div>'
             $('#alert-container').append(alertStr);
             delayMiliSec = 20000;
         }
@@ -1692,7 +1694,7 @@ function onAddAcdMember(res) {
     } else {
         var ppc = window.opener.document.getElementById("phone-panel").contentWindow;
         if (res.result == 'success') {
-            var alertStr = '<div id="' + alertId + '" class="alert alert-success d-grid"><strong>Success!</strong>&nbsp;Agent ID: ' + changingId + ' is added to ACD ID: ' + toAddId + '&nbsp;&nbsp;&nbsp;<button type="button" class="close" data-dismiss="alert">x</button></div>'
+            var alertStr = '<div id="' + alertId + '" class="alert alert-success d-grid"><strong>Success!</strong>&nbsp;Agent ID: ' + changingId + ' is added to ACD ID: ' + toAddId + '&nbsp;&nbsp;&nbsp;<button type="button" class="btn-close" data-bs-dismiss="alert">x</button></div>'
             $('#alert-container').append(alertStr);
             var acdGroup = acdMembersArr.filter(function (v) { return v.AcdGroupID == toAddId })[0];
             acdGroup.selectedCount += 1;
@@ -1701,7 +1703,7 @@ function onAddAcdMember(res) {
             agentObj.selectedCount += 1;
             agentObj.selected.push(toAddId);
         } else {
-            var alertStr = '<div id="' + alertId + '" class="alert alert-danger d-grid"><strong>Fail!</strong>&nbsp;Agent ID: ' + changingId + ' failed to be added to ACD ID: ' + toAddId + '&nbsp;&nbsp;&nbsp;<button type="button" class="close" data-dismiss="alert">x</button></div>'
+            var alertStr = '<div id="' + alertId + '" class="alert alert-danger d-grid"><strong>Fail!</strong>&nbsp;Agent ID: ' + changingId + ' failed to be added to ACD ID: ' + toAddId + '&nbsp;&nbsp;&nbsp;<button type="button" class="btn-close" data-bs-dismiss="alert">x</button></div>'
             $('#alert-container').append(alertStr);
             delayMiliSec = 20000;
         }
@@ -1735,7 +1737,7 @@ function onDelAcdMember(res) {
 
     if (isAcdToAgent) {
         if (res.result == 'success') {
-            var alertStr = '<div id="' + alertId + '" class="alert alert-success"><strong>Success! </strong>&nbsp;ACD ID: ' + changingId + ' deleted Agent ID: ' + toDelId + '&nbsp;&nbsp;&nbsp;<button type="button" class="close" data-dismiss="alert">x</button></div>'
+            var alertStr = '<div id="' + alertId + '" class="alert alert-success"><strong>Success! </strong>&nbsp;ACD ID: ' + changingId + ' deleted Agent ID: ' + toDelId + '&nbsp;&nbsp;&nbsp;<button type="button" class="btn-close" data-bs-dismiss="alert">x</button></div>'
             $('#alert-container').append(alertStr);
             var acdGroup = acdMembersArr.filter(function (v) { return v.AcdGroupID == changingId })[0];
             acdGroup.selectedCount = acdGroup.selectedCount - 1;
@@ -1746,7 +1748,7 @@ function onDelAcdMember(res) {
             var toDelAcdIdx = agentObj.selected.indexOf(changingId);
             if (toDelAcdIdx !== -1) agentObj.selected.splice(toDelAcdIdx, 1);
         } else {
-            var alertStr = '<div id="' + alertId + '" class="alert alert-danger"><strong>Fail! </strong>&nbsp;ACD ID: ' + changingId + ' failed to delete Agent ID:' + toDelId + '&nbsp;&nbsp;&nbsp;<button type="button" class="close" data-dismiss="alert">x</button></div>'
+            var alertStr = '<div id="' + alertId + '" class="alert alert-danger"><strong>Fail! </strong>&nbsp;ACD ID: ' + changingId + ' failed to delete Agent ID:' + toDelId + '&nbsp;&nbsp;&nbsp;<button type="button" class="btn-close" data-bs-dismiss="alert">x</button></div>'
             $('#alert-container').append(alertStr);
             delayMiliSec = 10000;
         }
@@ -1766,7 +1768,7 @@ function onDelAcdMember(res) {
         }
     } else {
         if (res.result == 'success') {
-            var alertStr = '<div id="' + alertId + '" class="alert alert-success"><strong>Success! </strong>&nbsp;Agent ID: ' + changingId + ' deleted from ACD ID: ' + toDelId + '&nbsp;&nbsp;&nbsp;<button type="button" class="close" data-dismiss="alert">x</button></div>'
+            var alertStr = '<div id="' + alertId + '" class="alert alert-success"><strong>Success! </strong>&nbsp;Agent ID: ' + changingId + ' deleted from ACD ID: ' + toDelId + '&nbsp;&nbsp;&nbsp;<button type="button" class="btn-close" data-bs-dismiss="alert">x</button></div>'
             $('#alert-container').append(alertStr);
             var acdGroup = acdMembersArr.filter(function (v) { return v.AcdGroupID == toDelId })[0];
             acdGroup.selectedCount = acdGroup.selectedCount - 1;
@@ -1777,7 +1779,7 @@ function onDelAcdMember(res) {
             var toDelAcdIdx = agentObj.selected.indexOf(toDelId);
             if (toDelAcdIdx !== -1) agentObj.selected.splice(toDelAcdIdx, 1);
         } else {
-            var alertStr = '<div id="' + alertId + '" class="alert alert-danger"><strong>Fail! </strong>&nbsp;Agent ID: ' + changingId + ' failed to be deleted from ACD ID:' + toDelId + '&nbsp;&nbsp;&nbsp;<button type="button" class="close" data-dismiss="alert">x</button></div>'
+            var alertStr = '<div id="' + alertId + '" class="alert alert-danger"><strong>Fail! </strong>&nbsp;Agent ID: ' + changingId + ' failed to be deleted from ACD ID:' + toDelId + '&nbsp;&nbsp;&nbsp;<button type="button" class="btn-close" data-bs-dismiss="alert">x</button></div>'
             $('#alert-container').append(alertStr);
             delayMiliSec = 10000;
         }
@@ -1835,7 +1837,7 @@ function saveAcdAgentSelected() {
                 $('#save-acd-agent-selected-a').addClass('disabled');
 
                 // show sending request bubble, the alert will close when reponse got
-                var addAlertStr = '<div id="add-sending-request" class="alert alert-info d-grid"><strong>Sending add request, this could take a while, please do not leave the page...&nbsp;&nbsp;</strong><button type="button" class="close" data-dismiss="alert">x</button></div>'
+                var addAlertStr = '<div id="add-sending-request" class="alert alert-info d-grid"><strong>Sending add request, this could take a while, please do not leave the page...&nbsp;&nbsp;</strong><button type="button" class="btn-close" data-bs-dismiss="alert">x</button></div>'
                 $('#alert-container').append(addAlertStr);
             }
             if (deletedArr.length > 0) {
@@ -1844,7 +1846,7 @@ function saveAcdAgentSelected() {
                 $('#save-acd-agent-selected-a').addClass('disabled');
 
                 // show sending request bubble, the alert will close when reponse got
-                var delAlertStr = '<div id="del-sending-request" class="alert alert-info d-grid"><strong>Sending delete request, this could take a while, please do not leave the page...&nbsp;&nbsp;</strong><button type="button" class="close" data-dismiss="alert">x</button></div>'
+                var delAlertStr = '<div id="del-sending-request" class="alert alert-info d-grid"><strong>Sending delete request, this could take a while, please do not leave the page...&nbsp;&nbsp;</strong><button type="button" class="btn-close" data-bs-dismiss="alert">x</button></div>'
                 $('#alert-container').append(delAlertStr);
             }
         }
@@ -1876,7 +1878,7 @@ function saveAgentAcdSelected() {
             $('#save-agent-acd-selected-a').addClass('disabled');
 
             // show sending request bubble, the alert will close when reponse got
-            var addAlertStr = '<div id="add-sending-request" class="alert alert-info d-grid"><strong>Sending add request, this could take a while, please do not leave the page...&nbsp;&nbsp;</strong><button type="button" class="close" data-dismiss="alert">x</button></div>'
+            var addAlertStr = '<div id="add-sending-request" class="alert alert-info d-grid"><strong>Sending add request, this could take a while, please do not leave the page...&nbsp;&nbsp;</strong><button type="button" class="btn-close" data-bs-dismiss="alert">x</button></div>'
             $('#alert-container').append(addAlertStr);
         }
         if (deletedArr.length > 0) {
@@ -1885,7 +1887,7 @@ function saveAgentAcdSelected() {
             $('#save-agent-acd-selected-a').addClass('disabled');
 
             // show sending request bubble, the alert will close when reponse got
-            var delAlertStr = '<div id="del-sending-request" class="alert alert-info d-grid"><strong>Sending delete request, this could take a while, please do not leave the page...&nbsp;&nbsp;</strong><button type="button" class="close" data-dismiss="alert">x</button></div>'
+            var delAlertStr = '<div id="del-sending-request" class="alert alert-info d-grid"><strong>Sending delete request, this could take a while, please do not leave the page...&nbsp;&nbsp;</strong><button type="button" class="btn-close" data-bs-dismiss="alert">x</button></div>'
             $('#alert-container').append(delAlertStr);
         }
     }
@@ -1950,7 +1952,7 @@ function saveSuperAcdSelected() {
                             var accessible = submitObj.accessible;
                             var alertId = 's' + (accessible ? 'add' : 'del') + groupId;
                             var addDelStr = accessible ? 'added' : 'removed';
-                            var alertStr = '<div id="' + alertId + '" class="alert alert-success d-grid"><strong>Success!</strong>&nbsp;&nbsp;Super ID: ' + superId + ' ' + addDelStr + ' access to ACD Group: ' + groupId + '. User will need to re-login to refresh&nbsp;&nbsp;&nbsp;<button type="button" class="close" data-dismiss="alert">x</button></div>';
+                            var alertStr = '<div id="' + alertId + '" class="alert alert-success d-grid"><strong>Success!</strong>&nbsp;&nbsp;Super ID: ' + superId + ' ' + addDelStr + ' access to ACD Group: ' + groupId + '. User will need to re-login to refresh&nbsp;&nbsp;&nbsp;<button type="button" class="btn-close" data-bs-dismiss="alert">x</button></div>';
                             $('#alert-container').append(alertStr);
                             $('#' + alertId).delay(4000).slideUp(200, function () {
                                 $(this).alert('close');
@@ -1961,7 +1963,7 @@ function saveSuperAcdSelected() {
                             var accessible = submitObj.accessible;
                             var alertId = 's' + (accessible ? 'add' : 'del') + groupId;
                             var addDelStr = accessible ? 'add' : 'remove';
-                            var alertStr = '<div id="' + alertId + '" class="alert alert-success d-grid"><strong>Fail!</strong>&nbsp;&nbsp;Super ID: ' + superId + ' failed to ' + addDelStr + ' access to ACD Group: ' + groupId + '. User will need to re-login to refresh&nbsp;&nbsp;&nbsp;<button type="button" class="close" data-dismiss="alert">x</button></div>';
+                            var alertStr = '<div id="' + alertId + '" class="alert alert-success d-grid"><strong>Fail!</strong>&nbsp;&nbsp;Super ID: ' + superId + ' failed to ' + addDelStr + ' access to ACD Group: ' + groupId + '. User will need to re-login to refresh&nbsp;&nbsp;&nbsp;<button type="button" class="btn-close" data-bs-dismiss="alert">x</button></div>';
                             $('#alert-container').append(alertStr);
                             $('#' + alertId).delay(20000).slideUp(200, function () {
                                 $(this).alert('close');
@@ -2036,7 +2038,7 @@ function initAgentTbl() {
                     return '<div class="form-check" style="margin-top:-16px">' +
                         '<label class="form-check-label">' +
                         '<input class="form-check-input" type="checkbox" id="' + row.AgentID + '" value="' + row.AgentID + '">' +
-                        '<span class="form-check-sign"><span class="check" data-toggle="tooltip" data-placement="right"></span></span></label></div>';
+                        '<span class="form-check-sign"><span class="check" data-bs-toggle="tooltip" data-bs-placement="right"></span></span></label></div>';
                 }
             }
         ],

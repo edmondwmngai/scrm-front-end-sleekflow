@@ -570,7 +570,7 @@ function setCustomerInfo(isChangedCustomer) {
     }
     if (disableMode) {
         $('.edit-field').prop('disabled', true);
-        $('#edit-save-btn').html('<i class="fa fa-edit mr-2"></i><span>' + langJson['l-form-edit'] + '</span>');
+        $('#edit-save-btn').html('<i class="fa fa-edit me-2"></i><span>' + langJson['l-form-edit'] + '</span>');
     }
     if (customerData != undefined) {
         // Get specific data
@@ -647,8 +647,8 @@ function setCustomerInfo(isChangedCustomer) {
         newMobile = ' ';
     }
 
-    $('<span style="display:' + mobileStyle + ';" name="sms" class="cMobile_No" id="reply-sms-mobile-container"><div class="form-check mr-2"><label class="form-check-label"><input type="checkbox" class="form-check-input reply-checkbox sms-list dial-yes-disable" value="' + Mobile_No + '" id="oSmsMobile_No">' + newMobile + '<span class="form-check-sign"><span class="check"></span></span></label></div></span>').insertBefore('#sms-other-container');
-    $('<span style="display:' + mobileStyle + ';" name="call" class="cMobile_No" id="reply-call-mobile-container"><div class="form-check ml-2"><label class="form-check-label"><input type="radio" name="callList" class="form-check-input reply-checkbox call-list dial-yes-disable" onchange="replyCallChanged(this)" value="' + Mobile_No + '" id="oCallMobile_No">' + newMobile + '<span class="circle"><span class="check"></span></span></label></div></span>').insertBefore('#call-other-container');
+    $('<span style="display:' + mobileStyle + ';" name="sms" class="cMobile_No" id="reply-sms-mobile-container"><div class="form-check me-2"><label class="form-check-label"><input type="checkbox" class="form-check-input reply-checkbox sms-list dial-yes-disable" value="' + Mobile_No + '" id="oSmsMobile_No">' + newMobile + '<span class="form-check-sign"><span class="check"></span></span></label></div></span>').insertBefore('#sms-other-container');
+    $('<span style="display:' + mobileStyle + ';" name="call" class="cMobile_No" id="reply-call-mobile-container"><div class="form-check ms-2"><label class="form-check-label"><input type="radio" name="callList" class="form-check-input reply-checkbox call-list dial-yes-disable" onchange="replyCallChanged(this)" value="' + Mobile_No + '" id="oCallMobile_No">' + newMobile + '<span class="circle"><span class="check"></span></span></label></div></span>').insertBefore('#call-other-container');
 
     var newOther = Other_Phone_No;
     if (Other_Phone_No != null && Other_Phone_No.length > 0) {
@@ -657,7 +657,7 @@ function setCustomerInfo(isChangedCustomer) {
         newOther = ' ';
     }
     $('<span style="display:' + otherStyle + ';" name="sms" class="cOther_Phone_No" id="reply-sms-other-container"><div class="form-check"><label class="form-check-label"><input type="checkbox" class="form-check-input reply-checkbox sms-list dial-yes-disable" value="' + Other_Phone_No + '" id="oSmsOther_Phone_No">' + newOther + '<span class="form-check-sign"><span class="check"></span></span></label></div></span>').insertBefore('#sms-other-container');
-    $('<span style="display:' + otherStyle + ';" name="call" class="cOther_Phone_No" id="reply-call-other-container"><div class="form-check ml-2"><label class="form-check-label"><input type="radio" name="callList" class="form-check-input reply-checkbox call-list dial-yes-disable" onchange="replyCallChanged(this)" value="' + Other_Phone_No + '" id="oCallOther_Phone_No">' + newOther + '<span class="circle"><span class="check"></span></span></label></div></span>').insertBefore('#call-other-container');
+    $('<span style="display:' + otherStyle + ';" name="call" class="cOther_Phone_No" id="reply-call-other-container"><div class="form-check ms-2"><label class="form-check-label"><input type="radio" name="callList" class="form-check-input reply-checkbox call-list dial-yes-disable" onchange="replyCallChanged(this)" value="' + Other_Phone_No + '" id="oCallOther_Phone_No">' + newOther + '<span class="circle"><span class="check"></span></span></label></div></span>').insertBefore('#call-other-container');
     var newFax = Fax_No;
     if (Fax_No != null && Fax_No.length > 0) {
         faxStyle = 'inline-block';
@@ -1703,7 +1703,7 @@ var dialYesClicked = function (incompleteCase) {
     var areYouSure = $('#are-you-sure');
     areYouSure.remove();
     replyConfirmed = true;
-    $('<span id="call-result-container" class="form-group" style="display:inline;"><label>&nbsp;&nbsp;&nbsp;' + langJson['l-form-call-result'] + '&nbsp;&nbsp;&nbsp;</label><select class="form-control" id="call-result-select" value="" style="display:inline;width:130px"><option value="" selected></option><option>Answered</option><option>Busy Call Again</option><option>Busy Tone</option><option>No Answer</option><option>Voicemail</option></select></span>').insertAfter('#reply-submit-btn');
+    $('<span id="call-result-container" class="mb-3" style="display:inline;"><label>&nbsp;&nbsp;&nbsp;' + langJson['l-form-call-result'] + '&nbsp;&nbsp;&nbsp;</label><select class="form-select" id="call-result-select" value="" style="display:inline;width:130px"><option value="" selected></option><option>Answered</option><option>Busy Call Again</option><option>Busy Tone</option><option>No Answer</option><option>Voicemail</option></select></span>').insertAfter('#reply-submit-btn');
     $('.dial-yes-disable').prop('disabled', true);
     if (!incompleteCase) {
         var callDetails = $('.call-list:checked')[0].value;
@@ -1907,8 +1907,8 @@ function callUpdateCase() {
             $('#export-word-btn').show()
             // If no case no showed before
             // if ($('#case-no-span').length == 0) {
-            //     $('<span id="case-no-span" class="ml-3"><label class="mt-3">' + langJson['l-search-case-no'] + ':</label>&nbsp;' + caseNo + '</span>').insertAfter($('#customer-id'));
-            //     $('<button class="float-right btn btn-circle btn-warning d-print-none" title=" ' +
+            //     $('<span id="case-no-span" class="ms-3"><label class="mt-3">' + langJson['l-search-case-no'] + ':</label>&nbsp;' + caseNo + '</span>').insertAfter($('#customer-id'));
+            //     $('<button class="float-end btn btn-circle btn-warning d-print-none" title=" ' +
             //     langJson['l-form-exoprt-word']
             //     +' " onclick="scheduleClick();"><i class="fas fa-solid fa-file-word word-icon"></i></button>').insertBefore($('#scheduled-reminder'));
             // }
@@ -1986,7 +1986,7 @@ function replyChannelChange(iThis) {
         var mobileNoStr = '';
         if (mobileNo.length > 0) {
             mobileNoStr = '<span id="reply-wa-mobile-container" style="display:inline-block;">' +
-                '<div class="form-check ml-2"><label class="form-check-label"><input type="checkbox" name="waList" class="form-check-input reply-checkbox wa-list" value="' + mobileNo + '" id="oCallMobile_No">' +
+                '<div class="form-check ms-2"><label class="form-check-label"><input type="checkbox" name="waList" class="form-check-input reply-checkbox wa-list" value="' + mobileNo + '" id="oCallMobile_No">' +
                 mobileNo +
                 '<span class="form-check-sign"><span class="check"></span></span></label></div></span>'
         }
@@ -1994,8 +1994,8 @@ function replyChannelChange(iThis) {
         // if (config.isEmma) {
         var onkeyupStr = "this.value=this.value.replace(/[^\\d]/,'')"; // need to escape d, so \\d, not \d
         waContainerStr = '<span class="reply-wa-container" style="display:inline;">' + mobileNoStr +
-            '<span id="wa-other-container" style="display:inline-block;"><div class="form-check ml-2" style="display:inline;"><label class="form-check-label"><input type="checkbox" class="form-check-input reply-checkbox wa-list" name="waList" value="other" id="call-other-check" onchange="WAOtherChanged(this)">Other<span class="form-check-sign"><span class="check"></span></span></label></div>&nbsp;<input type="tel" maxlength="50" onkeyup=' + onkeyupStr + ' disabled="true" id="wa-other-input" class="border-form-control" autocomplete="off"></span>' +
-            '<button id="select-tp-btn" class="btn btn-sm btn-warning text-capitalize rounded ml-2">' + langJson['l-campaign-select-template'] + '</button>' +
+            '<span id="wa-other-container" style="display:inline-block;"><div class="form-check ms-2" style="display:inline;"><label class="form-check-label"><input type="checkbox" class="form-check-input reply-checkbox wa-list" name="waList" value="other" id="call-other-check" onchange="WAOtherChanged(this)">Other<span class="form-check-sign"><span class="check"></span></span></label></div>&nbsp;<input type="tel" maxlength="50" onkeyup=' + onkeyupStr + ' disabled="true" id="wa-other-input" class="border-form-control" autocomplete="off"></span>' +
+            '<button id="select-tp-btn" class="btn btn-sm btn-warning text-capitalize rounded ms-2">' + langJson['l-campaign-select-template'] + '</button>' +
             '<div id="send-wa-section" class="mt-2"></div>'
 
         $('#reply-details').append(waContainerStr);
@@ -2085,22 +2085,22 @@ function replyChannelChange(iThis) {
         // } else {
 
         //     waContainerStr = '<span class="reply-wa-container" style="display:inline;">' + mobileNoStr +
-        //         '<span id="wa-other-container" style="display:inline-block;"><div class="form-check ml-2" style="display:inline;"><label class="form-check-label"><input type="checkbox" class="form-check-input reply-checkbox wa-list" name="waList" value="other" id="call-other-check" onchange="WAOtherChanged(this)">Other<span class="form-check-sign"><span class="check"></span></span></label></div>&nbsp;<input type="tel" maxlength="80" disabled="true" id="wa-other-input" class="border-form-control" autocomplete="off"></span>' +
+        //         '<span id="wa-other-container" style="display:inline-block;"><div class="form-check ms-2" style="display:inline;"><label class="form-check-label"><input type="checkbox" class="form-check-input reply-checkbox wa-list" name="waList" value="other" id="call-other-check" onchange="WAOtherChanged(this)">Other<span class="form-check-sign"><span class="check"></span></span></label></div>&nbsp;<input type="tel" maxlength="80" disabled="true" id="wa-other-input" class="border-form-control" autocomplete="off"></span>' +
         //         '<div id="send-wa-section" class="mt-2">' +
 
-        //         // '<label class="form-label mb-0"><span>Template Prop(s):</span><input id="tpl-content" class="rounded ml-3 mr-2" autocomplete="off">e.g. 4 July,8pm</label>' +
+        //         // '<label class="form-label mb-0"><span>Template Prop(s):</span><input id="tpl-content" class="rounded ms-3 me-2" autocomplete="off">e.g. 4 July,8pm</label>' +
 
-        //         '<div class="form-check form-check-radio ml-4"><label class="form-check-label" for="tp-1"><input class="form-check-input" type="radio" name="tp" id="tp-1" value="1" props=2>Your appointment is coming up on {{1}} at {{2}}<span class="circle"><span class="check"></span></span></label></div>' +
-        //         '<div class="form-check form-check-radio ml-4"><label class="form-check-label" for="tp-2"><input class="form-check-input" type="radio" name="tp" id="tp-2" value="2" props=2>易寶通訊提醒你, 預約日期是{{1}}{{2}}。<span class="circle"><span class="check"></span></span></label></div>' +
-        //         '<div class="form-check form-check-radio ml-4"><label class="form-check-label" for="tp-3"><input class="form-check-input" type="radio" name="tp" id="tp-3" value="3" props=1>Epro Notice: Thank you for your application, the application no is {{1}}.<span class="circle"><span class="check"></span></span></label></div>' +
-        //         '<div class="form-check form-check-radio ml-4"><label class="form-check-label" for="tp-4"><input class="form-check-input" type="radio" name="tp" id="tp-4" value="4" props=1>易寶：謝謝你的申請, 你的申編號是 {{1}}.<span class="circle"><span class="check"></span></span></label></div>' +
-        //         '<div class="form-check form-check-radio ml-4"><label class="form-check-label" for="tp-5"><input class="form-check-input" type="radio" name="tp" id="tp-5" value="5" props=2>Case No: {{1}}<div class="mt-1">Detail : {{2}}</div><span class="circle"><span class="check"></span></span></label></div>' +
+        //         '<div class="form-check form-check-radio ms-4"><label class="form-check-label" for="tp-1"><input class="form-check-input" type="radio" name="tp" id="tp-1" value="1" props=2>Your appointment is coming up on {{1}} at {{2}}<span class="circle"><span class="check"></span></span></label></div>' +
+        //         '<div class="form-check form-check-radio ms-4"><label class="form-check-label" for="tp-2"><input class="form-check-input" type="radio" name="tp" id="tp-2" value="2" props=2>易寶通訊提醒你, 預約日期是{{1}}{{2}}。<span class="circle"><span class="check"></span></span></label></div>' +
+        //         '<div class="form-check form-check-radio ms-4"><label class="form-check-label" for="tp-3"><input class="form-check-input" type="radio" name="tp" id="tp-3" value="3" props=1>Epro Notice: Thank you for your application, the application no is {{1}}.<span class="circle"><span class="check"></span></span></label></div>' +
+        //         '<div class="form-check form-check-radio ms-4"><label class="form-check-label" for="tp-4"><input class="form-check-input" type="radio" name="tp" id="tp-4" value="4" props=1>易寶：謝謝你的申請, 你的申編號是 {{1}}.<span class="circle"><span class="check"></span></span></label></div>' +
+        //         '<div class="form-check form-check-radio ms-4"><label class="form-check-label" for="tp-5"><input class="form-check-input" type="radio" name="tp" id="tp-5" value="5" props=2>Case No: {{1}}<div class="mt-1">Detail : {{2}}</div><span class="circle"><span class="check"></span></span></label></div>' +
 
         //         '<label class="form-label mb-0 mt-1">&nbsp;&nbsp;' +
-        //         '<span id="prop-0-span" class="d-none wa-prop-span">{{1}}: <input id="tpl-content-0" class="rounded ml-1 mr-2" autocomplete="off" style="width: 113px;"></span>' +
-        //         '<span id="prop-1-span" class="d-none wa-prop-span">{{2}}: <input id="tpl-content-1" class="rounded ml-1 mr-2" autocomplete="off" style="width: 113px;"></span>' +
-        //         '<span id="prop-2-span" class="d-none wa-prop-span">{{3}}: <input id="tpl-content-2" class="rounded ml-1 mr-2" autocomplete="off" style="width: 113px;"></span>' +
-        //         '<span id="prop-3-span" class="d-none wa-prop-span">{{4}}: <input id="tpl-content-3" class="rounded ml-1 mr-2" autocomplete="off" style="width: 113px;"></span></label>' +
+        //         '<span id="prop-0-span" class="d-none wa-prop-span">{{1}}: <input id="tpl-content-0" class="rounded ms-1 me-2" autocomplete="off" style="width: 113px;"></span>' +
+        //         '<span id="prop-1-span" class="d-none wa-prop-span">{{2}}: <input id="tpl-content-1" class="rounded ms-1 me-2" autocomplete="off" style="width: 113px;"></span>' +
+        //         '<span id="prop-2-span" class="d-none wa-prop-span">{{3}}: <input id="tpl-content-2" class="rounded ms-1 me-2" autocomplete="off" style="width: 113px;"></span>' +
+        //         '<span id="prop-3-span" class="d-none wa-prop-span">{{4}}: <input id="tpl-content-3" class="rounded ms-1 me-2" autocomplete="off" style="width: 113px;"></span></label>' +
 
         //         '</div></span>';
 
@@ -2140,10 +2140,10 @@ function replyChannelChange(iThis) {
         }
         // Text of the confirm button of details
         if (channel == 'email' || channel == 'fax' || channel == 'sms') {
-            $('#reply-submit-btn').html('<i class="fas fa-clipboard-check mr-2"></i><span>' + langJson["l-form-confirm"] + '</span>');
+            $('#reply-submit-btn').html('<i class="fas fa-clipboard-check me-2"></i><span>' + langJson["l-form-confirm"] + '</span>');
             $('#reply-submit-btn').show();
         } else if (channel == 'call') {
-            $('#reply-submit-btn').html('<i class="fas fa-phone mr-2"></i><span>' + langJson["l-form-dial"] + '</span>');
+            $('#reply-submit-btn').html('<i class="fas fa-phone me-2"></i><span>' + langJson["l-form-dial"] + '</span>');
             $('#reply-submit-btn').show();
         } else {
             $('#reply-submit-btn').hide();
@@ -2218,7 +2218,7 @@ var replySubmitClicked = function () {
         }
         var areYouSure = $('#are-you-sure');
         if (areYouSure.length == 0) {
-            $('<span id="are-you-sure">&nbsp;&nbsp;&nbsp;' + langJson['l-form-are-you-sure'] + '?&nbsp;&nbsp;&nbsp;<button class="btn btn-sm btn-warning text-capitalize rounded" onclick="dialYesClicked();"><i class="fas fa-check mr-2"></i><span>' + langJson['l-form-yes'] + '</span></button>&nbsp;<button onclick="dialNoClicked();" class="btn btn-sm btn-warning text-capitalize rounded"><i class="fas fa-times mr-2"></i><span>' + langJson['l-form-no'] + '</span></button></span>').insertAfter('#reply-submit-btn');
+            $('<span id="are-you-sure">&nbsp;&nbsp;&nbsp;' + langJson['l-form-are-you-sure'] + '?&nbsp;&nbsp;&nbsp;<button class="btn btn-sm btn-warning text-capitalize rounded" onclick="dialYesClicked();"><i class="fas fa-check me-2"></i><span>' + langJson['l-form-yes'] + '</span></button>&nbsp;<button onclick="dialNoClicked();" class="btn btn-sm btn-warning text-capitalize rounded"><i class="fas fa-times me-2"></i><span>' + langJson['l-form-no'] + '</span></button></span>').insertAfter('#reply-submit-btn');
             $('.dial-yes-disable').prop('disabled', true);
         }
     } else if (replyChannel == 'email' || replyChannel == 'fax' || replyChannel == 'sms') {
@@ -2255,15 +2255,15 @@ var replySubmitClicked = function () {
 
             var emailFileTriggerStr = "$('#upload-emailFile').trigger('click');"
             var emailFileUploadStr = 'uploadAttachment(this,"emailFile");'
-            var replyCardStr = '<div id="reply-card" class="my-2 jumbotron py-3"><div class="text-center mb-2 bg-info rounded text-white"><h5 class="mt-0 mb-0">Send Email</h5></div><div class="row form-inline">' +
+            var replyCardStr = '<div id="reply-card" class="my-2 bg-light mb-4 rounded-2 py-5 px-3 py-3"><div class="text-center mb-2 bg-info rounded text-white"><h5 class="mt-0 mb-0">Send Email</h5></div><div class="row d-flex align-items-center">' +
 
-                '<div class="form-group col-sm-12 pl-0 mb-0">' +
+                '<div class="mb-3 col-sm-12 ps-0 mb-0">' +
 
-                '<label class="col-sm-1 control-label pl-4">Template</label>' +
+                '<label class="col-sm-1 control-label ps-4">Template</label>' +
 
-                '<div class="col-sm-11 pl-2">' +
+                '<div class="col-sm-11 ps-2">' +
 
-                '<span class="form-group form-inline float-left">' +
+                '<span class="mb-3 d-flex align-items-center float-start">' +
                 '<div class="form-check mt-2">' +
                 '<label class="form-check-label">' +
                 '<input class="form-check-input" type="radio" name="lang-rd-list" value="chi" checked="">中文<span class="circle">' +
@@ -2272,7 +2272,7 @@ var replySubmitClicked = function () {
                 '</label>' +
                 '</div>' +
 
-                '<div class="form-check mt-2 ml-2">' +
+                '<div class="form-check mt-2 ms-2">' +
                 '<label class="form-check-label">' +
                 '<input class="form-check-input" type="radio" name="lang-rd-list" value="eng">English<span class="circle">' +
                 '<span class="check"></span>' +
@@ -2282,7 +2282,7 @@ var replySubmitClicked = function () {
                 '</div>' +
                 '</span>&nbsp;&nbsp;&nbsp;' +
 
-                '<select id="tmp-2nd-lv" class="form-control">' +
+                '<select id="tmp-2nd-lv" class="form-select">' +
                 '<option selected="selected" value=""></option>' +
                 '<option lang="chi" value=0>提供驗證碼</option>' +
                 '<option lang="eng" class="d-none" value=1>Give Verification</option>' +
@@ -2299,11 +2299,11 @@ var replySubmitClicked = function () {
                 '</div>' +
                 '</div>' +
 
-                '<div class="col-sm-12 pl-0">' +
+                '<div class="col-sm-12 ps-0">' +
 
-                '<div class="offset-md-1 col-sm-11 pl-1">' +
+                '<div class="offset-md-1 col-sm-11 ps-1">' +
 
-                '<select id="tmp-3rd-lv" class="form-control d-none pt-0 mb-2" style="margin-left:148px;">' +
+                '<select id="tmp-3rd-lv" class="form-select d-none pt-0 mb-2" style="margin-left:148px;">' +
                 '<option selected="selected" value=""></option>' +
                 '<option lang="chi" group-id="3" value=4>強積金計劃說明書 - 我的強積金計劃 (2020年3月31日)</option>' +
                 '<option lang="chi" group-id="3" value=5>我的強積金計劃之強積金計劃說明書第一補編 (2020年5月15日)</option>' +
@@ -2326,23 +2326,23 @@ var replySubmitClicked = function () {
                 '</div>' +
 
 
-                '<div class="form-group col-sm-12 pl-0">' +
-                '<label class="col-sm-1 control-label pl-4">From</label>' +
-                '<div class="col-sm-11 pl-2">' + companyName + ' (' + companyEmail + ')' +
+                '<div class="mb-3 col-sm-12 ps-0">' +
+                '<label class="col-sm-1 control-label ps-4">From</label>' +
+                '<div class="col-sm-11 ps-2">' + companyName + ' (' + companyEmail + ')' +
 
                 '</div></div>' +
 
-                '<div class="form-group col-sm-12 pl-0"><label for="email-cc" class="col-sm-1 control-label pl-4">CC</label>' +
-                '<input class="form-control col-sm-6 col-offset-5 ml-2" id="email-cc" type="search" maxlength="100" autocomplete="off">' +
+                '<div class="mb-3 col-sm-12 ps-0"><label for="email-cc" class="col-sm-1 control-label ps-4">CC</label>' +
+                '<input class="form-control col-sm-6 col-offset-5 ms-2" id="email-cc" type="search" maxlength="100" autocomplete="off">' +
 
-                '<div class="form-group col-sm-12 pl-0"><label for="email-subject" class="col-sm-1 control-label pl-4">Subject</label>' +
-                '<input class="form-control col-sm-6 col-offset-5 ml-2" id="email-subject" type="search" maxlength="100" autocomplete="off" value=' + subjectStr + '></div></div>' +
+                '<div class="mb-3 col-sm-12 ps-0"><label for="email-subject" class="col-sm-1 control-label ps-4">Subject</label>' +
+                '<input class="form-control col-sm-6 col-offset-5 ms-2" id="email-subject" type="search" maxlength="100" autocomplete="off" value=' + subjectStr + '></div></div>' +
 
-                '<div class="form-group col-sm-12 pl-0 mt-1"><label for="editor" class="col-sm-1 control-label pl-4">Content<br />&nbsp;&nbsp;(html)</label>' +
-                '<div class="col-sm-11 pl-2">' +
+                '<div class="mb-3 col-sm-12 ps-0 mt-1"><label for="editor" class="col-sm-1 control-label ps-4">Content<br />&nbsp;&nbsp;(html)</label>' +
+                '<div class="col-sm-11 ps-2">' +
                 '<div id="editor">' + contentStr + '</div>' +
-                '</div></div><div class="form-group col-sm-12 pl-0 mt-2"><label for="emailFile-attachment" class="col-sm-1 control-label pl-4">Attachment</label>' +
-                '<div id="emailFile-attachment" class="col-sm-11 pl-2">' +
+                '</div></div><div class="mb-3 col-sm-12 ps-0 mt-2"><label for="emailFile-attachment" class="col-sm-1 control-label ps-4">Attachment</label>' +
+                '<div id="emailFile-attachment" class="col-sm-11 ps-2">' +
                 '<input type="file" id="upload-emailFile" onchange=' + emailFileUploadStr + ' style="display:none" multiple>' +
                 '<input type="button" class="btn btn-warning btn-sm text-capitalize" title="Upload Attachment" value="Upload" onclick=' + emailFileTriggerStr + ' /></div></div>' +
                 '</div></div>';
@@ -2469,37 +2469,37 @@ var replySubmitClicked = function () {
         } else if (replyChannel === 'fax') {
             var faxFileTriggerStr = "$('#upload-faxFile').trigger('click');"
             var faxFileUploadStr = 'uploadAttachment(this,"faxFile");'
-            $('<div id="reply-card" class="my-2 jumbotron py-3"><div class="text-center mb-3 bg-info rounded text-white"><h5 class="mt-0 mb-0">Send Fax</h5></div><div class="row form-inline">' +
-                '<div class="form-group col-sm-12 pl-3">' +
-                '<label class="col-sm-2 control-label pl-5 justify-content-start">Cover Sender</label>' +
-                '<div class="col-sm-10 pl-3">' + agentName + '</div></div>' +
-                '<div class="form-group col-sm-12 pl-3">' +
-                '<label class="col-sm-2 control-label pl-5 justify-content-start">Cover Company</label>' +
-                '<div class="col-sm-10 pl-3">' + companyName + '</div></div>' +
-                '<div class="form-group col-sm-12 pl-3">' +
-                '<label for="fax-attn" class="col-sm-2 control-label pl-5 justify-content-start">Cover Attention</label>' +
-                '<div class="col-sm-10 pl-3"><input id="fax-attn" class="form-control" /></div></div>' +
-                '<div class="form-group col-sm-12 pl-3">' +
-                '<label for="fax-subject" class="col-sm-2 control-label pl-5 justify-content-start">Cover Subject</label>' +
-                '<div class="col-sm-10 pl-3"><input id="fax-subject" class="form-control" /></div></div>' +
-                '<div class="form-group col-sm-12 pl-3"><label for="fax-msg" class="col-sm-2 control-label  pl-5 justify-content-start">Content</label>' +
-                '<div class="col-sm-10 pl-3">' +
+            $('<div id="reply-card" class="my-2 bg-light mb-4 rounded-2 py-5 px-3 py-3"><div class="text-center mb-3 bg-info rounded text-white"><h5 class="mt-0 mb-0">Send Fax</h5></div><div class="row d-flex align-items-center">' +
+                '<div class="mb-3 col-sm-12 ps-3">' +
+                '<label class="col-sm-2 control-label ps-5 justify-content-start">Cover Sender</label>' +
+                '<div class="col-sm-10 ps-3">' + agentName + '</div></div>' +
+                '<div class="mb-3 col-sm-12 ps-3">' +
+                '<label class="col-sm-2 control-label ps-5 justify-content-start">Cover Company</label>' +
+                '<div class="col-sm-10 ps-3">' + companyName + '</div></div>' +
+                '<div class="mb-3 col-sm-12 ps-3">' +
+                '<label for="fax-attn" class="col-sm-2 control-label ps-5 justify-content-start">Cover Attention</label>' +
+                '<div class="col-sm-10 ps-3"><input id="fax-attn" class="form-control" /></div></div>' +
+                '<div class="mb-3 col-sm-12 ps-3">' +
+                '<label for="fax-subject" class="col-sm-2 control-label ps-5 justify-content-start">Cover Subject</label>' +
+                '<div class="col-sm-10 ps-3"><input id="fax-subject" class="form-control" /></div></div>' +
+                '<div class="mb-3 col-sm-12 ps-3"><label for="fax-msg" class="col-sm-2 control-label  ps-5 justify-content-start">Content</label>' +
+                '<div class="col-sm-10 ps-3">' +
                 '<textarea class="mt-2" id="fax-msg" rows="3" cols="20" style="font-family:inherit;width:100%;" maxlength="500"></textarea></div></div>' +
-                '<div class="form-group col-sm-12 pl-3">' +
-                '<label class="col-sm-2 control-label pl-5 justify-content-start">Fax File<br>(TXT, PDF, DOC, PPT, XLS Format Allowed)</label>' +
-                '<div id="faxFile-attachment" class="col-sm-10 pl-3"><input type="file" accept=".doc,.docx,.pdf,.xls,.xlsx,.ppt,.pptx,.txt" id="upload-faxFile" onchange=' + faxFileUploadStr + ' style="display:none" multiple>' +
-                '<input type="button" class="btn btn-warning btn-sm ml-0 text-capitalize" title="Upload Fax File" value="Upload" style="margin-left:5px;" onclick=' + faxFileTriggerStr + ' /></div></div></div></div>' +
+                '<div class="mb-3 col-sm-12 ps-3">' +
+                '<label class="col-sm-2 control-label ps-5 justify-content-start">Fax File<br>(TXT, PDF, DOC, PPT, XLS Format Allowed)</label>' +
+                '<div id="faxFile-attachment" class="col-sm-10 ps-3"><input type="file" accept=".doc,.docx,.pdf,.xls,.xlsx,.ppt,.pptx,.txt" id="upload-faxFile" onchange=' + faxFileUploadStr + ' style="display:none" multiple>' +
+                '<input type="button" class="btn btn-warning btn-sm ms-0 text-capitalize" title="Upload Fax File" value="Upload" style="margin-left:5px;" onclick=' + faxFileTriggerStr + ' /></div></div></div></div>' +
                 +'</div>').appendTo('#reply-container');
         } else if (replyChannel === 'sms') {
-            $('<div id="reply-card" class="my-2 jumbotron py-3"><div class="text-center mb-3 bg-info rounded text-white"><h5 class="mt-0 mb-0">Send SMS</h5></div>' +
-                '<div class="row form-inline">' +
+            $('<div id="reply-card" class="my-2 bg-light mb-4 rounded-2 py-5 px-3 py-3"><div class="text-center mb-3 bg-info rounded text-white"><h5 class="mt-0 mb-0">Send SMS</h5></div>' +
+                '<div class="row d-flex align-items-center">' +
 
-                '<div class="form-group col-sm-12 pl-0 mb-0">' +
-                '<label class="col-sm-1 control-label pl-4">Template</label>' +
+                '<div class="mb-3 col-sm-12 ps-0 mb-0">' +
+                '<label class="col-sm-1 control-label ps-4">Template</label>' +
 
-                '<div class="col-sm-11 pl-2">' +
+                '<div class="col-sm-11 ps-2">' +
 
-                '<span class="form-group form-inline float-left">' +
+                '<span class="mb-3 d-flex align-items-center float-start">' +
                 '<div class="form-check mt-2">' +
                 '<label class="form-check-label">' +
                 '<input class="form-check-input" type="radio" name="lang-rd-list" value="chi" checked="">中文<span class="circle">' +
@@ -2508,7 +2508,7 @@ var replySubmitClicked = function () {
                 '</label>' +
                 '</div>' +
 
-                '<div class="form-check mt-2 ml-2">' +
+                '<div class="form-check mt-2 ms-2">' +
                 '<label class="form-check-label">' +
                 '<input class="form-check-input" type="radio" name="lang-rd-list" value="eng">English<span class="circle">' +
                 '<span class="check"></span>' +
@@ -2518,7 +2518,7 @@ var replySubmitClicked = function () {
                 '</div>' +
                 '</span>&nbsp;&nbsp;&nbsp;' +
 
-                '<select id="tmp-2nd-lv" class="form-control">' +
+                '<select id="tmp-2nd-lv" class="form-select">' +
                 '<option selected="selected" value=""></option>' +
                 '<option lang="chi" value=0>提供驗證碼</option>' +
                 '<option lang="eng" class="d-none" value=1>Give Verification</option>' +
@@ -2535,11 +2535,11 @@ var replySubmitClicked = function () {
                 '</div>' +
                 '</div>' +
 
-                '<div class="col-sm-12 pl-0">' +
+                '<div class="col-sm-12 ps-0">' +
 
-                '<div class="offset-md-1 col-sm-11 pl-1">' +
+                '<div class="offset-md-1 col-sm-11 ps-1">' +
 
-                '<select id="tmp-3rd-lv" class="form-control d-none pt-0 mb-2" style="margin-left:148px;">' +
+                '<select id="tmp-3rd-lv" class="form-select d-none pt-0 mb-2" style="margin-left:148px;">' +
                 '<option selected="selected" value=""></option>' +
                 '<option lang="chi" group-id="3" value=4>強積金計劃說明書 - 我的強積金計劃 (2020年3月31日)</option>' +
                 '<option lang="chi" group-id="3" value=5>我的強積金計劃之強積金計劃說明書第一補編 (2020年5月15日)</option>' +
@@ -2561,13 +2561,13 @@ var replySubmitClicked = function () {
 
                 '</div>' +
 
-                '<div class="form-group col-sm-12 pl-0">' +
-                '<label class="col-sm-1 control-label pl-4">&nbsp;&nbsp;&nbsp;From</label>' +
-                '<div class="col-sm-11 pl-2">' + companyName +
+                '<div class="mb-3 col-sm-12 ps-0">' +
+                '<label class="col-sm-1 control-label ps-4">&nbsp;&nbsp;&nbsp;From</label>' +
+                '<div class="col-sm-11 ps-2">' + companyName +
                 '</div></div>' +
 
-                '<div class="form-group col-sm-12 pl-0"><label for="sms-content" class="col-sm-1 control-label pl-4">&nbsp;&nbsp;&nbsp;Content</label>' +
-                '<div class="col-sm-11 pl-2">' +
+                '<div class="mb-3 col-sm-12 ps-0"><label for="sms-content" class="col-sm-1 control-label ps-4">&nbsp;&nbsp;&nbsp;Content</label>' +
+                '<div class="col-sm-11 ps-2">' +
                 '<textarea class="mt-3" id="sms-content" rows="3" cols="20" style="font-family:inherit;width:100%;" maxlength="500" onKeyUp="smsWordCount()"></textarea></textarea></div></div>' +
                 '<div class="w-100"><span style="float:right;margin-right:30px;"><span id="sms-word-count" class="align-right">0/170</span>&nbsp;&nbsp;<span id="sms-msg-count">1</span>&nbsp;message(s)</span></div>' +
                 +'</div></div>').appendTo('#reply-container');
@@ -2721,7 +2721,7 @@ var loadCaseLog = function (initial) {
 
             var follolwupString = '';
             $('<div id="case-log-container" class="card mt-5 mb-5">' +
-                '<div class="card-header card-header-text card-header-info" data-toggle="collapse" data-target="#case-log-body">' +
+                '<div class="card-header card-header-text card-header-info" data-bs-toggle="collapse" data-bs-target="#case-log-body">' +
                 '<h5 class="mt-0 mb-0"><i class="fa fa-table card-header-icon"></i><span class="align-middle">' + langJson['l-form-case-log'] + '</span><span class="align-middle" style="color:darkblue;">&nbsp;&nbsp;(' + langJson['l-search-case-no'] + ':&nbsp;' + caseNo + ')</span></h5>' +
                 '</div><div class="collapse show mt-1" id="case-log-body">' + '<div class="card-body">' +
                 '<table class="table table-hover" style="width:100%" id="case-log-table" data-page-length=' + caseLogLength + '></div></div></div>').insertAfter('#customer-table');
@@ -2928,7 +2928,7 @@ function windowOnload() {
     // }
     // if (disableMode) {
     //     $('.edit-field').prop('disabled', true);
-    //     $('#edit-save-btn').html('<i class="fa fa-edit mr-2"></i><span>' + langJson['l-form-edit'] + '</span>');
+    //     $('#edit-save-btn').html('<i class="fa fa-edit me-2"></i><span>' + langJson['l-form-edit'] + '</span>');
     // }
     // if (customerData != undefined) {
     //     // Get specific data
@@ -3005,8 +3005,8 @@ function windowOnload() {
     //     newMobile = ' ';
     // }
 
-    // $('<span style="display:' + mobileStyle + ';" name="sms" class="cMobile_No" id="reply-sms-mobile-container"><div class="form-check mr-2"><label class="form-check-label"><input type="checkbox" class="form-check-input reply-checkbox sms-list dial-yes-disable" value="' + Mobile_No + '" id="oSmsMobile_No">' + newMobile + '<span class="form-check-sign"><span class="check"></span></span></label></div></span>').insertBefore('#sms-other-container');
-    // $('<span style="display:' + mobileStyle + ';" name="call" class="cMobile_No" id="reply-call-mobile-container"><div class="form-check ml-2"><label class="form-check-label"><input type="radio" name="callList" class="form-check-input reply-checkbox call-list dial-yes-disable" onchange="replyCallChanged(this)" value="' + Mobile_No + '" id="oCallMobile_No">' + newMobile + '<span class="circle"><span class="check"></span></span></label></div></span>').insertBefore('#call-other-container');
+    // $('<span style="display:' + mobileStyle + ';" name="sms" class="cMobile_No" id="reply-sms-mobile-container"><div class="form-check me-2"><label class="form-check-label"><input type="checkbox" class="form-check-input reply-checkbox sms-list dial-yes-disable" value="' + Mobile_No + '" id="oSmsMobile_No">' + newMobile + '<span class="form-check-sign"><span class="check"></span></span></label></div></span>').insertBefore('#sms-other-container');
+    // $('<span style="display:' + mobileStyle + ';" name="call" class="cMobile_No" id="reply-call-mobile-container"><div class="form-check ms-2"><label class="form-check-label"><input type="radio" name="callList" class="form-check-input reply-checkbox call-list dial-yes-disable" onchange="replyCallChanged(this)" value="' + Mobile_No + '" id="oCallMobile_No">' + newMobile + '<span class="circle"><span class="check"></span></span></label></div></span>').insertBefore('#call-other-container');
 
     // var newOther = Other_Phone_No;
     // if (Other_Phone_No != null && Other_Phone_No.length > 0) {
@@ -3015,7 +3015,7 @@ function windowOnload() {
     //     newOther = ' ';
     // }
     // $('<span style="display:' + otherStyle + ';" name="sms" class="cOther_Phone_No" id="reply-sms-other-container"><div class="form-check"><label class="form-check-label"><input type="checkbox" class="form-check-input reply-checkbox sms-list dial-yes-disable" value="' + Other_Phone_No + '" id="oSmsOther_Phone_No">' + newOther + '<span class="form-check-sign"><span class="check"></span></span></label></div></span>').insertBefore('#sms-other-container');
-    // $('<span style="display:' + otherStyle + ';" name="call" class="cOther_Phone_No" id="reply-call-other-container"><div class="form-check ml-2"><label class="form-check-label"><input type="radio" name="callList" class="form-check-input reply-checkbox call-list dial-yes-disable" onchange="replyCallChanged(this)" value="' + Other_Phone_No + '" id="oCallOther_Phone_No">' + newOther + '<span class="circle"><span class="check"></span></span></label></div></span>').insertBefore('#call-other-container');
+    // $('<span style="display:' + otherStyle + ';" name="call" class="cOther_Phone_No" id="reply-call-other-container"><div class="form-check ms-2"><label class="form-check-label"><input type="radio" name="callList" class="form-check-input reply-checkbox call-list dial-yes-disable" onchange="replyCallChanged(this)" value="' + Other_Phone_No + '" id="oCallOther_Phone_No">' + newOther + '<span class="circle"><span class="check"></span></span></label></div></span>').insertBefore('#call-other-container');
     // var newFax = Fax_No;
     // if (Fax_No != null && Fax_No.length > 0) {
     //     faxStyle = 'inline-block';
@@ -3285,12 +3285,12 @@ function windowOnload() {
         $('#form-print-btn').show();
         $('#export-word-btn').show();
         // if ($('#case-no-span').length == 0) {
-        //     $('<span id="case-no-span" class="ml-3"><label class="mt-3">' + langJson['l-search-case-no'] + ':</label>&nbsp;' + caseNo + '</span>').insertAfter($('#customer-id'));
-        //     var exprtWordStr = '<button class="float-right btn btn-circle btn-warning d-print-none" onclick="exportCustDoc()" title=" ' +
+        //     $('<span id="case-no-span" class="ms-3"><label class="mt-3">' + langJson['l-search-case-no'] + ':</label>&nbsp;' + caseNo + '</span>').insertAfter($('#customer-id'));
+        //     var exprtWordStr = '<button class="float-end btn btn-circle btn-warning d-print-none" onclick="exportCustDoc()" title=" ' +
         //     langJson['l-form-exoprt-word']
         //     +' " onclick="scheduleClick();"><i class="fas fa-file-word"></i></button>';
         //     $(exprtWordStr).insertBefore($('#scheduled-reminder'));
-        //     // $('<i class="float-right fas fa-file-word word-icon" title="Export to MS Word" onclick="exportCustDoc()"></i>').insertBefore($('#scheduled-reminder'));
+        //     // $('<i class="float-end fas fa-file-word word-icon" title="Export to MS Word" onclick="exportCustDoc()"></i>').insertBefore($('#scheduled-reminder'));
         //     // $('<i class="fas fa-file-word word-icon" title="Export to MS Word" onclick="exportCaseDoc()"></i>').insertAfter($('#case-details-title'));
         // }
     }
@@ -3298,7 +3298,7 @@ function windowOnload() {
     var functions = sessionStorage.getItem('scrmFunctions') || '';
     var canSendWA = (functions.indexOf('Form-WA-TP') != -1) || false;
     if (canSendWA) {
-        var waRadioStr = '<div class="form-check ml-3">' +
+        var waRadioStr = '<div class="form-check ms-3">' +
             '<label class="form-check-label">' +
             '<input class="form-check-input dial-yes-disable" onclick="replyChannelChange(this)"" type="radio" id="reply-sms" name="replyList" value="wa">WhatsApp' +
             '&nbsp;<span class="circle">' +
@@ -3436,7 +3436,7 @@ function updateClicked(isTemp) {
     }
     if (disableMode) {
         disableMode = false;
-        $('#edit-save-btn').html('<i class="fa fa-save mr-2"></i><span>' + langJson["l-form-save"] + '</span>');
+        $('#edit-save-btn').html('<i class="fa fa-save me-2"></i><span>' + langJson["l-form-save"] + '</span>');
         $('.edit-field').prop('disabled', false);
         return;
     }
@@ -3474,7 +3474,7 @@ function updateClicked(isTemp) {
         } else {
             // Turn to disable mode
             disableMode = true;
-            $('#edit-save-btn').html('<i class="fa fa-edit mr-2"></i><span>' + langJson['l-form-edit'] + '</span>');
+            $('#edit-save-btn').html('<i class="fa fa-edit me-2"></i><span>' + langJson['l-form-edit'] + '</span>');
             $('.edit-field').prop('disabled', true);
 
             // update reply container

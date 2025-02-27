@@ -328,8 +328,8 @@ $(document).ready(function() {
     customCompany = getParameterByName('custom') ? getParameterByName('custom') : (config.customCompany || 'no');
     $('#language-select').val(language);
     if (restorable) {
-        $('[data-toggle=confirmation]').confirmation({
-            rootSelector: '[data-toggle=confirmation]',
+        $('[data-bs-toggle=confirmation]').confirmation({
+            rootSelector: '[data-bs-toggle=confirmation]',
             popout: true,
             title: langJson['l-general-are-you-sure'],
             btnOkLabel: langJson['l-general-ok-label'],

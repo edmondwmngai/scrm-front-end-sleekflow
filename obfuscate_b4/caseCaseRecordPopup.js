@@ -93,8 +93,8 @@ function generateContent(contentType, callType, r, mediaId) { //contentType: 'ca
         if (callType == 'Outbound_Call') {
             $('<span class="my-3">' + failReason + '</span>').appendTo('#reply-call-span');
         } else {
-            $('<div class="ml-3">Sending...</div><br /><br />').appendTo('#' + contentType + '-media-content');
-            // $('<span class="text-center text-danger ml-3"><i class="fa fa-exclamation-triangle mr-2"></i>' + failReason + '</span><br /><br />').appendTo('#' + contentType + '-media-content');
+            $('<div class="ms-3">Sending...</div><br /><br />').appendTo('#' + contentType + '-media-content');
+            // $('<span class="text-center text-danger ms-3"><i class="fa fa-exclamation-triangle me-2"></i>' + failReason + '</span><br /><br />').appendTo('#' + contentType + '-media-content');
         }
         return;
     } else {
@@ -198,7 +198,7 @@ function generateContent(contentType, callType, r, mediaId) { //contentType: 'ca
             var timestamp = theMedia.TimeStamp;
             var handledTime = timestamp.slice(0, timestamp.indexOf("."));
             var newTime = handledTime.replace(/[T]/g, " ");
-            $('<span class="mr-3">' + newTime + '</span>').appendTo('#call-reply-timestamp');
+            $('<span class="me-3">' + newTime + '</span>').appendTo('#call-reply-timestamp');
             $('#reply-call-span').append('<video controls="" name="media" style="height:27px;width:95%;"' + downloadVoiceStr + '><source src="' + theMedia.FileUrl + '" type="audio/wav"></video>');
         }
     } else if (callType == 'Inbound_Fax' || callType == 'Outbound_Fax') {

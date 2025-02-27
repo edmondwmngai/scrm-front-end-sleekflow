@@ -445,7 +445,7 @@ addEventListener(document, 'onWiseRecvShortMsg_UC', function (e) {
         if (!shortMsg.startsWith('~~~')) {
             var alertStr = '<div class="alert alert-warning d-grid">' + getAgentName(sentMsgAgent) +
                 ' (ID: ' + sentMsgAgent + '):&nbsp;&nbsp;' + shortMsg +
-                '&nbsp;&nbsp;&nbsp;<button type="button" class="close btn" data-dismiss="alert"><i class="fas fa-times-circle float-right"></i></button></div>'
+                '&nbsp;&nbsp;&nbsp;<button type="button" class="close btn" data-bs-dismiss="alert"><i class="fas fa-times-circle float-end"></i></button></div>'
             $('#alert-container').append(alertStr);
         }
     }
@@ -716,8 +716,8 @@ function loadCategories() {
                     }, 5000);
                 }
             }
-            var alarmStr = (theCategory == 'Scheduled-Reminder' || theCategory == 'Scheduler') ? '<i id="' + contentId + '-alarm" class="fas fa-bell ml-1 text-danger d-none"></i>' : '';
-            $('#main-tabs').append('XXXX<li class="nav-item"><a id="' + contentId + '-a-tag"class="nav-link pt-2" data-toggle="tab" href="#' + contentId + '" aria-selected="false" ' + onclickStr + '><span class="l-main-' + contentId + '"></span>' + alarmStr + '</li>');
+            var alarmStr = (theCategory == 'Scheduled-Reminder' || theCategory == 'Scheduler') ? '<i id="' + contentId + '-alarm" class="fas fa-bell ms-1 text-danger d-none"></i>' : '';
+            $('#main-tabs').append('XXXX<li class="nav-item"><a id="' + contentId + '-a-tag"class="nav-link pt-2" data-bs-toggle="tab" href="#' + contentId + '" aria-selected="false" ' + onclickStr + '><span class="l-main-' + contentId + '"></span>' + alarmStr + '</li>');
             $('#main-tab-content').append('<div id="' + contentId + '" class="tab-pane position-absolute"><iframe src="./' + fileName + '.html" class="main-content" id="' + contentId + '-main" frameborder="0" width="100%" height="100%"></iframe></div>');
         }
     }
@@ -768,8 +768,8 @@ function setLanguage() {
     $('.l-main-scheduler').text(langJson['l-main-scheduler']);
     $('.l-account-seller-id').text(langJson['l-account-seller-id']);
     $('.l-user-status-LOGOUT').text(langJson['l-user-status-LOGOUT']);
-    $('[data-toggle=confirmation]').confirmation({
-        rootSelector: '[data-toggle=confirmation]',
+    $('[data-bs-toggle=confirmation]').confirmation({
+        rootSelector: '[data-bs-toggle=confirmation]',
         popout: true,
         title: langJson['l-general-are-you-sure'],
         btnOkLabel: langJson['l-general-ok-label'],
@@ -927,7 +927,7 @@ function mainOnload() {
 
     // ============== add voice log if needed ==============
     if (functions.indexOf('Voice-Log') != -1) {
-        $('#agent-info-dropdown').before('<div id="call-log-container" class="bg-light btn py-0 px-1" title="Voice Log"><span class="text-info"><i class="fas fa-phone-square mr-1"></i><span style="line-height: 14px;">VL</span></span></div>');
+        $('#agent-info-dropdown').before('<div id="call-log-container" class="bg-light btn py-0 px-1" title="Voice Log"><span class="text-info"><i class="fas fa-phone-square me-1"></i><span style="line-height: 14px;">VL</span></span></div>');
         $('#call-log-container').on('click', function (e) {
             e.preventDefault(); // prevent function run once more time
             var params = [
@@ -974,10 +974,10 @@ function mainOnload() {
 // when double login 127 command will receive again, so the function below could run multiple times
 function addWiseMonBtn() {
     if (functions.indexOf('Wise-Mon') != -1 && $('#wise-mon-icon').length == 0) {
-        $('#agent-info-dropdown').before('<div id="wise-mon-icon" class="nav-item wise-mon-icon" onclick="return clickedWiseMon();"><span class="nav-link text-light far fa-eye cursor-pointer pr-0" title="Live Mon"></span></div>');
+        $('#agent-info-dropdown').before('<div id="wise-mon-icon" class="nav-item wise-mon-icon" onclick="return clickedWiseMon();"><span class="nav-link text-light far fa-eye cursor-pointer pe-0" title="Live Mon"></span></div>');
     }
     if (functions.indexOf('Wallboard') != -1 && $('#wallboard-icon').length == 0) {
-        $('#agent-info-dropdown').before('<div id="wallboard-icon" class="nav-item wise-mon-icon" onclick="return clickedWallboard();"><span class="nav-link text-light fas fa-chalkboard-teacher pr-0" title="Wallboard"></span></div>');
+        $('#agent-info-dropdown').before('<div id="wallboard-icon" class="nav-item wise-mon-icon" onclick="return clickedWallboard();"><span class="nav-link text-light fas fa-chalkboard-teacher pe-0" title="Wallboard"></span></div>');
     }
 }
 
@@ -1015,10 +1015,10 @@ function gotAgentList(agentArr, tryCount) {
         var theAgentId = theAgent.AgentID;
         var agentStatus = theAgent.Status;
         var isSelf = loginId == theAgentId;
-        var stickerStr = isSelf || noShortMsgFn ? '<span class"d-table-cell"></span>' : '<i class="far fa-sticky-note pr-2 cursor-pointer d-table-cell" title="' + shortMsgStr + '"></i>';
+        var stickerStr = isSelf || noShortMsgFn ? '<span class"d-table-cell"></span>' : '<i class="far fa-sticky-note pe-2 cursor-pointer d-table-cell" title="' + shortMsgStr + '"></i>';
         if (agentStatus != 'LOGOUT') {
             if (agentStatus != 'IDLE' || isSelf) { // cannot dial to the agent themselves
-                agentArrDivs += ('<span class="d-table-row" agentid=' + theAgentId + '><span class="d-table-cell dropdown-cell">' + theAgent.AgentName + '</span><span class="d-table-cell px-1">(ID: ' + theAgentId + ')</span><span class="d-table-cell dropdown-cell">' + theAgent.Status + '</span>' + stickerStr + '<i class="fas fa-info-circle mr-2 d-table-cell pr-2" title="Only counter party in IDLE mode can double click to call"></i></span>');
+                agentArrDivs += ('<span class="d-table-row" agentid=' + theAgentId + '><span class="d-table-cell dropdown-cell">' + theAgent.AgentName + '</span><span class="d-table-cell px-1">(ID: ' + theAgentId + ')</span><span class="d-table-cell dropdown-cell">' + theAgent.Status + '</span>' + stickerStr + '<i class="fas fa-info-circle me-2 d-table-cell pe-2" title="Only counter party in IDLE mode can double click to call"></i></span>');
             } else {
                 agentArrDivs += ('<a class="d-table-row dropdown-item" href="javascript:void(0);" agentid=' + theAgentId + '><span class="d-table-cell dropdown-cell">' + theAgent.AgentName + '</span><span class="d-table-cell px-1">(ID: ' + theAgentId + ')</span><span class="d-table-cell dropdown-cell">' + theAgent.Status + '</span>' + stickerStr + '<span class="d-table-cell"></span></a>');
             }
@@ -1103,7 +1103,7 @@ $('#phone-panel-no').on('keypress', function (e) {
     }
 })
 if (config.isLdap == undefined || !config.isLdap) {
-    $('<a class="dropdown-item" href="#" onclick="openChangePwPopup();return false;"><i class="fas fa-key mr-2"></i><span class="l-main-change-password"></span></a>')
+    $('<a class="dropdown-item" href="#" onclick="openChangePwPopup();return false;"><i class="fas fa-key me-2"></i><span class="l-main-change-password"></span></a>')
         .insertAfter('#role-field-container')
 }
 

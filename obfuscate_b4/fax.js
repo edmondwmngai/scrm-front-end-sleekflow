@@ -56,7 +56,7 @@ function loadTbl(tableData) {
                 return '<div class="form-check" style="margin-top:-8px">' +
                     '<label class="form-check-label">' +
                     '<input class="form-check-input" type="checkbox" id="' + data + '" value="' + data + '">' +
-                    '<span class="form-check-sign"><span class="check" data-toggle="tooltip" data-placement="right" title="' + langJson["l-fax-change-admin"] + '"></span></span></label></div>';
+                    '<span class="form-check-sign"><span class="check" data-bs-toggle="tooltip" data-bs-placement="right" title="' + langJson["l-fax-change-admin"] + '"></span></span></label></div>';
             }
         }
     ];
@@ -67,7 +67,7 @@ function loadTbl(tableData) {
         columnDefs.unshift(
             {
                 targets: 0,
-                defaultContent: '<i title="' + langJson['l-fax-select-fax'] + '" class="table-btn fas fa-search-plus create-or-update" data-toggle="tooltip"></i>',
+                defaultContent: '<i title="' + langJson['l-fax-select-fax'] + '" class="table-btn fas fa-search-plus create-or-update" data-bs-toggle="tooltip"></i>',
                 orderable: false,
                 className: 'btnColumn'
             }
@@ -90,7 +90,7 @@ function loadTbl(tableData) {
                 return '<div class="form-check" style="margin-top:-8px">' +
                     '<label class="form-check-label">' +
                     '<input class="form-check-input" type="checkbox" id="' + data + '" value="' + data + '">' +
-                    '<span class="form-check-sign"><span class="check" data-toggle="tooltip" data-placement="right" title="' + langJson['l-fax-change-admin'] + '"></span></span></label></div>';
+                    '<span class="form-check-sign"><span class="check" data-bs-toggle="tooltip" data-bs-placement="right" title="' + langJson['l-fax-change-admin'] + '"></span></span></label></div>';
             }
         });
     }

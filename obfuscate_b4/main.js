@@ -39,8 +39,16 @@ if (sessionStorage.getItem('scrmLoggedIn') == null) {
     } else {
         alert("You are not logged in");
     }
-    var queryStr = customCompany == 'no' ? '' : '?custom=' + customCompany;
-    window.top.location.href = window.top.location.href.replace('main.html', './login.html' + queryStr);
+ 
+    const allowedPaths = ['main.html']
+    const allowedReplacePaths = ['./login.html']
+
+    const currentPath = window.top.location.pathname.split('/').pop();
+    const replacePath = './login.html';
+
+    if (allowedPaths.includes(currentPath) && allowedReplacePaths.includes(replacePath)) {
+        window.top.location.href = window.top.location.href.replace(currentPath, replacePath + queryStr);
+    }
 }
 
 // Call from menu.html

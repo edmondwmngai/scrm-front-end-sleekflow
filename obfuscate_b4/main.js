@@ -45,9 +45,14 @@ if (sessionStorage.getItem('scrmLoggedIn') == null) {
 
     const currentPath = window.top.location.pathname.split('/').pop();
     const replacePath = './login.html';
+    var queryStr = customCompany == 'no' ? '' : '?custom=' + customCompany;
 
     if (allowedPaths.includes(currentPath) && allowedReplacePaths.includes(replacePath)) {
-        window.top.location.href = window.top.location.href.replace(currentPath, replacePath + queryStr);
+      //  window.top.location.href = window.top.location.href.replace(currentPath, replacePath + queryStr);
+
+        var href = window.location.href.replace(currentPath, replacePath + queryStr);
+
+        window.location.assign(href);
     }
 }
 

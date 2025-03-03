@@ -40,7 +40,7 @@ if (sessionStorage.getItem('scrmLoggedIn') == null) {
         alert("You are not logged in");
     }
     var queryStr = customCompany == 'no' ? '' : '?custom=' + customCompany;
-    window.top.location.href = window.top.location.href.replace('main.html', './login.html' + queryStr);
+    //window.top.location.href = window.top.location.href.replace('main.html', './login.html' + queryStr);
 }
 
 // Call from menu.html

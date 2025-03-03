@@ -44,7 +44,28 @@ if (sessionStorage.getItem('scrmLoggedIn') == null) {
     if (window.top.location.href.startsWith(config.crmUrl))
     { 
         var queryStr = customCompany == 'no' ? '' : '?custom=' + customCompany;
-        window.top.location.href = window.top.location.href.replace('main.html', './login.html' + queryStr);          
+
+        // Create a form element
+        var form = document.createElement('form');
+        form.method = 'GET';
+        form.action = 'login.html';
+
+        // Add input fields with parameters to be sent
+        var params = { custom: queryStr};
+
+        for (var key in params) {
+            if (params.hasOwnProperty(key)) {
+                var input = document.createElement('input');
+                input.type = 'hidden';
+                input.name = key;
+                input.value = params[key];
+                form.appendChild(input);
+            }
+        }
+
+        // Append the form to the document body and submit it
+        document.body.appendChild(form);
+        form.submit();
     }
 }
 

@@ -34,26 +34,22 @@ var wmAgentObj = {};
 var wmACDObj = {};
 var confirmedLogout = false;
 if (sessionStorage.getItem('scrmLoggedIn') == null) {
+
     if (scrmLanguage == 'TC') {
         alert('您尚未登入');
     } else {
         alert("You are not logged in");
     }
  
-    const allowedPaths = ['main.html']
-    const allowedReplacePaths = ['./login.html']
-
-    const currentPath = window.top.location.pathname.split('/').pop();
-    const replacePath = './login.html';
     var queryStr = customCompany == 'no' ? '' : '?custom=' + customCompany;
 
-    if (allowedPaths.includes(currentPath) && allowedReplacePaths.includes(replacePath)) {
-      //  window.top.location.href = window.top.location.href.replace(currentPath, replacePath + queryStr);
+    var urlPath =  window.location.pathname.replace(/\/[^\/]*$/, '/');
+    var url = new URL(window.location.href);
+    url.search = queryStr;
+    url.pathname = urlPath + "\login.html";
 
-        var href = window.location.href.replace(currentPath, replacePath + queryStr);
-
-        window.location.assign(href);
-    }
+    window.location.href = url.toString();
+    
 }
 
 // Call from menu.html

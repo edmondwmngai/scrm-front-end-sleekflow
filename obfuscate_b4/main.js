@@ -40,16 +40,12 @@ if (sessionStorage.getItem('scrmLoggedIn') == null) {
     } else {
         alert("You are not logged in");
     }
- 
-    var queryStr = customCompany == 'no' ? '' : '?custom=' + customCompany;
 
-    var urlPath =  window.location.pathname.replace(/\/[^\/]*$/, '/');
-    var url = new URL(window.location.href);
-    url.search = queryStr;
-    url.pathname = urlPath + "\login.html";
-
-    window.location.href = url.toString();
-    
+    if (window.top.location.href.startsWith(config.crmUrl))
+    { 
+        var queryStr = customCompany == 'no' ? '' : '?custom=' + customCompany;
+        window.top.location.href = window.top.location.href.replace('main.html', './login.html' + queryStr);          
+    }
 }
 
 // Call from menu.html

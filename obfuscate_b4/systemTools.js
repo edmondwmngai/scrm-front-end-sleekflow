@@ -46,7 +46,7 @@ function setLanguage() {
     $('.l-st-email').text(langJson['l-st-email']);
 
     /*
-    $('[data-bs-toggle=confirmation]').confirmation({
+    $('[data-bs-toggle=confirmation]').popover({
         rootSelector: '[data-bs-toggle=confirmation]',
         popout: true,
         title: langJson['l-general-are-you-sure'],
@@ -54,6 +54,22 @@ function setLanguage() {
         btnCancelLabel: langJson['l-general-cancel-label']
     });
     */
+
+
+    $('#delJunkMail').jConfirmAction({
+        question: langJson['l-general-are-you-sure'],
+        yesText: langJson['l-general-ok-label'],
+        noText: langJson['l-general-cancel-label'],
+        confirm: function (item) {
+            window.location.href = $('#delJunkMail')[0].getAttribute('href');
+            console.log('You clicked YES');
+        },
+        cancel: function (item) {
+            console.log('You clicked NO');
+        }
+    });
+
+    
 }
 
 function restorePage() {

@@ -314,28 +314,29 @@
 	  //endSessionCallBack(sTicket)
 	  endSessionCallBack(ticketId)
 	  {
-		  
-		  this.updateChatEndSession(ticketId);
-
-		  if (ticketId == this.selectedTicketId)
-		  { 
-			  this.disableInput(true);
-			  this.updateChatStatus("Session Ended");
-			  this.scrollToBottom();
-		  }
-
+	
 		  var ticket = parent.$('#phone-panel')[0].contentWindow.AssignedTicketList.filter(i => i.TicketId == ticketId)[0];
 
 		  //check whether the ticket is not origially assigned to login agent
-		  if (ticket.AssignedTo != top.loginId)
-		  {
+		  if (ticket.AssignedTo != top.loginId) {
 			  this.removeBubble(ticketId);
 
-			  if (ticketId == this.selectedTicketId)
-			  {
+			  if (ticketId == this.selectedTicketId) {
 				  this.resetChatHistory();
 				  this.$histHeader.html('');
 			  }
+
+			  this.updateChatEndSessionByMember(ticketId);
+		  }
+		  else
+		  {
+
+			  if (ticketId == this.selectedTicketId) {
+				  this.disableInput(true);
+				  this.updateChatStatus("Session Ended");
+				  this.scrollToBottom();
+			  }
+			  this.updateChatEndSession(ticketId);
 		  }
 	  };
 
@@ -840,6 +841,13 @@
 			  this.disableReloadMsg = false;
 		  }
 
+		  var lTicket = parent.$('#phone-panel')[0].contentWindow.AssignedTicketList.filter(i => i.TicketId == sMsglist[0].TicketId)[0];
+
+
+		  if (lTicket.Status == "selfLeave" || lTicket.Status == "memberLeave" || lTicket.Status == "disappear")
+		  {
+			  return;
+		  }
 
 		  //Reset the chat history screen
 		  $('#chatHistory').html('');
@@ -1006,18 +1014,32 @@
 			  $(".reply-container :input").attr("disabled", false);
 		  }
 	  };
-
+	  //Normal case
 	  updateChatEndSession(ticketId)
 	  {
-		//  this.disableInput(true);
 		  this.updateBubbleStatus(ticketId, "Session_End", true);
-
 		  this.updateStatusInAssignedList(ticketId, "Status", "closed");
-		//  this.updateChatStatus("Session Ended");
-
-		//  this.scrollToBottom();
-
 	  };
+	  //Login user end the session by not originally assigned to him
+	  updateChatEndSessionByMember(ticketId)
+	  {
+		  this.updateBubbleStatus(ticketId, "Session_End", true);
+		  this.updateStatusInAssignedList(ticketId, "Status", "disappear");
+		  this.removeBubble(ticketId);		
+	  }
+	  //B is current Login user but received mesage for A leave the chat
+	  updateChatByMemberLeave(ticketId, statusMsg) {
+
+		  if (this.selectedTicketId == ticketId) {
+			  this.updateChatStatus(statusMsg);
+			  this.scrollToBottom();
+			  setTimeout(() => { this.scrollToBottom(); }, 500);
+			  setTimeout(() => { this.scrollToBottom(); }, 1500);
+			  this.disableReloadMsg = false;
+		  }
+
+	  }
+
 
 	  updateChatSessionTimeout(ticketId)
 	  {
@@ -1041,36 +1063,13 @@
 		  // "Session Ended"
 		  //this.disableInput(true);
 		  this.updateBubbleStatus(ticketId, "Session", true);
-		  this.updateStatusInAssignedList(ticketId, "Status", "leave");
+		  this.updateStatusInAssignedList(ticketId, "Status", "disappear");
 		//  this.drop
 
 		  // "Session Timeout"
 		  // "Session Ended"
 	  };
 
-	  //B is current Login user but A end the chat
-	  updateChatEndSessionByMember(ticketId)
-	  {
-		  this.updateBubbleStatus(ticketId, "Session_End", true);
-		  this.updateStatusInAssignedList(ticketId, "Status", "leave");
-		  this.removeBubble(ticketId);
-		  this.disableReloadMsg = false;
-
-	  }
-	  //B is current Login user but received mesage for A leave the chat
-	  updateChatByMemberLeave(ticketId, statusMsg)
-	  {
-
-		  if (this.selectedTicketId == ticketId)
-		  {
-			  this.updateChatStatus(statusMsg);
-			  this.scrollToBottom();
-			  setTimeout(() => { this.scrollToBottom(); }, 500);
-			  setTimeout(() => { this.scrollToBottom(); }, 1500);
-			  this.disableReloadMsg = false;
-		  }
-
-	  }
 
 
 	  // For ticket (bubble) list
@@ -1334,7 +1333,17 @@
 				  $(this)[0].parentNode.parentNode.parentNode.remove();
 			  }
 		  });
-	   };
+	  };
+
+	  removeAssignedTicket(inputTicketID)
+
+	  {
+		var sTicket = parent.$('#phone-panel')[0].contentWindow.AssignedTicketList.filter(i => i.TicketId == ticketID)[0];
+
+
+
+	  }
+
 
 	  updateBubbleInfo(inputTicketID) {
 		  const specifiedValue = inputTicketID;
@@ -1537,7 +1546,7 @@
 				  if (agentStatus == undefined) { agentStatus = 'IDLE'; }	// only for testing, should be commented
 
 				  if (agentStatus == 'IDLE' || agentStatus == 'WORKING' || agentStatus == 'READY') {
-					  //agentArrDivs += ('<div style="display:table-row;"><div class="form-check"><label class="form-check-label"><input class="form-check-input" type="radio" name="agentList" value="' + theAgentId + '" id="agent-' + theAgentId + '">' + agentList[i].AgentName + '&nbsp;(ID: ' + theAgentId + ')<span class="circle"><span class="check"></span></span></label></div><label class="agent-list-cell ps-3" for="agent-' + theAgentId + '">' + agentStatus + '</label></div>');
+					  //agentArrDivs += ('<div style="display:table-row;"><div class="form-check"><label class="form-check-label"><input class="form-check-input" type="radio" name="agentList" value="' + theAgentId + '" id="agent-' + theAgentId + '">' + agentList[i].AgentName + '&nbsp;(ID: ' + theAgentId + ')<span class="circle"><span class="check"></span></span></label></div><label class="agent-list-cell pl-3" for="agent-' + theAgentId + '">' + agentStatus + '</label></div>');
 					  agentArrDivs += ('<div style="display:table-row;"><div class="form-check"><label class="form-check-label"><input class="form-check-input" type="radio" name="agentList" value="' + theAgentId + '" id="agent-' + theAgentId + '">' + agentList[i].AgentName + '&nbsp;(ID: ' + theAgentId + ')<span class="circle"><span class="check"></span></span></label></div><label class="agent-list-cell ps-3" for="agent-' + theAgentId + '"></label></div>');
 					  availableAgent += 1;
 				  }
@@ -1564,7 +1573,7 @@
 					var agentStatus = theAgent.Status;
 					if (agentStatus == undefined) {		agentStatus = 'IDLE';	}	// only for testing, should be commented
 					if (agentStatus == 'IDLE' || agentStatus == 'WORKING' || agentStatus == 'READY') { 
-//						agentArrDivs += ('<div style="display:table-row;"><div class="form-check"><label class="form-check-label"><input class="form-check-input" type="radio" name="agentList" value="' + theAgentId + '" id="agent-' + theAgentId + '">' + theAgent.AgentName + '&nbsp;(ID: ' + theAgentId + ')<span class="circle"><span class="check"></span></span></label></div><label class="agent-list-cell ps-3" for="agent-' + theAgentId + '">' + agentStatus + '</label></div>');
+//						agentArrDivs += ('<div style="display:table-row;"><div class="form-check"><label class="form-check-label"><input class="form-check-input" type="radio" name="agentList" value="' + theAgentId + '" id="agent-' + theAgentId + '">' + theAgent.AgentName + '&nbsp;(ID: ' + theAgentId + ')<span class="circle"><span class="check"></span></span></label></div><label class="agent-list-cell pl-3" for="agent-' + theAgentId + '">' + agentStatus + '</label></div>');
 						agentArrDivs += ('<div style="display:table-row;"><div class="form-check"><label class="form-check-label"><input class="form-check-input" type="radio" name="agentList" value="' + theAgentId + '" id="agent-' + theAgentId + '">' + theAgent.AgentName + '&nbsp;(ID: ' + theAgentId + ')<span class="circle"><span class="check"></span></span></label></div><label class="agent-list-cell ps-3" for="agent-' + theAgentId + '"></label></div>');
 						availableAgent += 1;
 					}
@@ -1677,7 +1686,25 @@
 		  var loginId = top.loginId;
 		  var token = top.token;
 		  var selectedId = ticketId;
-		  parent.$('#phone-panel')[0].contentWindow.leaveConferenceByHandler(loginId, token, selectedId);
+
+
+
+		  var ticket = parent.$('#phone-panel')[0].contentWindow.AssignedTicketList.filter(i => i.TicketId == ticketId)[0];
+
+		  //check whether the ticket is not origially assigned to login agent
+		  if (ticket.AssignedTo != top.loginId) 
+		  {
+				parent.$('#phone-panel')[0].contentWindow.leaveConferenceByHandler(loginId, token, selectedId);
+		  }
+		  else
+		  {
+			  alert("Cannot leave the chat");
+			  return;
+		  }
+
+		 
+
+		
 	  }
 
 	  leaveChatCallBack(response)
@@ -1685,7 +1712,8 @@
 		  if (response.result == 'success')
 		  {
 			  this.removeBubble(response.details.ticketId);
-			  this.updateStatusInAssignedList(response.details.ticketId, "Status", "selfLeave");			  
+			  //this.updateStatusInAssignedList(response.details.ticketId, "Status", "selfLeave");			 
+			  this.updateStatusInAssignedList(response.details.ticketId, "Status", "disappear");			 
 
 			  if (response.details.ticketId == this.selectedTicketId)
 			  {
@@ -1699,6 +1727,8 @@
 		  }
 	  }
 
+	  //Some action is done by other user, need to be handle them
+	  //---------------------------------------------------------------------------------------------------------
 	  //Message Come from another agent for leave the chat
 	  receiveMessageForMemberLeave(ticketId, toRemoveAgentId)
 	  {
@@ -1712,7 +1742,7 @@
 		  var sTicket	= sTicketLst[0];					  var sMsglist = sTicket.messages;
 		  var sLastItem	= sMsglist[sMsglist.length - 1];
 
-		  this.updateStatusInAssignedList(ticketId, "Status", "memberLeave");
+		 // this.updateStatusInAssignedList(ticketId, "Status", "memberLeave");
 		  
 		  //Copy array item
 		  var newItem = JSON.parse(JSON.stringify(sLastItem));
@@ -1736,11 +1766,8 @@
 		  }
 		  else
 		  { 
-			  this.disableReloadMsg = true;
-			  this.updateStatusInAssignedList(details.ticketId, "Status", "memberClosed");
+			  this.updateStatusInAssignedList(details.ticketId, "Status", "disappear");
 			  this.removeBubble(details.ticketId);
-
-			  
 
 			  //Only reset the screen if the case is ended by conference member AND the ticket is currently SHown on screen
 			  if (details.ticketId == this.selectedTicketId)

@@ -441,7 +441,7 @@ $(document).ready(function () {
 
 
             for (r = 1; r < (template.Props + 1); r++) {
-                eval('let ' + k + r + '= ' + r + ';');
+                //eval('let ' + k + r + '= ' + r + ';');
 
                 wa_pros = wa_pros + '<p class="mt-3">{{' + r.toString() + '}}: &nbsp;<input type="text" class="border-radius-5 wa_value" maxlenght=160 /></p>'
             }

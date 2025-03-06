@@ -994,7 +994,8 @@
 				  messageList.push(sMsg);
 				  element.getElementsByClassName('bubble-messagelist')[0].innerHTML = JSON.stringify(messageList);
 				  element.getElementsByClassName('bubble-time')[0].innerHTML = mDate;
-				  element.getElementsByClassName('bubble-message mr-auto')[0].innerHTML = sTicket.LastMessage;
+				  //element.getElementsByClassName('bubble-message mr-auto')[0].innerHTML = sTicket.LastMessage;
+				  element.getElementsByClassName('d-flex')[0].getElementsByClassName('bubble-message me-auto')[0].innerHTML = sTicket.LastMessage;
 			  }
 		  });
 

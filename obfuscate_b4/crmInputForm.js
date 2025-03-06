@@ -2412,7 +2412,8 @@ var replySubmitClicked = function () {
                         }
                         // verfication code
                         if (templateVal == 0 || templateVal == 1) {
-                            var randomNo = Math.floor(100000 + Math.random() * 900000); // random 6 digit number
+                            //var randomNo = Math.floor(100000 + Math.random() * 900000); // random 6 digit number
+                            var randomNo = generateSecureRandomNumber(); // random 6 digit number
                             templateContent = templateContent.replace('123456', randomNo);
                         } else if (templateVal == 2 || templateVal == 3) {
                             var now = new Date();
@@ -2611,7 +2612,8 @@ var replySubmitClicked = function () {
                         var templateContent = SMSTemplateArr[Number(templateVal)] || '';
                         // verfication code
                         if (templateVal == 0 || templateVal == 1) {
-                            var randomNo = Math.floor(100000 + Math.random() * 900000); // random 6 digit number
+                            //var randomNo = Math.floor(100000 + Math.random() * 900000); // random 6 digit number
+                            var randomNo = generateSecureRandomNumber(); // random 6 digit number
                             templateContent = templateContent.replace('123456', randomNo);
                         } else if (templateVal == 2 || templateVal == 3) { // webchat link
 
@@ -2872,6 +2874,16 @@ function replyOtherClicked(inputId, oThis) {
         }
     }
 }
+
+//2025-03-06 for replacing math.random 
+function generateSecureRandomNumber() {
+    const randomBuffer = new Uint32Array(1);
+    window.crypto.getRandomValues(randomBuffer);
+    const randomNumber = 100000 + (randomBuffer[0] % 900000); // Scale to 6 digits
+    return randomNumber;
+}
+
+
 // Load after html ready
 function windowOnload() {
     customerData = parent.customerData || null;

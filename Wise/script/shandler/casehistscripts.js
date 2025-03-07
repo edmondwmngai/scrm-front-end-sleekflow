@@ -436,10 +436,6 @@
 		  this.$chatHistory.scrollTop(this.$chatHistory[0].scrollHeight);
 	  };
 
-	  getCurrentTime() {
-		  return new Date().toLocaleTimeString().
-				  replace(/([\d]+:[\d]{2})(:[\d]{2})(.*)/, "$1$3");fcall
-	  };
 
 	  reloadCaseHistory(sMsglist)
 	  {

@@ -809,11 +809,7 @@
 		   this.$chatHistory.scrollTop(this.$chatHistory[0].scrollHeight + 500);
 	  };
 
-	  getCurrentTime() {
-		  return new Date().toLocaleTimeString().
-				  replace(/([\d]+:[\d]{2})(:[\d]{2})(.*)/, "$1$3");fcall
-	  };
-	
+	  
 	  //Update the status in chat history, eg. timeout and update the status at the end of chat history
 	  updateChatStatus(statusMessage)
 	  {

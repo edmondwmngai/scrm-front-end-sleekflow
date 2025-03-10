@@ -84,7 +84,11 @@ function submitClicked() {
     var searchInput = $('.customer--search-input');
     var searchInput = $('.customer-search-input');
     var searchArr = [];
-    var re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+    
+	//10-30-2025 for securit migration
+	//var re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+	var re = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+	
     for (var i = 0; i < searchCondition.length; i++) {
         var condition = searchCondition[i] || '';
         var conditionTag = $(condition).attr('tag') || ''; //e.g. select

@@ -243,12 +243,22 @@ select:-webkit-autofill:focus {
     user-select: none;
 }
 
-.max-width-container {
+.max-width-container {	/* replaced by max-collapse-horizontal-container */
     max-width: 1280px;
     margin: auto;
 }
 
-.max-width-body {
+.max-collapse-horizontal-container{
+    max-width: 1280px;
+    margin: auto;
+}
+
+.max-width-body {	/* replaced by max-collapse-horizontal-container */
+    max-width: 1240px;
+    margin: auto;
+}
+
+.max-collapse-horizontal-body {		
     max-width: 1240px;
     margin: auto;
 }
@@ -502,25 +512,6 @@ table.dataTable {
     bottom: 10px;
 }
 
-a.paginate_button {
-    border: 0;
-    border-radius: 30px !important;
-    transition: all .3s;
-    padding: 0px 11px;
-    margin: 0 3px;
-    min-width: 36px;
-    height: 36px;
-    line-height: 36px;
-    color: rgb(100, 100, 100);
-    font-weight: 400;
-    font-size: 12px;
-    text-transform: uppercase;
-    background: transparent;
-    text-align: center;
-    cursor: pointer;
-    font-weight: bold;
-}
-
 div.alphabet a.active,
 div.alphabet a.active.empty,
 a.paginate_button.current {
@@ -640,4 +631,119 @@ tr.shown td.details-control {
 }
 .card-header[data-toggle="collapse"].collapsed h5::after {
     content: "\f067";
+}
+
+.dt-paging {
+    float: right;
+    position: relative;
+    bottom: 10px;
+}
+
+a.paginate_button {
+    border: 0;
+    border-radius: 30px !important;
+    transition: all .3s;
+    padding: 0px 11px;
+    margin: 0 3px;
+    min-width: 36px;
+    height: 36px;
+    line-height: 36px;
+    color: black;
+    font-weight: 400;
+    font-size: 12px;
+    text-transform: uppercase;
+    background: transparent;
+    text-align: center;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.dt-paging-button {
+    border: 0;
+    border-radius: 30px !important;
+    transition: all .3s;
+    padding: 0px 11px;
+    margin: 0 3px;
+	
+	width: 26px;
+    min-width: 36px;
+    height: 36px;
+    line-height: 36px;
+    color: black;
+    font-weight: 400;
+    font-size: 12px;
+    text-transform: uppercase;
+    background: transparent;
+    text-align: center;
+    cursor: pointer;
+    font-weight: bold;
+	font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+}
+
+.dt-paging-button.page-item.disabled
+{
+	margin-right: 16px;
+}
+
+.dt-paging-button.active:hover button.page-link:hover {
+	background: #00bcd4;
+	color:white;
+	margin-left: 8px;
+	box-shadow: 0 4px 5px 0 rgba(156, 39, 176, 0.14), 0 1px 10px 0 rgba(156, 39, 176, 0.12), 0 2px 4px -1px rgba(156, 39, 176, 0.2);
+	font-family: bold;
+	font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+}
+
+.dt-paging-button.active button.page-link {
+	background: #00bcd4;
+	color:white;
+	margin-left: 8px;
+	box-shadow: 0 4px 5px 0 rgba(156, 39, 176, 0.14), 0 1px 10px 0 rgba(156, 39, 176, 0.12), 0 2px 4px -1px rgba(156, 39, 176, 0.2);
+	font-size: 16px;
+	font-family: bold;
+	font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+}
+
+button.page-link.next, button.page-link.next:focus, 
+button.page-link.next:hover, button.page-link.next:active
+{
+	
+	color:black;
+	margin-left: 8px;
+	font-size: 16px;
+	font-family: bold;
+	font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+	
+}
+page-link.previous, page-link.previous:hover,
+button.page-link.previous, button.page-link.previous:focus
+{	
+	color:black;
+	margin-right: 68px;
+	float: left;
+	font-size: 16px;
+	font-family: bold;
+	font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+	text-align: left;
+	
+}
+
+.pagination>.page-item>.page-link:hover,
+.pagination>.page-item>.page-link:focus,
+.pagination>.page-item>span:hover,
+.pagination>.page-item>span:focus 
+{
+  color: white;
+}
+
+.pagination>.page-item>.page-link.previous:hover, 
+.pagination>.page-item>.page-link.previous:focus, .pagination>.page-item.previous>span:hover, .pagination>.page-item.previous>span:focus {
+ 	font-size: 14px;
+	 color: black;
+}
+
+.pagination>.page-item>.page-link.next:hover, 
+.pagination>.page-item>.page-link.next:focus, .pagination>.page-item.next>span:hover, .pagination>.page-item.next>span:focus {
+  font-size: 14px;
+	color: black;
 }

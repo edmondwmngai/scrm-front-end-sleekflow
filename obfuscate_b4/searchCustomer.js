@@ -1163,7 +1163,17 @@ function windowOnload() {
     $.getScript("../js/buttons.print.min.js");
     $.getScript("../js/popper.min.js");
     $.getScript("../js/bootstrap.min.js");
-    $.getScript("../js/jquery-ui.min.js");
+    //$.getScript("../js/jquery-ui.min.js");
+	
+	  // Create a script element
+	  var script = document.createElement('script');
+	  // Set the src attribute to the CDN URL
+	  script.src = 'https://cdn.jsdelivr.net/npm/jquery-ui@1.14.1/dist/jquery-ui.min.js';
+	  // Optionally, set the async or defer attribute
+	  script.async = true; // Loads the script asynchronously
+	  // Append the script to the <head> or <body> element
+	  document.head.appendChild(script);
+  
 }
 $(document).ready(function () {
     if (parent.parent.iframeRecheck) {

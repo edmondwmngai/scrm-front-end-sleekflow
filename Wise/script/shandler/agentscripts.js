@@ -1,4 +1,4 @@
-class agent {
+class Agent {
 
 	init() {
 		this.cacheDOM();

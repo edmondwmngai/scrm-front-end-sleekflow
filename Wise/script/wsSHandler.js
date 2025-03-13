@@ -1,7 +1,7 @@
 
 
 
-class wsSHandler {
+class WSSHandler {
 	
 	wsUrl="";
 	websocket=null;
@@ -51,7 +51,7 @@ class wsSHandler {
 		if(json.result=="success")
 		{
 			let tickets=json.tickets;
-			return new wsSHandler({
+			return new WSSHandler({
 				wsUrl, apiUrl, agentid, token, tickets, listener
 			});
 		}

@@ -1,4 +1,4 @@
-class waTemplateService {
+class WaTemplateService {
 
 
     templateList = [];

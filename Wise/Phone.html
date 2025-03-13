@@ -1547,7 +1547,7 @@
 			shandler.onTicketsUpdated=(e)=>console.log(e);
 			shandler.connect();
 			*/
-			shandler = await wsSHandler.create({
+			shandler = await WSSHandler.create({
 				hostname: "172.17.6.11",
 				agentid: loginId,
 				agentname: top.agentName,
@@ -4573,8 +4573,8 @@
 		var wa_template = Handlebars.compile($('#wa_template').html());	// located at the end of the page
         var q_template = Handlebars.compile($('#visit_quoted_message_template').html());	// located at the end of the page
 																		   
-        var waTempService = new waTemplateService(wa_template, q_template, config.shandlerUrl);
-		var caHistService = new caseHistory();
+        var waTempService = new WaTemplateService(wa_template, q_template, config.shandlerUrl);
+		var caHistService = new CaseHistory();
 
 
 		var sCompany = "EPRO";

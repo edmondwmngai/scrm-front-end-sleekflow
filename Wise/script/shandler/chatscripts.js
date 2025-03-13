@@ -1,4 +1,4 @@
-  class chat
+  class Chat
   {
 	  ///////
 		messageToSend = '';

@@ -1,4 +1,4 @@
-  class caseHistory
+  class CaseHistory
   {
 
 		caseHistoryList = [];

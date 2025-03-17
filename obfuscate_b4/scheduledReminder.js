@@ -57,7 +57,7 @@ function UpdateCase(rowData) {
                 window.type = 'newUpdate';
                 window.customerData = customerData;
                 $('#scheduled-reminder-list').addClass('d-none');
-                $('body').append('<iframe id="input-form" campaign="' + selectedCompany + '" style="WIDTH: 100%;" frameborder="0" opentype="scheduled-reminder" src="./campaign/' + selectedCompany + '/inputForm.html" height="100%" customerid="' + customerData.Customer_Id + '" internalcaseno="' + customerData.Internal_Case_No + '" caseno="' + customerData.Case_No + '"></iframe>');
+                $('body').append('<iframe id="input-form" campaign="' + selectedCompany + '" style="WIDTH: 100%; border: none;" opentype="scheduled-reminder" src="./campaign/' + selectedCompany + '/inputForm.html" height="100%" customerid="' + customerData.Customer_Id + '" internalcaseno="' + customerData.Internal_Case_No + '" caseno="' + customerData.Case_No + '"></iframe>');
             }
         },
         error: function (r) {

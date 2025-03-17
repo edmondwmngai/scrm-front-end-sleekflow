@@ -718,7 +718,7 @@ function loadCategories() {
             }
             var alarmStr = (theCategory == 'Scheduled-Reminder' || theCategory == 'Scheduler') ? '<i id="' + contentId + '-alarm" class="fas fa-bell ms-1 text-danger d-none"></i>' : '';
             $('#main-tabs').append('XXXX<li class="nav-item"><a id="' + contentId + '-a-tag"class="nav-link pt-2" data-bs-toggle="tab" href="#' + contentId + '" aria-selected="false" ' + onclickStr + '><span class="l-main-' + contentId + '"></span>' + alarmStr + '</li>');
-            $('#main-tab-content').append('<div id="' + contentId + '" class="tab-pane position-absolute"><iframe src="./' + fileName + '.html" class="main-content" id="' + contentId + '-main" frameborder="0" width="100%" height="100%"></iframe></div>');
+            $('#main-tab-content').append('<div id="' + contentId + '" class="tab-pane position-absolute"><iframe src="./' + fileName + '.html" class="main-content" id="' + contentId + '-main" style="border: none;" width="100%" height="100%"></iframe></div>');
         }
     }
     setLanguage();
@@ -768,6 +768,8 @@ function setLanguage() {
     $('.l-main-scheduler').text(langJson['l-main-scheduler']);
     $('.l-account-seller-id').text(langJson['l-account-seller-id']);
     $('.l-user-status-LOGOUT').text(langJson['l-user-status-LOGOUT']);
+
+   /*
     $('[data-bs-toggle=confirmation]').confirmation({
         rootSelector: '[data-bs-toggle=confirmation]',
         popout: true,
@@ -775,6 +777,22 @@ function setLanguage() {
         btnOkLabel: langJson['l-general-ok-label'],
         btnCancelLabel: langJson['l-general-cancel-label']
     });
+    */
+    $('#logoutBtn').jConfirmAction({
+        question: langJson['l-general-are-you-sure'],
+        yesText: langJson['l-general-ok-label'],
+        noText: langJson['l-general-cancel-label'],
+        confirm: function (item) {
+            //window.location.href = $('#delJunkMail')[0].getAttribute('href');
+            logoutClicked();
+            console.log('You clicked YES');
+        },
+        cancel: function (item) {
+            console.log('You clicked NO');
+        }
+    });
+
+
     $('.l-main-ready-idle').attr('title', langJson['l-main-ready-idle']);
     mainOnload();
 }
@@ -1073,7 +1091,7 @@ var idleTimeLimit = functions.indexOf('Wallboard') != -1 ? 39570 : (functions.in
 // if (functions.indexOf('No-Phone-On-Top') === -1) { $('#direct-call-container').removeClass('d-none'); $('#phone-dropdown').removeClass('d-none'); }
 $(document).idleTimeout({
     redirectUrl: '#', // redirect to this url
-    idleTimeLimit: idleTimeLimit, // in seconds.
+    idleTimeLimit: 5, // in seconds.
     activityEvents: 'click keypress mousemove', // mousemove',    // separate each event with a space
     dialogDisplayLimit: 30, // Time to display the warning dialog before logout (and optional callback) in seconds
     customCallback: function () {

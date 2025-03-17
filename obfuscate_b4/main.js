@@ -817,7 +817,7 @@ function loadCategories() {
             }
             var alarmStr = (theCategory == 'Scheduled-Reminder' || theCategory == 'Scheduler') ? '<i id="' + contentId + '-alarm" class="fas fa-bell ms-1 text-danger d-none"></i>' : '';
             $('#main-tabs').append('<li class="nav-item"><a id="' + contentId + '-a-tag"class="nav-link pt-2" data-bs-toggle="tab" href="#' + contentId + '" aria-selected="false" ' + onclickStr + '><span class="l-main-' + contentId + '"></span>' + alarmStr + '</li>');
-            $('#main-tab-content').append('<div id="' + contentId + '" class="tab-pane position-absolute"><iframe src="./' + fileName + '.html" class="main-content" id="' + contentId + '-main" frameborder="0" width="100%" height="100%"></iframe></div>');
+            $('#main-tab-content').append('<div id="' + contentId + '" class="tab-pane position-absolute"><iframe src="./' + fileName + '.html" class="main-content" id="' + contentId + '-main" style="border: none;" width="100%" height="100%"></iframe></div>');
         }
     }
     setLanguage();
@@ -876,13 +876,21 @@ function setLanguage() {
         btnCancelLabel: langJson['l-general-cancel-label']
     });
     */
-	$('[data-bs-toggle=confirmation]').popover({
-        rootSelector: '[data-bs-toggle=confirmation]',
-        popout: true,
-        title: langJson['l-general-are-you-sure'],
-        btnOkLabel: langJson['l-general-ok-label'],
-        btnCancelLabel: langJson['l-general-cancel-label']
+
+    $('#logoutBtn').jConfirmAction({
+        question: langJson['l-general-are-you-sure'],
+        yesText: langJson['l-general-ok-label'],
+        noText: langJson['l-general-cancel-label'],
+        confirm: function (item) {
+            //window.location.href = $('#delJunkMail')[0].getAttribute('href');
+            logoutClicked();
+            console.log('You clicked YES');
+        },
+        cancel: function (item) {
+            console.log('You clicked NO');
+        }
     });
+
     $('.l-main-ready-idle').attr('title', langJson['l-main-ready-idle']);
     mainOnload();
 }

@@ -28,7 +28,7 @@ var changePageNo = function (no) {
 }
 
 function format(d, theTr, rowChild) {
-    var rowStr = '<iframe id="media-content" mediaId="' + d.FaxID + '" src="./faxContent.html" width="100%" frameborder="0" noTop="Y"></iframe>';
+    var rowStr = '<iframe id="media-content" mediaId="' + d.FaxID + '" src="./faxContent.html" width="100%" style="border: none;" noTop="Y"></iframe>';
     rowChild(rowStr).show();
     theTr.addClass('shown');
     resize();

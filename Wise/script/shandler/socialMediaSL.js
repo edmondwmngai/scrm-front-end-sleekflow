@@ -2530,8 +2530,8 @@ function createOrUpdateBubble(msgObj) {
                                 }
                                 if (!noFormInSocial) {
                                     $('#search-input-section').append('<div id="search-input-' + ticketId + '" class="search-input">' +
-                                        '<iframe id="input-form-' + ticketId + '" openType="social" campaign="' + campaign + '" connId="' + ticketId + '" callType="' + callType + '" ' + enduserIdStr + 'details="' + details + '"' + webchatFieldsStr + ' width="100%" height="auto" frameborder="0" style="display: none;"></iframe>' +
-                                        '<iframe id="search-' + ticketId + '" src="./search.html" openType="social" campaign="' + campaign + '" connId="' + ticketId + '" callType="' + callType + '" ' + enduserIdStr + 'details="' + escape(details) + '"' + webchatFieldsStr + ' width="100%" height="auto" frameborder="0"></iframe></div>');
+                                        '<iframe id="input-form-' + ticketId + '" openType="social" campaign="' + campaign + '" connId="' + ticketId + '" callType="' + callType + '" ' + enduserIdStr + 'details="' + details + '"' + webchatFieldsStr + ' width="100%" height="auto" style="display: none; border: none;"></iframe>' +
+                                        '<iframe id="search-' + ticketId + '" src="./search.html" openType="social" campaign="' + campaign + '" connId="' + ticketId + '" callType="' + callType + '" ' + enduserIdStr + 'details="' + escape(details) + '"' + webchatFieldsStr + ' width="100%" height="auto" style="border: none;"></iframe></div>');
                                 }
                             }
                         }
@@ -2542,8 +2542,8 @@ function createOrUpdateBubble(msgObj) {
                 } else {
                     if (!noFormInSocial) {
                         $('#search-input-section').append('<div id="search-input-' + ticketId + '" class="search-input">' +
-                            '<iframe id="input-form-' + ticketId + '" openType="social" campaign="' + campaign + '" connId="' + ticketId + '" callType="' + callType + '" ' + enduserIdStr + ' details="" width="100%" height="auto" frameborder="0" style="display: none;"></iframe>' +
-                            '<iframe id="search-' + ticketId + '" src="./search.html" openType="social" campaign="' + campaign + '" connId="' + ticketId + '" callType="' + callType + '" ' + enduserIdStr + ' details="" width="100%" height="auto" frameborder="0"></iframe>' +
+                            '<iframe id="input-form-' + ticketId + '" openType="social" campaign="' + campaign + '" connId="' + ticketId + '" callType="' + callType + '" ' + enduserIdStr + ' details="" width="100%" height="auto" style="display: none; border: none;"></iframe>' +
+                            '<iframe id="search-' + ticketId + '" src="./search.html" openType="social" campaign="' + campaign + '" connId="' + ticketId + '" callType="' + callType + '" ' + enduserIdStr + ' details="" width="100%" height="auto" style="border: none;"></iframe>' +
                             '</div>');
 
                         $('#bubble-list-inner').height('752px'); // previous height maybe fb_comment height, so need to adjust

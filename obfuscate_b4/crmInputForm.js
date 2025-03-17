@@ -967,7 +967,7 @@ function exportCustDoc() {
     //     '<table cellspacing="0" class="Table" style="border-collapse:collapse; border:none;><tbody>' +
 
         var content = 
-        '<table cellspacing="0" class="Table" style="border-collapse:collapse;><tbody>' +
+        '<table class="Table" style="border-collapse:collapse;"><tbody>' +
         '<tr><td style="vertical-align:top; white-space:nowrap;"><p><span style="font-size:12pt"><span style="font-family:&quot;Times New Roman&quot;,serif"><span style="font-size:11.0pt">Customer ID: </span></span></p></td><td style="vertical-align:top;"><p><span style="font-size:12pt"><span style="font-family:&quot;Times New Roman&quot;,serif"><span style="font-size:11.0pt"><span>' + customerId + '</span></span></span></span></p></td></tr>' +
         '<tr><td style="vertical-align:top; white-space:nowrap;"><p>&nbsp;</p></td><td style="vertical-align:top;"><p>&nbsp;</p></td></tr>' +
         '<tr><td style="vertical-align:top; white-space:nowrap;"><p><span style="font-size:12pt"><span style="font-family:&quot;Times New Roman&quot;,serif"><span style="font-size:11.0pt">Name: </span></span></span></p></td><td style="vertical-align:top;"><p><span style="font-size:12pt"><span style="font-family:&quot;Times New Roman&quot;,serif"><span style="font-size:11.0pt"><span>' + name + '</span></span></span></span></p></td></tr>' +
@@ -1052,7 +1052,7 @@ function exportCaseDoc() {
     }
     var agentName = $('#ip-agent-name').text() || '';
     var content = '<div class="Section1"><p><span style="font-size:12pt"><span style="font-family:&quot;Times New Roman&quot;,serif">Case No: <span style="font-size:11.0pt"><span>' + caseNo + '</span></span></span></span></p>' +
-        '<table cellspacing="0" class="Table" style="border-collapse:collapse; border:none;><tbody>' +
+        '<table class="Table" style="border-collapse:collapse; border:none;"><tbody>' +
 
         '<tr><td style="vertical-align:top; white-space:nowrap;"><p><span style="font-size:12pt"><span style="font-family:&quot;Times New Roman&quot;,serif"><span style="font-size:11.0pt">Nature: </span></span></span></p></td><td style="vertical-align:top;"><p><span style="font-size:12pt"><span style="font-family:&quot;Times New Roman&quot;,serif"><span style="font-size:11.0pt"><span>' + nature + '</span></span></span></span></p></td></tr>' +
 

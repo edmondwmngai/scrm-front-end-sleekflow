@@ -257,24 +257,24 @@
                     </div>
                     <div id="junk-mail-custom-card" class="custom-card px-4 py-3 mt-3 mb-5" style="display:none;">
                         <div class="row mb-1 px-3 py-1">
-                            <label class="me-2 col-sm-2 ps-0 mb-0 py-1"><span
-                                    class="l-email-sender"></span>:</label><span id="junk-mail-from"></span>
+                            <span class="me-2 col-sm-2 ps-0 mb-0 py-1"><span
+                                    class="l-email-sender"></span>:</span><span id="junk-mail-from"></span>
                         </div>
                         <!-- <div class="row mb-1 px-3 py-1">
                                     <label class="me-2 col-sm-2 ps-0 mb-0 py-1">To:</label><span id="junk-mail-to"></span>
                                 </div> -->
                         <div class="row mb-1 px-3 py-1">
-                            <label class="me-2 col-sm-2 ps-0 mb-0 py-1"><span
-                                    class="l-email-subject"></span>:</label><span id="junk-mail-subject"></span>
+                            <span class="me-2 col-sm-2 ps-0 mb-0 py-1"><span
+                                    class="l-email-subject"></span>:</span><span id="junk-mail-subject"></span>
                         </div>
                         <div class="row mb-1 px-3 py-1">
-                            <label class="me-2 word-break col-sm-2 ps-0"><span class="l-email-content"></span>:</label>
+                            <span class="me-2 word-break col-sm-2 ps-0"><span class="l-email-content"></span>:</span>
                             <span id="junk-mail-body" class="custom-scroll col px-0 rounded p-2"
                                 style="height:170px;max-height:170px;border:1px solid lightgray"></span>
                         </div>
                         <div class="row mb-1 px-3 py-1">
-                            <label class="me-2 col-sm-2 ps-0 mb-0 py-1"><span
-                                    class="l-st-attachments"></span>:</label><span id="junk-mail-attachment"
+                            <span class="me-2 col-sm-2 ps-0 mb-0 py-1"><span
+                                    class="l-st-attachments"></span>:</span><span id="junk-mail-attachment"
                                 class="row"></span>
                         </div>
                     </div>
@@ -302,12 +302,12 @@
                         style="display:none;">
                         <div class="row mb-1 px-3 py-1">
                             <div class="col-sm-5">
-                                <label class="me-2 ps-0 mb-0 py-1 l-form-full-name"></label>
+                                <label for="repeated-customer-full-name" class="me-2 ps-0 mb-0 py-1 l-form-full-name"></label>
                                 <input id="repeated-customer-full-name" class="form-control" type="search"
                                     autocomplete="off" disabled />
                             </div>
                             <div class="col-sm-3">
-                                <label class="me-2 ps-0 mb-0 py-1 l-form-title"></label>
+                                <label for="repeated-customer-title" class="me-2 ps-0 mb-0 py-1 l-form-title"></label>
                                 <select id="repeated-customer-title" class="form-select" disabled>
                                     <option selected="selected" value=''></option>
                                     <option value="Miss">Miss</option>
@@ -317,14 +317,14 @@
                                 </select>
                             </div>
                             <div class="col-sm-4">
-                                <label class="me-2 ps-0 mb-0 py-1"><i class='fa fa-envelope me-2'></i>Email</label>
+                                <label for="repeated-customer-email" class="me-2 ps-0 mb-0 py-1"><i class='fa fa-envelope me-2'></i>Email</label>
                                 <input id="repeated-customer-email" class="form-control" type="search"
                                     autocomplete="off" disabled />
                             </div>
                         </div>
                         <div class="row mb-1 px-3 py-1">
                             <div class="col-sm-12">
-                                <label class="me-2 ps-0 mb-0 py-1 l-form-remarks"></label>
+                                <label for="repeated-customer-remarks" class="me-2 ps-0 mb-0 py-1 l-form-remarks"></label>
                                 <input id="repeated-customer-remarks" class="form-control" type="search"
                                     autocomplete="off" />
                             </div>
@@ -371,12 +371,12 @@
                         style="display:none;">
                         <div class="row mb-1 px-3 py-1">
                             <div class="col-sm-5">
-                                <label class="me-2 ps-0 mb-0 py-1"><span class="l-form-full-name"></span></label>
+                                <label for="difficult-customer-full-name" class="me-2 ps-0 mb-0 py-1"><span class="l-form-full-name"></span></label>
                                 <input id="difficult-customer-full-name" class="form-control" type="search"
                                     autocomplete="off" disabled />
                             </div>
                             <div class="col-sm-3">
-                                <label class="me-2 ps-0 mb-0 py-1 l-form-title"></label>
+                                <label for="difficult-customer-title"  class="me-2 ps-0 mb-0 py-1 l-form-title"></label>
                                 <select id="difficult-customer-title" class="form-select" disabled>
                                     <option selected="selected" value=''></option>
                                     <option value="Miss">Miss</option>
@@ -386,7 +386,7 @@
                                 </select>
                             </div>
                             <div class="col-sm-4">
-                                <label class="me-2 ps-0 mb-0 py-1"><i class='fa fa-envelope me-2'></i><span
+                                <label for="difficult-customer-email" class="me-2 ps-0 mb-0 py-1"><i class='fa fa-envelope me-2'></i><span
                                         class="l-form-email"></span></label>
                                 <input id="difficult-customer-email" class="form-control" type="search"
                                     autocomplete="off" disabled />
@@ -394,7 +394,7 @@
                         </div>
                         <div class="row mb-1 px-3 py-1">
                             <div class="col-sm-12">
-                                <label class="me-2 ps-0 mb-0 py-1 l-form-remarks"></label>
+                                <label for="difficult-customer-remarks" class="me-2 ps-0 mb-0 py-1 l-form-remarks"></label>
                                 <input id="difficult-customer-remarks" class="form-control" type="search"
                                     autocomplete="off" />
                             </div>
@@ -440,12 +440,12 @@
                         style="display:none;">
                         <div class="row mb-1 px-3 py-1">
                             <div class="col-sm-5">
-                                <label class="me-2 ps-0 mb-0 py-1 l-form-full-name"></label>
+                                <label for="repeated-caller-full-name" class="me-2 ps-0 mb-0 py-1 l-form-full-name"></label>
                                 <input id="repeated-caller-full-name" class="form-control" type="search"
                                     autocomplete="off" disabled />
                             </div>
                             <div class="col-sm-3">
-                                <label class="me-2 ps-0 mb-0 py-1 l-form-title"></label>
+                                <label for="repeated-caller-title" class="me-2 ps-0 mb-0 py-1 l-form-title"></label>
                                 <select id="repeated-caller-title" class="form-select" disabled>
                                     <option selected="selected" value=''></option>
                                     <option value="Miss">Miss</option>
@@ -455,7 +455,7 @@
                                 </select>
                             </div>
                             <div class="col-sm-4">
-                                <label class="me-2 ps-0 mb-0 py-1"><i class='fa fa-phone me-2'></i><span
+                                <label for="repeated-caller-mobile" class="me-2 ps-0 mb-0 py-1"><i class='fa fa-phone me-2'></i><span
                                         class="l-form-mobile"></span></label>
                                 <input id="repeated-caller-mobile" class="form-control" type="search" autocomplete="off"
                                     disabled />
@@ -463,13 +463,13 @@
                         </div>
                         <div class="row mb-1 px-3 py-1">
                             <div class="col-sm-4">
-                                <label class="me-2 ps-0 mb-0 py-1"><i class='fa fa-phone me-2'></i><span
+                                <label for="repeated-caller-other" class="me-2 ps-0 mb-0 py-1"><i class='fa fa-phone me-2'></i><span
                                         class="l-form-other"></span></label>
                                 <input id="repeated-caller-other" class="form-control" type="search" autocomplete="off"
                                     disabled />
                             </div>
                             <div class="col-sm-8">
-                                <label class="me-2 ps-0 mb-0 py-1 l-form-remarks"></label>
+                                <label for="repeated-caller-remarks" class="me-2 ps-0 mb-0 py-1 l-form-remarks"></label>
                                 <input id="repeated-caller-remarks" class="form-control" type="search"
                                     autocomplete="off" />
                             </div>
@@ -515,12 +515,12 @@
                         style="display:none;">
                         <div class="row mb-1 px-3 py-1">
                             <div class="col-sm-5">
-                                <label class="me-2 ps-0 mb-0 py-1 l-form-full-name"></label>
+                                <label for="difficult-caller-full-name" class="me-2 ps-0 mb-0 py-1 l-form-full-name"></label>
                                 <input id="difficult-caller-full-name" class="form-control" type="search"
                                     autocomplete="off" disabled />
                             </div>
                             <div class="col-sm-3">
-                                <label class="me-2 ps-0 mb-0 py-1 l-form-title"></label>
+                                <label for="difficult-caller-title" class="me-2 ps-0 mb-0 py-1 l-form-title"></label>
                                 <select id="difficult-caller-title" class="form-select" disabled>
                                     <option selected="selected" value=''></option>
                                     <option value="Miss">Miss</option>
@@ -530,7 +530,7 @@
                                 </select>
                             </div>
                             <div class="col-sm-4">
-                                <label class="me-2 ps-0 mb-0 py-1"><i class='fa fa-phone me-2'></i><span
+                                <label for="difficult-caller-mobile" class="me-2 ps-0 mb-0 py-1"><i class='fa fa-phone me-2'></i><span
                                         class="l-form-mobile"></span></label>
                                 <input id="difficult-caller-mobile" class="form-control" type="search"
                                     autocomplete="off" disabled />
@@ -538,13 +538,13 @@
                         </div>
                         <div class="row mb-1 px-3 py-1">
                             <div class="col-sm-4">
-                                <label class="me-2 ps-0 mb-0 py-1"><i class='fa fa-phone me-2'></i><span
+                                <label for="difficult-caller-other" class="me-2 ps-0 mb-0 py-1"><i class='fa fa-phone me-2'></i><span
                                         class="l-form-other"></span></label>
                                 <input id="difficult-caller-other" class="form-control" type="search" autocomplete="off"
                                     disabled />
                             </div>
                             <div class="col-sm-8">
-                                <label class="me-2 ps-0 mb-0 py-1 l-form-remarks"></label>
+                                <label for="difficult-caller-remarks" class="me-2 ps-0 mb-0 py-1 l-form-remarks"></label>
                                 <input id="difficult-caller-remarks" class="form-control" type="search"
                                     autocomplete="off" />
                             </div>

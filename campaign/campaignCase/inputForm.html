@@ -191,7 +191,7 @@
 
 <body class='custom-scroll' onload="windowOnload();" onkeydown='return (event.keyCode != 116)'>
     <div id='customer-id-section' class='mt-2'>
-        <label class='l-form-customer-id mt-3 d-none'></label>:&nbsp;
+        <label for="form-back-btn" class='l-form-customer-id mt-3 d-none'></label>:&nbsp;
         <span class="d-none" id='customer-id'></span>
         <button id="form-back-btn" class="float-end btn btn-circle btn-warning mt-2 mb-5 l-general-previous-page"
             onclick="returnToSearch();"><i class="fas fa-arrow-left"></i></button>
@@ -362,7 +362,7 @@
                     <div class='row d-flex align-items-center d-none'>
                         <div class='input-group ps-5'>
                             <div class="form-check">
-                                <label class="form-check-label">
+                                <label for="Agree_To_Disclose_Info" class="form-check-label">
                                     <i class="fas fa-info-circle me-2"></i>
                                     <input id="Agree_To_Disclose_Info"
                                         class="form-check-input edit-field l-form-agree-to-disclose-information"
@@ -556,7 +556,7 @@
 
                     <div class='row d-flex align-items-center d-none'>
                         <div class="form-check ms-5 my-0">
-                            <label class="form-check-label">
+                            <label for="Long_Call" class="form-check-label">
                                 <input id="Long_Call" class="form-check-input l-form-long-call-duration" type="checkbox"
                                     onchange="longCallChanged(this);">
                                 &nbsp;
@@ -578,13 +578,13 @@
 
                     <div class='row d-flex align-items-center'>
                         <div class='mb-3 col-sm-12 ps-0'>
-                            <label class='col-sm-1 control-label ps-4 mt-2'>&nbsp;&nbsp;<span
-                                    class="l-form-reply"></span></label>
+                            <span class='col-sm-1 control-label ps-4 mt-2'>&nbsp;&nbsp;<span
+                                    class="l-form-reply"></span></span>
                             <div class='col-sm-11 ps-0'>
                                 <div class='mb-3 d-flex align-items-center'>
 
                                     <div class="form-check ms-3">
-                                        <label class="form-check-label">
+                                        <label for="reply-none" class="form-check-label">
                                             <input class='form-check-input dial-yes-disable l-form-none'
                                                 onclick='replyChannelChange(this)' type="radio" id="reply-none"
                                                 name="replyList" value="" checked>
@@ -596,7 +596,7 @@
                                     </div>
 
                                     <div class="form-check ms-3">
-                                        <label class="form-check-label">
+                                        <label for="reply-email" class="form-check-label">
                                             <input class='form-check-input dial-yes-disable l-form-radio-email'
                                                 onclick='replyChannelChange(this)' type="radio" id="reply-email"
                                                 name="replyList" value="email">
@@ -608,7 +608,7 @@
 
 
                                     <div class="form-check ms-3 d-none">
-                                        <label class="form-check-label">
+                                        <label for="reply-fax" class="form-check-label">
                                             <input class='form-check-input dial-yes-disable l-form-radio-fax'
                                                 onclick='replyChannelChange(this)' type="radio" id="reply-fax"
                                                 name="replyList" value="fax">
@@ -620,7 +620,7 @@
 
 
                                     <div class="form-check ms-3">
-                                        <label class="form-check-label">
+                                        <label for="reply-sms" class="form-check-label">
                                             <input class='form-check-input dial-yes-disable l-form-sms'
                                                 onclick='replyChannelChange(this)' type="radio" id="reply-sms"
                                                 name="replyList" value="sms">
@@ -631,7 +631,7 @@
                                     </div>
 
                                     <div class="form-check ms-2">
-                                        <label class="form-check-label">
+                                        <label for="reply-call" class="form-check-label">
                                             <input class='form-check-input dial-yes-disable l-form-call'
                                                 onclick='replyChannelChange(this)' type="radio" id="reply-call"
                                                 name="replyList" value="call">
@@ -651,7 +651,7 @@
                             <span style='display:none;' id='email-details'>
                                 <span style='display:inline-block;' id="email-other-container">
                                     <div class="form-check ms-2" style='display:inline;'>
-                                        <label class="form-check-label">
+                                        <label for="email-other-check" class="form-check-label">
                                             <input type="checkbox"
                                                 class="form-check-input reply-checkbox email-list l-form-radio-other"
                                                 value='other' id="email-other-check"
@@ -670,7 +670,7 @@
 
                             <span style='display:none;' id='fax-details'>
                                 <span id="fax-other-container">
-                                    <div class="form-check ms-2" style='display:inline;'><label
+                                    <div class="form-check ms-2" style='display:inline;'><label for="fax-other-check" 
                                             class="form-check-label">
                                             <input type="checkbox"
                                                 class="form-check-input reply-checkbox fax-list l-form-radio-other"
@@ -691,7 +691,7 @@
                             <span style='display:none;' id='sms-details'>
                                 <span id="sms-other-container">
                                     <div class="form-check ms-2" style='display:inline;'>
-                                        <label class="form-check-label">
+                                        <label for="sms-other-check" class="form-check-label">
                                             <input type="checkbox"
                                                 class="form-check-input reply-checkbox sms-list l-form-radio-other"
                                                 name="smsList" value='other' id="sms-other-check"
@@ -712,7 +712,7 @@
                             <span style='display:none;' id='call-details'>
                                 <span id="call-other-container">
                                     <div class="form-check ms-2" style='display:inline;'>
-                                        <label class="form-check-label">
+                                        <label for="call-other-check" class="form-check-label">
                                             <input type="radio"
                                                 class="form-check-input reply-checkbox call-list dial-yes-disable l-form-radio-other"
                                                 name="callList" value='other' id="call-other-check"

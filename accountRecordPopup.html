@@ -115,7 +115,7 @@
 
             <!--Profile Photo-->
             <div class="mb-3">
-                <label class="form-label l-account-profile-photo"></label>
+                <label for="p-file-to-upload" class="form-label l-account-profile-photo"></label>
                 <div id="photo-container">
                     <img class="profile-picture" id="profile-pic" src="./images/user.png" alt="profile picture">
                 </div>
@@ -174,18 +174,18 @@
             <!--Role-->
             <div class="mb-3">
                 <div id="role-div">
-                    <label class="form-label"><span class="l-account-role"></span>&nbsp;<span class="text-danger">*</span></label>
+                    <span class="form-label"><span class="l-account-role"></span>&nbsp;<span class="text-danger">*</span></span>
                 </div>
                 <span class="radio-blank-error-span" id="role-error"></span>
             </div>
 
             <!--Account Status-->
             <div class="mb-3">
-                <label class="form-label l-account-account-status"></label>
+                <label for="status-toggle" class="form-label l-account-account-status"></label>
                 <div class="togglebutton">
                     <!--toggle button-->
                     <label>
-                        <input type="checkbox" id="status-toggle" checked="">
+                        <input for="status-toggle" type="checkbox" id="status-toggle" checked="">
                         <span class="toggle"></span>
                     </label>
                     <!--status label-->

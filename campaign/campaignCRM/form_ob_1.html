@@ -385,7 +385,7 @@
                         <div class='col-sm-11 ps-0'>
                             <div id="reply-radio-group" class='mb-3 d-flex align-items-center'>
                                 <div class="form-check ms-3">
-                                    <label class="form-check-label">
+                                    <label for="reply-none" class="form-check-label">
                                         <input class='form-check-input dial-yes-disable l-form-none'
                                             onclick='replyChannelChange(this)' type="radio" id="reply-none"
                                             name="replyList" value="" checked>
@@ -397,7 +397,7 @@
                                 </div>
 
                                 <div class="form-check ms-2">
-                                    <label class="form-check-label">
+                                    <label for="reply-call" class="form-check-label">
                                         <input class='form-check-input dial-yes-disable l-form-call'
                                             onclick='replyChannelChange(this)' type="radio" id="reply-call"
                                             name="replyList" value="call">
@@ -413,7 +413,7 @@
                 <span style='display:none;' id='call-details'>
                     <span id="call-other-container">
                         <div class="form-check ms-2" style='display:inline;'>
-                            <label class="form-check-label">
+                            <label for="call-other-check" class="form-check-label">
                                 <input type="radio"
                                     class="form-check-input reply-checkbox call-list dial-yes-disable l-form-radio-other"
                                     name="callList" value='other' id="call-other-check"
@@ -444,7 +444,7 @@
                     </div>
                     <div class='mb-3 col-sm-7'>
 
-                        <label id="call-status-label" for='call-status' class='d-none me-4'><span
+                        <label for="successful-reason" id="call-status-label" for='call-status' class='d-none me-4'><span
                                 class="l-campaign-reason">Reason</span>&nbsp;<span class="text-danger">*</span></label>
 
                         <select id="successful-reason" class="d-none form-select select-min-w">

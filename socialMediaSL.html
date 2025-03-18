@@ -135,7 +135,7 @@
 
                                 <button data-bs-toggle="tooltip" data-bs-placement="top" id="sendMsgButton" title="Send"
                                         class="reply-send-container">
-                                    <img class="reply-icon-size" src="./images/send.svg">
+                                    <img class="reply-icon-size" src="./images/send.svg" alt="send">
                                 </button>
 
                                 <!--End the session?-->
@@ -146,13 +146,13 @@
                                 </button>
 
                                 <button style="display:none" data-bs-toggle="tooltip" data-bs-placement="top" id="testSendMsgButton" title="Send" class="reply-send-container">
-                                    <img class="reply-icon-size" src="./images/send.svg">
+                                    <img class="reply-icon-size" src="./images/send.svg" alt="send">
                                 </button>
 
                             </div>
                         </div>
 
-                        <div class="reply-container" style="display:none"><textarea id="reply-textarea-1123724117" class="reply-textarea" maxlength="1000" rows="2" placeholder="Type your text here..." onkeypress="textareaPressed(event);" onkeyup="sendCSInput(1123724117)"></textarea><div class="reply-icon-group"><button id="canned-1123724117" class="reply-canned-container keyboard-icon" data-bs-toggle="tooltip" data-bs-placement="top" title="Select Message" onclick="cannedBtnClicked(&quot;campaignCRM&quot;)"><span class="align-sub"><i class="far fa-keyboard"></i></span></button><button id="share-1123724117" class="reply-share-container keyboard-icon" data-bs-toggle="tooltip" data-bs-placement="top" title="Select File" onclick="shareBtnClicked(&quot;campaignCRM&quot;)"><span class="align-sub"><i class="far fa-file"></i></span></button><input type="file" onchange="uploadAttachment(this, 1123724117);" style="display:none"><button id="upload-1123724117" class="reply-share-container keyboard-icon" data-bs-toggle="tooltip" data-bs-placement="top" title="Send File" onclick="$(this).prev().trigger(&quot;click&quot;);"><span class="align-sub"><i class="fas fa-file-upload"></i></span></button><button id="end-1123724117" class="reply-end-container keyboard-icon" data-bs-toggle="tooltip" data-bs-placement="top" title="End Session" entry="webchat" onclick="endClicked(1123724117,this)"><span class="align-sub"><i class="fas fa-times"></i></span></button><button id="reply-btn-1123724117" class="reply-send-container" entry="webchat" onclick="replyClicked(1123724117)" data-bs-toggle="tooltip" data-bs-placement="top" title="Send Message"><img class="reply-icon-size" src="./images/send.svg"></button></div></div>
+                        <div class="reply-container" style="display:none"><textarea id="reply-textarea-1123724117" class="reply-textarea" maxlength="1000" rows="2" placeholder="Type your text here..." onkeypress="textareaPressed(event);" onkeyup="sendCSInput(1123724117)"></textarea><div class="reply-icon-group"><button id="canned-1123724117" class="reply-canned-container keyboard-icon" data-bs-toggle="tooltip" data-bs-placement="top" title="Select Message" onclick="cannedBtnClicked(&quot;campaignCRM&quot;)"><span class="align-sub"><i class="far fa-keyboard"></i></span></button><button id="share-1123724117" class="reply-share-container keyboard-icon" data-bs-toggle="tooltip" data-bs-placement="top" title="Select File" onclick="shareBtnClicked(&quot;campaignCRM&quot;)"><span class="align-sub"><i class="far fa-file"></i></span></button><input type="file" onchange="uploadAttachment(this, 1123724117);" style="display:none"><button id="upload-1123724117" class="reply-share-container keyboard-icon" data-bs-toggle="tooltip" data-bs-placement="top" title="Send File" onclick="$(this).prev().trigger(&quot;click&quot;);"><span class="align-sub"><i class="fas fa-file-upload"></i></span></button><button id="end-1123724117" class="reply-end-container keyboard-icon" data-bs-toggle="tooltip" data-bs-placement="top" title="End Session" entry="webchat" onclick="endClicked(1123724117,this)"><span class="align-sub"><i class="fas fa-times"></i></span></button><button id="reply-btn-1123724117" class="reply-send-container" entry="webchat" onclick="replyClicked(1123724117)" data-bs-toggle="tooltip" data-bs-placement="top" title="Send Message"><img class="reply-icon-size" src="./images/send.svg" alt="send"></button></div></div>
 
 
                     </div>
@@ -216,7 +216,7 @@
     <!-- Modal for enlarge image -->
     <div id="myModal" class="modal image-modal custom-scroll">
         <span class="close image-close" onclick="closeEnlageModal();">&times;</span>
-        <img class="modal-content image-modal-content" id="img01">
+        <img class="modal-content image-modal-content" id="img01" alt="img01">
         <div id="caption"></div>
     </div>
     <!-- /Modal for enlarge image -->
@@ -430,7 +430,7 @@
                     <br />
                     <span><span id="cs-info-additional" class="content-gray-label">{{additionalInfo}}</span></span>
                 </span>
-                <img id="channel" class="top-channel-img" style="margin-top: -20px; float: right;" data-bs-toggle="tooltip" data-bs-placement="left" src="./Wise/img/{{channelImg}}">
+                <img id="channel" class="top-channel-img" style="margin-top: -20px; float: right;" data-bs-toggle="tooltip" data-bs-placement="left" src="./Wise/img/{{channelImg}}" alt="{{channelImg}}">
             </span>
     </script>
 
@@ -447,7 +447,7 @@
                     <span style="white-space:pre;"><span class="content-gray-label">Language:</span>&nbsp;English</span>
                 </span>
             </span>
-            <img id="channel-357761895" class="top-channel-img" data-bs-toggle="tooltip" data-bs-placement="left" src="./Wise/img/webchat-icon-217.png">
+            <img id="channel-357761895" class="top-channel-img" data-bs-toggle="tooltip" data-bs-placement="left" src="./Wise/img/webchat-icon-217.png" alt="channel-img">
         </div>
     </script>
     <script id="chatlist_header_template2" type="text/x-handlebars-template">
@@ -464,7 +464,7 @@
                     <span style="white-space:pre;"><span class="content-gray-label">Contacted us in the last hour:</span>&nbsp;Last Ticket ID: 357761895 on 2024-12-02 12:05:46</span>
                 </span>
             </span>
-            <img id="channel-145056642" class="top-channel-img" data-bs-toggle="tooltip" data-bs-placement="left" src="./Wise/img/webchat-icon-217.png">
+            <img id="channel-145056642" class="top-channel-img" data-bs-toggle="tooltip" data-bs-placement="left" src="./Wise/img/webchat-icon-217.png" alt="channel-img">
         </div>
     </script>
     <!--
@@ -491,7 +491,7 @@
                     <span style="display: none;" class="bubble-deviceid">{{deviceId}}</span>
                     <div class="bubble-channel-logo">
                         <!--opacity: 0.1; -->
-                        <img class="bubble-icon" src="./Wise/img/{{channelImg}}">
+                        <img class="bubble-icon" src="./Wise/img/{{channelImg}}" alt="bubble-icon">
                     </div>
                     <div class="buble-content-column">
                         <div>

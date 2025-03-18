@@ -263,13 +263,13 @@
 
 <body onload='caseRecordPopupOnload()' class='custom-scroll' onkeydown='return (event.keyCode != 116)'>
     <nav class="navbar sticky-top bg-info position-relative py-1 mb-0 d-none remove-none" data-bs-toggle="collapse"
-        data-bs-target="#call-media-content">
+        data-bs-target="#call-media-content" aria-label="nav">
         <span class="navbar-brand ms-3" href="#"><span id="call-type-span"></span></span>
     </nav>
 
     <div id="call-media-content" class='custom-scroll clearfix collapse show mx-3' style="overflow:auto;"></div>
     <nav class="navbar sticky-top bg-warning py-1 d-none remove-none mb-0" data-bs-toggle="collapse"
-        data-bs-target="#middle-content">
+        data-bs-target="#middle-content" aria-label="nav">
         <span class="navbar-brand ms-3 l-form-case-details" href="#"></span>
     </nav>
 
@@ -330,7 +330,7 @@
         </div>
     </div>
 
-    <nav id="reply-navbar" class="navbar sticky-top bg-info py-1 d-none remove-none">
+    <nav id="reply-navbar" class="navbar sticky-top bg-info py-1 d-none remove-none" aria-label="nav">
         <span class="navbar-brand ms-3" id="reply-type-span"></span>
     </nav>
 

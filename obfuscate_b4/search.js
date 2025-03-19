@@ -1535,9 +1535,10 @@ $(document).ready(function () {
         $('.tab-pane').removeClass('in active');
         var href = $(this).attr('href');
         $(href).addClass('in active');
-        setTimeout(function () {
-            resize(), 300
-        });
+//        setTimeout(function () {
+ //           resize(), 300
+ //       });
+        setTimeout(function () {resize() }, 300 );
     });
 });
 // prevent right click

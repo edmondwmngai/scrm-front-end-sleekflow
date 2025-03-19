@@ -45,7 +45,7 @@ var gf = {
       var match = callback(arr[i]);
       if (match) {
         return arr[i];
-        break;
+        //break;
       }
     }
   },

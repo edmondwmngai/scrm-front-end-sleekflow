@@ -16,8 +16,35 @@
     </title>
 
     <style>
+
+
+        table[Attributes Style] {
+            margin-inline-start: auto;
+            margin-inline-end: auto;
+            width: 90%;
+            border-top-width: 2px;
+            border-bottom-width: 2px;
+            border-left-width: 2px;
+            border-right-width: 2px;
+            border-left-color: rgb(255, 0, 0);
+            border-right-color: rgb(255, 0, 0);
+            border-bottom-color: rgb(255, 0, 0);
+            border-top-color: rgb(255, 0, 0);
+         
+        }
+
         table {
             font-size: 16px;
+            display: table;
+            border-collapse: separate;
+            box-sizing: border-box;
+            text-indent: initial;
+            unicode-bidi: isolate;
+            border-spacing: 2px;
+            border-color: red;
+            width: 90%;
+            border: 2px solid red;
+            margin: 0 auto;
         }
 
         .marvel-logo-span {
@@ -50,15 +77,15 @@
     <div class="epro-container"><span class="epro-span">
         <img src="./images/marvel_logo.png" alt="marvel_logo">
     </div>
-
-    <TABLE id="TABLE1" align="center" WIDTH="90%" BORDER="2" BORDERCOLOR="Red" borderwidth="5">
-        <TR ALIGN="CENTER" BGCOLOR="Red">
-            <TD Width="45%">
+    
+   <TABLE id="TABLE1" >
+        <TR style="background-color: red">
+            <TD style="width: 45%">
             </TD>
-            <TD Width="10%" ALIGN="CENTER" Onclick='ChangeColor()'>
-                <font color="white"><b>CRM UAT</b>
+            <TD style="width: 10%; text-align: center" Onclick='ChangeColor()'>
+                <b style="color:white">CRM UAT</b>
             </TD>
-            <TD Width="45%">
+            <TD style="width: 45%">
             </TD>
         </TR>
         <TR style="cursor:hand" onMouseOver="this.style.backgroundColor = 'silver'"
@@ -68,6 +95,7 @@
             </TD>
         </TR>
     </table>
+
     <script>
 
         // this equals $(document).ready()

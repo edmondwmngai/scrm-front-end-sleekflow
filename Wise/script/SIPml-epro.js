@@ -544,7 +544,7 @@ var sipControl = (function () {
           {
             if (e.session === oSipSessionCall) {
               that.onCallStatus('transfer_request');
-              var message = 'Do you accept call transfer to [' + e.getTransferDestinationFriendlyName() + ']?';//FIXME
+              var message = 'Do you accept call transfer to [' + e.getTransferDestinationFriendlyName() + ']?';
               if (confirm(message)) {
                 that.oSipSessionCall.acceptTransfer();
                 that.onCallStatus('transfer_requet_accept');

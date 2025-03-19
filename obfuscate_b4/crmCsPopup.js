@@ -517,10 +517,11 @@ function noCommunicationChanged(oThis) {
     if (checked) {
         $.fn.dataTable.ext.search.push(
             function (settings, data, dataIndex, row, counter) {
-                if (row.Type.length == 0) {
-                    return false;
-                }
-                return true;
+                //if (row.Type.length == 0) {   // 20250319 Replace this if-then-else flow by a single return statement.
+                //    return false;
+                //}
+                //return true;
+                return row.Type.length !== 0;
             }
         );
         caseTable.draw();

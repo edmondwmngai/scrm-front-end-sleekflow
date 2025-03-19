@@ -273,13 +273,14 @@ class WaTemplateService {
             }
         }
 
+        // 20250319 Replace this if-then-else flow by a single return statement.
         //Check total character of template message + all the input values length are larger than 1000 or not
-        if (1000 < (mLength + iLength)) {
-            return false;
-        } else {
-            return true;
-        }
-
+//        if (1000 < (mLength + iLength)) {
+//            return false;
+//        } else {
+//           return true;
+//        }
+        return (1000 >= (mLength + iLength));
         
     };
 }

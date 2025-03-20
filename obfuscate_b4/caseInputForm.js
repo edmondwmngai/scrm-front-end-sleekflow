@@ -2,7 +2,8 @@ var customerData = null;
 var disableMode = false;
 var customerOnly = false;
 var openType = window.frameElement.getAttribute("openType") || ''; // "menu" or "traditional" or "social"
-var isSocial = window.frameElement.getAttribute("openType") == "social" ? true : false;
+//var isSocial = window.frameElement.getAttribute("openType") == "social" ? true : false;   //20250320 Unnecessary use of boolean literals in conditional expression.
+var isSocial = window.frameElement.getAttribute("openType") == "social";
 var customerId = window.frameElement.getAttribute("customerId") ? parseInt(window.frameElement.getAttribute("customerId")) : -1;
 var internalCaseNo = window.frameElement.getAttribute("internalCaseNo") || -1;
 var caseNo = window.frameElement.getAttribute("caseNo") || -1;
@@ -49,7 +50,8 @@ var mvcHost = config.mvcHost;
 var wiseHost = config.wiseHost;
 var categories = sessionStorage.getItem('scrmCategories') || '';
 
-var haveSystemTools = categories.indexOf('System-Tools') != -1 ? true : false;
+//var haveSystemTools = categories.indexOf('System-Tools') != -1 ? true : false;    //20250320 Unnecessary use of boolean literals in conditional expression.
+var haveSystemTools = categories.indexOf('System-Tools') != -1;
 
 // check if open from incomplete cases for an outbound call
 if (openType == 'menu') {
@@ -1605,7 +1607,10 @@ function windowOnload() {
     var inheritAll = customerData && customerData.inheritAll ? customerData.inheritAll : false;
     console.log('inheritAll');
     console.log(inheritAll);
-    isManualUpdate = customerData != undefined && customerData.Case_Is_Valid == 'Y' && customerData.Conn_Id == connId && customerData.Ticket_Id == ticketId ? true : false;
+    // isManualUpdate = customerData != undefined && customerData.Case_Is_Valid == 'Y' && customerData.Conn_Id == connId && customerData.Ticket_Id == ticketId ? true : false; // 20250320 Unnecessary use of boolean literals in conditional expression.
+    isManualUpdate = customerData != undefined && customerData.Case_Is_Valid == 'Y' && customerData.Conn_Id == connId && customerData.Ticket_Id == ticketId;
+
+
     updateCaseObj.Conn_Id = isManualUpdate ? null : connId;
     console.log('customerData != undefined');
     console.log(customerData != undefined);

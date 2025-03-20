@@ -23,7 +23,9 @@ var canDownloadVoice = functions.indexOf('Download-Voice') != -1;
 var downloadVoiceStr = canDownloadVoice ? '' : ' controlsList="nodownload"';
 var openType = window.frameElement ? (window.frameElement.getAttribute('openType') || '') : '';
 var ivrInfo = ''; // ivrInfo only shows when inbound type is inbound call
-var nonPopup = (openType == 'menu' || openType == 'all-media') ? true : false;
+//var nonPopup = (openType == 'menu' || openType == 'all-media') ? true : false;    //20260320 Unnecessary use of boolean literals in conditional expression.
+var nonPopup = (openType == 'menu' || openType == 'all-media');
+
 var queryObj = nonPopup ? null : window.opener.selectedCaseLog;
 var logId = nonPopup ? null : window.opener.caseLogPopupLogId;
 
@@ -402,7 +404,11 @@ function caseRecordPopupOnload() {
         console.log('queryObj');
         console.log(queryObj);
         var callType = queryObj.Call_Type;
-        var isSocial = callType == 'Inbound_Webchat' || callType == 'Inbound_Whatsapp' || callType == 'Inbound_Wechat' || callType == 'Inbound_Facebook' || callType == 'Inbound_Connment' || callType == 'Inbound_WA' ? true : false;
+
+        //20250320 Unnecessary use of boolean literals in conditional expression.
+        //var isSocial = callType == 'Inbound_Webchat' || callType == 'Inbound_Whatsapp' || callType == 'Inbound_Wechat' || callType == 'Inbound_Facebook' || callType == 'Inbound_Connment' || callType == 'Inbound_WA' ? true : false;
+        var isSocial = callType == 'Inbound_Webchat' || callType == 'Inbound_Whatsapp' || callType == 'Inbound_Wechat' || callType == 'Inbound_Facebook' || callType == 'Inbound_Connment' || callType == 'Inbound_WA';
+
         console.log(callType);
         var replyType = queryObj.Reply_Type;
         var callMediaType = returnMediaType(queryObj.Call_Type);

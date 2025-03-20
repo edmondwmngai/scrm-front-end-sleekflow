@@ -30,8 +30,8 @@ function searchInput(sTicket)
 
     ///Still do not know the usage
     var functions = sessionStorage.getItem('scrmFunctions') || '';
-    var noFormInSocial = functions.indexOf('No-Form-In-Social') != -1 ? true : false;
-
+    //var noFormInSocial = functions.indexOf('No-Form-In-Social') != -1 ? true : false;     // 20250320 Unnecessary use of boolean literals in conditional expression.
+    var noFormInSocial = functions.indexOf('No-Form-In-Social') != -1
 
     //20241126 for reset
     $('#search-input-section').empty();

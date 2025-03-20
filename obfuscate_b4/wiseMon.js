@@ -36,7 +36,8 @@ var superAcdData = [];
 var wallIntFn = null;
 var hvSocial = wmConfig.hvSocial;
 var wmWallIntMiliSec = wmConfig.wmWallIntMiliSec || 300000; //5 mins
-var splitASTbl = (wmConfig.splitASTbl && wmConfig.splitASTbl === true ? true : false);
+//var splitASTbl = (wmConfig.splitASTbl && wmConfig.splitASTbl === true ? true : false);    //20250320 Unnecessary use of boolean literals in conditional expression.
+var splitASTbl = (wmConfig.splitASTbl && wmConfig.splitASTbl === true);
 var functions = sessionStorage.getItem('scrmFunctions');
 var boolShowBtn = (functions.indexOf('Wise-Mon-Act-Btn') != -1);
 

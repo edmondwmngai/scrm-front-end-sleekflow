@@ -1,6 +1,7 @@
 var langJson = JSON.parse(sessionStorage.getItem('scrmLangJson')) || {};
 var wiseHost = config.wiseHost;
-var haveFullBtn = window.frameElement.getAttribute('isFull') == 'true' ? false : true; // already isFull == true, no need to show resize button
+//var haveFullBtn = window.frameElement.getAttribute('isFull') == 'true' ? false : true; // already isFull == true, no need to show resize button   //20250320 Unnecessary use of boolean literals in conditional expression.
+var haveFullBtn = window.frameElement.getAttribute('isFull') != 'true';
 var isFull = !haveFullBtn;
 var isStick = false;
 function resizeEmail(isInit) {

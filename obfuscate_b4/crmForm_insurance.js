@@ -3,7 +3,9 @@ var disableMode = false;
 var caseRecordPopup = null;
 var customerOnly = false;
 var openType = window.frameElement.getAttribute("openType") || ''; // "menu" or "traditional" or "social"
-var isSocial = window.frameElement.getAttribute("openType") == "social" ? true : false;
+
+//var isSocial = window.frameElement.getAttribute("openType") == "social" ? true : false;     // 20250320 Unnecessary use of boolean literals in conditional expression.
+var isSocial = window.frameElement.getAttribute("openType") == "social";
 var customerId = -1;
 var internalCaseNo = window.frameElement.getAttribute("internalCaseNo") || -1;
 var caseNo = window.frameElement.getAttribute("caseNo") || -1;
@@ -35,7 +37,8 @@ var langJson = JSON.parse(sessionStorage.getItem('scrmLangJson')) || {};
 var mvcHost = config.mvcHost;
 var wiseHost = config.wiseHost;
 var categories = sessionStorage.getItem('scrmCategories') || '';
-var haveSystemTools = categories.indexOf('System-Tools') != -1 ? true : false;
+//var haveSystemTools = categories.indexOf('System-Tools') != -1 ? true : false; //20250320  Unnecessary use of boolean literals in conditional expression.
+var haveSystemTools = categories.indexOf('System-Tools') != -1;
 if (connId != null) {
     connId = Number(connId);
 }

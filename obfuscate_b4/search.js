@@ -1,5 +1,6 @@
 var openType = window.frameElement.getAttribute("openType") || '';
-var isSocial = openType == "social" ? true : false;
+//var isSocial = openType == "social" ? true : false; // 20250320 Unnecessary use of boolean literals in conditional expression.
+var isSocial = openType == "social";
 var connId = isSocial ? window.frameElement.getAttribute("connId") : parent.window.frameElement.getAttribute("connId") || "";
 var callType = isSocial ? window.frameElement.getAttribute("callType") : parent.window.frameElement.getAttribute("callType") || "";
 var details = isSocial ? window.frameElement.getAttribute("details") : parent.window.frameElement.getAttribute("details") || "";

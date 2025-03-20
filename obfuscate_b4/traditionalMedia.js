@@ -6,7 +6,8 @@ var langJson = JSON.parse(sessionStorage.getItem('scrmLangJson')) || {};
 var mvcHost = config.mvcHost;
 var tabIndex = $(parent.window.frameElement).attr('tab-index');
 var categories = sessionStorage.getItem('scrmCategories') || '';
-var haveSystemTools = categories.indexOf('System-Tools') != -1 ? true : false;
+//var haveSystemTools = categories.indexOf('System-Tools') != -1 ? true : false;    //20250320 Unnecessary use of boolean literals in conditional expression.
+var haveSystemTools = categories.indexOf('System-Tools') != -1;
 var loginId = parseInt(sessionStorage.getItem('scrmAgentId') || -1);
 var token = sessionStorage.getItem('scrmToken') || '';
 var tabType = 'traditional-media'; // for callContent.html inbound call not loading call voice immediately

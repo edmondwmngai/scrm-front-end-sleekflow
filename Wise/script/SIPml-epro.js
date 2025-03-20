@@ -31,7 +31,8 @@ var sipControl = (function () {
       tagBody.appendChild(tagAudio);
 
       // init paramter
-      var opts = options ? options : {};
+      // var opts = options ? options : {};  // 20250320 Unnecessary use of conditional expression for default assignment.
+      var opts = options || {};
 
       this.logined = false;
       this.autoLogin = false;

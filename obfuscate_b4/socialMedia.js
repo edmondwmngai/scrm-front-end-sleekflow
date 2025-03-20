@@ -20,7 +20,8 @@ var tabType = 'social-media'; // for making outbound call
 var runningTopBotom = false; // this is to avoid div scrolled to the multiple top or bottom event triggered
 var isNewGetTicket = false;
 var functions = sessionStorage.getItem('scrmFunctions') || '';
-var noFormInSocial = functions.indexOf('No-Form-In-Social') != -1 ? true : false;
+//var noFormInSocial = functions.indexOf('No-Form-In-Social') != -1 ? true : false;     //20250320 Unnecessary use of boolean literals in conditional expression.
+var noFormInSocial = functions.indexOf('No-Form-In-Social') != -1;
 var WATimeOutObj = {};
 var fbPostTimeoutObj = {};
 // for making outbound call, got reply conn id
@@ -1820,7 +1821,9 @@ function leaveChat(ticketId, caseSaved) {
 function addAdditionalInfo(addedInfo) {
     var ticketId = addedInfo.ticket_id;
     var chatContent = $('#content-' + ticketId);
-    var searchIframeNotYetLoaded = addedInfo.e ? ($('#search-' + ticketId).length > 0 ? false : true) : false; // no need to care did sarch loaded if no e
+    //var searchIframeNotYetLoaded = addedInfo.e ? ($('#search-' + ticketId).length > 0 ? false : true) : false; // no need to care did sarch loaded if no e
+    var searchIframeNotYetLoaded = addedInfo.e && ($('#search-' + ticketId).length === 0);
+
     if (chatContent.length == 0 || searchIframeNotYetLoaded) {
 
         // added counter to avoide looping forever
@@ -2254,7 +2257,8 @@ function createOrUpdateBubble(msgObj) {
         }
         var visitorRow = (entry == 'fb_comment' || entry == 'fb_post') ? '' : ' visitor-row';
         var msgRowId = (entry == 'fb_comment' || entry == 'fb_post') ? 'c' + (theMsg.sc_comment_id + sentTime + theMsg.nick_name).replace(/[ .:]/g, '') : String(msgId || '').replace('.','').replace('=','');
-        var duplicateMsg = msgId == -1 ? false : ((String(msgRowId).length > 0) && contentScrollDiv.find('#' + msgRowId).length > 0 ? true : false); // sad that whatsapp spent too much time, so may cannot get back the msg id instantly
+        //var duplicateMsg = msgId == -1 ? false : ((String(msgRowId).length > 0) && contentScrollDiv.find('#' + msgRowId).length > 0 ? true : false); // sad that whatsapp spent too much time, so may cannot get back the msg id instantly    //20250320 Unnecessary use of boolean literals in conditional expression.
+        var duplicateMsg = msgId !== -1 && String(msgRowId).length > 0 && contentScrollDiv.find('#' + msgRowId).length > 0;
         if (!duplicateMsg) {
 
             // 發送者1:客服,2:enduser

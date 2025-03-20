@@ -3,7 +3,8 @@ var disableMode = false;
 var customerOnly = false;
 var type = parent.type;
 var openType = window.frameElement.getAttribute("openType") || ''; // "menu" or "traditional" or "social"
-var isSocial = window.frameElement.getAttribute("openType") == "social" ? true : false;
+//var isSocial = window.frameElement.getAttribute("openType") == "social" ? true : false;   //20250320 Unnecessary use of boolean literals in conditional expression.
+var isSocial = window.frameElement.getAttribute("openType") == "social";
 let customerId = window.frameElement.getAttribute("customerId") ? parseInt(window.frameElement.getAttribute("customerId")) : -1;
 var internalCaseNo = window.frameElement.getAttribute("internalCaseNo") || -1;
 var caseNo = window.frameElement.getAttribute("caseNo") || -1;
@@ -38,7 +39,8 @@ var langJson = JSON.parse(sessionStorage.getItem('scrmLangJson')) || {};
 var mvcHost = config.mvcHost;
 var wiseHost = config.wiseHost;
 var categories = sessionStorage.getItem('scrmCategories') || '';
-var haveSystemTools = categories.indexOf('System-Tools') != -1 ? true : false;
+//var haveSystemTools = categories.indexOf('System-Tools') != -1 ? true : false;    //20250320 Unnecessary use of boolean literals in conditional expression.
+var haveSystemTools = categories.indexOf('System-Tools') != -1;
 var changeContactCaseNo, changeContactCustomerId;
 
 if (connId != null) {
@@ -2888,7 +2890,8 @@ function generateSecureRandomNumber() {
 function windowOnload() {
     customerData = parent.customerData || null;
     // var inheritAll = customerData && customerData.inheritAll ? customerData.inheritAll : false;
-    isManualUpdate = customerData != undefined && customerData.Case_Is_Valid == 'Y' && customerData.Conn_Id == connId && customerData.Ticket_Id == ticketId ? true : false;
+    //isManualUpdate = customerData != undefined && customerData.Case_Is_Valid == 'Y' && customerData.Conn_Id == connId && customerData.Ticket_Id == ticketId ? true : false;   // 20250320 Unnecessary use of boolean literals in conditional expression.
+    isManualUpdate = customerData != undefined && customerData.Case_Is_Valid == 'Y' && customerData.Conn_Id == connId && customerData.Ticket_Id == ticketId;
     updateCaseObj.Conn_Id = isManualUpdate ? null : connId;
     caseLogLength = sessionStorage.getItem('scrmCaseLogLength') != 'NaN' || sessionStorage.getItem('scrmCaseLength') != null ? Number(sessionStorage.getItem('scrmCaseLength')) : 5 || 5;
     document.getElementById('ip-agent-name').innerHTML = agentName;

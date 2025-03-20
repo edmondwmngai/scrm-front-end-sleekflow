@@ -642,7 +642,8 @@ function submitClicked(type, clickedByPop) {
             className: 'btnColumn'
         }];
         if (canSendWA) {
-            var visible = waChecked === false ? false : true;
+            //var visible = waChecked === false ? false : true; // 20250320 Unnecessary use of boolean literals in conditional expression.
+            var visible = waChecked !== false;
             columns.push({
                 title: '<div class="form-check select-all-div" style="margin-top:-16px">' +
                     '<label class="form-check-label">' +

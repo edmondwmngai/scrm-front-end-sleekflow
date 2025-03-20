@@ -112,13 +112,19 @@ function switchContent(selected, byPass) {
     $('.tab-pane').removeClass('active show');
 
     // clear orignal
+    /*  2025 //Replace this "switch" statement by "if" statements to increase readability.
     switch (selectedCat) {
         case langJson['l-social-campaign']:
             $('#c-container').empty();
             break;
         default:
             break;
+    }   */
+
+    if (selectedCat === langJson['l-social-campaign']) {
+        $('#c-container').empty();
     }
+    
     selectedCat = selected;
     // future move
     switch (selected) {

@@ -2451,7 +2451,8 @@ $(document).ready(function () {
                     data: "Callback_Time",
                     render: function (data, type, row) {
                         if (data) {
-                            var theTime = (data || '').replace('T', ' ').replace(/\.\d+/, "");
+                            //var theTime = (data || '').replace('T', ' ').replace(/\.\d+/, "");    //20250320 for This always evaluates to truthy. Consider refactoring this code.
+                            var theTime = data.replace('T', ' ').replace(/\.\d+/, "");
                             if (new Date(theTime) < new Date()) {
                                 return '<i class="fas fa-bell me-2 text-danger"></i>' + theTime.replace('T', ' ').replace(/\.\d+/, "");
                             } else {

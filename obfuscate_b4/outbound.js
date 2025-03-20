@@ -3991,7 +3991,9 @@ $(document).ready(function () {
                     data: "Callback_Time",
                     render: function (data, type, row) {
                         if ((isAdmin || row.Agent_Id == loginId) && data) {
-                            var theTime = (data || '').replace('T', ' ').replace(/\.\d+/, "");
+                            //var theTime = (data || '').replace('T', ' ').replace(/\.\d+/, ""); //20250320 for This always evaluates to truthy. Consider refactoring this code.
+                            var theTime = data.replace('T', ' ').replace(/\.\d+/, "");
+                            
                             if (new Date(theTime) < new Date()) {
                                 return theTime.replace('T', ' ').replace(/\.\d+/, "") + '<i class="fas fa-bell ms-2 text-danger"></i>';
                             } else {

@@ -1622,7 +1622,11 @@ function windowOnload() {
     console.log(callType);
     console.log('connId');
     console.log(connId);
-    caseLogLength = sessionStorage.getItem('scrmCaseLogLength') != 'NaN' || sessionStorage.getItem('scrmCaseLength') != null ? Number(sessionStorage.getItem('scrmCaseLength')) : 5 || 5;
+
+    //      20250320    Unexpected constant truthiness on the left-hand side of a `||` expression.
+    //    caseLogLength = sessionStorage.getItem('scrmCaseLogLength') != 'NaN' || sessionStorage.getItem('scrmCaseLength') != null ? Number(sessionStorage.getItem('scrmCaseLength')) : 5 || 5;
+    caseLogLength = sessionStorage.getItem('scrmCaseLogLength') != 'NaN' || sessionStorage.getItem('scrmCaseLength') != null ? Number(sessionStorage.getItem('scrmCaseLength')) : 5;
+
     //set basic info
     document.getElementById('ip-agent-name').innerHTML = agentName;
     document.getElementById('customer-id').innerHTML = customerId;

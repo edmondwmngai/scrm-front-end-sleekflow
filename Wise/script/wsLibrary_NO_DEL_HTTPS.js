@@ -1510,7 +1510,8 @@ var wsWiseAgent = {
 
 		function triggerEvent(el, eventName, options) 
 		{
-		  var event;var isIE = /*@cc_on!@*/false || !!document.documentMode;
+		  //var event;var isIE = /*@cc_on!@*/false || !!document.documentMode;			// 20250320 Unexpected constant truthiness on the left-hand side of a `||` expression.
+		  var event;var isIE = !!document.documentMode;
 		  if (window.CustomEvent) 
 		  {
 			//var is_IE_11 = !(window.ActiveXObject) && "ActiveXObject" in window;

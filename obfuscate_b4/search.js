@@ -71,7 +71,10 @@ function searchOnload() {
         $('#search-menu1').addClass('in active');
         $('.l-search-create-case-new-customer').text(langJson['l-search-create-case']);
     }
-    recordPerPage = sessionStorage.getItem('scrmCaseLength') != 'NaN' || sessionStorage.getItem('scrmCaseLength') != null ? Number(sessionStorage.getItem('scrmCaseLength')) : 5 || 5;
+    //20250320 Unexpected constant truthiness on the left-hand side of a `||` expression.
+	//recordPerPage = sessionStorage.getItem('scrmCaseLength') != 'NaN' || sessionStorage.getItem('scrmCaseLength') != null ? Number(sessionStorage.getItem('scrmCaseLength')) : 5 || 5;
+	recordPerPage = sessionStorage.getItem('scrmCaseLength') != 'NaN' || sessionStorage.getItem('scrmCaseLength') != null ? Number(sessionStorage.getItem('scrmCaseLength')) : 5;
+
     $('.default-auto-table').attr('data-page-length', recordPerPage);
     loadGrid();
     loadFields();

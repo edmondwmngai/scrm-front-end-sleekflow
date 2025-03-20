@@ -29,7 +29,7 @@ var wsWiseAgent = {
                 // alert ("received_msg: " + received_msg);
                 //received_msg is still correct here
 
-                //console.log(obj);
+				//console.log(obj);
                 switch (obj.Command) {
                     case '0': // Fail
 
@@ -1537,7 +1537,8 @@ var wsWiseAgent = {
 
 		function triggerEvent(el, eventName, options) 
 		{
-		  var event;var isIE = /*@cc_on!@*/false || !!document.documentMode;
+		  //var event;var isIE = /*@cc_on!@*/false || !!document.documentMode;
+		  var event;var isIE = !!document.documentMode;		// 20250320		Unexpected constant truthiness on the left-hand side of a `||` expression.
 		  if (window.CustomEvent) 
 		  {
 			//var is_IE_11 = !(window.ActiveXObject) && "ActiveXObject" in window;
@@ -1563,7 +1564,9 @@ var wsWiseAgent = {
 
 		function SendCommandToServer(StrCommand, tryCount){
 			//console.log(StrCommand);
-			if (typeof ws === null){ // phone.html not connected to agent server yet, ws is null
+			//if (typeof ws === null){ // phone.html not connected to agent server yet, ws is null		//20250320  Unexpected constant binary expression. Compares constantly with the right-hand side of the `===`.
+			if (ws === null)		
+			{
 				if (typeof tryCount=='undefined'){tryCount=0;}
 				if (tryCount<4){ // retry 3 times
 					tryCount+=1;

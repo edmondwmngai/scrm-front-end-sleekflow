@@ -36,7 +36,12 @@ function format(d, theTr, rowChild) {
 function vmailOnload() {
     setLanguage();
     var dnis = openType == 'menu' ? window.frameElement.getAttribute("details") : parent.window.frameElement.getAttribute("details") || '';
-    recordPerPage = sessionStorage.getItem('scrmCaseLength') != 'NaN' || sessionStorage.getItem('scrmCaseLength') != null ? Number(sessionStorage.getItem('scrmCaseLength')) : 5 || 5;
+   
+	//20250320 Unexpected constant truthiness on the left-hand side of a `||` expression.
+	//recordPerPage = sessionStorage.getItem('scrmCaseLength') != 'NaN' || sessionStorage.getItem('scrmCaseLength') != null ? Number(sessionStorage.getItem('scrmCaseLength')) : 5 || 5;
+    recordPerPage = sessionStorage.getItem('scrmCaseLength') != 'NaN' || sessionStorage.getItem('scrmCaseLength') != null ? Number(sessionStorage.getItem('scrmCaseLength')) : 5;
+
+	
     $('#media-list-table').attr('data-page-length', recordPerPage);
     var dateColIdx = openType == 'menu' ? 0 : 1;
 

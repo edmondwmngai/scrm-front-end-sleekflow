@@ -23,7 +23,8 @@ var wsWiseMonitor = {
 	},
 	triggerEvent : function (el, eventName, options) 
 	{
-	  var event;var isIE = false || !!document.documentMode;
+	  //var event;var isIE = false || !!document.documentMode;		// 20250320 Unexpected constant truthiness on the left-hand side of a `||` expression.
+	  var event;var isIE = !!document.documentMode;
 	  if (window.CustomEvent) 
 	  {
 		//var is_IE_11 = !(window.ActiveXObject) && "ActiveXObject" in window;

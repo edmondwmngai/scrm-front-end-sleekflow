@@ -23,7 +23,10 @@ function replyCallClick(lastCallType, lastCallID, confConnID) {
     iframeInputForm.contentWindow.replyCallClick(lastCallType, lastCallID, confConnID);
 }
 
-var recordPerPage = sessionStorage.getItem('scrmCaseLength') != 'NaN' || sessionStorage.getItem('scrmCaseLength') != null ? Number(sessionStorage.getItem('scrmCaseLength')) : 5 || 5;
+//20250320 Unexpected constant truthiness on the left-hand side of a `||` expression.
+//var recordPerPage = sessionStorage.getItem('scrmCaseLength') != 'NaN' || sessionStorage.getItem('scrmCaseLength') != null ? Number(sessionStorage.getItem('scrmCaseLength')) : 5 || 5;
+var recordPerPage = sessionStorage.getItem('scrmCaseLength') != 'NaN' || sessionStorage.getItem('scrmCaseLength') != null ? Number(sessionStorage.getItem('scrmCaseLength')) : 5;
+
 var campaign = ''; // = window.frameElement.getAttribute("campaign") || '';
 var langJson = JSON.parse(sessionStorage.getItem('scrmLangJson')) || {};
 var mvcHost = config.mvcHost;

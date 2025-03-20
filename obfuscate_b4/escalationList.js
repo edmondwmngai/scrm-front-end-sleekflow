@@ -1,7 +1,11 @@
 var escalationListArr = [];
 var incompleteCasesArr = [];
 var agentId = parseInt(sessionStorage.getItem('scrmAgentId')) || -1;
-var recordPerPage = sessionStorage.getItem('scrmCaseLength') != 'NaN' || sessionStorage.getItem('scrmCaseLength') != null ? Number(sessionStorage.getItem('scrmCaseLength')) : 5 || 5;
+
+//20250320 Unexpected constant truthiness on the left-hand side of a `||` expression.
+//var recordPerPage = sessionStorage.getItem('scrmCaseLength') != 'NaN' || sessionStorage.getItem('scrmCaseLength') != null ? Number(sessionStorage.getItem('scrmCaseLength')) : 5 || 5;
+var recordPerPage = sessionStorage.getItem('scrmCaseLength') != 'NaN' || sessionStorage.getItem('scrmCaseLength') != null ? Number(sessionStorage.getItem('scrmCaseLength')) : 5;
+
 var campaign = parent.campaign;
 var langJson = JSON.parse(sessionStorage.getItem('scrmLangJson')) || {};
 // function to resize this search iframe

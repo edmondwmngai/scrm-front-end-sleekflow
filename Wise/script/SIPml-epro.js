@@ -204,10 +204,12 @@ var sipControl = (function () {
             alert('Screen sharing not supported. Are you using chrome 26+?');
             return;
           }
-          if (!location.protocol.match('https')) {
+          //if (!location.protocol.match('https')) {    // 20250320 Use the "RegExp.exec()" method instead. 
+          if (!/https/.exec(location.protocol)) {
             alert('Screen sharing requires https://');
             return;
           }
+          
         }
 
         if (that.connectParameter.BandWidth) that.oConfigCall.bandwidth = that.connectParameter.BandWidth;

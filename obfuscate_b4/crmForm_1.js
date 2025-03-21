@@ -418,7 +418,7 @@ function saveClicked() {
 
     // if no call sendObj.Reply_Conn_Id is undefined
 
-    sendObj.Reply_Conn_Id == sendObj.Reply_Conn_Id ?? '';           // sendObj.Reply_Conn_Id == sendObj.Reply_Conn_Id || '';  //  20250321 use ?? to check undefined value
+    sendObj.Reply_Conn_Id = sendObj.Reply_Conn_Id ?? '';           // sendObj.Reply_Conn_Id == sendObj.Reply_Conn_Id || '';  //  20250321 use ?? to check undefined value
 
     sendObj.Reply_Details = replyDetails;
     var callbackDateTime = $('#callback-datetime').val() || '';

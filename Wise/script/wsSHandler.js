@@ -279,10 +279,14 @@ class WSSHandler {
 
 		const json = await response.json();
 		if(json.result=="success")
+		{
 			return json.details;
+		}
 		else
+		{
 			console.log(json.details);
 			return null;
+		}
 	};
 	
 	async requestConference(data)

@@ -3483,7 +3483,8 @@
 									}, 3000);
 								}
 							case 1:
-								if (!(sendMsgResult.result == "")) {
+								//if (!(sendMsgResult.result == "")) {	// 20250321	Use the opposite operator (!=) instead.
+								if (sendMsgResult.result != "") {	
 									_context.next = 5;
 									break;
 								}
@@ -3578,7 +3579,8 @@
 									wsWiseAgent.SendFileToConnector(ticketId, 0, [0], filePath);
 								}
 							case 1:
-								if (!(sendFileResult.result == "")) {
+							   //if (!(sendMsgResult.result == "")) {	// 20250321	Use the opposite operator (!=) instead.
+								if (sendMsgResult.result != "") {	
 									_context.next = 5;
 									break;
 								}
@@ -3789,7 +3791,8 @@
 								wsWiseAgent.SendEmail_UC(emailTo, emailCc, "", emailFrom, emailSubject, attachedFiles, 0, emailFrom, 3, emailContent);
 
 							case 1:
-								if (!(callID == 0)) {
+								//if (!(callID == 0)) {		// 20250321 Use the opposite operator (!=) instead.
+								if (callID != 0) {
 									_context.next = 6;
 									break;
 								}

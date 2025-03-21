@@ -360,7 +360,7 @@ function delCookie(cvalue) {
 function getCookie(name) {
         let ca = document.cookie.split(';');
         for (let c of ca) {
-                if (c.indexOf(name) == 0) {
+                if (c.startsWith(name)) {       // if (c.indexOf(name) == 0) {   20250321    //   Use 'String#startsWith' method instead.
                         return c.substring(name.length + 1, c.length);
                 }
         }

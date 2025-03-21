@@ -254,7 +254,8 @@ function verify(e) {
                 var companies = details.Companies || '';
                 if (customCompany != 'no') {
                     var companyArr = companies.split(',');
-                    if (restorable === false && companyArr.indexOf(customCompany) == -1) {
+                    //if (restorable === false && companyArr.indexOf(customCompany) == -1) {    // 20250321  Remove this "===" check; it will always be false. 
+                    if (restorable == false && companyArr.indexOf(customCompany) == -1) {
                         $('#warning-msg').html("The user you are tring to login cannot access to " + customCompany);
                         returnNormalLogin();
                         var staffID = document.getElementById('staffID');
@@ -328,6 +329,8 @@ $(document).ready(function() {
     customCompany = getParameterByName('custom') ? getParameterByName('custom') : (config.customCompany || 'no');
     $('#language-select').val(language);
     if (restorable) {
+
+        /*
         $('[data-bs-toggle=confirmation]').confirmation({
             rootSelector: '[data-bs-toggle=confirmation]',
             popout: true,
@@ -335,6 +338,7 @@ $(document).ready(function() {
             btnOkLabel: langJson['l-general-ok-label'],
             btnCancelLabel: langJson['l-general-cancel-label']
         });
+        */
         $('#restore-btn').removeClass('d-none');
     }
     if (customCompany != 'no' && (config.isDemo == undefined || !config.isDemo)) {

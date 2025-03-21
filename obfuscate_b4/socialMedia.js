@@ -2258,7 +2258,7 @@ function createOrUpdateBubble(msgObj) {
         var visitorRow = (entry == 'fb_comment' || entry == 'fb_post') ? '' : ' visitor-row';
         var msgRowId = (entry == 'fb_comment' || entry == 'fb_post') ? 'c' + (theMsg.sc_comment_id + sentTime + theMsg.nick_name).replace(/[ .:]/g, '') : String(msgId || '').replace('.','').replace('=','');
         //var duplicateMsg = msgId == -1 ? false : ((String(msgRowId).length > 0) && contentScrollDiv.find('#' + msgRowId).length > 0 ? true : false); // sad that whatsapp spent too much time, so may cannot get back the msg id instantly    //20250320 Unnecessary use of boolean literals in conditional expression.
-        var duplicateMsg = msgId !== -1 && String(msgRowId).length > 0 && contentScrollDiv.find('#' + msgRowId).length > 0;
+        var duplicateMsg = msgId != -1 && String(msgRowId).length > 0 && contentScrollDiv.find('#' + msgRowId).length > 0;
         if (!duplicateMsg) {
 
             // 發送者1:客服,2:enduser

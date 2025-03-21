@@ -2327,7 +2327,7 @@ function createOrUpdateBubble(msgObj) {
 
         //20250320 Unnecessary use of boolean literals in conditional expression.
         //var duplicateMsg = msgId == -1 ? false : ((String(msgRowId).length > 0) && contentScrollDiv.find('#' + msgRowId).length > 0 ? true : false); // sad that whatsapp spent too much time, so may cannot get back the msg id instantly
-        var duplicateMsg = msgId !== -1 && (String(msgRowId).length > 0) && contentScrollDiv.find('#' + msgRowId).length > 0;
+        var duplicateMsg = msgId != -1 && (String(msgRowId).length > 0) && contentScrollDiv.find('#' + msgRowId).length > 0;
 
         if (!duplicateMsg) {
 

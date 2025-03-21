@@ -47,9 +47,9 @@ var sip = sipControl({
         // txtLog.value = now() + ' ' + JSON.stringify(message) + '\r\n\r\n' + txtLog.value;
         console.log('app message =', message);
         if (message.Type === 'connection') {
-            // lblConnStatus.innerText = message.Message;
+            // lblConnStatus.innerText = "connection:" +  message.Message;
         } else if (message.Type === 'call') {
-            // lblCallStatus.innerText = message.Message;
+            // lblCallStatus.innerText = "call:" + message.Message;
 		}
     },
 });

@@ -1110,7 +1110,7 @@ function windowOnload() {
 
     var type = parent.type;
     //isManualUpdate = customerData != undefined && customerData.Case_Is_Valid == 'Y' && customerData.Conn_Id == connId && customerData.Ticket_Id == ticketId ? true : false;  // 20250320 Unnecessary use of boolean literals in conditional expression.
-    isManualUpdate = customerData != undefined && customerData.Case_Is_Valid == 'Y' && customerData.Conn_Id == connId && customerData.Ticket_Id == ticketId ? true : false;
+    isManualUpdate = customerData != undefined && customerData.Case_Is_Valid == 'Y' && customerData.Conn_Id == connId && customerData.Ticket_Id == ticketId;
     updateCaseObj.Conn_Id = isManualUpdate ? null : connId;
     
     // 20250320 Unexpected constant truthiness on the left-hand side of a `||` expression.

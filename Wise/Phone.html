@@ -2319,7 +2319,7 @@
 			//console.log(ticketList[idx]);
 
 			//var bEvent = (ticketList[idx].online_form_data.length == 0) ? true : false;	//20250320 Unnecessary use of boolean literals in conditional expression.
-			var bEvent = (ticketList[idx].online_form_data.length == 0) ? true : false;
+			var bEvent = (ticketList[idx].online_form_data.length == 0);
 			ticketList[idx].online_form = 1;
 			ticketList[idx].online_form_data = obj.data;
 			//console.log(currSocialMsg);

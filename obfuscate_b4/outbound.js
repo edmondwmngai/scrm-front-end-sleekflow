@@ -3400,7 +3400,7 @@ function showLogForm(showForm) {
 
     var customerData = window.customerData;
 
-    if (showForm) {
+    if (showForm && customerData) {         //if (showForm) {   20250321  TypeError can be thrown as "customerData" might be null or undefined here.
         var theFormId = $('#o-search-campaign-select option[value="' + customerData.Campaign_Code + '"]').attr('formid');
 
         // added the date behind to refresh the page

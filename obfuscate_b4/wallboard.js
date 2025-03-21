@@ -304,7 +304,7 @@ function initCallDou() {
         // update data
         callDou.data.datasets[0].data = agentSatusSample;
         // update label calback
-        callDou.options.tooltips.callbacks.label = callDou.options.tooltips.callbacks.label;
+        // callDou.options.tooltips.callbacks.label = callDou.options.tooltips.callbacks.label;     // 20250321 callDou.options.tooltips.callbacks.label' is assigned to itself.
         callDou.options.elements.center.text = toalAvailableAgent + ' agents';
         callDou.update();
     } else {
@@ -465,7 +465,7 @@ function initChatDou() {
         // Update data
         socialDou.data.datasets[0].data = agentSatusSample;
         // Update label calback
-        socialDou.options.tooltips.callbacks.label = socialDou.options.tooltips.callbacks.label;
+        // socialDou.options.tooltips.callbacks.label = socialDou.options.tooltips.callbacks.label; // 20250321 callDou.options.tooltips.callbacks.label' is assigned to itself.
         socialDou.options.elements.center.text = toalAvailableAgent + ' agents';
         socialDou.update();
     } else {

@@ -587,9 +587,10 @@ function saveClicked(isTemp, callback) { // 1. declare 2. verify 3. update custo
     if (updateCaseObj.Reply_Conn_Id) {
         if (isSocial) {
             updateCaseObj.Ticket_Id = updateCaseObj.Reply_Conn_Id;
-        } else {
-            updateCaseObj.Reply_Conn_Id = updateCaseObj.Reply_Conn_Id
         }
+        //else {        //  20250321 'updateCaseObj.Reply_Conn_Id' is assigned to itself.
+        //    updateCaseObj.Reply_Conn_Id = updateCaseObj.Reply_Conn_Id
+        //}
     }
     if (ivrInfo != undefined) {
         updateCaseObj.IVR_Info = ivrInfo;

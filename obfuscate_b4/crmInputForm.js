@@ -1309,9 +1309,9 @@ function saveClicked(isTemp, callback) { // 1. declare 2. verify 3. update custo
     // }
 
     // Reply_Conn_Id is unlike Conn_Id int
-    if (updateCaseObj.Reply_Conn_Id) {
-        updateCaseObj.Reply_Conn_Id = updateCaseObj.Reply_Conn_Id
-    }
+    //if (updateCaseObj.Reply_Conn_Id) {        20250321    'updateCaseObj.Reply_Conn_Id' is assigned to itself.
+        //updateCaseObj.Reply_Conn_Id = updateCaseObj.Reply_Conn_Id 
+    //}
     // ====================== For Report & Customer Journey ======================
     // If have inbound, save Inbound_Time
     if (updateCaseObj.Call_Type && updateCaseObj.Call_Type.length > 0 && connId) {

@@ -138,7 +138,8 @@ function showSearch(rowData, webchatFields) { // call from incomplete cases etc.
     window.frameElement.setAttribute('details', rowData.Type_Details);
 
     // added for Incomplete Cases's Outbound Call
-    if (rowData.Reply_Conn_Id != null && rowData.Reply_Conn_Id != null) {
+    //if (rowData.Reply_Conn_Id != null && rowData.Reply_Conn_Id != null) {     //  
+    if (rowData.Reply_Conn_Id != null) {       // 20250321 Correct one of the identical sub-expressions on both sides of operator "&&"
         window.frameElement.setAttribute('replyConnId', rowData.Reply_Conn_Id);
         window.frameElement.setAttribute('replyDetails', rowData.Reply_Details);
         openCaseNo = rowData.Internal_Case_No || '';

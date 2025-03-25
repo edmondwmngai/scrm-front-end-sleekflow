@@ -1119,7 +1119,8 @@ function insertInsuredPersonalInfoForm(person) {
         .appendTo("#insured-personal-info-" + person)
 
     $(person + "-hkid-input").on('blur', function () {
-        checkHKID(this.value, this);
+        //checkHKID(this.value, this);		// 20250325 This function expects 1 argument, but 2 were provided.
+		checkHKID(this.value);
     })
 
     if (person == "main") {
@@ -1801,5 +1802,7 @@ function checkHKID(str) {
 }
 
 $('#applicant-hkid-input').on('blur', function () {
-    checkHKID(this.value, this);
+    //checkHKID(this.value, this);	//20250325 This function expects 1 argument, but 2 were provided.
+	checkHKID(this.value);
+	
 })

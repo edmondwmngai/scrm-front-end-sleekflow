@@ -76,7 +76,7 @@ function addSearchField(type) {
 function isInteger(num) {  //Number.isInteger only work on Chrome, not IE, so have this function
     return (num ^ 0) === num;
 }
-function submitClicked() {
+function submitClicked(type) {   //20250325 This function expects no arguments, but 1 was provided.
     var campaign = window.opener.parent.campaign || '';
     var allAny = $('.customer-all-any option:selected')[0].value;
     var searchCondition = $('.customer-search-condition option:selected');

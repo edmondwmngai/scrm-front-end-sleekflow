@@ -1733,7 +1733,13 @@
 				initMediaCount();
 				updateQueueTimer = window.setInterval("updateQueueTicker()", 60000, "javascript");
 			} else if (resultCmd == 150) { //Unhold
-				holdingConnIDs.pop();
+				
+				
+				if (holdingConnIDs.length > 0) {	// add if to "review this usage of "holdingConnIDs" as it can only be empty here.""
+    				holdingConnIDs.pop();
+				}
+				
+				
 				var parentholdBtn = parent.$("#icon-line-1")
 				parentholdBtn.attr("title", "Hold Call");
 				parentholdBtn.find('i').addClass('fa-pause').removeClass('fa-play');

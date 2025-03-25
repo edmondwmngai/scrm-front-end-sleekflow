@@ -298,7 +298,7 @@ table.dataTable thead {
     text-align: left;
 }
 
-tabletable.dataTable>tr th {
+table.dataTable>tr th {
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
@@ -420,6 +420,26 @@ table.dataTable.order-column.stripe tbody tr.even>.sorting_1 {
     float: right;
     position: relative;
     bottom: 10px;
+}
+
+
+.dt-paging-button page-item {
+    border: 0;
+    border-radius: 30px !important;
+    transition: all .3s;
+    padding: 0px 11px;
+    margin: 0 3px;
+    min-width: 36px;
+    height: 66px;
+    line-height: 36px;
+    color: rgb(100, 100, 100);
+    font-weight: 400;
+    font-size: 12px;
+    text-transform: uppercase;
+    background: transparent;
+    text-align: center;
+    cursor: pointer;
+    font-weight: bold;
 }
 
 /* a.paginate_button {

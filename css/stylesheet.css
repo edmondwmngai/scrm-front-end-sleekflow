@@ -44,13 +44,6 @@ TEXTAREA {
     SCROLLBAR-BASE-COLOR: aliceblue
 }
 
-UNKNOWN {
-    BORDER-RIGHT: 2px inset;
-    BORDER-TOP: 2px inset;
-    BORDER-LEFT: 2px inset;
-    BORDER-BOTTOM: 2px inset;
-}
-
 SELECT {
     FONT-SIZE: 12px;
     FONT-FAMILY: "Arial", "Helvetica", "sans-serif";

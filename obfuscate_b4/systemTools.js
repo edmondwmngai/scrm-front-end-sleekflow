@@ -544,8 +544,9 @@ function emailSetting(emailType, apiName, addBack, newGet) {
                                 emailContent = emailContent.replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '');
                                 $("#junk-mail-body").html(emailContent);
                                 $("#junk-mail-attachment").html('');
-                                for (i = 0; i < record.Attachments.length; i++) {
-                                    var attachment = record.Attachments[i];
+                                //for (i = 0; i < record.Attachments.length; i++) {     // 20250325 for Loop counters should not be assigned within the loop body
+                                for (var j = 0; j < record.Attachments.length; j++) {
+                                    var attachment = record.Attachments[j]; //[i]=>[j];
                                     var objDiv = document.createElement("span");
                                     var fileName = attachment.FileName;
                                     var escapedFileName = escape(fileName);

@@ -319,9 +319,14 @@ function initFBTbl() {
 }
 
 function initFormLayout() {
+
+    //20250325 Update this function so that its implementation is not identical to the one on line 220.
+    initFBLayout();
+    /*
     var initContainerStr = '<div><table><tr><td><label class="me-2 form-label">Form Layout</label></td><td><select id="form-layout-select" class="form-select"></select></td></tr></table></div>' +
         '<div>Form Name</div>';
     $('#b-container').empty().append(initContainerStr);
+    */
 }
 
 function initFormTbl() {

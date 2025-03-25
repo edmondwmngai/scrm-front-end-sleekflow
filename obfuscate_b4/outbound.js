@@ -3409,11 +3409,19 @@ function showLogForm(showForm) {
         $('#o-input-form').attr('src', newSrc).show(); // add the time to refresh the page
     }
 
+    //20250321  TypeError can be thrown as "customerData" might be null or undefined here.
+    var Call_id = 0;
+    if (customerData)
+    {
+        Call_id = customerData.Call_Id;
+    }
+    //
+
     $.ajax({
         type: "POST",
         url: mvcHost + '/mvc' + campaign + '/api/GetOBCallLog',
         data: JSON.stringify({
-            Call_Id: customerData.Call_Id,
+            Call_Id: Call_id,
             Agent_Id: loginId,
             Token: token
         }),

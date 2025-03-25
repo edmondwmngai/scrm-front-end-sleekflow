@@ -2053,10 +2053,19 @@ function callOnkeydown() { // if pressed Enter, equal pressed Dial button
     }
 }
 
+//function validateEmail(email) {
+//    var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+//    return re.test(String(email).toLowerCase());
+//}
+// 20250325 for Simplify this regular expression to reduce its complexity from 34 to the 20 allowed.
 function validateEmail(email) {
-    var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    return re.test(String(email).toLowerCase());
+    var localPartRe = /^([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*|(".+"))$/;
+    var domainPartRe = /^((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
+    const [localPart, domainPart] = email.split('@'); // Split email by '@'
+    return localPartRe.test(localPart) && domainPartRe.test(domainPart); // Validate both parts
 }
+
 
 function updateClicked(isTemp) {
     // verifyEmail

@@ -2060,13 +2060,19 @@ function callOnkeydown() { // if pressed Enter, equal pressed Dial button
 // 20250325 for Simplify this regular expression to reduce its complexity from 34 to the 20 allowed.
 function validateEmail(email) {
     var localPartRe = /^([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*|(".+"))$/;
-    var domainPartRe = /^((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    
+    var domainIpRe = /^\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\]$/; // Matches an IPv4 address
+    var domainNameRe = /^(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,})$/; // Matches domain names
+
 
     const [localPart, domainPart] = email.split('@'); // Split email by '@'
-    return localPartRe.test(localPart) && domainPartRe.test(domainPart); // Validate both parts
+
+    // Validate local part and domain part separately
+    return (
+        localPartRe.test(localPart) &&
+        (domainIpRe.test(domainPart) || domainNameRe.test(domainPart)) // Check either IP or domain name
+    );
 }
-
-
 function updateClicked(isTemp) {
     // verifyEmail
     var email = document.getElementById('Email').value || ''

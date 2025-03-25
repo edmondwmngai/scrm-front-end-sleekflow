@@ -508,7 +508,8 @@ function emailSetting(emailType, apiName, addBack, newGet) {
                             render: function (data, type, row) {
                                 var newData = '';
                                 if (data != null) {
-                                    newData = data.replace(new RegExp(' <br/>|<br/> |<br/>', 'g'), '');
+                                    //newData = data.replace(new RegExp(' <br/>|<br/> |<br/>', 'g'), '');   // 20250325 Use a regular expression literal instead of the 'RegExp' constructor.
+                                    newData = data.replace(/ <br\/>|<br\/> |<br\/>/g, '');
                                 }
                                 return newData.trim();
                             }

@@ -1777,8 +1777,8 @@ function loadBatchTbl() {
                         }
                         tpPropsNo = parseInt($('input[name=tp]').attr('props')); //no. of params
 
-                        var selectedTP = undefined;
-                        selectedTP = $('input[name=tp]').val();
+					 // var selectedTP = undefined;	// 20250326 (JavaScript) Variables should not be initialized to undefined
+                        var selectedTP = $('input[name=tp]').val();
                         if (selectedTP == undefined) {
                             alert(langJson['l-campaign-template-blank']);
                             return;
@@ -2640,9 +2640,9 @@ function sendTP(event) {
         tpPropsNo = countPattern(theTemplate);
     }
 
-    // verify has selected template
-    var selectedTP = undefined;
-    selectedTP = $('input[name=tp]:checked').val();
+    // verify has selected template		
+    // var selectedTP = undefined;	// 20250326 (JavaScript) Variables should not be initialized to undefined
+    var selectedTP = $('input[name=tp]:checked').val();
     if (selectedTP == undefined) {
         alert(langJson['l-campaign-template-blank']);
         return;

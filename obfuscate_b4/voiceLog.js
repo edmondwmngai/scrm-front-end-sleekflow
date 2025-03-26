@@ -50,7 +50,8 @@ function searchVoiceClicked() {
         alertMsg += "Start Date cannot be empty";
         hasError = true;
     } else {
-        if (!/^\d{4}(-|\/)(0?[1-9]|1[012])(-|\/)(0?[1-9]|[12][0-9]|3[01])$/.test(startDate)) {
+        //if (!/^\d{4}(-|\/)(0?[1-9]|1[012])(-|\/)(0?[1-9]|[12][0-9]|3[01])$/.test(startDate)) {        // 20250326 Replace this alternation with a character class
+        if (!/^\d{4}(-\/)(0?[1-9]|1[012])(-\/)(0?[1-9]|[12][0-9]|3[01])$/.test(startDate)) {    
             if (alertMsg.length > 0) {
                 alertMsg += "\n"
             }
@@ -66,7 +67,8 @@ function searchVoiceClicked() {
         alertMsg += "End Date cannot be empty";
         hasError = true;
     } else {
-        if (!/^\d{4}(-|\/)(0?[1-9]|1[012])(-|\/)(0?[1-9]|[12][0-9]|3[01])$/.test(endDate)) {
+        //if (!/^\d{4}(-|\/)(0?[1-9]|1[012])(-|\/)(0?[1-9]|[12][0-9]|3[01])$/.test(endDate)) {      // 20250326 Replace this alternation with a character class
+        if (!/^\d{4}(-\/)(0?[1-9]|1[012])(-\/)(0?[1-9]|[12][0-9]|3[01])$/.test(endDate)) {        
             if (alertMsg.length > 0) {
                 alertMsg += "\n"
             }

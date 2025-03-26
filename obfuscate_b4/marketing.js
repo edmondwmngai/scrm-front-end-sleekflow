@@ -2679,6 +2679,8 @@ function confirmSendTp() {
             // alert(replyObj.msg + '\nSend failed');
             // $('#' + sendPhoneArr[0]).first().parent().parent().parent().empty().append('<i class="fas fa-times"></i>');
             // $('#error-log').append('<div><i class="fas fa-exclamation-triangle me-2"></i><span>Failed to send template to: ' + sendPhoneArr[0] + '</span></div>');
+
+            console.log(replyObj.msg + '\nSend failed');        // 20250326 Remove this conditional structure or edit its code blocks so that they're not all the same.
         } else {
             // alert('success');
         }

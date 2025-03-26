@@ -3652,11 +3652,16 @@ $(document).ready(function () {
 
     $('#a-within-batch-period').on('change', function (e) {
         var checked = $(this).prop('checked');
-        if (checked) {
+
+        /*  //20250326 Remove this conditional structure or edit its code blocks so that they're not all the same.
+        if (checked) {  
             loadBatchTbl(false);
         } else {
             loadBatchTbl(false);
         }
+        */
+        loadBatchTbl(false);
+
         return false;
     })
 

@@ -296,10 +296,10 @@
 		  if (confirm('End Session')) {
 			  endSession = true;
 		  }
-		  else
-		  {
-			  endSession = false;
-		  }
+	//	  else						20250326 Review this redundant assignment:
+	//	  {
+	//		  endSession = false;
+	//	  }
 
 		  if (endSession) {
 			  var loginId = top.loginId;

@@ -784,7 +784,7 @@ function passFormClicked(ticketId) {
     var agentArrDivs = '';
     var confAgentAttr = $('#channel-' + ticketId).attr('roomAgents') || '';
     var roomAgents = confAgentAttr != null && confAgentAttr.length > 0 ? confAgentAttr.split(',') : [];
-    var agentArrDivs = ''
+    //var agentArrDivs = ''     //20250326 Review this redundant assignment:
     for (let theAgentId of roomAgents) {
         if (theAgentId != loginId) {
             var agentName = parent.getAgentName(theAgentId);

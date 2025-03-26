@@ -336,7 +336,7 @@ function saveClicked() {
     }
     var sendObj = {};
     var callReason = '';
-    var replyDetails = '';
+    //var replyDetails = '';     // 20200326 Review this redundant assignment
     // == Verify == 
     var callStatus = document.getElementById('call-status').value || '';
     if (callStatus.length == 0) {

@@ -467,7 +467,7 @@ function countPattern(str) {
 function getCurrentSdObj() {
     var sendObj = {};
     var callReason = '';
-    var replyDetails = '';
+    //var replyDetails = '';         // 20200326 Review this redundant assignment
     // var productCode = '';
     // var planCode = '';
     // var planPrice = '';

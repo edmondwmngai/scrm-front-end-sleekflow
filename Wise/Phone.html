@@ -1437,7 +1437,7 @@
 		}
 
 		function checkWebSocketState(websocket) {
-			var result = true;
+            var result = null;		// var result = true;		//20250326	Review this redundant assignment:
 			var message = "";
 
 			switch (websocket.readyState) {

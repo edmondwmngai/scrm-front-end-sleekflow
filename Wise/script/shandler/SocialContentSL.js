@@ -151,7 +151,7 @@ var SC = {
                         '<i class="fas fa-phone me-2"></i>' + theBtn.display +
                         '</div>')
                 } else if (theBtn.type == 'website') {
-                    var onClickStr = '';
+                 // var onClickStr = '';     // 20250326 Review this redundant assignment:
                     var urlObj = theBtn.url;
                     if (urlObj) {
                         if (forPopup) {

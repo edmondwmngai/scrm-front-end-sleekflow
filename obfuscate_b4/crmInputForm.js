@@ -1282,7 +1282,7 @@ function saveClicked(isTemp, callback) { // 1. declare 2. verify 3. update custo
     } else if (replyChannel == 'wa') {
         replyType = 'Outbound_WhatsApp';
     } else {
-        replyType = ''; // none
+        // replyType = ''; // none        /// 20200326 Review this redundant assignment
     }
     updateCaseObj = $.extend(updateCaseObj, {
         Internal_Case_No: internalCaseNo != null ? Number(internalCaseNo) : null,

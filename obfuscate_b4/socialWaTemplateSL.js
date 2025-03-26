@@ -450,8 +450,8 @@ $(document).ready(function () {
             wa_config = '<div class="wa-right-config">' + wa_pros + '    </div>';
             crmText = crmText + wa_config;
 
-            var selectBtnStr = 'selectClicked(this)';
-            fileContainer.append('<tr class="row-container"><td id="display-msg-' + tpId + '" style="border: 2px solid darkgray;">' + crmText + '</td><td class="btn-cell"><button class="btn btn-sm rounded btn-info text-capitalize" onclick=' + selectBtnStr + '><i class="fas fa-mouse-pointer me-2"></i><span>' + langJson['l-campaign-select'] + '</span></button></td></tr>')
+            var selectBtn = 'selectClicked(this)';
+            fileContainer.append('<tr class="row-container"><td id="display-msg-' + tpId + '" style="border: 2px solid darkgray;">' + crmText + '</td><td class="btn-cell"><button class="btn btn-sm rounded btn-info text-capitalize" onclick=' + selectBtn + '><i class="fas fa-mouse-pointer me-2"></i><span>' + langJson['l-campaign-select'] + '</span></button></td></tr>')
         }
 
       

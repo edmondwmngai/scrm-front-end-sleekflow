@@ -58,6 +58,13 @@
             float: right;
             margin-bottom: 0.4rem;
         }
+        .customer-all-any {
+            margin-botton: 22px;
+            border-color: #dee2e6;
+        }
+        .align-items-center {
+            margin-bottom: 8px;
+        }
     </style>
 </head>
 
@@ -73,18 +80,18 @@
                 <div class="center-content">
                     <div>
                         <div class="d-flex align-items-center"><span class="l-search-match"></span>
-                            <select class="customer-all-any form-select mx-3">
+                            <select class="customer-all-any form-select-sm md-1">
                                 <option class="l-search-all" value="all"></option>
                                 <option class="l-search-any" value="any"></option>
                             </select>&nbsp;<span class="l-search-of-the-following"></span>
                         </div>
                         <div id='customer-search-list' class="display" style="width:100%">
                             <div class="customer-search-item mb-3 d-flex align-items-center mb-1">
-                                <select class="customer-search-condition form-select me-3">
+                                <select class="customer-search-condition form-select form-select-sm me-3 col-md-3">
                                     <option disabled="disabled" value='' selected="selected">=== Customer List ===
                                     </option>
                                 </select>
-                                <select class="customer-search-symbol form-select me-3">
+                                <select class="customer-search-symbol form-select form-select-sm me-3 col-md-3">
                                     <option class='text-symbol field-symbol is-contains-symbol' value="contains">
                                         contains</option>
                                     <option class='text-symbol select-symbol is-contains-symbol' value="is">is</option>

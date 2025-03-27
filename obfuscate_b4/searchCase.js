@@ -514,10 +514,10 @@ function addSearchField(type) {
     // set deafault text field and remove datepicker if availalbe and add rubblish bin
     $(cln).find("input").remove();
     if (type == 'customer') {
-        $('<input class="case-search-input form-control" type="search">').appendTo($(cln));
+        $('<input class="case-search-input form-control form-control-sm" type="search">').appendTo($(cln));      // 20250327 add 'form-select-sm' for Bootstrap 5 upgrade
     } else {
         var keyPressString = "searchInputPressed(event,'case')"
-        $('<input class="case-search-input form-control" type="search" onkeypress=' + keyPressString + '>').appendTo($(cln));
+        $('<input class="case-search-input form-control form-control-sm" type="search" onkeypress=' + keyPressString + '>').appendTo($(cln));    // 20250327 add 'form-select-sm' for Bootstrap 5 upgrade
     }
     var datepicker = $(cln).find('.ui-datepicker-trigger');
     if (datepicker) {
@@ -545,7 +545,7 @@ function selectChange(type, iThis) {
         for (let theOption of selectedOptions) {
             optionStr += '<option value="' + theOption + '">' + theOption.replace('_', ' ') + '</option>'
         }
-        $("<select class='select-value form-select'>" + optionStr + "</select>").insertAfter(selectedInput);
+        $("<select class='select-value form-select form-select-sm'>" + optionStr + "</select>").insertAfter(selectedInput);   // 20250327 add 'form-select-sm' for Bootstrap 5 upgrade
     } else {
         selectedInput.show();
         selectedInput.siblings('.select-value').remove();

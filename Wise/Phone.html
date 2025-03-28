@@ -3488,6 +3488,7 @@
 										_context.next = 5;
 									}, 3000);
 								}
+								break;	// 20250328 (JavaScript) Switch cases should end with an unconditional "break" statement
 							case 1:
 								//if (!(sendMsgResult.result == "")) {	// 20250321	Use the opposite operator (!=) instead.
 								if (sendMsgResult.result != "") {	
@@ -3503,7 +3504,7 @@
 								break;
 							case 5:
 								callback(sendMsgResult);
-
+								break; // 20250328 (JavaScript) Switch cases should end with an unconditional "break" statement
 							case 6:
 							case "end":
 								return _context.stop();

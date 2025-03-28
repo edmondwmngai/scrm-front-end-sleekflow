@@ -235,7 +235,7 @@
                                     <label for='Title' class='px-2 l-form-title'></label>
                                 </td>
                                 <td>
-                                    <select class="form-select edit-field" name="Title" id='Title'>
+                                    <select class="form-select form-select-sm edit-field" name="Title" id='Title'>
                                         <option selected="selected" value=''></option>
                                         <option class="l-form-miss" value="Miss">Miss</option>
                                         <option class="l-form-mr" value="Mr">Mr</option>
@@ -248,7 +248,7 @@
                                     <label for='Lang' class='px-2 l-form-language'></label>
                                 </td>
                                 <td>
-                                    <select class="form-select edit-field pe-0" name="Lang" id='Lang'>
+                                    <select class="form-select form-select-sm edit-field pe-0" name="Lang" id='Lang'>
                                         <option selected="selected" value=''></option>
                                         <option class="l-form-cantonese" value="Cantonese">Cantonese</option>
                                         <option class="l-form-english" value="English">English</option>
@@ -258,11 +258,11 @@
                                 </td>
                             </tr>
 
-                            <td><label class='px-2' for='Nationality_Id'>
+                            <td><label class='px-2 d-flex' for='Nationality_Id'>
                                     <i class="far fa-flag me-2"></i><span class="l-form-nationality">Nationality</span>
                                 </label></td>
                             <td>
-                                <select class="form-select edit-field mt-1" id='Nationality_Id'
+                                <select class="form-select form-select-sm edit-field mt-1" id='Nationality_Id'
                                     onchange='nationalityChanged(this)'>
                                     <option value=""></option>
                                 </select>
@@ -273,7 +273,7 @@
                                 </label>
                             </td>
                             <td>
-                                <select class="form-select edit-field" id='Market_Id'>
+                                <select class="form-select form-select-sm edit-field" id='Market_Id'>
                                     <option value=""></option>
                                 </select>
                             </td>
@@ -283,7 +283,7 @@
                                 </label>
                             </td>
                             <td>
-                                <select class="form-select edit-field" id='Profile_Id' style="max-width:90px;">
+                                <select class="form-select form-select-sm edit-field" id='Profile_Id' style="max-width:90px;">
                                     <option value=""></option>
                                 </select>
                             </td>
@@ -400,10 +400,10 @@
             <div class="collapse show" data-parent="#accordion" id='case-details-body'>
                 <div class="card-body">
                     <div class='row d-flex align-items-center'>
-                        <div class='mb-3 col-sm-3'>
+                        <div class='mb-3 col-sm-3 d-flex align-items-center'>
                             <label for='case-nature' class='control-label custom-form-label'><span
                                     class="l-form-nature"></span>&nbsp;<span class="text-danger">*</span></label>
-                            <select class="form-select" name='case-nature' id='case-nature' style="width:59%;">
+                            <select class="form-select form-select-sm" name='case-nature' id='case-nature' style="width:59%;">
                                 <option selected="selected" value=''></option>
                                 <option value="Enquiry">Enquiry</option>
                                 <option value="Complaint">Complaint</option>
@@ -411,10 +411,10 @@
                                 <option value="Compliment">Compliment</option>
                             </select>
                         </div>
-                        <div class='mb-3 col-sm-3'>
+                        <div class='mb-3 col-sm-3 d-flex align-items-center'>
                             <label for='case-status' class='control-label custom-form-label'><span
                                     class="l-form-status"></span>&nbsp;<span class="text-danger">*</span></label>
-                            <select class="form-select" id='case-status' onchange='statusChange(this)'>
+                            <select class="form-select form-select-sm" id='case-status' onchange='statusChange(this)'>
                                 <option selected="selected" value=''></option>
                                 <option value="Follow-up Required">Follow-up
                                     Required</option>
@@ -422,14 +422,14 @@
                         </div>
                         <div class='mb-3 col-sm-5' id='case-escalated-container' style='display:none;'>
                             <label for='case-escalated' class='col-sm-4 control-label l-form-escalated-to'></label>
-                            <select class="form-select col-sm-8" id='case-escalated' value=null>
+                            <select class="form-select form-select-sm col-sm-8" id='case-escalated' value=null>
                                 <option selected="selected" value=''></option>
                             </select>
                         </div>
                     </div>
 
                     <div class='row d-flex align-items-center'>
-                        <div class='mb-3 col-sm-12 mb-1'>
+                        <div class='mb-3 col-sm-12 mb-1 d-flex align-items-center'>
                             <label for='case-details' class='control-label custom-form-label'><span
                                     class="l-form-details"></span>&nbsp;<span class="text-danger">*</span></label>
                             <textarea class="mt-2" name='case-details' id='case-details' rows="3" cols="20"
@@ -459,8 +459,8 @@
                     </div> /NO DEL not sure will this field be added back-->
 
                     <div class='row d-flex align-items-center'>
-                        <div class='mb-3 col-sm-12 ps-0'>
-                            <span class='col-sm-1 control-label ps-4 mt-2'><span class="l-form-reply"></span></span>
+                        <div class='mb-3 col-sm-12 ps-0 d-flex align-items-baseline'>
+                            <span class='control-label custom-form-label'><span class="l-form-reply"></span></span>
                             <div class='col-sm-11 ps-0'>
                                 <div id="reply-radio-group" class='mb-3 d-flex align-items-center'>
 

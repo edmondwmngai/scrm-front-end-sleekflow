@@ -1073,7 +1073,7 @@ function callUpdateCase() {
         var details = res.details;
         if (!/^success$/i.test(res.result || "")) {
             alert(details || res || '');
-            return;
+            //return;   // 20250328 Remove this redundant jump.
         } else {
             $('#form-back-btn').hide();
             // check have become outsider

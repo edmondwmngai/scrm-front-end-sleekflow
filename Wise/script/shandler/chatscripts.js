@@ -1696,7 +1696,7 @@
 		  else
 		  {
 			  alert("Cannot leave the chat");
-			  return;
+			  //return;		//	20250328	Remove this redundant jump.
 		  }
 
 		 

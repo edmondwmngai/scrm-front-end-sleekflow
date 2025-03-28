@@ -667,7 +667,7 @@ function saveClicked() {
         // check if no change, check is old sales records no change also, alert the user if really no change
         parent.parent.$.MessageBox('No changes has been made');
         $('#fm-save-btn').prop('disabled', false);
-        return;
+        //return; // 20250328 Remove this redundant jump.
     } else {
         sendObj.Agent_Id = Number(loginId);
         sendObj.Token = token;

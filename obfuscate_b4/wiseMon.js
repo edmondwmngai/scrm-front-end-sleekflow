@@ -1607,7 +1607,7 @@ function getDeletedArr(arr1, arr2) {
         for (var j in arr2) {
             if (arr1[i] === arr2[j]) {
                 found = true;
-                continue;
+                // continue;         20250328 Remove this redundant jump. (only can skip the inner for loop )
             }
         }
         if (found === false) {
@@ -1624,7 +1624,7 @@ function getAddedArr(arr1, arr2) {
         for (var j in arr1) {
             if (arr2[i] === arr1[j]) {
                 found = true;
-                continue;
+                //continue; // 20250328 Remove this redundant jump. (only can skip the inner for loop )
             }
         }
         if (found === false) {

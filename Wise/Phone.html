@@ -874,7 +874,7 @@
 		function responseInviteCallBack(ticketId, response) {
 
 			if (response == 'Y') {
-				parent.window.$('#beInvitedModal').blur
+				parent.window.$('#beInvitedModal').blur();			// 20250328 Expected an assignment or function call and instead saw an expression.
 				parent.window.$('#beInvitedModal').modal('hide');
 				//responseInviteByHandler(parseInt(agentId), token, parseInt(ticketId), parseInt(targetAgentId), message, agentResponse);
 				responseInvite = false;
@@ -3484,7 +3484,7 @@
 								} else {
 									wsWiseAgent.SendMsgToConnector(ticketId, 0, [0], msgText);
 									setTimeout(function () {
-										sendMsgResult.result == "fail";
+										sendMsgResult.result = "fail";		//sendMsgResult.result == "fail";	Expected an assignment or function call and instead saw an expression.	
 										_context.next = 5;
 									}, 3000);
 								}

@@ -4588,16 +4588,26 @@
 	<script>
 		var wa_template = Handlebars.compile($('#wa_template').html());	// located at the end of the page
         var q_template = Handlebars.compile($('#visit_quoted_message_template').html());	// located at the end of the page
-																		   
-        var waTempService = new WaTemplateService(wa_template, q_template, config.shandlerUrl);
-		var caHistService = new CaseHistory();
-
-
+							
 		var sCompany = "EPRO";
 		var sAgentId = loginId;
 		var sToken = top.token;
+		
+		var waTempService = null;
+		(async () => {
+            waTempService = new WaTemplateService(wa_template, q_template, config.shandlerUrl);
+            await waTempService.getTemplateByAPI(sCompany, sAgentId, sToken);
+            console.log(waTempService.templateList); // Access the updated template list
+		})();
+		
+		
+    //    var waTempService = new WaTemplateService(wa_template, q_template, config.shandlerUrl);
+		var caHistService = new CaseHistory();
 
-		waTempService.getTemplateByAPI(sCompany, sAgentId, sToken);
+
+	
+
+		//waTempService.getTemplateByAPI(sCompany, sAgentId, sToken);
 
 	</script>
 	<!---------------20241219 for shandler----End------------------------------------------------------------------------>

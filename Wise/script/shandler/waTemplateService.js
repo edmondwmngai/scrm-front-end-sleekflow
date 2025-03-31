@@ -202,7 +202,7 @@ class WaTemplateService {
     };
 
 
-    getTemplateByAPI(sCompany, sAgentId, sToken)
+    async getTemplateByAPI(sCompany, sAgentId, sToken)
     {
         //"http://172.17.6.11:8033/api/getTemplate",
 
@@ -211,30 +211,52 @@ class WaTemplateService {
         var URL = this.baseURL;
         var URL = "http://172.17.6.11:8033/api";
         const self = this;
-        $.ajax({
-            type: "POST",
-            url: URL + "/getTemplate",
-            data: JSON.stringify({ "Company": sCompany, "Agent_Id": sAgentId, "Token": sToken }),
-            contentType: "application/json; charset=utf-8",
-            dataType: "json",
-            success: function (r) {
-                if (!/^success$/i.test(r.result || "")) {
-                    console.log('error in getTemplateByAPI');
+        function getTemplate(sCompany, sAgentId, sToken)
+        {
 
-                    //callback(null, r);
-                } else {
+            return new Promise((resolve, reject) => {
 
-                   // callback(r, null);
-                     self.templateList = r.details;
-                }
-            },
+                $.ajax({
+                    type: "POST",
+                    url: URL + "/getTemplate",
+                    data: JSON.stringify({ "Company": sCompany, "Agent_Id": sAgentId, "Token": sToken }),
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (r) {
+                        if (!/^success$/i.test(r.result || "")) {
+                            console.log('error in getTemplateByAPI');
 
-            error: function (r) {
-                //callback(null, r);
-                console.log('error in socialPopup');
-                console.log(r);
-            }
-        });
+                            reject('error in getTemplateByAPI');
+                            //callback(null, r);
+                        } else {
+                            resolve(r.details)
+
+                        }
+                    },
+
+                    error: function (r) {
+                        //callback(null, r);
+                        console.log('error in socialPopup');
+                        console.log(r);
+                        reject('error in getTemplateByAPI');
+                    }
+                });
+            });
+        }
+
+        try {
+            // Use Promise.all to wait for all AJAX requests to resolve
+            // const results = await Promise.all(fetchPromises);
+            const results = await getTemplate(sCompany, sAgentId, sToken);
+
+            // Combine all `details` from the results and assign to self.templateList
+            this.templateList = results;
+            console.log('Updated template list:', this.templateList);
+
+        } catch (error) {
+            console.error('Error in fetching templates:', error);
+        }
+
     };
 
     validateTemplateInputFilled(sTemplate)

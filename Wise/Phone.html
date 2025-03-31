@@ -3585,6 +3585,7 @@
 								} else {
 									wsWiseAgent.SendFileToConnector(ticketId, 0, [0], filePath);
 								}
+								break;	//	20250331 (JavaScript) Switch cases should end with an unconditional "break" statement 
 							case 1:
 							   //if (!(sendMsgResult.result == "")) {	// 20250321	Use the opposite operator (!=) instead.
 								if (sendMsgResult.result != "") {	
@@ -3600,7 +3601,7 @@
 								break;
 							case 5:
 								callback(sendFileResult);
-
+								break; 					// 20250331 (JavaScript) Switch cases should end with an unconditional "break" statement
 							case 6:
 							case "end":
 								return _context.stop();
@@ -3796,7 +3797,7 @@
 							case 0:
 								var emailFrom = outboundANI[serviceName].email;
 								wsWiseAgent.SendEmail_UC(emailTo, emailCc, "", emailFrom, emailSubject, attachedFiles, 0, emailFrom, 3, emailContent);
-
+								break;			// 20250331 (JavaScript) Switch cases should end with an unconditional "break" statement
 							case 1:
 								//if (!(callID == 0)) {		// 20250321 Use the opposite operator (!=) instead.
 								if (callID != 0) {

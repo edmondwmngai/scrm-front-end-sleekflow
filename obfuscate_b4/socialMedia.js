@@ -1066,7 +1066,7 @@ function gotMsgHistory(msgObj, openConnId) { // got event from wise
         var theField = onlineFormData[i];
         if (theField.field_name == 'More') {
             var moreObj = JSON.parse(theField.field_value || {});
-            delete onlineFormData.splice(i, 1);
+            onlineFormData.splice(i, 1);		// delete onlineFormData.splice(i, 1);		20250331 "delete" should be used only with object properties (the logic actually is not work)
             var theSource = '';
             if (moreObj.source) {
                 if (moreObj.source != "") {

@@ -345,7 +345,7 @@ addEventListener(document, 'onWiseSocialMsgList', function (e) {
             var theLocation = moreObj.location;
             var theBrowser = moreObj.browser;
             var theE = moreObj.e;
-            delete onlineFormData.splice(i, 1);
+            onlineFormData.splice(i, 1); 	// delete onlineFormData.splice(i, 1);		20250331 "delete" should be used only with object properties (the logic actually is not work)
             if (theSource && theSource != "" && theSource != "undefined") {
                 onlineFormData.push({
                     field_name: "Source",

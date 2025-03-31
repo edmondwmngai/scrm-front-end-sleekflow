@@ -540,7 +540,10 @@ function caseRecordPopupOnload() {
                 $('#call-media-content').addClass('mt-3');
                 if (callMediaType == 'Call') {
                     getRelatvieCallId(callMediaType, connId).then(function (connIdArr) {
-                        async function getContentLoop(theConnId) {
+
+                        // 20250331
+                        // update getContentLoop(theConnId) to  getContentLoop() Call the async function to start processing
+                        async function getContentLoop() {
                             for (var theConnId of connIdArr) {    
                                 // collect promises returned by twiceAsync to an array
                                 await getContent(callMediaType, theConnId).then(function (r) {
@@ -548,7 +551,13 @@ function caseRecordPopupOnload() {
                                 }, function () { console.log("api error") });
                             }
                         }
-                        getContentLoop();
+
+                        // 20250331
+                        // Call the async function to start processing
+                        getContentLoop().then(() => {
+                            // Make sure this function is not called after the loop completes
+                            console.log("All calls processed");
+                        });
                     })
                 } else {
                     getContent(callMediaType, connId).then(

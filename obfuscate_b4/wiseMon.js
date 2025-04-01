@@ -1444,19 +1444,29 @@ function initACDTbl() {
                 render: function (data, type, row) {
                     return ('<span title="' + data + '">' + data + '</span>');
                 }
-            }],
+            },
+            {           
+                targets: 2, // 20250401 duplicate name 'columnDefs', move the in here
+                render: function (data, type, row) {
+                    return '<span val="' + data + '">' + data + '</span>';
+                }
+            }
+        ],
         columns: [
             { title: "ID", data: "AcdGroupID" },
             { title: "ACD", data: "AcdGroupDesc" },
             // { title: "Sel.", data: "memberLength" }
             { title: "Sel.", data: "selectedCount" }
-        ],
-        columnDefs: [{
-            targets: 2,
-            render: function (data, type, row) {
-                return '<span val="' + data + '">' + data + '</span>';
+        ]
+        /*, // 20250401 duplicate name 'columnDefs
+        columnDefs: [
+            {
+                targets: 2,
+                render: function (data, type, row) {
+                    return '<span val="' + data + '">' + data + '</span>';
+                }
             }
-        }]
+        ] */
     });
     // Align Column Width, needed when used scrollY, draw false needed to avoid keep scroll up
     // var acdRefreshTime = acdMembersArr.length * 20; // As there are math behind, the longer he list of this, the more time this table needed to draw

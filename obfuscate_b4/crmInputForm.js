@@ -2731,7 +2731,7 @@ var loadCaseLog = function (initial) {
                 '<table class="table table-hover" style="width:100%" id="case-log-table" data-page-length=' + caseLogLength + '></div></div></div>').insertAfter('#customer-table');
             var caseLogTable = $('#case-log-table').DataTable({
                 data: folowHistoryContent,
-                lengthChange: false,
+                //lengthChange: false,      //20250401 duplicate name
                 aaSorting: [
                     [1, 'desc']
                 ],

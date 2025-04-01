@@ -3278,7 +3278,7 @@
 						else {
 							//console.log(queueList[idx]);
 							if (checkCount > 0 && queueList[idx].mediaCount == mediaCount) {
-								setTimeout(function (p) { updateMediaCount(p.callType, p.dnis, p.checkCount); }.bind(this, { callType: callType, callType: callType, checkCount: checkCount - 1 }), 500);
+								setTimeout(function (p) { updateMediaCount(p.callType, p.dnis, p.checkCount); }.bind(this, { callType: callType, checkCount: checkCount - 1 }), 500);	// 20250401 duplicate name 'callType'
 								return;
 							}
 

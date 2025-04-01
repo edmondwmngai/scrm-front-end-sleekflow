@@ -4,14 +4,25 @@ class WaTemplateService {
     templateList = [];
     
 
-	init() {
+    init(sCompany, sAgentId, sToken) {
 
+        var wa_templateInfoList = [];
 
+        getTemplateByAPI(sCompany, sAgentId, sToken, function (result, err) {
 
-		//this.render();
+            if (err) {
+                console.error('AJAX call failed:', err);
+                return null; // Return if there's an error 
+            }
+            else {
 
-		//this.updateStatus("Session Timeout");			 //this.updateStatus("Session Ended");
-	};
+                //                this.templateList = result.details;
+                this.getSetTemplateList(result.details);
+            }
+            console.log('AJAX call succeeded:', result);
+
+        });
+    };
 
     
     constructor(waTemplate, quotedTemplate, baseURL)
@@ -106,12 +117,6 @@ class WaTemplateService {
     displayFilledTemplateOnWeb(mTemplate, element)
     {
 
-
-    }
-
-    displayFilledTemplateOnWeb(mTemplate, element)
-    {
-
         var dRoot = element;
         var cContext = this.createContextFromTemplate(mTemplate);
         var inputList = mTemplate.inputList;
@@ -173,25 +178,6 @@ class WaTemplateService {
         return selectedTemplate;
     }
 
-    init(sCompany, sAgentId, sToken) {
-
-        var wa_templateInfoList = [];
-   
-        getTemplateByAPI(sCompany, sAgentId, sToken, function (result, err) {
-
-            if (err) {
-                console.error('AJAX call failed:', err);
-                return null; // Return if there's an error 
-            }
-            else {
-
-//                this.templateList = result.details;
-                this.getSetTemplateList(result.details);
-            }
-            console.log('AJAX call succeeded:', result);
-
-        });
-    };
     getSetTemplateList(tList) {
         return this.templateList = tList;
     };

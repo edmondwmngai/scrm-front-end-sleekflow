@@ -321,9 +321,9 @@ function initCallDou() {
                 options: {
                     responsive: true,
                     maintainAspectRatio: false,
-                    legend: {
-                        display: 'false',
-                    },
+                  //  legend: {                         // 20250401 Duplicate name 'legend'.
+                  //      display: 'false',
+                  //  },
                     animation: {
                         animateScale: true,
                         animateRotate: true

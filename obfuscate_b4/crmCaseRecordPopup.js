@@ -543,12 +543,42 @@ function caseRecordPopupOnload() {
 
                         // 20250331
                         // update getContentLoop(theConnId) to  getContentLoop() Call the async function to start processing
+                        // added try catch under  getContentLoop
                         async function getContentLoop() {
-                            for (var theConnId of connIdArr) {    
-                                // collect promises returned by twiceAsync to an array
-                                await getContent(callMediaType, theConnId).then(function (r) {
-                                     generateContent('call', callType, r || {}, theConnId)
-                                }, function () { console.log("api error") });
+
+                            try {
+
+                                /*for (var theConnId of connIdArr) {                        // 20250401 comment the old logic for async call
+                                    // collect promises returned by twiceAsync to an array
+                                    await getContent(callMediaType, theConnId).then(function (r) {
+                                         generateContent('call', callType, r || {}, theConnId)
+                                    }, function () { console.log("api error") });
+                                }*/
+
+                                // Collect promises for all connection IDs outside the loop  // 20250401 new logic
+                                const contentPromises = connIdArr.map((theConnId) => getContent(callMediaType, theConnId));
+
+                                // Wait for all promises to resolve using Promise.all   // 20250401 new logic
+                                const results = await Promise.all(
+                                    contentPromises.map((promise) =>
+                                        promise.catch((error) => {
+                                            console.log("API error", error);
+                                            return null; // Gracefully handle errors
+                                        })
+                                    )
+                                );
+
+                                // Process each resolved result // 20250401 new logic
+                                results.forEach((result, index) => {
+                                    if (result) {
+                                         generateContent('call', callType, result || {}, connIdArr[index]);
+                                    }
+                                });
+
+
+                                console.log("All calls processed successfully.");
+                            } catch (error) {
+                                console.error("Error during loop execution:", error);
                             }
                         }
 

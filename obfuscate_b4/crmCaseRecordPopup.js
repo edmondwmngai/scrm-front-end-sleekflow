@@ -570,7 +570,7 @@ function caseRecordPopupOnload() {
 
                                 // Process each resolved result // 20250401 new logic
                                 results.forEach((result, index) => {
-                                    if (result) {
+                                    if (result != null) {    // Explicitly check for null 
                                          generateContent('call', callType, result || {}, connIdArr[index]);
                                     }
                                 });

@@ -562,14 +562,13 @@ function windowOnload() {
 //Start-------------------------------------------------
 window.onbeforeunload = function () {
 
-    return;
-
     var sHandler = parent.$('#phone-panel')[0].contentWindow.shandler;
 
     var sAssignedTicketList = parent.$('#phone-panel')[0].contentWindow.AssignedTicketList;
 
     if (sHandler != null && sAssignedTicketList != null)
     {
+		/*
         for (var i = 0; i < sAssignedTicketList.length; i++)
         {
     	    //endSessionByHandler
@@ -587,6 +586,23 @@ window.onbeforeunload = function () {
     	    }
 
         }
+		*/
+		
+		// Filter the array to include only matching items
+		const filteredTickets = sAssignedTicketList.filter(item => 
+			item.AssignedTo === loginId && item.Status === "open"
+		);
+
+		// Process the filtered tickets
+		filteredTickets.forEach(item => {
+			sHandler.endTicket({
+				agentid: loginId,
+				token: top.token,
+				ticketid: item.TicketId
+			});
+		});
+
+		
     }
 }
 

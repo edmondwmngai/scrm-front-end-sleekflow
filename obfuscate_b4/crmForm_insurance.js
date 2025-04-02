@@ -27,8 +27,8 @@ if (ticketId) {
 }
 var tabType = parent.tabType || 'outbound';
 var selectedCaseLog = {}; // Needed for caseRecordPopup
-var emailFileList = [];
-var faxFileList = [];
+// var emailFileList = [];		// 20250402 Either use this collection's contents or remove the collection.
+// var faxFileList = [];       // 20250402 Either use this collection's contents or remove the collection.
 var outsider = false;
 var nationalityArr = sessionStorage.getItem('scrmNationalityArr') ? JSON.parse(sessionStorage.getItem('scrmNationalityArr')) : [];
 var marketArr = sessionStorage.getItem('scrmMarketArr') ? JSON.parse(sessionStorage.getItem('scrmMarketArr')) : [];
@@ -975,8 +975,8 @@ function replyChannelChange(iThis) {
             $('#reply-submit-btn').hide();
         }
         // restore veriable
-        emailFileList = [];
-        faxFileList = [];
+        // emailFileList = []; // 20250402 Either use this collection's contents or remove the collection.
+        // faxFileList = []; // 20250402 Either use this collection's contents or remove the collection.
     }
     resize();
 }

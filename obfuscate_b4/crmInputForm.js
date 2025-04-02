@@ -1473,7 +1473,7 @@ function saveClicked(isTemp, callback) { // 1. declare 2. verify 3. update custo
             var tp6Val = ($('#tpl-content-6').val() || '').trim();
 
             var allPropArr = [tp0Val, tp1Val, tp2Val, tp3Val, tp4Val, tp5Val, tp6Val];
-            var tpPropsArr = [];
+            //var tpPropsArr = [];      // 20250402 Either use this collection's contents or remove the collection.
             for (let prop of allPropArr) {
                 if (prop.length > 0) {
                     tpPropsArr.push(prop);

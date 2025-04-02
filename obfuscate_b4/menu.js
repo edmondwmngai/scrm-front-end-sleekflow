@@ -583,44 +583,7 @@ window.onbeforeunload = function () {
     			    token: top.token,
     			    ticketid: item.TicketId
     		    })
-    				    .then(response => {
-    					    if (response)
-    					    {
-    						    //parent.$('#social-media-main')[0].contentWindow.chatService.endSessionCallBack(ticketId);
-    					    }
-    				    })
-    				    .catch(error => {
-    					    console.log('error in endSessionByHandler');
-    					    console.log(error);
-    					    return null;
-    				    });
-
-    				    /*
-                   $.ajax({
-                       type: "POST",
-                       url: 'http://172.17.6.11:8033/api/endticket', crossDomain: true,
-                       data: JSON.stringify({
-                           agentid: loginId,
-                           token: top.token,
-    				    ticketid: item.ticketId
-    			    }),
-                       contentType: "application/json; charset=utf-8", dataType: "json",
-                       success: function (r) {
-                           if (!/^success$/i.test(r.result || "")) {
-                               console.log('error in function endTicket at the end');
-                               console.log(r);
-                           } else {  //cannot use this.selectedTicketId because the function is tiggerd in popup
-
-                               //console.log(JSON.stringify(r.details));
-                               //
-
-                           }
-                       },
-                       error: function (r) {
-                           console.log('error in error in function endTicket at the end');
-                           console.log(r);
-                       }
-                   });*/
+    				  
     	    }
 
         }

@@ -95,10 +95,21 @@ function previewPhoto(input) {
                 reader.onload = function (e) {
 
 
-                        $('#new-fp-bg').css('background-image', 'url(' + e.target.result + ')');
+                        //20250402 'e.target.result' may use Object's default stringification format ('[object Object]') when stringified.
+                        var url = e.target.result;
+
+                        if (typeof url !== 'string') {
+                            console.error('The image data is not a valid string.', url);
+                            return;
+                        }
+
+                        //$('#new-fp-bg').css('background-image', 'url(' + e.target.result + ')');
+                        $('#new-fp-bg').css('background-image', 'url(' + url + ')');
+                        //----------------------------------------------------------------------
 
                         // get image whole size
-                        var url = e.target.result;
+                        // var url = e.target.result;
+
                         var bgImg = $('<img />');
                         bgImg.hide();
                         bgImg.bind('load', function () {

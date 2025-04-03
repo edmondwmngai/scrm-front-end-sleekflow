@@ -427,6 +427,16 @@ function previewPhoto(input, tpId) {
         // show preview
         var reader = new FileReader();
         reader.onload = function (e) {
+
+            //20250402 'e.target.result' may use Object's default stringification format ('[object Object]') when stringified.
+            const url = e.target.result;
+
+            if (typeof url !== 'string') {
+                console.error('The image data is not a valid string.', url);
+                return;
+            }
+            //-----------------------------------------
+
             // to make the image styhle looks like whatsapp
             var img = new Image();
             img.onload = function () {
@@ -436,9 +446,11 @@ function previewPhoto(input, tpId) {
                 } else {
                     widthHeightClass = 'w-100'
                 }
-                $('#display-msg-' + tpId).find('.wa-card-img-container').empty().append('<img class="wa-preview-img ' + widthHeightClass + '" src="' + e.target.result + '"/>');
+                //$('#display-msg-' + tpId).find('.wa-card-img-container').empty().append('<img class="wa-preview-img ' + widthHeightClass + '" src="' + e.target.result + '"/>');  //20250403 'e.target.result' update
+                $('#display-msg-' + tpId).find('.wa-card-img-container').empty().append('<img class="wa-preview-img ' + widthHeightClass + '" src="' + url + '"/>');
             };
-            img.src = e.target.result;
+            //img.src = e.target.result;    //20250403 'e.target.result' update
+            img.src = url;
         }
         reader.readAsDataURL(photoFile);
     }

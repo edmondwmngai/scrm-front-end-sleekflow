@@ -95,9 +95,13 @@ class WSSHandler {
 			}
 			else if(msg.type=="ticket") {
 				this.tickets=[...msg.details];
-				for(var i=0;i<this.tickets.length;i++){
-					this.tickets[i].EndUserName = this.#b64DecodeUnicode(this.tickets[i].EndUserName);
-					this.tickets[i].EndUserEmail = this.#b64DecodeUnicode(this.tickets[i].EndUserEmail);
+				//for(var i=0;i<this.tickets.length;i++){		// 20250403 Expected a `for-of` loop instead of a `for` loop with this simple iteration.
+				//	this.tickets[i].EndUserName = this.#b64DecodeUnicode(this.tickets[i].EndUserName);
+				//	this.tickets[i].EndUserEmail = this.#b64DecodeUnicode(this.tickets[i].EndUserEmail);
+				//}
+				for (let ticket of this.tickets) {
+					ticket.EndUserName = this.#b64DecodeUnicode(ticket.EndUserName);
+					ticket.EndUserEmail = this.#b64DecodeUnicode(ticket.EndUserEmail);
 				}
 				if(this.onTicketEvent)
 					this.onTicketEvent(this.tickets);

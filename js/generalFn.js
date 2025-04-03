@@ -41,12 +41,20 @@ var replaceTag = function (tag) {
 var gf = {
   // array.find is not supproted in IE
   altFind: function (arr, callback) {
+    /*      //20250403  Expected a `for-of` loop instead of a `for` loop with this simple iteration.
     for (var i = 0; i < arr.length; i++) {
       var match = callback(arr[i]);
       if (match) {
         return arr[i];
         //break;
       }
+    }*/
+
+    for (const item of arr) {
+        const match = callback(item);
+        if (match) {
+            return item; // Exit as soon as a match is found
+        }
     }
   },
   escape: function (str) {
@@ -78,14 +86,18 @@ var gf = {
     if (emailReplyDetails.length > 0) {
         var emailDetialsArr = emailReplyDetails.split(/[,;]/);
         var emailRegex = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,64}$/
-        for (var i = 0; i < emailDetialsArr.length; i++) {
-            var email = emailDetialsArr[i].trim();
+        //for (var i = 0; i < emailDetialsArr.length; i++) {        // 20250403  Expected a `for-of` loop instead of a `for` loop with this simple iteration.
+        //    var email = emailDetialsArr[i].trim();
+        for (var email of emailDetialsArr) {
+            email = email.trim(); // Trim whitespace
             var isEmail = emailRegex.test(email);
             if (!isEmail) {
                 return false;
             }
         }
         return true;
+
+
     } else {
         return true;
     }

@@ -1535,8 +1535,9 @@
 		  var agentArrDiv = $('#agent-list-arr');
 		  var agentArrDivs = ''; var availableAgent = 0;
 
-		  for (var i = 0; i < agentList.length; i++) {
-			  var theAgentId = agentList[i].AgentID;
+		  //for (var i = 0; i < agentList.length; i++) {		// 20250403 Expected a `for-of` loop instead of a `for` loop with this simple iteration.
+		 // var theAgentId = agentList[i].AgentID;
+		  for (var theAgentId of agentList) {
 			  if (theAgentId != loginId) {
 				  var agentStatus = agentList[i].Status;
 

@@ -35,9 +35,11 @@ $( document ).ready(function() {
 	//var originalMsgArr =[];
 	var bgColor="";
 	var msgContainerStr = '';
-	for(var i=0; i<originalMsgArr.length;i++){
-		var theMsg =  originalMsgArr [i] ;
-		if(theMsg != null){
+//	for(var i=0; i<originalMsgArr.length;i++){			// 20250403 Expected a `for-of` loop instead of a `for` loop with this simple iteration.
+//		var theMsg =  originalMsgArr [i] ;
+    for (var theMsg of originalMsgArr) {
+
+		if (theMsg != null) {
 			bgColor="yellow";
 			//if (theMsg.waitTime>=12) bgColor="red";
 			//else if (theMsg.waitTime>=6 && theMsg.waitTime<12 && bgColor=="") bgColor="yellow";
@@ -54,8 +56,10 @@ function checking()
 	var bgColor="";
 	var now=new Date();
 	var originalMsgArr = window.opener.originalMsgArr;
-	for(var i=0; i<originalMsgArr.length;i++){
-		var theMsg =  originalMsgArr [i] ;
+
+    // for(var i=0; i<originalMsgArr.length;i++){		// 20250403 Expected a `for-of` loop instead of a `for` loop with this simple iteration.
+	//		var theMsg =  originalMsgArr [i] ;
+	for (var theMsg of originalMsgArr) {
 		if(theMsg != null){
 			//alert(theMsg);
 			//var diff= (now.getTime() - theMsg.time.getTime())/1000; 

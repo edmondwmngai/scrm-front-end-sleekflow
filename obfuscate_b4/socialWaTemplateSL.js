@@ -429,8 +429,9 @@ $(document).ready(function () {
 
         var tempMsgs = wa_templateInfoList;
 
-        for (var i = 0; i < tempMsgs.length; i++) {
-            var template = tempMsgs[i];
+        //for (var i = 0; i < tempMsgs.length; i++) {       // 20250403
+        //    var template = tempMsgs[i];
+        for (var template of tempMsgs) {
 //            wa_templateInfoList.push(template);
 
             /*  var tCompany= template.Company;     var tLanguage  = template.Language;     var tHeaderType= template.HeaderType;   var tHeader = template.Header;

@@ -455,10 +455,11 @@
 		  {
 			  var LastTicketId = 0;
 
-			  for (var i = 0; i < sMsglist.length; i++)
+			  //  for (var i = 0; i < sMsglist.length; i++)		// 20250403 Expected a `for-of` loop instead of a `for` loop with this simple iteration.
+			  for (let sMsg of sMsglist )
 			  {
 				  //for (var i = sMsglist.length - 1; i >= 0; i--) {
-				  let sMsg = sMsglist[i];
+				 // let sMsg = sMsglist[i];		// 2050403 update from 'for' loop to 'for-of' loop
 				  
 				  /* The logic for draw a line between different ticket from same visitor is not needed in here
 				  if (i != 0)

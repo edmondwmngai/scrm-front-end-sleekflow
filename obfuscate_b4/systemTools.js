@@ -346,8 +346,11 @@ function emailSetting(emailType, apiName, addBack, newGet) {
         $("#junk-mail-body").html('');
         $("#junk-mail-attachment").html('');
     }
-    for (var i = 0; i < emailArr.length; i++) {
-        var emailAddress = emailArr[i];
+    //for (var i = 0; i < emailArr.length; i++) {       // 20250403     Expected a `for-of` loop instead of a `for` loop with this simple iteration.
+    //    var emailAddress = emailArr[i];
+
+    for (var emailAddress of emailArr) {        
+
         if (apiName == 'AddSetting' || apiName == 'DelSetting') {
             dataObj = {
                 projectName: selectedCompany,
@@ -546,8 +549,11 @@ function emailSetting(emailType, apiName, addBack, newGet) {
                                 $("#junk-mail-body").html(emailContent);
                                 $("#junk-mail-attachment").html('');
                                 //for (i = 0; i < record.Attachments.length; i++) {     // 20250325 for Loop counters should not be assigned within the loop body
-                                for (var j = 0; j < record.Attachments.length; j++) {
-                                    var attachment = record.Attachments[j]; //[i]=>[j];
+
+                                //for (var j = 0; j < record.Attachments.length; j++) {   
+                                
+                                //var attachment = record.Attachments[j]; //[i]=>[j];
+                                for (var attachment of record.Attachments) {           // 20250403 Expected a `for-of` loop instead of a `for` loop with this simple iteration.
                                     var objDiv = document.createElement("span");
                                     var fileName = attachment.FileName;
                                     var escapedFileName = escape(fileName);

@@ -178,31 +178,24 @@ window.onbeforeunload = function () {
     var sAssignedTicketList = parent.$('#phone-panel')[0].contentWindow.AssignedTicketList;
 
     if (sHandler != null && sAssignedTicketList != null) {
-        for (var i = 0; i < sAssignedTicketList.length; i++) {
-            //endSessionByHandler
-            var item = sAssignedTicketList[i];
-            if (item.AssignedTo == loginId && item.Status == "open") {
-                //endSessionByHandler(loginId, top.token, item.ticketId);
+       
+        // Filter the array to include only matching items
+        const filteredTickets = sAssignedTicketList.filter(item =>
+            item.AssignedTo === loginId && item.Status === "open"
+        );
 
-                sHandler.endTicket({
-                    agentid: loginId,
-                    token: top.token,
-                    ticketid: item.TicketId
-                })
-                    .then(response => {
-                        if (response) {
-                            //parent.$('#social-media-main')[0].contentWindow.chatService.endSessionCallBack(ticketId);
-                        }
-                    })
-                    .catch(error => {
-                        console.log('error in endSessionByHandler');
-                        console.log(error);
-                        return null;
-                    });
-            }
+        // Process the filtered tickets
+        filteredTickets.forEach(item => {
+            sHandler.endTicket({
+                agentid: loginId,
+                token: top.token,
+                ticketid: item.TicketId
+            });
+        });
 
-        }
+
     }
+
 }
 
 

@@ -696,28 +696,26 @@
 			//Remove all queueListItem that are created in sHandler
 			queueList = queueList.filter(i => i.source != 'sleekflow');
 
-			for (var i = 0; i < serviceList.length; i++) {
-				let service = serviceList[i];
+			//20250403 Expected a `for-of` loop instead of a `for` loop
+			for (let service of serviceList) {
+				
+				//let service = serviceList[i];		// 20250403 Expected a `for-of` loop instead of a `for` loop
+
 				if (service.source == 'sleekflow') {
-
 					let _list = e.filter(t => t.Channel == service.entry && t.DeviceId == service.deviceId);
-
-
-					var a = queueList.findIndex(function (v) { return v.entry == e.Channel && v.dnis == e.DeviceId });
+					let a = queueList.findIndex(v => v.entry == service.entry && v.dnis == service.deviceId);
 					if (a != -1) {
 						queueList[a].waitCount = _list.length;
 						selectedQueuelist[0].waitCount = _list.length;
-					}
+					} 
 					else {
 						queueList.push({
 							callType: service.callType, name: service.name, caption: service.caption, entry: service.entry, source: service.source,
-							dnis: service.deviceId, showPriority: 0, waitTime: 0, waitCount: _list.length,
+							dnis: service.deviceId, showPriority: 0, waitTime: 0, waitCount: _list.length, 
 						});
-
 					}
 				}
 			}
-
 
 			//ticketList.push(q);
 
@@ -1895,15 +1893,24 @@
 			var obj = e.detail;
 			//console.log(obj);
 			var bShowQueue = false;
-			for (var i = 0; i < obj.Member.length; i++) {//get all member in same GroupID
-				for (var a = 0; a < serviceList.length; a++) {
+			
+			//for (var i = 0; i < obj.Member.length; i++) {//get all member in same GroupID 
+			for (let member of obj.Member) { // 20250403 Expected a `for-of` loop instead of a `for` loop with this simple iteration.
+
+				//let member = obj.Member[i];	// 20250403 for loop variable to for-of
+
+				//for (var a = 0; a < serviceList.length; a++) {	
+				for (let service of serviceList) {				// 20250403 Expected a `for-of` loop instead of a `for` loop with this simple iteration.
+
+					//let service = serviceList[a];  // 20250403 for loop variable to for-of
+
 					//console.log(serviceList[a]);
-					var callType = serviceList[a].callType;
+					var callType = service.callType;
 					//if(callType==CATY_WECHAT || callType==CATY_FBMSG || callType==CATY_FBFAN) callType=CATY_BLOG;
-					if (serviceList[a].acdGroup == obj.Member[i].GroupID && callType == obj.Member[i].CallType) {
+					if (service.acdGroup == member.GroupID && callType == member.CallType) {
 
 
-						var idx = queueList.findIndex(function (v) { return v.callType == obj.Member[i].CallType && v.acdGroup == obj.Member[i].GroupID });
+						var idx = queueList.findIndex(function (v) { return v.callType == member.CallType && v.acdGroup == member.GroupID });
 						/*
 						var idx = -1;
 						queueList.some(function(v, ii) {
@@ -1914,17 +1921,17 @@
 						});
 						*/
 						if (idx == -1) {
-							if (obj.Member[i].WaitCount != 0) {
+							if (member.WaitCount != 0) {
 								var q = {
-									callType: parseInt(obj.Member[i].CallType), acdGroup: serviceList[a].acdGroup, entry: serviceList[a].entry, name: serviceList[a].name, caption: serviceList[a].caption,
-									dnis: serviceList[a].dnis, showPriority: serviceList[a].showPriority, waitTime: obj.Member[i].MaxWaitTime, waitCount: obj.Member[i].WaitCount,
+									callType: parseInt(member.CallType), acdGroup: service.acdGroup, entry: service.entry, name: service.name, caption: service.caption,
+									dnis: service.dnis, showPriority: service.showPriority, waitTime: member.MaxWaitTime, waitCount: member.WaitCount,
 									mediaCount: 0
 								};
 								//console.log(q);
 								queueList.push(q);
 								bShowQueue = true;
-								if (obj.Member[i].CallType == CATY_BLOG && serviceList[a].entry == "whatsapp") {
-									openAlert(obj.Member[i].CallType, "New Whatsapp user. Please answer the chat.", obj.Member[i].WaitCount, obj.Member[i].MaxWaitTime);
+								if (member.CallType == CATY_BLOG && service.entry == "whatsapp") {
+									openAlert(member.CallType, "New Whatsapp user. Please answer the chat.", member.WaitCount, member.MaxWaitTime);
 									/*
 									if(queAudio.currentTime==0 || queAudio.currentTime==queAudio.duration || queAudio.paused || queAudio.ended) {
 										queAudio.currentTime=0;
@@ -1934,15 +1941,15 @@
 								}
 							}
 							else {
-								var alert_idx = originalMsgArr.findIndex(function (el) { return el.callType == obj.Member[i].CallType; });
+								var alert_idx = originalMsgArr.findIndex(function (el) { return el.callType == member.CallType; });
 								if (alert_idx != -1) originalMsgArr.splice(alert_idx, 1);
 								// console.log(originalMsgArr);
 								if (originalMsgArr.length == 0 && popup != null) popup.close();
 							}
 						} else if (idx >= 0) {
 							//console.log(queueList[idx]);
-							if (queueList[idx].mediaCount == 0 && obj.Member[i].WaitCount == 0) {
-								var alert_idx = originalMsgArr.findIndex(function (el) { return el.callType == obj.Member[i].CallType; });
+							if (queueList[idx].mediaCount == 0 && member.WaitCount == 0) {
+								var alert_idx = originalMsgArr.findIndex(function (el) { return el.callType == member.CallType; });
 								if (alert_idx != -1) originalMsgArr.splice(alert_idx, 1);
 								console.log(originalMsgArr);
 								if (originalMsgArr.length == 0 && popup != null) popup.close();
@@ -1954,31 +1961,31 @@
 
 
 
-								if (queueList[idx].waitTime != obj.Member[i].MaxWaitTime || queueList[idx].waitCount != obj.Member[i].WaitCount) bShowQueue = true;
-								queueList[idx].waitTime = obj.Member[i].MaxWaitTime;
-								queueList[idx].waitCount = obj.Member[i].WaitCount;
+								if (queueList[idx].waitTime != member.MaxWaitTime || queueList[idx].waitCount != member.WaitCount) bShowQueue = true;
+								queueList[idx].waitTime = member.MaxWaitTime;
+								queueList[idx].waitCount = member.WaitCount;
 
 								var bShowAlert = false;
 
 								if (pACDGroup.length == 0)
 									bShowAlert = true;
 								else {
-									var p = pACDGroup.findIndex(function (v) { return v.CallType == obj.Member[i].CallType && v.GroupID == obj.Member[i].GroupID });
+									var p = pACDGroup.findIndex(function (v) { return v.CallType == member.CallType && v.GroupID == member.GroupID });
 									if (p == -1)
 										bShowAlert = true;
 									else {
-										if (obj.Member[i].WaitCount > pACDGroup[p].WaitCount)
+										if (member.WaitCount > pACDGroup[p].WaitCount)
 											bShowAlert = true;
-										else if (obj.Member[i].WaitCount == pACDGroup[p].WaitCount) {
-											if (obj.Member[i].MaxWaitTime < pACDGroup[p].MaxWaitTime) bShowAlert = true;
+										else if (member.WaitCount == pACDGroup[p].WaitCount) {
+											if (member.MaxWaitTime < pACDGroup[p].MaxWaitTime) bShowAlert = true;
 										}
 									}
 
 								}
 
 								if (bShowAlert) {
-									if (obj.Member[i].CallType == CATY_BLOG && serviceList[a].entry == "whatsapp")
-										openAlert(obj.Member[i].CallType, "New Whatsapp user. Please answer the chat.", obj.Member[i].WaitCount, obj.Member[i].MaxWaitTime);
+									if (member.CallType == CATY_BLOG && service.entry == "whatsapp")
+										openAlert(member.CallType, "New Whatsapp user. Please answer the chat.", member.WaitCount, member.MaxWaitTime);
 								}
 							}
 							/*
@@ -2817,14 +2824,18 @@
 		function inboundQueueTicker() {
 			// return;
 			var isQueue = false;
-			for (var a = 0; a < serviceList.length; a++) {
+		  //for (var a = 0; a < serviceList.length; a++) {
+			for (let service of serviceList) {				// 20250403 Expected a `for-of` loop instead of a `for` loop with this simple iteration.
+
+			   	//let service = serviceList[a];				// 20250403	Expected a `for-of` loop instead of a `for` loop with this simple iteration.
+
 				//alert($("#inboundQueue_"+serviceList[a].name).text());
-				if ($("#inboundQueue_" + serviceList[a].name).text() != "0" && $("#inboundQueue_" + serviceList[a].name).text() != "") {
-					$("#inboundQueue_" + serviceList[a].name).fadeIn(250).fadeOut(250).fadeIn(250);
+				if ($("#inboundQueue_" + service.name).text() != "0" && $("#inboundQueue_" + service.name).text() != "") {
+					$("#inboundQueue_" + service.name).fadeIn(250).fadeOut(250).fadeIn(250);
 					//console.log(serviceList[a]);
 					isQueue = true;
 				} else
-					$("#inboundQueue_" + serviceList[a].name).stop().stop();
+					$("#inboundQueue_" + service.name).stop().stop();
 				/*
 				if($("#emailQueue_"+serviceList[a].name).text()!="0" && $("#emailQueue_"+serviceList[a].name).text()!="") {
 					$("#emailQueue_"+serviceList[a].name).fadeIn(250).fadeOut(250).fadeIn(250);
@@ -3122,10 +3133,14 @@
 			}
 		}
 		function initMediaCount() {
-			for (var i = 0; i < serviceList.length; i++) {
+		//	for (var i = 0; i < serviceList.length; i++) {
+			for (let service of serviceList) {				// 20250403 Expected a `for-of` loop instead of a `for` loop with this simple iteration.
+
+			  //let service = serviceList[i];  // 20250403 for loop variable to for-of
+
 				//if([CATY_EMAIL ,CATY_VMAIL, CATY_FAX].indexOf(serviceList[i].callType)!=-1)
-				if (serviceList[i].callType == CATY_EMAIL || serviceList[i].callType == CATY_VMAIL || serviceList[i].callType == CATY_FAX) {
-					getMediaCount(serviceList[i].callType, serviceList[i].dnis, loginId);
+				if (service.callType == CATY_EMAIL || service.callType == CATY_VMAIL || service.callType == CATY_FAX) {
+					getMediaCount(service.callType, service.dnis, loginId);
 				}
 			}
 
@@ -3475,8 +3490,9 @@
 									if (msgId == -1) {
 										wsWiseAgent.SendMsgToConnector(ticketId, -1, completedMsgIdList, msgText);
 									} else {
-										for (var i = 0; i < completedMsgIdList.length; i++) {
-											var messageId = completedMsgIdList[i];
+										//for (var i = 0; i < completedMsgIdList.length; i++) {		// 20250403 Expected a `for-of` loop instead of a `for` loop with this simple iteration.
+										//	var messageId = completedMsgIdList[i];
+										for (let messageId of completedMsgIdList)	{
 											wsWiseAgent.SendMsgToConnector(ticketId, messageId, [messageId], msgText);
 										}
 									}
@@ -3531,8 +3547,9 @@
 			var ticket = ticketList.filter(function (v) { return v.ticket_id == ticketId })[0];
 
 			if (ticket.entry == "fb_comment" || ticket.entry == "fb_post") {
-				for (var i = 0; i < completedMsgIdList.length; i++) {
-					var msgId = completedMsgIdList[i];
+			 //for (var i = 0; i < completedMsgIdList.length; i++) {		// 20250403 Expected a `for-of` loop instead of a `for` loop with this simple iteration.
+				//	var msgId = completedMsgIdList[i];
+				for (let msgId of completedMsgIdList ) {
 					wsWiseAgent.SendMsgToConnector(ticketId, msgId, [msgId], msgText);
 				}
 			} else {
@@ -3547,8 +3564,11 @@
 		function wiseUploadSocialFile(ticketId, fileId, callback) {
 			var _fileUpload = $("#" + fileId).get(0);
 			var _fileData = new FormData();
-			for (var i = 0; i < _fileUpload.files.length; i++)
-				fileData.append("files", _fileUpload.files[i]);
+			//for (var i = 0; i < _fileUpload.files.length; i++)	{
+			//	let uploadFile = _fileUpload.files[i];	// 20250403 Expected a `for-of` loop instead of a `for` loop with this simple iteration.
+			for (let uploadFile of _fileUpload.files) {
+				fileData.append("files", uploadFile);
+			}
 
 			_fileData.append('ticketId', ticketId);
 			_fileData.append('agentId', loginId);
@@ -3578,8 +3598,9 @@
 							case 0:
 								var ticket = ticketList.filter(function (v) { return v.ticket_id == ticketId })[0];
 								if (ticket.entry == "fb_comment" || ticket.entry == "fb_post") {
-									for (var i = 0; i < completedMsgIdList.length; i++) {
-										var msgId = completedMsgIdList[i];
+									//for (var i = 0; i < completedMsgIdList.length; i++) {		// 20250403 Expected a `for-of` loop instead of a `for` loop with this simple iteration.
+									 // var msgId = completedMsgIdList[i];
+									for (let msgId of completedMsgIdList) {
 										wsWiseAgent.SendFileToConnector(ticketId, msgId, [msgId], filePath);
 									}
 								} else {
@@ -4045,8 +4066,9 @@
 
 		function WiseStartMontiorChat(ticketIdArr, agentId) {
 			var allUnderMonitoring = true;
-			for (var j = 0; j < ticketIdArr.length; j++) {
-				var ticketId = ticketIdArr[j];
+			//for (var j = 0; j < ticketIdArr.length; j++) {	// 20250403 Expected a `for-of` loop instead of a `for` loop with this simple iteration.
+				//var ticketId = ticketIdArr[j];
+			for (let ticketId of ticketIdArr) {
 				var i = monitoredTicketList.findIndex(function (v) { return v.ticketId == ticketId });
 				if (i == -1) {
 					monitoredTicketList.push({ "ticketId": ticketId, "agentId": agentId, "mode": "S" });

@@ -47,7 +47,10 @@
         <!-- <div class="d-flex"> -->
 
         <div id="left-menu" class="d-none sidebar" style="width:135px;">
-            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
+            <!--<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>  20250407 for Anchor tags should not be used as buttons.-->
+			<button type="button" class="closebtn" onclick="closeNav()" style="margin-left: 100px; font-family:  Helvetica; top: 15px; right 14px; background-color: #111; color: #00bcd4; border: none; cursor: pointer; font-size: 24px;">x</button>
+			
+			
             <ul class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
                 <li id="m-open-content-tab"><a id="open-tab" class="nav-link text-capitalize mx-2" data-bs-toggle="pill" href="#open-content" role="tab" aria-controls="open-content" aria-selected="false"><i
                             class="far fa-folder-open me-2"></i><span class="align-middle l-form-open">Open</span></a>

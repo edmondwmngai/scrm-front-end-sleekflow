@@ -184,15 +184,23 @@
                             <i class="fas fa-square me-2"></i><span id="agent-status-text" class="l-user-status-LOGOUT">LOGOUT</span>&nbsp;
                         </a>
                         <div class="dropdown-menu" aria-labelledby="panel-agent-status">
-                            <a href="#" class="dropdown-item py-auto" onclick="statusChange('break');">
+                            <!--<a href="#" class="dropdown-item py-auto" onclick="statusChange('break');">
                                 <span>Break</span>
                             </a>
+
                             <a href="#" class="dropdown-item py-auto" onclick="statusChange('idle');">
                                 <span>Idle</span>
                             </a>
                             <a href="#" class="dropdown-item py-auto" onclick="statusChange('ready');">
                                 <span>Ready</span>
-                            </a>
+                            </a>-->
+
+
+                            <button type="button" class="dropdown-item py-auto" onclick="statusChange('break');">Break</button>
+                            <button type="button" class="dropdown-item py-auto" onclick="statusChange('idle');">Idle</button>
+                            <button type="button" class="dropdown-item py-auto" onclick="statusChange('ready');">Ready</button>
+
+
                         </div>
                     </div>
                     <div id="read-to-talk-btn" class="nav-item" style="font-size: 25px;" onclick="return readyClicked();">

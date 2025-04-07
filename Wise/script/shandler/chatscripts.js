@@ -137,7 +137,7 @@
 
 		  setTimeout(() =>
 		  {
-			  if (this.isSendingMessage == true)
+			  if (this.isSendingMessage)		//	  if (this.isSendingMessage == true)	// 20250407 Refactor the code to avoid using this boolean literal.
 			  {
 				  this.isSendingMessage = false;
 				  this.$button[0].enabled = true;
@@ -832,7 +832,7 @@
 		  {
 			  return;
 		  }
-		  if (this.disableReloadMsg == true)
+		  if (this.disableReloadMsg) //if (this.disableReloadMsg == true)	// 20250407 Refactor the code to avoid using this boolean literal.
 		  {
 			  this.disableReloadMsg = false;
 		  }
@@ -1214,12 +1214,14 @@
 
 			var template  = this.bubbleTemplate;
 
-			if (status == "Pending" && timeout == false)
+		    // 20250407 timeout == false => !timeout	Refactor the code to avoid using this boolean literal.
+
+			if (status == "Pending" && !timeout)
 			{
 				context.bubblestatus = "bubble-container";
 
 			}
-			else if (status == "Present" && timeout == false)
+			else if (status == "Present" && !timeout)
 			{
 				this.selectedTicketId = context.ticketId;
 				this.selectedAgentId = context.agentId;
@@ -1228,16 +1230,16 @@
 				this.selectedEndUserName		= context.EndUserName;
 				context.bubblestatus = "bubble-container bubble-present";
 			}
-			else if (status == "Pending_Unread" && timeout == false)
+			else if (status == "Pending_Unread" && !timeout)
 			{
 				context.bubblestatus = "bubble-container bubble-unread";
 			}
 
-			else if (status == "Pending" && timeout == true)
+			else if (status == "Pending" && timeout)
 			{
 				context.bubblestatus = "bubble-container bubble-present bubble-closed";
 			}
-			else if (status == "Present" && timeout == true)
+			else if (status == "Present" && timeout)
 			{
 				context.bubblestatus = "bubble-container bubble-closed";
 	     	}	
@@ -1276,12 +1278,13 @@
 			};
 
 			var template  = this.bubbleTemplate;
+		  // 20250407 timeout == false => !timeout	Refactor the code to avoid using this boolean literal.
 
-			if (status == "Pending" && timeout == false)
+			if (status == "Pending" && !timeout)
 			{
 				context.bubblestatus = "bubble-container";
 			}
-			else if (status == "Present" && timeout == false)
+			else if (status == "Present" && !timeout)
 			{
 				this.selectedTicketId = context.ticketId;
 				this.selectedAgentId  = context.agentId;
@@ -1290,16 +1293,16 @@
 				this.selectedEndUserName = context.endUserName;
 				context.bubblestatus = "bubble-container bubble-present";
 			}
-			else if (status == "Pending_Unread" && timeout == false)
+			else if (status == "Pending_Unread" && !timeout)
 			{
 				context.bubblestatus = "bubble-container bubble-unread";
 			}
 
-			else if (status == "Pending" && timeout == true)
+			else if (status == "Pending" && timeout)
 			{
 				context.bubblestatus = "bubble-container bubble-present bubble-closed";
 			}
-			else if (status == "Present" && timeout == true)
+			else if (status == "Present" && timeout)
 			{
 				context.bubblestatus = "bubble-container bubble-closed";
 	     	}	
@@ -1388,11 +1391,15 @@
 			  subDivs.forEach(sub => {
 
 				  if (sub.innerHTML.trim() === specifiedValue.toString()) {
+
+					  // 20250407 Refactor the code to avoid using this boolean literal.
+					  // timeout == false => !timeout
+
 					  // *********Update the logic in there
-					  if (status == "Pending_Unread" && timeout == false) {
+					  if (status == "Pending_Unread" && !timeout) {
 						  parent.classList.add("bubble-unread");
 					  }
-					  if (status == "Session_End" && timeout == true)
+					  if (status == "Session_End" && timeout)
 					  {
 
 						  

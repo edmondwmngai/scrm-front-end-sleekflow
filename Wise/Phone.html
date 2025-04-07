@@ -839,7 +839,8 @@
 		function responseInvitedCall(isAccept) {
 			//check websocket state, continue process is not allowed if false is returned;
 			var wssresult = checkWebSocketState(shandler.websocket);
-			if (wssresult.result == false) { alert(wssresult.message); return; }
+			//if (wssresult.result == false) { alert(wssresult.message); return; }	// 20250407 Refactor the code to avoid using this boolean literal.
+			if (!wssresult.result) { alert(wssresult.message); return; }
 			//-----
 
 			inviteTicketId = parent.window.$('#be-invited-ticketid')[0].innerHTML;
@@ -1033,7 +1034,8 @@
 		function sendMessageByHandler(agent, token, messageType, messageContent, sTicket) {
 			//check websocket state, continue process is not allowed if false is returned;
 			var wssresult = checkWebSocketState(shandler.websocket);
-			if (wssresult.result == false) { alert(wssresult.message); return; }
+			//if (wssresult.result == false) { alert(wssresult.message); return; }		// 20250407 Refactor the code to avoid using this boolean literal.
+			if (!wssresult.result) { alert(wssresult.message); return; }
 			//-----
 
 			//Default example
@@ -1104,7 +1106,8 @@
 
 			//check websocket state, continue process is not allowed if false is returned;
 			var wssresult = checkWebSocketState(shandler.websocket);
-			if (wssresult.result == false) { alert(wssresult.message); return; }
+			//if (wssresult.result == false) { alert(wssresult.message); return; }	// 20250407 Refactor the code to avoid using this boolean literal.
+			if (!wssresult.result) { alert(wssresult.message); return; }
 			//-----
 
 			//Default example
@@ -1178,7 +1181,8 @@
 		function getPastMessageByHandler(ticketId, agentid, token, userId, msgId, limit) {
 			//check websocket state, continue process is not allowed if false is returned;
 			var wssresult = checkWebSocketState(shandler.websocket);
-			if (wssresult.result == false) { alert(wssresult.message); return; }
+			//if (wssresult.result == false) { alert(wssresult.message); return; }	// 20250407 Refactor the code to avoid using this boolean literal.
+			if (!wssresult.result) { alert(wssresult.message); return; }
 			//-----
 
 			$.ajax({	//parent.$('#phone-panel')[0].contentWindow.shandler.apiUrl 'http://172.17.6.11:8033'
@@ -1211,7 +1215,8 @@
 
 			//check websocket state, continue process is not allowed if false is returned;
 			var wssresult = checkWebSocketState(shandler.websocket);
-			if (wssresult.result == false) { alert(wssresult.message); return; }
+			//if (wssresult.result == false) { alert(wssresult.message); return; }	// 20250407 Refactor the code to avoid using this boolean literal.
+			if (!wssresult.result) { alert(wssresult.message); return; }
 			//-----
 
 			$.ajax({
@@ -1252,7 +1257,8 @@
 		function requestCannedFileInBase64ByHandler(fileId, fileName, fileType) {
 			//check websocket state, continue process is not allowed if false is returned;
 			var wssresult = checkWebSocketState(shandler.websocket);
-			if (wssresult.result == false) { alert(wssresult.message); return; }
+			//if (wssresult.result == false) { alert(wssresult.message); return; }		// 20250407	Refactor the code to avoid using this boolean literal.
+			if (!wssresult.result) { alert(wssresult.message); return; }
 			//-----
 
 			var api = shandler.apiUrl.replace("8033", "");
@@ -1309,7 +1315,8 @@
 		function returnCaseHistoryFromHandler(agentId, token, ticketId) {
 			//check websocket state, continue process is not allowed if false is returned;
 			var wssresult = checkWebSocketState(shandler.websocket);
-			if (wssresult.result == false) { alert(wssresult.message); return; }
+			//if (wssresult.result == false) { alert(wssresult.message); return; }		// 20250407 Refactor the code to avoid using this boolean literal
+			if (!wssresult.result) { alert(wssresult.message); return; }
 			//-----
 
 			shandler.getMessagesByTicketId({
@@ -1341,7 +1348,8 @@
 		function inviteAgentByHandler(agentId, token, ticketId, targetAgentId, message) {
 			//check websocket state, continue process is not allowed if false is returned;
 			var wssresult = checkWebSocketState(shandler.websocket);
-			if (wssresult.result == false) { alert(wssresult.message); return; }
+			//if (wssresult.result == false) { alert(wssresult.message); return; }		// 20250407 Refactor the code to avoid using this boolean literal
+			if (!wssresult.result) { alert(wssresult.message); return; }
 			//-----
 
 			shandler.requestConference({
@@ -1377,7 +1385,8 @@
 
 			//check websocket state, continue process is not allowed if false is returned;
 			var wssresult = checkWebSocketState(shandler.websocket);
-			if (wssresult.result == false) { alert(wssresult.message); return; }
+			//if (wssresult.result == false) { alert(wssresult.message); return; }		// 20250407 Refactor the code to avoid using this boolean literal
+			if (!wssresult.result) { alert(wssresult.message); return; }
 			//-----
 			var agentId = loginId; var requestAgentId = parseInt(inviteTargetAgentId); var agentResponse = inviteAgentResponse;
 			var token = top.token; var ticketId = parseInt(inviteTicketId); var message = inviteMessage;
@@ -1410,7 +1419,8 @@
 		function leaveConferenceByHandler(leaveAgentId, token, ticketId) {
 			//check websocket state, continue process is not allowed if false is returned;
 			var wssresult = checkWebSocketState(shandler.websocket);
-			if (wssresult.result == false) { alert(wssresult.message); return; }
+			//if (wssresult.result == false) { alert(wssresult.message); return; }		// 20250407 Refactor the code to avoid using this boolean literal
+			if (!wssresult.result) { alert(wssresult.message); return; }
 			//-----
 
 			var agentId = leaveAgentId; var token = token; var ticketId = parseInt(ticketId);
@@ -2414,7 +2424,8 @@
 						triggerEvent(window.parent.document, 'onWiseSocialMsg', ticketList[idx]);
 					}
 					console.log("winOnFocus=" + winOnFocus);
-					if (winOnFocus == false) {
+					//if (winOnFocus == false) {	// 20250407 Refactor the code to avoid using this boolean literal.
+					if (!winOnFocus) {
 						if (obj.msg_list[0].sender == "enduser" && (ticketList[idx].entry == "webchat" || ticketList[idx].entry == "facebook" || ticketList[idx].entry == "whatsapp")) {
 							if (msgAudio.currentTime == 0 || msgAudio.currentTime == msgAudio.duration || msgAudio.paused || msgAudio.ended) {
 								msgAudio.currentTime = 0;
@@ -3017,7 +3028,8 @@
 				//objDiv.setAttribute("class","queue_content");
 				var source = queueList[i].source;
 
-				if (source != null && queueList[i].waitCount < 1 && (testMode == false)) {
+				//if (source != null && queueList[i].waitCount < 1 && (testMode == false)) {	20250407 Refactor the code to avoid using this boolean literal.
+				if (source != null && queueList[i].waitCount < 1 && (!testMode)) {
 					objDiv.setAttribute("style", "display:none;margin:5px 0px 0px 5px;box-shadow: 0 2px 4px 0 rgba(0,0,0,.14);border-radius: 3px;transition:.3s;background:#ffff;width:130px;height:80px;color:" + layout.color);
 				}
 				else {

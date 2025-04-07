@@ -3361,6 +3361,10 @@
 				else
 					parent.document.getElementById('phone-panel-no').value = phoneNo;
 			} catch (err) {
+
+				console.log('Error in wiseMakeCall');	// 20250407 Exceptions should not be ignored
+				console.log(err);
+
 				if (phoneNo == null)
 					phoneNo = document.getElementById('panelPhoneNo').value;
 				else
@@ -3452,6 +3456,10 @@
 				if (agentNo == null)
 					agentNo = parent.document.getElementById('phone-panel-no').value;
 			} catch (err) {
+
+				console.log('Error in wiseCallAgent');	// 20250407 Exceptions should not be ignored
+				console.log(err);
+
 				if (agentNo == null)
 					agentNo = document.getElementById('panelPhoneNo').value;
 			}

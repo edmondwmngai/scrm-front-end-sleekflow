@@ -3647,8 +3647,9 @@
 
 			var ticket = ticketList.filter(function (v) { return v.ticket_id == ticketId })[0];
 			if (ticket.entry == "fb_comment" || ticket.entry == "fb_post") {
-				for (var i = 0; i < completedMsgIdList.length; i++) {
-					var msgId = completedMsgIdList[i];
+				//for (var i = 0; i < completedMsgIdList.length; i++) {		// 20250407 Expected a `for-of` loop instead of a `for` loop with this simple iteration.
+				for (var msgId of completedMsgIdList) {
+					//var msgId = completedMsgIdList[i];
 					wsWiseAgent.SendFileToConnector(ticketId, msgId, [msgId], filePath);
 				}
 			} else {

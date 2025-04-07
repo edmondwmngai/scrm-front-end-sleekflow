@@ -89,8 +89,8 @@ var gf = {
         //for (var i = 0; i < emailDetialsArr.length; i++) {        // 20250403  Expected a `for-of` loop instead of a `for` loop with this simple iteration.
         //    var email = emailDetialsArr[i].trim();
         for (var email of emailDetialsArr) {
-            email = email.trim(); // Trim whitespace
-            var isEmail = emailRegex.test(email);
+            //email = email.trim(); // Trim whitespace
+            var isEmail = emailRegex.test(email.trim());        //email => email.trim() 
             if (!isEmail) {
                 return false;
             }

@@ -1490,7 +1490,7 @@
 		  this.reloadChatHistory(sMsgList);
 
 		  //4. update the chat history if there is past message ((only whatsapp will execute this logic))
-		  if (this.selectedChatChannel == "whatsapp" && responseInvite== false) {
+		  if (this.selectedChatChannel == "whatsapp" && !responseInvite) {		// responseInvite== false) { // 20250407 Refactor the code to avoid using this boolean literal.
 			  this.returnPastMessageByTicketId(this.selectedTicketId);
 		  }
 

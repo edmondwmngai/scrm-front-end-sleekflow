@@ -2172,6 +2172,10 @@ $(document).ready(function () {
                 ageFrom = parseInt(ageFrom);
                 ageTo = parseInt(ageTo);
             } catch (e) {
+
+                console.log('Error in search-customer-btn');	// 20250407 Exceptions should not be ignored
+                console.log(e);   //  
+
                 alert(langJson['l-campaign-age-invalid']);
                 clearCreate(3);
                 return;
@@ -2202,6 +2206,10 @@ $(document).ready(function () {
                 rangeFrom = parseInt(rangeFrom);
                 rangeTo = parseInt(rangeTo);
             } catch (e) {
+
+                console.log('Error in search-customer-btn');	// 20250407 Exceptions should not be ignored
+                console.log(e);   //  
+
                 alert(langJson['l-campaign-age-invalid']);
                 clearCreate(3);
                 return;

@@ -248,6 +248,9 @@ function handleBubbleMsg(msg, msg_object_client_name, msg_object_path) {
                 fileName = msg_object_path.slice(msg_object_path.lastIndexOf('/') + 1);
             }
             catch (err) {
+                console.log('Error in handleBubbleMsg');	// 20250407 Exceptions should not be ignored
+                console.log(err);   //  
+
                 return '';
             }
         }

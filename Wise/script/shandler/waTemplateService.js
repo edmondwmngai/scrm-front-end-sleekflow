@@ -252,8 +252,8 @@ class WaTemplateService {
         for (var r = 1; r < (inputList.length + 1); r++) {
 
             var inputText = inputList[r - 1].text;
-            if (isNullOrEmpty(inputText)== true)
-            {
+            if (isNullOrEmpty(inputText)) { //if (isNullOrEmpty(inputText) == true) {       // 20250407 Refactor the code to avoid using this boolean literal.
+            
                 return false;
             }
         }
@@ -273,7 +273,7 @@ class WaTemplateService {
 
             var inputText = inputList[r - 1].text;
 
-            if (isNullOrEmpty(inputText) == true) {
+            if (isNullOrEmpty(inputText)) { //if (isNullOrEmpty(inputText) == true) {       // 20250407 Refactor the code to avoid using this boolean literal.
                 iLength = iLength + 0;
             }
             else {

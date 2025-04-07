@@ -745,7 +745,7 @@ function setCustomerInfo(isChangedCustomer) {
     }
 
 
-    if (isChangedCustomer == true) {
+    if (isChangedCustomer) {    // 20250407 if (isChangedCustomer == true) { Refactor the code to avoid using this boolean literal.
         return;
     }
     // ==================== TYPE: NEW FOLLOW ====================
@@ -1529,13 +1529,17 @@ function saveClicked(isTemp, callback) { // 1. declare 2. verify 3. update custo
 
 
             // 20241231     New function for check template message input
-            if (parent.parent.$('#phone-panel')[0].contentWindow.waTempService.validateTemplateInputFilled(selectedSendTemplate) == false)
+
+            var validTemplateInputFilled = parent.parent.$('#phone-panel')[0].contentWindow.waTempService.validateTemplateInputFilled(selectedSendTemplate);     // 20250407 Refactor the code to avoid using this boolean literal.
+            var validTemplateInputLength = parent.parent.$('#phone-panel')[0].contentWindow.waTempService.validateTemplateInputLength(selectedSendTemplate);
+
+            if (!validTemplateInputFilled)
             {
                 document.getElementById("case-save-btn").disabled = false;
                 alert('Template content props is not same length with the template props');
                 return;
             }
-			if (parent.parent.$('#phone-panel')[0].contentWindow.waTempService.validateTemplateInputLength(selectedSendTemplate) == false)
+            if (!validTemplateInputLength)
             {
                 document.getElementById("case-save-btn").disabled = false;
                 alert('Template input value length is larger than supported');

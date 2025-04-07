@@ -285,7 +285,8 @@ function changePassword() {
 // Submit is clicked
 function submitForm() {
     console.log('field changed? ' + fieldChanged);
-    if (fieldChanged == false) {
+
+    if (!fieldChanged) {    // 20250407 if (fieldChanged == false) {    Refactor the code to avoid using this boolean literal.
         window.close();
     }
 

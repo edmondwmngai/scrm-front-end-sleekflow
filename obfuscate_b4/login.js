@@ -255,7 +255,7 @@ function verify(e) {
                 if (customCompany != 'no') {
                     var companyArr = companies.split(',');
                     //if (restorable === false && companyArr.indexOf(customCompany) == -1) {    // 20250321  Remove this "===" check; it will always be false. 
-                    if (restorable == false && companyArr.indexOf(customCompany) == -1) {
+                    if (!restorable && companyArr.indexOf(customCompany) == -1) {    // 20250407 Refactor the code to avoid using this boolean literal.
                         $('#warning-msg').html("The user you are tring to login cannot access to " + customCompany);
                         returnNormalLogin();
                         var staffID = document.getElementById('staffID');

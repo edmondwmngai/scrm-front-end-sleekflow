@@ -72,13 +72,17 @@ function selectClicked(btn) {
 
     //var error = false;
 
-    if (window.opener.waTempService.validateTemplateInputLength(selectedTemplate) == false)
+
+    var vaildInputLength = window.opener.waTempService.validateTemplateInputLength(selectedTemplate);   // 20250407 Refactor the code to avoid using this boolean literal.
+    var validInputFilled = window.opener.waTempService.validateTemplateInputFilled(selectedTemplate);   
+
+    if (!vaildInputLength)
     {
         alert('Template input value length is larger than supported');
         return;
     }
 
-    if (window.opener.waTempService.validateTemplateInputFilled(selectedTemplate) == false)
+    if (!validInputFilled)
     {
         alert('Template content props is not same length with the template props');
         return;

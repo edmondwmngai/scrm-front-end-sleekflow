@@ -372,7 +372,7 @@ var SC = {
 
         //Change email addresses to mailto:: links. (updated for migration on 10-3-2025)
         //replacePattern3 = /(([a-zA-Z0-9\-\_\.])+@[a-zA-Z\_]+?(\.[a-zA-Z]{2,6})+)/gim;
-        replacePattern3 = /[\w\.\-]+@[\w\-]+(\.[a-zA-Z]{2,6})+/gim;
+        replacePattern3 = /[\w\.\-]+@[\w\-]+(\.[a-z]{2,6})+/gim;
 
         replacedText = replacedText.replace(replacePattern3, '<a href="mailto:$1">$1</a>');
 

@@ -47,9 +47,11 @@ var sip = sipControl({
         // txtLog.value = now() + ' ' + JSON.stringify(message) + '\r\n\r\n' + txtLog.value;
         console.log('app message =', message);
         if (message.Type === 'connection') {
-            // lblConnStatus.innerText = "connection:" +  message.Message;
+            // lblConnStatus.innerText = "connection:" +  message.Message;   Two branches in a conditional structure should not have exactly the same implementation
+            console.log("connection:" + message.Message);
         } else if (message.Type === 'call') {
             // lblCallStatus.innerText = "call:" + message.Message;
+            console.log("call:" + message.Message);
 		}
     },
 });

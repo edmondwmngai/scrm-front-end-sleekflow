@@ -1764,7 +1764,8 @@ function checkHKID(str) {
     str = str.toUpperCase();
 
     // regular expression to check pattern and split
-    var hkidPat = /^([A-Z]{1,2})([0-9]{6})([A0-9])$/;
+    var hkidPat = /^([A-Z]{1,2})(\d{6})([A\d])$/;   // var hkidPat = /^([A-Z]{1,2})([0-9]{6})([A0-9])$/;    // 20250408 Use concise character class syntax '\d' instead of '[0-9]'.
+
     var matchArray = str.match(hkidPat);
 
     // not match, return false

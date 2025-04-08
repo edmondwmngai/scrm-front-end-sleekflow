@@ -307,7 +307,11 @@ function addMsgRow(msgList, entry, onlineFormArr) {
     // add message row
     var rows = ''
     for (let theMsg of msgList) {
-        var theMsgContent = (theMsg.msg_content || '').replace(/<[\/]{0,1}(script|object|embed)[^><]*>/ig, "");
+
+        // 20250408 Use concise quantifier syntax '?' instead of '{0,1}'.
+        //var theMsgContent = (theMsg.msg_content || '').replace(/<[\/]{0,1}(script|object|embed)[^><]*>/ig, "");
+        var theMsgContent = (theMsg.msg_content || '').replace(/<\/?(script|object|embed)[^><]*>/ig, "");
+
         var theMsgMsgType = theMsg.msg_type;
         var replyMsgStr = theMsg.reply_msg ? addReplyStr(theMsg.reply_msg) : ''
         if (entry != 'webchat' || (entry == 'webchat' && theMsg.send_by_flag == 1 && theMsg.sender != "0")) {
@@ -429,7 +433,10 @@ function webchatDownload(ticketId, isWebchat) {
     var msgContent = '<div style="display:table;">';
 
     for (let theMsg of tmpMsgList) {
-        var theContent = (theMsg.msg_content || '').replace(/<[\/]{0,1}(script|object|embed)[^><]*>/ig, ""); //.replace(/<[^>]*>?/gm, '');
+        // 20250408 Use concise quantifier syntax '?' instead of '{0,1}'.
+        // var theContent = (theMsg.msg_content || '').replace(/<[\/]{0,1}(script|object|embed)[^><]*>/ig, ""); //.replace(/<[^>]*>?/gm, '');
+        var theContent = (theMsg.msg_content || '').replace(/<\/?(script|object|embed)[^><]*>/ig, ""); //.replace(/<[^>]*>?/gm, '');
+
         var sentTime = theMsg.sent_time.replace('T', ' ');
         var indexOfDot = sentTime.indexOf('.');
         var timeTrimmed = indexOfDot > -1 ? sentTime.slice(0, indexOfDot) : sentTime;

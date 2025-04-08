@@ -2061,7 +2061,11 @@ function callOnkeydown() { // if pressed Enter, equal pressed Dial button
 function validateEmail(email) {
     var localPartRe = /^([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*|(".+"))$/;
     
-    var domainIpRe = /^\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\]$/; // Matches an IPv4 address
+
+    // 20250408 Use concise character class syntax '\d' instead of '[0-9]'.
+    //var domainIpRe = /^\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\]$/; // Matches an IPv4 address
+    var domainIpRe = /^\[\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\]$/; // Matches an IPv4 address
+
     var domainNameRe = /^(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,})$/; // Matches domain names
 
 

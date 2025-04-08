@@ -755,7 +755,11 @@ function uploadPageInit(campaignArr) {
         var batchCode = batchCodeInput.val();
         var startDate = $('#u-start-calendar').val();
         var endDate = $('#u-end-calendar').val();
-        var validDateRegex = /^\d{4}[\/\-](0?[1-9]|1[012])[\/\-](0?[1-9]|[12][0-9]|3[01])$/
+
+        //20250408 Use concise character class syntax '\d' instead of '[0-9]'.
+        //var validDateRegex = /^\d{4}[\/\-](0?[1-9]|1[012])[\/\-](0?[1-9]|[12][0-9]|3[01])$/
+        var validDateRegex = /^\d{4}[\/\-](0?\d|1[0-2])[\/\-](0?\d|[12]\d|3[01])$/;
+
         var sheetSheetSelect = $('#u-excel-sheet-select');
         var filepath = sheetSheetSelect.attr('filepath');
         var worksheet = sheetSheetSelect.val();

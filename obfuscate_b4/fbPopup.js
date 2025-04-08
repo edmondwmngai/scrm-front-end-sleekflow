@@ -274,7 +274,8 @@ function validateForm(formType, ticketId) {
         $('#ticket-id-error').css('color', 'red');
         hasError = true;
     } else {
-        var numRegex = /^-?[0-9]*$/;
+        
+        var numRegex = /^-?\d*$/;   // var numRegex = /^-?[0-9]*$/;     // 20250408 Use concise character class syntax '\d' instead of '[0-9]'.
         var isNumeric = numRegex.test(ticketId);
         if (isNumeric) {
             var ticket_id = parseInt(ticketId);

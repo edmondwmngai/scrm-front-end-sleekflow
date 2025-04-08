@@ -349,7 +349,10 @@ function webchatDownload(ticketId) {
     var msgContent = '<div style="display:table;">';
 
     for (let theMsg of tmpMsgList) {
-        var theContent = (theMsg.msg_content || '').replace(/<[\/]{0,1}(script|object|embed)[^><]*>/ig, ""); //.replace(/<[^>]*>?/gm, '');
+        // 20250406     Use concise quantifier syntax '?' instead of '{0,1}'.
+        // var theContent = (theMsg.msg_content || '').replace(/<[\/]{0,1}(script|object|embed)[^><]*>/ig, ""); //.replace(/<[^>]*>?/gm, '');
+        var theContent = (theMsg.msg_content || '').replace(/<\/?(script|object|embed)[^><]*>/ig, ""); //.replace(/<[^>]*>?/gm, '');
+
         var sentTime = theMsg.sent_time.replace('T', ' ');
         var indexOfDot = sentTime.indexOf('.');
         var timeTrimmed = indexOfDot > -1 ? sentTime.slice(0, indexOfDot) : setTime;

@@ -404,7 +404,9 @@ function accountRecordPopupOnload() {
 
 var validateAgentId = function () {
     var agentIdVal = $('#txt-agent-id').val() || '';
-    var numRegex = /^[0-9]*$/;
+
+    var numRegex = /^\d*$/; // var numRegex = /^[0-9]*$/;       //20250408 Remove duplicates in this character class.
+
     var isNumeric = numRegex.test(agentIdVal);
 
     if (agentIdVal.length == 0) {

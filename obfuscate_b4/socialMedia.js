@@ -2217,7 +2217,10 @@ function createOrUpdateBubble(msgObj) {
     var lastClientTime = null; // for whatsapp
     for (var i = 0; i < msgListLength; i++) {
         var theMsg = msgList[i];
-        var theMsgContentDisplay = (theMsg.msg_content || '').replace(/<[\/]{0,1}(script|object|embed)[^><]*>/ig, "");
+        // 20250408 Use concise quantifier syntax '?' instead of '{0,1}'.
+     // var theMsgContentDisplay = (theMsg.msg_content || '').replace(/<[\/]{0,1}(script|object|embed)[^><]*>/ig, "");
+        var theMsgContentDisplay = (theMsg.msg_content || '').replace(/<\/?(script|object|embed)[^><]*>/ig, "");
+
         var theMsgMsgType = theMsg.msg_type;
 
         // if not iXServer greeting message or whatsapp not qr cta message linkify

@@ -47,8 +47,8 @@ function changePassword(sellerIdInput, oldPassword, newPassword) {
                 $('#old-password-error').text(details); // show warning
             } else if (details == "Seller does not exist.") {
                 $('#seller-id-error').text(details); // show warning
-            } else if (details == "Seller does not exist.") {
-                $('#seller-id-error').text(details); // show warning
+                //} else if (details == "Seller does not exist.") {         // 20250408 if/else if" chains and "switch" cases should not have the same condition
+            //    $('#seller-id-error').text(details); // show warning
             } else if (details == "The new password has been used before.") {
                 $('#password-error').text(details); // show warning
             } else {

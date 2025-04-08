@@ -59,9 +59,14 @@ var gf = {
   },
   escape: function (str) {
     var newStr = str
-      .replace(/["<>&!#\$%'()\*+,-./:;=?@[\\\]^_\`'{|}~]/g, replaceTag)
+        //.replace(/["<>&!#\$%'()\*+,-./:;=?@[\\\]^_\`'{|}~]/g, replaceTag)    20250408 Remove duplicates in this character class.
+      .replace(/["<>&!#$%'()*+,-./:;=?@[\\\]^_`{|}~]/g, replaceTag)
       .replace(/[\n]/g, '&#10;')
       .replace(/[\r]/g, '&#13;');
+
+      var newStr = str
+          
+
     return newStr;
   },
   isDoubleByte: function (str) {

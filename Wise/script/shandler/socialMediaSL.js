@@ -500,7 +500,10 @@ function uploadAttachment(input, ticketId) {
         return;
     }
     var attachmentName = attachment.name == undefined ? '' : attachment.name;
-    attachmentName = attachmentName.replace(/[ |+|#]/g, '_').replace('%20', '_').replace(/[%']/g, '');
+    // attachmentName = attachmentName.replace(/[ |+|#]/g, '_').replace('%20', '_').replace(/[%']/g, '');       //20250408 Remove duplicates in this character class.
+    attachmentName = attachmentName.replace(/[ |+#]/g, '_').replace('%20', '_').replace(/[%']/g, '');
+    
+
     if (entry == 'fb_comment' || entry == 'fb_post') {
 
         // because other than type of below, reply comment fail iXServer will not have error

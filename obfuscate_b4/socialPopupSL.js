@@ -268,7 +268,10 @@ function uploadTpFile(campaign, whatsappNo, index, tpPropsArr, input) {
     var theTemplate = waTPArr[index];
     var tpId = theTemplate.id;
     var imgName = input.name == undefined ? '' : input.name;
-    imgName = imgName.replace(/[ |+|#]/g, '_').replace('%20', '_').replace(/[%']/g, '');
+    //imgName = imgName.replace(/[ |+|#]/g, '_').replace('%20', '_').replace(/[%']/g, '');      // 20250408 Remove duplicates in this character class.
+    imgName = imgName.replace(/[ +#]/g, '_').replace(/%20/g, '_').replace(/[%']/g, '');
+
+
     var loginId = windowOpener.loginId || parseInt(sessionStorage.getItem('scrmAgentId') || -1);
     var fileData = new FormData();
     var ticketId = (window.name == 'custSendWA' || window.name == 'marketingWA' || window.name == 'reply-container') ? new Date().valueOf() : windowOpener.presentTicketId; // as if open by input form or bluk upload should be 

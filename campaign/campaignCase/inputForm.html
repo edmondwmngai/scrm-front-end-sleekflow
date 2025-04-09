@@ -232,8 +232,8 @@
 
                     <div class='row d-flex align-items-center'>
                         <div class='input-group col-sm-5'>
-                            <label for='Name_Eng' class='control-label custom-form-label' style="width:100px;"><span
-                                    class="l-form-full-name"></span>&nbsp;<span class="text-danger">*</span></label>
+                            <span for='Name_Eng' class='control-label custom-form-label' style="width:100px;"><span
+                                    class="l-form-full-name"></span>&nbsp;<span class="text-danger">*</span></span>
                             <input class="form-control edit-field" type="search" id="Name_Eng" autocomplete="off"
                                 onchange='changeCaseSavedFalse()' />
                         </div>
@@ -255,7 +255,7 @@
                             </div> -->
 
                         <div class='input-group col-sm-3 ps-0'>
-                            <label for='Lang' class='col-sm-6 col-form-label col-form-label-sm l-form-language'></label>
+                            <span for='Lang' class='col-sm-6 col-form-label col-form-label-sm l-form-language'></span>
                             <select class="form-select col-sm-6 edit-field pe-0" name="Lang" id='Lang'
                                 onchange='changeCaseSavedFalse()'>
                                 <option selected="selected" value=''></option>
@@ -271,18 +271,18 @@
 
                     <div class='row d-flex align-items-center'>
                         <div class='input-group col-sm-5'>
-                            <label for='Nationality_Id' class='px-3 control-label' style="width:100px;">
+                            <span for='Nationality_Id' class='px-3 control-label' style="width:100px;">
                                 <i class="far fa-flag me-2"></i><span class="l-form-nationality">Nationality</span>
-                            </label>
+                            </span>
                             <select class="form-select edit-field mt-1" id='Nationality_Id'
                                 onchange='nationalityChanged(this)'>
                                 <option value=""></option>
                             </select>
                         </div>
                         <div class='input-group col-sm-7 ps-0 d-none'>
-                            <label for='Market_Id' class='control-label ms-1 me-2'>
+                            <span for='Market_Id' class='control-label ms-1 me-2'>
                                 <i class="fas fa-globe-asia me-2"></i><span class="l-form-market"></span>
-                            </label>
+                            </span>
                             <select class="form-select edit-field" id='Market_Id'>
                                 <option value=""></option>
                             </select>
@@ -305,9 +305,9 @@
 
                     <div class='row d-flex align-items-center'>
                         <div class='input-group col-sm-4'>
-                            <label for='Mobile_No' class='px-3 control-label' style="width:100px;">
+                            <span for='Mobile_No' class='px-3 control-label' style="width:100px;">
                                 <i class='fa fa-phone me-2'></i><span class="l-form-mobile"></span>
-                            </label>
+                            </span>
                             <input id="Mobile_No" class="form-control col-sm-8 edit-field mt-1" type="search"
                                 onkeyup="this.value=this.value.replace(/[^\d]/,'')" maxLength="50" autocomplete="off" />
                         </div>
@@ -326,15 +326,15 @@
                                 maxLength="50" type="search" id="Office_No" autocomplete="off" />
                         </div> -->
                         <div class='mb-3 col-sm-4'>
-                            <label for='Other_Phone_No' class='col-sm-4 control-label l-form-other'><i
-                                    class='fa fa-phone me-2'></i><span class='l-form-other'></span></label>
+                            <span for='Other_Phone_No' class='col-sm-4 control-label l-form-other'><i
+                                    class='fa fa-phone me-2'></i><span class='l-form-other'></span></span>
                             <input class="form-control col-sm-8 edit-field"
                                 onkeyup="this.value=this.value.replace(/[^\d]/,'')" maxLength="50" type="search"
                                 id="Other_Phone_No" autocomplete="off" />
                         </div>
                         <div class='mb-3 col-sm-4 ps-0 d-none'>
-                            <label for='Fax_No' class='col-sm-4 control-label'><i class='fa fa-fax me-2'></i><span
-                                    class="l-form-fax"></span></label>
+                            <span for='Fax_No' class='col-sm-4 control-label'><i class='fa fa-fax me-2'></i><span
+                                    class="l-form-fax"></span></span>
                             <input class="form-control col-sm-8 edit-field"
                                 onkeyup="this.value=this.value.replace(/[^\d]/,'')" maxLength="50" type="search"
                                 id="Fax_No" autocomplete="off" />
@@ -349,9 +349,9 @@
                                 id="Email" onchange='changeCaseSavedFalse()' autocomplete="off" />
                         </div>
                         <div class='input-group col-sm-7'>
-                            <label for='Address1' class='control-label col-sm-2'><i
+                            <span for='Address1' class='control-label col-sm-2'><i
                                     class="far fa-address-book me-2"></i><span
-                                    class="l-form-address">Address</span></label>
+                                    class="l-form-address">Address</span></span>
                             <input class="form-control edit-field col-sm-10" type="search" id="Address1"
                                 autocomplete="off" maxlength="100" onchange='changeCaseSavedFalse()' />
                         </div>
@@ -362,7 +362,7 @@
                     <div class='row d-flex align-items-center d-none'>
                         <div class='input-group ps-5'>
                             <div class="form-check">
-                                <label for="Agree_To_Disclose_Info" class="form-check-label">
+                                <span for="Agree_To_Disclose_Info" class="form-check-label">
                                     <i class="fas fa-info-circle me-2"></i>
                                     <input id="Agree_To_Disclose_Info"
                                         class="form-check-input edit-field l-form-agree-to-disclose-information"
@@ -371,7 +371,7 @@
                                     <span class="form-check-sign">
                                         <span class="check"></span>
                                     </span>
-                                </label>
+                                </span>
                             </div>
                         </div>
                     </div>
@@ -515,8 +515,8 @@
                 <div class="card-body">
                     <div class='row d-flex align-items-center'>
                         <div class='mb-3 col-sm-3'>
-                            <label for='case-nature' class='control-label custom-form-label'><span
-                                    class="l-form-nature"></span>&nbsp;<span class="text-danger">*</span></label>
+                            <span for='case-nature' class='control-label custom-form-label d-flex align-items-center'><span
+                                    class="l-form-nature"></span>&nbsp;<span class="text-danger">*</span></span>
                             <select class="form-select" name='case-nature' id='case-nature' style="width:59%;">
                                 <option selected="selected" value=''></option>
                                 <option value="Enquiry">Enquiry</option>
@@ -526,8 +526,8 @@
                             </select>
                         </div>
                         <div class='mb-3 col-sm-3'>
-                            <label for='case-status' class='control-label custom-form-label'><span
-                                    class="l-form-status"></span>&nbsp;<span class="text-danger">*</span></label>
+                            <span for='case-status' class='control-label custom-form-label'><span
+                                    class="l-form-status"></span>&nbsp;<span class="text-danger">*</span></span>
                             <select class="form-select" id='case-status' onchange='statusChange(this)'>
                                 <option selected="selected" value=''></option>
                                 <option value="Follow-up Required">Follow-up
@@ -535,7 +535,7 @@
                             </select>
                         </div>
                         <div class='mb-3 col-sm-5' id='case-escalated-container' style='display:none;'>
-                            <label for='case-status' class='col-sm-4 control-label l-form-escalated-to'></label>
+                            <span for='case-status' class='col-sm-4 control-label l-form-escalated-to'></span>
                             <select class="form-select col-sm-8" id='case-escalated' value=null>
                                 <option selected="selected" value=''></option>
                                 <!-- <option value=99999>Supervisors (ID:
@@ -546,8 +546,8 @@
 
                     <div class='row d-flex align-items-center'>
                         <div class='mb-3 col-sm-12 mb-1'>
-                            <label for='case-details' class='control-label custom-form-label'><span
-                                    class="l-form-details"></span>&nbsp;<span class="text-danger">*</span></label>
+                            <span for='case-details' class='control-label custom-form-label'><span
+                                    class="l-form-details"></span>&nbsp;<span class="text-danger">*</span></span>
                             <textarea class="mt-2" name='case-details' id='case-details' rows="3" cols="20"
                                 style="font-family:inherit;width:calc(100% - 110px);" maxlength="500"
                                 onchange='changeCaseSavedFalse()'></textarea>
@@ -556,17 +556,17 @@
 
                     <div class='row d-flex align-items-center d-none'>
                         <div class="form-check ms-5 my-0">
-                            <label for="Long_Call" class="form-check-label">
+                            <span for="Long_Call" class="form-check-label">
                                 <input id="Long_Call" class="form-check-input l-form-long-call-duration" type="checkbox"
                                     onchange="longCallChanged(this);">
                                 &nbsp;
                                 <span class="form-check-sign">
                                     <span class="check"></span>
                                 </span>
-                            </label>
+                            </span>
                         </div>
-                        <label for='Long_Call_Reason'
-                            class='control-label ps-4 pe-3 l-form-reason-for-long-call'></label>
+                        <span for='Long_Call_Reason'
+                            class='control-label ps-4 pe-3 l-form-reason-for-long-call'></span>
                         <select class="form-select" id='Long_Call_Reason' disabled>
                             <option selected="selected" value=''></option>
                             <option value="Long complaint / Feedback details">Long complaint / Feedback details</option>
@@ -584,7 +584,7 @@
                                 <div class='mb-3 d-flex align-items-center'>
 
                                     <div class="form-check ms-3">
-                                        <label for="reply-none" class="form-check-label">
+                                        <span for="reply-none" class="form-check-label">
                                             <input class='form-check-input dial-yes-disable l-form-none'
                                                 onclick='replyChannelChange(this)' type="radio" id="reply-none"
                                                 name="replyList" value="" checked>
@@ -592,42 +592,42 @@
                                             <span class="circle">
                                                 <span class="check"></span>
                                             </span>
-                                        </label>
+                                        </span>
                                     </div>
 
                                     <div class="form-check ms-3">
-                                        <label for="reply-email" class="form-check-label">
+                                        <span for="reply-email" class="form-check-label">
                                             <input class='form-check-input dial-yes-disable l-form-radio-email'
                                                 onclick='replyChannelChange(this)' type="radio" id="reply-email"
                                                 name="replyList" value="email">
                                             &nbsp; <span class="circle">
                                                 <span class="check"></span>
                                             </span>
-                                        </label>
+                                        </span>
                                     </div>
 
 
                                     <div class="form-check ms-3 d-none">
-                                        <label for="reply-fax" class="form-check-label">
+                                        <span for="reply-fax" class="form-check-label">
                                             <input class='form-check-input dial-yes-disable l-form-radio-fax'
                                                 onclick='replyChannelChange(this)' type="radio" id="reply-fax"
                                                 name="replyList" value="fax">
                                             &nbsp; <span class="circle">
                                                 <span class="check"></span>
                                             </span>
-                                        </label>
+                                        </span>
                                     </div>
 
 
                                     <div class="form-check ms-3">
-                                        <label for="reply-sms" class="form-check-label">
+                                        <span for="reply-sms" class="form-check-label">
                                             <input class='form-check-input dial-yes-disable l-form-sms'
                                                 onclick='replyChannelChange(this)' type="radio" id="reply-sms"
                                                 name="replyList" value="sms">
                                             &nbsp; <span class="circle">
                                                 <span class="check"></span>
                                             </span>
-                                        </label>
+                                        </span>
                                     </div>
 
                                     <div class="form-check ms-2">
@@ -651,7 +651,7 @@
                             <span style='display:none;' id='email-details'>
                                 <span style='display:inline-block;' id="email-other-container">
                                     <div class="form-check ms-2" style='display:inline;'>
-                                        <label for="email-other-check" class="form-check-label">
+                                        <span for="email-other-check" class="form-check-label">
                                             <input type="checkbox"
                                                 class="form-check-input reply-checkbox email-list l-form-radio-other"
                                                 value='other' id="email-other-check"
@@ -661,7 +661,7 @@
                                             <span class="form-check-sign">
                                                 <span class="check"></span>
                                             </span>
-                                        </label>
+                                        </span>
                                     </div>&nbsp;
                                     <input type='email' maxLength="50" disabled=true id='email-other-input'
                                         style='border-radius:5px;' type="search" autocomplete="off">
@@ -691,7 +691,7 @@
                             <span style='display:none;' id='sms-details'>
                                 <span id="sms-other-container">
                                     <div class="form-check ms-2" style='display:inline;'>
-                                        <label for="sms-other-check" class="form-check-label">
+                                        <span for="sms-other-check" class="form-check-label">
                                             <input type="checkbox"
                                                 class="form-check-input reply-checkbox sms-list l-form-radio-other"
                                                 name="smsList" value='other' id="sms-other-check"
@@ -700,7 +700,7 @@
                                             <span class="form-check-sign">
                                                 <span class="check"></span>
                                             </span>
-                                        </label>
+                                        </span>
                                     </div>&nbsp;
                                     <input type='tel' onkeyup="this.value=this.value.replace(/[^\d]/,'')" maxLength="50"
                                         disabled=true id='sms-other-input' style='border-radius:5px;' type="search"
@@ -712,7 +712,7 @@
                             <span style='display:none;' id='call-details'>
                                 <span id="call-other-container">
                                     <div class="form-check ms-2" style='display:inline;'>
-                                        <label for="call-other-check" class="form-check-label">
+                                        <span for="call-other-check" class="form-check-label">
                                             <input type="radio"
                                                 class="form-check-input reply-checkbox call-list dial-yes-disable l-form-radio-other"
                                                 name="callList" value='other' id="call-other-check"
@@ -721,7 +721,7 @@
                                             <span class="circle">
                                                 <span class="check"></span>
                                             </span>
-                                        </label>
+                                        </span>
                                     </div>&nbsp;
                                     <input type='tel' onkeyup="this.value=this.value.replace(/[^\d]/,'')"
                                         onkeydown="callOnkeydown()" maxLength="50" class='dial-yes-disable'

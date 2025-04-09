@@ -213,7 +213,7 @@
                                 <input class="form-control edit-field" type="search" id="Name_Eng" autocomplete="off" />
                             </td>
                             <td>
-                                <label for='Title' class='px-2 l-form-title'></label></td><td>
+                                <span for='Title' class='px-2 l-form-title'></span></td><td>
                                 <select class="form-select col-sm-4 edit-field" name="Title" id='Title'>
                                     <option selected="selected" value=''></option>
                                     <option class="l-form-miss" value="Miss">Miss</option>
@@ -224,7 +224,7 @@
                             </td>
 
                             <td>
-                                <label for='Lang' class='px-2 l-form-language'></label></td><td>
+                                <span for='Lang' class='px-2 l-form-language'></span></td><td>
                                 <select class="form-select col-sm-6 edit-field pe-0" name="Lang" id='Lang'>
                                     <option selected="selected" value=''></option>
                                     <option class="l-form-cantonese" value="Cantonese">Cantonese</option>
@@ -235,24 +235,24 @@
                             </td>
                             </tr>
 
-                            <td><label class='px-2' for='Nationality_Id'>
+                            <td><span class='px-2' for='Nationality_Id'>
                                     <i class="far fa-flag me-2"></i><span class="l-form-nationality">Nationality</span>
-                                </label></td><td>
+                                </span></td><td>
                                 <select class="form-select edit-field mt-1" id='Nationality_Id'
                                     onchange='nationalityChanged(this)'>
                                     <option value=""></option>
                                 </select>
                             </td>
                         <td>
-                                <label for='Market_Id' class='px-2'>
+                                <span for='Market_Id' class='px-2'>
                                     <i class="fas fa-globe-asia me-2"></i><span class="l-form-market"></span>
-                                </label></td><td>
+                                </span></td><td>
                                 <select class="form-select edit-field" id='Market_Id'>
                                     <option value=""></option>
                                 </select></td><td>
-                                <label for='Profile_Id' class='px-2'>
+                                <span for='Profile_Id' class='px-2'>
                                     <i class="far fa-user-circle me-2"></i><span class='l-form-profile'></span>
-                                </label></td><td>
+                                </span></td><td>
                                 <select class="form-select edit-field" id='Profile_Id' style="max-width:90px;">
                                     <option value=""></option>
                                 </select>
@@ -261,16 +261,16 @@
 
                             <tr class='row d-flex align-items-center'>
                                 <td>
-                                    <label for='Mobile_No' class='px-2'>
+                                    <span for='Mobile_No' class='px-2'>
                                         <i class='fa fa-phone me-2'></i><span class="l-form-mobile"></span>
-                                    </label></td><td>
+                                    </span></td><td>
                                     <input id="Mobile_No" class="form-control edit-field" type="search"
                                         onkeyup="this.value=this.value.replace(/[^\d]/,'')" maxLength="50"
                                         autocomplete="off" />
                                 </td>
                                 <td>
-                                    <label for='Other_Phone_No' class='px-2 l-form-other'><i
-                                            class='fa fa-phone me-2'></i><span class='l-form-other'></span></label></td><td>
+                                    <span for='Other_Phone_No' class='px-2 l-form-other'><i
+                                            class='fa fa-phone me-2'></i><span class='l-form-other'></span></span></td><td>
                                     <input class="form-control edit-field"
                                         onkeyup="this.value=this.value.replace(/[^\d]/,'')" maxLength="50" type="search"
                                         id="Other_Phone_No" autocomplete="off" />
@@ -284,15 +284,15 @@
                                 </td>
                             </tr>
 
-                            <td><label class='px-2' for='Email'><i class='fa fa-envelope me-2'></i><span
-                                        class="l-form-email"></span></label></td><td>
+                            <td><span class='px-2' for='Email'><i class='fa fa-envelope me-2'></i><span
+                                        class="l-form-email"></span></span></td><td>
                                 <input class="form-control edit-field" type='search' maxLength="50"
                                     id="Email" autocomplete="off" />
                             </td>
                             <td colspan="2">
-                                <label for='Address1'><i
+                                <span for='Address1'><i
                                         class="far fa-address-book me-2"></i><span
-                                        class="l-form-address">Address</span></label></td><td>
+                                        class="l-form-address">Address</span></span></td><td>
                                 <input class="form-control edit-field" type="search" id="Address1"
                                     autocomplete="off" maxlength="100" />
                             </td>

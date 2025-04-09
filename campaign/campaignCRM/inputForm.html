@@ -226,13 +226,13 @@
 
                             <tr>
 
-                                <td><label class='px-2' for='Name_Eng'><span class="l-form-full-name"></span>&nbsp;<span
-                                            class="text-danger">*</span></label></td>
+                                <td><span class='px-2' for='Name_Eng'><span class="l-form-full-name"></span>&nbsp;<span
+                                            class="text-danger">*</span></span></td>
                                 <td>
                                     <input class="form-control edit-field" type="search" id="Name_Eng" autocomplete="off" />
                                 </td>
                                 <td>
-                                    <label for='Title' class='px-2 l-form-title'></label>
+                                    <span for='Title' class='px-2 l-form-title'></span>
                                 </td>
                                 <td>
                                     <select class="form-select form-select-sm edit-field" name="Title" id='Title'>
@@ -245,7 +245,7 @@
                                 </td>
 
                                 <td>
-                                    <label for='Lang' class='px-2 l-form-language'></label>
+                                    <span for='Lang' class='px-2 l-form-language'></span>
                                 </td>
                                 <td>
                                     <select class="form-select form-select-sm edit-field pe-0" name="Lang" id='Lang'>
@@ -258,9 +258,9 @@
                                 </td>
                             </tr>
 
-                            <td><label class='px-2 d-flex' for='Nationality_Id'>
+                            <td><span class='px-2 d-flex' for='Nationality_Id'>
                                     <i class="far fa-flag me-2"></i><span class="l-form-nationality">Nationality</span>
-                                </label></td>
+                                </span></td>
                             <td>
                                 <select class="form-select form-select-sm edit-field mt-1" id='Nationality_Id'
                                     onchange='nationalityChanged(this)'>
@@ -268,9 +268,9 @@
                                 </select>
                             </td>
                             <td>
-                                <label for='Market_Id' class='px-2'>
+                                <span for='Market_Id' class='px-2'>
                                     <i class="fas fa-globe-asia me-2"></i><span class="l-form-market"></span>
-                                </label>
+                                </span>
                             </td>
                             <td>
                                 <select class="form-select form-select-sm edit-field" id='Market_Id'>
@@ -278,9 +278,9 @@
                                 </select>
                             </td>
                             <td>
-                                <label for='Profile_Id' class='px-2'>
+                                <span for='Profile_Id' class='px-2'>
                                     <i class="far fa-user-circle me-2"></i><span class='l-form-profile'></span>
-                                </label>
+                                </span>
                             </td>
                             <td>
                                 <select class="form-select form-select-sm edit-field" id='Profile_Id' style="max-width:90px;">
@@ -291,9 +291,9 @@
 
                             <tr>
                                 <td>
-                                    <label for='Mobile_No' class='px-2'>
+                                    <span for='Mobile_No' class='px-2'>
                                         <i class='fa fa-phone me-2'></i><span class="l-form-mobile"></span>
-                                    </label>
+                                    </span>
                                 </td>
                                 <td>
                                     <input id="Mobile_No" class="form-control edit-field mt-1" type="search"
@@ -301,8 +301,8 @@
                                         autocomplete="off" />
                                 </td>
                                 <td>
-                                    <label for='Other_Phone_No' class='px-2'><i class='fa fa-phone me-2'></i><span
-                                            class='l-form-other'></span></label>
+                                    <span for='Other_Phone_No' class='px-2'><i class='fa fa-phone me-2'></i><span
+                                            class='l-form-other'></span></span>
                                 </td>
                                 <td>
                                     <input class="form-control edit-field"
@@ -310,8 +310,8 @@
                                         id="Other_Phone_No" autocomplete="off" />
                                 </td>
                                 <td>
-                                    <label for='Fax_No' class='px-2'><i class='fa fa-fax me-2'></i><span
-                                            class="l-form-fax"></span></label>
+                                    <span for='Fax_No' class='px-2'><i class='fa fa-fax me-2'></i><span
+                                            class="l-form-fax"></span></span>
                                 </td>
                                 <td>
                                     <input class="form-control edit-field"
@@ -320,15 +320,15 @@
                                 </td>
                             </tr>
 
-                            <td><label class='px-2' for='Email'><i class='fa fa-envelope me-2'></i><span
-                                        class="l-form-email"></span></label></td>
+                            <td><span class='px-2' for='Email'><i class='fa fa-envelope me-2'></i><span
+                                        class="l-form-email"></span></span></td>
                             <td>
                                 <input class="form-control edit-field mt-1" type='search' maxLength="50" id="Email"
                                     autocomplete="off" />
                             </td>
                             <td>
-                                <label for='Address1' class="px-2"><i class="far fa-address-book me-2"></i><span
-                                        class="l-form-address">Address</span></label>
+                                <span for='Address1' class="px-2"><i class="far fa-address-book me-2"></i><span
+                                        class="l-form-address">Address</span></span>
                             </td>
                             <td colspan="3">
                                 <input class="form-control edit-field" type="search" id="Address1" autocomplete="off"
@@ -341,7 +341,7 @@
                             <tr>
                                 <td colspan="6">
                                     <div class="form-check mt-1">
-                                        <label for="Agree_To_Disclose_Info" class="form-check-label">
+                                        <span for="Agree_To_Disclose_Info" class="form-check-label">
                                             <i class="fas fa-info-circle me-2"></i>
                                             <input id="Agree_To_Disclose_Info"
                                                 class="form-check-input edit-field l-form-agree-to-disclose-information"
@@ -401,8 +401,8 @@
                 <div class="card-body">
                     <div class='row d-flex align-items-center'>
                         <div class='mb-3 col-sm-3 d-flex align-items-center'>
-                            <label for='case-nature' class='control-label custom-form-label'><span
-                                    class="l-form-nature"></span>&nbsp;<span class="text-danger">*</span></label>
+                            <span for='case-nature' class='control-label custom-form-label'><span
+                                    class="l-form-nature"></span>&nbsp;<span class="text-danger">*</span></span>
                             <select class="form-select form-select-sm" name='case-nature' id='case-nature' style="width:59%;">
                                 <option selected="selected" value=''></option>
                                 <option value="Enquiry">Enquiry</option>
@@ -412,8 +412,8 @@
                             </select>
                         </div>
                         <div class='mb-3 col-sm-3 d-flex align-items-center'>
-                            <label for='case-status' class='control-label custom-form-label'><span
-                                    class="l-form-status"></span>&nbsp;<span class="text-danger">*</span></label>
+                            <span for='case-status' class='control-label custom-form-label'><span
+                                    class="l-form-status"></span>&nbsp;<span class="text-danger">*</span></span>
                             <select class="form-select form-select-sm" id='case-status' onchange='statusChange(this)'>
                                 <option selected="selected" value=''></option>
                                 <option value="Follow-up Required">Follow-up
@@ -421,7 +421,7 @@
                             </select>
                         </div>
                         <div class='mb-3 col-sm-5' id='case-escalated-container' style='display:none;'>
-                            <label for='case-escalated' class='col-sm-4 control-label l-form-escalated-to'></label>
+                            <span for='case-escalated' class='col-sm-4 control-label l-form-escalated-to'></label>
                             <select class="form-select form-select-sm col-sm-8" id='case-escalated' value=null>
                                 <option selected="selected" value=''></option>
                             </select>
@@ -430,8 +430,8 @@
 
                     <div class='row d-flex align-items-center'>
                         <div class='mb-3 col-sm-12 mb-1 d-flex align-items-center'>
-                            <label for='case-details' class='control-label custom-form-label'><span
-                                    class="l-form-details"></span>&nbsp;<span class="text-danger">*</span></label>
+                            <span for='case-details' class='control-label custom-form-label'><span
+                                    class="l-form-details"></span>&nbsp;<span class="text-danger">*</span></span>
                             <textarea class="mt-2" name='case-details' id='case-details' rows="3" cols="20"
                                 style="font-family:inherit;width:calc(100% - 110px);" maxlength="500"></textarea>
                         </div>
@@ -465,7 +465,7 @@
                                 <div id="reply-radio-group" class='mb-3 d-flex align-items-center'>
 
                                     <div class="form-check ms-3">
-                                        <label for="reply-none" class="form-check-label">
+                                        <span for="reply-none" class="form-check-label">
                                             <input class='form-check-input dial-yes-disable l-form-none'
                                                 onclick='replyChannelChange(this)' type="radio" id="reply-none"
                                                 name="replyList" value="" checked>
@@ -473,53 +473,53 @@
                                             <span class="circle">
                                                 <span class="check"></span>
                                             </span>
-                                        </label>
+                                        </span>
                                     </div>
 
                                     <div class="form-check ms-3">
-                                        <label for="reply-email" class="form-check-label">
+                                        <span for="reply-email" class="form-check-label">
                                             <input class='form-check-input dial-yes-disable l-form-radio-email'
                                                 onclick='replyChannelChange(this)' type="radio" id="reply-email"
                                                 name="replyList" value="email">
                                             &nbsp; <span class="circle">
                                                 <span class="check"></span>
                                             </span>
-                                        </label>
+                                        </span>
                                     </div>
 
 
                                     <div class="form-check ms-3">
-                                        <label for="reply-fax" class="form-check-label">
+                                        <span for="reply-fax" class="form-check-label">
                                             <input class='form-check-input dial-yes-disable l-form-radio-fax'
                                                 onclick='replyChannelChange(this)' type="radio" id="reply-fax"
                                                 name="replyList" value="fax">
                                             &nbsp; <span class="circle">
                                                 <span class="check"></span>
                                             </span>
-                                        </label>
+                                        </span>
                                     </div>
 
 
                                     <div class="form-check ms-3">
-                                        <label for="reply-sms" class="form-check-label">
+                                        <span for="reply-sms" class="form-check-label">
                                             <input class='form-check-input dial-yes-disable l-form-sms'
                                                 onclick='replyChannelChange(this)' type="radio" id="reply-sms"
                                                 name="replyList" value="sms">
                                             &nbsp; <span class="circle">
                                                 <span class="check"></span>
                                             </span>
-                                        </label>
+                                        </span>
                                     </div>
 
                                     <div class="form-check ms-2">
-                                        <label for="reply-call" class="form-check-label">
+                                        <span for="reply-call" class="form-check-label">
                                             <input class='form-check-input dial-yes-disable l-form-call'
                                                 onclick='replyChannelChange(this)' type="radio" id="reply-call"
                                                 name="replyList" value="call">
                                             &nbsp; <span class="circle">
                                                 <span class="check"></span>
                                             </span>
-                                        </label>
+                                        </span>
                                     </div>
                                 </div>
                             </div>
@@ -532,7 +532,7 @@
                             <span style='display:none;' id='email-details'>
                                 <span style='display:inline-block;' id="email-other-container">
                                     <div class="form-check ms-2" style='display:inline;'>
-                                        <label for="email-other-check" class="form-check-label">
+                                        <span for="email-other-check" class="form-check-label">
                                             <input type="checkbox"
                                                 class="form-check-input reply-checkbox email-list l-form-radio-other"
                                                 value='other' id="email-other-check"
@@ -542,7 +542,7 @@
                                             <span class="form-check-sign">
                                                 <span class="check"></span>
                                             </span>
-                                        </label>
+                                        </span>
                                     </div>&nbsp;
                                     <input type='email' maxLength="50" disabled=true id='email-other-input'
                                         class='border-form-control' type="search" autocomplete="off"
@@ -552,7 +552,7 @@
 
                             <span style='display:none;' id='fax-details'>
                                 <span id="fax-other-container">
-                                    <div class="form-check ms-2" style='display:inline;'><label for="fax-other-check" 
+                                    <div class="form-check ms-2" style='display:inline;'><span for="fax-other-check" 
                                             class="form-check-label">
                                             <input type="checkbox"
                                                 class="form-check-input reply-checkbox fax-list l-form-radio-other"
@@ -562,7 +562,7 @@
                                             <span class="form-check-sign">
                                                 <span class="check"></span>
                                             </span>
-                                        </label>
+                                        </span>
                                     </div>&nbsp;
                                     <input type='tel' onkeyup="this.value=this.value.replace(/[^\d]/,'')" maxLength="50"
                                         disabled=true id='fax-other-input' class='border-form-control' type="search"
@@ -573,7 +573,7 @@
                             <span style='display:none;' id='sms-details'>
                                 <span id="sms-other-container">
                                     <div class="form-check ms-2" style='display:inline;'>
-                                        <label for="sms-other-check" class="form-check-label">
+                                        <span for="sms-other-check" class="form-check-label">
                                             <input type="checkbox"
                                                 class="form-check-input reply-checkbox sms-list l-form-radio-other"
                                                 name="smsList" value='other' id="sms-other-check"
@@ -582,7 +582,7 @@
                                             <span class="form-check-sign">
                                                 <span class="check"></span>
                                             </span>
-                                        </label>
+                                        </span>
                                     </div>&nbsp;
                                     <input type='tel' onkeyup="this.value=this.value.replace(/[^\d]/,'')" maxLength="50"
                                         disabled=true id='sms-other-input' class="border-form-control" type="search"
@@ -594,7 +594,7 @@
                             <span style='display:none;' id='call-details'>
                                 <span id="call-other-container">
                                     <div class="form-check ms-2" style='display:inline;'>
-                                        <label for="call-other-check" class="form-check-label">
+                                        <span for="call-other-check" class="form-check-label">
                                             <input type="radio"
                                                 class="form-check-input reply-checkbox call-list dial-yes-disable l-form-radio-other"
                                                 name="callList" value='other' id="call-other-check"
@@ -603,7 +603,7 @@
                                             <span class="circle">
                                                 <span class="check"></span>
                                             </span>
-                                        </label>
+                                        </span>
                                     </div>&nbsp;
                                     <input type='tel' onkeyup="this.value=this.value.replace(/[^\d]/,'')"
                                         onkeydown="callOnkeydown(event)" maxLength="50"

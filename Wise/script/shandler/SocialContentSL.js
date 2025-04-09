@@ -367,7 +367,7 @@ var SC = {
         replacedText = inputText.replace(replacePattern1, '<a href="$1" target="_blank">$1</a>');
 
         //URLs starting with "www." (without // before it, or it'd re-link the ones done above).
-        replacePattern2 = /(^|[^\/])(www\.[ ]+(\b|$))/gim; // replacePattern2 = /(^|[^\/])(www\.[\S]+(\b|$))/gim; // 20250409 Replace this character class by the character itself.
+        replacePattern2 = /(^|[^\/])(www\. +(\b|$))/gim; // replacePattern2 = /(^|[^\/])(www\.[\S]+(\b|$))/gim; // 20250409 Replace this character class by the character itself.
         replacedText = replacedText.replace(replacePattern2, '$1<a href="http://$2" target="_blank">$2</a>');
 
         //Change email addresses to mailto:: links. (updated for migration on 10-3-2025)

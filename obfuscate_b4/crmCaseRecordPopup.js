@@ -190,7 +190,7 @@ function generateContent(contentType, callType, r, mediaId) { //contentType: 'ca
             var mediaPath = theMedia.FileUrl || '';
             // var openAudio = "window.open('" + theMedia.FileUrl + "','_blank','width=280,height=50')";
             var callContainer = '<form>' +
-                '<div class="row mb-1 mx-0"><span class="col-sm-2 text-gray">' + langJson['l-form-timestamp'] + '</span><div class="col-sm-10">' + handledTime.replace(/[T]/g, " ") + '</div></div>' +
+                '<div class="row mb-1 mx-0"><span class="col-sm-2 text-gray">' + langJson['l-form-timestamp'] + '</span><div class="col-sm-10">' + handledTime.replace(/T/g, " ") + '</div></div>' +  // handledTime.replace(/[T]/g, " ")     //20250409 Replace this character class by the character itself.
                 '<div class="row mb-1 mx-0"><span class="col-sm-2 text-gray">' + langJson['l-vmail-caller-display'] + '</span><div class="col-sm-10">' + callerDisplay + '</div></div>' +
                 '<div class="row mb-1 mx-0"><span class="col-sm-2 text-gray">' + langJson['l-form-play-call'] + '</span><div class="col-sm-10">' +
                 '<video controls="" name="media" style="height:27px;width:95%;"' + downloadVoiceStr + '><source src="' + mediaPath + '" type="audio/wav"></video>' +
@@ -202,7 +202,7 @@ function generateContent(contentType, callType, r, mediaId) { //contentType: 'ca
         for (let theMedia of mediaContent) {
             var timestamp = theMedia.TimeStamp;
             var handledTime = timestamp.slice(0, timestamp.indexOf("."));
-            var newTime = handledTime.replace(/[T]/g, " ");
+            var newTime = handledTime.replace(/T/g, " ");     //  var newTime = handledTime.replace(/[T]/g, " "); // 202050409 Replace this character class by the character itself.
             $('<span class="me-3">' + newTime + '</span>').appendTo('#call-reply-timestamp');
             $('#reply-call-span').append('<video controls="" name="media" style="height:27px;width:95%;"' + downloadVoiceStr + '><source src="' + theMedia.FileUrl + '" type="audio/wav"></video>');
         }
@@ -542,7 +542,7 @@ function caseRecordPopupOnload() {
         typeDetails = queryObj.Type_Details || '';
         // ===================== 1/3 set info of call messagea =====================
         if (callType.length > 0) {
-            callTypeTitle.innerHTML = callType.replace(/[_]/g, " ");
+            callTypeTitle.innerHTML = callType.replace(/_/g, " ");        // callTypeTitle.innerHTML = callType.replace(/[_]/g, " "); // 20250409 Replace this character class by the character itself.
             if (!isSocial) {
                 $('#call-media-content').addClass('mt-3');
                 if (callMediaType == 'Call') {
@@ -626,7 +626,7 @@ function caseRecordPopupOnload() {
         $("#p-Long_Call").text(longCall);
         $("#p-Long_Call_Reason").text(queryObj.Long_Call_Reason);
         $("#p-Is_Junk_Mail").text(isJunkMail);
-        $("#p-reply").text(queryObj.Reply_Type.replace(/[_]/g, " "));
+        $("#p-reply").text(queryObj.Reply_Type.replace(/_/g, " "));   //  $("#p-reply").text(queryObj.Reply_Type.replace(/[_]/g, " "));   // 20250409 Replace this character class by the character itself.
         $("#p-reply-details").text(queryObj.Reply_Details || '');
         // ===================== 3/3 set info of reply message =====================
         if (replyMediaType.length > 0) {
@@ -644,7 +644,7 @@ function caseRecordPopupOnload() {
                         '</form>';
                     $(callContainer).appendTo('#reply-media-content');
                 }
-                replyTypeTitle.innerHTML = replyType.replace(/[_]/g, " ");
+                replyTypeTitle.innerHTML = replyType.replace(/_/g, " ");  // replyTypeTitle.innerHTML = replyType.replace(/[_]/g, " "); // 20250409 Replace this character class by the character itself.
                 $.ajax({
                     type: "POST",
                     url: wiseHost + '/WisePBX/api/' + replyMediaType + '/GetContent',

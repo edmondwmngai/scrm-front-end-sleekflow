@@ -61,8 +61,8 @@ var gf = {
     var newStr = str
         //.replace(/["<>&!#\$%'()\*+,-./:;=?@[\\\]^_\`'{|}~]/g, replaceTag)    20250408 Remove duplicates in this character class.
       .replace(/["<>&!#$%'()*+,-./:;=?@[\\\]^_`{|}~]/g, replaceTag)
-      .replace(/[\n]/g, '&#10;')
-      .replace(/[\r]/g, '&#13;');
+        .replace(/\n/g, '&#10;')      //.replace(/[\n]/g, '&#10;')        // 20250409 Replace this character class by the character itself.
+        .replace(/\r/g, '&#13;');     //.replace(/[\r]/g, '&#13;');      
 
       var newStr = str
           

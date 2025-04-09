@@ -48,7 +48,7 @@ function escalationListOnload(removeOriginal) {
             targets: 3,
             render: function (data, type, row) {
                 if (data.length > 0) {
-                    return data.replace(/[_]/g, " ");
+                    return data.replace(/_/g, " ");   //  return data.replace(/[_]/g, " ");   // 20250409 Replace this character class by the character itself.
                 } else {
                     return 'Manual Update';
                 }
@@ -66,7 +66,7 @@ function escalationListOnload(removeOriginal) {
         }, {
             targets: -1,
             render: function (data, type, row) {
-                var newData = data ? data.replace(/[T]/g, " ") : '';
+                var newData = data ? data.replace(/T/g, " ") : '';    // var newData = data ? data.replace(/[T]/g, " ") : ''; // 20250409 Replace this character class by the character itself.
                 var indexOfDot = newData.indexOf('.');
                 if (indexOfDot > -1) {
                     return newData.slice(0, indexOfDot);

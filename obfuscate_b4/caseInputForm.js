@@ -1460,7 +1460,7 @@ function loadCaseLog(initial) {
                 }, {
                     targets: 1,
                     render: function (data, type, row) {
-                        var newData = data.replace(/[T]/g, " ");
+                        var newData = data.replace(/T/g, " ");    //  var newData = data.replace(/[T]/g, " ");      //20250409 Replace this character class by the character itself.
                         var indexOfDot = newData.indexOf('.');
                         if (indexOfDot > -1) {
                             return newData.slice(0, indexOfDot);

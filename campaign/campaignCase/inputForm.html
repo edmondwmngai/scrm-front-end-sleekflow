@@ -191,7 +191,7 @@
 
 <body class='custom-scroll' onload="windowOnload();" onkeydown='return (event.keyCode != 116)'>
     <div id='customer-id-section' class='mt-2'>
-        <label for="form-back-btn" class='l-form-customer-id mt-3 d-none'></label>:&nbsp;
+        <span for="form-back-btn" class='l-form-customer-id mt-3 d-none'></span>:&nbsp;
         <span class="d-none" id='customer-id'></span>
         <button id="form-back-btn" class="float-end btn btn-circle btn-warning mt-2 mb-5 l-general-previous-page"
             onclick="returnToSearch();"><i class="fas fa-arrow-left"></i></button>
@@ -238,7 +238,7 @@
                                 onchange='changeCaseSavedFalse()' />
                         </div>
                         <div class='mb-3 col-sm-4 ps-0'>
-                            <label for='Title' class='col-sm-8 control-label l-form-title'></label>
+                            <span for='Title' class='col-sm-8 control-label l-form-title'></span>
                             <select class="form-select col-sm-4 edit-field" name="Title" id='Title'>
                                 <option selected="selected" value=''></option>
                                 <option class="l-form-miss" value="Miss">Miss</option>
@@ -286,9 +286,9 @@
                             <select class="form-select edit-field" id='Market_Id'>
                                 <option value=""></option>
                             </select>
-                            <label for='Profile_Id' class='control-label mx-3'>
+                            <span for='Profile_Id' class='control-label mx-3'>
                                 <i class="far fa-user-circle me-2"></i><span class='l-form-profile'></span>
-                            </label>
+                            </span>
                             <select class="form-select edit-field" id='Profile_Id' style="max-width:90px;">
                                 <option value=""></option>
                             </select>
@@ -343,8 +343,8 @@
 
                     <div class='row d-flex align-items-center'>
                         <div class='input-group col-sm-5'>
-                            <label for='Email' class='control-label pe-4 px-3' style="width:100px;"><i
-                                    class='fa fa-envelope me-2'></i><span class="l-form-email"></span></label>
+                            <span for='Email' class='control-label pe-4 px-3' style="width:100px;"><i
+                                    class='fa fa-envelope me-2'></i><span class="l-form-email"></span></span>
                             <input class="form-control edit-field col-sm-11 mt-1" type='search' maxLength="50"
                                 id="Email" onchange='changeCaseSavedFalse()' autocomplete="off" />
                         </div>

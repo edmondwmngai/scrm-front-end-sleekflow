@@ -1681,8 +1681,7 @@
 			var obj = e.detail;
 			var i = monAgentList.findIndex(function (v) { return v.agentId == obj.agent_id });
 			if (i != -1) {
-				monAgentList[i].ticketList = (obj.ticket_list == null) ? [] : obj.ticket_list.slice(0);
-				triggerEvent(window.parent.document, 'onMonitorAgentInfo', Object.assign({}, monAgentList[i]));
+				monAgentList[i].ticketList = (obj.ticket_list == null) ? [] : obj.ticket_list.slice(0);				
 			  //triggerEvent(window.parent.document, 'onMonitorAgentInfo', Object.assign({}, monAgentList[i])); 
 				triggerEvent(window.parent.document, 'onMonitorAgentInfo', { ...monAgentList[i] }); // 20250409 Use an object spread instead of `Object.assign`
 				

@@ -291,7 +291,7 @@ function initCallBar() {
     var cIdle = 0;
     var cHold = 0;
     // var cDialing = 0;
-    var cWmAgentObj = Object.assign({}, wmAgentObj);
+    var cWmAgentObj = { ...wmAgentObj };    // var cWmAgentObj = Object.assign({}, wmAgentObj);     // 20250409 Use an object spread instead of `Object.assign` 
     for (var property in cWmAgentObj) {
         if (cWmAgentObj.hasOwnProperty(property)) {
             var agentObj = cWmAgentObj[property];
@@ -384,7 +384,7 @@ function initChatBar() {
     if (hvSocial) {
         var chatNo = 0;
         var noChat = 0;
-        var cWmAgentObj = Object.assign({}, wmAgentObj);
+        var cWmAgentObj = { ...wmAgentObj };    // var cWmAgentObj = Object.assign({}, wmAgentObj);     // 20250409 Use an object spread instead of `Object.assign` 
         for (var property in cWmAgentObj) {
             if (cWmAgentObj.hasOwnProperty(property)) {
                 var agentObj = cWmAgentObj[property];
@@ -578,7 +578,8 @@ function initAgentStatus() {
         return;
     }
     //console.log('initAgentStatus');
-    var cWmAgentObj = Object.assign({}, (wmAgentObj || {}));
+    var cWmAgentObj = {...wmAgentObj };    // var cWmAgentObj = Object.assign({}, (wmAgentObj || {}));    // 20250409 Use an object spread instead of `Object.assign` 
+
     var agentArr = [];
     var d = new Date();
     for (var property in cWmAgentObj) {

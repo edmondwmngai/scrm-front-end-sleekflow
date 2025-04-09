@@ -954,7 +954,8 @@
 
 
 
-								const assignedTicket = Object.assign({}, currentTicket);
+								const assignedTicket = { ...currentTicket };	//const assignedTicket = Object.assign({}, currentTicket);	//20250409 Use an object spread instead of `Object.assign`
+
 								assignedTicket.messages = _messagelist;
 
 								//Area for handling data
@@ -1668,8 +1669,9 @@
 				monAgentList.push(obj);
 				wsWiseAgent.GetAgentTicketList(obj.agentId);
 				i = monAgentList.length - 1;
-				triggerEvent(window.parent.document, 'onMonitorAgentInfo', Object.assign({}, monAgentList[i])); // Some company may no social media service, so get ticket no return
-			} else {
+				//triggerEvent(window.parent.document, 'onMonitorAgentInfo', Object.assign({}, monAgentList[i])); // Some company may no social media service, so get ticket no return
+				triggerEvent(window.parent.document, 'onMonitorAgentInfo', { ...monAgentList[i] }); // 20250409 Use an object spread instead of `Object.assign`
+
 				monAgentList[i] = Object.assign(monAgentList[i], obj)
 				triggerEvent(window.parent.document, 'onMonitorAgentInfo', monAgentList[i]);
 			}
@@ -1681,6 +1683,10 @@
 			if (i != -1) {
 				monAgentList[i].ticketList = (obj.ticket_list == null) ? [] : obj.ticket_list.slice(0);
 				triggerEvent(window.parent.document, 'onMonitorAgentInfo', Object.assign({}, monAgentList[i]));
+			  //triggerEvent(window.parent.document, 'onMonitorAgentInfo', Object.assign({}, monAgentList[i])); 
+				triggerEvent(window.parent.document, 'onMonitorAgentInfo', { ...monAgentList[i] }); // 20250409 Use an object spread instead of `Object.assign`
+				
+
 				//console.log(monAgentList);
 			}
 		});

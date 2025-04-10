@@ -106,8 +106,8 @@ function getWebchatFields(data) {
         var rDetails = r.details;
         if (!/^success$/i.test(r.result || "")) {
             console.log('error: ' + rDetails);
-        } else {
-            if (rDetails != undefined) {
+        //} else {  // 20250410 'If' statement should not be the only statement in 'else' block
+        } else if (rDetails != undefined) {
                 var webchatFieldsStr = '';
                 var webchatFields = rDetails['Webchat Fields'] || [];
                 if (webchatFields != undefined && webchatFields.length > 0) {
@@ -121,7 +121,7 @@ function getWebchatFields(data) {
                     }
                 }
                 parent.showSearch(data, webchatFieldsStr);
-            }
+           // }// 20250410 for else if 
         }
     });
 }

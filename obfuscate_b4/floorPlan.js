@@ -542,12 +542,12 @@ function getFPFull(fpId, type) {
                 success: function (res) {
                         if (!/^success$/i.test(res.result || "")) {
                                 console.log(res);
-                        } else {
-                                if (type == 'show') {
+                        //} else {      // 20250410 'If' statement should not be the only statement in 'else' block 
+                        } else if (type == 'show') {
                                         showFullfContent(res.details[0] || []);
-                                } else {
+                        } else {
                                         editFP(res.details[0] || []);
-                                }
+                               // }//   20250410 for else if 
 
                         }
                 },
@@ -636,12 +636,12 @@ function showFullfContent(fpFull) {
                         if (selected == 'Barge In') {
                                 window.opener.document.getElementById("phone-panel").contentWindow.WiseStartMonitorCall(targetAgentId, 0); // 0 means type is barge in
                                 monitoringAgentId = 0;
-                        } else {
-                                if (confirm('Are you sure you want to "' + selected + '"?')) {
+                        //} else {      // 20250410 'If' statement should not be the only statement in 'else' block
+                        } else if (confirm('Are you sure you want to "' + selected + '"?')) {
                                         var typeId = selected == 'Silent' ? 1 : (selected == 'Coach' ? 4 : 2); //Conference = 2
                                         monitoringAgentId = targetAgentId;
                                         window.opener.document.getElementById("phone-panel").contentWindow.WiseStartMonitorCall(targetAgentId, typeId);
-                                }
+                              //  }     // 20250410 for else if 
                         }
                 }
         })
@@ -784,11 +784,11 @@ function updateFpAgent(agentObj) {
         if (ticketList.length == 0 || agentObj.agentId == loginId) {
                 if (!socialBtn.hasClass('d-none')) {
                         socialBtn.addClass('d-none');
-                }
-        } else {
-                if (socialBtn.hasClass('d-none')) {
+                }       
+        //} else {      // 20250410 'If' statement should not be the only statement in 'else' block
+        } else if (socialBtn.hasClass('d-none')) {
                         socialBtn.removeClass('d-none');
-                }
+              //  }// 20250410 for else if 
         }
         pcContainer.attr('details', JSON.stringify(agentObj));
 }

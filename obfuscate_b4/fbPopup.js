@@ -209,11 +209,11 @@ function fbPopupOnload() {
         if (mediaType == "video/mp4") {
             $('#profile-pic').hide();
             media = document.getElementById('video'); // video
-        } else {
-            if (mediaType && mediaType.length > 0) {
+//        } else {      // 20250410 'If' statement should not be the only statement in 'else' block
+        } else if (mediaType && mediaType.length > 0) {
                 $('#profile-pic').show();
                 $('#video').hide(); // hide video playbox
-            }
+            //}// 20250410 for else if 
         }
         if (mediaContent != null) {
             var pathname = window.location.pathname;

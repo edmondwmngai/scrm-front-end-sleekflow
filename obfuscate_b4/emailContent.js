@@ -16,17 +16,17 @@ function resizeEmail(isInit) {
             parent.resizeEmail(true, newHeight);
             $('#resize-btn').addClass('btn-success');
             $('#resize-btn').removeClass('btn-warning');
-        } else {
+      //  } else {  // 20250410 'If' statement should not be the only statement in 'else' block
 
             // not full content
-            if (newHeight < 303) {
+        } else if (newHeight < 303) {
                 parent.resizeEmail(true, newHeight); // full size show
                 $('#resize-btn').addClass('d-none');
-            } else {
+        } else {
                 parent.resizeEmail(false, newHeight);
                 $('#resize-btn').addClass('btn-warning');
                 $('#resize-btn').removeClass('btn-success');
-            }
+           // } // 20250410 for else if 
 
 
         }

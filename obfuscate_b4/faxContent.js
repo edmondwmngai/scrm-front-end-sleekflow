@@ -152,10 +152,10 @@ $(document).ready(function () {
         if (window.opener && window.opener.parent && window.opener.parent.addPopupIdle) {
             window.opener.parent.addPopupIdle($(document));
         }
-    } else {
-        if (parent.parent && parent.parent.iframeRecheck) {
+    //} else {  // 20250410 'If' statement should not be the only statement in 'else' block
+    } else if (parent.parent && parent.parent.iframeRecheck) {
             parent.parent.iframeRecheck($(parent.document));
-        }
+       // } // 20250410 for else if 
     }
 });
 // prevent right click

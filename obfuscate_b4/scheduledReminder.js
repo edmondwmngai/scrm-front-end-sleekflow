@@ -254,8 +254,8 @@ function loadAgentDropDown() {
         // result != "success" or there is no results
         if (!/^success$/i.test(res.result || "")) {
             console.log('error: ' + agentDetails ? agentDetails : res);
-        } else {
-            if (agentDetails != undefined) {
+        //} else {  //20250410 'If' statement should not be the only statement in 'else' block
+        } else if (agentDetails != undefined) {
 
                 // append 'All' to the dropdown list
                 $('#select-agent').append(
@@ -297,7 +297,7 @@ function loadAgentDropDown() {
                     }
                     event.preventDefault(); // to prevent once again
                 });
-            }
+            //}// 20250410 for else if
         }
     });
 }

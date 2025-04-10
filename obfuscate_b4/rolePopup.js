@@ -347,13 +347,13 @@ function checkRoleOfAgents() {
         var details = res.details;
         if (!/^success$/i.test(res.result || "")) {
             console.log("error /n" + res ? res : '');
-        } else {
-            if (details != "") {
+   //     } else {  // 20250410 'If' statement should not be the only statement in 'else' block
+        } else if (details != "") {
                 $('#status-error').text(details);
                 return false; // do not submit form
-            } else {
+        } else {
                 $('#status-error').text('');
-            }
+          //  }// 20250410 for else if
         }
     });
 }

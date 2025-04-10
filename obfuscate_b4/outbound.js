@@ -827,14 +827,14 @@ function uploadPageInit(campaignArr) {
             if (!/^success$/i.test(r.result || "")) {
                 parent.$.MessageBox(r.details || 'Add Batch Failed');
                 $('#u-save-btn').prop('disabled', false);
-            } else {
-                if (r.details.upload_status == 'Uploaded.') {
+            //} else {      // 20250410 'If' statement should not be the only statement in 'else' block
+            } else if (r.details.upload_status == 'Uploaded.') {
                     parent.$.MessageBox(langJson['l-outbound-batch-created']);
                     uploadInit();
-                } else {
+            } else {
                     parent.$.MessageBox(r.details.upload_status);
                     $('#u-save-btn').prop('disabled', false);
-                }
+              //  } // 20250410 for else if 
             }
         });
     })
@@ -2439,12 +2439,12 @@ function campaignInitTbl(returnToNonEpro) {
             console.log(data);
             if (row.Is_Form_Builder === false || (row.Is_Form_Builder && row.Got_Form_Structure && row.Got_Form_JSON)) {
                 return 'Active';
-            } else {
-                if (row.Got_Form_Structure === false) {
+            //} else {  // 20250410 'If' statement should not be the only statement in 'else' block
+            } else if (row.Got_Form_Structure === false) {
                     return '<button onclick="return campaignBuildForm()" class="btn rounded btn-sm btn-warning text-capitalize" style="width:278px;text-align: left;"><i class="fas fa-plus-square me-2"></i><span>' + langJson['l-outbound-build-form-required'] + '</span></button>';
-                } else { // no form json
+            } else { // no form json
                     return '<button onclick="return campaignAddFormStructure()" class="btn rounded btn-sm btn-warning text-capitalize" style="width:278px;text-align: left"><i class="fas fa-plus-square me-2"></i><span>' + langJson['l-outbound-form-structure-required'] + '</span></button>';
-                }
+               // }//   20250410 for else if
             }
         }
     }
@@ -2951,11 +2951,11 @@ function campaignAddCampaign(campaignCode, headerColumnArr) {
         if (!/^success$/i.test(r.result || "")) {
             parent.$.MessageBox(r.details || 'Add Campaign Error');
             $('#c-save-btn').prop('disabled', false);
-        } else {
+        //} else {  // 20250410 'If' statement should not be the only statement in 'else' block
             // e.g. {"result":"success","details":{"Campaign_Id":1003}}
-            if (headerColumnArr.length > 0) {
+        } else if (headerColumnArr.length > 0) {
                 campaignAddCampaignHeader(r.details.Campaign_Id, campaignCode, headerColumnArr);
-            }
+            //}// 20250410 for else if 
         }
     });
 }

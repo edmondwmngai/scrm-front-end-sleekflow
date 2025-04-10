@@ -265,12 +265,12 @@ function drawHistoryTbl(type) {
         var rDetails = r.details;
         if (!/^success$/i.test(r.result || "")) {
             console.log('error: ' + rDetails);
-        } else {
-            if (historyTbl) {
+        //} else {    //20250410 'If' statement should not be the only statement in 'else' block
+        } else if (historyTbl) {
                 $('#history-tbl').DataTable().clear();
                 $('#history-tbl').DataTable().rows.add(rDetails); // Add new data
                 $('#history-tbl').DataTable().columns.adjust().draw();
-            } else {
+        } else {
                 historyTbl = $('#history-tbl').DataTable({
                     data: rDetails,
                     lengthChange: false,
@@ -354,7 +354,7 @@ function drawHistoryTbl(type) {
                     historyTbl.$('tr.highlight').removeClass('highlight'); // $('xxx tbody tr) will not select other pages not showing, do not use this selector
                     $(this).addClass('highlight');
                 });
-            }
+            //}// 20250410 for else if
         }
     });
 }

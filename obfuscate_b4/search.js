@@ -1186,8 +1186,8 @@ function loadGrid() { // (connId, callType, details) {
 
     if (searchArr.length == 0) {
         generateManualSearchTbl([]);
-    } else {
-        if (!caseMode) {
+    //} else {      //20250410 'If' statement should not be the only statement in 'else' block
+    } else if (!caseMode) {     
             $.ajax({
                 type: "POST",
                 // url: mvcHost + '/mvc' + campaign + '/api/AutoSearch',
@@ -1245,7 +1245,7 @@ function loadGrid() { // (connId, callType, details) {
                     }
                 }
             });
-        }
+        //} //20250410 for else if 
     }
     // when tab changed resize iframe
     // $('a[data-bs-toggle="tab"]').on('shown.bs.tab', function (e) {
@@ -1264,8 +1264,8 @@ function loadGrid() { // (connId, callType, details) {
         }]
     } else if (isSocial || callType == 'Inbound_Webchat') {
         caseSearchArr = returnSocialSearchArr(true)
-    } else {
-        if (details.length > 0) {
+  //  } else {      //20250410 'If' statement should not be the only statement in 'else' block
+    } else if (details.length > 0) {
             caseSearchArr = [{
                 "list_name": "Contact List",
                 "field_name": returnFieldName(callType),
@@ -1273,7 +1273,7 @@ function loadGrid() { // (connId, callType, details) {
                 "value": details,
                 "field_type": null
             }]
-        } else if (replyDetails.length > 0 && $.isNumeric(replyDetails)) { // for incomplete cases
+     } else if (replyDetails.length > 0 && $.isNumeric(replyDetails)) { // for incomplete cases
             caseSearchArr = [{
                 "list_name": "Contact List",
                 "field_name": 'All_Phone_No',
@@ -1281,7 +1281,7 @@ function loadGrid() { // (connId, callType, details) {
                 "value": replyDetails,
                 "field_type": null
             }]
-        }
+       // }// 20250410 for else if
     }
 
     if (caseSearchArr.length == 0) {
@@ -1518,14 +1518,14 @@ function loadFields() {
         var rDetails = r.details;
         if (!/^success$/i.test(r.result || "")) {
             console.log(rDetails || r || '');
-        } else {
-            if (rDetails != undefined) {
+        //} else {      //20250410 'If' statement should not be the only statement in 'else' block
+        } else if (rDetails != undefined) {
                 if (caseMode) {
                     buildCaseFields(rDetails);
                 } else {
                     buildCRMFields(rDetails);
                 }
-            }
+           // }//   //20250410 for else if 
         }
     });
 }

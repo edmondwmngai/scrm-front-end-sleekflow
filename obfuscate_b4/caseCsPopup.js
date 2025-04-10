@@ -102,14 +102,14 @@ function nationalityChanged(oThis) {
     if (nationalityId == '') {
         marketSelect.val('').attr('disabled', false);
         profileSelect.val('').attr('disabled', false);
-    } else {
-        if (nationalityId == 1) {
+    //} else {      // 20250410 'If' statement should not be the only statement in 'else' block
+    } else if (nationalityId == 1) {
             marketSelect.val(marketId).attr('disabled', false);
             profileSelect.val(profileId).attr('disabled', false);
-        } else {
+    } else {
             marketSelect.val(marketId).attr('disabled', true);
             profileSelect.val(profileId).attr('disabled', true);
-        }
+        //}// 20250410 for else if 
     }
 
 }

@@ -503,8 +503,8 @@ $(document).ready(function () {
                     { id: 1005, props: 2, type: 'tp_cta', crm: '{"txt":"感謝您登記{{1}}。{{2}}。","btns":[{"type":"hotline","display":"查詢熱線","num":39199686},{"type":"website","display": "網頁","url":{"link": "http://www.eprotel.com.hk/ct/index.php"}}]}' }
                 ];
             }
-        } else {
-            if (config.isEmma) {
+        //} else {  // 20250410 'If' statement should not be the only statement in 'else' block
+        } else if (config.isEmma) {
                 waTPArr = [
                     { id: 6, props: 2, type: 'tp_text', crm: 'You made a purchase for {{1}} using a credit card ending in {{2}}' },
                     { id: 9, props: 2, type: 'tp_qr', crm: '{"img":"{{1}}","txt":"謝謝你的支持，{{2}}","btns":["我想知道更多(A01)","暫時不用","遲D再回覆你"]}' },
@@ -515,7 +515,7 @@ $(document).ready(function () {
                     { id: 13, props: 3, type: 'tp_qr', crm: '{"img": "{{1}}", "txt": "{{2}}Thank you for your support{{3}}", "btns": ["Yes(A01)", "No", "Will Confirm Later"]}' },
                     { id: 14, props: 5, type: 'tp_cta', crm: '{"img": "{{1}}", "txt": "{{2}}\\r\\n{{3}}\\r\\n{{4}}\\r\\n{{5}}\\r\\n如您不希望再透過WhatsApp接收訊息, 請按「取消訂閱」", "btns": [{"type": "website", "display": "取消訂閱"}]}' }
                 ];
-            } else {
+        } else {
 
                 // 112 twilio
                 waTPArr = [
@@ -527,7 +527,7 @@ $(document).ready(function () {
                     { id: 1004, props: 2, type: 'tp_cta', crm: '{"txt":"Thank you for registering {{1}}. {{2}}","btns":[{"type":"hotline", "display":"Find Out More","num":39199686},{"type":"website","display":"Visit our Website","url":{"link":"http://www.eprotel.com.hk/en/index.php?back="}}]}' },
                     { id: 1005, props: 2, type: 'tp_cta', crm: '{"txt":"感謝您登記{{1}}。{{2}}。","btns":[{"type":"hotline","display":"查詢熱線","num":39199686},{"type":"website","display": "網頁","url":{"link": "http://www.eprotel.com.hk/ct/index.php"}}]}' }
                 ];
-            }
+           // } // 20250410 for else if 
         }
 
         var fileContainer = $('#file-list-table');

@@ -92,14 +92,14 @@ function nationalityChanged(oThis) {
     if (nationalityId == '') {
         marketSelect.val('').attr('disabled', false);
         profileSelect.val('').attr('disabled', false);
-    } else {
-        if (nationalityId == 1) {
+    //} else {      //20250410      'If' statement should not be the only statement in 'else' block
+    } else if (nationalityId == 1) {
             marketSelect.val(marketId).attr('disabled', false);
             profileSelect.val(profileId).attr('disabled', false);
-        } else {
+    } else {
             marketSelect.val(marketId).attr('disabled', true);
             profileSelect.val(profileId).attr('disabled', true);
-        }
+        //}//   20250410 for else if 
     }
 
 }
@@ -449,12 +449,12 @@ function saveClicked(isTemp, callback) { // 1. declare 2. verify 3. update custo
             } else {
                 replyDetails += (',' + detailsValue);
             }
-        } else {
-            if (replyDetails.length == 0) {
+        //} else {  // 20250410 'If' statement should not be the only statement in 'else' block
+        } else if (replyDetails.length == 0) {
                 replyDetails = $('#' + replyChannel + '-other-input')[0].value;
-            } else {
+        } else {
                 replyDetails += (',' + $('#' + replyChannel + '-other-input')[0].value);
-            }
+            //} // 20250410 for else if
         }
     }
     // ========================== 2/6 Verify ==========================
@@ -516,17 +516,17 @@ function saveClicked(isTemp, callback) { // 1. declare 2. verify 3. update custo
                     alert(langJson['l-alert-not-clicked-dial']);
                     return;
                 }
-            } else {
+            //} else {  // 20250410 'If' statement should not be the only statement in 'else' block
 
                 // replyConfirmed = true here
                 // verify dialed out call, have it be given result
-                if (replyChannel == 'call') {
+            } else if (replyChannel == 'call') {
                     var replyCallResult = $('#call-result-select')[0].value;
                     if (replyCallResult != undefined && replyCallResult.length == 0) {
                         alert(langJson['l-alert-no-call-result']);
                         return;
                     }
-                }
+                //}// 20250410 for else if 
             }
         }
         // verify if email related checked but wihtout email
@@ -954,16 +954,16 @@ function updateCallerSetting(callType, isValid) {
         var rDetails = r.details;
         if (!/^success$/i.test(r.result || "")) {
             console.log('error: ' + rDetails);
-        } else {
-            if (isValid == 'Y') {
+        //} else {  // 20250410 'If' statement should not be the only statement in 'else' block
+        } else if (isValid == 'Y') {
                 theHeader.style.display = 'inline';
                 theHeader.setAttribute('data-original-title', remarks);
                 // theHeader.title = remarks;
-            } else {
+        } else {
                 theHeader.style.display = 'none';
                 theHeader.setAttribute('data-original-title', '');
                 // theHeader.title = '';
-            }
+           // }//   20250410 for else if 
         }
     });
 }
@@ -1045,11 +1045,11 @@ function callSaveCallHistory(isSaved) { // if update reply details only, will no
             if (!/^success$/i.test(r.result || "")) {
                 console.log('error in callSaveCallHistory');
                 console.log(r.details);
-            } else {
+            //} else {  //20250410 'If' statement should not be the only statement in 'else' block
                 // reload page
-                if (isSaved) {
+            } else if (isSaved) {
                     restorePage();
-                }
+                //}// 20250410 for else if 
             }
         },
         error: function (r) {
@@ -1793,8 +1793,8 @@ function windowOnload() {
             document.getElementById('case-nature').value = customerData.Call_Nature || '';
         }
         $("#reply-none").prop("checked", true).trigger("click");
-    } else {
-        if (type == 'newCustomer') {
+    //} else {  // 20250410 'If' statement should not be the only statement in 'else' block
+    } else if (type == 'newCustomer') {
             if (callType == 'Inbound_Email') {
                 _Email.value = details;
                 // $('#Email_update').click();
@@ -1828,8 +1828,8 @@ function windowOnload() {
                         var rDetails = r.details;
                         if (!/^success$/i.test(r.result || "")) {
                             console.log('error: ' + rDetails);
-                        } else {
-                            if (rDetails != undefined) {
+                        //} else {      //20250410 'If' statement should not be the only statement in 'else' block
+                        } else if (rDetails != undefined) {
                                 var webchatFields = rDetails['Webchat Fields'];
                                 for (let theFieldStr of detailsArr) {
                                     var fieldNameValueArr = theFieldStr.split(':');
@@ -1856,12 +1856,12 @@ function windowOnload() {
                                         }
                                     }
                                 }
-                            }
+                            //}// 20250410 for else if 
                         }
                     });
                 }
             }
-        }
+        //}// 20250410 'If' statement should not be the only statement in 'else' block
     }
 
     // load Escalate To dropdown
@@ -1873,12 +1873,12 @@ function windowOnload() {
         document.getElementById('case-details').value = customerData.Details || '';
         if (outsider) {
             document.getElementById('case-status').value = 'Follow-up Required';
-        } else {
-            if (escalatedTo != null) {
+        //} else { //20250410 'If' statement should not be the only statement in 'else' block
+        } else if (escalatedTo != null) {
                 document.getElementById('case-status').value = 'Escalated';
-            } else {
+        } else {
                 document.getElementById('case-status').value = customerData.Status || '';
-            }
+            //}// 20250410 for else if 
         }
         if (customerData != undefined && customerData.Escalated_To != null) {
             document.getElementById('case-escalated').value = customerData.Escalated_To;

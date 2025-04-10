@@ -49,10 +49,10 @@ function searchVoiceClicked() {
     if (startDate.length == 0) {
         alertMsg += "Start Date cannot be empty";
         hasError = true;
-    } else {
+    //} else { // 20250410 'If' statement should not be the only statement in 'else' block
         //if (!/^\d{4}(-|\/)(0?[1-9]|1[012])(-|\/)(0?[1-9]|[12][0-9]|3[01])$/.test(startDate)) {        // 20250326 Replace this alternation with a character class
         //if (!/^\d{4}(-\/)(0?[1-9]|1[012])(-\/)(0?[1-9]|[12][0-9]|3[01])$/.test(startDate)) {   
-        if (!/^\d{4}[-\/](0?\d|1[0-2])[-\/](0?\d|[12]\d|3[01])$/.test(startDate)) {     // 20250408    Use concise character class syntax '\d' instead of '[0-9]'. 
+    } else if (!/^\d{4}[-\/](0?\d|1[0-2])[-\/](0?\d|[12]\d|3[01])$/.test(startDate)) {     // 20250408    Use concise character class syntax '\d' instead of '[0-9]'. 
             
             if (alertMsg.length > 0) {
                 alertMsg += "\n"
@@ -60,7 +60,7 @@ function searchVoiceClicked() {
             alertMsg += 'Start Date format is invalid';
             hasError = true;
             formatValid = false;
-        }
+        //}// 20250410 for else if 
     }
     if (endDate.length == 0) {
         if (alertMsg.length > 0) {
@@ -68,17 +68,18 @@ function searchVoiceClicked() {
         }
         alertMsg += "End Date cannot be empty";
         hasError = true;
-    } else {
+    //} else {
         //if (!/^\d{4}(-|\/)(0?[1-9]|1[012])(-|\/)(0?[1-9]|[12][0-9]|3[01])$/.test(endDate)) {      // 20250326 Replace this alternation with a character class
         //if (!/^\d{4}(-\/)(0?[1-9]|1[012])(-\/)(0?[1-9]|[12][0-9]|3[01])$/.test(endDate)) {
-        if (!/^\d{4}[-\/](0?\d|1[0-2])[-\/](0?\d|[12]\d|3[01])$/.test(endDate)) {     // 20250408    Use concise character class syntax '\d' instead of '[0-9]'. 
+    } else if (!/^\d{4}[-\/](0?\d|1[0-2])[-\/](0?\d|[12]\d|3[01])$/.test(endDate)) {     // 20250408    Use concise character class syntax '\d' instead of '[0-9]'. 
+    // 20250410 for 'If' statement should not be the only statement in 'else' block
             if (alertMsg.length > 0) {
                 alertMsg += "\n"
             }
             alertMsg += 'End Date format is invalid';
             hasError = true;
             formatValid = false;
-        }
+        //}// 20250410 for else if 
     }
     // if format is not valid cannot compare this
     if (formatValid && startDate.length > 0 && endDate.length > 0) {

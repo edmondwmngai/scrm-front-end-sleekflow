@@ -112,12 +112,12 @@ function validateForm(sellerIdInput, oldPassword, newPassword, confirmNewPasswor
     if (newPassword.length == 0) {
         $('#password-error').text('This field is required.'); // for blank fields
         hasError = true;
-    } else {
+    //} else { // 20250410 'If' statement should not be the only statement in 'else' block
         // validate matching password
-        if (newPassword == oldPassword) {
+    } else if (newPassword == oldPassword) {
             $('#password-error').text('Password cannot be the same as the old one.'); // for blank fields
             hasError = true;
-        }
+        //}// 20250410 for else if 
     }
 
     // validate new password
@@ -131,12 +131,12 @@ function validateForm(sellerIdInput, oldPassword, newPassword, confirmNewPasswor
     if (confirmNewPassword.length == 0) {
         $('#confirm-password-error').text('This field is required.'); // for blank fields
         hasError = true;
-    } else {
+    //} else { // 20250410 'If' statement should not be the only statement in 'else' block
         // validate matching password
-        if (confirmNewPassword != newPassword) {
+    } else if (confirmNewPassword != newPassword) {
             $('#confirm-password-error').text('Password does not match the confirm password.');
             hasError = true;
-        }
+       // } // 20250410 for else if 
     }
 
     $('#validation-result').text(hasError);
@@ -162,10 +162,10 @@ function submitForm() {
 
     if (formHasError == 'true') {
         event.preventDefault(); // do not submit form
-    } else {
-        if (fieldChanged) {
+    //} else { // 20250410 for 'If' statement should not be the only statement in 'else' block
+    } else if (fieldChanged) {
             changePassword(sellerIdInput, oldPassword, newPassword); // call change password function
-        }
+       // }// 20250410 for else if 
     }
 }
 

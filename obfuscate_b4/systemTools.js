@@ -171,8 +171,8 @@ function callSetting(callType, apiName, isValid) {
         var rDetails = r.details;
         if (!/^success$/i.test(r.result || "")) {
             console.log('error: ' + rDetails);
-        } else {
-            if (apiName == 'GetCallFilter') {
+       // } else {  // 20250410 'If' statement should not be the only statement in 'else' block
+        } else if (apiName == 'GetCallFilter') {
                 var callerTable = $('#' + idType + '-table').DataTable({
                     data: r.details,
                     dom: 'Alfrtip',
@@ -236,14 +236,14 @@ function callSetting(callType, apiName, isValid) {
                     $('#' + idType + '-add').hide();
                 });
                 $('#' + idType + '-custom-card').hide()
-            } else if (apiName == 'UpdateCallFilter') {
+        } else if (apiName == 'UpdateCallFilter') {
                 callSetting(callType, 'GetCallFilter');
                 $('#' + idType + '-remarks').prop('disabled', true);
                 $('#' + idType + '-edit').show();
                 $('#' + idType + '-save').hide();
-            } else if (apiName == 'AddCallFilter') {
+        } else if (apiName == 'AddCallFilter') {
                 callSetting(callType, 'GetCallFilter');
-            }
+           // } // 20250410 for else if 
         }
     });
 }
@@ -378,8 +378,8 @@ function emailSetting(emailType, apiName, addBack, newGet) {
             var rDetails = r.details;
             if (!/^success$/i.test(r.result || "")) {
                 console.log('error: ' + rDetails);
-            } else {
-                if (apiName == 'GetSetting') {
+            //} else { // 20250410 'If' statement should not be the only statement in 'else' block
+            } else if (apiName == 'GetSetting') {
                     var theArr = r.data;
                     if (emailType == 'Junk Mail') {
                         var container = $('#' + idType + '-section');
@@ -453,7 +453,7 @@ function emailSetting(emailType, apiName, addBack, newGet) {
                         });
                         $('#' + idType + '-custom-card').hide();
                     }
-                } else if (apiName == 'AddSetting' || apiName == 'DelSetting') {
+            } else if (apiName == 'AddSetting' || apiName == 'DelSetting') {
                     if (apiName == 'DelSetting' && addBack) {
                         emailSetting(emailType, 'AddSetting');
                         return;
@@ -463,7 +463,7 @@ function emailSetting(emailType, apiName, addBack, newGet) {
                         $('#' + idType + '-add-input').val('');
                     }
                     emailSetting(emailType, 'GetSetting');
-                } else if (apiName = 'GetJunkMails') {
+            } else if (apiName = 'GetJunkMails') {
                     var junkMailTable = $('#junk-mail-table').DataTable({
                         data: r.data,
                         lengthChange: true,
@@ -574,7 +574,7 @@ function emailSetting(emailType, apiName, addBack, newGet) {
                             },
                         });
                     });
-                }
+                //}// 20250410 for else if 
             }
         });
     }

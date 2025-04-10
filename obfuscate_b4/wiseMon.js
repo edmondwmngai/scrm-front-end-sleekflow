@@ -985,8 +985,8 @@ function initAgentStatus() {
                 } else if (selected == 'Stop Listen') {
                     window.opener.document.getElementById("phone-panel").contentWindow.WiseEndMonitorCall();
                     monitoringAgentId = 0;
-                } else {
-                    if (confirm('Are you sure you want to "' + selected + '"?')) {
+                //} else { // 20250410 'If' statement should not be the only statement in 'else' block
+                } else if (confirm('Are you sure you want to "' + selected + '"?')) {
                         var data = agentStatusTbl2.row($(this).parents('tr')).data();
                         var targetAgentId = data.agentId;
                         var typeId = selected == 'Silent' ? 1 : (selected == 'Coach' ? 4 : 2); //Conference = 2
@@ -996,7 +996,7 @@ function initAgentStatus() {
                         // var personalTd = $('#agent-status-tbl2').find('.personal-td');
                         // personalTd.html('<button class="btn btn-sm rounded py-0 bg-info text-capitalize px-2 stop-btn me-2">Stop</button><button class="btn btn-sm rounded py-0 bg-info text-capitalize px-2 barge-in-btn">Barge In</button>');
                         window.opener.document.getElementById("phone-panel").contentWindow.WiseStartMonitorCall(targetAgentId, typeId);
-                    }
+                    //} // 20250410 for else if 
                 }
                 e.preventDefault();
                 e.stopPropagation();
@@ -1103,8 +1103,8 @@ function initAgentStatus() {
             } else if (selected == 'Stop Listen') {
                 window.opener.document.getElementById("phone-panel").contentWindow.WiseEndMonitorCall();
                 monitoringAgentId = 0;
-            } else {
-                if (confirm('Are you sure you want to "' + selected + '"?')) {
+            //} else {  // 20250410 'If' statement should not be the only statement in 'else' block
+            } else if (confirm('Are you sure you want to "' + selected + '"?')) {
                     var data = agentStatusTbl.row($(this).parents('tr')).data();
                     var targetAgentId = data.agentId;
                     var typeId = selected == 'Silent' ? 1 : (selected == 'Coach' ? 4 : 2); //Conference = 2
@@ -1114,7 +1114,7 @@ function initAgentStatus() {
                     // var personalTd = $('#agent-status-tbl').find('.personal-td');
                     // personalTd.html('<button class="btn btn-sm rounded py-0 bg-info text-capitalize px-2 stop-btn me-2">Stop</button><button class="btn btn-sm rounded py-0 bg-info text-capitalize px-2 barge-in-btn">Barge In</button>');
                     window.opener.document.getElementById("phone-panel").contentWindow.WiseStartMonitorCall(targetAgentId, typeId);
-                }
+                //}// 20250410 for else if 
             }
             // e.preventDefault();
             // e.stopPropagation();
@@ -1695,13 +1695,13 @@ function onAddAcdMember(res) {
         toAddArr.splice(0, 1);
         if (toAddArr.length > 0) {
             ppc.wiseAddACDGroupMember(changingId, toAddArr[0]);
-        } else {
+        //} else {  // 20250410 'If' statement should not be the only statement in 'else' block
             // Refresh both table
-            if (toDelArr.length == 0) {
+        } else if (toDelArr.length == 0) {
                 refreshAcdAgentTbl();
                 $('#save-acd-agent-selected-a').removeClass('disabled');
                 $('#save-agent-acd-selected-a').removeClass('disabled');
-            }
+          //  } // 20250410 for else if 
         }
     } else {
         var ppc = window.opener.document.getElementById("phone-panel").contentWindow;
@@ -1725,13 +1725,13 @@ function onAddAcdMember(res) {
         toAddArr.splice(0, 1);
         if (toAddArr.length > 0) {
             ppc.wiseAddACDGroupMember(toAddArr[0], changingId);
-        } else {
+        //} else { // 20250410 for 'If' statement should not be the only statement in 'else' block
             // Refresh both table
-            if (toDelArr.length == 0) {
+        } else if (toDelArr.length == 0) {
                 refreshAcdAgentTbl();
                 $('#save-acd-agent-selected-a').removeClass('disabled');
                 $('#save-agent-acd-selected-a').removeClass('disabled');
-            }
+           // } // 20250410 for else if 
         }
     }
 }
@@ -1770,13 +1770,13 @@ function onDelAcdMember(res) {
         toDelArr.splice(0, 1);
         if (toDelArr.length > 0) {
             ppc.wiseDelACDGroupMember(changingId, toDelArr[0]);
-        } else {
+        //} else {  // 20250410 'If' statement should not be the only statement in 'else' block
             // Refresh both table
-            if (toAddArr.length == 0) {
+        } else if (toAddArr.length == 0) {
                 refreshAcdAgentTbl();
                 $('#save-acd-agent-selected-a').removeClass('disabled');
                 $('#save-agent-acd-selected-a').removeClass('disabled');
-            }
+          //  } // 20250410 for else if 
         }
     } else {
         if (res.result == 'success') {
@@ -1801,13 +1801,13 @@ function onDelAcdMember(res) {
         toDelArr.splice(0, 1);
         if (toDelArr.length > 0) {
             ppc.wiseDelACDGroupMember(toDelArr[0], changingId);
-        } else {
+        //} else { // 20250410 'If' statement should not be the only statement in 'else' block
             // Refresh both table
-            if (toAddArr.length == 0) {
+        } else if (toAddArr.length == 0) {
                 refreshAcdAgentTbl();
                 $('#save-acd-agent-selected-a').removeClass('disabled');
                 $('#save-agent-acd-selected-a').removeClass('disabled');
-            }
+           // }// // 20250410 for else if 
         }
     }
 }

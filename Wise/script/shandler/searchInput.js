@@ -92,8 +92,8 @@ function searchInput(sTicket)
                         var rDetails = r.details;
                         if (!/^success$/i.test(r.result || "")) {
                             console.log('error: ' + rDetails);
-                        } else {
-                            if (rDetails != undefined) {
+                    // } else {     // 20250410 'If' statement should not be the only statement in 'else' block
+                        } else if (rDetails != undefined) {
                                 var webchatFieldsStr = '';
                                 var webchatFields = rDetails['Webchat Fields'] || [];
                                 if (webchatFields != undefined && webchatFields.length > 0) {
@@ -143,16 +143,15 @@ function searchInput(sTicket)
                                         '<iframe id="input-form-' + ticketId + '" openType="social" campaign="' + campaign + '" connId="' + ticketId + '" callType="' + callType + '" ' + enduserIdStr + 'details="' + details + '"' + webchatFieldsStr + ' width="100%" height="auto" style="display: none; border: none;"></iframe>' +
                                         '<iframe id="search-' + ticketId + '" src="./search.html" openType="social" campaign="' + campaign + '" connId="' + ticketId + '" callType="' + callType + '" ' + enduserIdStr + 'details="' + escape(details) + '"' + webchatFieldsStr + ' width="100%" height="auto" style="border: none;" ></iframe></div>');
                                 }
-                            }
+                            //} // 20250410 for else if 
                         }
                     });
 
                     // add search
                     // entry != 'wechat', details will be empty string, facebook and wechat nick name is not good for case searching
                 } 
-				else 
-				{
-                    if (!noFormInSocial) {
+				//else {    // 20250410 'If' statement should not be the only statement in 'else' block 
+                else if (!noFormInSocial) {
                         $('#search-input-section').append('<div id="search-input-' + ticketId + '" class="search-input">' +
                             '<iframe id="input-form-' + ticketId + '" openType="social" campaign="' + campaign + '" connId="' + ticketId + '" callType="' + callType + '" ' + enduserIdStr + ' details="" width="100%" height="auto" style="display: none; border: none;"></iframe>' +
                             '<iframe id="search-' + ticketId + '" src="./search.html" openType="social" campaign="' + campaign + '" connId="' + ticketId + '" callType="' + callType + '" ' + enduserIdStr + ' details="" width="100%" height="auto" style="border: none;"></iframe>' +
@@ -160,7 +159,7 @@ function searchInput(sTicket)
 							
 
                         $('#bubble-list-inner').height('752px'); // previous height maybe fb_comment height, so need to adjust
-                    }
+                   // }// 20250410 for else if
                 }
             } else {
                 // momn

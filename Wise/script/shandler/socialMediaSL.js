@@ -111,15 +111,15 @@ function customerTyping(ticketId) {
 
             // scroll to the bottom
             chatDiv.scrollTop(chatDiv[0].scrollHeight);
-        } else {
-            if (typingObj[ticketId]) {
+       // } else {  // 20250410 'If' statement should not be the only statement in 'else' block
+        } else if (typingObj[ticketId]) {
 
                 // if don't clear the time out the time out, previous timeout still will be exists
                 clearTimeout(typingObj[ticketId]);
                 typingObj[ticketId] = setTimeout(function (p) {
                     removeTypingBubble(p.ticketId);
                 }.bind(this, { ticketId: ticketId }), 2500);
-            }
+            //} // 20250410 for else if
         }
     }
 }
@@ -423,14 +423,14 @@ function sendSocialFile(ticketId, filePath, msgIdArr, commentIdArr) {
                 $('#content-inner-scroll-' + ticketId).find('a[href*="' + repliedFileName + '"]').last().after(
                     '<span class="text-gray ms-5"><i class="fas fa-exclamation-circle me-2"></i>' + langJson['l-alert-send-file-failed'] + '</span>');
             }
-        } else {
+      //  } else {  // 'If' statement should not be the only statement in 'else' block
 
             // sent successfully
-            if (commentIdArr != undefined) {
+        } else if (commentIdArr != undefined) {
                 for (let msgId of msgIdArr) {
                     $('#content-inner-scroll-' + ticketId).find('div[msgId=' + msgId + ']').remove();
                 }
-            }
+            //} // 20250410 for else if 
         }
     });
 }
@@ -729,12 +729,12 @@ function replyClicked(ticketId) {
 
                 // load message
                 getFBComments(ticketId, commentIdArr);
-            } else {
+            //} else { // 20250410 'If' statement should not be the only statement in 'else' block
 
                 // phone.html old version r.result can be empty string''
-                if (r.result == 'fail') {
+            } else if (r.result == 'fail') {
                     alert(langJson['l-alert-send-message-failed']);
-                } else {
+            } else {
                     var msgId = (r && r.data && r.data.id) ? r.data.id : -1;
                     createOrUpdateBubble({
                         'ticket_id': ticketId,
@@ -746,7 +746,7 @@ function replyClicked(ticketId) {
                             'msg_content': replyMsg
                         }]
                     });
-                }
+                //  }   // 20250410 
             }
             replyBtn.prop("disabled", false);
         });
@@ -1672,8 +1672,8 @@ function getFBPostContent(ticketId) {
         var details = r.details;
         if (!/^success$/i.test(r.result || "")) {
             console.log("Error in getFBPostContent." + r ? r.details : '');
-        } else {
-            if (details.length > 0) {
+//        } else {  // 20250410 'If' statement should not be the only statement in 'else' block
+        } else if (details.length > 0) {
                 var info = details[0];
                 var mediaLink = info.Media_Link;
                 var fbContentTxt = info.Details;
@@ -1695,9 +1695,9 @@ function getFBPostContent(ticketId) {
                         $('#fb-media-' + ticketId).append('<video controls="" width="300" height="225" preload="none" src="' + mediaLinkStr + '"' + downloadVoiceStr + '><source type="video/mp4"></video>');
                     }
                 }
-            } else {
+        } else {
                 parent.document.getElementById("phone-panel").contentWindow.wiseGetFBPost(ticketId);
-            }
+            //} // 20250410 for else if 
         }
     });
 }
@@ -2061,13 +2061,13 @@ function fbPostAddContinus(ticketId) {
         
         // add the agent to the ticket again
         parent.document.getElementById("phone-panel").contentWindow.wsWiseAgent.UpdateTicket(ticketId, loginId);
-    } else {
+    //} else {  // 20250410 'If' statement should not be the only statement in 'else' block
 
         // if no longer exists clear it
-        if (fbPostTimeoutObj[ticketId]) {
+    } else if (fbPostTimeoutObj[ticketId]) {
             clearInterval(fbPostTimeoutObj[ticketId]);
             delete fbPostTimeoutObj[ticketId];
-        }
+       // }// 20250410 for else if 
     }
 }
 
@@ -2411,10 +2411,10 @@ function createOrUpdateBubble(msgObj) {
                 }
                 $(replyBubbleStr).prependTo(bubbleNow);
             }
-        } else {
+        //} else {  // 20250410 'If' statement should not be the only statement in 'else' block
 
             // append text or pic to it
-            if (theMsg.send_by_flag == 2 && (entry == 'fb_comment' || entry == 'fb_post')) {
+        } else if (theMsg.send_by_flag == 2 && (entry == 'fb_comment' || entry == 'fb_post')) {
                 
                 // check is that text message appened already, due to William's side bug, 10mins timeout without notifying us, need to check is that the messag already received first
                 var contentContainer =  $('#' + msgRowId).data('additional-msg-id', msgId).find('.content-bubble-content');
@@ -2427,7 +2427,7 @@ function createOrUpdateBubble(msgObj) {
                         $('#' + msgRowId).data('additional-msg-id', msgId).find('.content-bubble-content').append('<div>' + theMsgContentDisplay + '</div>')
                     }
                 }
-            }
+            //}// 20250410 for else if 
         }
     }
     if (lastClientTime != null) {
@@ -2507,8 +2507,8 @@ function createOrUpdateBubble(msgObj) {
                         var rDetails = r.details;
                         if (!/^success$/i.test(r.result || "")) {
                             console.log('error: ' + rDetails);
-                        } else {
-                            if (rDetails != undefined) {
+                       /// } else { // 20250410 for 'If' statement should not be the only statement in 'else' block
+                        } else if (rDetails != undefined) {
                                 var webchatFieldsStr = '';
                                 var webchatFields = rDetails['Webchat Fields'] || [];
                                 if (webchatFields != undefined && webchatFields.length > 0) {
@@ -2549,21 +2549,21 @@ function createOrUpdateBubble(msgObj) {
                                         '<iframe id="input-form-' + ticketId + '" openType="social" campaign="' + campaign + '" connId="' + ticketId + '" callType="' + callType + '" ' + enduserIdStr + 'details="' + details + '"' + webchatFieldsStr + ' width="100%" height="auto" style="display: none; border: none;"></iframe>' +
                                         '<iframe id="search-' + ticketId + '" src="./search.html" openType="social" campaign="' + campaign + '" connId="' + ticketId + '" callType="' + callType + '" ' + enduserIdStr + 'details="' + escape(details) + '"' + webchatFieldsStr + ' width="100%" height="auto" style="border: none;"></iframe></div>');
                                 }
-                            }
+                           // }// 20250410 for else if
                         }
                     });
 
                     // add search
                     // entry != 'wechat', details will be empty string, facebook and wechat nick name is not good for case searching
-                } else {
-                    if (!noFormInSocial) {
+                //} else { // 20250410 'If' statement should not be the only statement in 'else' block
+                } else if (!noFormInSocial) {
                         $('#search-input-section').append('<div id="search-input-' + ticketId + '" class="search-input">' +
                             '<iframe id="input-form-' + ticketId + '" openType="social" campaign="' + campaign + '" connId="' + ticketId + '" callType="' + callType + '" ' + enduserIdStr + ' details="" width="100%" height="auto" style="display: none; border: none;"></iframe>' +
                             '<iframe id="search-' + ticketId + '" src="./search.html" openType="social" campaign="' + campaign + '" connId="' + ticketId + '" callType="' + callType + '" ' + enduserIdStr + ' details="" width="100%" height="auto" style="border: none;"></iframe>' +
                             '</div>');
 
                         $('#bubble-list-inner').height('752px'); // previous height maybe fb_comment height, so need to adjust
-                    }
+                  //  } // 20250410 for else if 
                 }
             } else {
                 // momn

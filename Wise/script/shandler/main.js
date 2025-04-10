@@ -441,13 +441,13 @@ addEventListener(document, 'onWiseRecvShortMsg_UC', function (e) {
         var msgArr = shortMsg.split('-`!^~');
         var iframeMain = document.getElementById('social-media-main');
         iframeMain.contentWindow.handleSystemMsg(sentMsgAgent, msgArr[1], msgArr[2], msgArr[3], msgArr[4], msgArr[5], msgArr[6]);
-    } else {
-        if (!shortMsg.startsWith('~~~')) {
+//  } else {    // 20250410 'If' statement should not be the only statement in 'else' block
+    } else if (!shortMsg.startsWith('~~~')) {
             var alertStr = '<div class="alert alert-warning d-grid">' + getAgentName(sentMsgAgent) +
                 ' (ID: ' + sentMsgAgent + '):&nbsp;&nbsp;' + shortMsg +
                 '&nbsp;&nbsp;&nbsp;<button type="button" class="close btn" data-bs-dismiss="alert"><i class="fas fa-times-circle float-end"></i></button></div>'
             $('#alert-container').append(alertStr);
-        }
+       // } // for else if 
     }
 });
 
@@ -578,10 +578,10 @@ function callGetLogin() {
         if (!/^success$/i.test(r.result || "")) {
             console.log('error');
             console.log(r);
-        } else {
-            if (dbAgentArr != undefined) {
+    //  } else {  // 20250410 'If' statement should not be the only statement in 'else' block
+        } else if (dbAgentArr != undefined) {
                 window.agentList = dbAgentArr;
-            }
+          //  } // 20250410 for else if 
         }
     });
 }
@@ -815,8 +815,8 @@ function loadCampaignLang() {
         var rDetails = r.details;
         if (!/^success$/i.test(r.result || "")) {
             console.log('error: ' + rDetails);
-        } else {
-            if (rDetails != undefined) {
+   //     } else {  // 20250410 'If' statement should not be the only statement in 'else' block
+        } else if (rDetails != undefined) {
                 // ============ Set Campaign List ============
                 sessionStorage.setItem('scrmCampaignList', JSON.stringify(rDetails[campaignListName] || []));
                 var langArr = rDetails[language];
@@ -825,7 +825,7 @@ function loadCampaignLang() {
                 }
                 sessionStorage.setItem('scrmLangJson', JSON.stringify(langJson));
                 loadCategories();
-            }
+                // } // 20250410 for else if 
         }
     });
 }

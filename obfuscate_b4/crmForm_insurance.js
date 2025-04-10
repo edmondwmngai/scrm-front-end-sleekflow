@@ -236,10 +236,10 @@ function getProduct() {
 
                     // the content as been longer need to resize
                     resize();
-                } else {
-                    if ($('#case-status').prop('disabled') === false) {
+                //} else {  // 20250410 'If' statement should not be the only statement in 'else' block
+                } else if ($('#case-status').prop('disabled') === false) {
                         $('#form-product-2nd-row').hide();
-                    }
+                    //}// 20250410 for else if 
                 }
             })
 
@@ -534,12 +534,12 @@ function getCurrentSdObj() {
             } else {
                 replyDetails += (',' + detailsValue);
             }
-        } else {
-            if (replyDetails.length == 0) {
+        //} else {  20250410 'If' statement should not be the only statement in 'else' block
+        } else if (replyDetails.length == 0) {
                 replyDetails = $('#' + replyChannel + '-other-input')[0].value;
-            } else {
+        } else {
                 replyDetails += (',' + $('#' + replyChannel + '-other-input')[0].value);
-            }
+           // }// 20250410 for else if 
         }
     }
 
@@ -662,11 +662,11 @@ function hvDifferenceFn(sendObj, forSave) {
                     break;
                 }
             }
-        } else {
-            if ((sendObj[k] || '') != (customerData[k] || '')){
+        //} else {  20250410 'If' statement should not be the only statement in 'else' block
+        } else if ((sendObj[k] || '') != (customerData[k] || '')){
                 mismatch = true;
                 break;
-            }
+            //}//   20250410 for else if 
         }
     }
         
@@ -745,17 +745,17 @@ function saveClicked() {
                     } else {
                         saveProduct(productCode, planCode, planPrice);
                     }
-                } else {
+                //} else {  //20250410 'If' statement should not be the only statement in 'else' block
 
                     // remove the inbound from incomplete list
-                    if (sendObj.Conn_Id == sessionStorage.getItem('scrmConnId')) {
+                } else if (sendObj.Conn_Id == sessionStorage.getItem('scrmConnId')) {
                         sessionStorage.removeItem('scrmConnId');
                         callSaveCallHistory(sendObj.Conn_Id);
-                    } else {
+                } else {
 
                         // update table row data
                         formUpdated();
-                    }
+                    //}//   20240410 for else if 
                 }
                 parent.parent.$.MessageBox('Call list updated.');
             }

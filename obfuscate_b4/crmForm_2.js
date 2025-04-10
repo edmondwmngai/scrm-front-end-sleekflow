@@ -59,14 +59,14 @@ function nationalityChanged(oThis) {
     if (nationalityId == '') {
         marketSelect.val('').attr('disabled', false);
         profileSelect.val('').attr('disabled', false);
-    } else {
-        if (nationalityId == 1) {
+    //} else {  //20250410 'If' statement should not be the only statement in 'else' block
+    } else if (nationalityId == 1) {
             marketSelect.val(marketId).attr('disabled', false);
             profileSelect.val(profileId).attr('disabled', false);
-        } else {
+    } else {
             marketSelect.val(marketId).attr('disabled', true);
             profileSelect.val(profileId).attr('disabled', true);
-        }
+        //}// 20250410 for else if 
     }
 
 }
@@ -380,12 +380,12 @@ function saveClicked() {
             } else {
                 replyDetails += (',' + detailsValue);
             }
-        } else {
-            if (replyDetails.length == 0) {
+        //} else {      //20250410 'If' statement should not be the only statement in 'else' block
+        } else if (replyDetails.length == 0) {
                 replyDetails = $('#' + replyChannel + '-other-input')[0].value;
-            } else {
+        } else {
                 replyDetails += (',' + $('#' + replyChannel + '-other-input')[0].value);
-            }
+            //}// 20250410 for else if
         }
     }
 
@@ -626,14 +626,14 @@ function updateCallerSetting(callType, isValid) {
         var rDetails = r.details;
         if (!/^success$/i.test(r.result || "")) {
             console.log('error: ' + rDetails);
-        } else {
-            if (isValid == 'Y') {
+        //} else {      //20250410 'If' statement should not be the only statement in 'else' block
+        } else if (isValid == 'Y') {
                 theHeader.style.display = 'inline';
                 theHeader.setAttribute('data-original-title', remarks);
-            } else {
+        } else {
                 theHeader.style.display = 'none';
                 theHeader.setAttribute('data-original-title', '');
-            }
+            //} // 20250410 for else if
         }
     });
 }
@@ -712,11 +712,11 @@ function callSaveCallHistory(isSaved) { // if update reply details only, will no
             if (!/^success$/i.test(r.result || "")) {
                 console.log('error in callSaveCallHistory');
                 console.log(r.details);
-            } else {
+            //} else {  20250410 'If' statement should not be the only statement in 'else' block
                 // Reload page
-                if (isSaved) {
+            } else if (isSaved) {
                     restorePage();
-                }
+               // } // 20250410 for else if
             }
         },
         error: function (r) {

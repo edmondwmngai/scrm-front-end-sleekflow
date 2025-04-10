@@ -223,10 +223,10 @@ function getProduct() {
 
                     // the content as been longer need to resize
                     resize();
-                } else {
-                    if ($('#case-status').prop('disabled') === false) {
+                //} else {  20250410 'If' statement should not be the only statement in 'else' block
+                } else if ($('#case-status').prop('disabled') === false) {
                         $('#form-product-2nd-row').hide();
-                    }
+                    //}// 20250410 for else if 
                 }
             });
 
@@ -465,12 +465,12 @@ function getCurrentSdObj() {
             } else {
                 replyDetails += (',' + detailsValue);
             }
-        } else {
-            if (replyDetails.length == 0) {
+        //} else { //20250410 'If' statement should not be the only statement in 'else' block
+        } else if (replyDetails.length == 0) {
                 replyDetails = $('#' + replyChannel + '-other-input')[0].value;
-            } else {
+        } else {
                 replyDetails += (',' + $('#' + replyChannel + '-other-input')[0].value);
-            }
+           // }//  20250410 for else if
         }
     }
 
@@ -539,16 +539,16 @@ function verifyOkFn(sendObj) {
                 // added new product, plan Code not selected yet
                 errArr.push('Plan Code has to be selected if product code is selected');
             }
-        } else {
+        //} else {  //20250410 'If' statement should not be the only statement in 'else' block
 
             // no old records
-            if (productCode.length == 0) {
+        } else if (productCode.length == 0) {
                 errArr.push('Product has to be selected for successful order');
-            } else if (checkedPlanList == null) {
+        } else if (checkedPlanList == null) {
 
                 // added new product, plan Code not selected yet
                 errArr.push('Plan Code has to be selected if product code is selected');
-            }
+            //}// 20250410 for else if 
         }
     }
 
@@ -627,11 +627,11 @@ function hvDifferenceFn(sendObj, forSave) {
                     break;
                 }
             }
-        } else {
-            if ((sendObj[k] || '') != (customerData[k] || '')) {
+        //} else {      //20250410 'If' statement should not be the only statement in 'else' block
+        } else if ((sendObj[k] || '') != (customerData[k] || '')) {
                 mismatch = true;
                 break;
-            }
+            //}// 20240410 for else if
         }
     }
 

@@ -102,12 +102,12 @@ function generateContent(contentType, callType, r, mediaId) { //contentType: 'ca
             var failReason = r.responseJSON.Message || 'Error Occurred';
             if (callType == 'Outbound_Call') {
                 $('<span class="my-3">' + failReason + '</span>').appendTo('#reply-call-span');
-            } else {
-                if (failReason == 'An error has occurred.') {
+            //} else {  //20250410 'If' statement should not be the only statement in 'else' block 
+            } else if (failReason == 'An error has occurred.') {
                     $('<div class="ms-3">Sending or Send Failed</div><br /><br />').appendTo('#' + contentType + '-media-content');
-                } else {
+            } else {
                     $('<div class="ms-3">' + failReason + '</div><br /><br />').appendTo('#' + contentType + '-media-content');
-                }
+               // }
                 // $('<span class="text-center text-danger ms-3"><i class="fa fa-exclamation-triangle me-2"></i>' + failReason + '</span><br /><br />').appendTo('#' + contentType + '-media-content');
             }
             return;

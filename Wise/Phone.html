@@ -1238,13 +1238,15 @@
 				success: function (r) {
 					if (!/^success$/i.test(r.result || "")) {
 						console.log('error in function sendTemplateMessageByHandler');
-					} else {  //cannot use this.selectedTicketId because the function is tiggerd in popup
-						//var sTicketId = parent.$('#social-media-main')[0].contentWindow.chatService.selectedTicketId;
-						//parent.$('#social-media-main')[0].contentWindow.chatService.requestCannedFileInBase64CallBack(fileId, fileName, fileType, r.data.FileBase64, sTicketId);
-						if (sTicketId != null) {
+					//} else {  // 20250410 'If' statement should not be the only statement in 'else' block
+					} else if (sTicketId != null) {
 							//Send from chatbot
 							parent.$('#social-media-main')[0].contentWindow.chatService.sendMessageByTemplateCallBack(r.details);
-						}
+						//} // //20250410 for else if
+
+						//cannot use this.selectedTicketId because the function is tiggerd in popup
+						//var sTicketId = parent.$('#social-media-main')[0].contentWindow.chatService.selectedTicketId;
+						//parent.$('#social-media-main')[0].contentWindow.chatService.requestCannedFileInBase64CallBack(fileId, fileName, fileType, r.data.FileBase64, sTicketId);
 					}
 				},
 				error: function (r) {
@@ -1986,6 +1988,8 @@
 									bShowAlert = true;
 								else {
 									var p = pACDGroup.findIndex(function (v) { return v.CallType == member.CallType && v.GroupID == member.GroupID });
+									
+									/* // 20250410  'If' statement should not be the only statement in 'else' block
 									if (p == -1)
 										bShowAlert = true;
 									else {
@@ -1994,6 +1998,14 @@
 										else if (member.WaitCount == pACDGroup[p].WaitCount) {
 											if (member.MaxWaitTime < pACDGroup[p].MaxWaitTime) bShowAlert = true;
 										}
+									}*/
+
+									if ((p == -1) || 
+										(member.WaitCount > pACDGroup[p].WaitCount) ||
+										((member.WaitCount == pACDGroup[p].WaitCount) && (member.MaxWaitTime < pACDGroup[p].MaxWaitTime))
+									   )
+									{
+										bShowAlert = true;
 									}
 
 								}
@@ -2407,7 +2419,7 @@
 				else {
 					triggerEvent(window.parent.document, 'onWiseSocialMsg', ticket);
 				}
-			} else {
+		//	} else { 	//	20250410 'If' statement should not be the only statement in 'else' block
 				//ticketList[idx].msgList.concat(obj.msg_list);
 
 				/*
@@ -2416,7 +2428,7 @@
 				currSocialMsg.offline_form_data = ticketList[idx].offlineForm;
 				currSocialMsg.ticket_status = ticketList[idx].ticketStatus;
 				*/
-				if (obj.msg_list != undefined && ticketList[idx].ticketStatus != "end" && ticketList[idx].ticketStatus != "timeout") {
+			} else if (obj.msg_list != undefined && ticketList[idx].ticketStatus != "end" && ticketList[idx].ticketStatus != "timeout") {
 					if (gettingOnlineTicket[obj.ticket_id]) {
 						if (Array.isArray(ticketList[idx].msg_list)) {
 							ticketList[idx].msg_list = ticketList[idx].msg_list.concat(obj.msg_list);
@@ -2442,7 +2454,7 @@
 					//console.log(obj);
 					//console.log('ticketList[idx]');
 					//console.log(ticketList[idx]);
-				}
+				//} 20250410 if and else
 			}
 			//console.log(currSocialMsg);
 		});
@@ -2865,12 +2877,11 @@
 				if (noRingStatuses.indexOf(userMode) == -1) {
 					ringAudio.play();
 				}
-			}
-			else {
-				if (!ringAudio.ended) {
+			//} else { // 20250410 'If' statement should not be the only statement in 'else' block
+			} else if (!ringAudio.ended) {
 					ringAudio.pause();
 					ringAudio.currentTime = 0;
-				}
+				//	} 20250410 for else if 
 			}
 		}
 
@@ -4128,20 +4139,20 @@
 			var i = monitoredTicketList.findIndex(function (v) { return v.ticketId == ticketId });
 			if (i == -1) {
 				alert("The chat room is not under monitoring.");
-			} else {
-				if (mode == "C" && monitoredTicketList[i].mode == "S") {
+		//  } else { // 20250410 'If' statement should not be the only statement in 'else' block
+			} else if (mode == "C" && monitoredTicketList[i].mode == "S") {
 					monitoredTicketList[i].mode = "C";
 					wsWiseAgent.AssignToChatRoom(ticketId, loginId, "C");
 					// Take out from monitor
 					monitoredTicketList.splice(i, 1);
-				} else if (mode == "B" && monitoredTicketList[i].mode != "B") {
+			} else if (mode == "B" && monitoredTicketList[i].mode != "B") {
 					wsWiseAgent.AssignToChatRoom(ticketId, loginId, "B");
 					wsWiseAgent.AssignToChatRoom(ticketId, monitoredTicketList[i].agentId, "R");
 					monitoredTicketList[i].mode = "B";
 					monitoredTicketList[i].agentId = parseInt(loginId)
 					// Take out from monitor
 					monitoredTicketList.splice(i, 1);
-				}
+				//	} //20250410 for else if
 			}
 		}
 
@@ -4428,14 +4439,14 @@
 					// 	if (!isKeepMsg) originalMsgArr=[];
 					// 	isKeepMsg=false;
 					// };
-				} else {
-					if (waitCount == 0) {
+			//  } else { // 20250410 'If' statement should not be the only statement in 'else' block
+				} else if (waitCount == 0) {
 						originalMsgArr.splice(idx, 1);
 						console.log("originalMsgArr=" + originalMsgArr);
-					} else /*if(originalMsgArr[idx].waitCount != waitCount)*/ {
+				} else /*if(originalMsgArr[idx].waitCount != waitCount)*/ {
 						originalMsgArr[idx].waitCount = waitCount;
 						originalMsgArr[idx].waitTime = waitTime;
-					}
+					//	} // 20250410 for else if
 				}
 				if (originalMsgArr.length != 0) {
 					// popup = window.open('./alertPopUp.html', 'alert',params);

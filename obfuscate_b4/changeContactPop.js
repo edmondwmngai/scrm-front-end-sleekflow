@@ -267,18 +267,18 @@ function submitClicked(type) {   //20250325 This function expects no arguments, 
                             success: function (r) {
                                 if (!/^success$/i.test(r.result || "")) {
                                     console.log('error in caseRecordPopupOnload');
-                                } else {
-                                    if (openFrom == 'input') {
+                                //} else {      // 20250410 'If' statement should not be the only statement in 'else' block
+                                } else if (openFrom == 'input') {
 
                                         // Open from input form
                                         window.opener.changedCustomer(customerId);
                                         window.close();
-                                    } else {
+                                } else {
 
                                         // Open from Search Case
                                         window.opener.submitClicked('case');
                                         window.close();
-                                    }
+                                    //}// 20240410 for else if
                                 }
                             },
                             error: function (r) {

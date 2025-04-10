@@ -263,14 +263,14 @@ function validateForm(password, confirmPassword) {
         if (confirmPassword.length == 0) {
             $('#confirm-password-error').text('This field is required.'); // for blank fields
             hasError = true;
-        } else {
+        //} else {  // 20250410 'If' statement should not be the only statement in 'else' block
             // validate matching password
-            if (confirmPassword != password) {
+        } else if (confirmPassword != password) {
                 $('#confirm-password-error').text('Password does not match the confirm password.');
                 hasError = true;
-            } else {
+        } else {
                 $('#confirm-password-error').text('');
-            }
+          //  } // 20250410 for else if
         }
     }
     console.log('validation hasError result: ' + hasError);

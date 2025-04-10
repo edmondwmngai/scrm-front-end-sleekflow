@@ -32,11 +32,11 @@ function windowOnload() {
             var theAgentId = option.AgentID;
             $("#from-agent-list").append('<option LevelID=' + option.LevelID + ' value=' + theAgentId + '>' + option.AgentName + ' (ID: ' + theAgentId + ')</option>');
         }
-    } else {
-        if (tryLoadAgentCount < 4) {
+   // } else { // 20250410 'If' statement should not be the only statement in 'else' block
+    } else if (tryLoadAgentCount < 4) {
             tryLoadAgentCount += 1;
             setTimeout(function () { windowOnload() }, 3000);
-        }
+       // } // 20250410 for else if 
     }
 }
 

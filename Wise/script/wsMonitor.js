@@ -159,11 +159,13 @@ var wsWiseMonitor = {
 									//i=wsWiseMonitor.ACDGroupList.length-1;
 									//wsWiseMonitor.triggerEvent(document, 'onRMACDGroupInfo', wsWiseMonitor.ACDGroupList[i]);
 									//wsWiseMonitor.GetObjectInfo(2,obj.ACDID);
-								} else {
-									if(wsWiseMonitor.ACDGroupList[i].groupName==""){
+								//} else {	// 20250410 'If' statement should not be the only statement in 'else' block
+								}else if(wsWiseMonitor.ACDGroupList[i].groupName==""){
 										wsWiseMonitor.triggerEvent(document, 'onRMACDGroupInfo', wsWiseMonitor.ACDGroupList[i]);
 										wsWiseMonitor.GetObjectInfo(2,obj.ACDID);
-									} else /*if (wsWiseMonitor.ACDGroupList[i].waitCount!=obj.WaitCount || wsWiseMonitor.ACDGroupList[i].waitTime!=obj.MaxWaitTime)*/{
+								} 
+								else /*if (wsWiseMonitor.ACDGroupList[i].waitCount!=obj.WaitCount || wsWiseMonitor.ACDGroupList[i].waitTime!=obj.MaxWaitTime)*/
+								{
 										if(obj.CallType==wsWiseMonitor.monCallType[0]) {
 											wsWiseMonitor.ACDGroupList[i].waitCount=0;
 											wsWiseMonitor.ACDGroupList[i].waitTime=0
@@ -172,7 +174,7 @@ var wsWiseMonitor = {
 										wsWiseMonitor.ACDGroupList[i].waitTime +=parseInt(obj.MaxWaitTime);
 										if(obj.CallType==wsWiseMonitor.monCallType[wsWiseMonitor.monCallType.length-1])
 											wsWiseMonitor.triggerEvent(document, 'onRMACDGroupInfo', wsWiseMonitor.ACDGroupList[i]);
-									}
+									//}// // 20250410 for else if 
 								}
 							}
 							break;

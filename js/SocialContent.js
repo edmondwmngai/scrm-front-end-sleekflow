@@ -14,12 +14,12 @@ var SC = {
             }
             if (onlineFormName != null && onlineFormName.length > 0) { // online form name will be null if the customer did not input name
                 return onlineFormName;
-            } else {
-                if (isContent) {
+           // } else {  // 20250410 'If' statement should not be the only statement in 'else' block
+            } else if (isContent) {
                     return 'visitor';
-                } else {
+            } else {
                     return ticketId;
-                }
+               // }//  20250410 for else if 
             }
         }
     },
@@ -45,10 +45,10 @@ var SC = {
             imgStr = '<div class="wa-card-img-container">';
             if (forPopup) {
                 imgStr += '<i class="fas fa-image wa-card-img"></i>';
-            } else {
-                if (typeof enlargeImage === 'function') { // cannot use if(enlargeImage != undefined) as enlarge image could be not defined
+            //} else {  // 20250410 'If' statement should not be the only statement in 'else' block
+            } else if (typeof enlargeImage === 'function') { // cannot use if(enlargeImage != undefined) as enlarge image could be not defined
                     imgStr += '<img onclick="enlargeImage(this);" class="wa-preview-img" src="' + msg_content_obj.img + '" />';
-                } else {
+            } else {
                     
                     // to put it to input form
                     // to be able to add w-100 or h-100 like whatsapp
@@ -57,7 +57,7 @@ var SC = {
                     var imgArr = msg_content_obj.img.split(',');
                     var theImg = imgArr.length > 1 ? imgArr[1] : imgArr[0];
                     imgStr += '<img class="' + formImgClass + '" src="' + theImg + '" />';
-                }
+                //}// 20250410 for else if 
             }
             imgStr += '</div>';
         }
@@ -128,10 +128,10 @@ var SC = {
             imgStr = '<div class="wa-card-img-container">';
             if (forPopup) {
                 imgStr += '<i class="fas fa-image wa-card-img"></i>';
-            } else {
-                if (typeof enlargeImage === 'function') { // cannot use if(enlargeImage != undefined) as enlarge image could be not defined
+            //} else {      // 20250410 'If' statement should not be the only statement in 'else' block
+            } else if (typeof enlargeImage === 'function') { // cannot use if(enlargeImage != undefined) as enlarge image could be not defined
                     imgStr += '<img onclick="enlargeImage(this);" class="wa-preview-img" src="' + msg_content_obj.img + '" />';
-                } else {
+            } else {
 
                     // to put it to input form
                     var previewImg = $('#display-msg-' + tpId + ' .wa-preview-img');
@@ -139,7 +139,7 @@ var SC = {
                     var imgArr = msg_content_obj.img.split(',');
                     var theImg = imgArr.length > 1 ? imgArr[1] : imgArr[0];
                     imgStr += '<img class="' + formImgClass + '" src="' + theImg + '" />';
-                }
+                //}// 20250410 for else if 
             }
             imgStr += '</div>';
         }

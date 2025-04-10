@@ -103,8 +103,8 @@ function loadRoles(checkedRole) {
             if (roleList && roleList == 'Not Auth.') {
                 window.opener.parent.sessionTimeout();
             }
-        } else {
-            if (roleList != undefined) {
+        //} else {  // 20250410 'If' statement should not be the only statement in 'else' block
+        } else if (roleList != undefined) {
 
                 // iterate through roleList to obtain role names
                 for (const theRole of roleList) {
@@ -125,7 +125,7 @@ function loadRoles(checkedRole) {
                     var radioId = 'radio-' + checkedRole;
                     document.getElementById(radioId).checked = true;
                 }
-            }
+            //} // // 20250410 for else if 
         }
     });
 }
@@ -190,15 +190,15 @@ function createUser(sellerId, theAgentId, agentName, email, password, role, acco
     }).always(function (res) {
         if (!/^success$/i.test(res.result || "")) {
             console.log("error:" + res);
-        } else {
+        //} else {  // 20250410 'If' statement should not be the only statement in 'else' block
             // ========================== Upload Photo (if needed) ==========================
-            if (photoChanged) {
+        } else if (photoChanged) {
                 // upload photo
                 uploadPhotoAfterCreateUpdate();
-            } else {
+        } else {
                 window.close();
                 window.opener.location.reload(true);
-            }
+           // } // 20250410 for else if
         }
     });
 }
@@ -224,14 +224,14 @@ function updateUser(inputObj, password, counter) {
     }).always(function (res) {
         if (!/^success$/i.test(res.result || "")) {
             console.log("error /n" + res ? res : '');
-        } else {
+        //} else {  // 20250410 'If' statement should not be the only statement in 'else' block
             // ========================== Upload Photo (if needed) ==========================
-            if (photoChanged) {
+        } else if (photoChanged) { 
                 uploadPhotoAfterCreateUpdate();
-            } else {
+        } else {
                 window.close();
                 window.opener.location.reload(true);
-            }
+           // } // 20250410 for else if 
         }
     });
 }

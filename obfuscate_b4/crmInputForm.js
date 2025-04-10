@@ -250,14 +250,14 @@ function nationalityChanged(oThis) {
     if (nationalityId == '') {
         marketSelect.val('').attr('disabled', false);
         profileSelect.val('').attr('disabled', false);
-    } else {
-        if (nationalityId == 1) {
+    //} else {  //20250410 'If' statement should not be the only statement in 'else' block
+    } else if (nationalityId == 1) {
             marketSelect.val(marketId).attr('disabled', false);
             profileSelect.val(profileId).attr('disabled', false);
-        } else {
+    } else {
             marketSelect.val(marketId).attr('disabled', true);
             profileSelect.val(profileId).attr('disabled', true);
-        }
+        //}//   20250410 for else if
     }
 
 }
@@ -761,8 +761,8 @@ function setCustomerInfo(isChangedCustomer) {
             document.getElementById('case-nature').value = customerData.Call_Nature || '';
         }
         $("#reply-none").prop("checked", true).trigger("click");
-    } else {
-        if (type == 'newCustomer') {
+    //} else {  20250410 'If' statement should not be the only statement in 'else' block
+    } else if (type == 'newCustomer') {
             if (callType == 'Inbound_Email') {
                 _Email.value = details;
             } else if (callType == 'Inbound_Fax') {
@@ -792,8 +792,8 @@ function setCustomerInfo(isChangedCustomer) {
                         var rDetails = r.details;
                         if (!/^success$/i.test(r.result || "")) {
                             console.log('error: ' + rDetails);
-                        } else {
-                            if (rDetails != undefined) {
+                        //} else {  20250410 'If' statement should not be the only statement in 'else' block
+                        } else if (rDetails != undefined) {
                                 var webchatFields = rDetails['Webchat Fields'];
                                 for (let theFieldStr of detailsArr) {
                                     var fieldNameValueArr = theFieldStr.split(':');
@@ -820,7 +820,7 @@ function setCustomerInfo(isChangedCustomer) {
                                         }
                                     }
                                 }
-                            }
+                            //}// 20250410 for else if 
                         }
                     });
                 }
@@ -874,7 +874,7 @@ function setCustomerInfo(isChangedCustomer) {
                     }
                 }
             }
-        }
+        //}// 20250410 for else if 
     }
 
     // load Escalate To dropdown
@@ -886,12 +886,12 @@ function setCustomerInfo(isChangedCustomer) {
         document.getElementById('case-details').value = customerData.Details || '';
         if (outsider) {
             document.getElementById('case-status').value = 'Follow-up Required';
-        } else {
-            if (escalatedTo != null) {
+        //} else {  //20250410 'If' statement should not be the only statement in 'else' block
+        } else if (escalatedTo != null) {
                 document.getElementById('case-status').value = 'Escalated';
-            } else {
+        } else {
                 document.getElementById('case-status').value = customerData.Status || '';
-            }
+          //  }// 20250410 for else if
         }
         if (customerData != undefined && customerData.Escalated_To != null) {
             document.getElementById('case-escalated').value = customerData.Escalated_To;
@@ -1160,12 +1160,12 @@ function saveClicked(isTemp, callback) { // 1. declare 2. verify 3. update custo
             } else {
                 replyDetails += (',' + detailsValue);
             }
-        } else {
-            if (replyDetails.length == 0) {
+        //} else {  //20250410 'If' statement should not be the only statement in 'else' block
+        } else if (replyDetails.length == 0) {
                 replyDetails = $('#' + replyChannel + '-other-input')[0].value;
-            } else {
+        } else {
                 replyDetails += (',' + $('#' + replyChannel + '-other-input')[0].value);
-            }
+            //}// 20250410 for else if
         }
     }
     // ========================== 2/6 Verify ==========================
@@ -1230,10 +1230,10 @@ function saveClicked(isTemp, callback) { // 1. declare 2. verify 3. update custo
                     alert(langJson['l-alert-not-clicked-dial']);
                     return;
                 }
-            } else {
+            //} else {  //20250410 'If' statement should not be the only statement in 'else' block
                 // replyConfirmed here
                 // Verify dialed out call, have it be given result
-                if (replyChannel == 'call') {
+            } else if (replyChannel == 'call') {
                     var replyCallResult = $('#call-result-select')[0].value;
                     if (replyCallResult != undefined && replyCallResult.length == 0) {
                         document.getElementById("case-save-btn").disabled = false;
@@ -1241,7 +1241,7 @@ function saveClicked(isTemp, callback) { // 1. declare 2. verify 3. update custo
                         $('#call-result-select').focus();
                         return;
                     }
-                }
+                //}// 20250410 for else if 
             }
         }
         // Verify if email related checked but wihtout email
@@ -1852,11 +1852,11 @@ function callSaveCallHistory(isSaved) { // if update reply details only, will no
             if (!/^success$/i.test(r.result || "")) {
                 console.log('error in callSaveCallHistory');
                 console.log(r.details);
-            } else {
+          //} else {    //20250410 'If' statement should not be the only statement in 'else' block
                 // Reload page
-                if (isSaved) {
+            } else if (isSaved) {
                     restorePage();
-                }
+               // } //20250410 for else if 
             }
         },
         error: function (r) {

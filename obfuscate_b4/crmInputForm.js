@@ -2019,7 +2019,7 @@ function replyChannelChange(iThis) {
         $('#select-tp-btn').on('click', function () {
             var openWindows = parent.parent.openWindows;
 
-            popupCampaign = campaign;
+            var popupCampaign = campaign; 	// 20250411 Add the "let", "const" or "var" keyword to this declaration of "popupCampaign" to make it explicit.
             selectedSendTemplate = null;
 
          

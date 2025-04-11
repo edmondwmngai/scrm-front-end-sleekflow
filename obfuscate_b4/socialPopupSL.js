@@ -292,9 +292,9 @@ function uploadTpFile(campaign, whatsappNo, index, tpPropsArr, input) {
         } else {
             var fileDetails = response.data[0];
             // TBD do it jsut because hard coded, asked Tiger to be not hard code on 2021-06-01
-            if (config.isHttps) {
-                voiceUrl = voiceUrl.replace(voiceUrl.substr(0,voiceUrl.indexOf("/wisepbx/")), wiseHost);
-            }
+            //if (config.isHttps) {     //20250411 should not be currently used which is replaced by fileDetails.FileUrl 
+            //    voiceUrl = voiceUrl.replace(voiceUrl.substr(0,voiceUrl.indexOf("/wisepbx/")), wiseHost);
+            //}
             // /TBD
 
             //12/7/2021 Raymond add prefix http:// 

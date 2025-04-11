@@ -17,10 +17,11 @@ function buildContent() {
     $("#timestamp-span").text(timestamp.replace('T', ' '));
     $("#vmail-caller").text(callerDisplay);
     $("#vmail-subject").text(window.frameElement.getAttribute("subject") || '');
-    var vmailPath = window.frameElement.getAttribute("mediaPath") || '';
-    if (config.isHttps) {
-        voiceUrl = voiceUrl.replace(voiceUrl.substr(0,voiceUrl.indexOf("/wisepbx/")), wiseHost);
-    }
+	var vmailPath = window.frameElement.getAttribute("mediaPath") || '';
+
+    //if (config.isHttps) {		//20250411 should not be currently used which is replace by vmailPath
+    //    voiceUrl = voiceUrl.replace(voiceUrl.substr(0,voiceUrl.indexOf("/wisepbx/")), wiseHost);
+    //}
     if (vmailPath.length > 0) {
         $('<video controls="" name="media" style="height:27px;width:95%;"' + downloadVoiceStr + '><source src="' + vmailPath + '" type="audio/wav"></video>').appendTo('#audio-player');
     }

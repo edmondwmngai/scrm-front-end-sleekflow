@@ -142,10 +142,11 @@ function validateForm(sellerIdInput, oldPassword, newPassword, confirmNewPasswor
     $('#validation-result').text(hasError);
 }
 
+var changeCounter = 0;		// 20250411 Add the "let", "const" or "var" keyword to this declaration of "changeCounter" to make it explicit.
 // Submit is clicked
 function submitForm() {
-
-    // add counter when there are changes
+	
+	// add counter when there are changes
     if (fieldChanged) {
         changeCounter = 1;
     }

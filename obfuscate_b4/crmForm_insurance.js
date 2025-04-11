@@ -468,10 +468,10 @@ function getCurrentSdObj() {
     var sendObj = {};
     var callReason = '';
     //var replyDetails = '';         // 20200326 Review this redundant assignment
-    // var productCode = '';
+    var productCode = '';			// 20250411 Add the "let", "const" or "var" keyword to this declaration of "productCode" to make it explicit.
     // var planCode = '';
     // var planPrice = '';
-    // var gotOldProduct = false;
+    var gotOldProduct = false;     // 20250411 Add the "let", "const" or "var" keyword to this declaration of "productCode" to make it explicit.
     // var hvDifference = false; // default false, need to be true to update
 
 

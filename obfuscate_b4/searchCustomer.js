@@ -1013,7 +1013,7 @@ function countPattern(str) {
 }
 
 function sendTP() {
-    tpPropsArr = [];
+    var tpPropsArr = [];    // 20250411 Add the "let", "const" or "var" keyword to this declaration of "tpPropsArr" to make it explicit.
     var tpPropsNo = 0;
     var tp0Val = ($('#tpl-content-0').val() || '').trim();
     var tp1Val = ($('#tpl-content-1').val() || '').trim();

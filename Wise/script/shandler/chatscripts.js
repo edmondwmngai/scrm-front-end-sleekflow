@@ -850,7 +850,7 @@
 		  $('#chatHistory').html('');
 		  this.disableInput(false);
 
-		  var ticketID = 0;
+		  //var ticketID = 0;		// 20250414 Remove the declaration of the unused 'ticketID' variable.
 
 		  if (sMsglist != null)
 		  {
@@ -1369,8 +1369,8 @@
 
 	  updateBubbleStatus(inputTicketID, status, timeout) {
 
-		  //Check current status, 
-		  var sTicket = parent.$('#phone-panel')[0].contentWindow.AssignedTicketList.filter(i => i.TicketId == inputTicketID);
+		  //Check current status, //20250414	Remove the declaration of the unused 'sTicket' variable.
+		  //var sTicket = parent.$('#phone-panel')[0].contentWindow.AssignedTicketList.filter(i => i.TicketId == inputTicketID); 
 		  //var ticketStatus = sTicket[0].Status;		//20250414 Remove this useless assignment to variable "ticketStatus".
 
 		  //----------------------------------------------------------------------------------------------------------------

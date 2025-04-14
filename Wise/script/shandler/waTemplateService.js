@@ -6,7 +6,7 @@ class WaTemplateService {
 
     init(sCompany, sAgentId, sToken) {
 
-        var wa_templateInfoList = [];
+        //   var wa_templateInfoList = [];     //20250414 Remove the declaration of the unused 'wa_templateInfoList' variable.
 
         getTemplateByAPI(sCompany, sAgentId, sToken, function (result, err) {
 
@@ -99,20 +99,20 @@ class WaTemplateService {
         return context;
     };
 
-    displayTemplateOnChat(sMsg)
-    {
+    //displayTemplateOnChat(sMsg)
+    //{
 
-        var header = '<div class="agent-content-bubble content-bubble">' +
-            '<div class="content-bubble-name">{{SentBy}}</div></div>';
+    //    var header = '<div class="agent-content-bubble content-bubble">' +
+    //        '<div class="content-bubble-name">{{SentBy}}</div></div>';
 
-        var footer = '<div>' +
-                          '<span class="user-icon"><i class="fas fa-user"></i></span>' +
-                          '<div class="time-with-seconds" title="{{time}}"><span></span><span>{{time}}</span></div>' +
-            '</div>';
+    //    var footer = '<div>' +
+    //                      '<span class="user-icon"><i class="fas fa-user"></i></span>' +
+    //                      '<div class="time-with-seconds" title="{{time}}"><span></span><span>{{time}}</span></div>' +
+    //        '</div>';
 
         
 
-    };
+    //};
 
     displayFilledTemplateOnWeb(mTemplate, element)
     {
@@ -121,7 +121,7 @@ class WaTemplateService {
         var cContext = this.createContextFromTemplate(mTemplate);
         var inputList = mTemplate.inputList;
         var message = cContext.Message;
-        var htmlTemplate = parent.$('#phone-panel')[0].contentWindow.wa_template;
+        //  var htmlTemplate = parent.$('#phone-panel')[0].contentWindow.wa_template;     //20250414 Remove the declaration of the unused 'htmlTemplate' variable.
 
         for (var r = 1; r < (inputList.length + 1); r++)
         {
@@ -147,7 +147,7 @@ class WaTemplateService {
             var inputElements = row.querySelectorAll("input.wa_value"); // Find all input elements with the name 'textInput' inside the table
             var templateName = row.getElementsByClassName('wa-template-name')[0].innerHTML;
 
-            var selectedTemplate = this.templateList.filter(i => i.TemplateName === templateName)[0];
+        // var selectedTemplate = this.templateList.filter(i => i.TemplateName === templateName)[0];     20250414 Remove the declaration of the unused 'selectedTemplate' variable.
             // Get the values of the input elements
 
             var inputList = [];
@@ -196,7 +196,7 @@ class WaTemplateService {
 
         var URL = this.baseURL;
         var URL = "http://172.17.6.11:8033/api";
-        const self = this;
+        //const self = this;        20250414 Remove the declaration of the unused 'self' variable.
         function getTemplate(sCompany, sAgentId, sToken)
         {
 

@@ -2644,7 +2644,7 @@
 			//	obj.Member[i].Status = agentStatus[obj.Member[i].StatusID];
 			//}
 			
-			for (let member of obj.Member)					//20250414 Expected a `for-of` loop instead of a `for` loop with this simple iteration.
+			for (let member of obj.Member) {					//20250414 Expected a `for-of` loop instead of a `for` loop with this simple iteration.
 				member.Status = agentStatus[member.StatusID];
 			}
 			
@@ -2663,7 +2663,7 @@
 			console.log(obj.Member);
 			var objMember = obj.Member;
 			//for (var i = 0; i < objMember.length; i++) {				//20250414 Add the "let", "const" or "var" keyword to this declaration of "i" to make it explicit.
-			for (let theMember of objMember)							//20250414 Expected a `for-of` loop instead of a `for` loop with this simple iteration.
+			for (let theMember of objMember) {							//20250414 Expected a `for-of` loop instead of a `for` loop with this simple iteration.
 				//var theMember = objMember[i];
 				theMember.Status = agentStatus[theMember.StatusID];
 				// NO DEL, please define agentStatusBreak object if needed
@@ -3065,7 +3065,7 @@
 				var source = queueListItem.source;
 
 				//if (source != null && queueList[i].waitCount < 1 && (testMode == false)) {	20250407 Refactor the code to avoid using this boolean literal.
-				if (source != null && queueList[i].waitCount < 1 && (!testMode)) {
+				if (source != null && queueListItem.waitCount < 1 && (!testMode)) {
 					objDiv.setAttribute("style", "display:none;margin:5px 0px 0px 5px;box-shadow: 0 2px 4px 0 rgba(0,0,0,.14);border-radius: 3px;transition:.3s;background:#ffff;width:130px;height:80px;color:" + layout.color);
 				}
 				else {
@@ -3089,7 +3089,7 @@
 
 				var objQueueName = document.createElement("p");
 				objQueueName.setAttribute("style", "display:inline-block;position:relative;text-align:right;margin:2px 0 0 -5px;width:100%");
-				objQueueName.innerHTML = queueList[i].caption;
+				objQueueName.innerHTML = queueListItem.caption;
 				objDiv.appendChild(objQueueName);
 
 				var objQueueTime = document.createElement("p");
@@ -3120,7 +3120,7 @@
 				////-------------------------------------------------------------------------------------------
 				/////---------------------------------SHandler Update 2024-10-24---------------------////////////
 				////----------------------------------------------------------------------------------------------
-				if (queueList[i].source != "sleekflow") {
+				if (queueListItem.source != "sleekflow") {
 					objQueueCount1.setAttribute("onclick", "acceptCall(" + queueListItem.callType + "," + queueListItem.acdGroup + ",'" + queueListItem.entry + "',this);");
 				} else {
 					objQueueCount1.setAttribute("onclick", "acceptCall_Shandler(" + loginId + ",'" + top.token + "','" + queueListItem.entry + "','" + queueListItem.dnis + "');");
@@ -3138,7 +3138,7 @@
 				//if ( queueList[i].callType== CATY_EMAIL || queueList[i].callType==CATY_VMAIL || queueList[i].callType==CATY_FAX) {
 				//var objDivSubQueue = document.createElement("div");
 				//objDivSubQueue.setAttribute("style","display:inline-block;float:right;text-align:right;margin-right:5px;width:30%;cursor:pointer;color:"+layout.color);
-				if (queueList[i].callType == CATY_EMAIL || queueListItem.callType == CATY_VMAIL || queueListItem.callType == CATY_FAX) {
+				if (queueListItem.callType == CATY_EMAIL || queueListItem.callType == CATY_VMAIL || queueListItem.callType == CATY_FAX) {
 					var objQueueCount2 = document.createElement("div");
 					objQueueCount2.setAttribute("id", layout.prefix + "QueueCount2_" + queueListItem.name);
 					objQueueCount2.setAttribute("style", "display:inline-block;float:right;text-align:center;margin-right:5px;border:2px solid #eee;border-radius:3px;width:30%;cursor:pointer;");

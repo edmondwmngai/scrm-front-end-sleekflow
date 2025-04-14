@@ -152,7 +152,7 @@ function accountRecordPopupOnload() {
     $('#txt-confirm-password').prop('disabled', true);
     // obtain other field values
     colId = queryObj.ColId;
-    sellerId = queryObj.SellerID;
+    var sellerId = queryObj.SellerID;	// 20250414 Add the "let", "const" or "var" keyword to this declaration of "sellerId" to make it explicit.
     agentId = queryObj.AgentID;
     agentName = queryObj.AgentName;
     email = queryObj.Email;

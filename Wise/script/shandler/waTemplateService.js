@@ -145,7 +145,7 @@ class WaTemplateService {
     returnInputListByTableRow(row) 
     {
             var inputElements = row.querySelectorAll("input.wa_value"); // Find all input elements with the name 'textInput' inside the table
-            var templateName = row.getElementsByClassName('wa-template-name')[0].innerHTML;
+        //var templateName = row.getElementsByClassName('wa-template-name')[0].innerHTML;   // 20250414 Remove the declaration of the unused 'templateName' variable.
 
         // var selectedTemplate = this.templateList.filter(i => i.TemplateName === templateName)[0];     20250414 Remove the declaration of the unused 'selectedTemplate' variable.
             // Get the values of the input elements

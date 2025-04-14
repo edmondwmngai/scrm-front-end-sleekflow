@@ -415,7 +415,7 @@ $(document).ready(function () {
     }
 
     var sAgentId = window.opener.sAgentId;
-    var sToken = window.opener.sToken;
+  //var sToken = window.opener.sToken;      // 20250414 Remove the declaration of the unused 'sToken' variable.
     var sCompany = window.opener.sCompany;
 
     sAgentId = 5;
@@ -450,7 +450,7 @@ $(document).ready(function () {
             context = window.opener.waTempService.createContextFromTemplate(template);
             crmText = wa_template(context);     // append the context to template
 
-            let k = 'wa_value';
+            //let k = 'wa_value';
             var r = 0;
 
 

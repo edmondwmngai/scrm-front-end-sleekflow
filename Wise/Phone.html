@@ -909,8 +909,8 @@
 			// if (wssresult.result == false) { alert(wssresult.message); return; }
 			//-----
 
-			var ticket = null;
-			var msg = null;
+			//var ticket = null;	//20250414 Remove the declaration of the unused variable.
+			//var msg = null;
 
 			//Step 1: get the ticket
 			shandler.getTicket({
@@ -1523,7 +1523,7 @@
 
 		async function windowOnload() {
 			//console.log(new Date().getTime());
-			var w = $(window).width();
+			//var w = $(window).width(); // 20250414 Remove the declaration of the unused 'w' variable.
 			// $('.container').css('width', w-300);
 			ringAudio = document.getElementById("ringAudio");
 			queAudio = document.getElementById("queAudio");
@@ -2286,11 +2286,13 @@
 		addEventListener(document, 'StartScreenCap', function (e) {
 			var obj = e.detail;
 			// need to have DDE like BOCPT
+			console.log(JSON.stringify(obj));		// 20250414 Remove the declaration of the unused 'obj' variable.
 		});
 
 		addEventListener(document, 'StopScreenCap', function (e) {
 			var obj = e.detail;
 			// need to have DDE like BOCPT
+			console.log(JSON.stringify(obj));		// 20250414 Remove the declaration of the unused 'obj' variable.
 		});
 
 		addEventListener(document, 'OfflineForm', function (e) {
@@ -2606,6 +2608,7 @@
 		addEventListener(document, 'SameLevelReply', function (e) {
 			var obj = e.detail;
 			//console.log(obj);
+			console.log(JSON.stringify(obj));		// 20250414 Remove the declaration of the unused 'obj' variable.
 		});
 
 		addEventListener(document, 'RecvInvAgentToChat', function (e) {
@@ -2814,7 +2817,7 @@
 				}
 			}
 			*/
-			var updateFlag = false;
+			//var updateFlag = false;		//20250414 Remove the declaration of the unused 'updateFlag' variable.
 			//for (var i = 0; i < serviceList.length; i++) {			//20250414 Add the "let", "const" or "var" keyword to this declaration of "i" to make it explicit.
 			for (const service of serviceList) { 					//20250414 Use `for-of` to iterate over the array // update serviceList[i] to service
 				if (service.callType == CATY_EMAIL || service.callType == CATY_VMAIL || service.callType == CATY_FAX) {
@@ -3304,7 +3307,8 @@
 				//console.log(checkCount);
 			}
 			//checkFlag = typeof checkFlag !== 'undefined' ? checkFlag : false;
-			var checkFlag = false;
+			//var checkFlag = false;		//20250414 Remove the declaration of the unused 'checkFlag' variable.
+
 			var url;
 			if (callType == CATY_EMAIL)
 				url = config.wiseHost + "/WisePBX/api/Email/GetCount";

@@ -28,8 +28,8 @@
 </body>
 <script>
 $( document ).ready(function() {
-	var now=new Date();
-	var message = [];
+    //var now=new Date();	// 20250414 Remove the declaration of the unused 'now' variable.
+    //var message = [];		//			Remove the declaration of the unused 'message' variable.
 	var originalMsgArr = window.opener.originalMsgArr;
 	if (originalMsgArr==null) originalMsgArr=[];
 	//var originalMsgArr =[];
@@ -54,7 +54,7 @@ $( document ).ready(function() {
 function checking()
 {
 	var bgColor="";
-	var now=new Date();
+	//var now=new Date();	// 20250414 Remove the declaration of the unused 'now' variable.
 	var originalMsgArr = window.opener.originalMsgArr;
 
     // for(var i=0; i<originalMsgArr.length;i++){		// 20250403 Expected a `for-of` loop instead of a `for` loop with this simple iteration.

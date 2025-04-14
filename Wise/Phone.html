@@ -564,7 +564,16 @@
 		var agentStatusTimer;
 		var inboundQueueTimer;
 		var updateQueueTimer;
+		var queueTimeTimer;			// 20250414 Add the "let", "const" or "var" keyword to this declaration of "queueTimeTimer" to make it explicit.
 
+		var shandler; 				//20250414 Add the "let", "const" or "var" keyword to this declaration of "shandler" to make it explicit.
+		//20250414 Add the "let", "const" or "var" keyword to this declaratio
+		var caller = "";
+		var answer = "";
+		var connID = 0;
+		var serviceID = 0;
+		
+		
 		var queueList = [];
 		var callType = 0;
 		var callID = 0;
@@ -572,7 +581,7 @@
 		var DNISNo = "";
 		var ivrsMessage = "";
 		var attachment = "";
-		var currCallInfo = { lastCallType: 0, lastCallID: 0, confCallID: 0, callSeq: [] };
+		var currCallInfo = { lastCallType: 0, lastCallID: 0, confCallID: 0, callSeq: [] };			
 		var currCallType = 0;
 		var currCallID = 0;
 		var currconnID = 0;
@@ -1337,7 +1346,7 @@
 
 						//parent.$('#social-media-main')[0].contentWindow.chatService.returnPastMessageByTicketIdCallBack(ticketId, lastApiResult);
 						parent.$('#phone-panel')[0].contentWindow.caHistService.returnCaseHistoryCallBack(response);
-						lastApiResult = null;
+						//lastApiResult = null;			//20250414 remove the unused variable
 
 					}
 				})
@@ -2039,7 +2048,7 @@
 			mediaTo = "";
 			mediaSubject = "";
 			mediaID = 0;
-			for (i = 0; i < obj.Member.length; i++) {
+			for (var i = 0; i < obj.Member.length; i++) {		// 20250414 add Add the "let", "const" or "var" keyword to this declaration of "i" to make it explicit.
 				switch (obj.Member[i].VarType) {
 					case C_VAL_DATA:
 						ivrsMessage = obj.Member[i].VarMsg;
@@ -2629,7 +2638,7 @@
 
 		addEventListener(document, 'ACDGroupMember', function (e) {
 			var obj = e.detail;
-			for (i = 0; i < obj.Member.length; i++) {
+			for (var i = 0; i < obj.Member.length; i++) {				//20250414 Add the "let", "const" or "var" keyword to this declaration of "i" to make it explicit.
 				obj.Member[i].Status = agentStatus[obj.Member[i].StatusID];
 			}
 			//console.log(obj);
@@ -2645,7 +2654,7 @@
 			obj.Member = obj.Agentlist.slice();
 			console.log(obj.Member);
 			var objMember = obj.Member;
-			for (i = 0; i < objMember.length; i++) {
+			for (var i = 0; i < objMember.length; i++) {				//20250414 Add the "let", "const" or "var" keyword to this declaration of "i" to make it explicit.
 				var theMember = objMember[i];
 				theMember.Status = agentStatus[theMember.StatusID];
 				// NO DEL, please define agentStatusBreak object if needed
@@ -2773,8 +2782,8 @@
 				}
 			}
 			else {
-				s = document.getElementById('panelTimeCount').innerHTML.split(":");
-				t = parseInt(s[0]) * 60 + parseInt(s[1]) + 1;
+				var s = document.getElementById('panelTimeCount').innerHTML.split(":");		//20250414 Add the "let", "const" or "var" keyword to this declaration of "s"/"t" to make it explicit.
+				var t = parseInt(s[0]) * 60 + parseInt(s[1]) + 1;
 				document.getElementById('panelTimeCount').innerHTML = EncodeTime(t);
 
 				try {
@@ -2797,7 +2806,7 @@
 			}
 			*/
 			var updateFlag = false;
-			for (i = 0; i < serviceList.length; i++) {
+			for (var i = 0; i < serviceList.length; i++) {			//20250414 Add the "let", "const" or "var" keyword to this declaration of "i" to make it explicit.
 				if (serviceList[i].callType == CATY_EMAIL || serviceList[i].callType == CATY_VMAIL || serviceList[i].callType == CATY_FAX) {
 					if (queueList.filter(function (v) { return v.callType == serviceList[i].callType && v.dnis == serviceList[i].dnis }).length == 0) {
 						var link = "";
@@ -2938,7 +2947,7 @@
 			else
 				c = serviceList.filter(function (v) { return v.callType==callType && v.acdGroup==acdGroup });
 			*/
-			c = serviceList.filter(function (v) { return v.callType == callType && v.acdGroup == acdGroup });
+			var c = serviceList.filter(function (v) { return v.callType == callType && v.acdGroup == acdGroup });		//20250414 Add the "let", "const" or "var" keyword to this declaration of "c" to make it explicit.
 			if (c.length == 0) return;
 
 			//console.log(c);
@@ -3023,7 +3032,7 @@
 
 
 
-			for (i = 0; i < queueList.length; i++) {
+			for (var i = 0; i < queueList.length; i++) {		//20250414 Add the "let", "const" or "var" keyword to this declaration of "i" to make it explicit.
 				//20240108 for skip showing zero count queue
 				// if (queueList[i].source.equals('sleekflow')) // && queueList[i].waitCount < 1)
 				// {
@@ -3141,7 +3150,7 @@
 		}
 
 		function queueTimeTicker() {
-			for (i = 0; i < queueList.length; i++) {
+			for (var i = 0; i < queueList.length; i++) {		//20250414 Add the "let", "const" or "var" keyword to this declaration of "i" to make it explicit.
 				var rCalltype = queueList[i].callType;
 				if (queueList[i].callType == CATY_BLOG && queueList[i].entry == "wechat") rCalltype = CATY_WECHAT;
 				else if (queueList[i].callType == CATY_BLOG && queueList[i].entry == "whatsapp") rCalltype = CATY_WHATSAPP;
@@ -3363,7 +3372,7 @@
 		function wiseGetServiceInfo(serviceName) {
 			var r = [];
 			var s = serviceList.filter(function (v) { return v.name == serviceName });
-			for (i = 0; i < s.length; i++) {
+			for (var i = 0; i < s.length; i++) {				//20250414 Add the "let", "const" or "var" keyword to this declaration of "i" to make it explicit.
 				var info = { channel: channels[s[i].callType], dnis: s[i].dnis };
 				r.push(info);
 			}
@@ -3749,7 +3758,7 @@
 				success: function (r) {
 					//console.log(r);
 					var _dnisArray = $.unique(r.data.map(function (d) { return d.dnis; }));
-					for (i = 0; i < _dnisArray.length; i++) {
+					for (var i = 0; i < _dnisArray.length; i++) {					//20250414 Add the "let", "const" or "var" keyword to this declaration of "i" to make it explicit.
 						//console.log(dnisArray[i]);
 						updateMediaCount(_callType, _dnisArray[i], 10);
 					}
@@ -4020,7 +4029,7 @@
 			var ani = outboundANI[serviceName].whatsapp;
 			var phoneNo = phoneList.split(",");
 			templateMsgResultEx = [];
-			for (i = 0; i < phoneNo.length; i++) {
+			for (var i = 0; i < phoneNo.length; i++) {				//20250414 Add the "let", "const" or "var" keyword to this declaration of "i" to make it explicit.
 				var no = "whatsapp:+";
 				no += (phoneNo[i].length <= 8) ? "852" + phoneNo[i] : phoneNo[i];
 				wsWiseAgent.SendTemplateMsg(ani, no, TemplateId, props, 4);

@@ -2048,48 +2048,49 @@
 			mediaTo = "";
 			mediaSubject = "";
 			mediaID = 0;
-			for (var i = 0; i < obj.Member.length; i++) {		// 20250414 add Add the "let", "const" or "var" keyword to this declaration of "i" to make it explicit.
+			//for (var i = 0; i < obj.Member.length; i++) {		// 20250414 add Add the "let", "const" or "var" keyword to this declaration of "i" to make it explicit.
+			for (let member of obj.Member) {					// 20250414 Expected a for-of loop instead of a for loop with this simple iteration. update obj.Member[i] to member 
 				switch (obj.Member[i].VarType) {
 					case C_VAL_DATA:
-						ivrsMessage = obj.Member[i].VarMsg;
+						ivrsMessage = member.VarMsg;
 						break;
 					case C_VAL_CONNECTIONID:
-						connID = obj.Member[i].VarMsg;
+						connID = member.VarMsg;
 						if (callType == CATY_CONF) confConnID = connID;
 						break;
 					case C_VAL_CALLID:
-						callID = obj.Member[i].VarMsg;
+						callID = member.VarMsg;
 						//if (callType==CATY_OUTBD && ANINo=="") return;
 						break;
 					case C_VAL_SERVICEID:
-						serviceID = obj.Member[i].VarMsg;
+						serviceID = member.VarMsg;
 						break;
 					case C_VAL_CALLTYPE:
-						callType = obj.Member[i].VarMsg;
+						callType = member.VarMsg;
 						break;
 					case C_VAL_ANI:
-						ANINo = obj.Member[i].VarMsg;
+						ANINo = member.VarMsg;
 						//currCallInfo.lastCallType =callType;
 
 						break;
 					case C_VAL_DNIS:
-						DNISNo = obj.Member[i].VarMsg;
+						DNISNo = member.VarMsg;
 
 						break;
 					case C_VAL_ATTACHMENT:
-						attachment = obj.Member[i].VarMsg;
+						attachment = member.VarMsg;
 						break;
 					case C_VAL_MEDIAFROM:
-						mediaFrom = obj.Member[i].VarMsg;
+						mediaFrom = member.VarMsg;
 						break;
 					case C_VAL_MEDIATO:
-						mediaTo = obj.Member[i].VarMsg;
+						mediaTo = member.VarMsg;
 						break;
 					case C_VAL_MEDIASUBJECT:
-						mediaSubject = obj.Member[i].VarMsg;
+						mediaSubject = member.VarMsg;
 						break;
 					case C_VAL_MEDIAID:				
-						mediaID = obj.Member[i].VarMsg;
+						mediaID = member.VarMsg;
 						break;
 			//		case C_VAL_ATTACHMENT:			// 20250408 if/else if" chains and "switch" cases should not have the same condition
 			//			attachment = obj.Member[i].VarMsg;
@@ -2638,9 +2639,16 @@
 
 		addEventListener(document, 'ACDGroupMember', function (e) {
 			var obj = e.detail;
-			for (var i = 0; i < obj.Member.length; i++) {				//20250414 Add the "let", "const" or "var" keyword to this declaration of "i" to make it explicit.
-				obj.Member[i].Status = agentStatus[obj.Member[i].StatusID];
+			
+			//for (var i = 0; i < obj.Member.length; i++) {				//20250414 Add the "let", "const" or "var" keyword to this declaration of "i" to make it explicit.
+			//	obj.Member[i].Status = agentStatus[obj.Member[i].StatusID];
+			//}
+			
+			for (let member of obj.Member)					//20250414 Expected a `for-of` loop instead of a `for` loop with this simple iteration.
+				member.Status = agentStatus[member.StatusID];
 			}
+			
+			
 			//console.log(obj);
 			if (acdGroupMemberBy == "WiseGetAgentList")
 				triggerEvent(window.parent.document, 'onWiseAgentList', obj);
@@ -2654,8 +2662,9 @@
 			obj.Member = obj.Agentlist.slice();
 			console.log(obj.Member);
 			var objMember = obj.Member;
-			for (var i = 0; i < objMember.length; i++) {				//20250414 Add the "let", "const" or "var" keyword to this declaration of "i" to make it explicit.
-				var theMember = objMember[i];
+			//for (var i = 0; i < objMember.length; i++) {				//20250414 Add the "let", "const" or "var" keyword to this declaration of "i" to make it explicit.
+			for (let theMember of objMember)							//20250414 Expected a `for-of` loop instead of a `for` loop with this simple iteration.
+				//var theMember = objMember[i];
 				theMember.Status = agentStatus[theMember.StatusID];
 				// NO DEL, please define agentStatusBreak object if needed
 				// if(obj.Member[i].StatusID==STATUS_BREAK){
@@ -2806,15 +2815,16 @@
 			}
 			*/
 			var updateFlag = false;
-			for (var i = 0; i < serviceList.length; i++) {			//20250414 Add the "let", "const" or "var" keyword to this declaration of "i" to make it explicit.
-				if (serviceList[i].callType == CATY_EMAIL || serviceList[i].callType == CATY_VMAIL || serviceList[i].callType == CATY_FAX) {
-					if (queueList.filter(function (v) { return v.callType == serviceList[i].callType && v.dnis == serviceList[i].dnis }).length == 0) {
+			//for (var i = 0; i < serviceList.length; i++) {			//20250414 Add the "let", "const" or "var" keyword to this declaration of "i" to make it explicit.
+			for (const service of serviceList) { 					//20250414 Use `for-of` to iterate over the array // update serviceList[i] to service
+				if (service.callType == CATY_EMAIL || service.callType == CATY_VMAIL || service.callType == CATY_FAX) {
+					if (queueList.filter(function (v) { return v.callType == service.callType && v.dnis == service.dnis }).length == 0) {
 						var link = "";
-						if (serviceList[i].callType == CATY_EMAIL)
+						if (service.callType == CATY_EMAIL)
 							link = config.wiseHost + "/WisePBX/api/Email/GetCount";
-						else if (serviceList[i].callType == CATY_VMAIL)
+						else if (service.callType == CATY_VMAIL)
 							link = config.wiseHost + "/WisePBX/api/Vmail/GetCount";
-						else if (serviceList[i].callType == CATY_FAX)
+						else if (service.callType == CATY_FAX)
 							link = config.wiseHost + "/WisePBX/api/Fax/GetCount";
 						if (link != "") {
 							//console.log(link);
@@ -2822,10 +2832,10 @@
 								type: "POST",
 								async: true,
 								url: link,
-								data: JSON.stringify({ "dnis": serviceList[i].dnis, "agentId": loginId }),
+								data: JSON.stringify({ "dnis": service.dnis, "agentId": loginId }),
 								contentType: "application/json; charset=utf-8",
 								dataType: "json",
-								service: serviceList[i],
+								service: service,
 								success: function (r) {
 									var mediaCount = r.data;
 									//console.log(this.service);
@@ -3032,7 +3042,8 @@
 
 
 
-			for (var i = 0; i < queueList.length; i++) {		//20250414 Add the "let", "const" or "var" keyword to this declaration of "i" to make it explicit.
+			//for (var i = 0; i < queueList.length; i++) {		// 20250414 Add the "let", "const" or "var" keyword to this declaration of "i" to make it explicit.
+			for (var queueListItem of queueList) { 				// 20250414 Using `for-of` for cleaner iteration	// change queueList[i] to  queueListItem in following for loop
 				//20240108 for skip showing zero count queue
 				// if (queueList[i].source.equals('sleekflow')) // && queueList[i].waitCount < 1)
 				// {
@@ -3042,16 +3053,16 @@
 
 
 				//console.log(queueList[i]);
-				var rCalltype = queueList[i].callType;
-				if (queueList[i].callType == CATY_BLOG && queueList[i].entry == "wechat") rCalltype = CATY_WECHAT;
-				else if (queueList[i].callType == CATY_BLOG && queueList[i].entry == "whatsapp") rCalltype = CATY_WHATSAPP;
-				else if (queueList[i].callType == CATY_BLOG && queueList[i].entry == "fbmsg") rCalltype = CATY_FBMSG;
-				else if (queueList[i].callType == CATY_BLOG && queueList[i].entry == "fbpost") rCalltype = CATY_FBPOST;
+				var rCalltype = queueListItem.callType;
+				if (queueListItem.callType == CATY_BLOG && queueListItem.entry == "wechat") rCalltype = CATY_WECHAT;
+				else if (queueListItem.callType == CATY_BLOG && queueListItem.entry == "whatsapp") rCalltype = CATY_WHATSAPP;
+				else if (queueListItem.callType == CATY_BLOG && queueListItem.entry == "fbmsg") rCalltype = CATY_FBMSG;
+				else if (queueListItem.callType == CATY_BLOG && queueListItem.entry == "fbpost") rCalltype = CATY_FBPOST;
 				var layout = queueLayout[rCalltype];
 
 				var objDiv = document.createElement("div");
 				//objDiv.setAttribute("class","queue_content");
-				var source = queueList[i].source;
+				var source = queueListItem.source;
 
 				//if (source != null && queueList[i].waitCount < 1 && (testMode == false)) {	20250407 Refactor the code to avoid using this boolean literal.
 				if (source != null && queueList[i].waitCount < 1 && (!testMode)) {
@@ -3083,8 +3094,8 @@
 
 				var objQueueTime = document.createElement("p");
 				objQueueTime.setAttribute("style", "display:inline-block;position:relative;text-align:right;margin:2px 0 0 -5px;width:100%;font-size:18px;color:#848484");
-				objQueueTime.setAttribute("id", layout.prefix + "QueueTime_" + queueList[i].name);
-				objQueueTime.innerHTML = (queueList[i].waitCount == 0) ? "00:00" : EncodeTime(queueList[i].waitTime);
+				objQueueTime.setAttribute("id", layout.prefix + "QueueTime_" + queueListItem.name);
+				objQueueTime.innerHTML = (queueListItem.waitCount == 0) ? "00:00" : EncodeTime(queueListItem.waitTime);
 				objDiv.appendChild(objQueueTime);
 
 				var objDivQueue = document.createElement("div");
@@ -3097,8 +3108,8 @@
 				else
 					objQueueCount1.setAttribute("style", "display:inline-block;float:left;text-align:left;margin-left:5px;width:30%;border:2px solid #fff;color:#848484;cursor:pointer;");
 
-				objQueueCount1.setAttribute("id", layout.prefix + "QueueCount1_" + queueList[i].name);
-				objQueueCount1.textContent = queueList[i].waitCount;
+				objQueueCount1.setAttribute("id", layout.prefix + "QueueCount1_" + queueListItem.name);
+				objQueueCount1.textContent = queueListItem.waitCount;
 				/*
 				if(queueList[i].name!="Private")
 					objQueueCount1.setAttribute("onclick", "acceptCall(" + queueList[i].callType+ "," + queueList[i].acdGroup +");");
@@ -3110,9 +3121,9 @@
 				/////---------------------------------SHandler Update 2024-10-24---------------------////////////
 				////----------------------------------------------------------------------------------------------
 				if (queueList[i].source != "sleekflow") {
-					objQueueCount1.setAttribute("onclick", "acceptCall(" + queueList[i].callType + "," + queueList[i].acdGroup + ",'" + queueList[i].entry + "',this);");
+					objQueueCount1.setAttribute("onclick", "acceptCall(" + queueListItem.callType + "," + queueListItem.acdGroup + ",'" + queueListItem.entry + "',this);");
 				} else {
-					objQueueCount1.setAttribute("onclick", "acceptCall_Shandler(" + loginId + ",'" + top.token + "','" + queueList[i].entry + "','" + queueList[i].dnis + "');");
+					objQueueCount1.setAttribute("onclick", "acceptCall_Shandler(" + loginId + ",'" + top.token + "','" + queueListItem.entry + "','" + queueListItem.dnis + "');");
 					//objQueueCount1.setAttribute("onclick", "acceptCall_test()");
 				}
 				////----------------------------------------------------------------------------------------------
@@ -3127,12 +3138,12 @@
 				//if ( queueList[i].callType== CATY_EMAIL || queueList[i].callType==CATY_VMAIL || queueList[i].callType==CATY_FAX) {
 				//var objDivSubQueue = document.createElement("div");
 				//objDivSubQueue.setAttribute("style","display:inline-block;float:right;text-align:right;margin-right:5px;width:30%;cursor:pointer;color:"+layout.color);
-				if (queueList[i].callType == CATY_EMAIL || queueList[i].callType == CATY_VMAIL || queueList[i].callType == CATY_FAX) {
+				if (queueList[i].callType == CATY_EMAIL || queueListItem.callType == CATY_VMAIL || queueListItem.callType == CATY_FAX) {
 					var objQueueCount2 = document.createElement("div");
-					objQueueCount2.setAttribute("id", layout.prefix + "QueueCount2_" + queueList[i].name);
+					objQueueCount2.setAttribute("id", layout.prefix + "QueueCount2_" + queueListItem.name);
 					objQueueCount2.setAttribute("style", "display:inline-block;float:right;text-align:center;margin-right:5px;border:2px solid #eee;border-radius:3px;width:30%;cursor:pointer;");
-					objQueueCount2.setAttribute("onclick", "setTimeout(function() {getMediaCount(" + queueList[i].callType + ",'" + queueList[i].dnis + "', " + loginId + ");},1200);try { window.parent.connClick(0,'" + queueList[i].name + "','" + channels[queueList[i].callType] + "','" + queueList[i].dnis + "','" + queueList[i].dnis + "',null);} catch (err) {console.log(err.message);}");
-					objQueueCount2.textContent = queueList[i].mediaCount;
+					objQueueCount2.setAttribute("onclick", "setTimeout(function() {getMediaCount(" + queueListItem.callType + ",'" + queueListItem.dnis + "', " + loginId + ");},1200);try { window.parent.connClick(0,'" + queueListItem.name + "','" + channels[queueListItem.callType] + "','" + queueListItem.dnis + "','" + queueListItem.dnis + "',null);} catch (err) {console.log(err.message);}");
+					objQueueCount2.textContent = queueListItem.mediaCount;
 					//objDivSubQueue.appendChild(objQueueCount2);
 					objDivQueue.appendChild(objQueueCount2);
 				}
@@ -3140,7 +3151,7 @@
 
 				//}
 				objDiv.appendChild(objDivQueue);
-				objDiv.setAttribute("id", layout.prefix + "Queue_" + queueList[i].name);
+				objDiv.setAttribute("id", layout.prefix + "Queue_" + queueListItem.name);
 				queueListBar.appendChild(objDiv);
 			}
 
@@ -3150,7 +3161,8 @@
 		}
 
 		function queueTimeTicker() {
-			for (var i = 0; i < queueList.length; i++) {		//20250414 Add the "let", "const" or "var" keyword to this declaration of "i" to make it explicit.
+			
+			/*for (var i = 0; i < queueList.length; i++) {		//20250414 Add the "let", "const" or "var" keyword to this declaration of "i" to make it explicit.
 				var rCalltype = queueList[i].callType;
 				if (queueList[i].callType == CATY_BLOG && queueList[i].entry == "wechat") rCalltype = CATY_WECHAT;
 				else if (queueList[i].callType == CATY_BLOG && queueList[i].entry == "whatsapp") rCalltype = CATY_WHATSAPP;
@@ -3167,8 +3179,33 @@
 					queueList[i].waitTime = parseInt(s[0]) * 60 + parseInt(s[1]) + 1;
 					document.getElementById(idTime).innerHTML = EncodeTime(queueList[i].waitTime);
 				}
+			}*/
+			
+			for (const queueItem of queueList) {				// 20250414 Expected a `for-of` loop instead of a `for` loop with this simple iteration.
+				let rCalltype = queueItem.callType;
+				
+				if (queueItem.callType === CATY_BLOG && queueItem.entry === "wechat") {
+					rCalltype = CATY_WECHAT;
+				} else if (queueItem.callType === CATY_BLOG && queueItem.entry === "whatsapp") {
+					rCalltype = CATY_WHATSAPP;
+				} else if (queueItem.callType === CATY_BLOG && queueItem.entry === "fbmsg") {
+					rCalltype = CATY_FBMSG;
+				} else if (queueItem.callType === CATY_BLOG && queueItem.entry === "fbpost") {
+					rCalltype = CATY_FBPOST;
+				}
+				
+				const layout = queueLayout[rCalltype];
+				const idCount = layout.prefix + "QueueCount1_" + queueItem.name;
+
+				if ($("#" + idCount).text() > 0) {
+					const idTime = layout.prefix + "QueueTime_" + queueItem.name;
+					const s = $("#" + idTime).html().split(":");
+					queueItem.waitTime = parseInt(s[0]) * 60 + parseInt(s[1]) + 1;
+					document.getElementById(idTime).innerHTML = EncodeTime(queueItem.waitTime);
+				}
 			}
 		}
+
 		function initMediaCount() {
 		//	for (var i = 0; i < serviceList.length; i++) {
 			for (let service of serviceList) {				// 20250403 Expected a `for-of` loop instead of a `for` loop with this simple iteration.
@@ -3372,8 +3409,10 @@
 		function wiseGetServiceInfo(serviceName) {
 			var r = [];
 			var s = serviceList.filter(function (v) { return v.name == serviceName });
-			for (var i = 0; i < s.length; i++) {				//20250414 Add the "let", "const" or "var" keyword to this declaration of "i" to make it explicit.
-				var info = { channel: channels[s[i].callType], dnis: s[i].dnis };
+			//for (var i = 0; i < s.length; i++) {				//20250414 Add the "let", "const" or "var" keyword to this declaration of "i" to make it explicit.
+			//	var info = { channel: channels[s[i].callType], dnis: s[i].dnis };
+			for (let item of s) {		// 20250414 Expected a for-of loop instead of a for loop with this simple iteration.
+				const info = { channel: channels[item.callType], dnis: item.dnis };
 				r.push(info);
 			}
 			return r;
@@ -3758,10 +3797,14 @@
 				success: function (r) {
 					//console.log(r);
 					var _dnisArray = $.unique(r.data.map(function (d) { return d.dnis; }));
-					for (var i = 0; i < _dnisArray.length; i++) {					//20250414 Add the "let", "const" or "var" keyword to this declaration of "i" to make it explicit.
-						//console.log(dnisArray[i]);
-						updateMediaCount(_callType, _dnisArray[i], 10);
+					for (let dnis of _dnisArray) { 	 // for (var i = 0; i < _dnisArray.length; i++) { 	//20250414 Expected a `for-of` loop instead of a `for` loop with this simple iteration.
+						//console.log(dnis); 
+						
+						// Replace `updateMediaCount(_callType, _dnisArray[i], 10);` with:
+						updateMediaCount(_callType, dnis, 10); 
 					}
+					
+					
 					if (typeof callback === "function") { callback(); }
 				},
 				error: function (r) {
@@ -4029,9 +4072,15 @@
 			var ani = outboundANI[serviceName].whatsapp;
 			var phoneNo = phoneList.split(",");
 			templateMsgResultEx = [];
-			for (var i = 0; i < phoneNo.length; i++) {				//20250414 Add the "let", "const" or "var" keyword to this declaration of "i" to make it explicit.
+			
+			/*for (var i = 0; i < phoneNo.length; i++) {				//20250414 Add the "let", "const" or "var" keyword to this declaration of "i" to make it explicit.
 				var no = "whatsapp:+";
 				no += (phoneNo[i].length <= 8) ? "852" + phoneNo[i] : phoneNo[i];
+				wsWiseAgent.SendTemplateMsg(ani, no, TemplateId, props, 4);
+			}*/
+			for (let phone of phoneNo) {							//20250414 Expected a `for-of` loop instead of a `for` loop with this simple iteration.
+				let no = "whatsapp:+";
+				no += (phone.length <= 8) ? "852" + phone : phone;
 				wsWiseAgent.SendTemplateMsg(ani, no, TemplateId, props, 4);
 			}
 			while (templateMsgResultEx.length != phoneNo.length) {

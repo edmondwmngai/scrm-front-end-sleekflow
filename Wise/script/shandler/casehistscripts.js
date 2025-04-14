@@ -301,7 +301,7 @@
 		  if (sMsg.MessageType === "template")
 		  {
 			  //NOT finished
-			  var template = this.agentMessageTemplate;
+			  //var template = this.agentMessageTemplate;		// 20250414 Remove this useless assignment to variable "template".
 
 			  //var templateList = parent.$('#phone-panel')[0].contentWindow.waTempService.getTemplateList();
 			  var templateList = waTempService.getTemplateList();
@@ -316,7 +316,7 @@
 
 			  var dateISO = sMsg.UpdatedAt.slice(0, 19);
 			  //var mDate = moment(dateISO).format('HH:mm:ss');
-			  var mDate = returnDateForHist(dateISO);
+			  //var mDate = returnDateForHist(dateISO);		// 20250414 Remove this useless assignment to variable "mDate".
 
 			  //this.$chatHistory.append(template(context));
 			  //cContext.displayBtnGroup1 = "";
@@ -449,11 +449,11 @@
 
 		  // this.disableInput(false); Do not need to disable interface in popup
 
-		  var ticketID = 0;
+		  //var ticketID = 0;			//20250414 Remove the declaration of the unused 'ticketID' variable.
 
 		  if (sMsglist != null)
 		  {
-			  var LastTicketId = 0;
+			  //var LastTicketId = 0;	//20250414 Remove the declaration of the unused 'LastTicketId' variable.
 
 			  //  for (var i = 0; i < sMsglist.length; i++)		// 20250403 Expected a `for-of` loop instead of a `for` loop with this simple iteration.
 			  for (let sMsg of sMsglist )

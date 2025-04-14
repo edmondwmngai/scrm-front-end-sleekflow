@@ -121,7 +121,7 @@
 
 		  var loginId = top.loginId;
 		  var token = top.token;
-		  var agentName = top.agentName;
+		  //var agentName = top.agentName;		//20250414 Remove this useless assignment to variable "agentName".
 
 		  var sTicket = parent.$('#phone-panel')[0].contentWindow.AssignedTicketList.filter(i => i.TicketId == this.selectedTicketId);
 
@@ -150,7 +150,7 @@
 	  {
 		  var loginId = top.loginId;
 		  var token = top.token;
-		  var agentName = top.agentName;
+		  //var agentName = top.agentName;		//20250414 Remove this useless assignment to variable "agentName".
 
 		  var fileInput = $('#fileInput')[0]; 
 		  var file = fileInput.files[0];
@@ -171,7 +171,7 @@
 
 		  var loginId = top.loginId;
 		  var token = top.token;
-		  var agentName = top.agentName;
+		  //var agentName = top.agentName;		//20250414 Remove this useless assignment to variable "agentName".
 
 		  var sTicket = parent.$('#phone-panel')[0].contentWindow.AssignedTicketList.filter(i => i.TicketId == this.selectedTicketId);
 
@@ -357,7 +357,7 @@
 	  returnPastMessageByTicketId(ticketId)
 	  {
 
-		  var TicketId = this.selectedTicketId;
+		  //var TicketId = this.selectedTicketId;	// 20250414 Remove this useless assignment to variable "TicketId".
 		  var loginId = top.loginId;
 		  var token = top.token;
 
@@ -461,7 +461,7 @@
 		  var sTicket = parent.$('#phone-panel')[0].contentWindow.AssignedTicketList.filter(i => i.TicketId == ticketId);
 		  var sEndUserName	= sTicket[0].EndUserName;
 
-		  var EndUserId = sTicket[0].EndUserId;
+		  //var EndUserId = sTicket[0].EndUserId;		//20250414 Remove this useless assignment to variable "EndUserId".
 
 		  const currentDatetime = moment();
 
@@ -497,7 +497,7 @@
 		    var sTicket = parent.$('#phone-panel')[0].contentWindow.AssignedTicketList.filter(i => i.TicketId == sMsg.TicketId);
 
 
-			var loginId = top.loginId;
+		  //var loginId = top.loginId;		// 20250414 Remove this useless assignment to variable "loginId".
 
 
 
@@ -662,7 +662,7 @@
 		  if (sMsg.MessageType === "template")
 		  {
 			  //NOT finished
-			  var template = this.agentMessageTemplate;
+			  //var template = this.agentMessageTemplate;		20260414 Remove this useless assignment to variable "template".
 
 			  console.log(sMsg.MessageId);
 			  console.log(JSON.stringify(sMsg));
@@ -678,7 +678,8 @@
 			  //var dateISO = sMsg.UpdatedAt.slice(0, 19);
 			  //var mDate = moment(dateISO).format('HH:mm:ss');
 
-			  var mDate = returnDateForCRM(sMsg.UpdatedAt);
+			  // var mDate = returnDateForCRM(sMsg.UpdatedAt);	20250414 Remove this useless assignment to variable "mDate".
+
 			  //this.$chatHistory.append(template(context));
 			  //cContext.displayBtnGroup1 = "";
 			  //cContext.displayBtnGroup2 = "";
@@ -854,7 +855,7 @@
 		  if (sMsglist != null)
 		  {
 			  var LastTicketId = 0;
-			  var loginId = top.loginId;
+			  //var loginId = top.loginId;		//20250414 Remove this useless assignment to variable "loginId".
 			  //console.log("before process");
 			  //console.log(JSON.parse(JSON.stringify(sMsglist)));
 
@@ -1335,14 +1336,14 @@
 		  });
 	  };
 
-	  removeAssignedTicket(inputTicketID)
+	 // removeAssignedTicket(inputTicketID)
 
-	  {
-		var sTicket = parent.$('#phone-panel')[0].contentWindow.AssignedTicketList.filter(i => i.TicketId == ticketID)[0];
+	 // {
+		//var sTicket = parent.$('#phone-panel')[0].contentWindow.AssignedTicketList.filter(i => i.TicketId == ticketID)[0];
 
 
 
-	  }
+	 // }
 
 
 	  updateBubbleInfo(inputTicketID) {
@@ -1370,7 +1371,7 @@
 
 		  //Check current status, 
 		  var sTicket = parent.$('#phone-panel')[0].contentWindow.AssignedTicketList.filter(i => i.TicketId == inputTicketID);
-		  var ticketStatus = sTicket[0].Status;
+		  //var ticketStatus = sTicket[0].Status;		//20250414 Remove this useless assignment to variable "ticketStatus".
 
 		  //----------------------------------------------------------------------------------------------------------------
 

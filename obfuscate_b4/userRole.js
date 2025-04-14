@@ -145,6 +145,7 @@ function deleteRole(roleID, roleName, roleStatus) {
         var details = res.details;
         if (!/^success$/i.test(res.result || "")) {
             console.log("error /n" + r ? r : '');
+            console.log(JSON.stringify(details));   // 20250414 Remove the declaration of the unused 'details' variable.
         } else {
             //window.close(); // close the window
         }

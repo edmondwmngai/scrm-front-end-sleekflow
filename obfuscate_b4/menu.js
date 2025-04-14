@@ -451,7 +451,7 @@ function gotMsgHistory(msgObj, openType) { // got event from wise
         currentTicket = msgObj.ticket_id; // To prevent openInputForm loaded previous record or new ticket history not yet get
         document.getElementById('media-content').contentWindow.generateSocialHistory(msgObj);
     } else {
-        var ticketId = msgObj.ticket_id;
+        //var ticketId = msgObj.ticket_id;      // 20250414 Remove the declaration of the unused 'ticketId' variable.
         var inputFormFrame = document.getElementById('input-form');
         var casePopup = inputFormFrame.contentWindow.caseRecordPopup;
         casePopup.window.generateSocialHistory(msgObj);

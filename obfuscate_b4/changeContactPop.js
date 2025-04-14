@@ -87,7 +87,7 @@ function submitClicked(type) {   //20250325 This function expects no arguments, 
     
 	//10-30-2025 for securit migration
 	//var re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-	var re = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    //var re = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/; // Remove the declaration of the unused 're' variable.
 	
     for (var i = 0; i < searchCondition.length; i++) {
         var condition = searchCondition[i] || '';

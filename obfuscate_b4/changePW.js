@@ -25,7 +25,7 @@ function changePassword(sellerIdInput, oldPassword, newPassword) {
         contentType: "application/json",
         dataType: 'json'
     }).always(function (res) {
-        var counter = 1;
+        //var counter = 1;      // 20250414 Remove the declaration of the unused 'counter' variable.
         var details = res.details;
         if (!/^success$/i.test(res.result || "")) {
             console.log("error /n" + res ? res : '');

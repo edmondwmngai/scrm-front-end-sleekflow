@@ -1189,7 +1189,7 @@ function loadServiceList() {
             console.log(r.details);
         } {
             var serviceArr = r.data;
-            var selectedStr = serviceArr.length == 1 ? ' selected="true"' : '';
+            //var selectedStr = serviceArr.length == 1 ? ' selected="true"' : '';       //20250414 Remove the declaration of the unused 'selectedStr' variable.
             if (serviceArr && serviceArr.length > 0) {
 
                 for (let serviceObj of serviceArr) {

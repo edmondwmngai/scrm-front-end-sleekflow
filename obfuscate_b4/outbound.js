@@ -2730,9 +2730,9 @@ function uploadeExcelHeaderNonEpro() {
     var dbSelectStr = '<select class="form-select pe-2"><option value="">-- Please Select --</option><option>First_Name</option><option>Last_Name</option><option>Mobile_No</option><option>Age</option><option>AC_Open_Date</option><option>Last_Contact_Date</option><option>Last_Purchase_Date</option><option>Custom_Field_1</option><option>Custom_Field_2</option><option>Custom_Field_3</option></select>';
     var dbSelectStr1 = '<select class="form-select pe-2"><option value="">-- Please Select --</option><option selected>First_Name</option><option>Last_Name</option><option>Mobile_No</option><option>Age</option><option>AC_Open_Date</option><option>Last_Contact_Date</option><option>Last_Purchase_Date</option><option>Custom_Field_1</option><option>Custom_Field_2</option><option>Custom_Field_3</option></select>';
     var dbSelectStr2 = '<select class="form-select pe-2"><option value="">-- Please Select --</option><option>First_Name</option><option selected>Last_Name</option><option>Mobile_No</option><option>Age</option><option>AC_Open_Date</option><option>Last_Contact_Date</option><option>Last_Purchase_Date</option><option>Custom_Field_1</option><option>Custom_Field_2</option><option>Custom_Field_3</option></select>';
-    var dbSelectStr3 = '<select class="form-select pe-2"><option value="">-- Please Select --</option><option>First_Name</option><option>Last_Name</option><option selected>Mobile_No</option><option>Age</option><option>AC_Open_Date</option><option>Last_Contact_Date</option><option>Last_Purchase_Date</option><option>Custom_Field_1</option><option>Custom_Field_2</option><option>Custom_Field_3</option></select>';
+  //var dbSelectStr3 = '<select class="form-select pe-2"><option value="">-- Please Select --</option><option>First_Name</option><option>Last_Name</option><option selected>Mobile_No</option><option>Age</option><option>AC_Open_Date</option><option>Last_Contact_Date</option><option>Last_Purchase_Date</option><option>Custom_Field_1</option><option>Custom_Field_2</option><option>Custom_Field_3</option></select>';
     var dbSelectStr4 = '<select class="form-select pe-2"><option value="">-- Please Select --</option><option>First_Name</option><option>Last_Name</option><option>Mobile_No</option><option selected>Age</option><option>AC_Open_Date</option><option>Last_Contact_Date</option><option>Last_Purchase_Date</option><option>Custom_Field_1</option><option>Custom_Field_2</option><option>Custom_Field_3</option></select>';
-
+    //20250414 comment dbSelectStr3 to Remove the declaration of the unused 'dbSelectStr3' variable.
     var uploadTblStr = '<table class="custom-tbl"><tr><th>Order</th><th>Excel Header</th><th>' + langJson['l-outbound-db-header'] + '</th><th>' + langJson['l-outbound-check-type'] + '</th></tr><tbody>' +
         '<tr><td>1</td><td>First_Name</td><td>' + dbSelectStr1 + '</td><td><select class="form-select pe-2"><option value="">N/A</option><option value="datetime">Date Time [YYYY-MM-DD]</option></select></td></td></tr>' +
         '<tr><td>2</td><td>Last_Name</td><td>' + dbSelectStr2 + '</td><td><select class="form-select pe-2"><option value="">N/A</option><option value="datetime">Date Time [YYYY-MM-DD]</option></select></td></tr>' +
@@ -3655,9 +3655,11 @@ $(document).ready(function () {
     })
 
     $('#a-within-batch-period').on('change', function (e) {
-        var checked = $(this).prop('checked');
+       
 
         /*  //20250326 Remove this conditional structure or edit its code blocks so that they're not all the same.
+        var checked = $(this).prop('checked');
+
         if (checked) {  
             loadBatchTbl(false);
         } else {

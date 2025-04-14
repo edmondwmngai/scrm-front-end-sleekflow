@@ -461,6 +461,8 @@ addEventListener(document, 'onWiseFBPost', function (e) {
 // 8. Receive Agent to chat
 addEventListener(document, 'onWiseRecvInvAgentToChat', function (e) {
     var obj = e.detail;
+    console.log(obj);   // 20250414 Remove the declaration of the unused 'obj' variable.;
+});
 });
 // 9. Got Conference Call Request
 function acceptRejectClicked(isAccept) {

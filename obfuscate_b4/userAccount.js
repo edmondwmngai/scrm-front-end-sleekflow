@@ -80,11 +80,11 @@ var loadUserAccounts = function (intitial) {
                     targets: 0,
                     render: function (data, type, row, meta) {
 
-                        var photo = $('<img />', {
-                            id: 'profile-pic-' + meta.row,
-                            class: 'profile-picture',
-                            src: './images/user.png'
-                        });
+                        //var photo = $('<img />', {                    // 20250414 Remove the declaration of the unused 'photo' variable.
+                        //    id: 'profile-pic-' + meta.row,
+                        //    class: 'profile-picture',
+                        //    src: './images/user.png'
+                        //});
 
                         var photoSrcString;
                         var imgId = 'profile-pic-' + (meta.row + 1).toString(); // row index + 1

@@ -1312,7 +1312,7 @@ function loadGrid() { // (connId, callType, details) {
 
 function selectChange(type, iThis) {
     var selected = $(iThis).find('option:selected'); // the selected option tag
-    var selectedValue = selected[0].value;
+    // var selectedValue = selected[0].value;  // 20250414 Remove the declaration of the unused 'selectedValue' variable.
     var selectedType = selected.attr("type");
     var selectedTag = selected.attr("tag");
     // change the input to otion if necessary

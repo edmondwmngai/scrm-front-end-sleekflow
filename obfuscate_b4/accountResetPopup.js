@@ -81,6 +81,7 @@ function updateUser() {
         var details = res.details;
         if (!/^success$/i.test(res.result || "")) {
             console.log("error /n" + res ? res : '');
+            console.log(details);       //20250414 Remove the declaration of the unused 'details' variable.
         } else {
             window.opener.location.reload(true);
             window.close();
@@ -290,7 +291,7 @@ function submitForm() {
         window.close();
     }
 
-    var agent_id = 0; // agent id in int format
+    //var agent_id = 0; // agent id in int format       // 20250414     Remove the declaration of the unused 'agent_id' variable.
     password = $('#txt-password').val();
     confirmPassword = $('#txt-confirm-password').val();
     counter = parseInt($('#counter-label').text());

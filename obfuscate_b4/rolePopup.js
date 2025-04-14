@@ -191,8 +191,8 @@ function createRole(roleName, companies, categories, functions, roleStatus) {
             console.log("error /n" + res ? res : '');
         } else {
             // parent.internalCaseNo = internalCaseNo;
-            var roleID = details.RoleID || -1;
-            var roleName = details.RoleName;
+            // var roleID = details.RoleID || -1;        20250414 Remove the declaration of the unused 'roleID' variable.
+            // var roleName = details.RoleName;          20250414 Remove the declaration of the unused 'roleName' variable.
 
             window.close(); // close the window
         }
@@ -220,6 +220,7 @@ function updateRole(roleID, roleName, companies, categories, functions, roleStat
         var details = res.details;
         if (!/^success$/i.test(res.result || "")) {
             console.log("error /n" + res ? res : '');
+            console.log(details);   // 20250414 Remove the declaration of the unused 'details' variable.
         } else {
             window.close(); // close the window
         }

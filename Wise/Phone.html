@@ -3502,7 +3502,7 @@
 			*/
 			if (msg == null) msg = "";
 			if (onlineConnIDs.length >= 2) {
-				i = onlineConnIDs.findIndex(function (v) { return v.connID != currconnID; });
+				var i = onlineConnIDs.findIndex(function (v) { return v.connID != currconnID; });		//20250414 Add the "let", "const" or "var" keyword to this declaration of "i" to make it explicit.
 				if (i != -1) {
 					if (onlineConnIDs[i].callType == CATY_INTER) {
 						alert("Please hold current call and talk with other agent to transfer call.");

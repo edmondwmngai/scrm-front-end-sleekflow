@@ -189,6 +189,7 @@ function createRole(roleName, companies, categories, functions, roleStatus) {
         var details = res.details;
         if (!/^success$/i.test(res.result || "")) {
             console.log("error /n" + res ? res : '');
+			console.log(details);	// 20250415 Remove this useless assignment to variable "details".
         } else {
             // parent.internalCaseNo = internalCaseNo;
             // var roleID = details.RoleID || -1;        20250414 Remove the declaration of the unused 'roleID' variable.

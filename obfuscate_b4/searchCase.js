@@ -119,7 +119,7 @@ function submitClicked(type) {
     var allAny = $('.' + type + '-all-any option:selected')[0].value;
     var searchCondition = $('.' + type + '-search-condition option:selected');
     var searchSymbol = $('.' + type + '-search-symbol option:selected');
-    var searchInput = $('.' + type + '-search-input');
+  //var searchInput = $('.' + type + '-search-input');		//20250415 Remove this useless assignment to variable "searchInput".
     var searchInput = $('.' + type + '-search-input');
     var searchArr = [];
 

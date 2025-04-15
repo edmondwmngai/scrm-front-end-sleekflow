@@ -2067,7 +2067,7 @@ $(document).ready(function () {
                     specialReqStr += ' ' + langJson['l-campaign-and'] + ' ';
                 }
                 specialReqStr += langJson['l-campaign-mobile-phone-no-small'];
-                moreThanOne = true;
+                //moreThanOne = true;		20250415 Remove this useless assignment to variable "moreThanOne".
             }
             // if (whatsappChecked) {
             //     if (moreThanOne) {

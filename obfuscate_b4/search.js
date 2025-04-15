@@ -339,7 +339,7 @@ function submitClicked(type) {
     var allAny = $('.' + type + '-all-any option:selected')[0].value;
     var searchCondition = $('.' + type + '-search-condition option:selected');
     var searchSymbol = $('.' + type + '-search-symbol option:selected');
-    var searchInput = $('.' + type + '-search-input');
+    //var searchInput = $('.' + type + '-search-input');		// 20250415 Remove this useless assignment to variable "searchInput".
     var searchInput = $('.' + type + '-search-input');
     var searchArr = [];
     for (var i = 0; i < searchCondition.length; i++) {
@@ -1230,13 +1230,13 @@ function loadGrid() { // (connId, callType, details) {
                             contentType: "application/json",
                             dataType: 'json',
                             success: function (r) {
-                                var rDetails = r.details;
+                              /*var rDetails = r.details;			//20250415 Remove this useless assignment to variable "photoSrcString".
                                 // if no photo the result will be fail now
                                 var photoType = rDetails.Photo_Type;
                                 var photoSrcString = './images/user.png';
                                 if (photoType != null) {
                                     photoSrcString = "data:" + rDetails.Photo_Type + ";base64," + rDetails.Photo_Content;
-                                }
+                                }*/ 
                             },
                             error: function (err) {
                                 console.log(err);

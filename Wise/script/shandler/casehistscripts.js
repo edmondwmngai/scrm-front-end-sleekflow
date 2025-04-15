@@ -314,7 +314,7 @@
 			  //var htmlTemplate = parent.$('#phone-panel')[0].contentWindow.wa_template;
 			  var htmlTemplate = this.htmlTemplate;
 
-			  var dateISO = sMsg.UpdatedAt.slice(0, 19);
+			  //var dateISO = sMsg.UpdatedAt.slice(0, 19);	// 20250415 Remove this useless assignment to variable "dateISO".
 			  //var mDate = moment(dateISO).format('HH:mm:ss');
 			  //var mDate = returnDateForHist(dateISO);		// 20250414 Remove this useless assignment to variable "mDate".
 

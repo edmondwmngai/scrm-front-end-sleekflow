@@ -77,9 +77,9 @@ var loadUserRoles = function (intitial) {
                     //targets: 4,
                     render: function (data, type, row) {
                         if (row.RoleStatus == 'A') {
-                            return data = langJson['l-role-active']; // "Active";
+                            return langJson['l-role-active']; // "Active";	// return data = langJson['l-role-active']; // "Active";	// 20250415 Remove this useless assignment to variable "data".
                         } else {
-                            return data = langJson['l-role-inactive']; // "Inactive";
+                            return langJson['l-role-inactive']; // "Inactive";	// return data = langJson['l-role-inactive']; // "Inactive"; // 20250415 Remove this useless assignment to variable "data".
                         }
                     },
                 }, {

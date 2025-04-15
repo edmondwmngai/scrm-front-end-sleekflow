@@ -312,7 +312,7 @@ function windowOnload(removeOriginal) {
     $('#lower-part-table tbody').on('click', '.select', function (e) {
         e.preventDefault();
         var data = caseTbl.row($(this).parents('tr')).data();
-        var internalCaseNo = data.Internal_Case_No;
+       // var internalCaseNo = data.Internal_Case_No;	// 20250415 Remove this useless assignment to variable "internalCaseNo".
         // changed logic all open search no matter used case before or not
         parent.frameElement.setAttribute('connId', data.Conn_Id);
 

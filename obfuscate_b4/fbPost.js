@@ -55,7 +55,7 @@ function loadFBReplies(oThis, ticketId, scrollDown) {
                     }
                     var lastBubbleId = i == (data.length - 1) ? ' id="last-bubble-commentid-' + theMsg.sc_comment_id + '"' : '';
                     if (theMsg.send_by_flag == 2) { //發送者1:客服,2:enduser{
-                        var userIconSrc = "./images/user.png";
+                        //var userIconSrc = "./images/user.png";		20250415 Remove this useless assignment to variable "userIconSrc".
                         var msgHandled = theMsg.msg_completed;
                         var notYetHandleStr = (msgHandled == 1) ? '<span></span>' : '<span class="ms-2">NOT YET HANDLED</span>';
 

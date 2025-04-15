@@ -280,10 +280,10 @@ function addMsgRow(msgList, entry, onlineFormArr) {
             var handleContentMsgObj = SC.handleContentMsg(msgObjectPath, theMsg.msg_object_client_name, theMsg.msg_type);
             theMsgContentDisplay += handleContentMsgObj.text;
         }
-        var userIconSrc = "../../images/user.png";
+        //var userIconSrc = "../../images/user.png";		// 20250415 Remove the declaration of the unused 'userIconSrc' variable.
         var sentTime = theMsg.sent_time;
         var theMsgDate = SC.handleDate(sentTime);
-        var onErrorStr = "this.onerror=null;this.src='../../images/user.png';";
+        //var onErrorStr = "this.onerror=null;this.src='../../images/user.png';";		//20250415 Remove the declaration of the unused 'onErrorStr' variable.
         var theMsgTime = theMsgDate == '' ? SC.returnTime(sentTime, true) : "";
         if (entry == 'fb_comment' && theMsgContentDisplay == '') {
             theMsgContentDisplay = '[This end user has deleted a comment he/she left before]';
@@ -332,11 +332,11 @@ function generateSocialHistory(msgObj) {
     // console.log(handleFormData(typeDetails));
     var formData = isOffline ? '' : SC.handleFormData(tmpOnlineFormArr);
     var contentRow = isOffline ? addOfflineForm(msgObj.offline_form_data, msgObj.start_time) : addMsgRow(tmpMsgList, entry, tmpOnlineFormArr);
-    var webchatHeight = openType == 'all-media' ? '' : 'height:286px;';
+    // var webchatHeight = openType == 'all-media' ? '' : 'height:286px;';			// 20250415 Remove the declaration of the unused 'webchatHeight' variable.
     var middleStyle = nonPopup ? '' : ' style="width: calc(100% - 290px);""';
     var downloadLink = nonPopup ? '' : '<a id="download-webchat-link" href="javascript:void(0);" class="btn btn-warning btn-sm text-capitalize rounded mt-3 align-top text-white" onclick="webchatDownload(' + ticketId + ');">Download History(HTML file)</a>';
     var logoStr = config.isDemo ? '' : '<img class="company-logo" src="./logo.png" />';
-    var iconStyle = nonPopup ? 'margin-top:-10px' : 'margin-top:10px';
+    // var iconStyle = nonPopup ? 'margin-top:-10px' : 'margin-top:10px';			// 20250415 Remove the declaration of the unused 'iconStyle' variable.
     var mediaContainer = '<div id="content-' + ticketId + '"><div class="content-header">' + downloadLink + logoStr + '<span class="custom-scroll content-basic-info"' + middleStyle + '><span class="content-gray-label">' + langJson['l-social-platform'] + ':</span>&nbsp;' + entry + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;		<span class="content-gray-label">' + langJson['l-social-ticket-id'] + ':</span>&nbsp;' + ticketId + '<span style="display:block;">' + formData + '</span></span><img style="height:51px;float:right;" src="../../Wise/img/' + channelImg + '.png" /></div><div class="content-section-inner"><div style="padding:15px;"><div id="content-inner-scroll-' + ticketId + '" style="height:' + contentHeight + 'px;overflow-y:auto;" class="custom-scroll">' + contentRow + '</div></div></div></div>';
     $(mediaContainer).appendTo('#' + contentType + '-media-content');
     // incomplete cases will not need the margin for reply 

@@ -318,9 +318,10 @@ function shareBtnClicked(campaign) {
 
             for (var i = 0; i < sFile.length; i++)
             {
-                var fileId  = sFile[i].FileId; 
+               /*var fileId  = sFile[i].FileId; 
                 var fileName = sFile[i].FileName; 
-                var contentType = sFile[i].ContentType; 
+                var contentType = sFile[i].ContentType; */ // 20250415 Remove the declaration of the unused variable.
+				
    //             setTimeout(function () {
     //                parent.$('#social-media-main')[0].contentWindow.chatService.sendCannedFile(sFile[i].FileId, sFile[i].FileName, sFile[i].ContentType);
      //           }, i * delay);
@@ -868,7 +869,7 @@ function handleSystemMsg(sentMsgAgent, msgType, ticketId, MsgOrHtml, formData, f
 
     // var bubbleTicket = $('#bubble-' + ticketId); // NO DEL may need in future
 
-    var channelIcon = $('#channel-' + ticketId);
+    // var channelIcon = $('#channel-' + ticketId); // 20250415 Remove the declaration of the unused 'channelIcon' variable.
     var agentNameStr = parent.getAgentName(sentMsgAgent) + ' (ID: ' + sentMsgAgent + ')';
     if (msgType == 'coach') {
         var statusMsg = agentNameStr + ' sent you a coach msg:<div>' + MsgOrHtml + '</div>';
@@ -2231,7 +2232,7 @@ function createOrUpdateBubble(msgObj) {
                         console.log('error in createOrUpdateBubble GetStatistics');
                     } else {
                         var data = r.data;
-                        var averageTime = data.AverageTime;
+                        //var averageTime = data.AverageTime;		// 20250415 Remove the declaration of the unused 'averageTime' variable.
                         $('#content-' + ticketId).find('.content-basic-info').append('<span class="second-line" style="display:block;"><span class="content-gray-label">No. of Times Chatted (ref only):</span>&nbsp;' + data.Count + '</span>');
                     }
                 },

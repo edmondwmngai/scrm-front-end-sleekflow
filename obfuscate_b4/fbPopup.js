@@ -115,6 +115,7 @@ function createFacebookPostContent(ticketId, details, isMediaChanged) {
         var details = res.details;
         if (!/^success$/i.test(res.result || "")) {
             console.log("error /n" + res ? res : '');
+			console.log(details); 		// 20250415 Remove the declaration of the unused 'details' variable.
         } else {
             counter = counter - 1;
             if (counter == 0) {
@@ -148,6 +149,7 @@ function updateFacebookPostContent(fbId, ticketId, details, isMediaChanged, isMe
         var details = res.details;
         if (!/^success$/i.test(res.result || "")) {
             console.log("error /n" + res ? res : '');
+			console.log(details); 		// 20250415 Remove the declaration of the unused 'details' variable.
         } else {
             counter = counter - 1;
             if (counter == 0) {

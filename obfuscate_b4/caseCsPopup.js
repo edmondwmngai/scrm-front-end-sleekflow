@@ -247,7 +247,7 @@ var csPopupOnload = function () {
         var textArr = ['Mobile_No', 'Other_Phone_No', 'Fax_No', 'Email', 'Address1'];
         var selectArr = ['Nationality_Id', 'Market_Id', 'Profile_Id'];
         var openWinDoc = window.opener.document;
-        var customerData = window.opener.parent.customerData;
+        //var customerData = window.opener.parent.customerData;		//20250415 Remove the declaration of the unused 'customerData' variable.
         // update full name
         // document.getElementById('pGender').innerHTML = openWinDoc.getElementById('Gender').innerHTML || '';
         document.getElementById('pTitle').innerHTML = openWinDoc.getElementById('Title').value || '';

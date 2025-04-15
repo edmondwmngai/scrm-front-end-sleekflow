@@ -97,12 +97,14 @@ function selectClicked(index) {
                     alert("Please resend again");
                 }
 
-                var fileName = theFile.FileName;
+                /*
+                //var fileName = theFile.FileName;
+                //var fileUrl = theFile.FileUrl.toLowerCase();
+                //var fileId = theFile.FileId;
+                //var findType = theFile.ContentType;*/  // 20250415 Remove the declaration of the unused variable.
+
                 var filePath = theFile.FilePath;
-                var fileUrl = theFile.FileUrl.toLowerCase();
-                var fileId = theFile.FileId;
-                var findType = theFile.ContentType;
-                
+
                 // if entry is not fb_comment
                 if (entry != 'fb_comment') {
                     $('#loading-icon-section').removeClass('d-none');
@@ -111,7 +113,7 @@ function selectClicked(index) {
                     //windowOpener.createOrUpdateBubble({ 'ticket_id': presentTicketId, 'msg_list': [{ 'nick_name': windowOpener.agentName, 'send_by_flag': 1, 'sent_time': windowOpener.getSqlFormatTime(), 'msg_object_path': fileUrl, 'msg_object_client_name': fileName }] });
                     //windowOpener.sendSocialFile(presentTicketId, filePath, null);
 
-                    var delay = 1000;
+                    //var delay = 1000;     // 20250415 Remove the declaration of the unused variable.
                     //setTimeout(function () {
                       //  window.opener.chatService.sendCannedFile(fileId, fileName, findType);
                     //}, i * delay);
@@ -475,7 +477,7 @@ $(document).ready(function () {
     }
 
     $('#select-msg').text(langJson['l-social-message-send-title']);
-    var script = document.createElement('script');
+    // var script = document.createElement('script');   // 20250415 Remove the declaration of the unused variable.
     // the data should be JSON.stringify({ "companyName": campaign }), however, for Demo Tiger just build HKTB
 
     if (type == 'msg') {

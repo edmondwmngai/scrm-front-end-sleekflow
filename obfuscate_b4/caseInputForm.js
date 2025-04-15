@@ -360,7 +360,7 @@ function previewPhoto(input) {
         reader.onload = function (e) {
             // upload photo
             var fileUpload = $("#file-to-upload").get(0);
-            var fileUploadFiles = fileUpload.files;
+            //var fileUploadFiles = fileUpload.files;           // 20250415 Remove the declaration of the unused 'fileUploadFiles' variable.
             var fileData = new FormData();
             fileData.append("Photo_File", photoFile);
             fileData.append('Customer_Id', customerId);
@@ -424,7 +424,7 @@ function saveClicked(isTemp, callback) { // 1. declare 2. verify 3. update custo
     console.log('disableMode');
     console.log(disableMode);
     // ========================== 1/6 Declare variable ==========================
-    var type = parent.type;
+    //var type = parent.type;       //20250415 Remove the declaration of the unused 'type' variable.
     var caseNature = document.getElementById('case-nature').value || '';
     var caseDetails = document.getElementById('case-details').value || '';
     caseDetails = gf.escape(caseDetails);
@@ -999,7 +999,7 @@ function addCallerSetting(addType) {
             console.log('error: ' + rDetails);
         } else {
             var theHeader = parent.document.getElementById(idType + '-header');
-            var theRemarks = $('#' + idType + '-remarks');
+            //var theRemarks = $('#' + idType + '-remarks');        //20250415 Remove the declaration of the unused 'theRemarks' variable.
             theHeader.style.display = 'inline';
             theHeader.setAttribute('data-original-title', remarks);
         }
@@ -1242,7 +1242,7 @@ var replySubmitClicked = function () {
                 '<b>To: </b>' + (preview.find('#to').html() || '') + '&#13;&#10;<br />' +
                 '<b>Subject: </b>' + (preview.find('#subject').html() || '') + '&#13;&#10;<br />' +
                 (preview.find('#content').html() || '') : '';
-            var emailFileStr = "emailFile";
+            //var emailFileStr = "emailFile";       // 20250415 Remove the declaration of the unused 'emailFileStr' variable.
             var emailFileTriggerStr = "$('#upload-emailFile').trigger('click');"
             var emailFileUploadStr = 'uploadAttachment(this,"emailFile");'
             // $('<table style="width:100%;" id="reply-card"><tbody><tr>' +
@@ -1391,7 +1391,7 @@ function loadCaseLog(initial) {
             resize();
         } else {
             var folowHistoryContent = res.details;
-            var follolwupString = '';
+            //  var follolwupString = '';         // 20250415 Remove the declaration of the unused 'follolwupString' variable.
             $('<div id="case-log-container" class="card mt-5 mb-5">' +
                 '<div class="card-header card-header-text card-header-info" data-bs-toggle="collapse" data-bs-target="#case-log-body">' +
                 '<h5 class="mt-0 mb-0"><i class="fa fa-table card-header-icon"></i><span class="align-middle">' + langJson['l-form-case-log'] + '</span><span class="align-middle" style="color:darkblue;">&nbsp;&nbsp;(' + langJson['l-search-case-no'] + ':&nbsp;' + caseNo + ')</span></h5>' +
@@ -1715,13 +1715,13 @@ function windowOnload() {
     var _Fax_No = document.getElementById('Fax_No');
     var _Email = document.getElementById('Email');
     // a tag fields
-    var tMobile = document.getElementById('tMobile_No')
+    // var tMobile = document.getElementById('tMobile_No')  //20250415  Remove the declaration of the unused 'tMobile' variable.
     // var aSms = document.getElementById('aSms')
     // var tHome_No = document.getElementById('tHome_No');
     // var tOffice_No = document.getElementById('tOffice_No');
-    var tOther_Phone_No = document.getElementById('tOther_Phone_No');
+    /*var tOther_Phone_No = document.getElementById('tOther_Phone_No');
     var tFax_No = document.getElementById('tFax_No');
-    var tEmail = document.getElementById('tEmail');
+    var tEmail = document.getElementById('tEmail');*/ // 20250415 Remove the declaration of the unused variable.
     // update editable text field
     _Mobile_No.value = Mobile_No;
     // _Home_No.value = Home_No;
@@ -2209,7 +2209,7 @@ function updateClicked(isTemp) {
                     default:
                         break;
                 }
-                var replyChoice = document.getElementById('.' + '_edit');
+                //var replyChoice = document.getElementById('.' + '_edit');     //20250415 Remove the declaration of the unused 'replyChoice' variable.
                 if (value != null && value.length > 0) {
                     $('.c' + fieldId).show();
                 } else {

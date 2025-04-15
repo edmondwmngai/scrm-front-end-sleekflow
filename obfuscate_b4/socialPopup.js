@@ -448,7 +448,7 @@ $(document).ready(function () {
     }
 
     $('#select-msg').text(langJson['l-social-message-send-title']);
-    var script = document.createElement('script');
+    //var script = document.createElement('script');        // 20250415 Remove the declaration of the unused variable.
     // the data should be JSON.stringify({ "companyName": campaign }), however, for Demo Tiger just build HKTB
     if (type == 'msg') {
         $.ajax({

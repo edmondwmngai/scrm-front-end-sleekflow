@@ -263,8 +263,9 @@ function sendSMS(serviceName, phoneNo, shortMsg) {
     return connId;
 }
 
-function sendFax(serviceName, faxNo, faxFile, coverSubject, coverMsg, coverAttn, coverSender, coverCompany) {
-    var connId = document.getElementById("phone-panel").contentWindow.wiseSendFax(serviceName, Number(config.telPrefix + String(faxNo)), faxFile, coverSubject, coverMsg, coverAttn, coverSender, coverCompany);
+function sendFax(serviceName, faxNo, faxFile, coverData) {
+    /* coverData - coverSubject, coverMsg, coverAttn, coverSender, coverCompany */
+    var connId = document.getElementById("phone-panel").contentWindow.wiseSendFax(serviceName, Number(config.telPrefix + String(faxNo)), faxFile, coverData);
     return connId;
 }
 
@@ -547,7 +548,7 @@ addEventListener(document, 'onWiseAgentList', function (e) {
 // 9.5 ACDGroupMember onWiseACDGroupMember
 addEventListener(document, 'onWiseACDGroupMember', function (e) {
     var obj = e.detail;
-    if (wiseMonPopup && wiseMonPopup.gotACDMember) {
+    if (wiseMonPopup?.gotACDMember) {
         wiseMonPopup.gotACDMember(obj);
     }
 });
@@ -595,13 +596,13 @@ addEventListener(document, 'onMonitorAgentInfo', function (e) {
     } else {
         wmAgentObj[theAgentId] = obj;
     }
-    if (wiseMonPopup && wiseMonPopup.updateAgentInfo) {
+    if (wiseMonPopup?.updateAgentInfo) {
         wiseMonPopup.updateAgentInfo();
     }
-    if (wiseMonPopup && wiseMonPopup.initAgentStatus) {
+    if (wiseMonPopup?.initAgentStatus) {
         wiseMonPopup.initAgentStatus(); // update agent status immediately instead of waiting for 1 second
     }
-    if (wallboardPopup && wallboardPopup.updateAgentInfo) {
+    if (wallboardPopup?.updateAgentInfo) {
         wallboardPopup.updateAgentInfo();
     }
 });
@@ -611,26 +612,26 @@ addEventListener(document, 'onMonitorACDGroupInfo', function (e) {
     var acdId = obj.groupId;
     wmACDObj[acdId] = obj;
     // update Queue Tbl
-    if (wiseMonPopup && wiseMonPopup.updateQueueTbl) {
+    if (wiseMonPopup?.updateQueueTbl) {
         wiseMonPopup.updateQueueTbl(obj);
     }
-    if (wallboardPopup && wallboardPopup.updateQueueTbl) {
+    if (wallboardPopup?.updateQueueTbl) {
         wallboardPopup.updateQueueTbl(obj);
     }
 });
 addEventListener(document, 'onWiseAddACDGroupMember', function (e) {
-    if (wiseMonPopup && wiseMonPopup.onAddAcdMember) {
+    if (wiseMonPopup?.onAddAcdMember) {
         wiseMonPopup.onAddAcdMember(e.detail);
     }
 });
 addEventListener(document, 'onWiseDelACDGroupMember', function (e) {
-    if (wiseMonPopup && wiseMonPopup.onDelAcdMember) {
+    if (wiseMonPopup?.onDelAcdMember) {
         wiseMonPopup.onDelAcdMember(e.detail);
     }
 });
 
 addEventListener(document, 'onMonitorIVRSCount', function (e) {
-    if (wiseMonPopup && wiseMonPopup.onMonitorIVRSCount) {
+    if (wiseMonPopup?.onMonitorIVRSCount) {
         wiseMonPopup.onMonitorIVRSCount(e.detail);
     }
 });
@@ -1177,7 +1178,8 @@ function addPopupIdle(theDocument) {
 
 // $(document).ready(function () {
 loadCampaignLang();
-var idleTimeLimit = functions.indexOf('Wallboard') != -1 ? 39570 : (functions.indexOf('Wise-Mon') != -1 ? 10770 : 570); // 570+30=10mins 39570+30=11hr 10770+30=3hr
+// 570+30=10mins 39570+30=11hr 10770+30=3hr
+var idleTimeLimit = 39570;
 
 // deprecated, if needed can add back the functions
 // if (functions.indexOf('No-Phone-On-Top') === -1) { $('#direct-call-container').removeClass('d-none'); $('#phone-dropdown').removeClass('d-none'); }
@@ -1190,6 +1192,24 @@ $(document).idleTimeout({
         logoutClicked();
     },
     sessionKeepAliveTimer: false // Set to false to disable pings.
+});
+//Tiger 2025-04-16
+$("#navbarSupportedContent .nav-item.btn").on('click', function () {
+    let btnType = $(this).data('btn-type');
+    if (btnType) phoneClicked(btnType);
+});
+//Tiger 2025-04-16
+$("#direct-call-container").on('click', function () {
+    directCallClicked();
+});
+//Tiger 2025-04-16
+$("#dropdown-agent-status .dropdown-item").on('click', function () {
+    let status = $(this).data('status');
+    if (status) statusChange(status);
+});
+//Tiger 2025-04-16
+$("#read-to-talk-btn").on('click', function () {
+    return readyClicked();
 });
 
 // when dropdown menu shows, have this event
@@ -1257,3 +1277,6 @@ setTimeout(function () {
 
 // Prevent right click
 document.addEventListener('contextmenu', event => event.preventDefault());
+document.addEventListener('keydown', function (e) {
+    if ((e.which || e.keyCode) == 116) e.preventDefault();
+});

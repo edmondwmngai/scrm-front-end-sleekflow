@@ -1,45 +1,321 @@
 //version 1.1 on 2018-04-18
-var ws = null;
-var wsCreatedTime=new Date();
+//let ws = null;
+//let wsCreatedTime=new Date();
 
-var wsWiseAgent = {
-	
+let wsWiseAgent = {
+	ws: null,
+	wsCreatedTime: new Date(),
+	commandResult: {},
+	functionList: {
+		'0': (obj)=>{
+			obj.Description = CommandHexToDescription(obj.Message);
+			wsWiseAgent.commandResult[obj.ResultCommand] = "fail";
+            triggerEvent(document, 'CommandFail', obj);
+		},
+		'1':(obj)=>{
+			obj.ResultCommand = parseInt(obj.ResultCommand);
+			obj.Description = CommandHexToDescription(obj.Message);
+			wsWiseAgent.commandResult[obj.ResultCommand] = "success";
+            triggerEvent(document, 'CommandSuccess', obj);
+		},
+		'2': (obj)=>{
+			obj.ObjectType = parseInt(obj.ObjectType);
+			triggerEvent(document, 'ObjectStatus', obj);
+		},
+		'4': (obj)=>{
+			obj.StatusID = parseInt(obj.StatusID);
+            triggerEvent(document, 'AgentStatusEvent', obj);
+		},
+		'5': (obj)=>{
+			for (let member of obj.Member) {//Object got: {obj.Member[i].VarType, obj.Member[i].VarMsg}
+				member.VarType = parseInt(member.VarType);
+            }
+            triggerEvent(document, 'CallMessage', obj);
+		},
+		'6': (obj)=>{
+			obj.Type = parseInt(obj.Type);
+            obj.Result = parseInt(obj.Result);
+            triggerEvent(document, 'CallResultEvent', obj);
+		},
+		'7': (obj)=>{
+			obj.ConnID = parseInt(obj.ConnID);
+            obj.StatusID = parseInt(obj.statusID);
+            triggerEvent(document, 'CallStatusEvent', obj);
+		},
+		'8': (obj)=>{
+			obj.StatusID = parseInt(obj.StatusID);
+            triggerEvent(document, 'ConnectStatus', obj);
+		},
+		'11': (obj)=>{
+			obj.CallType = parseInt(obj.CallType);
+            obj.DeviceType = parseInt(obj.DeviceType);
+            obj.DeviceID = parseInt(obj.DeviceID);
+            obj.ReplyFlag = parseInt(obj.ReplyFlag);
+            triggerEvent(document, 'AnsCallInfo', obj); //Object got: {obj.CallType, obj.DeviceType, obj.DeviceID, obj.ReplyFlag}
+		},
+		'12': (obj)=>{
+			obj.ConnID = parseInt(obj.ConnID);
+            obj.CallType = parseInt(obj.CallType);
+            obj.StatusID = parseInt(obj.StatusID);
+            triggerEvent(document, 'MediaCallStatus', obj); //Object got: {obj.ConnID, obj.CallType, obj.StatusID}
+		},
+		'14': (obj)=>{
+			obj.serviceID = parseInt(obj.serviceID);
+            obj.WaitCount = parseInt(obj.WaitCount);
+            obj.MaxWaitTime = parseInt(obj.MaxWaitTime);
+            triggerEvent(document, 'ServiceQueue', obj); //Object got: {obj.serviceID, obj.WaitCount, obj.MaxWaitTime}
+		},
+		'15': (obj)=>{
+			obj.DeviceType = parseInt(obj.DeviceType);
+            obj.DeviceID = parseInt(obj.DeviceID);
+            obj.CallID = parseInt(obj.CallID);
+            obj.ConID = parseInt(obj.ConID);
+            obj.Attribute = parseInt(obj.Attribute);
+            obj.StatusID = parseInt(obj.StatusID);
+            triggerEvent(document, 'ConfMemberStatus', obj); //Object got: {obj.DeviceType, obj.DeviceID, obj.DeviceName, obj.CallID, obj.ConID, obj.Attribute, obj.StatusID}
+                        
+		},
+		'16': (obj)=>{
+			obj.Member.map(member => {
+				member.GroupID = parseInt(member.GroupID);
+				member.Gpmember = parseInt(member.Gpmember);
+			});
+            triggerEvent(document, 'ACDGroupInfo', obj); //Object got: {obj.Member[i].GroupID, obj.Member[i].GroupName, obj.Member[i].Gpmember
+		},
+		'17': (obj)=>{
+			obj.Member.map(member => {
+				member.ParkID = parseInt(member.ParkID);
+				member.Pkmemberno = parseInt(member.Pkmemberno);
+			});
+			triggerEvent(document, 'ACDParkInfo', obj); //Object got: {obj.Member[i].ParkID, obj.Member[i].ParkName, obj.Member[i].Pkmemberno}
+		},
+		'18': (obj)=>{
+			// obj.Member if have no members, would be null
+			if (obj.Member == null) {obj.Member = [];}
+			obj.Member.map(member => {
+				member.GroupID = parseInt(member.GroupID);
+				member.AgentID = parseInt(member.AgentID);
+				member.StatusID = parseInt(member.StatusID);
+			});
+            triggerEvent(document, 'ACDGroupMember', obj); //Object got: {obj.Member[i].GroupID, obj.Member[i].AgentID, obj.Member[i].StatusID, obj.Member[i].AgentName}					
+		},
+		'19': (obj)=>{
+			obj.FlowID = parseInt(obj.FlowID);
+            triggerEvent(document, 'IVRSInfo', obj); //Object got: {obj.FlowID, obj.FlowDesce}
+		},
+		'20': (obj)=>{
+			obj.Member.map(member => {
+				member.GroupID = parseInt(member.GroupID);
+				member.WaitCount = parseInt(member.WaitCount);
+				member.MaxWaitTime = parseInt(member.MaxWaitTime);
+				member.CallType = parseInt(member.CallType);
+			});
+            triggerEvent(document, 'ACDGroupQueueEx', obj); //Object got: {obj.Member[i].GroupID,obj.Member[i].WaitCount,obj.Member[i].MaxWaitTime,obj.Member[i].CallType}
+		},
+		'21': (obj)=>{
+			obj.Member.map(member => {
+				member.ParkID = parseInt(member.ParkID);
+				member.WaitCount = parseInt(member.WaitCount);
+				member.MaxWaitTime = parseInt(member.MaxWaitTime);
+				member.CallType = parseInt(member.CallType);
+			});
+            triggerEvent(document, 'ACDParkQueueEx', obj); //Object got: {obj.ParkID, obj.WaitCount, 
+		},
+		'23': (obj)=>{
+			obj.WaitCount = parseInt(obj.WaitCount);
+			obj.MaxWaitTime = parseInt(obj.MaxWaitTime);
+			obj.CallType = parseInt(obj.CallType);
+			triggerEvent(document, 'SkillQueue', obj); //Object got: {obj.WaitCount, obj.MaxWaitTime, obj.CallType}
+		},
+		'27': (obj)=>{
+			obj.ConnID = parseInt(obj.ConnID);
+            obj.OdeviceType = parseInt(obj.OdeviceType);
+            obj.OdeviceID = parseInt(obj.OdeviceID);
+            obj.ANI = parseInt(obj.ANI);
+            obj.DNIS = parseInt(obj.DNIS);
+            triggerEvent(document, 'AddAgentCallQueue', obj); //Object got: {obj.ConnID, obj.OdeviceType, obj.OdeviceID, obj.ANI, obj.DNIS}
+		},
+		'28': (obj)=>{
+			obj.ConnID = parseInt(obj.ConnID);
+            triggerEvent(document, 'RemoveAgentCallQueue', obj);
+		},
+		'29': (obj)=>{
+			obj.ShareVoiceStatus = parseInt(obj.ShareVoiceStatus);
+            obj.ErrorCode = parseInt(obj.ErrorCode);
+            triggerEvent(document, 'ShareVoiceStatus', obj); //Object got: {obj.ShareVoiceStatus obj.ErrorCode}
+		},
+		'30': (obj)=>{
+			triggerEvent(document, 'StartScreenCap', obj);
+		},
+		'31': (obj)=>{
+			triggerEvent(document, 'StopScreenCap', obj);
+		},
+		'33': (obj)=>{
+			obj.DeviceType = parseInt(obj.DeviceType);
+			obj.DeviceID = parseInt(obj.DeviceID);
+			obj.CallType = parseInt(obj.CallType);
+			obj.IsFullList = parseInt(obj.IsFullList);
+			obj.CallDataCount = parseInt(obj.CallDataCount);
+			triggerEvent(document, 'CallQueueData_UC', obj); //Object got: {obj.DeviceType, obj.DeviceID, obj.CallType, obj.IsFullList, obj.CallDataCount, obj.CallListData}
+		},
+		'34': (obj)=>{
+			obj.SupervisorID = parseInt(obj.SupervisorID);
+            triggerEvent(document, 'ClearRecourse_UC', obj); //Object got: {obj.SupervisorID, obj.RecourseInfo}
+		},
+		'35': (obj)=>{
+			obj.DeviceID = parseInt(obj.DeviceID);
+            triggerEvent(document, 'RecvShortMsg_UC', obj); //Object got: {obj.DeviceID, obj.ShortMsg}
+		},
+		'36': (obj)=>{
+			obj.Member.map(member => {
+				member.VarType = parseInt(member.VarType);
+			});
+            triggerEvent(document, 'CallMessage_UC', obj); //Object got: {obj.Member[i].VarType, obj.Member[i].VarMsg}
+        },
+		'37': (obj)=>{
+			obj.AgentID = parseInt(obj.AgentID);
+            obj.StatusID = parseInt(obj.StatusID);
+            triggerEvent(document, 'LogonAgent', obj); //Object got: {obj.Command, obj.AgentID, obj.StatusID, obj.AgentName}
+                        
+		},
+		'38': (obj)=>{
+			obj.agent_id = parseInt(obj.agent_id);
+			triggerEvent(document, 'TicketList', obj); // Object got: {obj.agent_id}
+		},
+		'39': (obj)=>{
+			obj.agent_id = parseInt(obj.agent_id);
+			obj.ticket_id = parseInt(obj.ticket_id);
+			obj.offline_form = parseInt(obj.offline_form);
+			obj.online_form = parseInt(obj.online_form);
+			obj.status_id = parseInt(obj.status_id);
+			triggerEvent(document, 'TicketMsgList', obj); // Object got: {obj.ticket_id}
+		},
+		'40': (obj)=>{
+			obj.ticket_id = parseInt(obj.ticket_id);
+			obj.assign_to = parseInt(obj.assign_to);
+			obj.offline_form = parseInt(obj.offline_form);
+			obj.online_form = parseInt(obj.online_form);
+			obj.unread_num = parseInt(obj.unread_num);
+			triggerEvent(document, 'SendSocialMsgToAgent', obj); // Object got: {obj.ticket_id, obj.assign_to, obj.profile_pic, obj.nick_name, obj.msg_list.id, obj.msg_list. }
+		},
+		'42': (obj)=>{
+			obj.agent_id = parseInt(obj.agent_id);
+			triggerEvent(document, 'EndUserInfo', obj); // Object got: {obj.agent_id, obj.enduser_id}						
+		},
+		'43': (obj)=>{
+			triggerEvent(document, "ResultSendMsg", obj);  // Object got: {obj.data.id, obj.data.client_msg_id, obj.data.sent_time}
+		},
+		'44': (obj)=>{
+			triggerEvent(document, "ResultSendFile", obj); // Object got: {obj.data.id, obj.data.client_msg_id, obj.data.sent_time, obj.data.originName, obj.data.suffix, obj.data.url}
+		},
+		'45': (obj)=>{
+			obj.CmdType = parseInt(obj.CmdType);
+			obj.client_msg_id = parseInt(obj.client_msg_id); 
+			triggerEvent(document, "ClientMsgID", obj); // Object got: {obj.CmdType, obj.client_msg_id}
+		},
+		'46': (obj)=>{
+			obj.agent_id = parseInt(obj.agent_id);
+			obj.ticket_id = parseInt(obj.ticket_id);
+			triggerEvent(document, "RecvInvAgentToChat", obj); 	// Object got: {obj.agent_id, obj.ticket_id, obj.msg_content}
+		},
+		'47': (obj)=>{
+			obj.ticket_id = parseInt(obj.ticket_id);
+			triggerEvent(document, "FaceBookPost", obj); 	//Object got: {obj.from_name, obj.message, obj.sent_time, obj.sub_list[i].from_name}
+		},
+		'48': (obj)=>{
+			obj.ticket_id = parseInt(obj.ticket_id);
+			triggerEvent(document, "TicketTimeout", obj);  // Object got: {obj.ticket_id}
+		},
+		'49': (obj)=>{
+			obj.agent_id = parseInt(obj.agent_id);
+			obj.ticket_id = parseInt(obj.ticket_id);
+			obj.status_id = parseInt(obj.status_id);
+			triggerEvent(document, "AgentTicketStatus", obj); 	// Object got: {obj.agent_id, obj.ticket_id, obj.status_id}
+		},
+		'50': (obj)=>{
+			obj.agent_id = parseInt(obj.agent_id);
+			triggerEvent(document, "AgentTicketList", obj); // Object got: {obj.ticket_list[i].ticket_id}
+		},
+		'51': (obj)=>{
+			obj.agent_id = parseInt(obj.agent_id);
+			triggerEvent(document, "OnlineForm", obj); // Object got: {obj.data[i].fieldname, obj.data[i].fieldvalue}
+		},
+		'52': (obj)=>{
+			obj.agent_id = parseInt(obj.agent_id);
+			triggerEvent(document, "OfflineForm", obj); // Object got: {obj.data[i].fieldname, obj.data[i].fieldvalue}
+		},
+		'53': (obj)=>{
+			obj.agent_id = parseInt(obj.agent_id);
+			triggerEvent(document, "UpperLevelComment", obj); // Object got: {obj.msg_list[i].id, obj.msg_list[i].sender, obj.msg_list[i].sent_time, obj.msg_list[i].index_no, obj.msg_list[i].msg_type, obj.msg_list[i].msg_content, obj.msg_list[i].sent_by, obj.msg_list[i].msg_object_path, obj.msg_list[i].msg_completed}
+						
+		},
+		'54': (obj)=>{
+			obj.agent_id = parseInt(obj.agent_id);
+			triggerEvent(document, "SameLevelComment", obj); // Object got: {obj.msg_list[i].id, obj.msg_list[i].sender, obj.msg_list[i].sent_time, obj.msg_list[i].index_no, obj.msg_list[i].msg_type, obj.msg_list[i].msg_content, obj.msg_list[i].sent_by, obj.msg_list[i].msg_object_path, obj.msg_list[i].msg_completed}
+		},
+		'55': (obj)=>{
+			obj.agent_id = parseInt(obj.agent_id);
+			triggerEvent(document, "SameLevelReply", obj); // Object got: {obj.msg_list[i].id, obj.msg_list[i].sender, obj.msg_list[i].sent_time, obj.msg_list[i].index_no, obj.msg_list[i].msg_type, obj.msg_list[i].msg_content, obj.msg_list[i].sent_by, obj.msg_list[i].msg_object_path, obj.msg_list[i].msg_completed}
+		},
+		'56': (obj)=>{
+			obj.ticket_id = parseInt(obj.ticket_id);
+			triggerEvent(document, "EndTicket", obj);
+		},
+		'57': (obj)=>{
+			triggerEvent(document, "WCCustomerParameter", obj);
+		},
+		'58': (obj)=>{
+			triggerEvent(document, "WCCustomerReadMsg", obj);
+		},
+		'59': (obj)=>{
+			triggerEvent(document, "SendTemplateMsg", obj);
+		},
+		'60': (obj)=>{
+			obj.ticket_id = parseInt(obj.ticket_id);
+			triggerEvent(document, "WCCustomerInput", obj);
+		},
+		'61': (obj)=>{
+			obj.ticket_id = parseInt(obj.ticket_id);
+			triggerEvent(document, "AddToChatRoom", obj);
+		},
+		'62': (obj)=>{
+			obj.ticket_id = parseInt(obj.ticket_id);
+			triggerEvent(document, "RmFromChatRoom", obj);
+		},
+		'63': (obj)=>{
+			triggerEvent(document, "LogonAgentEx ", obj);
+		},
+	},	
 	OpenWebsocket: function(serverName, callback) {
         if ("WebSocket" in window) {
             //alert("WebSocket is supported by your Browser!");
 			//serverAddr = serverName;
             // Let us open a web socket
-			// serverName = (typeof serverName=="undefined")? ws.url : "ws://" + serverName;
-			serverName = (typeof serverName=="undefined")? ws.url : (config.isHttps? ("wss://" + serverName) : "ws://" + serverName);
-			//serverName ="wss://win2016-demo.sipmarvel.hk:2311"
-            ws = new WebSocket(serverName);
-            //alert(serverName);   
-			
-            ws.onopen = function() {
+			serverName = (typeof serverName=="undefined")? this.ws.url : serverName;
+            this.ws = new WebSocket(serverName);
+            this.ws.onopen = function() {
                 // Web Socket is connected, send data using send()
 				triggerEvent(document, 'wsOnopen');
-                callback && callback();
+                //Tiger callback && callback();
+				if(callback) callback();
 				
             };
 
-            ws.onmessage = function(evt) {
-                // var received_msg = evt.data;
-				// var obj = JSON.parse(received_msg);
-				var obj = JSON.parse(evt.data);
+            this.ws.onmessage = function(evt) {
+				let obj = JSON.parse(evt.data);
                 // alert ("received_msg: " + received_msg);
                 //received_msg is still correct here
-
-				//console.log(obj);
+				//let description = CommandHexToDescription(obj.Message);
+				wsWiseAgent.functionList[obj.Command](obj);
+				/* Tiger 2025-04-14
                 switch (obj.Command) {
                     case '0': // Fail
-
-                        var description = CommandHexToDescription(obj.Message);
                         obj.Description = description;
                         triggerEvent(document, 'CommandFail', obj);
                         break;
                     case '1': // SUCCESS
                         obj.ResultCommand = parseInt(obj.ResultCommand);
-                        var description = CommandIntToDescription(obj.ResultCommand);
+                        
                         obj.Description = description;
                         triggerEvent(document, 'CommandSuccess', obj);
 						
@@ -49,13 +325,12 @@ var wsWiseAgent = {
 						triggerEvent(document, 'ObjectStatus', obj);
 						break;
                     case '4': //Agent Status Event . Here we define the event name "AgentStatus", in order to hold the status
-                        {
-                            obj.StatusID = parseInt(obj.StatusID);
-                            triggerEvent(document, 'AgentStatusEvent', obj);
-                        } break;
+                        obj.StatusID = parseInt(obj.StatusID);
+                        triggerEvent(document, 'AgentStatusEvent', obj);
+                         break;
                     case '5': // CallMessage
-                        for (i = 0; i < obj.Member.length; i++) {//Object got: {obj.Member[i].VarType, obj.Member[i].VarMsg}
-                            obj.Member[i].VarType = parseInt(obj.Member[i].VarType);
+                        for (let member of obj.Member) {//Object got: {obj.Member[i].VarType, obj.Member[i].VarMsg}
+							member.VarType = parseInt(member.VarType);
                         }
                         triggerEvent(document, 'CallMessage', obj);
                         break;
@@ -71,7 +346,7 @@ var wsWiseAgent = {
                         break;
                     case '8': //ConnectStatus
                         obj.StatusID = parseInt(obj.StatusID);
-                        triggerEvent(document, 'ConnectStatus', obj); // {obj.StatusID}
+                        triggerEvent(document, 'ConnectStatus', obj); 
                         break;
                     case '11': //AnsCallInfo
                         obj.CallType = parseInt(obj.CallType);
@@ -102,28 +377,28 @@ var wsWiseAgent = {
                         triggerEvent(document, 'ConfMemberStatus', obj); //Object got: {obj.DeviceType, obj.DeviceID, obj.DeviceName, obj.CallID, obj.ConID, obj.Attribute, obj.StatusID}
                         break;
                     case '16':
-                        for (i = 0; i < obj.Member.length; i++) {
-                            obj.Member[i].GroupID = parseInt(obj.Member[i].GroupID);
-                            obj.Member[i].Gpmember = parseInt(obj.Member[i].Gpmember);
-                        }
+						obj.Member.map(member => {
+							member.GroupID = parseInt(member.GroupID);
+							member.Gpmember = parseInt(member.Gpmember);
+						});
                         triggerEvent(document, 'ACDGroupInfo', obj); //Object got: {obj.Member[i].GroupID, obj.Member[i].GroupName, obj.Member[i].Gpmember
                         break;
                     case '17':
-                        for (i = 0; i < obj.Member.length; i++) {
-                            obj.Member[i].ParkID = parseInt(obj.Member[i].ParkID);
-                            obj.Member[i].Pkmemberno = parseInt(obj.Member[i].Pkmemberno);
-                        }
+						obj.Member.map(member => {
+							member.ParkID = parseInt(member.ParkID);
+							member.Pkmemberno = parseInt(member.Pkmemberno);
+						});
                         triggerEvent(document, 'ACDParkInfo', obj); //Object got: {obj.Member[i].ParkID, obj.Member[i].ParkName, obj.Member[i].Pkmemberno}
                         break;
                     case '18':
 						
 						// obj.Member if have no members, would be null
 						if (obj.Member == null) {obj.Member = [];}
-                        for (i = 0; i < obj.Member.length; i++) {
-                            obj.Member[i].GroupID = parseInt(obj.Member[i].GroupID);
-                            obj.Member[i].AgentID = parseInt(obj.Member[i].AgentID);
-                            obj.Member[i].StatusID = parseInt(obj.Member[i].StatusID);
-                        }
+						obj.Member.map(member => {
+							member.GroupID = parseInt(member.GroupID);
+							member.AgentID = parseInt(member.AgentID);
+							member.StatusID = parseInt(member.StatusID);
+						});
                         triggerEvent(document, 'ACDGroupMember', obj); //Object got: {obj.Member[i].GroupID, obj.Member[i].AgentID, obj.Member[i].StatusID, obj.Member[i].AgentName}					
                         break;
                     case '19':
@@ -131,21 +406,21 @@ var wsWiseAgent = {
                         triggerEvent(document, 'IVRSInfo', obj); //Object got: {obj.FlowID, obj.FlowDesce}
                         break;
                     case '20':
-                        for (i = 0; i < obj.Member.length; i++) {
-                            obj.Member[i].GroupID = parseInt(obj.Member[i].GroupID);
-                            obj.Member[i].WaitCount = parseInt(obj.Member[i].WaitCount);
-                            obj.Member[i].MaxWaitTime = parseInt(obj.Member[i].MaxWaitTime);
-                            obj.Member[i].CallType = parseInt(obj.Member[i].CallType);
-                        }
+						obj.Member.map(member => {
+							member.GroupID = parseInt(member.GroupID);
+							member.WaitCount = parseInt(member.WaitCount);
+							member.MaxWaitTime = parseInt(member.MaxWaitTime);
+							member.CallType = parseInt(member.CallType);
+						});
                         triggerEvent(document, 'ACDGroupQueueEx', obj); //Object got: {obj.Member[i].GroupID,obj.Member[i].WaitCount,obj.Member[i].MaxWaitTime,obj.Member[i].CallType}
                         break;
                     case '21':
-                        for (i = 0; i < obj.Member.length; i++) {
-                            obj.Member[i].ParkID = parseInt(obj.Member[i].ParkID);
-                            obj.Member[i].WaitCount = parseInt(obj.Member[i].WaitCount);
-                            obj.Member[i].MaxWaitTime = parseInt(obj.Member[i].MaxWaitTime);
-                            obj.Member[i].CallType = parseInt(obj.Member[i].CallType);
-                        }
+						obj.Member.map(member => {
+							member.ParkID = parseInt(member.ParkID);
+							member.WaitCount = parseInt(member.WaitCount);
+							member.MaxWaitTime = parseInt(member.MaxWaitTime);
+							member.CallType = parseInt(member.CallType);
+						});
                         triggerEvent(document, 'ACDParkQueueEx', obj); //Object got: {obj.ParkID, obj.WaitCount, 
                         //obj.MaxWaitTime, obj.CallType}
                         break;
@@ -195,9 +470,9 @@ var wsWiseAgent = {
                         triggerEvent(document, 'RecvShortMsg_UC', obj); //Object got: {obj.DeviceID, obj.ShortMsg}
                         break;
                     case '36':
-                        for (i = 0; i < obj.Member.length; i++) {
-                            obj.Member[i].VarType = parseInt(obj.Member[i].VarType);
-                        }
+						obj.Member.map(member => {
+							member.VarType = parseInt(member.VarType);
+						});
                         triggerEvent(document, 'CallMessage_UC', obj); //Object got: {obj.Member[i].VarType, obj.Member[i].VarMsg}
                         break;
                     case '37':
@@ -219,7 +494,6 @@ var wsWiseAgent = {
 						break;
 					case '40': // 	SendSocialMsgToAgent
 						obj.ticket_id = parseInt(obj.ticket_id);
-						// obj.enduser_id = parseInt(obj.enduser_id);
 						obj.assign_to = parseInt(obj.assign_to);
 						obj.offline_form = parseInt(obj.offline_form);
 						obj.online_form = parseInt(obj.online_form);
@@ -228,7 +502,6 @@ var wsWiseAgent = {
 						break;
 					case '42': // 	EndUserInfo 
 						obj.agent_id = parseInt(obj.agent_id);
-						// obj.enduser_id = parseInt(obj.enduser_id);
 						triggerEvent(document, 'EndUserInfo', obj); // Object got: {obj.agent_id, obj.enduser_id}						
 						break;
 					case '43': // 	ResultSendMsg 
@@ -314,24 +587,24 @@ var wsWiseAgent = {
 						triggerEvent(document, "LogonAgentEx ", obj);
 						break;
                 }
+				*/
             };
-
-            ws.onclose = function() {
+			
+            this.ws.onclose = function() {
                 // websocket is closed.
                 //wsWiseAgent.OpenWebsocket(serverName, retryLogin);
 				//wsWiseAgent.OpenWebsocket(serverAddr);
 				//console.log("ws.close");
-				var now=new Date();
-				if((now-wsCreatedTime)/1000<=10) {
+				let now=new Date();
+				if((now-wsWiseAgent.wsCreatedTime)/1000<=10) {
 					alert("Duplicate login!");
 					window.parent.logoutClicked();
 				} else {
 					wsWiseAgent.OpenWebsocket();
 					triggerEvent(document, 'wsOnclose');
 				}
-                //alert(ws);
             };
-            ws.onerror = function() {
+            this.ws.onerror = function() {
                 triggerEvent(document, 'wsOnerror');
                 // websocket has error.
                 //alert("Websocket Error..."); 
@@ -352,1170 +625,566 @@ var wsWiseAgent = {
 
 
     AcceptCall: function() {
-		/*
-        var strcommand = "{ \"Command\":\"100\" }";
-        SendCommandToServer(strcommand);
-		*/
-		var cmd = {"Command" : "100"};
-		SendCommandToServer(JSON.stringify(cmd));
+		let cmd = {"Command" : "100"};
+		SendCommandToServer(cmd);
     },
 
     AcceptMediaCall: function(ConnID) {
-		/*
-        var strcommand = "{ \"Command\":\"101\" ,";
-        strcommand += "\"ConnID\": \"" + ConnID + "\"}";
-        SendCommandToServer(strcommand);
-		*/
-		var cmd = {"Command" : "101", "ConnID" : ConnID};
-		SendCommandToServer(JSON.stringify(cmd));
-
+		let cmd = {"Command" : "101", "ConnID" : ConnID};
+		SendCommandToServer(cmd);
     },
 
     BindToACDGroup: function(GroupID) {
-		/*
-        var strcommand = "{ \"Command\":\"105\" ,";
-        strcommand += "\"GroupID\": \"" + GroupID + "\"}";
-        SendCommandToServer(strcommand);
-		*/
-		var cmd = {"Command" : "105", "GroupID" : GroupID.toString()};
-		SendCommandToServer(JSON.stringify(cmd));
+		let cmd = {"Command" : "105", "GroupID" : GroupID.toString()};
+		SendCommandToServer(cmd);
     },
 
     Break: function() {
-		/*
-        var strcommand = "{ \"Command\":\"106\" }";
-        SendCommandToServer(strcommand);
-		*/
-		var cmd = {"Command" : "106"};
-		SendCommandToServer(JSON.stringify(cmd));
+		let cmd = {"Command" : "106"};
+		SendCommandToServer(cmd);
 
     },
     CreateConference: function(HconnId) {
-		/*
-        var strcommand = "{ \"Command\":\"107\" ,";
-        strcommand += "\"HconnID\": \"" + HconnId + "\"}";
-        SendCommandToServer(strcommand);
-		*/
-		var cmd = {"Command" : "107", "HconnID" : HconnId.toString()};
-		SendCommandToServer(JSON.stringify(cmd));
+		let cmd = {"Command" : "107", "HconnID" : HconnId.toString()};
+		SendCommandToServer(cmd);
     },
 
     DialAgent: function(AgentID) {
-		/*
-        var strcommand = "{ \"Command\":\"108\" ,";
-        strcommand += "\"AgentID\": \"" + AgentID + "\"}";
-        SendCommandToServer(strcommand);
-		*/
-		var cmd = {"Command" : "108", "AgentID" : AgentID.toString()};
-		SendCommandToServer(JSON.stringify(cmd));
+		let cmd = {"Command" : "108", "AgentID" : AgentID.toString()};
+		SendCommandToServer(cmd);
     },
 
     DialOut: function(DNIS, ANI) {
-		/*
-        var strcommand = "{ \"Command\":\"109\" ,";
-        strcommand += "\"ANI\": \"" + ANI + "\" ,";
-        strcommand += "\"DNIS\": \"" + DNIS + "\"}";
-        SendCommandToServer(strcommand);
-		*/
-		var cmd = {"Command" : "109", "ANI" : ANI.toString(), "DNIS": DNIS.toString()};
-		SendCommandToServer(JSON.stringify(cmd));
+		let cmd = {"Command" : "109", "ANI" : ANI.toString(), "DNIS": DNIS.toString()};
+		SendCommandToServer(cmd);
     },
 
     DialStation: function(StationNumber) {
-		/*
-        var strcommand = "{ \"Command\":\"110\" ,";
-        strcommand += "\"StationNumber\": \"" + StationNumber + "\"}";
-        SendCommandToServer(strcommand);
-		*/
-		var cmd = {"Command" : "110", "StationNumber" : StationNumber.toString()};
-		SendCommandToServer(JSON.stringify(cmd));
+		let cmd = {"Command" : "110", "StationNumber" : StationNumber.toString()};
+		SendCommandToServer(cmd);
     },
 
     GetAgentStatus: function() {
-		/*
-        var strcommand = "{ \"Command\":\"111\" }";
-        SendCommandToServer(strcommand);
-		*/
-		var cmd = {"Command" : "111"};
-		SendCommandToServer(JSON.stringify(cmd));
+		let cmd = {"Command" : "111"};
+		SendCommandToServer(cmd);
     },
 
     GetAutoReadyStatus: function() {
-		/*
-        var strcommand = "{ \"Command\":\"112\" }";
-        SendCommandToServer(strcommand);
-		*/
-		var cmd = {"Command" : "112"};
-		SendCommandToServer(JSON.stringify(cmd));
+		let cmd = {"Command" : "112"};
+		SendCommandToServer(cmd);
     },
 
     GetAnswerTimeout: function() {
-		/*
-        var strcommand = "{ \"Command\":\"113\" }";
-        SendCommandToServer(strcommand);
-		*/
-		var cmd = {"Command" : "113"};
-		SendCommandToServer(JSON.stringify(cmd));
+		let cmd = {"Command" : "113"};
+		SendCommandToServer(cmd);
     },
 
     GetACDGroup: function() {
-		/*
-        var strcommand = "{ \"Command\":\"114\" }";
-        SendCommandToServer(strcommand);
-		*/
-		var cmd = {"Command" : "114"};
-		SendCommandToServer(JSON.stringify(cmd));
+		let cmd = {"Command" : "114"};
+		SendCommandToServer(cmd);
     },
 
     GetACDGroupNo: function() {
-		/*
-        var strcommand = "{ \"Command\":\"115\" }";
-        SendCommandToServer(strcommand);
-		*/
-		var cmd = {"Command" : "115"};
-		SendCommandToServer(JSON.stringify(cmd));
+		let cmd = {"Command" : "115"};
+		SendCommandToServer(cmd);
     },
 
     GetACDPark: function() {
-		/*
-        var strcommand = "{ \"Command\":\"116\" }";
-        SendCommandToServer(strcommand);
-		*/
-		var cmd = {"Command" : "116"};
-		SendCommandToServer(JSON.stringify(cmd));
+		let cmd = {"Command" : "116"};
+		SendCommandToServer(cmd);
     },
 
     GetACDParkNo: function() {
-		/*
-        var strcommand = "{ \"Command\":\"117\" }";
-        SendCommandToServer(strcommand);
-		*/
-		var cmd = {"Command" : "117"};
-		SendCommandToServer(JSON.stringify(cmd));
+		let cmd = {"Command" : "117"};
+		SendCommandToServer(cmd);
     },
 
     GetCallString: function(ConnID, Vartype) {
-		/*
-        var strcommand = "{ \"Command\":\"118\" ,";
-        strcommand += "\"ConnID\": \"" + ConnID + "\" ,";
-        strcommand += "\"Vartype\": \"" + Vartype + "\"}";
-        SendCommandToServer(strcommand);
-		*/
-		var cmd = {"Command" : "118", "ConnID" : ConnID, "Vartype": Vartype.toString()};
-		SendCommandToServer(JSON.stringify(cmd));
+		let cmd = {"Command" : "118", "ConnID" : ConnID, "Vartype": Vartype.toString()};
+		SendCommandToServer(cmd);
     },
 
     GetACDGroupMember: function(GroupID) {
-		/*
-        var strcommand = "{ \"Command\":\"120\" ,";
-        strcommand += "\"GroupID\": \"" + GroupID + "\"}";
-        SendCommandToServer(strcommand);
-		*/
-		var cmd = {"Command" : "120", "GroupID" : GroupID.toString()};
-		SendCommandToServer(JSON.stringify(cmd));
+		let cmd = {"Command" : "120", "GroupID" : GroupID.toString()};
+		SendCommandToServer(cmd);
     },
 
     GetACDGroupMemberNo: function(GroupID) {
-		/*
-        var strcommand = "{ \"Command\":\"121\" ,";
-        strcommand += "\"GroupID\": \"" + GroupID + "\"}";
-        SendCommandToServer(strcommand);
-		*/
-		var cmd = {"Command" : "121", "GroupID" : GroupID.toString()};
-		SendCommandToServer(JSON.stringify(cmd));
+		let cmd = {"Command" : "121", "GroupID" : GroupID.toString()};
+		SendCommandToServer(cmd);
     },
 
     GetIVRS: function() {
-		/*
-        var strcommand = "{ \"Command\":\"122\" }";
-        SendCommandToServer(strcommand);
-		*/
-		var cmd = {"Command" : "122"};
-		SendCommandToServer(JSON.stringify(cmd));
+		let cmd = {"Command" : "122"};
+		SendCommandToServer(cmd);
     },
 
     GetIVRSNo: function() {
-		/*
-        var strcommand = "{ \"Command\":\"123\" }";
-        SendCommandToServer(strcommand);
-		*/
-		var cmd = {"Command" : "123"};
-		SendCommandToServer(JSON.stringify(cmd));
+		let cmd = {"Command" : "123"};
+		SendCommandToServer(cmd);
     },
 
     Hangup: function(connID) {
-		/*
-        var strcommand = "{ \"Command\":\"124\" ,";
-        strcommand += "\"connID\": \"" + connID + "\"}";
-        SendCommandToServer(strcommand);
-		*/
-		var cmd = {"Command" : "124", "connID": connID};
-		SendCommandToServer(JSON.stringify(cmd));
+		let cmd = {"Command" : "124", "connID": connID};
+		SendCommandToServer(cmd);
     },
 
     Hold: function() {
-		/*
-        var strcommand = "{ \"Command\":\"125\" }";
-        SendCommandToServer(strcommand);
-		*/
-		var cmd = {"Command" : "125"};
-		SendCommandToServer(JSON.stringify(cmd));
+		let cmd = {"Command" : "125"};
+		SendCommandToServer(cmd);
     },
 
     Idle: function() {
-		/*
-        var strcommand = "{ \"Command\":\"126\" }";
-        SendCommandToServer(strcommand);
-		*/
-		var cmd = {"Command" : "126"};
-		SendCommandToServer(JSON.stringify(cmd));
+		let cmd = {"Command" : "126"};
+		SendCommandToServer(cmd);
     },
 
     Login: function(agentID, ppassword, Terminal) {
-		/*
-        var strcommand = " {\"Command\": \"127\",\"AgentID\": \"";
-        strcommand += agentID + "\", \"Password\":\"";
-        strcommand += ppassword + "\",\"Terminal\":\"";
-        var terminal = Terminal.toString().replace(/\\/g, "\\\\");
-        strcommand += terminal + "\"} ";
-        SendCommandToServer(strcommand);
-		*/
-		// var cmd = {"Command" : "127", "AgentID" : agentID, "Password" : ppassword.toString(), "Terminal" : '172.17.2.93' };
-		var cmd = {"Command" : "127", "AgentID" : agentID, "Password" : ppassword.toString(), "Terminal" : Terminal };
+		let cmd = {"Command" : "127", "AgentID" : agentID, "Password" : ppassword.toString(), "Terminal" : Terminal };
 	
-		SendCommandToServer(JSON.stringify(cmd));
+		SendCommandToServer(cmd);
 
     },
 
     Logout: function() {
-		/*
-        var strcommand = "{ \"Command\":\"128\" }";
-        SendCommandToServer(strcommand);
-		*/
-		var cmd = {"Command" : "128"};
-		SendCommandToServer(JSON.stringify(cmd));
+		let cmd = {"Command" : "128"};
+		SendCommandToServer(cmd);
     },
 
     MonitorAgent: function(DestagentID, TypeID) {
-		/*
-        var strcommand = "{ \"Command\":\"130\" ,";
-        strcommand += "\"DestagentID\": \"" + DestagentID + "\" ,";
-        strcommand += "\"TypeID\": \"" + TypeID + "\"}";
-        SendCommandToServer(strcommand);
-		*/
-		var cmd = {"Command" : "130","DestagentID" : DestagentID.toString(), "TypeID" : TypeID.toString()};
-		SendCommandToServer(JSON.stringify(cmd));
+		let cmd = {"Command" : "130","DestagentID" : DestagentID.toString(), "TypeID" : TypeID.toString()};
+		SendCommandToServer(cmd);
     },
 
     PlayCall: function(CallID) {
-		/*
-        var strcommand = "{ \"Command\":\"131\" ,";
-        strcommand += "\"CallID\": \"" + CallID + "\"}";
-        SendCommandToServer(strcommand);
-		*/
-		var cmd = {"Command" : "131","CallID" : CallID.toString()};
-		SendCommandToServer(JSON.stringify(cmd));
+		let cmd = {"Command" : "131","CallID" : CallID.toString()};
+		SendCommandToServer(cmd);
     },
 
     PlayFile: function(Filename) {
-		/*
-        var strcommand = "{ \"Command\":\"132\" ,";
-        var filename = Filename.toString().replace(/\\/g, "\\\\");
-        strcommand += "\"Filename\": \"" + filename + "\"}";
-        SendCommandToServer(strcommand);
-		*/
-		var cmd = {"Command" : "132","Filename" : Filename};
-		SendCommandToServer(JSON.stringify(cmd));
+		let cmd = {"Command" : "132","Filename" : Filename};
+		SendCommandToServer(cmd);
     },
 
     Ready: function() {
-		/*
-        var strcommand = "{ \"Command\":\"133\" }";
-        SendCommandToServer(strcommand);
-		*/
-		var cmd = {"Command" : "133"};
-		SendCommandToServer(JSON.stringify(cmd));
+		let cmd = {"Command" : "133"};
+		SendCommandToServer(cmd);
     },
 
     RejectCall: function() {
-		/*
-        var strcommand = "{ \"Command\":\"134\" }";
-        SendCommandToServer(strcommand);
-		*/
-		var cmd = {"Command" : "134"};
-		SendCommandToServer(JSON.stringify(cmd));
+		let cmd = {"Command" : "134"};
+		SendCommandToServer(cmd);
     },
 
     SendDTMFTone: function(DTMF) {
-		/*
-        var strcommand = "{ \"Command\":\"135\" ,";
-        strcommand += "\"DTMF\": \"" + DTMF + "\"}";
-        SendCommandToServer(strcommand);
-		*/
-		var cmd = {"Command" : "135", "DTMF": DTMF.toString()};
-		SendCommandToServer(JSON.stringify(cmd));
+		let cmd = {"Command" : "135", "DTMF": DTMF.toString()};
+		SendCommandToServer(cmd);
     },
 
     StartMonitor: function(TypeID) {
-		/*
-        var strcommand = "{ \"Command\":\"138\" ,";
-        strcommand += "\"TypeID\": \"" + TypeID + "\"}";
-        SendCommandToServer(strcommand);
-		*/
-		var cmd = {"Command" : "138", "TypeID": TypeID.toString()};
-		SendCommandToServer(JSON.stringify(cmd));
+		let cmd = {"Command" : "138", "TypeID": TypeID.toString()};
+		SendCommandToServer(cmd);
     },
 
     SetAnswerTimeout: function(Timeout) {
-		/*
-        var strcommand = "{ \"Command\":\"139\" ,";
-        strcommand += "\"Timeout\": \"" + Timeout + "\"}";
-        SendCommandToServer(strcommand);
-		*/
-		var cmd = {"Command" : "139", "Timeout": Timeout.toString()};
-		SendCommandToServer(JSON.stringify(cmd));
+		let cmd = {"Command" : "139", "Timeout": Timeout.toString()};
+		SendCommandToServer(cmd);
     },
 
     SetAutoReady: function(AutoReadyflag) {
-		/*
-        var strcommand = "{ \"Command\":\"140\" ,";
-        strcommand += "\"AutoReadyflag\": \"" + AutoReadyflag + "\"}";
-        SendCommandToServer(strcommand);
-		*/
-		var cmd = {"Command" : "140", "AutoReadyflag": AutoReadyflag.toString()};
-		SendCommandToServer(JSON.stringify(cmd));
+		let cmd = {"Command" : "140", "AutoReadyflag": AutoReadyflag.toString()};
+		SendCommandToServer(cmd);
     },
 
     StepTransferCall: function(DeviceType, DeviceID, Message) {
-		/*
-        var strcommand = "{ \"Command\":\"141\" ,";
-        strcommand += "\"DeviceType\": \"" + DeviceType + "\" ,";
-        strcommand += "\"DeviceID\": \"" + DeviceID + "\" ,";
-        strcommand += "\"Message\": \"" + Message + "\"}";
-        SendCommandToServer(strcommand);
-		*/
-		var cmd = {"Command" : "141", "DeviceType": DeviceType.toString(), "DeviceID": DeviceID.toString(), "Message": Message.toString()};
-		SendCommandToServer(JSON.stringify(cmd));
+		let cmd = {"Command" : "141", "DeviceType": DeviceType.toString(), "DeviceID": DeviceID.toString(), "Message": Message.toString()};
+		SendCommandToServer(cmd);
     },
 
     StepTransferCallReturn: function(DeviceType, DeviceID, Message) {
-		/*
-        var strcommand = "{ \"Command\":\"142\" ,";
-        strcommand += "\"DeviceType\": \"" + DeviceType + "\" ,";
-        strcommand += "\"DeviceID\": \"" + DeviceID + "\" ,";
-        strcommand += "\"Message\": \"" + Message + "\"}";
-        SendCommandToServer(strcommand);
-		*/
-		var cmd = {"Command" : "142", "DeviceType" : DeviceType.toString(), "DeviceID": DeviceID.toString(), "Message": Message.toString()};
-		SendCommandToServer(JSON.stringify(cmd));
+		let cmd = {"Command" : "142", "DeviceType" : DeviceType.toString(), "DeviceID": DeviceID.toString(), "Message": Message.toString()};
+		SendCommandToServer(cmd);
     },
 
     StepTransferStation: function(StationNumber) {
-		/*
-        var strcommand = "{ \"Command\":\"143\" ,";
-        strcommand += "\"StationNumber\": \"" + StationNumber + "\"}";
-        SendCommandToServer(strcommand);
-		*/
-		var cmd = {"Command" : "143", "StationNumber" : StationNumber.toString()};
-		SendCommandToServer(JSON.stringify(cmd));
+		let cmd = {"Command" : "143", "StationNumber" : StationNumber.toString()};
+		SendCommandToServer(cmd);
     },
 
     StepTransferStationReturn: function(StationNumber) {
-		/*
-        var strcommand = "{ \"Command\":\"144\" ,";
-        strcommand += "\"StationNumber\": \"" + StationNumber + "\"}";
-        SendCommandToServer(strcommand);
-		*/
-		var cmd = {"Command" : "144", "StationNumber" : StationNumber.toString()};
-		SendCommandToServer(JSON.stringify(cmd));
+		let cmd = {"Command" : "144", "StationNumber" : StationNumber.toString()};
+		SendCommandToServer(cmd);
     },
 
     StopMonitor: function(TypeID) {
-		/*
-        var strcommand = "{ \"Command\":\"145\" ,";
-        strcommand += "\"TypeID\": \"" + TypeID + "\"}";
-        SendCommandToServer(strcommand);
-		*/
-		var cmd = {"Command" : "145", "TypeID" : TypeID.toString()};
-		SendCommandToServer(JSON.stringify(cmd));
+		let cmd = {"Command" : "145", "TypeID" : TypeID.toString()};
+		SendCommandToServer(cmd);
     },
 
     StopMonitorAgent: function(DestagentID) {
-		/*
-        var strcommand = "{ \"Command\":\"146\" ,";
-        strcommand += "\"DestagentID\": \"" + DestagentID + "\"}";
-        SendCommandToServer(strcommand);
-		*/
-		var cmd = {"Command" : "146", "DestagentID": DestagentID.toString()};
-		SendCommandToServer(JSON.stringify(cmd));
+		let cmd = {"Command" : "146", "DestagentID": DestagentID.toString()};
+		SendCommandToServer(cmd);
     },
 
     StopPlay: function() {
-		/*
-        var strcommand = "{ \"Command\":\"147\" }";
-        SendCommandToServer(strcommand);
-		*/
-		var cmd = {"Command" : "147"};
-		SendCommandToServer(JSON.stringify(cmd));
+		let cmd = {"Command" : "147"};
+		SendCommandToServer(cmd);
     },
 
     TransferCall: function(ConnID, Message) {
-		/*
-        var strcommand = "{ \"Command\":\"148\" ,";
-        strcommand += "\"ConnID\": \"" + ConnID + "\" ,";
-        strcommand += "\"Message\": \"" + Message + "\"}";
-        SendCommandToServer(strcommand);
-		*/
-		var cmd = {"Command" : "148", "ConnID" : ConnID, "Message": Message};
-		SendCommandToServer(JSON.stringify(cmd));
+		let cmd = {"Command" : "148", "ConnID" : ConnID, "Message": Message};
+		SendCommandToServer(cmd);
     },
 
     TransferCallReturn: function(ConnID, Message) {
-		/*
-        var strcommand = "{ \"Command\":\"149\" ,";
-        strcommand += "\"ConnID\": \"" + ConnID + "\" ,";
-        strcommand += "\"Message\": \"" + Message + "\"}";
-        SendCommandToServer(strcommand);
-		*/
-		var cmd = {"Command" : "149", "ConnID" : ConnID, "Message": Message};
-		SendCommandToServer(JSON.stringify(cmd));
+		let cmd = {"Command" : "149", "ConnID" : ConnID, "Message": Message};
+		SendCommandToServer(cmd);
     },
 
     Unhold: function(ConnID) {
-		/*
-        var strcommand = "{ \"Command\":\"150\" ,";
-        strcommand += "\"ConnID\": \"" + ConnID + "\"}";
-        SendCommandToServer(strcommand);
-		*/
-		var cmd = {"Command" : "150", "ConnID" : ConnID};
-		SendCommandToServer(JSON.stringify(cmd));
+		let cmd = {"Command" : "150", "ConnID" : ConnID};
+		SendCommandToServer(cmd);
     },
 
 
 
     UpdatePassword: function(OldPwd, NewPwd) {
-		/*
-        var strcommand = "{ \"Command\":\"151\" ,";
-        strcommand += "\"OldPwd\": \"" + OldPwd + "\" ,";
-        strcommand += "\"NewPwd\": \"" + NewPwd + "\"}";
-        SendCommandToServer(strcommand);
-		*/
-		var cmd = {"Command" : "151", "OldPwd" : OldPwd.toString(), "NewPwd": NewPwd.toString()};
-		SendCommandToServer(JSON.stringify(cmd));
+		let cmd = {"Command" : "151", "OldPwd" : OldPwd.toString(), "NewPwd": NewPwd.toString()};
+		SendCommandToServer(cmd);
     },
 
     Working: function(CallType) {
-		/*
-        var strcommand = "{ \"Command\":\"152\" ,";
-        strcommand += "\"CallType\": \"" + CallType + "\"}";
-        SendCommandToServer(strcommand);
-		*/
-		var cmd = {"Command" : "152", "CallType" : CallType.toString()};
-		SendCommandToServer(JSON.stringify(cmd));
+		let cmd = {"Command" : "152", "CallType" : CallType.toString()};
+		SendCommandToServer(cmd);
     },
 
     AddMemberToConferenceEx: function(ConfconnID, ConftypeID) {
-		/*
-        var strcommand = "{ \"Command\":\"153\" ,";
-        strcommand += "\"ConfconnID\": \"" + ConfconnID + "\" ,";
-        strcommand += "\"ConftypeID\": \"" + ConftypeID + "\"}";
-        SendCommandToServer(strcommand);
-		*/
-		var cmd = {"Command" : "153", "ConfconnID" : ConfconnID.toString(), "ConftypeID": ConftypeID.toString()};
-		SendCommandToServer(JSON.stringify(cmd));
+		let cmd = {"Command" : "153", "ConfconnID" : ConfconnID.toString(), "ConftypeID": ConftypeID.toString()};
+		SendCommandToServer(cmd);
     },
 
     CreateConferenceEx: function(HconnID, HtypeID, TypeID) {
-		/*
-        var strcommand = "{ \"Command\":\"154\" ,";
-        strcommand += "\"HconnID\": \"" + HconnID + "\" ,";
-        strcommand += "\"HtypeID\": \"" + HtypeID + "\" ,";
-        strcommand += "\"TypeID\": \"" + TypeID + "\"}";
-        SendCommandToServer(strcommand);
-		*/
-		var cmd = {"Command" : "154", "HconnID" : HconnID.toString(), "HtypeID": HtypeID.toString(), "TypeID": TypeID.toString()};
-		SendCommandToServer(JSON.stringify(cmd));
+		let cmd = {"Command" : "154", "HconnID" : HconnID.toString(), "HtypeID": HtypeID.toString(), "TypeID": TypeID.toString()};
+		SendCommandToServer(cmd);
     },
 
     ListConferenceMember: function(ConfconnID) {
-		/*
-        var strcommand = "{ \"Command\":\"155\" ,";
-        strcommand += "\"ConfconnID\": \"" + ConfconnID + "\"}";
-        SendCommandToServer(strcommand);
-		*/
-		var cmd = {"Command" : "155", "ConfconnID" : ConfconnID.toString()};
-		SendCommandToServer(JSON.stringify(cmd));
+		let cmd = {"Command" : "155", "ConfconnID" : ConfconnID.toString()};
+		SendCommandToServer(cmd);
     },
 
     ChangeConferenceMemberMode: function(ConfMemberconnID, Attribute) {
-		/*
-        var strcommand = "{ \"Command\":\"156\" ,";
-        strcommand += "\"ConfMemberconnID\": \"" + ConfMemberconnID + "\" ,";
-        strcommand += "\"Attribute\": \"" + Attribute + "\"}";
-        SendCommandToServer(strcommand);
-		*/
-		var cmd = {"Command" : "156", "ConfMemberconnID" : ConfMemberconnID.toString(), "Attribute": Attribute.toString()};
-		SendCommandToServer(JSON.stringify(cmd));
+		let cmd = {"Command" : "156", "ConfMemberconnID" : ConfMemberconnID.toString(), "Attribute": Attribute.toString()};
+		SendCommandToServer(cmd);
     },
 
     DeleteAgent: function(DelagentID) {
-		/*
-        var strcommand = "{ \"Command\":\"157\" ,";
-        strcommand += "\"DelagentID\": \"" + DelagentID + "\"}";
-        SendCommandToServer(strcommand);
-		*/
-		var cmd = {"Command" : "157", "DelagentID" : DelagentID.toString()};
-		SendCommandToServer(JSON.stringify(cmd));
+		let cmd = {"Command" : "157", "DelagentID" : DelagentID.toString()};
+		SendCommandToServer(cmd);
     },
 
     AcceptMediaCallEx: function(DeviceType, DeviceID, CallType) {
-		/*
-        var strcommand = "{ \"Command\":\"160\" ,";
-        strcommand += "\"DeviceType\": \"" + DeviceType + "\" ,";
-        strcommand += "\"DeviceID\": \"" + DeviceID + "\" ,";
-        strcommand += "\"CallType\": \"" + CallType + "\"}";
-        SendCommandToServer(strcommand);
-		*/
-		var cmd = {"Command" : "160", "DeviceType" : DeviceType.toString(), "DeviceID" : DeviceID.toString(), "CallType" : CallType.toString()};
-		SendCommandToServer(JSON.stringify(cmd));
+		let cmd = {"Command" : "160", "DeviceType" : DeviceType.toString(), "DeviceID" : DeviceID.toString(), "CallType" : CallType.toString()};
+		SendCommandToServer(cmd);
     },
 
     SetCaseID: function(CallType, CallID, CaseID) {
-		/*
-        var strcommand = "{ \"Command\":\"161\" ,";
-        strcommand += "\"CallType\": \"" + CallType + "\" ,";
-        strcommand += "\"CallID\": \"" + CallID + "\" ,";
-        strcommand += "\"CaseID\": \"" + CaseID + "\"}";
-        SendCommandToServer(strcommand);
-		*/
-		var cmd = {"Command" : "161", "CallType" : CallType.toString(), "CallID" : CallID.toString(), "CaseID" : CaseID.toString()};
-		SendCommandToServer(JSON.stringify(cmd));
+		let cmd = {"Command" : "161", "CallType" : CallType.toString(), "CallID" : CallID.toString(), "CaseID" : CaseID.toString()};
+		SendCommandToServer(cmd);
     },
 
     PlayVmail: function(CallID) {
-		/*
-        var strcommand = "{ \"Command\":\"165\" ,";
-        strcommand += "\"CallID\": \"" + CallID + "\"}";
-        SendCommandToServer(strcommand);
-		*/
-		var cmd = {"Command" : "165", "CallID" : CallID.toString()};
-		SendCommandToServer(JSON.stringify(cmd));
+		let cmd = {"Command" : "165", "CallID" : CallID.toString()};
+		SendCommandToServer(cmd);
     },
 
     SetForceReply: function(ForceReplyflag) {
-		/*
-        var strcommand = "{ \"Command\":\"167\" ,";
-        strcommand += "\"ForceReplyflag\": \"" + ForceReplyflag + "\"}";
-        SendCommandToServer(strcommand);
-		*/
-		var cmd = {"Command" : "167", "ForceReplyflag" : ForceReplyflag.toString()};
-		SendCommandToServer(JSON.stringify(cmd));
+		let cmd = {"Command" : "167", "ForceReplyflag" : ForceReplyflag.toString()};
+		SendCommandToServer(cmd);
     },
 
     DialDevice: function(DeviceType, DeviceID) {
-		/*
-        var strcommand = "{ \"Command\":\"170\" ,";
-        strcommand += "\"DeviceType\": \"" + DeviceType + "\" ,";
-        strcommand += "\"DeviceID\": \"" + DeviceID + "\"}";
-        SendCommandToServer(strcommand);
-		*/
-		var cmd = {"Command" : "170", "DeviceType" : DeviceType.toString(), "DeviceID" : DeviceID.toString()};
-		SendCommandToServer(JSON.stringify(cmd));
+		let cmd = {"Command" : "170", "DeviceType" : DeviceType.toString(), "DeviceID" : DeviceID.toString()};
+		SendCommandToServer(cmd);
     },
 
     RemoveRecourse: function() {
-		/*
-        var strcommand = "{ \"Command\":\"172\" }";
-        SendCommandToServer(strcommand);
-		*/
-		var cmd = {"Command" : "172"};
-		SendCommandToServer(JSON.stringify(cmd));
+		let cmd = {"Command" : "172"};
+		SendCommandToServer(cmd);
 	},
 	
 	BreakEx: function(BreakType) {
-		var cmd = {"Command" : "173", "BreakType" : BreakType };
-		SendCommandToServer(JSON.stringify(cmd));
+		let cmd = {"Command" : "173", "BreakType" : BreakType };
+		SendCommandToServer(cmd);
     },
 
     SetCallMessage: function(ConnID, Message) {
-		/*
-        var strcommand = "{ \"Command\":\"176\" ,";
-        strcommand += "\"ConnID\": \"" + ConnID + "\" ,";
-        strcommand += "\"Message\": \"" + Message + "\"}";
-        SendCommandToServer(strcommand);
-		*/
-		var cmd = {"Command" : "176", "ConnID" : ConnID.toString(), "Message" : Message.toString()};
-		SendCommandToServer(JSON.stringify(cmd));
+		let cmd = {"Command" : "176", "ConnID" : ConnID.toString(), "Message" : Message.toString()};
+		SendCommandToServer(cmd);
     },
 
     PlayShareVoice: function(Offset, Filename) {
-		/*
-        var strcommand = "{ \"Command\":\"177\" ,";
-        var filename = Filename.toString().replace(/\\/g, "\\\\");
-        strcommand += "\"Offset\": \"" + Offset + "\" ,";
-        strcommand += "\"Filename\": \"" + filename + "\"}";
-        SendCommandToServer(strcommand);
-		*/
-		var cmd = {"Command" : "177", "Offset" : Offset.toString(), "Filename" : Filename};
-		SendCommandToServer(JSON.stringify(cmd));
+		let cmd = {"Command" : "177", "Offset" : Offset.toString(), "Filename" : Filename};
+		SendCommandToServer(cmd);
     },
 
     StopShareVoice: function() {
-		/*
-        var strcommand = "{ \"Command\":\"178\" }";
-        SendCommandToServer(strcommand);
-		*/
-		var cmd = {"Command" : "178"};
-		SendCommandToServer(JSON.stringify(cmd));
+		let cmd = {"Command" : "178"};
+		SendCommandToServer(cmd);
     },
 
     PauseShareVoice: function() {
-		/*
-        var strcommand = "{ \"Command\":\"179\" }";
-        SendCommandToServer(strcommand);
-		*/
-		var cmd = {"Command" : "179"};
-		SendCommandToServer(JSON.stringify(cmd));
+		let cmd = {"Command" : "179"};
+		SendCommandToServer(cmd);
     },
 
     ResumeShareVoice: function(Offset) {
-		/*
-        var strcommand = "{ \"Command\":\"180\" ,";
-        strcommand += "\"Offset\": \"" + Offset + "\"}";
-        SendCommandToServer(strcommand);
-		*/
-		var cmd = {"Command" : "180", "Offset" : Offset.toString()};
-		SendCommandToServer(JSON.stringify(cmd));
+		let cmd = {"Command" : "180", "Offset" : Offset.toString()};
+		SendCommandToServer(cmd);
     },
 
     ChangeSpeedShareVoice: function(Speed) {
-		/*
-        var strcommand = "{ \"Command\":\"182\" ,";
-        strcommand += "\"Speed\": \"" + Speed + "\"}";
-        SendCommandToServer(strcommand);
-		*/
-		var cmd = {"Command" : "182", "Speed" : Speed.toString()};
-		SendCommandToServer(JSON.stringify(cmd));
+		let cmd = {"Command" : "182", "Speed" : Speed.toString()};
+		SendCommandToServer(cmd);
     },
 
     ChangeVolumeShareVoice: function(Volume) {
-		/*
-        var strcommand = "{ \"Command\":\"183\" ,";
-        strcommand += "\"Volume\": \"" + Volume + "\"}";
-        SendCommandToServer(strcommand);
-		*/
-		var cmd = {"Command" : "183", "Volume" : Volume.toString()};
-		SendCommandToServer(JSON.stringify(cmd));
+		let cmd = {"Command" : "183", "Volume" : Volume.toString()};
+		SendCommandToServer(cmd);
     },
 
     StopPlayGreeting: function() {
-		/*
-        var strcommand = "{ \"Command\":\"184\" }";
-        SendCommandToServer(strcommand);
-		*/
-		var cmd = {"Command" : "184"};
-		SendCommandToServer(JSON.stringify(cmd));
+		let cmd = {"Command" : "184"};
+		SendCommandToServer(cmd);
     },
 
     PlayCallEx: function(Offset, CallID) {
-		/*
-        var strcommand = "{ \"Command\":\"185\" ,";
-        strcommand += "\"Offset\": \"" + Offset + "\" ,";
-        strcommand += "\"CallID\": \"" + CallID + "\"}";
-        SendCommandToServer(strcommand);
-		*/
-		var cmd = {"Command" : "185", "Offset" : Offset.toString(), "CallID" : CallID.toString()};
-		SendCommandToServer(JSON.stringify(cmd));
+		let cmd = {"Command" : "185", "Offset" : Offset.toString(), "CallID" : CallID.toString()};
+		SendCommandToServer(cmd);
     },
 
     PlayFileEx: function(Offset, Filename) {
-		/*
-        var strcommand = "{ \"Command\":\"186\" ,";
-        strcommand += "\"Offset\": \"" + Offset + "\" ,";
-        filename = Filename.toString().replace(/\\/g, "\\\\");
-        strcommand += "\"Filename\": \"" + filename + "\"}";
-        SendCommandToServer(strcommand);
-		*/
-		var cmd = {"Command" : "186", "Offset" : Offset.toString(), "Filename" : Filename.toString()};
-		SendCommandToServer(JSON.stringify(cmd));
+		let cmd = {"Command" : "186", "Offset" : Offset.toString(), "Filename" : Filename.toString()};
+		SendCommandToServer(cmd);
     },
 
     PauseVoice: function() {
-		/*
-        var strcommand = "{ \"Command\":\"187\" }";
-        SendCommandToServer(strcommand);
-		*/
-		var cmd = {"Command" : "187"};
-		SendCommandToServer(JSON.stringify(cmd));
+		let cmd = {"Command" : "187"};
+		SendCommandToServer(cmd);
     },
 
     ResumeVoice: function(Offset) {
-		/*
-        var strcommand = "{ \"Command\":\"188\" ,";
-        strcommand += "\"Offset\": \"" + Offset + "\"}";
-        SendCommandToServer(strcommand);
-		*/
-		var cmd = {"Command" : "188", "Offset" : Offset.toString()};
-		SendCommandToServer(JSON.stringify(cmd));
+		let cmd = {"Command" : "188", "Offset" : Offset.toString()};
+		SendCommandToServer(cmd);
     },
 
     ChangeSpeedVoice: function(Speed) {
-		/*
-        var strcommand = "{ \"Command\":\"189\" ,";
-        strcommand += "\"Speed\": \"" + Speed + "\"}";
-        SendCommandToServer(strcommand);
-		*/
-		var cmd = {"Command" : "189", "Speed" : Speed.toString()};
-		SendCommandToServer(JSON.stringify(cmd));
+		let cmd = {"Command" : "189", "Speed" : Speed.toString()};
+		SendCommandToServer(cmd);
     },
 
     ChangeVolumeVoice: function(Volume) {
-		/*
-        var strcommand = "{ \"Command\":\"190\" ,";
-        strcommand += "\"Volume\": \"" + Volume + "\"}";
-        SendCommandToServer(strcommand);
-		*/
-		var cmd = {"Command" : "190", "Volume" : Volume.toString()};
-		SendCommandToServer(JSON.stringify(cmd));
+		let cmd = {"Command" : "190", "Volume" : Volume.toString()};
+		SendCommandToServer(cmd);
     },
 
     UpdateMediaHandleDateTime: function(CallID) {
-		/*
-        var strcommand = "{ \"Command\":\"191\" ,";
-        strcommand += "\"CallID\": \"" + CallID + "\"}";
-        SendCommandToServer(strcommand);
-		*/
-		var cmd = {"Command" : "191", "CallID" : CallID.toString()};
-		SendCommandToServer(JSON.stringify(cmd));
+		let cmd = {"Command" : "191", "CallID" : CallID.toString()};
+		SendCommandToServer(cmd);
     },
 
     RetrieveCallQueue: function(DeviceType, DeviceID, CallType) {
-		/*
-        var strcommand = "{ \"Command\":\"192\" ,";
-        strcommand += "\"DeviceType\": \"" + DeviceType + "\" ,";
-        strcommand += "\"DeviceID\": \"" + DeviceID + "\" ,";
-        strcommand += "\"CallType\": \"" + CallType + "\"}";
-        SendCommandToServer(strcommand);
-		*/
-		var cmd = {"Command" : "192", "DeviceType" : DeviceType.toString(), "DeviceID" : DeviceID.toString(), "CallType" : CallType.toString()};
-		SendCommandToServer(JSON.stringify(cmd));
+		let cmd = {"Command" : "192", "DeviceType" : DeviceType.toString(), "DeviceID" : DeviceID.toString(), "CallType" : CallType.toString()};
+		SendCommandToServer(cmd);
     },
 
     AcceptCallEx: function(CallType, ConnID) {
-		/*
-        var strcommand = "{ \"Command\":\"193\" ,";
-        strcommand += "\"CallType\": \"" + CallType + "\" ,";
-        strcommand += "\"ConnID\": \"" + ConnID + "\"}";
-        SendCommandToServer(strcommand);
-		*/
-		var cmd = {"Command" : "193", "CallType" : CallType, "ConnID" : ConnID};
-		SendCommandToServer(JSON.stringify(cmd));
+		let cmd = {"Command" : "193", "CallType" : CallType, "ConnID" : ConnID};
+		SendCommandToServer(cmd);
     },
 
     SetAgentData: function(Data) {
-		/*
-        var strcommand = "{ \"Command\":\"194\" ,";
-        strcommand += "\"Data\": \"" + Data + "\"}";
-        SendCommandToServer(strcommand);
-		*/
-		var cmd = {"Command" : "194", "Data" : Data.toString()};
-		SendCommandToServer(JSON.stringify(cmd));
+		let cmd = {"Command" : "194", "Data" : Data.toString()};
+		SendCommandToServer(cmd);
     },
 
     GetAgentDataCount: function(Data) {
-		/*
-        var strcommand = "{ \"Command\":\"195\" ,";
-        strcommand += "\"Data\": \"" + Data + "\"}";
-        SendCommandToServer(strcommand);
-		*/
-		var cmd = {"Command" : "195", "Data" : Data.toString()};
-		SendCommandToServer(JSON.stringify(cmd));
+		let cmd = {"Command" : "195", "Data" : Data.toString()};
+		SendCommandToServer(cmd);
     },
 
-    SendFaxExP_UC: function(UniqueID, PhoneNumber, CoverMsg, FaxFile, SendTo, Subject, Company, Coverfile, CaseID, ANI, Sender, Priority) {
-		/*
-        var faxFile = FaxFile.toString().replace(/\\/g, "\\\\");
-        var coverfile = Coverfile.toString().replace(/\\/g, "\\\\");
-        var strcommand = "{ \"Command\":\"196\" ,";
-        strcommand += "\"UniqueID\": \"" + UniqueID + "\" ,";
-        strcommand += "\"PhoneNumber\": \"" + PhoneNumber + "\" ,";
-        strcommand += "\"CoverMsg\": \"" + CoverMsg + "\" ,";
-        strcommand += "\"FaxFile\": \"" + faxFile + "\" ,";
-        strcommand += "\"SendTo\": \"" + SendTo + "\" ,";
-        strcommand += "\"Subject\": \"" + Subject + "\" ,";
-        strcommand += "\"Company\": \"" + Company + "\" ,";
-        strcommand += "\"Coverfile\": \"" + coverfile + "\" ,";
-        strcommand += "\"CaseID\": \"" + CaseID + "\" ,";
-        strcommand += "\"ANI\": \"" + ANI + "\" ,";
-        strcommand += "\"Sender\": \"" + Sender + "\" ,";
-        strcommand += "\"Priority\": \"" + Priority + "\"}";
-        SendCommandToServer(strcommand);
-		*/
-		var cmd = {"Command" : "196", "UniqueID" : UniqueID.toString(), "PhoneNumber" : PhoneNumber.toString(), "CoverMsg" : CoverMsg, "FaxFile" : FaxFile, 
+    SendFaxExP_UC: function(jsonData) {
+		const {UniqueID, PhoneNumber, CoverMsg, FaxFile, SendTo, Subject, Company, Coverfile, CaseID, ANI, Sender} = jsonData;
+		let cmd = {"Command" : "196", "UniqueID" : UniqueID.toString(), "PhoneNumber" : PhoneNumber.toString(), "CoverMsg" : CoverMsg, "FaxFile" : FaxFile, 
 			"SendTo" : SendTo, "Subject": Subject, "Company": Company, "Coverfile": Coverfile, "CaseID": CaseID.toString(), "ANI": ANI.toString(), 
-			"Sender": Sender.toString(), "Priority": Priority.toString()};
-		SendCommandToServer(JSON.stringify(cmd));
+			"Sender": Sender.toString(), "Priority": "1"};
+		SendCommandToServer(cmd);
     },
 
-    SendEmail_UC: function(Recipient, CC, BCC, Sender, Subject, AttachedFile, CaseID, ANI, BodyType, ContentMsg) {
-		/*
-        var attachedFile = AttachedFile.toString().replace(/\\/g, "\\\\");
-        var strcommand = "{ \"Command\":\"197\" ,";
-        strcommand += "\"Recipient\": \"" + Recipient + "\" ,";
-        strcommand += "\"CC\": \"" + CC + "\" ,";
-        strcommand += "\"BCC\": \"" + BCC + "\" ,";
-        strcommand += "\"Sender\": \"" + Sender + "\" ,";
-        strcommand += "\"Subject\": \"" + Subject + "\" ,";
-        strcommand += "\"AttachedFile\": \"" + attachedFile + "\" ,";
-        strcommand += "\"CaseID\": \"" + CaseID + "\" ,";
-        strcommand += "\"ANI\": \"" + ANI + "\" ,";
-        strcommand += "\"BodyType\": \"" + BodyType + "\" ,";
-        strcommand += "\"ContentMsg\": \"" + ContentMsg + "\"}";
-        SendCommandToServer(strcommand);
-		*/
-		var cmd = {"Command" : "197", "Recipient" : Recipient.toString(), "CC" : CC.toString(), "BCC" : BCC, "Sender" : Sender, 
+    SendEmail_UC: function(jsonData) {
+		const {Recipient, CC, BCC, Sender, Subject, AttachedFile, CaseID, ANI, BodyType, ContentMsg} = jsonData;
+		let cmd = {"Command" : "197", "Recipient" : Recipient.toString(), "CC" : CC.toString(), "BCC" : BCC, "Sender" : Sender, 
 			"Subject": Subject, "AttachedFile": AttachedFile, "CaseID": CaseID.toString(), "ANI": ANI.toString(), 
 			"BodyType": BodyType.toString(), "ContentMsg": ContentMsg.toString()};
-		SendCommandToServer(JSON.stringify(cmd));
+		SendCommandToServer(cmd);
     },
 
     AddRecourse_UC: function(RecourseInfo) {
-		/*
-        var strcommand = "{ \"Command\":\"198\" ,";
-        strcommand += "\"RecourseInfo\": \"" + RecourseInfo + "\"}";
-        SendCommandToServer(strcommand);
-		*/
-		var cmd = {"Command" : "198", "RecourseInfo" : RecourseInfo.toString()};
-		SendCommandToServer(JSON.stringify(cmd));
+		let cmd = {"Command" : "198", "RecourseInfo" : RecourseInfo.toString()};
+		SendCommandToServer(cmd);
     },
 
     SendSMS_UC: function(DNIS, ANI, CaseID, ReplyID, Message) {
-		/*
-        var strcommand = "{ \"Command\":\"200\" ,";
-        strcommand += "\"DNIS\": \"" + DNIS + "\" ,";
-        strcommand += "\"ANI\": \"" + ANI + "\" ,";
-        strcommand += "\"CaseID\": \"" + CaseID + "\" ,";
-        strcommand += "\"ReplyID\": \"" + ReplyID + "\" ,";
-        strcommand += "\"Message\": \"" + Message + "\"}";
-        SendCommandToServer(strcommand);
-		*/
-		var cmd = {"Command" : "200", "DNIS" : DNIS.toString(), "ANI" : ANI.toString(), "CaseID" : CaseID.toString(), "ReplyID" : ReplyID.toString(), "Message" : Message.toString()};
-		SendCommandToServer(JSON.stringify(cmd));
+		let cmd = {"Command" : "200", "DNIS" : DNIS.toString(), "ANI" : ANI.toString(), "CaseID" : CaseID.toString(), "ReplyID" : ReplyID.toString(), "Message" : Message.toString()};
+		SendCommandToServer(cmd);
     },
 
     SendMessage_UC: function(DeviceType, DeviceID, Message) {
-		/*
-        var strcommand = "{ \"Command\":\"201\" ,";
-        strcommand += "\"DeviceType\": \"" + DeviceType + "\" ,";
-        strcommand += "\"DeviceID\": \"" + DeviceID + "\" ,";
-        strcommand += "\"Message\": \"" + Message + "\"}";
-        SendCommandToServer(strcommand);
-		*/
-		var cmd = {"Command" : "201", "DeviceType" : DeviceType.toString(), "DeviceID" : DeviceID.toString(), "Message" : Message.toString()};
-		// var cmd = {"Command" : "201", "DeviceType" : DeviceType.toString(), "DeviceID" : DeviceID.toString(), "Message" : Message.toString()};
-		SendCommandToServer(JSON.stringify(cmd));
+		let cmd = {"Command" : "201", "DeviceType" : DeviceType.toString(), "DeviceID" : DeviceID.toString(), "Message" : Message.toString()};
+		SendCommandToServer(cmd);
     },
 
-    SendBlogMsg: function(CommentonID, Sender, SendTo, PictureUrl, VideoUrl, VoiceUrl, ANI, ContentMsg) {
-		/*
-        var strcommand = "{ \"Command\":\"204\" ,";
-        strcommand += "\"CommentonID\": \"" + CommentonID + "\" ,";
-        strcommand += "\"Sender\": \"" + Sender + "\" ,";
-        strcommand += "\"SendTo\": \"" + SendTo + "\" ,";
-        strcommand += "\"PictureUrl\": \"" + PictureUrl + "\" ,";
-        strcommand += "\"VideoUrl\": \"" + VideoUrl + "\" ,";
-        strcommand += "\"VoiceUrl\": \"" + VoiceUrl + "\" ,";
-        strcommand += "\"ANI\": \"" + ANI + "\" ,";
-        strcommand += "\"ContentMsg\": \"" + ContentMsg + "\"}";
-        SendCommandToServer(strcommand);
-		*/
-		var cmd = {"Command" : "204", "CommentonID" : CommentonID.toString(), "Sender" : Sender.toString(), "SendTo" : SendTo.toString()
+    SendBlogMsg: function(jsonData) {
+		const { CommentonID, Sender, SendTo, PictureUrl, VideoUrl, VoiceUrl, ANI, ContentMsg } = jsonData;
+		let cmd = {"Command" : "204", "CommentonID" : CommentonID.toString(), "Sender" : Sender.toString(), "SendTo" : SendTo.toString()
 		, "PictureUrl" : PictureUrl.toString(), "VideoUrl" : VideoUrl.toString(), "VoiceUrl" : VoiceUrl.toString(), "ANI" : ANI.toString(), "ContentMsg" : ContentMsg.toString()};
-		SendCommandToServer(JSON.stringify(cmd));
+		SendCommandToServer(cmd);
     },
 
     GetLogonAgent: function() {
-		/*
-        var strcommand = "{ \"Command\":\"205\" }";
-        SendCommandToServer(strcommand);
-		*/
-		var cmd = {"Command" : "205"};
-		SendCommandToServer(JSON.stringify(cmd));
+		let cmd = {"Command" : "205"};
+		SendCommandToServer(cmd);
     },
 
     GetGroupMemberEx: function(groupID) {
-		/*
-        var strcommand = "{ \"Command\":\"206\" ,";
-        strcommand += "\"GroupID\": \"" + groupID + "\"}";
-        SendCommandToServer(strcommand);
-		*/
-		var cmd = {"Command" : "206", "GroupID" : groupID.toString()};
-		SendCommandToServer(JSON.stringify(cmd));
+		let cmd = {"Command" : "206", "GroupID" : groupID.toString()};
+		SendCommandToServer(cmd);
     },
 
     InactiveStatusTime: function(StatusID, InactiveTime) {
-		/*
-        var strcommand = "{ \"Command\":\"208\" ,";
-        strcommand += "\"StatusID\": \"" + StatusID + "\" ,";
-        strcommand += "\"InactiveTime\": \"" + InactiveTime + "\"}";
-        SendCommandToServer(strcommand);
-		*/
-		var cmd = {"Command" : "208", "StatusID" : StatusID.toString(), "InactiveTime" : InactiveTime.toString()};
-		SendCommandToServer(JSON.stringify(cmd));
+		let cmd = {"Command" : "208", "StatusID" : StatusID.toString(), "InactiveTime" : InactiveTime.toString()};
+		SendCommandToServer(cmd);
     },
 
     SetEnableRecording: function(ConnID, ActionID) {
-		/*
-        var strcommand = "{ \"Command\":\"209\" ,";
-        strcommand += "\"ConnID\": \"" + ConnID + "\" ,";
-        strcommand += "\"ActionID\": \"" + ActionID + "\"}";
-        SendCommandToServer(strcommand);
-		*/
-		var cmd = {"Command" : "209", "ConnID" : ConnID.toString(), "ActionID" : ActionID.toString()};
-		SendCommandToServer(JSON.stringify(cmd));
+		let cmd = {"Command" : "209", "ConnID" : ConnID.toString(), "ActionID" : ActionID.toString()};
+		SendCommandToServer(cmd);
     },
 	
 	GetTicket: function(company_code, assign_to, status, enduser_id, offset, count) {
-		/*
-		var strcommand = "{ \"Command\":\"210\", ";
-		strcommand += "\"company_code\": \"" + company_code + "\", ";
-		strcommand += "\"assign_to\": \"" + assign_to + "\", ";		
-		strcommand += "\"status\": \"" + status + "\", ";		 
-		strcommand += "\"enduser_id\": \"" + enduser_id + "\", ";
-		strcommand += "\"offset\": \"" + offset + "\", ";		 
-		strcommand += "\"count\": \"" + count + "\"}";	
-		SendCommandToServer(strcommand);
-		*/
-		var cmd = {"Command" : "210", "company_code" : company_code.toString(), "assign_to" : assign_to.toString(), "status" : status.toString(), "enduser_id" : enduser_id.toString()
+		let cmd = {"Command" : "210", "company_code" : company_code.toString(), "assign_to" : assign_to.toString(), "status" : status.toString(), "enduser_id" : enduser_id.toString()
 		, "offset" : offset.toString(), "count" : count.toString()};
-		SendCommandToServer(JSON.stringify(cmd));
+		SendCommandToServer(cmd);
 	},
 	
     GetTicketMsg: function(ticket_id) {
-		/*
-        var strcommand = "{ \"Command\":\"211\" ,";
-        strcommand += "\"ticket_id\": \"" + ticket_id + "\"}";
-        SendCommandToServer(strcommand);
-		*/
-		var cmd = {"Command" : "211", "ticket_id" : ticket_id.toString()};
-		SendCommandToServer(JSON.stringify(cmd));
+		let cmd = {"Command" : "211", "ticket_id" : ticket_id.toString()};
+		SendCommandToServer(cmd);
 	},
 
     UpdateTicket: function(ticket_id, assign_to) {
-		/*
-        var strcommand = "{ \"Command\":\"212\" ,";
-        strcommand += "\"ticket_id\": \"" + ticket_id + "\" ,";
-        strcommand += "\"assign_to\": \"" + assign_to + "\"}";		
-        SendCommandToServer(strcommand);
-		*/
-		var cmd = {"Command" : "212", "ticket_id" : ticket_id.toString(), "assign_to" : assign_to.toString()};
-		SendCommandToServer(JSON.stringify(cmd));
+		let cmd = {"Command" : "212", "ticket_id" : ticket_id.toString(), "assign_to" : assign_to.toString()};
+		SendCommandToServer(cmd);
 	},
 
 	SendMsgToConnector: function(ticket_id, msg_id, complete_msg_id, msg_text) {
-		/*
-        var strcommand = "{ \"Command\":\"213\" ,";
-        strcommand += "\"ticket_id\": \"" + ticket_id + "\" ,";
-        strcommand += "\"msg_id\": \"" + msg_id + "\" ,";	
-        strcommand += "\"complete_msg_id\": \"" + complete_msg_id + "\" ,";			
-        strcommand += "\"message\": { \"msg_text\": \"" + msg_text + "\"}}" ;			
-        SendCommandToServer(strcommand);
-		*/
-		//console.log(complete_msg_id);
-		var cmd = {"Command" : "213", "ticket_id" : ticket_id.toString(), "msg_id" : msg_id, "complete_msg_id" : complete_msg_id
+		let cmd = {"Command" : "213", "ticket_id" : ticket_id.toString(), "msg_id" : msg_id, "complete_msg_id" : complete_msg_id
 		, "message":{"msg_text" : msg_text.toString()}};
-		SendCommandToServer(JSON.stringify(cmd));
+		SendCommandToServer(cmd);
 	},
 
 	AssignToChatRoom: function(ticket_id, assign_to, action) {
-		/*
-        var strcommand = "{ \"Command\":\"214\" ,";
-        strcommand += "\"ticket_id\": \"" + ticket_id + "\" ,";
-        strcommand += "\"assign_to\": \"" + assign_to + "\" ,";			
-        strcommand += "\"action\": \"" + action + "\"}";		
-        SendCommandToServer(strcommand);
-		*/
-		var cmd = {"Command" : "214", "ticket_id" : ticket_id.toString(), "assign_to" : assign_to.toString(), "action" : action.toString()};
-		SendCommandToServer(JSON.stringify(cmd));
+		let cmd = {"Command" : "214", "ticket_id" : ticket_id.toString(), "assign_to" : assign_to.toString(), "action" : action.toString()};
+		SendCommandToServer(cmd);
 	},
 	
 	GetEndUserInfo : function(agent_id, enduser_id) {
-		/*
-        var strcommand = "{ \"Command\":\"216\" ,";
-        strcommand += "\"agent_id\": \"" + agent_id + "\" ,";		
-        strcommand += "\"enduser_id\": \"" + enduser_id + "\"}";		
-        SendCommandToServer(strcommand);
-		*/
-		var cmd = {"Command" : "216", "agent_id" : agent_id.toString(), "enduser_id" : enduser_id.toString()};
-		SendCommandToServer(JSON.stringify(cmd));
+		let cmd = {"Command" : "216", "agent_id" : agent_id.toString(), "enduser_id" : enduser_id.toString()};
+		SendCommandToServer(cmd);
 	},
 	
 	UpdateEndUserInfo : function(agent_id, enduser_id, name, company_code, gender, birthday, remark) {
-		/*
-        var strcommand = "{ \"Command\":\"217\" ,";
-        strcommand += "\"agent_id\": \"" + agent_id + "\" ,";
-        strcommand += "\"enduser_id\": \"" + enduser_id + "\" ,";
-        strcommand += "\"name\": \"" + name + "\" ,";
-        strcommand += "\"company_code\": \"" + company_code + "\" ,";
-        strcommand += "\"gender\": \"" + gender + "\" ,";
-        strcommand += "\"birthday\": \"" + birthday + "\" ,";		
-        strcommand += "\"remark\": \"" + remark + "\"}";		
-        SendCommandToServer(strcommand);
-		*/
-		var cmd = {"Command" : "217", "agent_id" : agent_id.toString(), "enduser_id" : enduser_id.toString(), "name" : name.toString(), "company_code" : company_code.toString()
+		let cmd = {"Command" : "217", "agent_id" : agent_id.toString(), "enduser_id" : enduser_id.toString(), "name" : name.toString(), "company_code" : company_code.toString()
 		, "gender" : gender.toString(), "birthday" : birthday.toString(), "remark" : remark.toString()};
-		SendCommandToServer(JSON.stringify(cmd));
+		SendCommandToServer(cmd);
 	},
 
     CompleteTicket : function(ticket_id) {
-		/*
-        var strcommand = "{ \"Command\":\"218\" ,";
-        strcommand += "\"ticket_id\": \"" + ticket_id + "\"}";
-        SendCommandToServer(strcommand);
-		*/
-		var cmd = {"Command" : "218", "ticket_id" : ticket_id.toString()};
-		SendCommandToServer(JSON.stringify(cmd));
+		let cmd = {"Command" : "218", "ticket_id" : ticket_id.toString()};
+		SendCommandToServer(cmd);
 	},
 	
 	SendFileToConnector: function(ticket_id, msg_id, complete_msg_id, filepath) {
-		/*
-		var strcommand = "{ \"Command\":\"219\" ,";
-        strcommand += "\"ticket_id\": \"" + ticket_id + "\" ,";
-        strcommand += "\"msg_id\": \"" + msg_id + "\" ,";	
-        strcommand += "\"complete_msg_id\": \"" + complete_msg_id + "\" ,";			
-        strcommand += "\"message\": { \"filepath\": \"" + filepath.replace(/\\/g, "\\\\") + "\"} }";
-		SendCommandToServer(strcommand);
-		*/
-		var cmd ={ "Command":"219", "ticket_id": ticket_id.toString(), "msg_id" : msg_id, "complete_msg_id": complete_msg_id, "message" : {"filepath" : filepath} };
-		SendCommandToServer(JSON.stringify(cmd));
+		let cmd ={ "Command":"219", "ticket_id": ticket_id.toString(), "msg_id" : msg_id, "complete_msg_id": complete_msg_id, "message" : {"filepath" : filepath} };
+		SendCommandToServer(cmd);
 	},
 
 	InviteAgentToChat  : function(agent_id, ticket_id, msg_content) {
-		/*
-        var strcommand = "{ \"Command\":\"220\" ,";
-        strcommand += "\"agent_id\": \"" + agent_id + "\" ,";	
-        strcommand += "\"ticket_id\": \"" + ticket_id + "\" ,";		
-        strcommand += "\"msg_content\": \"" + msg_content + "\"}";		
-        SendCommandToServer(strcommand);
-		*/
-		var cmd = {"Command" : "220", "ticket_id" : ticket_id, "agent_id" : agent_id, "msg_content" : msg_content.toString()};
-		SendCommandToServer(JSON.stringify(cmd));
+		let cmd = {"Command" : "220", "ticket_id" : ticket_id, "agent_id" : agent_id, "msg_content" : msg_content.toString()};
+		SendCommandToServer(cmd);
 	},
 	
 	GetFaceBookPost   : function(agent_id, ticket_id) {
-		/*
-        var strcommand = "{ \"Command\":\"221\" ,";
-        strcommand += "\"agent_id\": \"" + agent_id + "\" ,";		
-        strcommand += "\"ticket_id\": \"" + ticket_id + "\"}";		
-        SendCommandToServer(strcommand);
-		*/
-		var cmd = {"Command" : "221", "ticket_id" : ticket_id, "agent_id" : agent_id};
-		SendCommandToServer(JSON.stringify(cmd));
+		let cmd = {"Command" : "221", "ticket_id" : ticket_id, "agent_id" : agent_id};
+		SendCommandToServer(cmd);
 	},
 
 	SendFaceBookComment    : function(ticket_id, msg_text) {
-		/*
-        var strcommand = "{ \"Command\":\"222\" ,";
-        strcommand += "\"ticket_id\": \"" + ticket_id + "\" ,";		
-        strcommand += "\"message\": { \"msg_text\": \"" + msg_text + "\"}}";		
-        SendCommandToServer(strcommand);
-		*/
-		var cmd = {"Command" : "222", "ticket_id" : ticket_id.toString(), "message": {"msg_text": msg_text}};
-		SendCommandToServer(JSON.stringify(cmd));
+		let cmd = {"Command" : "222", "ticket_id" : ticket_id.toString(), "message": {"msg_text": msg_text}};
+		SendCommandToServer(cmd);
 	},
 
 	GetAgentTicketList    : function(agent_id) {
-		/*
-        var strcommand = "{ \"Command\":\"223\" ,";	
-        strcommand += "\"agent_id\": \"" + agent_id + "\"}";		
-        SendCommandToServer(strcommand);
-		*/
-		var cmd = {"Command" : "223", "agent_id" : agent_id.toString()};
-		SendCommandToServer(JSON.stringify(cmd));
+		let cmd = {"Command" : "223", "agent_id" : agent_id.toString()};
+		SendCommandToServer(cmd);
 	},
 	
 	GetOnlineForm     : function(ticket_id) {
-		/*
-        var strcommand = "{ \"Command\":\"224\" ,";	
-        strcommand += "\"ticket_id\": \"" + ticket_id + "\"}";		
-        SendCommandToServer(strcommand);
-		*/
-		var cmd = {"Command" : "224", "ticket_id" : ticket_id.toString()};
-		SendCommandToServer(JSON.stringify(cmd));
+		let cmd = {"Command" : "224", "ticket_id" : ticket_id.toString()};
+		SendCommandToServer(cmd);
 	},
 
 	GetOfflineForm     : function(ticket_id) {
-		/*
-        var strcommand = "{ \"Command\":\"225\" ,";	
-        strcommand += "\"ticket_id\": \"" + ticket_id + "\"}";		
-        SendCommandToServer(strcommand);
-		*/
-		var cmd = {"Command" : "225", "ticket_id" : ticket_id.toString()};
-		SendCommandToServer(JSON.stringify(cmd));
+		let cmd = {"Command" : "225", "ticket_id" : ticket_id.toString()};
+		SendCommandToServer(cmd);
 	},
 	
 	GetUpperLevelComment      : function(msg_id) {
-		/*
-        var strcommand = "{ \"Command\":\"228\" ,";	
-        strcommand += "\"msg_id\": \"" + msg_id + "\"}";		
-        SendCommandToServer(strcommand);
-		*/
-		var cmd = {"Command" : "228", "msg_id" : msg_id.toString()};
-		SendCommandToServer(JSON.stringify(cmd));
+		let cmd = {"Command" : "228", "msg_id" : msg_id.toString()};
+		SendCommandToServer(cmd);
 	},
 	
 	GetSameLevelComment    : function(msg_id, count, mode) {
-		/*
-        var strcommand = "{ \"Command\":\"229\" ,";
-        strcommand += "\"msg_id\": \"" + msg_id + "\" ,";	
-        strcommand += "\"count\": \"" + count + "\" ,";			
-        strcommand += "\"mode\": \"" + mode + "\"}";		
-        SendCommandToServer(strcommand);
-		*/
-		var cmd = {"Command" : "229", "msg_id" : msg_id.toString(), "count" : count.toString(), "mode" : mode.toString()};
-		SendCommandToServer(JSON.stringify(cmd));
+		let cmd = {"Command" : "229", "msg_id" : msg_id.toString(), "count" : count.toString(), "mode" : mode.toString()};
+		SendCommandToServer(cmd);
 	},
 	
 	GetSameLevelReply     : function(msg_id, count, mode) {
-		/*
-        var strcommand = "{ \"Command\":\"230\" ,";
-        strcommand += "\"msg_id\": \"" + msg_id + "\" ,";	
-        strcommand += "\"count\": \"" + count + "\" ,";			
-        strcommand += "\"mode\": \"" + mode + "\"}";		
-        SendCommandToServer(strcommand);
-		*/
-		var cmd = {"Command" : "230", "msg_id" : msg_id.toString(), "count" : count.toString(), "mode" : mode.toString()};
-		SendCommandToServer(JSON.stringify(cmd));
+		let cmd = {"Command" : "230", "msg_id" : msg_id.toString(), "count" : count.toString(), "mode" : mode.toString()};
+		SendCommandToServer(cmd);
 	},
 
 	SetAgentStatus     : function(agent_id, StatusID, mode) {
-		/*
-        var strcommand = "{ \"Command\":\"231\" ,";
-        strcommand += "\"agent_id\": \"" + agent_id + "\" ,";	
-        strcommand += "\"StatusID\": \"" + StatusID + "\" ,";			
-        strcommand += "\"mode\": \"" + mode + "\"}";		
-        SendCommandToServer(strcommand);
-		*/
-		var cmd = {"Command" : "231", "agent_id" : agent_id.toString(), "StatusID" : StatusID.toString(), "mode" : mode.toString()};
-		SendCommandToServer(JSON.stringify(cmd));
+		let cmd = {"Command" : "231", "agent_id" : agent_id.toString(), "StatusID" : StatusID.toString(), "mode" : mode.toString()};
+		SendCommandToServer(cmd);
 	},
 
 	SendCSInputtingState : function(agent_id, ticket_id ) {
-		var cmd = {"Command" : "232", "agent_id" : String(agent_id), "ticket_id" : String(ticket_id)}
-		SendCommandToServer(JSON.stringify(cmd));
+		let cmd = {"Command" : "232", "agent_id" : String(agent_id), "ticket_id" : String(ticket_id)}
+		SendCommandToServer(cmd);
 	},
 
 	SendTemplateMsg     : function(company_code, To, TP_id, props, BlogType) {
-		var cmd = {"Command" : "233", "company_code" : company_code, "To" : String(To), "TP_id" : TP_id, "props" : props, "BlogType" : BlogType};
-		SendCommandToServer(JSON.stringify(cmd));
+		let cmd = {"Command" : "233", "company_code" : company_code, "To" : String(To), "TP_id" : TP_id, "props" : props, "BlogType" : BlogType};
+		SendCommandToServer(cmd);
 	},
 	GetLogonAgentEx      : function() {
-		var cmd = {"Command" : "237"};
-		SendCommandToServer(JSON.stringify(cmd));
+		let cmd = {"Command" : "237"};
+		SendCommandToServer(cmd);
 	},
 	LoginEx : function(agentID, password, terminal, subTerminal, phone, agentTerminal) {
-		var cmd = {"Command" : "238", "agentID" : agentID.toString(), "Password" : password, "Terminal" : terminal, "Sub_Terminal" : subTerminal, "Phone" : phone, "AgentTerminal" : agentTerminal};
-		SendCommandToServer(JSON.stringify(cmd));
+		let cmd = {"Command" : "238", "agentID" : agentID.toString(), "Password" : password, "Terminal" : terminal, "Sub_Terminal" : subTerminal, "Phone" : phone, "AgentTerminal" : agentTerminal};
+		SendCommandToServer(cmd);
 	}
 	
 }
@@ -1526,71 +1195,72 @@ var wsWiseAgent = {
 //		JSON Command to be sent to server --- End
 //=====================================================================================================		
 
-			// Create custom event in Javascript library
-		function addEventListener(el, eventName, handler) 
+		// Create custom event in Javascript library
+	function addEventListener(el, eventName, handler) 
+	{
+		if (el.addEventListener) 
 		{
-		  if (el.addEventListener) 
-		  {
-			el.addEventListener(eventName, handler);
-		  } 
-		}
-
-		function triggerEvent(el, eventName, options) 
+		el.addEventListener(eventName, handler);
+		} 
+	}
+		
+	function triggerEvent(el, eventName, options) 
+	{
+		/*	Tiger 2025-04-11
+		let event; let isIE = document.documentMode;
+		if (window.CustomEvent) 
 		{
-		  //var event;var isIE = /*@cc_on!@*/false || !!document.documentMode;
-		  var event;var isIE = !!document.documentMode;		// 20250320		Unexpected constant truthiness on the left-hand side of a `||` expression.
-		  if (window.CustomEvent) 
-		  {
-			//var is_IE_11 = !(window.ActiveXObject) && "ActiveXObject" in window;
-			if(isIE){
-				event = document.createEvent('CustomEvent');
-				event.initCustomEvent(eventName, true, true, options);
-
-			}
-			else
-				event = new CustomEvent(eventName, {detail:options});
-			
-		  } 
-		  else 
-		  {
+		if(isIE){
 			event = document.createEvent('CustomEvent');
 			event.initCustomEvent(eventName, true, true, options);
-		  }
-		  el.dispatchEvent(event);
+
 		}
+		else
+			event = new CustomEvent(eventName, {detail:options});
+			
+		} 
+		else 
+		{
+		event = document.createEvent('CustomEvent');
+		event.initCustomEvent(eventName, true, true, options);
+		}
+		*/
+		let event = new CustomEvent(eventName, {detail:options});
+		el.dispatchEvent(event);
+	}
 
-		
-
-
-		function SendCommandToServer(StrCommand, tryCount){
-			//console.log(StrCommand);
-			//if (typeof ws === null){ // phone.html not connected to agent server yet, ws is null		//20250320  Unexpected constant binary expression. Compares constantly with the right-hand side of the `===`.
-			if (ws === null)		
-			{
+		function SendCommandToServer(jsonCmd, tryCount)
+		{
+			delete wsWiseAgent.commandResult[jsonCmd.Command];
+			let StrCommand = JSON.stringify(jsonCmd);
+			if (wsWiseAgent.ws == null){ // phone.html not connected to agent server yet, ws is null
 				if (typeof tryCount=='undefined'){tryCount=0;}
 				if (tryCount<4){ // retry 3 times
 					tryCount+=1;
-					setTimeout(function(){SendCommandToServer(p.StrCommand,p.tryCount)}.bind(this,{StrCommand:StrCommand,tryCount:tryCount}),1000)
+					setTimeout(function (p) { SendCommandToServer(p.jsonCmd, p.tryCount) }.bind(this, {jsonCmd: jsonCmd,tryCount: tryCount}),1000)
 				}
 			}
-			else if ( ws.readyState ==1){
-				ws.send(StrCommand);	
+			else if ( wsWiseAgent.ws.readyState ==1){
+				wsWiseAgent.ws.send(StrCommand);	
 			}
-			else if ( ws.readyState ==0){
+			else if (wsWiseAgent.ws.readyState == 0) {
+				//
 			}
-			else if ( ws.readyState ==2){
+			else if (wsWiseAgent.ws.readyState == 2) {
+				//
 			}
-			else if ( ws.readyState ==3){
+			else if (wsWiseAgent.ws.readyState == 3) {
+				//
 			}
 		}
 		function retryLogin(){
-			var userName=localStorage.getItem("userName");
-			var pass = sessionStorage.getItem("pass");
-			var machineName = localStorage.getItem("machineName");
+			let userName=localStorage.getItem("userName");
+			let pass = sessionStorage.getItem("pass");
 			wsWiseAgent.Login(userName,pass, "");
 			
 		}
-		function CommandHexToDescription(strNum){
+		function CommandHexToDescription(strNum) {
+			let errMsg = "";
 			switch(strNum){		
 			case "80040500":
 				errMsg="Server already login the system";
@@ -1654,13 +1324,13 @@ var wsWiseAgent = {
 				errMsg="Exceed Agent License";
 				break;
 			default :
-				//console.log(strNum);
 				errMsg =strNum;
 			}
 			return errMsg	
 		}
+		/*	Tiger 2025-04-11
 		function CommandIntToDescription(cNum){
-			var str ;
+			let str ;
 			switch(cNum){
 				case 0:
 					str = "Fail";
@@ -2128,7 +1798,7 @@ var wsWiseAgent = {
 			str += " OK"
 			return str
 		}
-	 
+		*/ 
     
 		
 	

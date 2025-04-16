@@ -294,13 +294,13 @@ function uploadTpFile(campaign, whatsappNo, index, tpPropsArr, input) {
         } else {
             var fileDetails = response.data[0];
             // TBD do it jsut because hard coded, asked Tiger to be not hard code on 2021-06-01
-            //if (config.isHttps) {     //20250411 should not be currently used which is replaced by fileDetails.FileUrl 
+            //if (config.isHttps) {     //20250411 should not be currently used which is replaced by fileDetails.FileUrl
             //    voiceUrl = voiceUrl.replace(voiceUrl.substr(0,voiceUrl.indexOf("/wisepbx/")), wiseHost);
             //}
             // /TBD
 
-            //12/7/2021 Raymond add prefix http:// 
-            fileDetails.FileUrl = 'http://' + fileDetails.FileUrl;
+            //12/7/2021 Raymond add prefix http://
+            //fileDetails.FileUrl = 'http://' + fileDetails.FileUrl;    //20250416 Using http protocol is insecure. Use https instead.
 
             var fileStr = (fileDetails.FilePath + ',' + fileDetails.FileUrl);
             var crmProps = [fileDetails.FileUrl].concat(tpPropsArr.slice())

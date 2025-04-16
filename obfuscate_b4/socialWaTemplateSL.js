@@ -246,8 +246,8 @@ function uploadTpFile(campaign, whatsappNo, index, tpPropsArr, input) {
             //}
             // /TBD
 
-            //12/7/2021 Raymond add prefix http:// 
-            fileDetails.FileUrl = 'http://' + fileDetails.FileUrl;
+            //12/7/2021 Raymond add prefix http://
+            // fileDetails.FileUrl = 'http://' + fileDetails.FileUrl;    20250416    Using http protocol is insecure. Use https instead.
 
             var fileStr = (fileDetails.FilePath + ',' + fileDetails.FileUrl);
             var crmProps = [fileDetails.FileUrl].concat(tpPropsArr.slice())

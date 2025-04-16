@@ -489,9 +489,9 @@ function uploadAttachment(input, ticketId) {
         } else {
             var fileDetails = response.data[0];
             var fileUrl = fileDetails.FileUrl;
-            if (!fileUrl.includes('http')) {
-                fileUrl = ('http://' + fileUrl)
-            }
+            //if (!fileUrl.includes('http')) {      20250416 Using http protocol is insecure. Use https instead.
+                //fileUrl = fileUrl)  //
+            //}
 
             // as file spent too much time to deliver and return to us that is successuflly, so want to create the bubble first
             if (entry != 'fb_comment') {

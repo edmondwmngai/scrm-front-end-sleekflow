@@ -269,8 +269,8 @@ function previewPhoto(input) {
         var reader = new FileReader();
         reader.onload = function (e) {
             // upload photo
-            var fileUpload = $("#file-to-upload").get(0);
-            var fileUploadFiles = fileUpload.files;
+          //var fileUpload = $("#file-to-upload").get(0);       20250416 Remove the declaration of the unused 'fileUpload' & 'fileUploadFiles' variable.
+          //var fileUploadFiles = fileUpload.files;
             var fileData = new FormData();
             fileData.append("Photo_File", photoFile);
             fileData.append('Customer_Id', customerId);
@@ -934,7 +934,7 @@ var replySubmitClicked = function () {
                 '<b>To: </b>' + (preview.find('#to').html() || '') + '&#13;&#10;<br />' +
                 '<b>Subject: </b>' + (preview.find('#subject').html() || '') + '&#13;&#10;<br />' +
                 (preview.find('#content').html() || '') : '';
-            var emailFileStr = "emailFile";
+          //var emailFileStr = "emailFile";             // 20250416 Remove the declaration of the unused 'emailFileStr' variable.
             var emailFileTriggerStr = "$('#upload-emailFile').trigger('click');"
             var emailFileUploadStr = 'uploadAttachment(this,"emailFile");'
             var replyCardStr = '<div id="reply-card" class="my-2 bg-light mb-4 rounded-2 py-5 px-3 py-3"><div class="text-center mb-3 bg-info rounded text-white"><h5 class="mt-0 mb-0">Send Email</h5></div><div class="row d-flex align-items-center">' +
@@ -1191,10 +1191,10 @@ function windowOnload() {
     var _Fax_No = document.getElementById('Fax_No');
     var _Email = document.getElementById('Email');
     // a tag fields
-    var tMobile = document.getElementById('tMobile_No')
+ /* var tMobile = document.getElementById('tMobile_No')         //20250416  Remove the declaration of the unused 'tMobile' variable.
     var tOther_Phone_No = document.getElementById('tOther_Phone_No');
     var tFax_No = document.getElementById('tFax_No');
-    var tEmail = document.getElementById('tEmail');
+    var tEmail = document.getElementById('tEmail'); */
     // Update editable text field
     _Mobile_No.value = Mobile_No;
     _Other_Phone_No.value = Other_Phone_No;
@@ -1386,7 +1386,7 @@ function windowOnload() {
         $('#scheduled-reminder').show();
     }
     // Add send WA reply
-    var functions = parent.functions;
+    // var functions = parent.functions;        //20250416 Remove the declaration of the unused 'functions' variable.
     // var canSendWA = (functions.indexOf('Form-WA-TP') != -1) || false;
     // if(canSendWA){
     //     var waRadioStr = '<div class="form-check ms-3">'+
@@ -1565,7 +1565,7 @@ function updateClicked(isTemp) {
                     default:
                         break;
                 }
-                var replyChoice = document.getElementById('.' + '_edit');
+              //var replyChoice = document.getElementById('.' + '_edit');     // 20250416 Remove the declaration of the unused 'replyChoice' variable.
                 if (value != null && value.length > 0) {
                     $('.c' + fieldId).show();
                 } else {
@@ -1573,6 +1573,7 @@ function updateClicked(isTemp) {
                 }
             }
             // Update system tools
+            /*  //  20250416 Remove the declaration of the unused variable.
             var repeatedCustomer = document.getElementById('repeated-customer');
             var difficultCustomer = document.getElementById('difficult-customer');
             var repeatedCaller = document.getElementById('repeated-caller');
@@ -1582,6 +1583,7 @@ function updateClicked(isTemp) {
             var difficultCustomerHeaderDisplay = $('#difficult-customer-header', window.parent.document).css('display')
             var repeatedCallerrHeaderDisplay = $('#repeated-caller-header', window.parent.document).css('display')
             var difficultCallerHeaderDisplay = $('#difficult-caller-header', window.parent.document).css('display')
+            */
         }
     });
 }

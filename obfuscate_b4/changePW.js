@@ -107,12 +107,13 @@ function validateForm(sellerIdInput, oldPassword, newPassword, confirmNewPasswor
 
 // Submit is clicked
 function submitForm() {
-    var changeCounter = 0;
+    /*
+	var changeCounter = 0;
 
     // add counter when there are changes
     if (fieldChanged) {
         changeCounter = 1;
-    }
+    }*/			// 20250415 Remove this useless assignment to variable "changeCounter". There is no logic to check changeCounter == 0 and did no action
 
     // obtain other field values
     var sellerIdInput = $('#txt-seller-id').val();

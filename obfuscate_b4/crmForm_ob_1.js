@@ -1534,7 +1534,7 @@ function updateClicked(isTemp) {
                     default:
                         break;
                 }
-                var replyChoice = document.getElementById('.' + '_edit');
+                //var replyChoice = document.getElementById('.' + '_edit'); 20250416 Remove the declaration of the unused 'replyChoice' variable.
                 if (value != null && value.length > 0) {
                     $('.c' + fieldId).show();
                 } else {
@@ -1542,6 +1542,7 @@ function updateClicked(isTemp) {
                 }
             }
             // Update system tools
+            /* 20250416 Remove the declaration of the unused variable.
             var repeatedCustomer = document.getElementById('repeated-customer');
             var difficultCustomer = document.getElementById('difficult-customer');
             var repeatedCaller = document.getElementById('repeated-caller');
@@ -1551,6 +1552,7 @@ function updateClicked(isTemp) {
             var difficultCustomerHeaderDisplay = $('#difficult-customer-header', window.parent.document).css('display')
             var repeatedCallerrHeaderDisplay = $('#repeated-caller-header', window.parent.document).css('display')
             var difficultCallerHeaderDisplay = $('#difficult-caller-header', window.parent.document).css('display')
+            */
         }
     });
 }

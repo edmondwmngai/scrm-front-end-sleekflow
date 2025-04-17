@@ -359,7 +359,7 @@ function previewPhoto(input) {
         var reader = new FileReader();
         reader.onload = function (e) {
             // upload photo
-            var fileUpload = $("#file-to-upload").get(0);
+            //var fileUpload = $("#file-to-upload").get(0);
             //var fileUploadFiles = fileUpload.files;           // 20250415 Remove the declaration of the unused 'fileUploadFiles' variable.
             var fileData = new FormData();
             fileData.append("Photo_File", photoFile);
@@ -1666,7 +1666,7 @@ function windowOnload() {
         // update basic field
         document.getElementById('Title').value = Title;
         // document.getElementById('Gender').innerHTML = customerData.Gender || '';
-        document.getElementById('Lang').value = customerData.Lang || '';
+        document.getElementById('Lang').value = Lang; //  customerData.Lang || ''; //20250415 Remove this useless assignment to variable "Lang".
         document.getElementById('Name_Eng').value = Name_Eng;
         document.getElementById('Address1').value = customerData.Address1 || '';
         document.getElementById('Nationality_Id').value = customerData.Nationality_Id || '';

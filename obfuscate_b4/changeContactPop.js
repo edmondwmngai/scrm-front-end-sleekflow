@@ -81,7 +81,7 @@ function submitClicked(type) {   //20250325 This function expects no arguments, 
     var allAny = $('.customer-all-any option:selected')[0].value;
     var searchCondition = $('.customer-search-condition option:selected');
     var searchSymbol = $('.customer-search-symbol option:selected');
-    var searchInput = $('.customer--search-input');
+    //var searchInput = $('.customer--search-input');   //20250325 Remove this useless assignment to variable "searchInput".
     var searchInput = $('.customer-search-input');
     var searchArr = [];
     

@@ -520,7 +520,7 @@ $(document).ready(function () {
           
         $.ajax({
             type: "POST",
-            url: 'http://172.17.6.11/shandler/api/socialmedia/GetCannedFiles',
+            url: config.shandlerUrl + '/socialmedia/GetCannedFiles',
             crossDomain: true,
             data: JSON.stringify({ "company": 'EPRO' }),
             contentType: "application/json; charset=utf-8",

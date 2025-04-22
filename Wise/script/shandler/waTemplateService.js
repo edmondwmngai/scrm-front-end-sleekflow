@@ -2,7 +2,9 @@ class WaTemplateService {
 
 
     templateList = [];
-    
+    HTMLtemplate = null;
+    qHTMLtemplate = null;
+    baseURL = "";
 
     init(sCompany, sAgentId, sToken) {
 
@@ -195,7 +197,6 @@ class WaTemplateService {
       
 
         var URL = this.baseURL;
-        var URL = "http://172.17.6.11:8033/api";
         //const self = this;        20250414 Remove the declaration of the unused 'self' variable.
         function getTemplate(sCompany, sAgentId, sToken)
         {
@@ -204,7 +205,7 @@ class WaTemplateService {
 
                 $.ajax({
                     type: "POST",
-                    url: URL + "/getTemplate",
+                    url: URL + "/api/getTemplate",
                     data: JSON.stringify({ "Company": sCompany, "Agent_Id": sAgentId, "Token": sToken }),
                     contentType: "application/json; charset=utf-8",
                     dataType: "json",

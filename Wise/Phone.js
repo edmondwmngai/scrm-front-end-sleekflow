@@ -152,7 +152,7 @@ if (typeof document.addEventListener === "undefined" || hidden === undefined) {
   
 
 }
-function windowOnload() {
+async function windowOnload() {
 	ringAudio=document.getElementById("ringAudio");
 	queAudio=document.getElementById("queAudio");
 	msgAudio=document.getElementById("msgAudio");
@@ -166,6 +166,37 @@ function windowOnload() {
 		setTimeout(function(){RTC.sipLogin();},1000); // wait till api loaded
 	}
 	wsWiseAgent.OpenWebsocket(config.wiseSocket);
+
+	shandler = await WSSHandler.create({
+		hostname: "172.17.6.11",
+		agentid: loginId,
+		agentname: top.agentName,
+		token: top.token,
+		tls: false,
+		listener: {
+			onTicketEvent: onTicketEvent,
+			onMessageEvent: onMessageEvent,
+			onInteractEvent: onInteractEvent,
+		}
+	});
+	console.log(shandler.tickets);
+
+	wa_template = Handlebars.compile($('#wa_template').html());	// located at the end of the page
+	q_template = Handlebars.compile($('#visit_quoted_message_template').html());	// located at the end of the page
+
+	var sCompany = "EPRO";
+	var sAgentId = loginId;
+	var sToken = top.token;
+
+	(async () => {
+		waTempService = new WaTemplateService(wa_template, q_template, config.waTemplate);
+		await waTempService.getTemplateByAPI(sCompany, sAgentId, sToken);
+		console.log(waTempService.templateList); // Access the updated template list
+	})();
+
+
+	//    var waTempService = new WaTemplateService(wa_template, q_template, config.shandlerUrl);
+	caHistService = new CaseHistory();
 }
 
 // wsMonitor Start	
@@ -1290,7 +1321,14 @@ function showQueueList()
 		let layout=queueLayout[rCalltype];
 		
 		let objDiv=document.createElement("div");
-		objDiv.setAttribute("style","display:inline-block;margin:5px 0px 0px 5px;box-shadow: 0 2px 4px 0 rgba(0,0,0,.14);border-radius: 3px;transition:.3s;background:#ffff;width:130px;height:80px;color:" + layout.color) ;
+		
+		//20250422 for shandler logic
+		if (queue.source != null && queue.waitCount < 1 && (!testMode)) {
+			objDiv.setAttribute("style", "display:none;margin:5px 0px 0px 5px;box-shadow: 0 2px 4px 0 rgba(0,0,0,.14);border-radius: 3px;transition:.3s;background:#ffff;width:130px;height:80px;color:" + layout.color);
+		}
+		else {
+			objDiv.setAttribute("style", "display:inline-block;margin:5px 0px 0px 5px;box-shadow: 0 2px 4px 0 rgba(0,0,0,.14);border-radius: 3px;transition:.3s;background:#ffff;width:130px;height:80px;color:" + layout.color);
+		}
 		
 		let objDiv_Img=document.createElement("div");
 		objDiv_Img.setAttribute("style","display:inline-block;top:-5px;margin-left:10px;position:absolute;width:30%") ;
@@ -1325,8 +1363,16 @@ function showQueueList()
 			
 		objQueueCount1.setAttribute("id",layout.prefix +"QueueCount1_" + queue.name);
 		objQueueCount1.textContent = queue.waitCount;
-		objQueueCount1.setAttribute("onclick", "acceptCall(" + queue.callType + "," + queue.acdGroup + ",'" + queue.entry +"',this);");
-		
+
+		//20250422 for chatroom upgrade
+		//objQueueCount1.setAttribute("onclick", "acceptCall(" + queue.callType + "," + queue.acdGroup + ",'" + queue.entry + "',this);");
+		if (queue.source != "sleekflow") {
+			objQueueCount1.setAttribute("onclick", "acceptCall(" + queue.callType + "," + queue.acdGroup + ",'" + queue.entry + "',this);");
+		} else {
+			objQueueCount1.setAttribute("onclick", "acceptCall_Shandler(" + loginId + ",'" + top.token + "','" + queue.entry + "','" + queue.dnis + "');");
+			//objQueueCount1.setAttribute("onclick", "acceptCall_test()");
+		}
+
 		
 		objDivQueue.appendChild(objQueueCount1);
 

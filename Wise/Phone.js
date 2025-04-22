@@ -168,7 +168,7 @@ async function windowOnload() {
 	wsWiseAgent.OpenWebsocket(config.wiseSocket);
 
 	shandler = await WSSHandler.create({
-		hostname: "172.17.6.11",
+		hostname: config.shandlerHost,
 		agentid: loginId,
 		agentname: top.agentName,
 		token: top.token,

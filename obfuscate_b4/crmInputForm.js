@@ -470,7 +470,7 @@ function previewPhoto(input) {
         reader.onload = function (e) {
             // upload photo
             var fileUpload = $("#file-to-upload").get(0);
-            var fileUploadFiles = fileUpload.files;
+          //var fileUploadFiles = fileUpload.files;         //20250416 Remove the declaration of the unused 'fileUploadFiles' variable.
             var fileData = new FormData();
             fileData.append("Photo_File", photoFile);
             fileData.append('Customer_Id', customerId);
@@ -628,10 +628,11 @@ function setCustomerInfo(isChangedCustomer) {
     var _Fax_No = document.getElementById('Fax_No');
     var _Email = document.getElementById('Email');
     // a tag fields
+    /* 20250416 Remove the declaration of the unused variable.
     var tMobile = document.getElementById('tMobile_No')
     var tOther_Phone_No = document.getElementById('tOther_Phone_No');
     var tFax_No = document.getElementById('tFax_No');
-    var tEmail = document.getElementById('tEmail');
+    var tEmail = document.getElementById('tEmail'); */
     // Update editable text field
     _Mobile_No.value = Mobile_No;
     _Other_Phone_No.value = Other_Phone_No;
@@ -1597,11 +1598,11 @@ function saveClicked(isTemp, callback) { // 1. declare 2. verify 3. update custo
 //-------------------------start-----------------
 function sendTemplateMessageFromCase(agent, token, companyName, sTemplate, sFrom, sTo, sTicketId) {
     
-	  //'http://172.17.6.11:8033
+	 
 	$.ajax({
         type: "POST",
 		
-        url: parent.parent.$('#phone-panel')[0].contentWindow.shandler.apiUrl + '/api/sendTemplate', crossDomain: true,
+        url: config.waTemplate + '/api/sendTemplate', crossDomain: true,
         data:
             JSON.stringify({
                 "Agent_Id": agent,      "TicketId": sTicketId,                  "Token": token,
@@ -1695,7 +1696,10 @@ var statusChange = function (iThis) {
         document.getElementById('case-escalated-container').style.display = 'inherit';
     } else {
         document.getElementById('case-escalated-container').style.display = 'none';
-        document.getElementById('case-escalated').value = null;
+
+        if (document.getElementById('case-escalated') != null) { 
+            document.getElementById('case-escalated').value = null;
+        }
     }
 }
 
@@ -1879,10 +1883,9 @@ function callUpdateCase() {
         }
     }
 
-    if (updateCaseObj.Ticket_Id == null)
+    if (updateCaseObj.Ticket_Id == null && parent.parent[3].chatService != null)
     {
         updateCaseObj.Ticket_Id = parent.parent[3].chatService.selectedTicketId.ToString();
-
     }
 
     $.ajax({
@@ -2019,7 +2022,7 @@ function replyChannelChange(iThis) {
         $('#select-tp-btn').on('click', function () {
             var openWindows = parent.parent.openWindows;
 
-            var popupCampaign = campaign; 	// 20250411 Add the "let", "const" or "var" keyword to this declaration of "popupCampaign" to make it explicit.
+            //var popupCampaign = campaign; 	// 20250416 Remove the declaration of the unused 'popupCampaign' variable.
             selectedSendTemplate = null;
 
          
@@ -2727,7 +2730,7 @@ var loadCaseLog = function (initial) {
             var folowHistoryContent = res.details;
 
 
-            var follolwupString = '';
+            //  var follolwupString = '';         // 20250415 Remove the declaration of the unused 'follolwupString' variable.
             $('<div id="case-log-container" class="card mt-5 mb-5">' +
                 '<div class="card-header card-header-text card-header-info" data-bs-toggle="collapse" data-bs-target="#case-log-body">' +
                 '<h5 class="mt-0 mb-0"><i class="fa fa-table card-header-icon"></i><span class="align-middle">' + langJson['l-form-case-log'] + '</span><span class="align-middle" style="color:darkblue;">&nbsp;&nbsp;(' + langJson['l-search-case-no'] + ':&nbsp;' + caseNo + ')</span></h5>' +

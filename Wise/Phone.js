@@ -1578,7 +1578,10 @@ function wiseMakeCall(serviceName,phoneNo)
 			phoneNo=parent.document.getElementById('phone-panel-no').value;
 		else
 			parent.document.getElementById('phone-panel-no').value = phoneNo;
-	} catch(err) {
+	} catch (err) {
+
+		console.log(err);
+
 		if (phoneNo==null)
 			phoneNo=document.getElementById('panelPhoneNo').value;
 		else
@@ -1680,7 +1683,9 @@ function wiseCallAgent(agentNo)
 	try {
 		if (agentNo==null)
 			agentNo=parent.document.getElementById('phone-panel-no').value;	
-	} catch(err) {
+	} catch (err) {
+		console.log(err);
+
 		if (agentNo==null)
 			agentNo=document.getElementById('panelPhoneNo').value;
 	}

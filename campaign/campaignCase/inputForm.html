@@ -33,6 +33,7 @@
     <script type="text/javascript" src="../../js/ckeditorFn.js"></script>
     <script type="text/javascript" src="./info.js"></script>
     <script type="text/javascript" src="../../config.js"></script>
+    <script>function keyPress() { console.log("key press"); } </script>
     <title>
 
     </title>
@@ -212,11 +213,11 @@
                     style="display:none;" onclick="scheduleClick()"><i class="fas fa-calendar-alt me-2"></i><span
                         class='l-form-scheduled-reminder'></span></span>
             </h5>
-			
+			 
         </div>
 		-->
 		   <span id="scheduled-reminder" class="mt-0 mb-0 ms-3 rounded btn btn-sm btn-warning text-capitalize"
-                    style="display:none;" onclick="scheduleClick()"><i class="fas fa-calendar-alt me-2"></i><span
+                    style="display:none;" onclick="scheduleClick()" onKeyPress="keyPress()"><i class="fas fa-calendar-alt me-2"></i><span
                         class='l-form-scheduled-reminder'></span>
 		<div class="card-header card-header-text card-header-info" href="#case-details-body">
                 <h5 class="mt-0 mb-0">

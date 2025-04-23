@@ -433,7 +433,7 @@ table.dataTable.order-column.stripe tbody tr.even>.sorting_1 {
     height: 66px;
     line-height: 36px;
     color: rgb(100, 100, 100);
-    font-weight: 400;
+  /*  font-weight: 400;*/
     font-size: 12px;
     text-transform: uppercase;
     background: transparent;

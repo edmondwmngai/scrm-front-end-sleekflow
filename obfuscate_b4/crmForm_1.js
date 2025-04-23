@@ -665,7 +665,7 @@ function addCallerSetting(addType) {
             console.log('error: ' + rDetails);
         } else {
             var theHeader = parent.document.getElementById(idType + '-header');
-            var theRemarks = $('#' + idType + '-remarks');
+            //var theRemarks = $('#' + idType + '-remarks');        // 20250423 Remove the declaration of the unused 'theRemarks' variable.
             theHeader.style.display = 'inline';
             theHeader.setAttribute('data-original-title', remarks);
         }

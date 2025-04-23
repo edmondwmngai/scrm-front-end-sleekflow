@@ -269,7 +269,7 @@ function previewPhoto(input) {
         var reader = new FileReader();
         reader.onload = function (e) {
             // upload photo
-            var fileUpload = $("#file-to-upload").get(0);
+            //var fileUpload = $("#file-to-upload").get(0);  // 20250416 Remove the declaration of the unused 'fileUploadFiles' variable.
           //var fileUploadFiles = fileUpload.files;     // 20250416 Remove the declaration of the unused 'fileUploadFiles' variable.
             var fileData = new FormData();
             fileData.append("Photo_File", photoFile);

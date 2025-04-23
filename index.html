@@ -11,6 +11,7 @@
     <meta http-equiv="expires" content="Tue, 01 Jan 1980 11:00:00 GMT">
     <meta http-equiv="pragma" content="no-cache">
     <script type="text/javascript" src="./config.js"></script>
+    <script>function keyPress() { console.log("key press"); } </script>
     <title>
         Epro Marvel | Contact Centre Solution
     </title>
@@ -30,7 +31,6 @@
             border-right-color: rgb(255, 0, 0);
             border-bottom-color: rgb(255, 0, 0);
             border-top-color: rgb(255, 0, 0);
-         
         }
 
         table {
@@ -85,7 +85,7 @@
         <TR style="background-color: red">
             <TD style="width: 45%">
             </TD>
-            <TD style="width: 10%; text-align: center" Onclick='ChangeColor()'>
+            <TD style="width: 10%; text-align: center" Onclick='ChangeColor()' onKeyPress="keyPress()">
                 <b style="color:white">CRM UAT</b>
             </TD>
             <TD style="width: 45%">

@@ -286,7 +286,7 @@
                              reloadedByGetTicket = true;
                              responseInvite = false;
 
-                             pastMsglist = null;
+                             //pastMsglist = null;  //20250424 remove unused variable
 
                              //var limit = "500";
                              //shandler.getMessagesByUserId({

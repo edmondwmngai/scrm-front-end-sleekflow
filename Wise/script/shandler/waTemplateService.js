@@ -19,7 +19,7 @@ class WaTemplateService {
             else {
 
                 //                this.templateList = result.details;
-                this.getSetTemplateList(result.details);
+                this.setTemplateList(result.details);
             }
             console.log('AJAX call succeeded:', result);
 
@@ -180,8 +180,8 @@ class WaTemplateService {
         return selectedTemplate;
     }
 
-    getSetTemplateList(tList) {
-        return this.templateList = tList;
+    setTemplateList(tList) {
+        this.templateList = tList;
     };
 
     getTemplateList()

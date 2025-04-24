@@ -11,7 +11,8 @@ var isAdmin = (functions.indexOf('Scheduler-Admin-Fn') != -1);
 function drawSchedulerTbl(tryCount) {
     
     // if main not yet loaded agent list, the agent name cannot be shown;
-    tryCount = (tryCount == undefined ? 0 : tryCount += 1);
+    //tryCount = (tryCount == undefined ? 0 : tryCount += 1);
+    tryCount = (tryCount === undefined) ? 0 : tryCount + 1;     // 20250424 Extract the assignment of "tryCount" from this expression.
     if (parent.agentList.length == 0 && tryCount < 3) {
         setTimeout(function(p) { drawSchedulerTbl(p.tryCount) }.bind(this, { tryCount: tryCount }), 700);
         return;

@@ -148,7 +148,7 @@ function callSetting(callType, apiName, isValid) {
                 Token: token
             }
         }
-    } else if (apiName = 'AddCallFilter') {
+    } else if (apiName == 'AddCallFilter') {          //20250424 = => == Extract the assignment of "apiName" from this expression.
         dataObj = {
             "Filter_Type": callType,
             "Agent_Id": loginId,
@@ -458,12 +458,12 @@ function emailSetting(emailType, apiName, addBack, newGet) {
                         emailSetting(emailType, 'AddSetting');
                         return;
                     }
-                    if (idType = 'junk-mail') {
+                    if (idType == 'junk-mail') {    // 20250424 = => == Extract the assignment of "junk-mail" from this expression.
                         $('#' + idType + '-section').find('.options').remove();
                         $('#' + idType + '-add-input').val('');
                     }
                     emailSetting(emailType, 'GetSetting');
-            } else if (apiName = 'GetJunkMails') {
+            } else if (apiName == 'GetJunkMails') {     //20250424 = => == Extract the assignment of "apiName" from this expression.
                     var junkMailTable = $('#junk-mail-table').DataTable({
                         data: r.data,
                         lengthChange: true,

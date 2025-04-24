@@ -750,7 +750,7 @@ function saveClicked(isTemp, callback) { // 1. declare 2. verify 3. update custo
                 return;
             }
             // Verify customer selected
-            if (replyDetails.length = 0) {
+            if (replyDetails.length == 0) {         // = => == 20250424 Extract the assignment of "replyDetails.length" from this expression.
                 document.getElementById("case-save-btn").disabled = false;
                 alert('Please choose the mobile number');
                 return;

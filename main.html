@@ -53,7 +53,7 @@
 
 </head>
 
-<body class='scroll-hidden' TopMargin="0" LeftMargin="0" onbeforeunload="windowOnBeforeUnload()" onkeydown='return (event.keyCode != 116)'>
+<body class='scroll-hidden' TopMargin="0" LeftMargin="0" onbeforeunload="windowOnBeforeUnload()">
 
     <nav class="navbar navbar-default navbar-expand navbar-light bg-light py-0 mb-0 bg-info" style="position:static">
         <div class="w-100">
@@ -66,57 +66,57 @@
                     </span>
                 </div>
 
-                <div class="nav-item btn btn-warning hover-black ms-2 py-1" style='position:relative;' title="Make Call" onclick="phoneClicked('make')">
+                <div class="nav-item btn btn-warning hover-black ms-2 py-1" style='position:relative;' title="Make Call" data-btn-type="make">
                     <span>
                         <i class="fas fa-phone font-size-large"></i>
                     </span>
                 </div>
 
-                <div class="nav-item btn btn-warning hover-black py-1" style='position:relative;' title="Drop Call" onclick="phoneClicked('drop')">
+                <div class="nav-item btn btn-warning hover-black py-1" style='position:relative;' title="Drop Call" data-btn-type="drop">
                     <span>
                         <i class="fas fa-phone-slash font-size-large"></i>
                     </span>
                 </div>
 
-                <div id="icon-line-1" class="nav-item btn btn-warning hover-black py-1" style='position:relative;' title="Hold Call" onclick="phoneClicked('hold')">
+                <div id="icon-line-1" class="nav-item btn btn-warning hover-black py-1" style='position:relative;' title="Hold Call" data-btn-type="hold">
                     <span>
                         <i class="fas fa-pause font-size-large"></i>
                     </span>
                 </div>
 
-                <div class="nav-item btn btn-warning hover-black py-1" style='position:relative;' title="Call Agent" onclick="phoneClicked('agent')">
+                <div class="nav-item btn btn-warning hover-black py-1" style='position:relative;' title="Call Agent" data-btn-type="agent">
                     <span>
                         <i class="fas fa-plus font-size-large"></i>
                     </span>
                 </div>
 
-                <div class="nav-item btn btn-warning hover-black py-1" style='position:relative;' title="Conference Call" onclick="phoneClicked('conference')">
+                <div class="nav-item btn btn-warning hover-black py-1" style='position:relative;' title="Conference Call" data-btn-type="conference">
                     <span>
                         <i class="fas fa-users font-size-large"></i>
                     </span>
                 </div>
 
-                <div class="nav-item btn btn-warning hover-black py-1" style='position:relative;' title="Transfer Call" onclick="phoneClicked('transfer')">
+                <div class="nav-item btn btn-warning hover-black py-1" style='position:relative;' title="Transfer Call" data-btn-type="transfer">
                     <span>
                         <i class="fas fa-exchange-alt font-size-large"></i>
                     </span>
                 </div>
 
                 <div id="agent-list-dropdown-container" class="nav-item dropdown hover-black ms-1">
-                    <a class="nav-link dropdown-toggle px-0 text-white" href="#" id="agent-list-dropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle px-0 text-white" href="#" id="agent-list-dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i class="fas fa-columns font-size-large mt-1" title="Agent List"></i>
                     </a>
                     <div class="dropdown-menu" aria-labelledby="agent-list-dropdown">
                         <div id="phone-submenu" class="d-table mt-1"></div>
                         <div class="dropdown-divider"></div>
                         <a id="phone-dropdown-close" class="dropdown-item" href="#">
-                            <i class="fa fa-caret-up font-bg me-2"></i><span class="l-main-close">
+                            <i class="fa fa-caret-up font-bg me-2"></i><span class="l-main-close"/>
                         </a>
                     </div>
                 </div>
 
                 <div id="phone-dropdown" class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle text-light px-0" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle text-light px-0" href="#" id="navbarDropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <img src="./images/dialpad.png" class="w-auto" alt="dialpad">
                     </a>
                     <div class="dropdown-menu mt-1" aria-labelledby="navbarDropdown">
@@ -151,7 +151,7 @@
                 <ul class="navbar-nav me-auto">
                 </ul>
                 <div id="direct-call-container" class="nav-item text-center d-none"
-                    style="min-width:122px;cursor: pointer;" onclick="directCallClicked();">
+                    style="min-width:122px;cursor: pointer;">
                     <span id="panel-direct-count" class="nav-link"
                         style='font-weight:bold !important;height:33px;line-height: 25px;'>
                         <span id="direct-count-text">Queue: 0</span>
@@ -159,7 +159,7 @@
                     </div>
 
                     <div id="agent-info-dropdown" class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle text-light pe-0" href="#" id="navbarDropdown1" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <a class="nav-link dropdown-toggle text-light pe-0" href="#" id="navbarDropdown1" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <i class="fas fa-user-circle font-large align-middle" title="Profile"></i>
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown1">
@@ -180,30 +180,22 @@
                         </div>
                     </div>
                     <div class="nav-item dropdown text-center" style="min-width:122px;">
-                        <a id="panel-agent-status" class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style='font-weight:bold !important;height:33px;line-height: 25px;background:#6c757d;'>
+                        <a id="panel-agent-status" class="nav-link dropdown-toggle text-white" href="#" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style='font-weight:bold !important;height:33px;line-height: 25px;background:#6c757d;'>
                             <i class="fas fa-square me-2"></i><span id="agent-status-text" class="l-user-status-LOGOUT">LOGOUT</span>&nbsp;
                         </a>
-                        <div class="dropdown-menu" aria-labelledby="panel-agent-status">
-                            <!--<a href="#" class="dropdown-item py-auto" onclick="statusChange('break');">
+                        <div id="dropdown-agent-status" class="dropdown-menu" aria-labelledby="panel-agent-status">
+                            <a href="#" class="dropdown-item py-auto" data-status="break">
                                 <span>Break</span>
                             </a>
-
-                            <a href="#" class="dropdown-item py-auto" onclick="statusChange('idle');">
+                            <a href="#" class="dropdown-item py-auto" data-status="idle">
                                 <span>Idle</span>
                             </a>
-                            <a href="#" class="dropdown-item py-auto" onclick="statusChange('ready');">
+                            <a href="#" class="dropdown-item py-auto" data-status="ready">
                                 <span>Ready</span>
-                            </a>-->
-
-
-                            <button type="button" class="dropdown-item py-auto" onclick="statusChange('break');">Break</button>
-                            <button type="button" class="dropdown-item py-auto" onclick="statusChange('idle');">Idle</button>
-                            <button type="button" class="dropdown-item py-auto" onclick="statusChange('ready');">Ready</button>
-
-
+                            </a>
                         </div>
                     </div>
-                    <div id="read-to-talk-btn" class="nav-item" style="font-size: 25px;" onclick="return readyClicked();">
+                    <div id="read-to-talk-btn" class="nav-item" style="font-size: 25px;">
                         <span class="nav-link text-light fas fa-clipboard-check l-main-ready-idle"></span>
                     </div>
                     <div class="nav-item">
@@ -221,7 +213,7 @@
 
     <!-- PHONE PANEL -->
     <div id="phone-panel-header" class="row" style="background-color:#eee;">
-        <iframe id='phone-panel' class="pt-1 opacity-0" height='109px' style='border:none;' title="phone-menu"></iframe>
+        <iframe id='phone-panel' class="pt-1 opacity-0" height='109' style='border:none;' title="phone-menu"></iframe>
     </div>
     
     <!-- 3 TABS: MENU, TRADITIONAL, SOCIAL -->
@@ -241,11 +233,11 @@
         </div>
     </div>
     <!-- ======== Be Invited Modal ======== -->
-    <div class="modal" id="beInvitedModal" tabindex="-1" role="dialog" aria-labelledby="beInvitedModalTitle" aria-hidden="true">
-        <div class="modal-dialog" role="document">
+    <div class="modal" id="beInvitedModal" tabindex="-1" aria-labelledby="beInvitedModalTitle" aria-hidden="true">
+        <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h6 class="modal-title" id="beInvitedModalTitle">Got invite to a chatroom</h5>
+                    <h6 class="modal-title" id="beInvitedModalTitle">Got invite to a chatroom</h6>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true"><i class="fas fa-times"></i></span>
                         </button>
@@ -257,7 +249,7 @@
                             ID:&nbsp;<span id='be-invited-ticketid'></span></span>
                     </p>
                     <p>
-                        <div><span><span id="be-invited-agent"></span>&nbsp;invited you with message:</div>
+                        <div><span id="be-invited-agent"></span>&nbsp;invited you with message:</div>
                         <div id="be-invited-request" style='width:98%;padding:5px;border-radius:5px;'></div>
                         <p>
                             <p>Reply Message:

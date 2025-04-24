@@ -464,6 +464,8 @@ function countPattern(str) {
     return (((str || '').match(re) || []).length) / 2
 }
 
+var gotOldProduct = false;	// Declaration of variable 
+
 function getCurrentSdObj() {
     var sendObj = {};
     var callReason = '';
@@ -587,7 +589,7 @@ function verifyOkFn(sendObj) {
     var cancelDelBtnShowns = [];
     var totalLen = 0;
     var replyChannel = document.querySelector('input[name="replyList"]:checked').value;
-	var gotOldProduct = false;     // 20250414 Add the "let", "const" or "var" keyword to this declaration of "productCode" to make it explicit.
+	gotOldProduct = false;
 
     if (replyChannel != '') {
         if (sendObj.Reply_Details.length == 0) {
@@ -624,6 +626,7 @@ function verifyOkFn(sendObj) {
         return true;
     } else {
         parent.parent.$.MessageBox(errArr.join('<br />'));
+		console.log(totalLen);		//20250424 Remove this useless assignment to variable "totalLen".
         return false;
     }
 }

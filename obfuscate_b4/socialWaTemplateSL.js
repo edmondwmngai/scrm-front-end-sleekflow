@@ -414,15 +414,15 @@ $(document).ready(function () {
         window.close();
     }
 
-    var sAgentId = window.opener.sAgentId;
+    //var sAgentId = window.opener.sAgentId;
   //var sToken = window.opener.sToken;      // 20250414 Remove the declaration of the unused 'sToken' variable.
-    var sCompany = window.opener.sCompany;
+    //var sCompany = window.opener.sCompany;
 
-    sAgentId = 5;
+    //sAgentId = 5;
   //  sToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IjUiLCJuYmYiOjE3MzQ2NjEyNzAsImV4cCI6MTczNDc0NzY3MCwiaWF0IjoxNzM0NjYxMjcwfQ.fJaeCvEFvWsVGOxYyItH5OGerm0G87BkUrid86DECdo';
   //  sToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IjUiLCJuYmYiOjE3MzQ0MjAxMTYsImV4cCI6MTczNDUwNjUxNiwiaWF0IjoxNzM0NDIwMTE2fQ.ESxkONEpMNdqyxytD3uuUJ0sGK3KM-Jbd_Ds3A1Kdow';
 
-    sCompany = 'EPRO';
+    //sCompany = 'EPRO';
 
 
     type = 'waTemplate'

@@ -187,7 +187,7 @@ var SC = {
             '</div>' +
             '</div>')
         if (forPopup) {
-            var propIdx = 0
+           // var propIdx = 0    // 20250424 Remove this useless assignment to variable "propIdx".
             tpCtaStr += '<div class="wa-right-config">'
             if (msg_content_obj.img) {
                 var onClickStr = "$('#file-to-upload-" + tpId + "').trigger('click')";
@@ -196,24 +196,24 @@ var SC = {
                     '<input type="file" id="file-to-upload-' + tpId + '" accept="image/x-png,image/gif,image/jpeg" onchange="previewPhoto(this,' + tpId + ');" style="display:none">' +
                     '<button class="edit-field btn rounded btn-sm btn-warning text-capitalize l-general-upload" style="width:fit-content" title="Upload Photo"' +
                     'onclick="' + onClickStr + '"><i class="fas fa-cloud-upload-alt me-2"></i><span>Upload</span></button>')
-                propIdx += 1;
+               // propIdx += 1;  // 20250424 Remove this useless assignment to variable "propIdx".
             }
             if (txtStr.indexOf('{{') != -1 && txtStr.indexOf('}}') != -1) {
                 if (/\{\{1}}/g.test(txtStr || "")) {
                     tpCtaStr += ('<p class="mt-3">' + '{{1}}: <input id="tpl-content-0" type="text" class="border-radius-5" maxlenght=160 />')
-                    propIdx += 1;
+                  //  propIdx += 1; // 20250424 Remove this useless assignment to variable "propIdx".
                 }
                 if (/\{\{2}}/g.test(txtStr || "")) {
                     tpCtaStr += ('<p class="mt-3">' + '{{2}}: <input id="tpl-content-1" type="text" class="border-radius-5" maxlenght=160 />')
-                    propIdx += 1;
+                  //  propIdx += 1; // 20250424 Remove this useless assignment to variable "propIdx".
                 }
                 if (/\{\{3}}/g.test(txtStr || "")) {
                     tpCtaStr += ('<p class="mt-3">' + '{{3}}: <input id="tpl-content-2" type="text" class="border-radius-5" maxlenght=160 />')
-                    propIdx += 1;
+                  //  propIdx += 1; // 20250424 Remove this useless assignment to variable "propIdx".
                 }
                 if (/\{\{4}}/g.test(txtStr || "")) {
                     tpCtaStr += ('<p class="mt-3">' + '{{4}}: <input id="tpl-content-3" type="text" class="border-radius-5" maxlenght=160 />')
-                    propIdx += 1;
+                  //  propIdx += 1; // 20250424 Remove this useless assignment to variable "propIdx".
                 }
                 if (/\{\{5}}/g.test(txtStr || "")) {
                     tpCtaStr += ('<p class="mt-3">' + '{{5}}: <input id="tpl-content-4" type="text" class="border-radius-5" maxlenght=160 />')

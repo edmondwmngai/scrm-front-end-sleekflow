@@ -64,7 +64,7 @@ var gf = {
         .replace(/\n/g, '&#10;')      //.replace(/[\n]/g, '&#10;')        // 20250409 Replace this character class by the character itself.
         .replace(/\r/g, '&#13;');     //.replace(/[\r]/g, '&#13;');      
 
-      var newStr = str
+    //  var newStr = str
           
 
     return newStr;

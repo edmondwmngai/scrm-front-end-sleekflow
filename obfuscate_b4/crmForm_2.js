@@ -1155,7 +1155,7 @@ function windowOnload() {
         Email = customerData.Email || '';
         // Update basic field
         document.getElementById('Title').value = Title;
-        document.getElementById('Lang').value = customerData.Lang || '';
+        document.getElementById('Lang').value = Lang; // customerData.Lang || ''; 20250424 Remove this useless assignment to variable "Lang".
         document.getElementById('Name_Eng').value = Name_Eng;
         document.getElementById('Address1').value = customerData.Address1 || '';
         if (customerData.Agree_To_Disclose_Info == 'Y') {

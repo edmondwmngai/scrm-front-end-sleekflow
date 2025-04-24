@@ -585,7 +585,7 @@ function setCustomerInfo(isChangedCustomer) {
         Email = customerData.Email || '';
         // Update basic field
         document.getElementById('Title').value = Title;
-        document.getElementById('Lang').value = customerData.Lang || '';
+        document.getElementById('Lang').value = Lang; // customerData.Lang || ''; 20250424 Remove this useless assignment to variable "Lang".
         document.getElementById('Name_Eng').value = Name_Eng;
         document.getElementById('Address1').value = customerData.Address1 || '';
         if (customerData.Agree_To_Disclose_Info == 'Y') {
@@ -965,6 +965,7 @@ function exportCustDoc() {
     var isLongCall = $('#Long_Call').prop('checked') ? 'Yes' : 'No';
     if (isLongCall == 'Yes') {
         isLongCall += ('&nbsp;&nbsp;&nbsp;&nbsp;Reason:&nbsp;' + $('#Long_Call_Reason').val());
+		console.log(isLongCall);	//20250424 Remove this useless assignment to variable "isLongCall".
     }
     // var content = '<div class="Section1"><p><span style="font-size:12pt"><span style="font-family:&quot;Times New Roman&quot;,serif">Customer ID: <span style="font-size:11.0pt"><span>' + customerId + '</span></span></span></span></p>' +
     //     '<table cellspacing="0" class="Table" style="border-collapse:collapse; border:none;><tbody>' +
@@ -1052,6 +1053,7 @@ function exportCaseDoc() {
     var isLongCall = $('#Long_Call').prop('checked') ? 'Yes' : 'No';
     if (isLongCall == 'Yes') {
         isLongCall += ('&nbsp;&nbsp;&nbsp;&nbsp;Reason:&nbsp;' + $('#Long_Call_Reason').val());
+		console.log(isLongCall);	//20250424 Remove this useless assignment to variable "isLongCall".
     }
     var agentName = $('#ip-agent-name').text() || '';
     var content = '<div class="Section1"><p><span style="font-size:12pt"><span style="font-family:&quot;Times New Roman&quot;,serif">Case No: <span style="font-size:11.0pt"><span>' + caseNo + '</span></span></span></span></p>' +
@@ -1567,8 +1569,9 @@ function saveClicked(isTemp, callback) { // 1. declare 2. verify 3. update custo
 
 
             //----------------------------------------------------------------
-
+			/*  20241219 commented for shandler send Whatsapp
             replyDetails = replyDetails.replace(/ /g, '');
+			*/
             $('#send-wa-section').append('<p><span><span><div id="circularG"><div id="circularG_1" class="circularG"></div><div id="circularG_2" class="circularG"></div><div id="circularG_3" class="circularG"></div>' +
                 '<div id="circularG_4" class="circularG"></div><div id="circularG_5" class="circularG"></div><div id="circularG_6" class="circularG"></div><div id="circularG_7" class="circularG"></div><div id="circularG_8" class="circularG"></div></div><span>&nbsp;&nbsp;Sending...</span></p>');
 

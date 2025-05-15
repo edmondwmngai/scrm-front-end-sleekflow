@@ -23,12 +23,15 @@
     <script type="text/javascript" src="./js/popper.min.js"></script>
     <script type="text/javascript" src="./js/bootstrap.min.js"></script>
     <!--<script type="text/javascript" src="./js/jquery.dataTables.min.js"></script>-->
+	<!--<script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js" integrity="sha384-L74JDRkaoB7PWnReNepwX6+kSckc13TJXrka4EerY9jxQxSDl0dTguSLcA7dEfq8" crossorigin="anonymous"></script>-->
 	
 	<link href="https://cdn.datatables.net/v/bs5/jszip-3.10.1/dt-2.2.2/b-3.2.2/b-colvis-3.2.2/b-html5-3.2.2/b-print-3.2.2/datatables.min.css" rel="stylesheet" integrity="sha384-W8PzvGseaJlM52wTjdPHNrEA9WHp36V+XpQyv1gCKz+1sbFfDo5MlMDT7awB3rAs" crossorigin="anonymous">
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js" integrity="sha384-/RlQG9uf0M2vcTw3CX7fbqgbj/h8wKxw7C3zu9/GxcBPRKOEcESxaxufwRXqzq6n" crossorigin="anonymous"></script>
 	<script src="https://cdn.datatables.net/v/bs5/jszip-3.10.1/dt-2.2.2/b-3.2.2/b-colvis-3.2.2/b-html5-3.2.2/b-print-3.2.2/datatables.min.js" integrity="sha384-GC9Im1BDtt06YOKSzkS553+5q43Nos2JSnLM31TjWFcFbzZrFhAtgCzrHDGM0iDy" crossorigin="anonymous"></script>
 	
-    <script type="text/javascript" src="./js/bootstrap-confirmation.js"></script>
+    <!--script type="text/javascript" src="./js/bootstrap-confirmation.js"></script>-->
+	<link rel="stylesheet" href="./css/j-confirm-action.css">
+	<script type="text/javascript" src="./js/j-confirm-action.js"></script>
     <style>
         body {
             margin: 50px 50px 50px 50px;
@@ -77,6 +80,9 @@
         .col-w-15p {
             width: 15% !important;
         }
+		.jc-box {
+            height: 85px;
+        }
     </style>
 </head>
 
@@ -108,7 +114,7 @@
 
             <!--buttons-->
             <div class="mb-3 text-center">
-                <a class="btn rounded btn-sm btn-warning mt-3 mb-0 text-capitalize" data-bs-toggle="confirmation"
+                <a class="btn rounded btn-sm btn-warning mt-3 mb-0 text-capitalize" data-bs-toggle="confirmation" id="markAsRead" 
                     data-bs-placement="bottom" data-popout="true" data-btn-ok-class="btn-info"
                     href="javascript:(markAsRead())"><i class="fas fa-save me-2"></i><span
                         class="align-middle l-reminder-update"></span></a>

@@ -23,11 +23,13 @@
     <script type="text/javascript" src="./js/popper.min.js"></script>
     <script type="text/javascript" src="./js/bootstrap.min.js"></script>
     <!--<script type="text/javascript" src="./js/jquery.dataTables.min.js"></script>-->
+	<!--<script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js" integrity="sha384-L74JDRkaoB7PWnReNepwX6+kSckc13TJXrka4EerY9jxQxSDl0dTguSLcA7dEfq8" crossorigin="anonymous"></script>-->
+	
 	
 	<link href="https://cdn.datatables.net/v/bs5/jszip-3.10.1/dt-2.2.2/b-3.2.2/b-colvis-3.2.2/b-html5-3.2.2/b-print-3.2.2/datatables.min.css" rel="stylesheet" integrity="sha384-W8PzvGseaJlM52wTjdPHNrEA9WHp36V+XpQyv1gCKz+1sbFfDo5MlMDT7awB3rAs" crossorigin="anonymous">
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js" integrity="sha384-/RlQG9uf0M2vcTw3CX7fbqgbj/h8wKxw7C3zu9/GxcBPRKOEcESxaxufwRXqzq6n" crossorigin="anonymous"></script>
 	<script src="https://cdn.datatables.net/v/bs5/jszip-3.10.1/dt-2.2.2/b-3.2.2/b-colvis-3.2.2/b-html5-3.2.2/b-print-3.2.2/datatables.min.js" integrity="sha384-GC9Im1BDtt06YOKSzkS553+5q43Nos2JSnLM31TjWFcFbzZrFhAtgCzrHDGM0iDy" crossorigin="anonymous"></script>
-
+	
     <!--<script type="text/javascript" src="./js/jquery-ui.min.js"></script>-->
 	<script src="https://cdn.jsdelivr.net/npm/jquery-ui@1.14.1/dist/jquery-ui.min.js" integrity="sha256-AlTido85uXPlSyyaZNsjJXeCs07eSv3r43kyCVc8ChI=" crossorigin="anonymous"></script>
 	
@@ -289,9 +291,13 @@
                                 <div id="customer-search-list" class="display" style="width:100%">
 
                                     <div class="customer-search-item mb-3 d-flex align-items-center mb-1">
-                                        <span class="fix-collapse-horizontal-80 l-form-gender"> Gender </span>
-                                        <span class="fix-collapse-horizontal-80 l-campaign-is"> is </span>
-                                        <select id="c-gender" class="fix-collapse-horizontal-80 form-select c-customer-input">
+                                        <span class="fix-collapse-horizontal-80 col-md-1">
+											<span class="l-form-gender"> Gender</span>
+											   <!--<span class="fix-collapse-horizontal-80 l-campaign-is col-xs-1"> is </span>-->
+											<span class="l-campaign-is"> is</span>
+										</span>
+                                     
+                                        <select id="c-gender" class="fix-collapse-horizontal-80 form-select form-select-sm c-customer-input col-md-1">
                                             <option value=""></option>
                                             <option value="Male">Male</option>
                                             <option value="Female">Female</option>
@@ -299,42 +305,57 @@
                                     </div>
 
                                     <div class="customer-search-item mb-3 d-flex align-items-center mb-1">
-                                        <span class="fix-collapse-horizontal-80 l-campaign-age"> Age </span>
-                                        <span class="fix-collapse-horizontal-80 l-campaign-from"> from </span>
-                                        <input id="c-age-from" class="fix-collapse-horizontal-80 form-control c-customer-input"
+                                        <span class="fix-collapse-horizontal-80 col-md-1"> 
+											<span class="l-campaign-age"> Age</span>											   
+											<span class="l-campaign-from"> from</span>
+										</span>
+										
+                                        <input id="c-age-from" class="fix-collapse-horizontal-80 form-control c-customer-input col-md-1"
                                             type="search" autocomplete="off" maxlength="3"
                                             onkeyup="this.value=this.value.replace(/[^\d]/,'')">
                                     </div>
 
                                     <div class="customer-search-item mb-3 d-flex align-items-center mb-2">
-                                        <span class="fix-collapse-horizontal-80 l-campaign-age"> Age </span>
-                                        <span class="fix-collapse-horizontal-80 l-campaign-to"> to </span>
-                                        <input id="c-age-to" class="fix-collapse-horizontal-80 form-control c-customer-input"
+                                        <span class="fix-collapse-horizontal-80 col-md-1">
+											<span class="l-campaign-age"> Age</span>											   
+											<span class="l-campaign-to"> from</span>
+										</span>
+										
+                                        <!--<span class="fix-collapse-horizontal-80 l-campaign-to"> to </span>-->
+                                        <input id="c-age-to" class="fix-collapse-horizontal-80 form-control c-customer-input col-md-1"
                                             type="search" autocomplete="off" maxlength="3"
                                             onkeyup="this.value=this.value.replace(/[^\d]/,'')">
                                     </div>
 
                                     <div class="customer-search-item mb-3 d-flex align-items-center mb-2">
-                                        <span class="fix-collapse-horizontal-80 l-campaign-range"> Range </span>
-                                        <span class="fix-collapse-horizontal-80"></span>
-                                        <select id="c-range-selection" class="form-select c-customer-input">
+                                        <span class="fix-collapse-horizontal-80 l-campaign-range col-md-1">
+										
+										</span>
+                                        <!--<span class="fix-collapse-horizontal-80"></span>-->
+                                        <select id="c-range-selection" class="form-select form-select-sm c-customer-input col-md-1">
                                             <option value="">All</option>
                                             <option value="custom">Custom</option>
                                         </select>
                                     </div>
 
-                                    <div class="customer-search-item mb-3 d-flex align-items-center mb-2 d-none range-div">
-                                        <span class="fix-collapse-horizontal-80 l-campaign-range"> Range </span>
-                                        <span class="fix-collapse-horizontal-80 l-campaign-from"> from </span>
-                                        <input id="c-range-from" class="fix-collapse-horizontal-80 form-control c-customer-input"
+                                    <div class="customer-search-item mb-3 align-items-center mb-2 d-none range-div">
+                                        <span class="fix-collapse-horizontal-80  col-md-1">
+											<span class="l-campaign-range"> Age</span>											   
+											<span class="l-campaign-from"> from</span>
+										</span>
+                                        <!--<span class="fix-collapse-horizontal-80 l-campaign-from"> from </span>-->
+                                        <input id="c-range-from" class="fix-collapse-horizontal-80 form-control c-customer-input col-md-1"
                                             type="search" autocomplete="off" maxlength="6" placeholder="e.g. 1"
                                             onkeyup="this.value=this.value.replace(/[^\d]/,'')">
                                     </div>
 
-                                    <div class="customer-search-item mb-3 d-flex align-items-center mb-2 d-none range-div">
-                                        <span class="fix-collapse-horizontal-80 l-campaign-range"> Range </span>
-                                        <span class="fix-collapse-horizontal-80 l-campaign-to"> to </span>
-                                        <input id="c-range-to" class="fix-collapse-horizontal-80 form-control c-customer-input"
+                                    <div class="customer-search-item mb-3 align-items-center mb-2 d-none range-div">
+                                        <span class="fix-collapse-horizontal-80 col-md-1">
+											<span class="l-campaign-range"> Age</span>											   
+											<span class="l-campaign-to"> to</span>
+										</span>
+                                        <!--<span class="fix-collapse-horizontal-80 l-campaign-to"> to </span>-->
+                                        <input id="c-range-to" class="fix-collapse-horizontal-80 form-control c-customer-input col-md-1"
                                             type="search" autocomplete="off" maxlength="6" placeholder="e.g. 1000"
                                             onkeyup="this.value=this.value.replace(/[^\d]/,'')">
                                     </div>
@@ -422,14 +443,14 @@
                                     <div class="d-table-row">
                                         <span class="d-table-cell l-social-campaign">Campaign&nbsp;<span
                                                 class="text-danger">*</span></span>
-                                        <select id="o-search-campaign-select" class="d-table-cell form-select">
+                                        <select id="o-search-campaign-select" class="d-table-cell form-select form-select-sm">
                                         </select>
                                     </div>
 
                                     <div class="d-table-row">
                                         <span class="d-table-cell l-campaign-batch">Batch&nbsp;<span
                                                 class="text-danger">*</span></span>
-                                        <select id="o-search-batch" class="d-table-cell form-select">
+                                        <select id="o-search-batch" class="d-table-cell form-select form-select-sm">
                                         </select>
                                     </div>
 
@@ -447,7 +468,7 @@
                                         <span class="d-table-cell l-form-gender">Gender</span>
                                         <span class="d-table-cell">
 
-                                            <select id="o-gender" class="form-select c-customer-input">
+                                            <select id="o-gender" class="form-select form-select-sm c-customer-input">
                                                 <option value="">- Please Select -</option>
                                                 <option value="Male">Male</option>
                                                 <option value="Female">Female</option>
@@ -479,7 +500,7 @@
                                     </div>
                                     <div class="d-table-row">
                                         <span class="d-table-cell l-campaign-callstatus">Call Status</span>
-                                        <select id="o-call-status" class="d-table-cell form-select">
+                                        <select id="o-call-status" class="d-table-cell form-select form-select-sm">
                                             <option value="">- Please Select -</option>
                                             <option value="NewLead">Null</option>
                                             <option value="Unreach">Unreach</option>
@@ -489,7 +510,7 @@
                                     </div>
                                     <div class="d-table-row mb-3">
                                         <span class="d-table-cell l-campaign-callback">Callback</span>
-                                        <select id="o-callback" class="d-table-cell form-select">
+                                        <select id="o-callback" class="d-table-cell form-select form-select-sm">
                                             <option value="">- Please Select -</option>
                                             <option value="all">All Time</option>
                                             <option value="09:00 - 11:00">09:00 - 11:00</option>

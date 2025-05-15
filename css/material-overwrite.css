@@ -29,6 +29,7 @@ select.form-control:disabled {
     -webkit-appearance: unset;
 }
 
+
 input[type="search"]::-webkit-search-cancel-button {
     -webkit-appearance: searchfield-cancel-button !important;
 }
@@ -63,6 +64,7 @@ select.form-control:not([size]):not([multiple]) {
     background-image: linear-gradient(to top, #25C5D9 2px, rgba(156, 39, 176, 0) 2px), linear-gradient(to top, #d2d2d2 1px, rgba(210, 210, 210, 0) 1px);
 }
 
+
 .form-control.disabled,
 .form-control:disabled,
 .form-control[disabled],
@@ -87,6 +89,12 @@ fieldset[disabled][disabled] .form-control {
 /* to prevent click to a wrong checkbox */
 .form-check .form-check-sign:before {
     transform: unset;
+}
+/* 20250506 added for migration */
+.form-select {
+        border: 1px solid rgba(0, 0, 0, .125) !important;
+        border-radius: 0 !important;
+        border-width: 0 0 1px 0 !important;
 }
 
 .togglebutton label input[type=checkbox]:checked+.toggle {
@@ -371,6 +379,9 @@ table.dataTable tfoot th {
     font-weight: 550;
 }
 
+table.dataTable th.dt-type-numeric, table.dataTable th.dt-type-date, table.dataTable td.dt-type-numeric, table.dataTable td.dt-type-date {
+    text-align: left !important;
+}
 th {
     /* color: rgb(100, 100, 100); By request of Carol, header make it clearer */
     color: black;
@@ -654,8 +665,7 @@ a.paginate_button {
     text-transform: uppercase;
     background: transparent;
     text-align: center;
-    cursor: pointer;
-    font-weight: bold;
+    cursor: pointer;  
 }
 
 .dt-paging-button {
@@ -747,3 +757,35 @@ button.page-link.previous, button.page-link.previous:focus
   font-size: 14px;
 	color: black;
 }
+.mb-1, .mb-3 {
+	margin-bottom: 0px;
+}
+
+#case-save-btn {
+  margin-bottom: 24px;
+}
+.case-search-item
+{
+ 	 margin-bottom: 0.2rem !important;
+}
+.customer-search-item 
+{
+ 	 margin-bottom: 0.2rem !important;
+}
+.customer-all-any
+{
+	margin-left:15px;
+	margin-right:15px;
+	border: 1px solid rgba(0, 0, 0, .125) !important;
+    border-radius: 0 !important;
+    border-width: 0 0 1px 0 !important;
+}
+.case-all-any
+{
+	margin-left:15px;
+	margin-right:15px;
+	border: 1px solid rgba(0, 0, 0, .125) !important;
+    border-radius: 0 !important;
+    border-width: 0 0 1px 0 !important;
+}
+

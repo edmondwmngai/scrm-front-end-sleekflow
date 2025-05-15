@@ -100,7 +100,7 @@ function removeMedia() {
 function createFacebookPostContent(ticketId, details, isMediaChanged) {
     $.ajax({
         type: "POST",
-        url: mvcUrl + '/api/CreateFacebookPostContent',
+        url: config.mvcUrl + '/api/CreateFacebookPostContent',
         data: JSON.stringify({
             Ticket_Id: ticketId,
             Agent_Id: loginId,
@@ -132,7 +132,7 @@ function createFacebookPostContent(ticketId, details, isMediaChanged) {
 function updateFacebookPostContent(fbId, ticketId, details, isMediaChanged, isMediaRemoved) {
     $.ajax({
         type: "PUT",
-        url: mvcUrl + '/api/UpdateFacebookPostContent',
+        url: config.mvcUrl + '/api/UpdateFacebookPostContent',
         data: JSON.stringify({
             Fb_Id: fbId,
             Ticket_Id: ticketId,
@@ -165,7 +165,7 @@ function updateFacebookPostContent(fbId, ticketId, details, isMediaChanged, isMe
 function checkDuplicates(ticketIdInput) {
     $.ajax({
         type: "POST",
-        url: mvcUrl + '/api/CheckTicketId/',
+        url: config.mvcUrl + '/api/CheckTicketId/',
         data: JSON.stringify({
             Ticket_Id: ticketIdInput,
             Agent_Id: loginId,
@@ -304,9 +304,9 @@ function validateForm(formType, ticketId) {
 
 // Submit is clicked
 function submitForm() {
-    var changeCounter = 0;
-
-    // add counter when there are changes
+    var changeCounter = 0;	
+	
+	// add counter when there are changes
     if (fieldChanged) {
         changeCounter = 1;
     }
@@ -319,7 +319,7 @@ function submitForm() {
     if (changeCounter == 0) {
         window.close();
     }
-
+	
     var header = $("#p-header").text();
     var formType;
     if (header == "Add a Facebook Post") {
@@ -379,7 +379,7 @@ function submitForm() {
                 fileData.append('Agent_Id', loginId);
                 fileData.append('Token', token);
                 $.ajax({
-                    url: mvcUrl + '/api/UploadFacebookMedia',
+                    url: config.mvcUrl + '/api/UploadFacebookMedia',
                     type: "POST",
                     contentType: false, // Not to set any content header  
                     processData: false, // Not to process data  

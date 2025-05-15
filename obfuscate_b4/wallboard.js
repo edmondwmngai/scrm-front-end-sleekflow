@@ -243,7 +243,7 @@ function loadWallData() {
     $.each(wbArr, function (idx, val) {
         $.ajax({
             type: "POST",
-            url: wiseHost + '/wisepbx/api/config/GetMonitorStatistics',
+            url: config.wiseUrl + '/api/config/GetMonitorStatistics',
             data: JSON.stringify({ serviceId: val.serviceId, groupId: val.acdId }),
             contentType: "application/json; charset=utf-8",
             dataType: "json"
@@ -698,7 +698,7 @@ function getACDArr(serviceArr) {
         var serviceId = val.ServiceID;
         $.ajax({
             type: "POST",
-            url: wiseHost + '/WisePBX/api/Config/GetACDGroupList',
+            url: config.wiseUrl + '/api/Config/GetACDGroupList',
             data: JSON.stringify({ 'serviceId': serviceId }),
             contentType: "application/json; charset=utf-8",
             dataType: "json"
@@ -726,7 +726,7 @@ function getACDArr(serviceArr) {
 function loadServiceList() {
     $.ajax({
         type: "POST",
-        url: wiseHost + '/WisePBX/api/Config/GetServiceList',
+        url: config.wiseUrl + '/api/Config/GetServiceList',
         data: JSON.stringify({}),
         contentType: "application/json; charset=utf-8",
         dataType: "json"

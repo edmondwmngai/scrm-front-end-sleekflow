@@ -10,6 +10,7 @@ var batchTbl = null;
 var loginId = parseInt(sessionStorage.getItem('scrmAgentId') || -1);
 var token = sessionStorage.getItem('scrmToken') || '';
 var customerTbl = null;
+var customerTblOrder = [];
 var loadedCSStatusTBl = false;
 var emailFileList = [];
 var outstandingAttachment = 0;
@@ -187,7 +188,7 @@ function formUpdated() {
 function loadCampaignTbl() {
     $.ajax({
         type: "POST",
-        url: mvcHost + '/mvc' + campaign + '/api/GetOutboundInputForm',
+        url: config.companyUrl + '/api/GetOutboundInputForm',
         data: JSON.stringify({ Agent_Id: loginId, Token: token }),
         crossDomain: true,
         contentType: "application/json",
@@ -361,7 +362,7 @@ function uploadAttachment(input, batchId) {
 
 function appendAttachment(filePath) {
     var fileName = filePath.substring(filePath.lastIndexOf("/") + 1, filePath.length);
-    var fileUrl = filePath.replace("D:", wiseHost + "\\WisePBX");
+    var fileUrl = filePath.replace("D:", config.wiseUrl);
     var uniqueId = fileName.replace(/[^a-zA-Z]+/g, '');
     uniqueId += new Date().getUTCMilliseconds();
     var downloadId = 'download-' + uniqueId;
@@ -397,7 +398,7 @@ function appendAttachment(filePath) {
 function loadBatchTbl() {
     $.ajax({
         type: "POST",
-        url: mvcHost + '/mvc' + campaign + '/api/GetOutboundBatch',
+        url: config.companyUrl + '/api/GetOutboundBatch',
         data: JSON.stringify({ Agent_Id: loginId, Token: token }),
         crossDomain: true,
         contentType: "application/json",
@@ -571,7 +572,7 @@ function loadBatchTbl() {
                     // Draw Selected 1 Row Table
                     $.ajax({
                         type: "POST",
-                        url: mvcHost + '/mvc' + campaign + '/api/GetOutboundBatchAssignment',
+                        url: config.companyUrl + '/api/GetOutboundBatchAssignment',
                         data: JSON.stringify({ Batch_Id: batchId, Agent_Id: loginId, Token: token }),
                         crossDomain: true,
                         contentType: "application/json",
@@ -623,7 +624,7 @@ function loadBatchTbl() {
                             // Remarks: temprarily Vincent hard coded get agent info table Level ID 1,2 agents only
                             $.ajax({
                                 type: "POST",
-                                url: mvcHost + '/mvc' + campaign + '/api/GetOutboundBatchAssignment_Agent',
+                                url: config.companyUrl + '/api/GetOutboundBatchAssignment_Agent',
                                 data: JSON.stringify({ Batch_Id: batchId, Agent_Id: loginId, Token: token }),
                                 crossDomain: true,
                                 contentType: "application/json",
@@ -809,7 +810,7 @@ function loadBatchTbl() {
                                             }
                                             $.ajax({
                                                 type: "POST",
-                                                url: mvcHost + '/mvc' + campaign + '/api/GetOutboundBatchLeadCount',
+                                                url: config.companyUrl + '/api/GetOutboundBatchLeadCount',
                                                 data: JSON.stringify(getGountObj),
                                                 crossDomain: true,
                                                 contentType: "application/json",
@@ -841,7 +842,7 @@ function loadBatchTbl() {
                                             }
                                             $.ajax({
                                                 type: "POST",
-                                                url: mvcHost + '/mvc' + campaign + '/api/GetOutboundBatchLeadCount',
+                                                url: config.companyUrl + '/api/GetOutboundBatchLeadCount',
                                                 data: JSON.stringify(getGountObj),
                                                 crossDomain: true,
                                                 contentType: "application/json",
@@ -871,7 +872,7 @@ function loadBatchTbl() {
                                             }
                                             $.ajax({
                                                 type: "POST",
-                                                url: mvcHost + '/mvc' + campaign + '/api/GetOutboundBatchLeadCount',
+                                                url: config.companyUrl + '/api/GetOutboundBatchLeadCount',
                                                 data: JSON.stringify(getGountObj),
                                                 crossDomain: true,
                                                 contentType: "application/json",
@@ -941,7 +942,7 @@ function loadBatchTbl() {
                                         }
                                         $.ajax({
                                             type: "POST",
-                                            url: mvcHost + '/mvc' + campaign + '/api/AssignOutboundBatchLead',
+                                            url: config.companyUrl + '/api/AssignOutboundBatchLead',
                                             data: JSON.stringify(assignObj),
                                             crossDomain: true,
                                             contentType: "application/json",
@@ -1257,7 +1258,7 @@ function loadBatchTbl() {
                                 sendObj.Email_Body_Link = r.data.fileLink;
                                 $.ajax({
                                     type: "PUT",
-                                    url: mvcHost + '/mvc' + campaign + '/api/UpdateOutboundBatch',
+                                    url: config.companyUrl + '/api/UpdateOutboundBatch',
                                     data: JSON.stringify(sendObj),
                                     crossDomain: true,
                                     contentType: "application/json",
@@ -1487,7 +1488,7 @@ function loadBatchTbl() {
 
                         $.ajax({
                             type: "PUT",
-                            url: mvcHost + '/mvc' + campaign + '/api/UpdateOutboundBatch',
+                            url: config.companyUrl + '/api/UpdateOutboundBatch',
                             data: JSON.stringify(sendObj),
                             crossDomain: true,
                             contentType: "application/json",
@@ -1829,7 +1830,7 @@ function loadBatchTbl() {
 
                         $.ajax({
                             type: "PUT",
-                            url: mvcHost + '/mvc' + campaign + '/api/UpdateOutboundBatch',
+                            url: config.companyUrl + '/api/UpdateOutboundBatch',
                             data: JSON.stringify(sendObj),
                             crossDomain: true,
                             contentType: "application/json",
@@ -1878,7 +1879,7 @@ function drawCCustomerTbl() {
     cCustomerTbl = $('#c-customer-tbl').DataTable({
         "serverSide": true,
         "ajax": {
-            "url": mvcHost + '/mvc' + campaign + '/api/SearchCustomerForOutbound',
+            "url": config.companyUrl + '/api/SearchCustomerForOutbound',
             "type": "POST",
             "contentType": "application/json",
             "data": function (d, settings) {
@@ -2108,7 +2109,7 @@ $(document).ready(function () {
         // Agent_Id and Token added to cCustomerAjaxData when search customer already
         $.ajax({
             type: "POST",
-            url: mvcHost + '/mvc' + campaign + '/api/CreateOutboundBatch',
+            url: config.companyUrl + '/api/CreateOutboundBatch',
             data: JSON.stringify(cCustomerAjaxData),
             crossDomain: true,
             contentType: "application/json",
@@ -2305,22 +2306,44 @@ $(document).ready(function () {
         }
 
         // ================= // Verify =================
-        if (customerTbl) {
+        if (customerTbl != null) {
             $('#o-search-results-tbl').DataTable().ajax.reload();
         } else {
             customerTbl = $('#o-search-results-tbl').DataTable({
                 "serverSide": true,
-                "ajax": {
-                    "url": mvcHost + '/mvc' + campaign + '/api/SearchOutboundCallList',
+				"ajax": {
+                    "url": config.companyUrl + '/api/SearchOutboundCallList',
                     "type": "POST",
                     "contentType": "application/json",
                     "data": function (d, settings) {
+						
+						console.log(JSON.stringify(d.order));
+						console.log(JSON.stringify(d));
+					//	console.log(JSON.stringify(settings));
+						var columnIndex = $(this).index(); 
+						
+						//20250513 for fix 3rd sorting
+					
+												
+						if (d.order.length == 0)
+						{
+							console.log(d.order);
+							d.order = customerTblOrder;
+						}
+						else{
+							customerTblOrder = d.order;
+						}
+					
                         // only sorting 2 columns allowed
                         if (d.order.length > 2) {
                             d.order = d.order.slice(0, 2); // change the order array that pass to API
                             settings.aaSorting = settings.aaSorting.slice(0, 2); // this is to avoid the 3rd shift clicked arrow change
+							console.log("modified" + JSON.stringify(d));
                             alert(langJson['l-campaign-max-sort-col']);
                         }
+						
+					//	console.log(JSON.stringify(d));
+						
                         // Name have to be more than 3 characters
                         // If have Age From or Age To must have another one
                         // Need to know is that supervisor
@@ -2481,7 +2504,7 @@ $(document).ready(function () {
                 var callLeadId = customerDataObj.Call_Lead_Id;
                 $.ajax({
                     type: "POST",
-                    url: mvcHost + '/mvc' + campaign + '/api/GetOutboundCallLog',
+                    url: config.companyUrl + '/api/GetOutboundCallLog',
                     data: JSON.stringify({ Call_Lead_Id: callLeadId, Agent_Id: loginId, Token: token }),
                     crossDomain: true,
                     contentType: "application/json",
@@ -2598,8 +2621,10 @@ $(document).ready(function () {
         e.preventDefault();
         if (this.value == 'custom') {
             $('.range-div').removeClass('d-none');
+			$('.range-div').addClass('d-flex'); 	// fix class after upgrade
         } else {
             $('.range-div').addClass('d-none');
+			$('.range-div').removeClass('d-flex'); 	// fix class after upgrade
             $('#c-range-from').val('');
             $('#c-range-to').val('');
         }

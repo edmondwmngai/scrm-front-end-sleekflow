@@ -90,7 +90,7 @@ function getContent() {
     mediaId = window.frameElement.getAttribute("mediaId");
     $.ajax({
         type: "POST",
-        url: config.wiseHost + '/WisePBX/api/Fax/GetContent',
+        url: config.wiseUrl + '/api/Fax/GetContent',
         data: JSON.stringify({ "id": mediaId }),
         contentType: "application/json; charset=utf-8",
         dataType: "json",

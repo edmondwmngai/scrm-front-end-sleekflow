@@ -47,7 +47,7 @@ function addCustomerCase(connId, customerId, callType, details, rowData) {
     }
     $.ajax({
         type: "POST",
-        url: mvcHost + '/mvc' + campaign + '/api/AddCustomerCase',
+        url: config.companyUrl + '/api/AddCustomerCase',
         data: JSON.stringify({
             Conn_Id: connId,
             Customer_Id: customerId,
@@ -341,7 +341,7 @@ function submitClicked(type) {
         // Get Manual Search Result
         $.ajax({
             type: "POST",
-            url: mvcHost + '/mvc' + campaign + '/api/CaseManualSearch',
+            url: config.companyUrl + '/api/CaseManualSearch',
             data: JSON.stringify(submitData),
             crossDomain: true,
             contentType: "application/json",

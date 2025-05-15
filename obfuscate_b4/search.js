@@ -146,9 +146,9 @@ function addCaseAutoSearchTable(tabName, data, oThis) {
         // Get table data ajax
         $.ajax({
             type: "POST",
-            // url: mvcHost + '/mvc' + campaign + '/api/CaseAutoSearch',
+            // url: config.companyUrl + '/api/CaseAutoSearch',
             // data: JSON.stringify({ "Customer_Id": data.Customer_Id, "Is_Valid": "Y" }),
-            url: mvcHost + '/mvc' + campaign + '/api/CaseManualSearch',
+            url: config.companyUrl + '/api/CaseManualSearch',
             data: JSON.stringify({
                 "anyAll": "all",
                 "Is_Valid": "Y",
@@ -455,7 +455,7 @@ function submitClicked(type) {
             // Get Manual Search Result
             $.ajax({
                 type: "POST",
-                url: mvcHost + '/mvc' + campaign + '/api/ManualSearch',
+                url: config.companyUrl + '/api/ManualSearch',
                 data: JSON.stringify(sendObj),
                 crossDomain: true,
                 contentType: "application/json",
@@ -576,7 +576,7 @@ function submitClicked(type) {
             // Get Manual Search Result
             $.ajax({
                 type: "POST",
-                url: mvcHost + '/mvc' + campaign + '/api/CaseManualSearch',
+                url: config.companyUrl + '/api/CaseManualSearch',
                 data: JSON.stringify(sendObj),
                 crossDomain: true,
                 contentType: "application/json",
@@ -749,7 +749,7 @@ function addCase(customerId, rowData) { // for newCustomerCase customerId: -1, r
     }
     $.ajax({
         type: "POST",
-        url: mvcHost + '/mvc' + campaign + '/api/AddCustomerCase',
+        url: config.companyUrl + '/api/AddCustomerCase',
         data: JSON.stringify(dataObj),
         crossDomain: true,
         contentType: "application/json",
@@ -1190,9 +1190,9 @@ function loadGrid() { // (connId, callType, details) {
     } else if (!caseMode) {     
             $.ajax({
                 type: "POST",
-                // url: mvcHost + '/mvc' + campaign + '/api/AutoSearch',
+                // url: config.companyUrl + '/api/AutoSearch',
                 // data: JSON.stringify({ "Call_Type": callType, "Details": details, "Is_Valid": "Y" }),
-                url: mvcHost + '/mvc' + campaign + '/api/ManualSearch',
+                url: config.companyUrl + '/api/ManualSearch',
                 data: JSON.stringify({
                     "anyAll": "any",
                     "Is_Valid": "Y",
@@ -1219,7 +1219,7 @@ function loadGrid() { // (connId, callType, details) {
                         parent.addFormNameToContent(connId, formName);
                         // 3/3 add photo to parent
                         $.ajax({
-                            url: mvcHost + '/mvc' + campaign + '/api/GetPhoto',
+                            url: config.companyUrl + '/api/GetPhoto',
                             type: "POST",
                             data: JSON.stringify({
                                 "Customer_Id": theCustomer.Customer_Id,
@@ -1289,7 +1289,7 @@ function loadGrid() { // (connId, callType, details) {
     } else {
         $.ajax({
             type: "POST",
-            url: mvcHost + '/mvc' + campaign + '/api/CaseManualSearch',
+            url: config.companyUrl + '/api/CaseManualSearch',
             data: JSON.stringify({
                 "anyAll": "any",
                 "Is_Valid": "Y",
@@ -1505,7 +1505,7 @@ function buildCaseFields(rDetails) {
 function loadFields() {
     $.ajax({
         type: "POST",
-        url: mvcHost + '/mvc' + campaign + '/api/GetFields',
+        url: config.companyUrl + '/api/GetFields',
         data: JSON.stringify({
             "listArr": ['Contact Table', 'Contact Combined', 'Contact System', 'Case Table', 'Case System'],
             Agent_Id: loginId,

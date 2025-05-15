@@ -59,7 +59,7 @@ function getEmailSetting(emailAddress) {
             repeatedCustomerHeader.hide();
             $.ajax({
                 type: "POST",
-                url: config.wiseHost + '/WisePBX/api/Email/GetSetting',
+                url: config.wiseUrl + '/api/Email/GetSetting',
                 data: JSON.stringify({
                     projectName: campaign,
                     emailAddress: emailAddress
@@ -109,7 +109,7 @@ function getCallerSetting(tel) {
             repeatedCallerHeader.hide();
             $.ajax({
                 type: "POST",
-                url: mvcHost + '/mvc' + campaign + '/api/GetCallFilter',
+                url: config.companyUrl + '/api/GetCallFilter',
                 data: JSON.stringify({
                     "All_Phone_No": tel,
                     Agent_Id: loginId,
@@ -224,7 +224,7 @@ function callSaveCallHistory(connId, callType, internalCaseNo) {
     }
     $.ajax({
         type: "POST",
-        url: mvcHost + '/mvc' + campaign + '/api/SaveCallHistory',
+        url: config.companyUrl + '/api/SaveCallHistory',
         data: JSON.stringify(dataObj),
         contentType: "application/json; charset=utf-8",
         dataType: "json",

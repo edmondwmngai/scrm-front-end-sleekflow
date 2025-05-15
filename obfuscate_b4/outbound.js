@@ -67,7 +67,7 @@ function initOpen() {
 
     $.ajax({
         type: "POST",
-        url: mvcHost + '/mvc' + campaign + '/api/GetOBCampaign',
+        url: config.companyUrl + '/api/GetOBCampaign',
         data: JSON.stringify({
             Agent_Id: loginId,
             Token: token
@@ -481,7 +481,7 @@ function getAgeByDOB(dob) {
 function loadFormBatchTbl(isOpen) {
     $.ajax({
         type: "POST",
-        url: mvcHost + '/mvc' + campaign + '/api/GetOBInputForm',
+        url: config.companyUrl + '/api/GetOBInputForm',
         data: JSON.stringify({
             Agent_Id: loginId,
             Token: token
@@ -585,7 +585,7 @@ function uploadCheckExcel(filePath, selectedWorksheet) {
 
     $.ajax({
         type: "POST",
-        url: mvcHost + '/mvc' + campaign + '/api/CheckOBExcel',
+        url: config.companyUrl + '/api/CheckOBExcel',
         data: JSON.stringify(dataObj),
         crossDomain: true,
         contentType: "application/json",
@@ -621,7 +621,7 @@ function uploadedExcelFile(input) {
         fileData.append('Agent_Id', loginId);
         fileData.append('Token', token);
         $.ajax({
-            url: mvcHost + '/mvc' + campaign + '/api/UploadExcelGetWorksheet',
+            url: config.companyUrl + '/api/UploadExcelGetWorksheet',
             type: "POST",
             contentType: false, // Not to set any content header  
             processData: false, // Not to process data  
@@ -660,7 +660,7 @@ function uploadedExcelFile(input) {
 function uploadInit() {
     $.ajax({
         type: "POST",
-        url: mvcHost + '/mvc' + campaign + '/api/GetOBCampaign',
+        url: config.companyUrl + '/api/GetOBCampaign',
         data: JSON.stringify({
             Agent_Id: loginId,
             Token: token
@@ -818,7 +818,7 @@ function uploadPageInit(campaignArr) {
 
         $.ajax({
             type: "POST",
-            url: mvcHost + '/mvc' + campaign + '/api/ConfirmUploadOBExcel',
+            url: config.companyUrl + '/api/ConfirmUploadOBExcel',
             data: JSON.stringify(dataObj),
             crossDomain: true,
             contentType: "application/json",
@@ -846,7 +846,7 @@ function uploadPageInit(campaignArr) {
 
 function appendAttachment(filePath) {
     var fileName = filePath.substring(filePath.lastIndexOf("/") + 1, filePath.length);
-    var fileUrl = filePath.replace("D:", wiseHost + "\\WisePBX");
+    var fileUrl = filePath.replace("D:", config.wiseUrl);
     var uniqueId = fileName.replace(/[^a-zA-Z]+/g, '');
     uniqueId += new Date().getUTCMilliseconds();
     var downloadId = 'download-' + uniqueId;
@@ -887,7 +887,7 @@ function assignAgentMultiple(dataObj, sendAgentArr) {
     dataObj['Assign_Total'] = theAgentArr[2];
     $.ajax({
         type: "POST",
-        url: mvcHost + '/mvc' + campaign + '/api/AssignOBBatchLead',
+        url: config.companyUrl + '/api/AssignOBBatchLead',
         data: JSON.stringify(dataObj),
         crossDomain: true,
         contentType: "application/json",
@@ -943,7 +943,7 @@ function allToOneNumUpdate(batchCode, campaignCode) {
 
     $.ajax({
         type: "POST",
-        url: mvcHost + '/mvc' + campaign + '/api/GetOBBatchLeadCount',
+        url: config.companyUrl + '/api/GetOBBatchLeadCount',
         data: JSON.stringify(dataObj),
         crossDomain: true,
         contentType: "application/json",
@@ -1107,7 +1107,7 @@ function assignmentAllToOne(data) {
 
             $.ajax({
                 type: "POST",
-                url: mvcHost + '/mvc' + campaign + '/api/AssignOBBatchLead',
+                url: config.companyUrl + '/api/AssignOBBatchLead',
                 data: JSON.stringify(dataObj),
                 crossDomain: true,
                 contentType: "application/json",
@@ -1133,7 +1133,7 @@ function assignmentAllToOne(data) {
 function getAgentList(batchCode, campaignCode, callback) {
     $.ajax({
         type: "POST",
-        url: mvcHost + '/mvc' + campaign + '/api/GetOBBatchAssignment_Agent',
+        url: config.companyUrl + '/api/GetOBBatchAssignment_Agent',
         data: JSON.stringify({
             Batch_Code: batchCode,
             Campaign_Code: campaignCode,
@@ -1290,7 +1290,7 @@ function assignmentAgentTblLoad(data) {
 
             $.ajax({
                 type: "POST",
-                url: mvcHost + '/mvc' + campaign + '/api/GetOBBatchLeadCount',
+                url: config.companyUrl + '/api/GetOBBatchLeadCount',
                 data: JSON.stringify(dataObj),
                 crossDomain: true,
                 contentType: "application/json",
@@ -1490,7 +1490,7 @@ function assignmentAgentTblLoad(data) {
 
             $.ajax({
                 type: "POST",
-                url: mvcHost + '/mvc' + campaign + '/api/AssignOBBatchLead',
+                url: config.companyUrl + '/api/AssignOBBatchLead',
                 data: JSON.stringify(dataObj),
                 crossDomain: true,
                 contentType: "application/json",
@@ -1610,7 +1610,7 @@ function assignmentAgentTblLoad(data) {
                     //     dataObj['Assign_Total'] = theAgentAr[2];
                     //     $.ajax({
                     //         type: "POST",
-                    //         url: mvcHost + '/mvc' + campaign + '/api/AssignOBBatchLead',
+                    //         url: config.companyUrl + '/api/AssignOBBatchLead',
                     //         data: JSON.stringify(dataObj),
                     //         crossDomain: true,
                     //         contentType: "application/json",
@@ -1692,7 +1692,7 @@ function loadBatchTbl(isOpen) {
     var isWithinBatch = isOpen ? $('#o-within-batch-period').prop('checked') : $('#a-within-batch-period').prop('checked');
     $.ajax({
         type: "POST",
-        url: mvcHost + '/mvc' + campaign + '/api/GetOBBatch',
+        url: config.companyUrl + '/api/GetOBBatch',
         data: JSON.stringify({
             Agent_Id: loginId,
             Token: token
@@ -1854,7 +1854,7 @@ function loadBatchTbl(isOpen) {
                         // draw selected 1 row table
                         $.ajax({
                             type: "POST",
-                            url: mvcHost + '/mvc' + campaign + '/api/GetOBBatchAssignment',
+                            url: config.companyUrl + '/api/GetOBBatchAssignment',
                             data: JSON.stringify({
                                 Batch_Code: data.Batch_Code,
                                 Campaign_Code: data.Campaign_Code,
@@ -1983,7 +1983,7 @@ function drawCCustomerTbl() {
     cCustomerTbl = $('#c-customer-tbl').DataTable({
         "serverSide": true,
         "ajax": {
-            "url": mvcHost + '/mvc' + campaign + '/api/SearchCustomerForOutbound',
+            "url": config.companyUrl + '/api/SearchCustomerForOutbound',
             "type": "POST",
             "contentType": "application/json",
             "data": function (d, settings) {
@@ -2161,7 +2161,7 @@ function initCampaignTbl(tblDataArr) {
 
                 $.ajax({
                     type: "PUT",
-                    url: mvcHost + '/mvc' + campaign + '/api/UpdateOBCampaign',
+                    url: config.companyUrl + '/api/UpdateOBCampaign',
                     data: JSON.stringify(dataObj),
                     crossDomain: true,
                     contentType: "application/json",
@@ -2223,7 +2223,7 @@ function campaignInitTbl(returnToNonEpro) {
 
     $.ajax({
         type: "POST",
-        url: mvcHost + '/mvc' + campaign + '/api/GetOBCampaign',
+        url: config.companyUrl + '/api/GetOBCampaign',
         data: JSON.stringify(dataObj),
         crossDomain: true,
         contentType: "application/json",
@@ -2517,7 +2517,7 @@ function campaignUploadedExcelHeader(input) {
         $('#c-select-sheet-tr').addClass('d-none');
         $('#c-header-field-tr').addClass('d-none');
         $.ajax({
-            url: mvcHost + '/mvc' + campaign + '/api/UploadExcelGetWorksheet',
+            url: config.companyUrl + '/api/UploadExcelGetWorksheet',
             type: "POST",
             contentType: false, // Not to set any content header  
             processData: false, // Not to process data  
@@ -2567,7 +2567,7 @@ function campaignGetExcelHeader(oThis) {
 
         $.ajax({
             type: "POST",
-            url: mvcHost + '/mvc' + campaign + '/api/GetExcelWorksheetHeader',
+            url: config.companyUrl + '/api/GetExcelWorksheetHeader',
             data: JSON.stringify(dataObj),
             crossDomain: true,
             contentType: "application/json",
@@ -2891,7 +2891,7 @@ function getInputForm(campaignObj) {
 
     $.ajax({
         type: "POST",
-        url: mvcHost + '/mvc' + campaign + '/api/GetOBInputForm',
+        url: config.companyUrl + '/api/GetOBInputForm',
         data: JSON.stringify(dataObj),
         crossDomain: true,
         contentType: "application/json",
@@ -2915,7 +2915,7 @@ function campaignGetHeader(campaignCode) {
 
     $.ajax({
         type: "POST",
-        url: mvcHost + '/mvc' + campaign + '/api/GetOBCampaignHeader',
+        url: config.companyUrl + '/api/GetOBCampaignHeader',
         data: JSON.stringify(dataObj),
         crossDomain: true,
         contentType: "application/json",
@@ -2942,7 +2942,7 @@ function campaignAddCampaign(campaignCode, headerColumnArr) {
 
     $.ajax({
         type: "POST",
-        url: mvcHost + '/mvc' + campaign + '/api/AddOBCampaign',
+        url: config.companyUrl + '/api/AddOBCampaign',
         data: JSON.stringify(dataObj),
         crossDomain: true,
         contentType: "application/json",
@@ -3209,7 +3209,7 @@ function campaignAddFormEpro(formDetailsArr, campaignObj) {
 
                 $.ajax({
                     type: "PUT",
-                    url: mvcHost + '/mvc' + campaign + '/api/UpdateOBCampaign',
+                    url: config.companyUrl + '/api/UpdateOBCampaign',
                     data: JSON.stringify(dataObj),
                     crossDomain: true,
                     contentType: "application/json",
@@ -3272,7 +3272,7 @@ function campaignAddCampaignHeader(campaignId, campaignCode, headerColumnArr) {
     }
     $.ajax({
         type: "POST",
-        url: mvcHost + '/mvc' + campaign + '/api/AddOBCampaignHeader',
+        url: config.companyUrl + '/api/AddOBCampaignHeader',
         data: JSON.stringify(dataObj),
         crossDomain: true,
         contentType: "application/json",
@@ -3428,7 +3428,7 @@ function showLogForm(showForm) {
 
     $.ajax({
         type: "POST",
-        url: mvcHost + '/mvc' + campaign + '/api/GetOBCallLog',
+        url: config.companyUrl + '/api/GetOBCallLog',
         data: JSON.stringify({
             Call_Id: Call_id,
             Agent_Id: loginId,
@@ -3600,7 +3600,7 @@ function replyConnHandle(tbodyStr, replyConnId) {
     if (isAdmin && replyConnId != 'N/A') {
         $.ajax({
             type: "POST",
-            url: wiseHost + '/WisePBX/api/Call/GetContent',
+            url: config.wiseUrl + '/api/Call/GetContent',
             data: JSON.stringify({
                 "id": replyConnId
             }),
@@ -3785,7 +3785,7 @@ $(document).ready(function () {
                 dom: 'Bti',
                 "pageLength": 10000, // to be able to export all data to excel
                 "ajax": {
-                    "url": mvcHost + '/mvc' + campaign + '/api/SearchOBCallList',
+                    "url": config.companyUrl + '/api/SearchOBCallList',
                     "type": "POST",
                     "contentType": "application/json",
                     "data": function (d, settings) {

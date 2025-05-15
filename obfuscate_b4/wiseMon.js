@@ -236,7 +236,7 @@ $(document).ready(function () {
 function getAgentList(dbAgentList) {
     $.ajax({
         type: "POST",
-        url: wiseHost + '/WisePBX/api/Config/GetAgentList',
+        url: config.wiseUrl + '/api/Config/GetAgentList',
         data: JSON.stringify({}),
         contentType: "application/json; charset=utf-8",
         dataType: "json"
@@ -1155,7 +1155,7 @@ function initAgentStatus() {
 function loadAcdAccessList() {
     $.ajax({
         type: "POST",
-        url: wiseHost + '/WisePBX/api/config/GetACDGroupAccessList',
+        url: config.wiseUrl + '/api/config/GetACDGroupAccessList',
         data: JSON.stringify({}),
         contentType: "application/json; charset=utf-8",
         dataType: "json"
@@ -1179,7 +1179,7 @@ function loadAcdAccessList() {
 function loadServiceList() {
     $.ajax({
         type: "POST",
-        url: wiseHost + '/WisePBX/api/Config/GetServiceList',
+        url: config.wiseUrl + '/api/Config/GetServiceList',
         data: JSON.stringify({}),
         contentType: "application/json; charset=utf-8",
         dataType: "json"
@@ -1284,7 +1284,7 @@ function getACDArr(serviceArr) {
         var serviceId = val.ServiceID;
         $.ajax({
             type: "POST",
-            url: wiseHost + '/WisePBX/api/Config/GetACDGroupList',
+            url: config.wiseUrl + '/api/Config/GetACDGroupList',
             data: JSON.stringify({ 'serviceId': serviceId }),
             contentType: "application/json; charset=utf-8",
             dataType: "json"
@@ -1326,7 +1326,7 @@ function updateQueueTbl(updateAcdObj) {
 function loadWallData(rowData) {
     $.ajax({
         type: "POST",
-        url: wiseHost + '/wisepbx/api/config/GetMonitorStatistics',
+        url: config.wiseUrl + '/api/config/GetMonitorStatistics',
         data: JSON.stringify({ serviceId: rowData.ServiceID, groupId: rowData.AcdGroupID }),
         contentType: "application/json; charset=utf-8",
         dataType: "json"
@@ -1935,7 +1935,7 @@ function saveSuperAcdSelected() {
             submitData.setting = setting;
             $.ajax({
                 type: "POST",
-                url: wiseHost + '/WisePBX/api/config/UpdateACDGroupAccessList',
+                url: config.wiseUrl + '/api/config/UpdateACDGroupAccessList',
                 data: JSON.stringify(submitData),
                 contentType: "application/json; charset=utf-8",
                 dataType: "json"
@@ -2109,7 +2109,7 @@ function getSuperData() {
     // Application AgentList
     $.ajax({
         type: "POST",
-        url: wiseHost + '/WisePBX/api/config/GetSupervisorList',
+        url: config.wiseUrl + '/api/config/GetSupervisorList',
         data: JSON.stringify({ agentIds: dbAgentArr }),
         contentType: "application/json; charset=utf-8",
         dataType: "json"
@@ -2132,7 +2132,7 @@ function getSuperData() {
             // get super user access list
             $.ajax({
                 type: "POST",
-                url: wiseHost + '/WisePBX/api/config/GetACDGroupAccessList',
+                url: config.wiseUrl + '/api/config/GetACDGroupAccessList',
                 data: JSON.stringify({ agentId: superId }),
                 contentType: "application/json; charset=utf-8",
                 dataType: "json"

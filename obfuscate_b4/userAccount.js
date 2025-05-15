@@ -12,7 +12,7 @@ function setLanguage() {
 var loadUserAccounts = function (intitial) {
     $.ajax({
         type: "POST",
-        url: mvcUrl + '/api/GetLogin',
+        url: config.mvcUrl + '/api/GetLogin',
         data: JSON.stringify({ Agent_Id: loginId, Token: token }),
         crossDomain: true,
         contentType: "application/json",

@@ -126,7 +126,7 @@ function searchVoiceClicked() {
 
     $.ajax({
         type: "POST",
-        url: wiseHost + '/WisePBX/api/Call/GetVoiceLogEx',
+        url: config.wiseUrl + '/api/Call/GetVoiceLogEx',
         data: JSON.stringify(sendObj),
         contentType: "application/json; charset=utf-8",
         dataType: "json"
@@ -250,7 +250,7 @@ function buildVoiceTbl(tblData) {
 function loadServiceList() {
     $.ajax({
         type: "POST",
-        url: wiseHost + '/WisePBX/api/Config/GetServiceList',
+        url: config.wiseUrl + '/api/Config/GetServiceList',
         data: JSON.stringify({}),
         contentType: "application/json; charset=utf-8",
         dataType: "json"

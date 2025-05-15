@@ -328,7 +328,7 @@ function fbMoreComments(ticketId, aboveMsgId, oThis) {
 var loadFacebookPosts = function (intitial) {
     $.ajax({
         type: "POST",
-        url: mvcUrl + '/api/GetFaceBookPostContent/',
+        url: config.mvcUrl + '/api/GetFaceBookPostContent/',
         data: JSON.stringify({
             Ticket_Id: -1,
             Agent_Id: loginId,

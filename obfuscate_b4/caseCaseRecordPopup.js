@@ -430,7 +430,7 @@ function caseRecordPopupOnload() {
                 $('#call-media-content').addClass('mt-3');
                 $.ajax({
                     type: "POST",
-                    url: wiseHost + '/WisePBX/api/' + callMediaType + '/GetContent',
+                    url: config.wiseUrl + '/api/' + callMediaType + '/GetContent',
                     data: JSON.stringify({
                         "id": connId
                     }),
@@ -487,7 +487,7 @@ function caseRecordPopupOnload() {
                 replyTypeTitle.innerHTML = replyType.replace(/_/g, " ");  //  replyTypeTitle.innerHTML = replyType.replace(/[_]/g, " ");  // 20250409 Replace this character class by the character itself.
                 $.ajax({
                     type: "POST",
-                    url: wiseHost + '/WisePBX/api/' + replyMediaType + '/GetContent',
+                    url: config.wiseUrl + '/api/' + replyMediaType + '/GetContent',
                     data: JSON.stringify({
                         "id": Number(replyConnId)
                     }),

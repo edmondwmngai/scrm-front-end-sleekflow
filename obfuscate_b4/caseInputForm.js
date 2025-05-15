@@ -211,7 +211,7 @@ function setLanguage() {
 function callUploadAttachment(fileData, uniqueId, loadingId, downloadId, lastAttachment, uploadType) { // "emailFile", "faxFile"
     $.ajax({
         type: "POST",
-        url: wiseHost + '/wisepbx/api/Outbound/UploadAttachment',
+        url: config.wiseUrl + '/api/Outbound/UploadAttachment',
         data: fileData,
         contentType: false, // Not to set any content header  
         processData: false, // Not to process data  
@@ -367,7 +367,7 @@ function previewPhoto(input) {
             fileData.append('Agent_Id', loginId);
             fileData.append('Token', token);
             $.ajax({
-                url: mvcHost + '/mvc' + campaign + '/api/UploadPhoto',
+                url: config.companyUrl + '/api/UploadPhoto',
                 type: "POST",
                 contentType: false, // Not to set any content header  
                 processData: false, // Not to process data  
@@ -859,7 +859,7 @@ function delEmailSetting(emailType, addBack) {
     if ('isValid')
         $.ajax({
             type: "POST",
-            url: wiseHost + '/WisePBX/api/Email/DelSetting',
+            url: config.wiseUrl + '/api/Email/DelSetting',
             data: JSON.stringify({
                 projectName: campaign,
                 emailAddress: emailAddress,
@@ -895,7 +895,7 @@ function addEmailSetting(emailType, passedRemarks) {
     var remarks = passedRemarks || $('#' + idType + '-remarks').val() || '';
     $.ajax({
         type: "POST",
-        url: wiseHost + '/WisePBX/api/Email/AddSetting',
+        url: config.wiseUrl + '/api/Email/AddSetting',
         data: JSON.stringify({
             projectName: campaign,
             emailAddress: emailAddress,
@@ -1037,7 +1037,7 @@ function callSaveCallHistory(isSaved) { // if update reply details only, will no
 
     $.ajax({
         type: "POST",
-        url: mvcHost + '/mvc' + campaign + '/api/SaveCallHistory',
+        url: config.companyUrl + '/api/SaveCallHistory',
         data: JSON.stringify(saveCallHistoryObj),
         contentType: "application/json; charset=utf-8",
         dataType: "json",
@@ -1064,7 +1064,7 @@ function callUpdateCase() {
     updateCaseObj.Token = token;
     $.ajax({
         type: "PUT",
-        url: mvcHost + '/mvc' + campaign + '/api/UpdateCase',
+        url: config.companyUrl + '/api/UpdateCase',
         data: JSON.stringify(updateCaseObj),
         crossDomain: true,
         contentType: "application/json",
@@ -1258,19 +1258,19 @@ var replySubmitClicked = function () {
             var replyCardStr = '<div id="reply-card" class="my-2 bg-light mb-4 rounded-2 py-5 px-3 py-3"><div class="text-center mb-3 bg-info rounded text-white"><h5 class="mt-0 mb-0">Send Email</h5></div><div class="row d-flex align-items-center">' +
 
                 '<div class="mb-3 col-sm-12 ps-0">' +
-                '<label class="col-sm-1 control-label ps-4">From</label>' +
+                '<label class="col-sm-2 control-label ps-4">From</label>' +
                 '<div class="col-sm-11 ps-2">' + companyName + ' (' + companyEmail + ')</div></div>' +
 
-                '<div class="mb-3 col-sm-12 ps-0"><label for="email-cc" class="col-sm-1 control-label ps-4">CC</label>' +
+                '<div class="mb-3 col-sm-12 ps-0"><label for="email-cc" class="col-sm-2 control-label ps-4">CC</label>' +
                 '<input class="form-control col-sm-6 col-offset-5 ms-2" id="email-cc" type="search" maxlength="100" autocomplete="off">' +
 
-                '<div class="mb-3 col-sm-12 ps-0"><label for="email-subject" class="col-sm-1 control-label ps-4">Subject</label>' +
+                '<div class="mb-3 col-sm-12 ps-0"><label for="email-subject" class="col-sm-2 control-label ps-4">Subject</label>' +
                 '<input class="form-control col-sm-6 col-offset-5 ms-2" id="email-subject" type="search" maxlength="100" autocomplete="off" value=' + subjectStr + '></div></div>' +
 
-                '<div class="mb-3 col-sm-12 ps-0 mt-1"><label for="editor" class="col-sm-1 control-label ps-4">Content<br />&nbsp;&nbsp;(html)</label>' +
+                '<div class="mb-3 col-sm-12 ps-0 mt-1"><label for="editor" class="col-sm-2 control-label ps-4">Content<br />&nbsp;&nbsp;(html)</label>' +
                 '<div class="col-sm-11 ps-2">' +
                 '<div id="editor">' + contentStr + '</div>' +
-                '</div></div><div class="mb-3 col-sm-12 ps-0 mt-2"><label for="emailFile-attachment" class="col-sm-1 control-label ps-4">Attachment</label>' +
+                '</div></div><div class="mb-3 col-sm-12 ps-0 mt-2"><label for="emailFile-attachment" class="col-sm-2 control-label ps-4">Attachment</label>' +
                 '<div id="emailFile-attachment" class="col-sm-11 ps-2">' +
                 '<input type="file" id="upload-emailFile" onchange=' + emailFileUploadStr + ' style="display:none" multiple>' +
                 '<input type="button" class="btn btn-warning btn-sm text-capitalize" title="Upload Attachment" value="Upload" onclick=' + emailFileTriggerStr + ' /></div></div>' +
@@ -1329,9 +1329,9 @@ var replySubmitClicked = function () {
         } else if (replyChannel === 'sms') {
             $('<div id="reply-card" class="my-2 bg-light mb-4 rounded-2 py-5 px-3 py-3"><div class="text-center mb-3 bg-info rounded text-white"><h5 class="mt-0 mb-0">Send SMS</h5></div>' +
                 '<div class="row d-flex align-items-center"><div class="mb-3 col-sm-12 ps-0">' +
-                '<label class="col-sm-1 control-label ps-4">&nbsp;&nbsp;&nbsp;From</label>' +
+                '<label class="col-sm-2 control-label ps-4">&nbsp;&nbsp;&nbsp;From</label>' +
                 '<div class="col-sm-11 ps-2">' + companyName + '</div></div>' +
-                '<div class="mb-3 col-sm-12 ps-0"><label for="sms-content" class="col-sm-1 control-label ps-4">&nbsp;&nbsp;&nbsp;Content</label>' +
+                '<div class="mb-3 col-sm-12 ps-0"><label for="sms-content" class="col-sm-2 control-label ps-4">&nbsp;&nbsp;&nbsp;Content</label>' +
                 '<div class="col-sm-11 ps-2">' +
                 '<textarea class="mt-3" id="sms-content" rows="3" cols="20" style="font-family:inherit;width:100%;" maxlength="500" onKeyUp="smsWordCount()"></textarea></textarea></div></div>' +
                 '<div class="w-100"><span style="float:right;margin-right:30px;"><span id="sms-word-count" class="align-right">0/170</span>&nbsp;&nbsp;<span id="sms-msg-count">1</span>&nbsp;message(s)</span></div>' +
@@ -1376,7 +1376,7 @@ function loadCaseLog(initial) {
     // console.log('parent.caseNo in loadCaseLog'); console.log(parent.caseNo);
     $.ajax({
         type: "POST",
-        url: mvcHost + '/mvc' + campaign + '/api/GetCaseLog',
+        url: config.companyUrl + '/api/GetCaseLog',
         data: JSON.stringify({
             'Case_No': Number(caseNo),
             'Is_Valid': 'Y',
@@ -1677,7 +1677,7 @@ function windowOnload() {
         }
         //Get Photo
         $.ajax({
-            url: mvcHost + '/mvc' + campaign + '/api/GetPhoto',
+            url: config.companyUrl + '/api/GetPhoto',
             type: "POST",
             data: JSON.stringify({
                 "Customer_Id": customerId,
@@ -1815,7 +1815,7 @@ function windowOnload() {
                 if (details.length > 0) {
                     $.ajax({
                         type: "POST",
-                        url: mvcHost + '/mvc' + campaign + '/api/GetFields',
+                        url: config.companyUrl + '/api/GetFields',
                         data: JSON.stringify({
                             "listArr": ["Webchat Fields"],
                             Agent_Id: loginId,
@@ -1927,11 +1927,11 @@ function windowOnload() {
         showCustomerSectionOnly();
     }
     // ================ GET NATIONALITY, MARKET AND PROFILE ================
-    if (nationalityArr.length == 0) {
+    if (nationalityArr.length == 0 || marketArr.length == 0 || profileArr.length == 0 || sessionStorage.getItem('scrmProfileArr').length < 8) {
         var language = sessionStorage.getItem('scrmLanguage') ? sessionStorage.getItem('scrmLanguage').toLowerCase() : 'EN';
         $.ajax({
             type: "POST",
-            url: mvcHost + '/mvc' + campaign + '/api/GetNationalityMarketProfile',
+            url: config.companyUrl + '/api/GetNationalityMarketProfile',
             crossDomain: true,
             contentType: "application/json",
             data: JSON.stringify({
@@ -2128,7 +2128,7 @@ function updateClicked(isTemp) {
     }
     $.ajax({
         type: "PUT",
-        url: mvcHost + '/mvc' + campaign + '/api/UpdateCustomer',
+        url: config.companyUrl + '/api/UpdateCustomer',
         data: JSON.stringify({
             Customer_Id: Number(customerId),
             Agent_Id: loginId,

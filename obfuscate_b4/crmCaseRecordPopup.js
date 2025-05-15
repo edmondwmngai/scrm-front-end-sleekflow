@@ -475,7 +475,7 @@ var getRelatvieCallId = function (callMediaType, theConnId) {
     return new Promise(function (myResolve) {
         $.ajax({
             type: "POST",
-            url: wiseHost + '/WisePBX/api/' + callMediaType + '/GetRelativeCallID',
+            url: config.wiseUrl + '/api/' + callMediaType + '/GetRelativeCallID',
             data: JSON.stringify({
                 "callId": theConnId
             }),
@@ -495,7 +495,7 @@ function getContent(callMediaType, theConnId) {
     return new Promise(function (myResolve, myReject) {
         $.ajax({
             type: "POST",
-            url: wiseHost + '/WisePBX/api/' + callMediaType + '/GetContent',
+            url: config.wiseUrl + '/api/' + callMediaType + '/GetContent',
             data: JSON.stringify({
                 "id": theConnId
             }),
@@ -647,7 +647,7 @@ function caseRecordPopupOnload() {
                 replyTypeTitle.innerHTML = replyType.replace(/_/g, " ");  // replyTypeTitle.innerHTML = replyType.replace(/[_]/g, " "); // 20250409 Replace this character class by the character itself.
                 $.ajax({
                     type: "POST",
-                    url: wiseHost + '/WisePBX/api/' + replyMediaType + '/GetContent',
+                    url: config.wiseUrl + '/api/' + replyMediaType + '/GetContent',
                     data: JSON.stringify({
                         "id": Number(replyConnId)
                     }),

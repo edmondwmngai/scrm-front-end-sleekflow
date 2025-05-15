@@ -1592,7 +1592,7 @@ function discardClicked(ticketId) {
 function getFBPostContent(ticketId) {
     $.ajax({
         type: "POST",
-        url: mvcUrl + '/api/GetFaceBookPostContent/',
+        url: config.mvcUrl + '/api/GetFaceBookPostContent/',
         data: JSON.stringify({
             Ticket_Id: ticketId,
             Agent_Id: loginId,

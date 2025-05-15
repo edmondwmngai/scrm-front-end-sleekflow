@@ -107,7 +107,7 @@ function vmailOnload() {
     }
     $.ajax({
         type: 'POST',
-        url: config.wiseHost + '/WisePBX/api/Vmail/GetList',
+        url: config.wiseUrl + '/api/Vmail/GetList',
         data: JSON.stringify({ "dnis": dnis, "agentId": selectedAgent || -1 }),
         crossDomain: true,
         contentType: "application/json; charset=utf-8",
@@ -187,7 +187,9 @@ function vmailOnload() {
                 }
             });
 
-            $('#media-list-table tbody').on('click', 'tr[role="row"]', function () {
+			  
+            //$('#media-list-table tbody').on('click', 'tr[role="row"]', function () {
+			  $('#media-list-table').on('click', 'tr', function () {
                 // no e.preventDefault() here because user may click the radio button at the same time
                 listTable.$('tr.highlight').removeClass('highlight'); // $('xxx tbody tr) will not select other pages not showing, do not use this selector
                 $(this).addClass('highlight');

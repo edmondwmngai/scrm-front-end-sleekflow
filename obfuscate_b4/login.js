@@ -152,7 +152,7 @@ function restoreClicked() {
     doneStr.addClass('d-none');
     $.ajax({
         type: "GET",
-        url: mvcUrl + '/api/RestoreHKTB',
+        url: config.mvcUrl + '/api/RestoreHKTB',
         crossDomain: true,
         contentType: "application/json",
         processData: false
@@ -228,7 +228,7 @@ function verify(e) {
     }
     $.ajax({
         type: 'POST',
-        url: mvcUrl + '/api/Login',
+        url: config.mvcUrl + '/api/Login',
         data: JSON.stringify(dataObj),
         crossDomain: true,
         contentType: "application/json",

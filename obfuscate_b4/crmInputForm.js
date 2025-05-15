@@ -4,7 +4,7 @@ var customerOnly = false;
 var type = parent.type;
 var openType = window.frameElement.getAttribute("openType") || ''; // "menu" or "traditional" or "social"
 //var isSocial = window.frameElement.getAttribute("openType") == "social" ? true : false;   //20250320 Unnecessary use of boolean literals in conditional expression.
-var isSocial = window.frameElement.getAttribute("openType") == "social";
+var isSocial = window.frameElement.getAttribute("openType") == "social" ? true : false; 
 let customerId = window.frameElement.getAttribute("customerId") ? parseInt(window.frameElement.getAttribute("customerId")) : -1;
 var internalCaseNo = window.frameElement.getAttribute("internalCaseNo") || -1;
 var caseNo = window.frameElement.getAttribute("caseNo") || -1;
@@ -342,7 +342,7 @@ function setLanguage() {
 function callUploadAttachment(fileData, uniqueId, loadingId, downloadId, lastAttachment, uploadType) { // "emailFile", "faxFile"
     $.ajax({
         type: "POST",
-        url: wiseHost + '/wisepbx/api/Outbound/UploadAttachment',
+        url: config.wiseUrl + '/api/Outbound/UploadAttachment',
         data: fileData,
         contentType: false, // Not to set any content header  
         processData: false, // Not to process data  
@@ -477,7 +477,7 @@ function previewPhoto(input) {
             fileData.append('Agent_Id', loginId);
             fileData.append('Token', token);
             $.ajax({
-                url: mvcHost + '/mvc' + campaign + '/api/UploadPhoto',
+                url: config.companyUrl + '/api/UploadPhoto',
                 type: "POST",
                 contentType: false, // Not to set any content header  
                 processData: false, // Not to process data  
@@ -513,7 +513,7 @@ function changedCustomer(newCustomerId) {
     customerId = newCustomerId;
     $.ajax({
         type: "POST",
-        url: mvcHost + '/mvc' + campaign + '/api/ManualSearch',
+        url: config.companyUrl + '/api/ManualSearch',
         data: JSON.stringify({
             "anyAll": "all",
             Agent_Id: loginId,
@@ -593,7 +593,7 @@ function setCustomerInfo(isChangedCustomer) {
         }
         // Get Photo
         $.ajax({
-            url: mvcHost + '/mvc' + campaign + '/api/GetPhoto',
+            url: config.companyUrl + '/api/GetPhoto',
             type: "POST",
             data: JSON.stringify({
                 "Customer_Id": customerId,
@@ -678,11 +678,13 @@ function setCustomerInfo(isChangedCustomer) {
 
 
     // ================ GET NATIONALITY, MARKET AND PROFILE ================
-    if (nationalityArr.length == 0) {
-        var language = sessionStorage.getItem('scrmLanguage') ? sessionStorage.getItem('scrmLanguage').toLowerCase() : 'EN';
+    if (nationalityArr.length == 0 || marketArr.length == 0 || profileArr.length == 0 || sessionStorage.getItem('scrmProfileArr').length < 8) {
+        //var language = sessionStorage.getItem('scrmLanguage') ? sessionStorage.getItem('scrmLanguage').toLowerCase() : 'EN';
+		var language = sessionStorage.getItem('scrmLanguage') != null? sessionStorage.getItem('scrmLanguage').toLowerCase() : 'EN';
+		
         $.ajax({
             type: "POST",
-            url: mvcHost + '/mvc' + campaign + '/api/GetNationalityMarketProfile',
+            url: config.companyUrl + '/api/GetNationalityMarketProfile',
             crossDomain: true,
             contentType: "application/json",
             data: JSON.stringify({
@@ -780,7 +782,7 @@ function setCustomerInfo(isChangedCustomer) {
                 if (details.length > 0) {
                     $.ajax({
                         type: "POST",
-                        url: mvcHost + '/mvc' + campaign + '/api/GetFields',
+                        url: config.companyUrl + '/api/GetFields',
                         data: JSON.stringify({
                             "listArr": ["Webchat Fields"],
                             Agent_Id: loginId,
@@ -1753,7 +1755,7 @@ function delEmailSetting(emailType, addBack) {
     if ('isValid')
         $.ajax({
             type: "POST",
-            url: wiseHost + '/WisePBX/api/Email/DelSetting',
+            url: config.wiseUrl + '/api/Email/DelSetting',
             data: JSON.stringify({
                 projectName: campaign,
                 emailAddress: emailAddress,
@@ -1786,7 +1788,7 @@ function addEmailSetting(emailType, passedRemarks) {
     var remarks = passedRemarks || $('#' + idType + '-remarks').val() || '';
     $.ajax({
         type: "POST",
-        url: wiseHost + '/WisePBX/api/Email/AddSetting',
+        url: config.wiseUrl + '/api/Email/AddSetting',
         data: JSON.stringify({
             projectName: campaign,
             emailAddress: emailAddress,
@@ -1851,7 +1853,7 @@ function callSaveCallHistory(isSaved) { // if update reply details only, will no
     }
     $.ajax({
         type: "POST",
-        url: mvcHost + '/mvc' + campaign + '/api/SaveCallHistory',
+        url: config.companyUrl + '/api/SaveCallHistory',
         data: JSON.stringify(saveCallHistoryObj),
         contentType: "application/json; charset=utf-8",
         dataType: "json",
@@ -1888,12 +1890,17 @@ function callUpdateCase() {
 
     if (updateCaseObj.Ticket_Id == null && parent.parent[3].chatService != null)
     {
-        updateCaseObj.Ticket_Id = parent.parent[3].chatService.selectedTicketId.ToString();
+		if  (parent.parent[3].chatService.selectedTicketId != null)
+		{
+			//20250430 for ticketid fix for shandler
+			 var tId =parent.parent[3].chatService.selectedTicketId.ToString;
+			updateCaseObj.Ticket_Id =  tId;
+		}
     }
 
     $.ajax({
         type: "PUT",
-        url: mvcHost + '/mvc' + campaign + '/api/UpdateCase',
+        url: config.companyUrl + '/api/UpdateCase',
         data: JSON.stringify(updateCaseObj),
         crossDomain: true,
         contentType: "application/json",
@@ -2269,15 +2276,15 @@ var replySubmitClicked = function () {
             var emailFileUploadStr = 'uploadAttachment(this,"emailFile");'
             var replyCardStr = '<div id="reply-card" class="my-2 bg-light mb-4 rounded-2 py-5 px-3 py-3"><div class="text-center mb-2 bg-info rounded text-white"><h5 class="mt-0 mb-0">Send Email</h5></div><div class="row d-flex align-items-center">' +
 
-                '<div class="mb-3 col-sm-12 ps-0 mb-0">' +
+                '<div class="d-flex mb-3 col-sm-12 ps-0 mb-0">' +
 
                 '<label class="col-sm-1 control-label ps-4">Template</label>' +
 
-                '<div class="col-sm-11 ps-2">' +
+                '<div class="d-flex col-sm-11 ps-2">' +
 
-                '<span class="mb-3 d-flex align-items-center float-start">' +
+                '<span class="mb-3 d-flex align-items-center float-start" style="margin-top:-8px">' +
                 '<div class="form-check mt-2">' +
-                '<label class="form-check-label">' +
+                '<label class="form-check-label" style="text-wrap: nowrap;">' +
                 '<input class="form-check-input" type="radio" name="lang-rd-list" value="chi" checked="">中文<span class="circle">' +
                 '<span class="check"></span>' +
                 '</span>' +
@@ -2338,23 +2345,23 @@ var replySubmitClicked = function () {
                 '</div>' +
 
 
-                '<div class="mb-3 col-sm-12 ps-0">' +
+                '<div class="mb-3 col-sm-12 ps-0 d-flex">' +
                 '<label class="col-sm-1 control-label ps-4">From</label>' +
                 '<div class="col-sm-11 ps-2">' + companyName + ' (' + companyEmail + ')' +
 
                 '</div></div>' +
 
-                '<div class="mb-3 col-sm-12 ps-0"><label for="email-cc" class="col-sm-1 control-label ps-4">CC</label>' +
-                '<input class="form-control col-sm-6 col-offset-5 ms-2" id="email-cc" type="search" maxlength="100" autocomplete="off">' +
+                '<div class="mb-4 col-sm-12 ps-0 d-flex"><label for="email-cc" class="col-sm-1 control-label ps-4">CC</label>' +
+                '<input class="form-control col-sm-6 col-offset-5 ms-2" id="email-cc" type="search" maxlength="100" autocomplete="off"></div>' +
 
-                '<div class="mb-3 col-sm-12 ps-0"><label for="email-subject" class="col-sm-1 control-label ps-4">Subject</label>' +
-                '<input class="form-control col-sm-6 col-offset-5 ms-2" id="email-subject" type="search" maxlength="100" autocomplete="off" value=' + subjectStr + '></div></div>' +
+                '<div class="mb-4 col-sm-12 ps-0 d-flex"><label for="email-subject" class="col-sm-1 control-label ps-4">Subject</label>' +
+                '<input class="form-control col-sm-6 col-offset-5 ms-2" id="email-subject" type="search" maxlength="100" autocomplete="off" value=' + subjectStr + '></div>' +
 
-                '<div class="mb-3 col-sm-12 ps-0 mt-1"><label for="editor" class="col-sm-1 control-label ps-4">Content<br />&nbsp;&nbsp;(html)</label>' +
+                '<div class="mb-3 col-sm-12 ps-0 mt-1 d-flex"><label for="editor" class="col-sm-1 control-label ps-4">Content<br />&nbsp;&nbsp;(html)</label>' +
                 '<div class="col-sm-11 ps-2">' +
                 '<div id="editor">' + contentStr + '</div>' +
-                '</div></div><div class="mb-3 col-sm-12 ps-0 mt-2"><label for="emailFile-attachment" class="col-sm-1 control-label ps-4">Attachment</label>' +
-                '<div id="emailFile-attachment" class="col-sm-11 ps-2">' +
+                '</div></div><div class="mb-3 col-sm-12 ps-0 mt-2"><label for="emailFile-attachment" class="col-sm-1 control-label ps-4" style="text-wrap: nowrap">Attachment</label>' +
+                '<div id="emailFile-attachment" class="col-sm-11 ps-3">' +
                 '<input type="file" id="upload-emailFile" onchange=' + emailFileUploadStr + ' style="display:none" multiple>' +
                 '<input type="button" class="btn btn-warning btn-sm text-capitalize" title="Upload Attachment" value="Upload" onclick=' + emailFileTriggerStr + ' /></div></div>' +
                 '</div></div>';
@@ -2483,22 +2490,22 @@ var replySubmitClicked = function () {
             var faxFileTriggerStr = "$('#upload-faxFile').trigger('click');"
             var faxFileUploadStr = 'uploadAttachment(this,"faxFile");'
             $('<div id="reply-card" class="my-2 bg-light mb-4 rounded-2 py-5 px-3 py-3"><div class="text-center mb-3 bg-info rounded text-white"><h5 class="mt-0 mb-0">Send Fax</h5></div><div class="row d-flex align-items-center">' +
-                '<div class="mb-3 col-sm-12 ps-3">' +
+                '<div class="mb-3 col-sm-12 ps-3 d-flex">' +
                 '<label class="col-sm-2 control-label ps-5 justify-content-start">Cover Sender</label>' +
                 '<div class="col-sm-10 ps-3">' + agentName + '</div></div>' +
-                '<div class="mb-3 col-sm-12 ps-3">' +
+                '<div class="mb-3 col-sm-12 ps-3 d-flex">' +
                 '<label class="col-sm-2 control-label ps-5 justify-content-start">Cover Company</label>' +
                 '<div class="col-sm-10 ps-3">' + companyName + '</div></div>' +
-                '<div class="mb-3 col-sm-12 ps-3">' +
+                '<div class="mb-3 col-sm-12 ps-3 d-flex">' +
                 '<label for="fax-attn" class="col-sm-2 control-label ps-5 justify-content-start">Cover Attention</label>' +
                 '<div class="col-sm-10 ps-3"><input id="fax-attn" class="form-control" /></div></div>' +
-                '<div class="mb-3 col-sm-12 ps-3">' +
+                '<div class="mb-3 col-sm-12 ps-3 d-flex">' +
                 '<label for="fax-subject" class="col-sm-2 control-label ps-5 justify-content-start">Cover Subject</label>' +
                 '<div class="col-sm-10 ps-3"><input id="fax-subject" class="form-control" /></div></div>' +
-                '<div class="mb-3 col-sm-12 ps-3"><label for="fax-msg" class="col-sm-2 control-label  ps-5 justify-content-start">Content</label>' +
+                '<div class="mb-3 col-sm-12 ps-3 d-flex"><label for="fax-msg" class="col-sm-2 control-label  ps-5 justify-content-start">Content</label>' +
                 '<div class="col-sm-10 ps-3">' +
                 '<textarea class="mt-2" id="fax-msg" rows="3" cols="20" style="font-family:inherit;width:100%;" maxlength="500"></textarea></div></div>' +
-                '<div class="mb-3 col-sm-12 ps-3">' +
+                '<div class="mb-3 col-sm-12 ps-3 d-flex">' +
                 '<label class="col-sm-2 control-label ps-5 justify-content-start">Fax File<br>(TXT, PDF, DOC, PPT, XLS Format Allowed)</label>' +
                 '<div id="faxFile-attachment" class="col-sm-10 ps-3"><input type="file" accept=".doc,.docx,.pdf,.xls,.xlsx,.ppt,.pptx,.txt" id="upload-faxFile" onchange=' + faxFileUploadStr + ' style="display:none" multiple>' +
                 '<input type="button" class="btn btn-warning btn-sm ms-0 text-capitalize" title="Upload Fax File" value="Upload" style="margin-left:5px;" onclick=' + faxFileTriggerStr + ' /></div></div></div></div>' +
@@ -2507,14 +2514,14 @@ var replySubmitClicked = function () {
             $('<div id="reply-card" class="my-2 bg-light mb-4 rounded-2 py-5 px-3 py-3"><div class="text-center mb-3 bg-info rounded text-white"><h5 class="mt-0 mb-0">Send SMS</h5></div>' +
                 '<div class="row d-flex align-items-center">' +
 
-                '<div class="mb-3 col-sm-12 ps-0 mb-0">' +
+                '<div class="d-flex mb-3 col-sm-12 ps-0 mb-0">' +
                 '<label class="col-sm-1 control-label ps-4">Template</label>' +
 
-                '<div class="col-sm-11 ps-2">' +
+                '<div class="d-flex col-sm-11 ps-2">' +
 
-                '<span class="mb-3 d-flex align-items-center float-start">' +
-                '<div class="form-check mt-2">' +
-                '<label class="form-check-label">' +
+                '<span class="mb-3 d-flex align-items-center float-start" style="margin-top:-8px">' +
+                '<div class="form-check mt-2" style="text-wrap: nowrap;">' +
+                '<label class="form-check-label" >' +
                 '<input class="form-check-input" type="radio" name="lang-rd-list" value="chi" checked="">中文<span class="circle">' +
                 '<span class="check"></span>' +
                 '</span>' +
@@ -2531,7 +2538,7 @@ var replySubmitClicked = function () {
                 '</div>' +
                 '</span>&nbsp;&nbsp;&nbsp;' +
 
-                '<select id="tmp-2nd-lv" class="form-select">' +
+                '<select id="tmp-2nd-lv" class="form-select w-auto" style="height:34px">' +
                 '<option selected="selected" value=""></option>' +
                 '<option lang="chi" value=0>提供驗證碼</option>' +
                 '<option lang="eng" class="d-none" value=1>Give Verification</option>' +
@@ -2552,7 +2559,7 @@ var replySubmitClicked = function () {
 
                 '<div class="offset-md-1 col-sm-11 ps-1">' +
 
-                '<select id="tmp-3rd-lv" class="form-select d-none pt-0 mb-2" style="margin-left:148px;">' +
+                '<select id="tmp-3rd-lv" class="form-select d-none pt-0 mb-2  w15" style="margin-left:148px;">' +
                 '<option selected="selected" value=""></option>' +
                 '<option lang="chi" group-id="3" value=4>強積金計劃說明書 - 我的強積金計劃 (2020年3月31日)</option>' +
                 '<option lang="chi" group-id="3" value=5>我的強積金計劃之強積金計劃說明書第一補編 (2020年5月15日)</option>' +
@@ -2574,12 +2581,12 @@ var replySubmitClicked = function () {
 
                 '</div>' +
 
-                '<div class="mb-3 col-sm-12 ps-0">' +
-                '<label class="col-sm-1 control-label ps-4">&nbsp;&nbsp;&nbsp;From</label>' +
+                '<div class="d-flex mb-3 col-sm-12 ps-0">' +
+                '<label class="d-flex col-sm-2 control-label ps-4 ">&nbsp;&nbsp;&nbsp;From</label>' +
                 '<div class="col-sm-11 ps-2">' + companyName +
                 '</div></div>' +
 
-                '<div class="mb-3 col-sm-12 ps-0"><label for="sms-content" class="col-sm-1 control-label ps-4">&nbsp;&nbsp;&nbsp;Content</label>' +
+                '<div class="mb-3 col-sm-12 ps-0"><label for="sms-content" class="col-sm-2 control-label ps-4">&nbsp;&nbsp;&nbsp;Content</label>' +
                 '<div class="col-sm-11 ps-2">' +
                 '<textarea class="mt-3" id="sms-content" rows="3" cols="20" style="font-family:inherit;width:100%;" maxlength="500" onKeyUp="smsWordCount()"></textarea></textarea></div></div>' +
                 '<div class="w-100"><span style="float:right;margin-right:30px;"><span id="sms-word-count" class="align-right">0/170</span>&nbsp;&nbsp;<span id="sms-msg-count">1</span>&nbsp;message(s)</span></div>' +
@@ -2716,7 +2723,7 @@ var replySubmitClicked = function () {
 var loadCaseLog = function (initial) {
     $.ajax({
         type: "POST",
-        url: mvcHost + '/mvc' + campaign + '/api/GetCaseLog',
+        url: config.companyUrl + '/api/GetCaseLog',
         data: JSON.stringify({
             'Case_No': Number(caseNo),
             'Is_Valid': 'Y',
@@ -2980,7 +2987,7 @@ function windowOnload() {
     //     }
     //     // Get Photo
     //     $.ajax({
-    //         url: mvcHost + '/mvc' + campaign + '/api/GetPhoto',
+    //         url: config.companyUrl + '/api/GetPhoto',
     //         type: "POST",
     //         data: JSON.stringify({
     //             "Customer_Id": customerId,
@@ -3093,7 +3100,7 @@ function windowOnload() {
     //             if (details.length > 0) {
     //                 $.ajax({
     //                     type: "POST",
-    //                     url: mvcHost + '/mvc' + campaign + '/api/GetFields',
+    //                     url: config.companyUrl + '/api/GetFields',
     //                     data: JSON.stringify({
     //                         "listArr": ["Webchat Fields"],
     //                         Agent_Id: loginId,
@@ -3253,7 +3260,7 @@ function windowOnload() {
     //     var language = sessionStorage.getItem('scrmLanguage') ? sessionStorage.getItem('scrmLanguage').toLowerCase() : 'EN';
     //     $.ajax({
     //         type: "POST",
-    //         url: mvcHost + '/mvc' + campaign + '/api/GetNationalityMarketProfile',
+    //         url: config.companyUrl + '/api/GetNationalityMarketProfile',
     //         crossDomain: true,
     //         contentType: "application/json",
     //         data: JSON.stringify({ Lang: language, Agent_Id: loginId, Token: token }),
@@ -3487,7 +3494,7 @@ function updateClicked(isTemp) {
     }
     $.ajax({
         type: "PUT",
-        url: mvcHost + '/mvc' + campaign + '/api/UpdateCustomer',
+        url: config.companyUrl + '/api/UpdateCustomer',
         data: JSON.stringify({
             Customer_Id: Number(customerId),
             Agent_Id: loginId,

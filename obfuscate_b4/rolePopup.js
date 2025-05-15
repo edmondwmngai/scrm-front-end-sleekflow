@@ -24,7 +24,7 @@ function setLanguage() {
 function loadFields(checkedItems) {
     $.ajax({
         type: "POST",
-        url: mvcUrl + '/api/GetFields',
+        url: config.mvcUrl + '/api/GetFields',
         data: JSON.stringify({
             "listArr": ["Categories", "Functions"],
             Agent_Id: loginId,
@@ -172,7 +172,7 @@ function loadCheckboxActions(allCheckboxes, selectAllId) {
 function createRole(roleName, companies, categories, functions, roleStatus) {
     $.ajax({
         type: "POST",
-        url: mvcUrl + '/api/CreateRole',
+        url: config.mvcUrl + '/api/CreateRole',
         data: JSON.stringify({
             RoleName: roleName,
             Companies: companies,
@@ -203,7 +203,7 @@ function createRole(roleName, companies, categories, functions, roleStatus) {
 function updateRole(roleID, roleName, companies, categories, functions, roleStatus) {
     $.ajax({
         type: "PUT",
-        url: mvcUrl + '/api/UpdateRole',
+        url: config.mvcUrl + '/api/UpdateRole',
         data: JSON.stringify({
             RoleID: Number(roleID),
             RoleName: roleName,
@@ -336,7 +336,7 @@ function checkRoleOfAgents() {
     // check if that role is used by any agents
     $.ajax({
         type: "POST",
-        url: mvcUrl + '/api/GetAgentsOfRole',
+        url: config.mvcUrl + '/api/GetAgentsOfRole',
         data: JSON.stringify({
             LevelID: roleId,
             Agent_Id: loginId,

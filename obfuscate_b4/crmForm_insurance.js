@@ -86,7 +86,7 @@ function oldProductCheck(cancelEditBtns, cancelDelBtnShowns, totalLen, productCo
             } else {
                 $.ajax({
                     type: "PUT",
-                    url: mvcHost + '/mvc' + campaign + '/api/UpdateOBSalesOrder',
+                    url: config.companyUrl + '/api/UpdateOBSalesOrder',
                     data: JSON.stringify({
                         Agent_Id: loginId,
                         Token: token,
@@ -122,7 +122,7 @@ function oldProductCheck(cancelEditBtns, cancelDelBtnShowns, totalLen, productCo
             var theSaId = theBtn.attr('said');
             $.ajax({
                 type: "PUT",
-                url: mvcHost + '/mvc' + campaign + '/api/UpdateOBSalesOrder',
+                url: config.companyUrl + '/api/UpdateOBSalesOrder',
                 data: JSON.stringify({
                     Agent_Id: loginId,
                     Token: token,
@@ -155,7 +155,7 @@ function oldProductCheck(cancelEditBtns, cancelDelBtnShowns, totalLen, productCo
 function oldProductEdit(saId, productCode, price) {
     $.ajax({
         type: "POST",
-        url: mvcHost + '/mvc' + campaign + '/api/UpdateOBSalesOrder',
+        url: config.companyUrl + '/api/UpdateOBSalesOrder',
         data: JSON.stringify({
             Agent_Id: loginId,
             Token: token,
@@ -178,7 +178,7 @@ function oldProductEdit(saId, productCode, price) {
 function oldProductDel(saId) {
     $.ajax({
         type: "POST",
-        url: mvcHost + '/mvc' + campaign + '/api/UpdateOBSalesOrder',
+        url: config.companyUrl + '/api/UpdateOBSalesOrder',
         data: JSON.stringify({
             Agent_Id: loginId,
             Token: token,
@@ -199,7 +199,7 @@ function oldProductDel(saId) {
 function getProduct() {
     $.ajax({
         type: "POST",
-        url: mvcHost + '/mvc' + campaign + '/api/GetOBProductPrice',
+        url: config.companyUrl + '/api/GetOBProductPrice',
         data: JSON.stringify({
             Agent_Id: loginId,
             Token: token
@@ -246,7 +246,7 @@ function getProduct() {
             if (customerData.Call_Status == 'Successful Order') {
                 $.ajax({
                     type: "POST",
-                    url: mvcHost + '/mvc' + campaign + '/api/GetOBSalesOrder',
+                    url: config.companyUrl + '/api/GetOBSalesOrder',
                     data: JSON.stringify({
                         Agent_Id: loginId,
                         Token: token,
@@ -724,7 +724,7 @@ function saveClicked() {
 
         $.ajax({
             type: "PUT",
-            url: mvcHost + '/mvc' + campaign + '/api/UpdateOBCallList',
+            url: config.companyUrl + '/api/UpdateOBCallList',
             data: JSON.stringify(sendObj),
             crossDomain: true,
             contentType: "application/json",
@@ -784,7 +784,7 @@ var saveProduct = function (productCode, planCode, planPrice) {
         }
         $.ajax({
             type: "POST",
-            url: mvcHost + '/mvc' + campaign + '/api/AddOBSalesOrder',
+            url: config.companyUrl + '/api/AddOBSalesOrder',
             data: JSON.stringify(sendObj),
             crossDomain: true,
             contentType: "application/json",
@@ -884,7 +884,7 @@ function callSaveCallHistory(ibConnId) { // if update reply details only, will n
 
     $.ajax({
         type: "POST",
-        url: mvcHost + '/mvc' + campaign + '/api/SaveCallHistory',
+        url: config.companyUrl + '/api/SaveCallHistory',
         data: JSON.stringify(saveCallHistoryObj),
         contentType: "application/json; charset=utf-8",
         dataType: "json",
@@ -1626,7 +1626,7 @@ function updateClicked(isTemp) {
     }
     $.ajax({
         type: "PUT",
-        url: mvcHost + '/mvc' + campaign + '/api/UpdateCustomer',
+        url: config.companyUrl + '/api/UpdateCustomer',
         data: JSON.stringify({
             Customer_Id: Number(customerId),
             Agent_Id: loginId,

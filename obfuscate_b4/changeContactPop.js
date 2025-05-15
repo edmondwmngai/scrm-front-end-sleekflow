@@ -205,7 +205,7 @@ function submitClicked(type) {   //20250325 This function expects no arguments, 
         // Get Manual Search Result
         $.ajax({
             type: "POST",
-            url: mvcHost + '/mvc' + campaign + '/api/ManualSearch',
+            url: config.companyUrl + '/api/ManualSearch',
             data: JSON.stringify(submitData),
             crossDomain: true,
             contentType: "application/json",
@@ -260,7 +260,7 @@ function submitClicked(type) {   //20250325 This function expects no arguments, 
                     } else {
                         $.ajax({
                             type: "PUT",
-                            url: mvcHost + '/mvc' + campaign + '/api/ChangeContact',
+                            url: config.companyUrl + '/api/ChangeContact',
                             data: JSON.stringify({ "Case_No": changeContactCaseNo, "Customer_Id": customerId, "Agent_Id": loginId, Token: token }),
                             contentType: "application/json; charset=utf-8",
                             dataType: "json",

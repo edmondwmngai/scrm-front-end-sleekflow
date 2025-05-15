@@ -21,7 +21,7 @@ function setLanguage() {
 var loadUserRoles = function (intitial) {
     $.ajax({
         type: "POST",
-        url: mvcUrl + '/api/GetRoles',
+        url: config.mvcUrl + '/api/GetRoles',
         data: JSON.stringify({ Agent_Id: loginId, Token: token }),
         contentType: "application/json; charset=utf-8",
         dataType: "json"
@@ -131,7 +131,7 @@ function deleteRole(roleID, roleName, roleStatus) {
     // fake delete, only update the role status to 'D'
     $.ajax({
         type: "PUT",
-        url: mvcUrl + '/api/UpdateRole',
+        url: config.mvcUrl + '/api/UpdateRole',
         data: JSON.stringify({
             RoleID: Number(roleID),
             RoleStatus: roleStatus,

@@ -34,7 +34,7 @@ function buildContent() {
 function getContent() {
     $.ajax({
         type: "POST",
-        url: config.wiseHost + '/WisePBX/api/Vmail/GetContent',
+        url: config.wiseUrl + '/api/Vmail/GetContent',
         data: JSON.stringify({ "id": mediaId }),
         contentType: "application/json; charset=utf-8",
         dataType: "json",

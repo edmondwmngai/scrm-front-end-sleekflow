@@ -1,7 +1,7 @@
 var caseNo = window.opener.caseNo;
 var loginId = parseInt(sessionStorage.getItem('scrmAgentId') || -1);
 var token = sessionStorage.getItem('scrmToken') || '';
-var isRead;
+var isRead; 
 var mvcHost = config.mvcHost;
 var campaign = window.opener.campaign;
 var originalRemarks = '';
@@ -49,7 +49,7 @@ function getCurrentDatetime() {
 function loadCaseReminder(caseNo) {
     $.ajax({
         type: "POST",
-        url: mvcHost + '/mvc' + campaign + '/api/GetCaseReminder',
+        url: config.companyUrl + '/api/GetCaseReminder',
         data: JSON.stringify({
             "Case_No": Number(caseNo),
             Agent_Id: loginId,
@@ -73,19 +73,30 @@ function loadCaseReminder(caseNo) {
                     isRead = "N";
                 } else {
                     var datetime = reminderDetails[0].Scheduled_Time.split("T"); // obtain date and time separately
-                    var time = datetime[1].substring(0, datetime[1].length - 3); // obtain time in HH:MM format
+                    
+					
+					var time = datetime[1].substring(0, datetime[1].length - 3); // obtain time in HH:MM format
+
+					
 
                     // set the date to datepicker textbox
                     var date = datetime[0];
+					
+					
                     date = date.replace(/-/g, '/');
+					
                     $('#calendar').val(date);
 
-                    $('#date').combodate('setValue', datetime[0], true); // assign date to date combo
-                    if (datetime.length > 1) {
+                   
+					$('#date').combodate('setValue', datetime[0], true); // assign date to date combo
+					
+					if (datetime.length > 1) {
                         $('#time').combodate('setValue', time, true); // assign time to time combo
                     } else {
                         $('#time').combodate('setValue', '00:00', true); // assign 00:00 for unselected time
                     }
+					
+				
                     originalRemarks = reminderDetails[0].Remarks;
                     $('#txt-remarks').val(originalRemarks); // assign the remarks 
                     isRead = reminderDetails[0].Is_Read;
@@ -122,7 +133,7 @@ function updateCaseReminder(remarks, scheduledTime) {
     
     $.ajax({
         type: "PUT",
-        url: mvcHost + '/mvc' + campaign + '/api/UpdateCaseReminder',
+        url: config.companyUrl + '/api/UpdateCaseReminder',
         data: JSON.stringify(dataObj),
         crossDomain: true,
         contentType: "application/json",
@@ -190,12 +201,16 @@ function reminderPopupOnload() {
         changeYear: true
     });
 
+
     $('#time').combodate({
+		format: 'HH:mm',
+		template: 'HH : mm',
         firstItem: 'name', //show 'hour' and 'minute' string at first item of dropdown
         minuteStep: 5,
         roundUp: true
     })
-
+	
+	
     // change combodate display
     $('select.minute').children().each(function (idx, e) {
         var thisVal = e.value;

@@ -21,19 +21,38 @@ function setLanguage() {
     $('.l-reminder-scheduled-reminder-list').text(langJson['l-main-scheduled-reminder']);
     $('.l-reminder-please-select-agent').text(langJson['l-reminder-please-select-agent']);
     $('.l-reminder-update').text(langJson['l-reminder-update']);
-    $('[data-bs-toggle=confirmation]').confirmation({
+    
+	
+	
+	
+	/* 20250507 for remove
+	$('[data-bs-toggle=confirmation]').confirmation({
         rootSelector: '[data-bs-toggle=confirmation]',
         popout: true,
         title: langJson['l-general-are-you-sure'],
         btnOkLabel: langJson['l-general-ok-label'],
         btnCancelLabel: langJson['l-general-cancel-label']
     });
+	*/
+	
+	$('#markAsRead').jConfirmAction({
+        question: langJson['l-general-are-you-sure'],
+        yesText: langJson['l-general-ok-label'],
+        noText: langJson['l-general-cancel-label'],
+        confirm: function (item) {
+			markAsRead();
+        },
+        cancel: function (item) {
+        }
+    });
 }
+
+
 
 function UpdateCase(rowData) {
     $.ajax({
         type: "POST",
-        url: mvcHost + '/mvc' + selectedCompany + '/api/CaseManualSearch',
+        url: config.companyUrl + '/api/CaseManualSearch',
         data: JSON.stringify({
             "anyAll": "all",
             "Is_Valid": "Y",
@@ -85,7 +104,7 @@ function loadScheduledReminder() {
 
         $.ajax({
             type: "POST",
-            url: mvcHost + '/mvc' + selectedCompany + '/api/GetCaseReminder',
+            url: config.companyUrl + '/api/GetCaseReminder',
             data: JSON.stringify(postObj),
             crossDomain: true,
             contentType: "application/json",
@@ -241,7 +260,7 @@ function loadScheduledReminder() {
 function loadAgentDropDown() {
     $.ajax({
         type: "POST",
-        url: mvcUrl + '/api/GetLogin',
+        url: config.mvcUrl + '/api/GetLogin',
         crossDomain: true,
         contentType: "application/json",
         data: JSON.stringify({ Agent_Id: loginId, Token: token }),
@@ -317,7 +336,7 @@ function markAsRead() {
         // update the case_reminder table's "Is_Read" value to "Y" using the case no
         $.ajax({
             type: "PUT",
-            url: mvcHost + '/mvc' + selectedCompany + '/api/UpdateCaseReminder',
+            url: config.companyUrl + '/api/UpdateCaseReminder',
             data: JSON.stringify({
                 Case_No: caseNoInt,
                 Is_Read: "Y",
@@ -376,10 +395,11 @@ function windowOnload() {
             $('#scheduled-reminder-list').removeClass('d-none');
         });
     }
-
+	/* 20250507
     $('[data-bs-toggle=confirmation]').confirmation({
         rootSelector: '[data-bs-toggle=confirmation]'
     });
+	*/
 
     if (parent.iframeRecheck) {
         parent.iframeRecheck($(parent.document));

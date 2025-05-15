@@ -162,7 +162,7 @@ function callSetting(callType, apiName, isValid) {
     }
     $.ajax({
         type: apiName == 'UpdateCallFilter' ? 'PUT' : 'POST',
-        url: mvcHost + '/mvc' + selectedCompany + '/api/' + apiName,
+        url: config.companyUrl + '/api/' + apiName,
         data: JSON.stringify(dataObj),
         crossDomain: true,
         contentType: "application/json",
@@ -215,7 +215,8 @@ function callSetting(callType, apiName, isValid) {
                     }]
                 });
                 $('div.alphabet .alphabet-info-display').text(langJson['l-st-display-colon']);
-                $('#' + idType + '-table tbody').on('click', 'tr[role="row"]', function (e) {
+               //$('#' + idType + '-table tbody').on('click', 'tr[role="row"]', function (e) {
+                $('#' + idType + '-table').on('click', 'tr', function (e) {
                     e.preventDefault();
                     callerTable.$('tr.highlight').removeClass('highlight'); // $('xxx tbody tr) will not select other pages not showing, do not use this selector
                     $(this).addClass('highlight');
@@ -369,7 +370,7 @@ function emailSetting(emailType, apiName, addBack, newGet) {
 
         $.ajax({
             type: "POST",
-            url: wiseHost + '/WisePBX/api/Email/' + apiName,
+            url: config.wiseUrl + '/api/Email/' + apiName,
             data: JSON.stringify(dataObj),
             crossDomain: true,
             contentType: "application/json",
@@ -432,7 +433,8 @@ function emailSetting(emailType, apiName, addBack, newGet) {
                             }]
                         });
                         $('div.alphabet .alphabet-info-display').text(langJson['l-st-display-colon']);
-                        $('#' + idType + '-table tbody').on('click', 'tr[role="row"]', function (e) {
+                        //$('#' + idType + '-table tbody').on('click', 'tr[role="row"]', function (e) {
+						$('#' + idType + '-table').on('click', 'tr', function (e) {
                             e.preventDefault();
                             emailTable.$('tr.highlight').removeClass('highlight'); // $('xxx tbody tr) will not select other pages not showing, do not use this selector
                             $(this).addClass('highlight');
@@ -534,7 +536,7 @@ function emailSetting(emailType, apiName, addBack, newGet) {
                         var data = junkMailTable.row($(this)).data();
                         $.ajax({
                             type: "POST",
-                            url: wiseHost + "/WisePBX/api/Email/GetContent",
+                            url: config.wiseUrl + "/api/Email/GetContent",
                             data: JSON.stringify({
                                 "id": data.EmailID
                             }),

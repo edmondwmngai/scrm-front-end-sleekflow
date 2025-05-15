@@ -13,7 +13,7 @@ var mvcUrl = config.mvcUrl;
 function changePassword(sellerIdInput, oldPassword, newPassword) {
     $.ajax({
         type: "PUT",
-        url: mvcUrl + '/api/ChangePassword',
+        url: config.mvcUrl + '/api/ChangePassword',
         data: JSON.stringify({
             SellerID: sellerIdInput,
             Old_Password: oldPassword,

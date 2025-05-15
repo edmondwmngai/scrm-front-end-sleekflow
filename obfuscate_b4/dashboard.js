@@ -96,7 +96,7 @@ function refreshData() {
     // Get And Set Line Charts, etc
     $.ajax({
         type: "POST",
-        url: mvcHost + '/mvc' + campaign + '/api/GetDashboard_CallNature',
+        url: config.companyUrl + '/api/GetDashboard_CallNature',
         data: JSON.stringify({
             "Call_Nature": "Enquiry",
             Agent_Id: loginId,
@@ -119,7 +119,7 @@ function refreshData() {
 
     $.ajax({
         type: "POST",
-        url: mvcHost + '/mvc' + campaign + '/api/GetDashboard_CallNature',
+        url: config.companyUrl + '/api/GetDashboard_CallNature',
         data: JSON.stringify({
             "Call_Nature": "Feedback",
             Agent_Id: loginId,
@@ -142,7 +142,7 @@ function refreshData() {
 
     $.ajax({
         type: "POST",
-        url: mvcHost + '/mvc' + campaign + '/api/GetDashboard_CallNature',
+        url: config.companyUrl + '/api/GetDashboard_CallNature',
         data: JSON.stringify({
             "Call_Nature": "Complaint",
             Agent_Id: loginId,
@@ -165,7 +165,7 @@ function refreshData() {
 
     $.ajax({
         type: "POST",
-        url: mvcHost + '/mvc' + campaign + '/api/GetDashboard_CallNature',
+        url: config.companyUrl + '/api/GetDashboard_CallNature',
         data: JSON.stringify({
             "Call_Nature": "Compliment",
             Agent_Id: loginId,
@@ -188,7 +188,7 @@ function refreshData() {
 
     $.ajax({
         type: "POST",
-        url: mvcHost + '/mvc' + campaign + '/api/CaseManualSearch',
+        url: config.companyUrl + '/api/CaseManualSearch',
         //Is_ Current by default "N" ( = will search case log by default)
         data: JSON.stringify({"anyAll":"all","searchArr":[
             {"field_name":"Created_Time","logic_operator":"=","value":new Date().toISOString().slice(0,10),"field_type":"datetime","list_name":"Case List"}],
@@ -664,7 +664,7 @@ var md = {
     loadMediaData: function () {
         $.ajax({
             type: "POST",
-            url: wiseHost + '/WisePBX/api/config/GetDashboardData',
+            url: config.wiseUrl + '/api/config/GetDashboardData',
             data: JSON.stringify({}),
             crossDomain: true,
             contentType: "application/json",
@@ -1297,7 +1297,7 @@ var md = {
     loadAgentNature: function (period, isInit) {
         $.ajax({
             type: "POST",
-            url: mvcHost + '/mvc' + campaign + '/api/GetDashboard_Agent_CallNature',
+            url: config.companyUrl + '/api/GetDashboard_Agent_CallNature',
             data: JSON.stringify({
                 "Date_Range": period,
                 Agent_Id: loginId,
@@ -1340,7 +1340,7 @@ var md = {
         // Today
         $.ajax({
             type: "POST",
-            url: wiseHost + '/WisePBX/api/config/GetDashboardData_Agent',
+            url: config.wiseUrl + '/api/config/GetDashboardData_Agent',
             data: JSON.stringify({
                 "daysBefore": 1 //daysBefore 1 = today
             }),
@@ -1400,7 +1400,7 @@ var md = {
         // Last 7
         $.ajax({
             type: "POST",
-            url: wiseHost + '/WisePBX/api/config/GetDashboardData_Agent',
+            url: config.wiseUrl + '/api/config/GetDashboardData_Agent',
             data: JSON.stringify({
                 "daysBefore": 7 //daysBefore 7 = within 7 days
             }),
@@ -1460,7 +1460,7 @@ var md = {
         // Last 14
         $.ajax({
             type: "POST",
-            url: wiseHost + '/WisePBX/api/config/GetDashboardData_Agent',
+            url: config.wiseUrl + '/api/config/GetDashboardData_Agent',
             data: JSON.stringify({
                 "daysBefore": 14
             }),
@@ -1520,7 +1520,7 @@ var md = {
         // Last 30
         $.ajax({
             type: "POST",
-            url: wiseHost + '/WisePBX/api/config/GetDashboardData_Agent',
+            url: config.wiseUrl + '/api/config/GetDashboardData_Agent',
             data: JSON.stringify({
                 "daysBefore": 30
             }),

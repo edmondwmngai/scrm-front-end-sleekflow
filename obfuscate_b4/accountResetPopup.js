@@ -1,6 +1,7 @@
 // declare the account fields
 var agentId = 0
 var colId = null;
+var sellerId = null; //20250430
 var agentName;
 var email;
 var password;
@@ -72,7 +73,7 @@ function updateUser() {
 
     $.ajax({
         type: "PUT",
-        url: mvcUrl + '/api/UpdateUser',
+        url: config.mvcUrl + '/api/UpdateUser',
         data: JSON.stringify(inputObj),
         crossDomain: true,
         contentType: "application/json",
@@ -92,7 +93,7 @@ function updateUser() {
 function checkDuplicates(agentIdInput) {
     $.ajax({
         type: "POST",
-        url: mvcUrl + '/api/CheckAgentId/',
+        url: config.mvcUrl + '/api/CheckAgentId/',
         data: JSON.stringify({
             AgentID: agentIdInput,
             Agent_Id: loginId,
@@ -118,7 +119,7 @@ function checkDuplicates(agentIdInput) {
 function checkSellerDuplicates(sellerIdInput) {
     $.ajax({
         type: "POST",
-        url: mvcUrl + '/api/CheckSellerId',
+        url: config.mvcUrl + '/api/CheckSellerId',
         data: JSON.stringify({
             SellerID: sellerIdInput,
             Agent_Id: loginId,
@@ -153,7 +154,7 @@ function accountRecordPopupOnload() {
     $('#txt-confirm-password').prop('disabled', true);
     // obtain other field values
     colId = queryObj.ColId;
-    var sellerId = queryObj.SellerID;	// 20250414 Add the "let", "const" or "var" keyword to this declaration of "sellerId" to make it explicit.
+    sellerId = queryObj.SellerID;	// 20250414 Add the "let", "const" or "var" keyword to this declaration of "sellerId" to make it explicit.
     agentId = queryObj.AgentID;
     agentName = queryObj.AgentName;
     email = queryObj.Email;
@@ -287,9 +288,11 @@ function changePassword() {
 function submitForm() {
     console.log('field changed? ' + fieldChanged);
 
-    if (!fieldChanged) {    // 20250407 if (fieldChanged == false) {    Refactor the code to avoid using this boolean literal.
+    /*
+	if (!fieldChanged) {    // 20250407 if (fieldChanged == false) {    Refactor the code to avoid using this boolean literal.
         window.close();
     }
+	*/
 
     //var agent_id = 0; // agent id in int format       // 20250414     Remove the declaration of the unused 'agent_id' variable.
     password = $('#txt-password').val();

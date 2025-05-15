@@ -146,11 +146,11 @@ var csPopupOnload = function () {
             Agent_Id: loginId,
             Token: token
         }
-        if (nationalityArr.length == 0) {
+        if (nationalityArr.length == 0 || profileArr.length == 0 || sessionStorage.getItem('scrmProfileArr').length < 8) {
             var language = sessionStorage.getItem('scrmLanguage').toLowerCase() || '';
             $.ajax({
                 type: "POST",
-                url: mvcHost + '/mvc' + campaign + '/api/GetNationalityMarketProfile',
+                url: config.companyUrl + '/api/GetNationalityMarketProfile',
                 crossDomain: true,
                 contentType: "application/json",
                 data: JSON.stringify({ Lang: language, Agent_Id: loginId, Token: token }),
@@ -174,7 +174,7 @@ var csPopupOnload = function () {
         }
         $.ajax({
             type: "POST",
-            url: mvcHost + '/mvc' + campaign + '/api/ManualSearch',
+            url: config.companyUrl + '/api/ManualSearch',
             data: JSON.stringify(searchObj),
             crossDomain: true,
             contentType: "application/json",
@@ -200,7 +200,7 @@ var csPopupOnload = function () {
 
         //Get Photo
         $.ajax({
-            url: mvcHost + '/mvc' + campaign + '/api/GetPhoto',
+            url: config.companyUrl + '/api/GetPhoto',
             type: "POST",
             data: JSON.stringify({ "Customer_Id": selectedCustomerId, Agent_Id: loginId, Token: token }),
             crossDomain: true,
@@ -294,7 +294,7 @@ function confirmClicked() {
     if (fieldChanged) {
         $.ajax({
             type: "PUT",
-            url: mvcHost + '/mvc' + campaign + '/api/UpdateCustomer',
+            url: config.companyUrl + '/api/UpdateCustomer',
             data: JSON.stringify({ Customer_Id: selectedCustomerId, Agent_Id: loginId, Customer_Data: changedField, Token: token }),
             crossDomain: true,
             contentType: "application/json",
@@ -327,7 +327,7 @@ function confirmClicked() {
             fileData.append('Agent_Id', loginId);
             fileData.append('Token', token);
             $.ajax({
-                url: mvcHost + '/mvc' + campaign + '/api/UploadPhoto',
+                url: config.companyUrl + '/api/UploadPhoto',
                 type: "POST",
                 contentType: false, // Not to set any content header  
                 processData: false, // Not to process data  

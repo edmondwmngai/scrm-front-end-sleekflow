@@ -43,7 +43,7 @@ if (customCompany != 'no') {
 function callSaveCallHistory(connId, callType, internalCaseNo) {
     $.ajax({
         type: "POST",
-        url: mvcHost + '/mvc' + campaign + '/api/SaveCallHistory',
+        url: config.companyUrl + '/api/SaveCallHistory',
         data: JSON.stringify({
             "Conn_Id": Number(connId),
             "Call_Type": callType,
@@ -308,7 +308,7 @@ function loadTitleBarData(noReload) { // if noReload, only update title bar numb
     }
     $.ajax({
         type: "POST",
-        url: mvcHost + '/mvc' + campaign + '/api/CaseManualSearch',
+        url: config.companyUrl + '/api/CaseManualSearch',
         //Is_ Current by default "N" ( = will search case log by default)
         data: JSON.stringify(escalateQuery),
         contentType: "application/json",
@@ -345,7 +345,7 @@ function loadTitleBarData(noReload) { // if noReload, only update title bar numb
     }
     $.ajax({
         type: "POST",
-        url: mvcHost + '/mvc' + campaign + '/api/GetCallHistory',
+        url: config.companyUrl + '/api/GetCallHistory',
         data: JSON.stringify(dataObj),
         contentType: "application/json",
         dataType: 'json',
@@ -407,7 +407,7 @@ function menuCampaignChange(iThis) {
     // load contact list and case list for Search Contact List and Search Case List
     $.ajax({
         type: "POST",
-        url: mvcHost + '/mvc' + campaign + '/api/GetFields',
+        url: config.companyUrl + '/api/GetFields',
         data: JSON.stringify({
             "listArr": ["Contact Table", "Contact Combined", "Contact System", "Case Table", "Case System"],
             Agent_Id: loginId,
@@ -496,7 +496,7 @@ function windowOnload() {
         campaignSection.hide();
         $.ajax({
             type: "POST",
-            url: mvcHost + '/mvc' + customCompany + '/api/GetFields',
+            url: config.companyUrl + '/api/GetFields',
             data: JSON.stringify({
                 "listArr": ["Contact Table", "Contact Combined", "Contact System", "Case Table", "Case System"],
                 Agent_Id: loginId,
@@ -543,6 +543,9 @@ function windowOnload() {
     }
 
     // ============== show default page if set ==============
+	//20250430 for set the default loading master page
+	window.parent.$('.nav-tabs a[href="#menu"]').tab('show');
+	
     var defaultTabAfterLogin = config.defaultTabAfterLogin || '';
     if (defaultTabAfterLogin.length > 0) {
         if (defaultTabAfterLogin.startsWith('menu')) {
@@ -551,6 +554,9 @@ function windowOnload() {
             var subTab = defaultTabAfterLogin.slice(5) || '';
             if (subTab.length > 0) {
                 $('#' + subTab + '-link').trigger('click');
+				//20250430 for set the default loading master page
+				$('#' + subTab + '-link').addClass('active');
+
             }
         }
     }

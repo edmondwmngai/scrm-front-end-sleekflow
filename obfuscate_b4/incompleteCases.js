@@ -26,7 +26,7 @@ var confirmClicked = function () {
         var connId = $(selected).val();
         $.ajax({
             type: "POST",
-            url: mvcHost + '/mvc' + campaign + '/api/SaveCallHistory',
+            url: config.companyUrl + '/api/SaveCallHistory',
             data: JSON.stringify({
                 "Conn_Id": Number(connId),
                 "Agent_Id": loginId,
@@ -93,7 +93,7 @@ function updateCase(rowData) {
 function getWebchatFields(data) {
     $.ajax({
         type: "POST",
-        url: mvcHost + '/mvc' + campaign + '/api/GetFields',
+        url: config.companyUrl + '/api/GetFields',
         data: JSON.stringify({
             "listArr": ["Webchat Fields"],
             Agent_Id: loginId,

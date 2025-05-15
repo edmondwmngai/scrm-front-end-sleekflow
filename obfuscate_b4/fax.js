@@ -171,7 +171,8 @@ function loadTbl(tableData) {
         }
     });
 
-    $('#media-list-table tbody').on('click', 'tbody tr[role="row"]', function (e) {
+    //$('#media-list-table tbody').on('click', 'tbody tr[role="row"]', function (e) {
+	$('#media-list-table').on('click', 'tr', function (e) {
         // e.preventDefault();// no e.preventDefault because user may click the radio button at the same time
         var data = listTable.row($(this)).data();
         listTable.$('tr.highlight').removeClass('highlight');  // $('xxx tbody tr) will not select other pages not showing, do not use this selector
@@ -266,7 +267,7 @@ function faxOnload() {
 
     $.ajax({
         type: 'POST',
-        url: config.wiseHost + '/WisePBX/api/Fax/GetList',
+        url: config.wiseUrl + '/api/Fax/GetList',
         data: JSON.stringify({ "dnis": dnis, "agentId": selectedAgent || -1 }),
         crossDomain: true,
         contentType: "application/json; charset=utf-8",

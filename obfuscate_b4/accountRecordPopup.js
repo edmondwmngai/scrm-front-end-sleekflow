@@ -2,6 +2,7 @@
 var photoContent;
 var photoType;
 var colId = null;
+var sellerId = null; //20250430 for define var sellerid update 
 var userAgentId = null;
 var originalAgentId = null;
 var originalSellerId;
@@ -89,7 +90,7 @@ function removePhoto() {
 function loadRoles(checkedRole) {
     $.ajax({
         type: "POST",
-        url: mvcUrl + '/api/GetRoles',
+        url: config.mvcUrl + '/api/GetRoles',
         crossDomain: true,
         contentType: "application/json",
         data: JSON.stringify({ RoleStatus: "Active", Agent_Id: loginId, Token: token }),
@@ -141,7 +142,7 @@ function uploadPhotoAfterCreateUpdate() {
         fileData.append('Agent_Id', loginId);
         fileData.append('Token', token);
         $.ajax({
-            url: mvcUrl + '/api/UploadPhoto',
+            url: config.mvcUrl + '/api/UploadPhoto',
             type: "POST",
             contentType: false, // Not to set any content header  
             processData: false, // Not to process data  
@@ -181,7 +182,7 @@ function createUser(sellerId, theAgentId, agentName, email, password, role, acco
     }
     $.ajax({
         type: "POST",
-        url: mvcUrl + '/api/CreateUser',
+        url: config.mvcUrl + '/api/CreateUser',
         // data: JSON.stringify(changedField),
         data: JSON.stringify(dataObj),
         crossDomain: true,
@@ -216,7 +217,7 @@ function updateUser(inputObj, password, counter) {
 
     $.ajax({
         type: "PUT",
-        url: mvcUrl + '/api/UpdateUser',
+        url: config.mvcUrl + '/api/UpdateUser',
         data: JSON.stringify(inputObj),
         crossDomain: true,
         contentType: "application/json",
@@ -239,7 +240,7 @@ function updateUser(inputObj, password, counter) {
 function checkDuplicates(agentIdInput) {
     $.ajax({
         type: "POST",
-        url: mvcUrl + '/api/CheckAgentId/',
+        url: config.mvcUrl + '/api/CheckAgentId/',
         data: JSON.stringify({
             AgentID: agentIdInput,
             Agent_Id: loginId,
@@ -263,7 +264,7 @@ function checkDuplicates(agentIdInput) {
 function checkSellerDuplicates(sellerIdInput) {
     $.ajax({
         type: "POST",
-        url: mvcUrl + '/api/CheckSellerId',
+        url: config.mvcUrl + '/api/CheckSellerId',
         data: JSON.stringify({
             SellerID: sellerIdInput,
             Agent_Id: loginId,
@@ -316,7 +317,7 @@ function accountRecordPopupOnload() {
 
         // obtain other field values
         colId = queryObj.ColId;
-        var sellerId = queryObj.SellerID;
+        sellerId = queryObj.SellerID;		// 20250430 for update data
         originalSellerId = queryObj.SellerID;
         userAgentId = queryObj.AgentID;
         originalAgentId = queryObj.AgentID;
@@ -484,6 +485,12 @@ $('#status-toggle').change(function () {
 $(".form-group").change(function () {
     fieldChanged = true;
 });
+
+//20250430 for fixing update password change
+$(".form-check").change(function () {
+    fieldChanged = true;
+});
+
 
 // cancel is clicked
 function clearForm() {

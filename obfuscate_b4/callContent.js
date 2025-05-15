@@ -30,7 +30,7 @@ function resetVideo() {
 function loadCallData() {
     $.ajax({
         type: "POST",
-        url: wiseHost + '/WisePBX/api/Call/GetContent',
+        url: config.wiseUrl + '/api/Call/GetContent',
         data: JSON.stringify({
             "id": mediaId
         }),

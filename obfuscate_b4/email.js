@@ -27,7 +27,7 @@ function setLanguage() {
 function format(d, theTr, rowChild) {
     $.ajax({
         type: "POST",
-        url: config.wiseHost + '/WisePBX/api/Email/GetContent',
+        url: config.wiseUrl + '/api/Email/GetContent',
         data: JSON.stringify({ "id": d.EmailID || -1 }),
         contentType: "application/json; charset=utf-8",
         dataType: "json",
@@ -144,7 +144,7 @@ function emailOnload() {
 
     $.ajax({
         type: 'POST',
-        url: config.wiseHost + '/WisePBX/api/Email/GetList',
+        url: config.wiseUrl + '/api/Email/GetList',
         data: JSON.stringify({ "dnis": dnis, "agentId": selectedAgent || -1 }),
         crossDomain: true,
         contentType: "application/json; charset=utf-8",
@@ -214,7 +214,8 @@ function emailOnload() {
                 }
             });
 
-            $('#media-list-table').on('click', 'tbody tr[role="row"]', function (e) {
+          //  $('#media-list-table').on('click', 'tbody tr[role="row"]', function (e) {
+			  $('#media-list-table').on('click', 'tr', function (e) {
                 listTable.$('tr.highlight').removeClass('highlight');
                 $(this).addClass('highlight');
                 var data = listTable.row($(this)).data();
@@ -230,7 +231,8 @@ function emailOnload() {
                 }
             });
 
-            $('#media-list-table tbody').on('click', '.create-or-update', function (e) {
+            //$('#media-list-table tbody').on('click', '.create-or-update', function (e) {
+			$('#media-list-table').on('click', '.create-or-update', function (e) {
                 e.preventDefault();
                 var data = listTable.row($(this).parents('tr')).data();
                 var connId = data.EmailID;

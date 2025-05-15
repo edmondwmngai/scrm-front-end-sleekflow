@@ -143,7 +143,7 @@ function setLanguage() {
 function callUploadAttachment(fileData, uniqueId, loadingId, downloadId, lastAttachment, uploadType) { // "emailFile", "faxFile"
     $.ajax({
         type: "POST",
-        url: wiseHost + '/wisepbx/api/Outbound/UploadAttachment',
+        url: config.wiseUrl + '/api/Outbound/UploadAttachment',
         data: fileData,
         contentType: false, // Not to set any content header  
         processData: false, // Not to process data  
@@ -277,7 +277,7 @@ function previewPhoto(input) {
             fileData.append('Agent_Id', loginId);
             fileData.append('Token', token);
             $.ajax({
-                url: mvcHost + '/mvc' + campaign + '/api/UploadPhoto',
+                url: config.companyUrl + '/api/UploadPhoto',
                 type: "POST",
                 contentType: false, // Not to set any content header  
                 processData: false, // Not to process data  
@@ -426,7 +426,7 @@ function saveClicked() {
     sendObj.Token = token;
     $.ajax({
         type: "PUT",
-        url: mvcHost + '/mvc' + campaign + '/api/UpdateOutboundCallList',
+        url: config.companyUrl + '/api/UpdateOutboundCallList',
         data: JSON.stringify(sendObj),
         crossDomain: true,
         contentType: "application/json",
@@ -534,7 +534,7 @@ function delEmailSetting(emailType, addBack) {
     if ('isValid')
         $.ajax({
             type: "POST",
-            url: wiseHost + '/WisePBX/api/Email/DelSetting',
+            url: config.wiseUrl + '/api/Email/DelSetting',
             data: JSON.stringify({
                 projectName: campaign,
                 emailAddress: emailAddress,
@@ -567,7 +567,7 @@ function addEmailSetting(emailType, passedRemarks) {
     var remarks = passedRemarks || $('#' + idType + '-remarks').val() || '';
     $.ajax({
         type: "POST",
-        url: wiseHost + '/WisePBX/api/Email/AddSetting',
+        url: config.wiseUrl + '/api/Email/AddSetting',
         data: JSON.stringify({
             projectName: campaign,
             emailAddress: emailAddress,
@@ -702,7 +702,7 @@ function callSaveCallHistory(isSaved) { // if update reply details only, will no
     }
     $.ajax({
         type: "POST",
-        url: mvcHost + '/mvc' + campaign + '/api/SaveCallHistory',
+        url: config.companyUrl + '/api/SaveCallHistory',
         data: JSON.stringify(saveCallHistoryObj),
         contentType: "application/json; charset=utf-8",
         dataType: "json",
@@ -729,7 +729,7 @@ function callUpdateCase() {
     updateCaseObj.Token = token;
     $.ajax({
         type: "PUT",
-        url: mvcHost + '/mvc' + campaign + '/api/UpdateCase',
+        url: config.companyUrl + '/api/UpdateCase',
         data: JSON.stringify(updateCaseObj),
         crossDomain: true,
         contentType: "application/json",
@@ -1159,7 +1159,7 @@ function windowOnload() {
         }
         // Get Photo
         // $.ajax({
-        //     url: mvcHost + '/mvc' + campaign + '/api/GetPhoto',
+        //     url: config.companyUrl + '/api/GetPhoto',
         //     type: "POST",
         //     data: JSON.stringify({
         //         "Customer_Id": customerId,
@@ -1266,7 +1266,7 @@ function windowOnload() {
     //             if (details.length > 0) {
     //                 $.ajax({
     //                     type: "POST",
-    //                     url: mvcHost + '/mvc' + campaign + '/api/GetFields',
+    //                     url: config.companyUrl + '/api/GetFields',
     //                     data: JSON.stringify({
     //                         "listArr": ["Webchat Fields"]
     //                     }),
@@ -1354,11 +1354,11 @@ function windowOnload() {
     //     showCustomerSectionOnly();
     // }
     // ================ GET NATIONALITY, MARKET AND PROFILE ================
-    if (nationalityArr.length == 0) {
+    if (nationalityArr.length == 0 || marketArr.length == 0 || profileArr.length == 0) {
         var language = sessionStorage.getItem('scrmLanguage') ? sessionStorage.getItem('scrmLanguage').toLowerCase() : 'EN';
         $.ajax({
             type: "POST",
-            url: mvcHost + '/mvc' + campaign + '/api/GetNationalityMarketProfile',
+            url: config.companyUrl + '/api/GetNationalityMarketProfile',
             crossDomain: true,
             contentType: "application/json",
             data: JSON.stringify({ Lang: language, Agent_Id: loginId, Token: token }),
@@ -1486,7 +1486,7 @@ function updateClicked(isTemp) {
     }
     $.ajax({
         type: "PUT",
-        url: mvcHost + '/mvc' + campaign + '/api/UpdateCustomer',
+        url: config.companyUrl + '/api/UpdateCustomer',
         data: JSON.stringify({
             Customer_Id: Number(customerId),
             Agent_Id: loginId,

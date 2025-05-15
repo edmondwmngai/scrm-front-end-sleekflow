@@ -80,7 +80,7 @@ function addCustomerCase(connId, customerId, callType, details, rowData) {
     }
     $.ajax({
         type: "POST",
-        url: mvcHost + '/mvc' + campaign + '/api/AddCustomerCase',
+        url: config.companyUrl + '/api/AddCustomerCase',
         data: JSON.stringify({
             Conn_Id: connId,
             Customer_Id: customerId,
@@ -131,7 +131,7 @@ function addCaseAutoSearchTable(data, oThis) {
         // Get table data ajax
         $.ajax({
             type: "POST",
-            url: mvcHost + '/mvc' + campaign + '/api/CaseManualSearch',
+            url: config.companyUrl + '/api/CaseManualSearch',
             data: JSON.stringify({
                 "anyAll": "all",
                 "Is_Valid": "Y",
@@ -392,7 +392,7 @@ function loadAllCustomerData(action) {
 
     $.ajax({
         type: "POST",
-        url: mvcHost + '/mvc' + campaign + '/api/ManualSearch',
+        url: config.companyUrl + '/api/ManualSearch',
         data: JSON.stringify(jqueryDataObj),
         crossDomain: true,
         contentType: "application/json",
@@ -679,7 +679,7 @@ function submitClicked(type, clickedByPop) {
 
         $.ajax({
             type: "POST",
-            url: mvcHost + '/mvc' + campaign + '/api/ManualSearch',
+            url: config.companyUrl + '/api/ManualSearch',
             data: JSON.stringify(jqueryDataObj),
             crossDomain: true,
             contentType: "application/json",

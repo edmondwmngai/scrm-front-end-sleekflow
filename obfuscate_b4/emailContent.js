@@ -52,7 +52,7 @@ function windowOnload() {
     }
     $.ajax({
         type: "POST",
-        url: config.wiseHost + '/WisePBX/api/Email/GetContent',
+        url: config.wiseUrl + '/api/Email/GetContent',
         data: JSON.stringify({ "id": window.frameElement.getAttribute("mediaId") || -1 }),
         contentType: "application/json; charset=utf-8",
         dataType: "json",

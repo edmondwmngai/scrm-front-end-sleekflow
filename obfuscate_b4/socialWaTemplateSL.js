@@ -229,7 +229,7 @@ function uploadTpFile(campaign, whatsappNo, index, tpPropsArr, input) {
     fileData.append('ticketId', ticketId);
     $.ajax({
         type: "POST",
-        url: wiseHost + '/WisePBX/api/SocialMedia/UploadFile',
+        url: config.wiseUrl + '/api/SocialMedia/UploadFile',
         data: fileData,
         contentType: false, // Not to set any content header  
         processData: false, // Not to process data  

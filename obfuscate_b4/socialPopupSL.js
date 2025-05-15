@@ -282,7 +282,7 @@ function uploadTpFile(campaign, whatsappNo, index, tpPropsArr, input) {
     fileData.append('ticketId', ticketId);
     $.ajax({
         type: "POST",
-        url: wiseHost + '/WisePBX/api/SocialMedia/UploadFile',
+        url: config.wiseUrl + '/api/SocialMedia/UploadFile',
         data: fileData,
         contentType: false, // Not to set any content header  
         processData: false, // Not to process data  
@@ -483,7 +483,7 @@ $(document).ready(function () {
     if (type == 'msg') {
         $.ajax({
             type: "POST",
-            url: wiseHost + '/wisepbx/api/SocialMedia/GetCannedMsgs',
+            url: config.wiseUrl + '/api/SocialMedia/GetCannedMsgs',
             data: JSON.stringify({ "companyName": 'HKTB' }),
 
             contentType: "application/json; charset=utf-8",
@@ -515,7 +515,7 @@ $(document).ready(function () {
         // the data should be JSON.stringify({ "companyName": campaign }), however, for Demo Tiger just build HKTB
 
 
-            // url: wiseHost + '/wisepbx/api/SocialMedia/GetCannedFiles',
+            // url: config.wiseUrl + '/api/SocialMedia/GetCannedFiles',
             //data: JSON.stringify({ "companyName": 'HKTB' }),
           
         $.ajax({

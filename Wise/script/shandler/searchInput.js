@@ -79,7 +79,7 @@ function searchInput(sTicket)
 				{ // only if entry is webchat will have case searching
                     $.ajax({
                         type: "POST",
-                        url: mvcHost + '/mvc' + campaign + '/api/GetFields',
+                        url: config.companyUrl + '/api/GetFields',
                         data: JSON.stringify({
                             "listArr": ["Webchat Fields"],
                             Agent_Id: loginId,

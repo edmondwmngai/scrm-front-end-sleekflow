@@ -566,7 +566,7 @@ addEventListener(document, 'onMonitorIVRSCount', function (e) {
 function callGetLogin() {
     $.ajax({
         type: "POST",
-        url: mvcUrl + '/api/GetLogin',
+        url: config.mvcUrl + '/api/GetLogin',
         crossDomain: true,
         contentType: "application/json",
         data: JSON.stringify({
@@ -621,7 +621,7 @@ function callSaveCallHistory(connId, callType, campaign, details, ivrInfo) {
     }
     $.ajax({
         type: "POST",
-        url: mvcHost + '/mvc' + campaign + '/api/SaveCallHistory',
+        url: config.companyUrl + '/api/SaveCallHistory',
         data: JSON.stringify(sendObj),
         contentType: "application/json; charset=utf-8",
         dataType: "json",
@@ -803,7 +803,7 @@ function loadCampaignLang() {
     var campaignListName = config.campaignListName || 'Campaign List';
     $.ajax({
         type: "POST",
-        url: mvcUrl + '/api/GetFields',
+        url: config.mvcUrl + '/api/GetFields',
         data: JSON.stringify({
             "listArr": [language, campaignListName],
             Agent_Id: loginId,

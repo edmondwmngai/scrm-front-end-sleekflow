@@ -520,7 +520,7 @@ function uploadAttachment(input, ticketId) {
     fileData.append('ticketId', ticketId);  // for Create New Case no case no yet, so provide internal case no
     $.ajax({
         type: "POST",
-        url: wiseHost + '/WisePBX/api/SocialMedia/UploadFile',
+        url: config.wiseUrl + '/api/SocialMedia/UploadFile',
         data: fileData,
         contentType: false, // Not to set any content header  
         processData: false, // Not to process data  
@@ -1218,7 +1218,7 @@ function loadFBReplies(oThis, ticketId, scrollDown) {
     var commentId = theTag.attr('commentId');
     $.ajax({
         type: "POST",
-        url: wiseHost + '/WisePBX/api/SocialMedia/GetFBReplyComments',
+        url: config.wiseUrl + '/api/SocialMedia/GetFBReplyComments',
         data: JSON.stringify({
             "ticketId": ticketId,
             "CommentId": commentId
@@ -1297,7 +1297,7 @@ function loadFBReplies(oThis, ticketId, scrollDown) {
 function fbMoreComments(ticketId, aboveMsgId, oThis) {
     $.ajax({
         type: "POST",
-        url: wiseHost + '/WisePBX/api/SocialMedia/GetFBComments',
+        url: config.wiseUrl + '/api/SocialMedia/GetFBComments',
         data: JSON.stringify({
             "ticketId": ticketId,
             "aboveMsgId": String(aboveMsgId),
@@ -1463,7 +1463,7 @@ function getFBComments(ticketId, commentIdArr, tryCount) {
     if (tryCount == undefined || tryCount < 11) {
         $.ajax({
             type: "POST",
-            url: wiseHost + '/WisePBX/api/SocialMedia/GetFBComments',
+            url: config.wiseUrl + '/api/SocialMedia/GetFBComments',
             data: JSON.stringify({
                 "ticketId": ticketId,
                 "number": 5
@@ -1660,7 +1660,7 @@ function discardClicked(ticketId) {
 function getFBPostContent(ticketId) {
     $.ajax({
         type: "POST",
-        url: mvcUrl + '/api/GetFaceBookPostContent/',
+        url: config.mvcUrl + '/api/GetFaceBookPostContent/',
         data: JSON.stringify({
             Ticket_Id: ticketId,
             Agent_Id: loginId,
@@ -2013,7 +2013,7 @@ function addAdditionalInfo(addedInfo) {
 function GetPreviousTicketId(userId, entry, ticketId, company_code, originalTicketId) {
     $.ajax({
         type: "POST",
-        url: wiseHost + '/WisePBX/api/SocialMedia/GetPreviousTicketId',
+        url: config.wiseUrl + '/api/SocialMedia/GetPreviousTicketId',
         data: JSON.stringify({
             "userId": userId,
             "entry": entry,
@@ -2217,7 +2217,7 @@ function createOrUpdateBubble(msgObj) {
             // get past chatted how many times and average conversation time
             $.ajax({
                 type: "POST",
-                url: wiseHost + '/wisepbx/api/SocialMedia/GetStatistics',
+                url: config.wiseUrl + '/api/SocialMedia/GetStatistics',
                 data: JSON.stringify({
                     "userId": enduserId,
                     "entry": entry,
@@ -2495,7 +2495,7 @@ function createOrUpdateBubble(msgObj) {
                 if (entry == 'webchat') { // only if entry is webchat will have case searching
                     $.ajax({
                         type: "POST",
-                        url: mvcHost + '/mvc' + campaign + '/api/GetFields',
+                        url: config.companyUrl + '/api/GetFields',
                         data: JSON.stringify({
                             "listArr": ["Webchat Fields"],
                             Agent_Id: loginId,
@@ -2614,7 +2614,7 @@ function updatePhotoConfirmed(campaign, customerId, iconSrc, ticketId) {
             fileData.append('Agent_Id', loginId);
             fileData.append('Token', token);
             $.ajax({
-                url: mvcHost + '/mvc' + campaign + '/api/UploadPhoto',
+                url: config.companyUrl + '/api/UploadPhoto',
                 type: "POST",
                 contentType: false, // Not to set any content header  
                 processData: false, // Not to process data  
@@ -2649,7 +2649,7 @@ function callSaveCallHistory(connId, callType, internalCaseNo, campaign) {
     }
     $.ajax({
         type: "POST",
-        url: mvcHost + '/mvc' + campaign + '/api/SaveCallHistory',
+        url: config.companyUrl + '/api/SaveCallHistory',
         data: JSON.stringify(dataObj),
         contentType: "application/json; charset=utf-8",
         dataType: "json",

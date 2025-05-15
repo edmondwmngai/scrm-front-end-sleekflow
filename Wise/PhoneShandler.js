@@ -634,6 +634,7 @@
      function returnCaseHistoryFromHandler(agentId, token, ticketId) {
          //check websocket state, continue process is not allowed if false is returned;
          var wssresult = checkWebSocketState(shandler.websocket);
+		 console.log(JSON.stringify(shandler));
          //if (wssresult.result == false) { alert(wssresult.message); return; }		// 20250407 Refactor the code to avoid using this boolean literal
          if (!wssresult.result) { alert(wssresult.message); return; }
          //-----

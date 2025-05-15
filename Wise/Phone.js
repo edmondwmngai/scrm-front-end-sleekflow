@@ -1382,7 +1382,7 @@ function showQueueList()
 			let mystyle = "float:right;text-align:center;margin-right:5px;border:2px solid #eee;border-radius:3px;width:30%;cursor:pointer;";
 			if (queue.mediaCount == 0) mystyle+="display:none;"
 			objQueueCount2.setAttribute("style", mystyle);
-			objQueueCount2.setAttribute("onclick", "setTimeout(function() {getMediaCount("+ queue.callType + ",'"+ queue.dnis +"', "+ loginId +");},1200);" );
+			objQueueCount2.setAttribute("onclick", "setTimeout(function() {getMediaCount("+ queue.callType + ",'"+ queue.dnis +"', "+ loginId +");},1200);try { window.parent.connClick(0,'" + queue.name +"','" + channels[queue.callType] + "','" + queue.dnis + "','" + queue.dnis + "',null);} catch (err) {console.log(err.message);}" );
 			objQueueCount2.textContent = queue.mediaCount;
 			
 			objDivQueue.appendChild(objQueueCount2);
@@ -1707,6 +1707,9 @@ function wiseAnswerTicket(ticketId)
 
 function wiseGetTicketMsg(ticketId)
 {
+	
+	if (ticketId==null) {return;}
+	
 	if(ticketId=="") return;
 	wsWiseAgent.GetTicketMsg(ticketId);
 } 

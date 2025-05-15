@@ -71,7 +71,6 @@
 
 	  returnCaseHistoryByAPI()
 	  {
-
 		//  this.$chatHistory = selector;
 
 		  var ticketId = this.selectedTicketId;
@@ -81,7 +80,7 @@
 		  parent.$('#phone-panel')[0].contentWindow.returnCaseHistoryFromHandler(loginId, token, ticketId);
 		  //parent.$('#phone-panel')[0].contentWindow.getPastMessageByHandler(loginId, token, ticketId);
 		
-
+			
 		//  returnCaseHistoryCallBack(msgList)
 	  }
 

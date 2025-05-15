@@ -403,15 +403,17 @@
      
         var call_type = caseLog.Call_Type; var reply_type = caseLog.Reply_Type;
         
+		
+		
         // Check it is inbound or outbound. then fill the case history on the top (or bottom) in pop up box
         if (call_type.indexOf("Inbound") >= 0 || reply_type.indexOf("Inbound") >= 0)
         {
-            $('#call-media-content .content')[0].style.display = "block";
+			$('#call-media-content .content')[0].style.display = "block";
             caseHistService.init(customerData, window.opener.agentList, caseLog, wa_template, $('#call-media-content'), $('#call-media-content .content-header'), $('#call-media-content .content-section-inner' ));
         }
         if (call_type.indexOf("Outbound") >= 0 || reply_type.indexOf("Outbound") >= 0)
         {
-            $('#reply-media-content .content')[0].style.display = "block";            
+			$('#reply-media-content .content')[0].style.display = "block";            
             caseHistService.init(customerData, window.opener.agentList, caseLog, wa_template, $('#reply-media-content'),$('#reply-media-content .content-header'),$('#reply-media-content .content-section-inner'));
         }
 

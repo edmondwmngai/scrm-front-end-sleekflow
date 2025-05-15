@@ -24,6 +24,8 @@
     <!--<script type="text/javascript" src="../../js/jquery.min.js"></script>--><script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <!--<script type="text/javascript" src="../../js/jquery.dataTables.min.js"></script>-->
 	
+	<!--<script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js" integrity="sha384-L74JDRkaoB7PWnReNepwX6+kSckc13TJXrka4EerY9jxQxSDl0dTguSLcA7dEfq8" crossorigin="anonymous"></script>-->
+	
 	<link href="https://cdn.datatables.net/v/bs5/jszip-3.10.1/dt-2.2.2/b-3.2.2/b-colvis-3.2.2/b-html5-3.2.2/b-print-3.2.2/datatables.min.css" rel="stylesheet" integrity="sha384-W8PzvGseaJlM52wTjdPHNrEA9WHp36V+XpQyv1gCKz+1sbFfDo5MlMDT7awB3rAs" crossorigin="anonymous">
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js" integrity="sha384-/RlQG9uf0M2vcTw3CX7fbqgbj/h8wKxw7C3zu9/GxcBPRKOEcESxaxufwRXqzq6n" crossorigin="anonymous"></script>
 	<script src="https://cdn.datatables.net/v/bs5/jszip-3.10.1/dt-2.2.2/b-3.2.2/b-colvis-3.2.2/b-html5-3.2.2/b-print-3.2.2/datatables.min.js" integrity="sha384-GC9Im1BDtt06YOKSzkS553+5q43Nos2JSnLM31TjWFcFbzZrFhAtgCzrHDGM0iDy" crossorigin="anonymous"></script>
@@ -259,7 +261,7 @@
                             </td>
                             </tr>
 
-                            <tr class='row d-flex align-items-center'>
+                            <tr class='align-items-center'>
                                 <td>
                                     <span for='Mobile_No' class='px-2'>
                                         <i class='fa fa-phone me-2'></i><span class="l-form-mobile"></span>
@@ -289,8 +291,8 @@
                                 <input class="form-control edit-field" type='search' maxLength="50"
                                     id="Email" autocomplete="off" />
                             </td>
-                            <td colspan="2">
-                                <span for='Address1'><i
+                            <td>
+                                <span for='Address1' class="px-2"><i
                                         class="far fa-address-book me-2"></i><span
                                         class="l-form-address">Address</span></span></td><td>
                                 <input class="form-control edit-field" type="search" id="Address1"
@@ -358,27 +360,26 @@
             <div class="collapse show" data-parent="#accordion" id='case-details-body'>
                 <div class="card-body">
                     <div class='row d-flex align-items-center'>
-                        <div class='mb-3 col-sm-5'>
+                        <div class='mb-3 col-sm-5 d-flex'>
                             <label for='call-status' class='control-label custom-form-label'><span>Call
                                     Status</span>&nbsp;<span class="text-danger">*</span></label>
-                            <select class="form-select" id='call-status' style="width:59%;">
+                            <select class="form-select form-select-sm col-sm-4" id='call-status'>
                                 <option selected="selected" value=''></option>
                                 <option value="Unreach">Unreach</option>
                                 <option value="Reached">Reached</option>
                                 <option value="Successful Order">Successful Order</option>
                             </select>
                         </div>
-                        <div class='mb-3 col-sm-7'>
+                        <div class='mb-3 col-sm-7  d-flex'>
 
                             <label id="call-status-label" for='call-status'
-                                class='control-label custom-form-label d-none'><span>Call Reason</span>&nbsp;<span
-                                    class="text-danger">*</span></label>
+                                class='control-label custom-form-label d-none'><span>Call Reason</span>&nbsp;<span class="text-danger">*</span></label>
 
-                            <select id="successful-reason" class="d-none form-select">
+                            <select id="successful-reason" class="d-none form-select form-select-sm col-sm-4">
                                 <option value="Accept Offer" selected>Accept Offer</option>
                             </select>
 
-                            <select id="unreach-reason" class="d-none form-select">
+                            <select id="unreach-reason" class="d-none form-select form-select-sm col-sm-4">
                                 <option value="" selected>- Please Select -</option>
                                 <option value="No Answered">No Answered</option>
                                 <option value="Voice Mail">Voice Mail</option>
@@ -389,7 +390,7 @@
                                 <option value="Not Here/Meeting">Not Here/Meeting</option>
                             </select>
 
-                            <select id="reached-reason" class="d-none form-select">
+                            <select id="reached-reason" class="d-none form-select form-select-sm col-sm-4">
                                 <option value="" selected>- Please Select -</option>
                                 <option value="Consider">Consider</option>
                                 <option value="Reject">Reject</option>
@@ -399,10 +400,10 @@
                     </div>
 
                     <div class='row d-flex align-items-center'>
-                        <div class='mb-3 col-sm-12 mb-1'>
+                        <div class='mb-3 col-sm-12 mb-1 d-flex'>
                             <label for='case-details'
                                 class='control-label custom-form-label'><span>Callback</span></label>
-                            <input id="callback-datetime" class="form-control mt-1" type="search"
+                            <input id="callback-datetime" class="form-control col-sm-2" type="search"
                                 placeholder="yyyy-mm-dd hh:mm" autocomplete="off">
                         </div>
                     </div>
@@ -419,7 +420,7 @@
                     <div class='row d-flex align-items-center'>
                         <div class='mb-3 col-sm-12 ps-0'>
                             <span class='col-sm-1 control-label ps-4 mt-2'>&nbsp;&nbsp;<span>&nbsp;</span></span>
-                            <div class='col-sm-11 ps-0'>
+                            <div class='col-sm-11'>
                                 <div id="reply-radio-group" class='mb-3 d-flex align-items-center'>
 
                                     <div class="form-check ms-3">

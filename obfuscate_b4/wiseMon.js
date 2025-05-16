@@ -1187,7 +1187,7 @@ function loadServiceList() {
         if (!/^success$/i.test(r.result || "")) {
             console.log('error in GetServiceList');
             console.log(r.details);
-        } {
+        } else {//} { 20250516 Nested block is redundant.
             var serviceArr = r.data;
             //var selectedStr = serviceArr.length == 1 ? ' selected="true"' : '';       //20250414 Remove the declaration of the unused 'selectedStr' variable.
             if (serviceArr && serviceArr.length > 0) {
@@ -1292,7 +1292,7 @@ function getACDArr(serviceArr) {
             if (!/^success$/i.test(r.result || "")) {
                 console.log('error in GetACDGroupList');
                 console.log(r.details || "error");
-            } {
+            } else {    // }{ //20250516 Nested block is redundant.
                 var acdArr = r.data;
 
                 // Join Service Id to the acdArr
@@ -1334,7 +1334,7 @@ function loadWallData(rowData) {
         if (!/^success$/i.test(r.result || "")) {
             console.log('error in GetMonitorStatistics');
             console.log(r.details);
-        } {
+        } else {		//} { 20250516 Nested block is redundant.
             initWallData(r.data, rowData);
         }
     });

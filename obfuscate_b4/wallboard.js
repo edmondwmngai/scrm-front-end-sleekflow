@@ -706,7 +706,7 @@ function getACDArr(serviceArr) {
             if (!/^success$/i.test(r.result || "")) {
                 console.log('error in GetACDGroupList');
                 console.log(r.details || "error");
-            } {
+            } else {		// } { 20250516 Nested block is redundant.
                 var acdArr = r.data;
                 // Join Service Id to the acdArr
                 for (let acdObj of acdArr) {
@@ -734,7 +734,7 @@ function loadServiceList() {
         if (!/^success$/i.test(r.result || "")) {
             console.log('error in GetServiceList');
             console.log(r.details);
-        } {
+        } else {	// } { 20250516 Nested block is redundant.
             var serviceArr = r.data;
             if (serviceArr && serviceArr.length > 0) {
                 // Init Live Mon Queue Select

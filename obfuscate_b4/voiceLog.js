@@ -258,7 +258,7 @@ function loadServiceList() {
         if (!/^success$/i.test(r.result || "")) {
             console.log('error in GetServiceList');
             console.log(r.details);
-        } {
+        } else {	// } { 20250516 Nested block is redundant.
             var serviceArr = r.data;
 
             // if just 1 service no need to have this select, and if not the selection value, default will show the log from all services

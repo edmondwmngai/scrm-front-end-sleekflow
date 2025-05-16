@@ -90,7 +90,8 @@ function rotateTiff(contentType) {
 function generateContent(contentType, callType, r, mediaId) { //contentType: 'call' or 'reply'; channel is Call_Type or Reply_Type
     var mediaContent;
     // if Media Content(=r.data) not loaded properly, show error
-    if (!r || r.data == undefined) {
+    // if (!r || r.data == undefined) {		//2050516 Prefer using an optional chain expression instead, as it's more concise and easier to read.
+	if (!r?.data) {
         var failReason = r.details || r.Message || 'Error Occurred';
         if (callType == 'Outbound_Call') {
             $('<span class="my-3">' + failReason + '</span>').appendTo('#reply-call-span');

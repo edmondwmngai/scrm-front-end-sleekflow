@@ -1605,7 +1605,9 @@ function replyOtherClicked(inputId, oThis) {
 function windowOnload() {
     var type = parent.type;
     customerData = parent.customerData || null;
-    var inheritAll = customerData && customerData.inheritAll ? customerData.inheritAll : false;
+    //var inheritAll = customerData && customerData.inheritAll ? customerData.inheritAll : false;	// 20250516 Prefer using an optional chain expression instead, as it's more concise and easier to read.
+	var inheritAll = customerData?.inheritAll ?? false;
+
     console.log('inheritAll');
     console.log(inheritAll);
     // isManualUpdate = customerData != undefined && customerData.Case_Is_Valid == 'Y' && customerData.Conn_Id == connId && customerData.Ticket_Id == ticketId ? true : false; // 20250320 Unnecessary use of boolean literals in conditional expression.
@@ -1645,9 +1647,11 @@ function windowOnload() {
     if (type != 'newCustomer') {
         disableMode = true;
     }
-    if (customerData && customerData.disableMode != undefined) {
-        disableMode = customerData.disableMode
-    }
+    //if (customerData && customerData.disableMode != undefined) {		//20250516 Prefer using an optional chain expression instead, as it's more concise and easier to read.
+    //    disableMode = customerData.disableMode
+    //}
+	disableMode = customerData?.disableMode ?? disableMode;
+
     if (disableMode) {
         $('.edit-field').prop('disabled', true);
         $('#edit-save-btn').html('<i class="fa fa-edit me-2"></i><span>' + langJson['l-form-edit'] + '</span>');
@@ -1880,7 +1884,10 @@ function windowOnload() {
                 document.getElementById('case-status').value = customerData.Status || '';
             //}// 20250410 for else if 
         }
-        if (customerData != undefined && customerData.Escalated_To != null) {
+		
+
+        //if (customerData != undefined && customerData.Escalated_To != null) {		//20250516 Prefer using an optional chain expression instead, as it's more concise and easier to read.
+		if (customerData?.Escalated_To != null) {
             document.getElementById('case-escalated').value = customerData.Escalated_To;
             if (!outsider) {
                 document.getElementById('case-escalated-container').style.display = 'inherit';

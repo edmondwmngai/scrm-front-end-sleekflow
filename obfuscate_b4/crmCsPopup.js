@@ -540,9 +540,12 @@ $(document).ready(function () {
         var href = $(this).attr('href');
         $(href).addClass('in active');
     });
-    if (window.opener.parent.parent && window.opener.parent.parent.addPopupIdle) {
-        window.opener.parent.parent.addPopupIdle($(document));
-    }
+    //if (window.opener.parent.parent && window.opener.parent.parent.addPopupIdle) {	//20250516 Prefer using an optional chain expression instead, as it's more concise and easier to read.
+    //    window.opener.parent.parent.addPopupIdle($(document));
+    //}
+	window.opener?.parent?.parent?.addPopupIdle?.($(document));
+
+	
 });
 // prevent right click
 document.addEventListener('contextmenu', event => event.preventDefault());

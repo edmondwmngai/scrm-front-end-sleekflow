@@ -1137,7 +1137,9 @@ function windowOnload() {
     if (type != 'newCustomer') {
         disableMode = true;
     }
-    if (customerData && customerData.disableMode != undefined) {
+	//if (customerData && customerData.disableMode != undefined) {			//20250516 Prefer using an optional chain expression instead, as it's more concise and easier to read.
+	if (customerData?.disableMode !== undefined) {
+
         disableMode = customerData.disableMode
     }
     if (disableMode) {

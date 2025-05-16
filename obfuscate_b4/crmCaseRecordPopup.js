@@ -97,7 +97,9 @@ function generateContent(contentType, callType, r, mediaId) { //contentType: 'ca
     //         $('<div class="ms-3">' + r.Message + '</div><br /><br />').appendTo('#' + contentType + '-media-content');
     //     }
     // } else 
-    if (!r || r.data == undefined) {
+	// if (!r || r.data == undefined) {		//20250516 Prefer using an optional chain expression instead, as it's more concise and easier to read.
+	if (!r?.data) {
+
         if (r.responseJSON) {
             var failReason = r.responseJSON.Message || 'Error Occurred';
             if (callType == 'Outbound_Call') {
@@ -357,7 +359,8 @@ function addMsgRow(msgList, entry, onlineFormArr) {
             var msgFailStr = theMsg.msg_completed == -1 ? '<span class="text-gray"><i class="fas fa-exclamation-circle me-2"></i>Send Failed</span>' : '';
             var agentBubbleName = theMsg.sender == '0' ? 'SYSTEM' : isNaN(theMsg.sender) ? (isNaN(theMsg.nick_name) ? theMsg.nick_name : (nonPopup ? (openType == 'menu' ? parent.parent.getAgentName(theMsg.nick_name) : parent.parent.parent.getAgentName(theMsg.nick_name)) : (window.opener.getAgentName(theMsg.nick_name)))) : (nonPopup ? (openType == 'menu' ? parent.parent.getAgentName(theMsg.sender) : parent.parent.parent.getAgentName(theMsg.sender)) : (window.opener.getAgentName(theMsg.sender)));
             // for chatbot will show selection
-            if (theMsg.msg_json && theMsg.msg_json.Commands && theMsg.msg_json.Commands.length > 0) {
+            // if (theMsg.msg_json && theMsg.msg_json.Commands && theMsg.msg_json.Commands.length > 0) {	//20250516 Prefer using an optional chain expression instead, as it's more concise and easier to read.
+			if (theMsg?.msg_json?.Commands?.length > 0) {
                 theMsgContentDisplay += '<div class="mt-1">'
                 var cmdArr = theMsg.msg_json.Commands
                 for (let cmd of cmdArr) {

@@ -693,7 +693,9 @@ function replyClicked(ticketId) {
             } else if (r.result == 'fail') {
                     alert(langJson['l-alert-send-message-failed']);
             } else {
-                    var msgId = (r && r.data && r.data.id) ? r.data.id : -1;
+				  //var msgId = (r && r.data && r.data.id) ? r.data.id : -1;	//20250516 Prefer using an optional chain expression instead, as it's more concise and easier to read.
+                    var msgId = r?.data?.id ?? -1;	
+					
                     createOrUpdateBubble({
                         'ticket_id': ticketId,
                         'msg_list': [{
@@ -2286,7 +2288,9 @@ function createOrUpdateBubble(msgObj) {
                 var agentBubbleName = theMsg.sender == '0' ? 'SYSTEM' : isNaN(theMsg.sender) ? (isNaN(theMsg.nick_name) ? theMsg.nick_name : parent.getAgentName(Number(theMsg.nick_name))) : parent.getAgentName(Number(theMsg.sender));
                 
                 // for chatbot will show selection
-                if (theMsg.msg_json && theMsg.msg_json.Commands && theMsg.msg_json.Commands.length > 0) {
+                //if (theMsg.msg_json && theMsg.msg_json.Commands && theMsg.msg_json.Commands.length > 0) {	//20250516 Prefer using an optional chain expression instead, as it's more concise and easier to read.
+				if (theMsg?.msg_json?.Commands?.length > 0) {
+
                     theMsgContentDisplay += '<div class="mt-1">'
                     var cmds = theMsg.msg_json.Commands
                     for (let cmd of cmds) {

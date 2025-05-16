@@ -298,12 +298,17 @@ function emailOnload() {
             agentSelect.append('<option LevelID=' + option.LevelID + ' value=' + theAgentId + '>' + option.AgentName + ' (ID: ' + theAgentId + ')</option>');
         }
     }
-    // /TBD Site A supervisor want only no LOGOUT agent being shown
-    if (parent.parent.iframeRecheck) {
+    
+    /*	20250516 Prefer using an optional chain expression instead, as it's more concise and easier to read.
+	// /TBD Site A supervisor want only no LOGOUT agent being shown
+	if (parent.parent.iframeRecheck) {		
         parent.parent.iframeRecheck($(parent.document));
     } else if (parent.parent.parent && parent.parent.parent.iframeRecheck) {
         parent.parent.parent.iframeRecheck($(parent.document));
     }
+	*/
+	(parent.parent?.iframeRecheck ?? parent.parent?.parent?.iframeRecheck)?.($(parent.document));
+	
 }
 // Clicked 'Confirm' button which is next to [Transfer To:]
 var confirmClicked = function () {

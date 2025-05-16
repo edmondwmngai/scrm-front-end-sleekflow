@@ -614,8 +614,8 @@ function uploadedExcelFile(input) {
     // shows default checking results text first
     $('#u-results-row').removeClass('d-none');
 
-    if (input.files && input.files[0]) {
-        var fileData = new FormData();
+    if (input?.files?.[0]) {	// if (input.files && input.files[0]) {	//20250516 Prefer using an optional chain expression instead, as it's more concise and easier to read.
+	    var fileData = new FormData();
         var theFile = input.files[0]
         fileData.append("files", theFile);
         fileData.append('Agent_Id', loginId);
@@ -2508,7 +2508,7 @@ function campaignInitTbl(returnToNonEpro) {
 }
 
 function campaignUploadedExcelHeader(input) {
-    if (input.files && input.files[0]) {
+    if (input?.files?.[0]) {	// if (input.files && input.files[0]) {	//20250516 Prefer using an optional chain expression instead, as it's more concise and easier to read.
         $('#c-warning-txt').text('');
         var fileData = new FormData();
         fileData.append("files", input.files[0]);

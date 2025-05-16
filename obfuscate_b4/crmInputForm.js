@@ -3637,11 +3637,14 @@ function returnToSearch() {
 $(document).ready(function () {
     setLanguage();
 
-    if (parent.parent && parent.parent.iframeRecheck) {
-        parent.parent.iframeRecheck($(parent.document));
-    } else if (parent.parent.parent && parent.parent.parent.iframeRecheck) {
-        parent.parent.parent.iframeRecheck($(parent.document));
-    }
+    //if (parent.parent && parent.parent.iframeRecheck) {		//20250516 Prefer using an optional chain expression instead, as it's more concise and easier to read.
+    //    parent.parent.iframeRecheck($(parent.document));
+    //} else if (parent.parent.parent && parent.parent.parent.iframeRecheck) {
+    //    parent.parent.parent.iframeRecheck($(parent.document));
+    //}
+	parent.parent?.iframeRecheck?.($(parent.document)) || 
+	parent.parent?.parent?.iframeRecheck?.($(parent.document));
+
     $('textarea').keydown(function (e) {
         if (e.keyCode == 33 || e.keyCode == 34) {
             $(this).blur();

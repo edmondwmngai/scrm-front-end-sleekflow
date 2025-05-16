@@ -4,7 +4,7 @@ var customerOnly = false;
 var type = parent.type;
 var openType = window.frameElement.getAttribute("openType") || ''; // "menu" or "traditional" or "social"
 //var isSocial = window.frameElement.getAttribute("openType") == "social" ? true : false;   //20250320 Unnecessary use of boolean literals in conditional expression.
-var isSocial = window.frameElement.getAttribute("openType") == "social" ? true : false; 
+var isSocial = window.frameElement.getAttribute("openType") === "social";
 let customerId = window.frameElement.getAttribute("customerId") ? parseInt(window.frameElement.getAttribute("customerId")) : -1;
 var internalCaseNo = window.frameElement.getAttribute("internalCaseNo") || -1;
 var caseNo = window.frameElement.getAttribute("caseNo") || -1;

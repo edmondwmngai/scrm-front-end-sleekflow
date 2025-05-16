@@ -951,7 +951,7 @@
 		  
 		  if (sTicket[0].Channel == "whatsapp") {
 			  //document.getElementsByClassName('s-standalone-btn keyboard-icon')[0].style = "display:";
-			  document.getElementsByClassName('s-standalone-btn keyboard-icon')[0].style = "display:none";
+			  document.getElementsByClassName('s-standalone-btn keyboard-icon')[0].style = "display:none; d-none";
 		  } else { 
 			  document.getElementsByClassName('s-standalone-btn keyboard-icon')[0].style = "display:none";
 		  }

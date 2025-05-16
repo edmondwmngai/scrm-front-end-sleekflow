@@ -61,7 +61,8 @@ function buildHistory(msg_list) {
         } else {
             var agentBubbleName = returnAgentName(theMsg.sender, theMsg.nick_name);
             // for chatbot will show selection
-            if (theMsg.msg_json && theMsg.msg_json.Commands && theMsg.msg_json.Commands.length > 0) {
+            //if (theMsg.msg_json && theMsg.msg_json.Commands && theMsg.msg_json.Commands.length > 0) {	// 20250516 Prefer using an optional chain expression instead, as it's more concise and easier to read.
+			if (theMsg?.msg_json?.Commands?.length > 0) {
                 theMsgContentDisplay += '<div class="mt-1">'
                 let cmds = theMsg.msg_json.Commands;
                 for (let cmd of cmds) {

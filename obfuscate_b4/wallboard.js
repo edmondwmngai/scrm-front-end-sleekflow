@@ -362,7 +362,7 @@ function initCallDou() {
                                         var meta = chart.getDatasetMeta(0);
                                         var ds = data.datasets[0];
                                         var arc = meta.data[i];
-                                        var custom = arc && arc.custom || {};
+										var custom = arc?.custom ?? {};		// var custom = arc && arc.custom || {};	//20250516 Prefer using an optional chain expression instead, as it's more concise and easier to read.
                                         var getValueAtIndexOrDefault = Chart.helpers.getValueAtIndexOrDefault;
                                         var arcOpts = chart.options.elements.arc;
                                         var fill = custom.backgroundColor ? custom.backgroundColor : getValueAtIndexOrDefault(ds.backgroundColor, i, arcOpts.backgroundColor);
@@ -520,7 +520,7 @@ function initChatDou() {
                                         var meta = chart.getDatasetMeta(0);
                                         var ds = data.datasets[0];
                                         var arc = meta.data[i];
-                                        var custom = arc && arc.custom || {};
+										var custom = arc?.custom ?? {};		// var custom = arc && arc.custom || {};	//20250516 Prefer using an optional chain expression instead, as it's more concise and easier to read.
                                         var getValueAtIndexOrDefault = Chart.helpers.getValueAtIndexOrDefault;
                                         var arcOpts = chart.options.elements.arc;
                                         var fill = custom.backgroundColor ? custom.backgroundColor : getValueAtIndexOrDefault(ds.backgroundColor, i, arcOpts.backgroundColor);

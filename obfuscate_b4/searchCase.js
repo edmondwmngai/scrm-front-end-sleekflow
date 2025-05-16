@@ -462,7 +462,8 @@ function submitClicked(type) {
                     var data = caseTable.row($(this).parents('tr')).data();
                     changeContactCaseNo = data.Case_No;
                     changeContactCustomerId = data.Customer_Id;
-                    if (parent.parent && parent.parent.openWindows) {
+                    //if (parent.parent && parent.parent.openWindows) {		//20250516 Prefer using an optional chain expression instead, as it's more concise and easier to read.
+					if (parent?.parent?.openWindows) {
                         var openWindows = parent.parent.openWindows;
                         var changeContactPop = window.open('./changeContactPop.html', 'Change Contact', '_blank, toolbar=0,location=0,top=50, left=50,menubar=0,resizable=0,scrollbars=1,width=903,height=640');
                         openWindows[openWindows.length] = changeContactPop;

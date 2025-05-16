@@ -67,9 +67,11 @@ function vmailContentOnload() {
         callerDisplay = window.frameElement.getAttribute("callerDisplay") || '';
         buildContent();
     }
-    if (parent.parent && parent.parent.iframeRecheck) {
+    /*if (parent.parent && parent.parent.iframeRecheck) {
         parent.parent.iframeRecheck($(parent.document));
-    }
+    }*/	//20250516 Prefer using an optional chain expression instead, as it's more concise and easier to read.
+	parent?.parent?.iframeRecheck?.($(parent.document));
+
 }
 // prevent right click
 document.addEventListener('contextmenu', event => event.preventDefault());

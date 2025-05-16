@@ -311,11 +311,14 @@ var confirmClicked = function () {
     }
 }
 $(document).ready(function () {
-    if (parent.parent.iframeRecheck) {
+    /*	20250516 Prefer using an optional chain expression instead, as it's more concise and easier to read.
+	if (parent.parent.iframeRecheck) {		
         parent.parent.iframeRecheck($(parent.document));
     } else if (parent.parent.parent && parent.parent.parent.iframeRecheck) {
         parent.parent.parent.iframeRecheck($(parent.document));
     }
+	*/
+	(parent.parent?.iframeRecheck ?? parent.parent?.parent?.iframeRecheck)?.($(parent.document));
 });
 // prevent right click
 document.addEventListener('contextmenu', event => event.preventDefault());

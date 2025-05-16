@@ -554,7 +554,9 @@ function setCustomerInfo(isChangedCustomer) {
     // updateCaseObj.Conn_Id = isManualUpdate == true ? -1 : connId; //Conn Id cannot be null
     // caseLogLength = sessionStorage.getItem('scrmCaseLogLength') != 'NaN' || sessionStorage.getItem('scrmCaseLogLength') != null ? Number(sessionStorage.getItem('scrmCaseLogLength')) : 10 || 10;
     // document.getElementById('ip-agent-name').innerHTML = agentName;
-    var inheritAll = customerData && customerData.inheritAll ? customerData.inheritAll : false;
+	// var inheritAll = customerData && customerData.inheritAll ? customerData.inheritAll : false;	//20250516 Prefer using an optional chain expression instead, as it's more concise and easier to read.
+	var inheritAll = customerData?.inheritAll ?? false;
+
     document.getElementById('customer-id-title').innerHTML = customerId;
     // Set customer info
     var Mobile_No = '';
@@ -897,7 +899,8 @@ function setCustomerInfo(isChangedCustomer) {
                 document.getElementById('case-status').value = customerData.Status || '';
           //  }// 20250410 for else if
         }
-        if (customerData != undefined && customerData.Escalated_To != null) {
+        //if (customerData != undefined && customerData.Escalated_To != null) {		//20250516 Prefer using an optional chain expression instead, as it's more concise and easier to read.
+		if (customerData?.Escalated_To != null) {
             document.getElementById('case-escalated').value = customerData.Escalated_To;
             if (!outsider) {
                 document.getElementById('case-escalated-container').style.display = 'inherit';
@@ -3637,11 +3640,14 @@ function returnToSearch() {
 $(document).ready(function () {
     setLanguage();
 
-    if (parent.parent && parent.parent.iframeRecheck) {
-        parent.parent.iframeRecheck($(parent.document));
-    } else if (parent.parent.parent && parent.parent.parent.iframeRecheck) {
-        parent.parent.parent.iframeRecheck($(parent.document));
-    }
+    //if (parent.parent && parent.parent.iframeRecheck) {		//20250516 Prefer using an optional chain expression instead, as it's more concise and easier to read.
+    //    parent.parent.iframeRecheck($(parent.document));
+    //} else if (parent.parent.parent && parent.parent.parent.iframeRecheck) {
+    //    parent.parent.parent.iframeRecheck($(parent.document));
+    //}
+	parent.parent?.iframeRecheck?.($(parent.document)) || 
+	parent.parent?.parent?.iframeRecheck?.($(parent.document));
+
     $('textarea').keydown(function (e) {
         if (e.keyCode == 33 || e.keyCode == 34) {
             $(this).blur();

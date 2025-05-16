@@ -149,14 +149,20 @@ function windowOnload() {
 
 $(document).ready(function () {
     if (isPopup) {
-        if (window.opener && window.opener.parent && window.opener.parent.addPopupIdle) {
+        /*if (window.opener && window.opener.parent && window.opener.parent.addPopupIdle) {
             window.opener.parent.addPopupIdle($(document));
-        }
+        }*/			//20250516 Prefer using an optional chain expression instead, as it's more concise and easier to read.
+		window.opener?.parent?.addPopupIdle?.($(document));
+		
     //} else {  // 20250410 'If' statement should not be the only statement in 'else' block
-    } else if (parent.parent && parent.parent.iframeRecheck) {
+    /*} else if (parent.parent && parent.parent.iframeRecheck) {
             parent.parent.iframeRecheck($(parent.document));
        // } // 20250410 for else if 
-    }
+    }*/
+	} else {   // 20250516 Prefer using an optional chain expression instead, as it's more concise and easier to read.
+		parent?.parent?.iframeRecheck?.($(parent.document));
+	}
+
 });
 // prevent right click
 document.addEventListener('contextmenu', event => event.preventDefault());

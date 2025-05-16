@@ -268,7 +268,8 @@ function resizeIframe(obj) {
 
 function scrollInputForm() {
     var inputFormFrame = $('#input-form');
-    if (inputFormFrame && inputFormFrame.contents()) {
+    //if (inputFormFrame && inputFormFrame.contents()) {	//20250516	Prefer using an optional chain expression instead, as it's more concise and easier to read.
+	if (inputFormFrame?.contents()) {
         inputFormFrame.cotents().find('body').animate({
             scrollTop: 0
         }, 1000);

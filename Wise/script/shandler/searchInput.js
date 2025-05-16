@@ -3,7 +3,7 @@
 function searchInput(sTicket) 
 {
 
-    var mvcHost     = config.mvcHost;
+   //var mvcHost     = config.mvcHost; 20250516 Remove the declaration of the unused 'mvcHost' variable.
     
     var ticketId    = sTicket.TicketId;
     var entry       = sTicket.Channel;

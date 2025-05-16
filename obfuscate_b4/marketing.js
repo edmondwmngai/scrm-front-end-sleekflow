@@ -2320,7 +2320,7 @@ $(document).ready(function () {
 						console.log(JSON.stringify(d.order));
 						console.log(JSON.stringify(d));
 					//	console.log(JSON.stringify(settings));
-						var columnIndex = $(this).index(); 
+					//	var columnIndex = $(this).index();  //20250516	Remove the declaration of the unused 'columnIndex' variable.
 						
 						//20250513 for fix 3rd sorting
 					

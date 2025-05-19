@@ -3,6 +3,7 @@
 		return;
 	}
 	function GaugeChartHelper() {
+		console.log("GaugeChartHelper executed");
 	}
 	GaugeChartHelper.prototype.setup = function(chart, config) {
 		this.chart = chart;

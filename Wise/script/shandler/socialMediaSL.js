@@ -136,6 +136,7 @@ if (agentName.length == 0) {
 }
 
 function resize() {
+	console.log("resize is executed but no implementation");
 }
 
 function setLanguage() {

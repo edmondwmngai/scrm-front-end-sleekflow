@@ -31,7 +31,7 @@ table {
 .main-content {
     position: fixed;
     border: none;
-    height: calc(100% - 177px);;
+    height: calc(100% - 177px);
     display: block;
     width: 100%;
 }

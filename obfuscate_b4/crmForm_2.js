@@ -1038,9 +1038,9 @@ var replyCallChanged = function (oThis) {
 }
 // email, sms, fax other checkbox clicked
 function replyOtherClicked(inputId, oThis) {
-    if (inputId == 'call-other-input') {
+    if (inputId != 'call-other-input') {
 
-    } else {
+//   } else {   ==> != 20250519 Empty block statement.
         var theInput = $('#' + inputId);
         if ($(oThis).prop('checked')) {
             theInput.prop('disabled', false);

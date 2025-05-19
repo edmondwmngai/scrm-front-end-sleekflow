@@ -109,11 +109,15 @@ var SC = {
             }
             tpQrStr += '</div>'
         }
-        if (forPopup) {
+        /*	20250519 Refactor this function to always return the same type.
+		if (forPopup) {
             return tpQrStr;
         } else {
             return { 'isImage': true, 'text': tpQrStr };
         }
+		*/
+		return { 'isImage': true, 'text': tpQrStr };
+		
     },
     handleWATpCTAMsg: function (msg_content_obj_str, forPopup, tpId) {
         // msg_content_obj_str = msg_content_obj_str.replace(/"/g,'\\"')
@@ -228,11 +232,14 @@ var SC = {
                 })
             }
         }
+		//20250519 should return the same type 
+		/*
         if (forPopup) {
             return tpCtaStr;
         } else {
             return { 'isImage': true, 'text': tpCtaStr };
-        }
+        }*/
+		return { 'isImage': true, 'text': tpCtaStr };
     },
     handleContentMsg: function (fileUrl, fileName, msgType) {
         if (fileName == null) {

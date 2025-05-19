@@ -656,9 +656,9 @@ $(document).ready(function () {
             if (tpType == 'tp_text') {
                 crmText = crmText.replace(/\{\{1}}/g, '<input id="tpl-content-0" type="text" class="border-radius-5" maxlenght=160 />').replace(/\{\{2}}/g, '<input id="tpl-content-1" type="text" class="border-radius-5" maxlenght=160 />').replace(/\{\{3}}/g, '<input id="tpl-content-2" type="text" class="border-radius-5" maxlenght=160 />').replace(/\{\{4}}/g, '<input id="tpl-content-3" type="text" class="border-radius-5" maxlenght=160 />').replace(/\{\{5}}/g, '<input id="tpl-content-4" type="text" class="border-radius-5" maxlenght=160 />');
             } else if (tpType == 'tp_qr') {
-                crmText = SC.handleWATpQRMsg(crmText, true, tpId);
+                crmText = SC.handleWATpQRMsg(crmText, true, tpId).text;   //20250519 add .text for Refactor this function to always return the same type.
             } else if (tpType == 'tp_cta') {
-                crmText = SC.handleWATpCTAMsg(crmText, true, tpId);
+                crmText = SC.handleWATpCTAMsg(crmText, true, tpId).text;  //20250519 add .text for Refactor this function to always return the same type.
             }
             var selectBtnStr = 'selectClicked(' + i + ')';
             fileContainer.append('<tr class="row-container"><td id="display-msg-' + tpId + '" class="canned-cell">' + crmText + '</td><td class="btn-cell"><button class="btn btn-sm rounded btn-info text-capitalize" onclick=' + selectBtnStr + '><i class="fas fa-mouse-pointer me-2"></i><span>' + langJson['l-campaign-select'] + '</span></button></td></tr>')

@@ -2134,7 +2134,19 @@ function createOrUpdateBubble(msgObj) {
     var lastMsgContent = (lastMsg.msg_content || '').replace(/</g, "&lt;").replace(/>/g, "&gt;");
     var lastMsgSentTime = lastMsg.sent_time || '';
     var lastMsgDate = lastMsgSentTime.length == 0 ? '' : SC.handleDate(lastMsgSentTime);
-    var lastMsgTime = lastMsgDate == '' ? lastMsgSentTime.length == 0 ? '' : SC.returnTime(lastMsgSentTime, true) : "";
+ // 20250520  Extract this nested ternary operation into an independent statement.
+ // var lastMsgTime = lastMsgDate == '' ? lastMsgSentTime.length == 0 ? '' : SC.returnTime(lastMsgSentTime, true) : "";
+	var lastMsgTime = '';
+	if (lastMsgDate === '') {
+		if (lastMsgSentTime.length === 0) {
+			lastMsgTime = '';
+		} else {
+			lastMsgTime = SC.returnTime(lastMsgSentTime, true);
+		}
+	} else {
+		lastMsgTime = "";
+	}
+
     var entry = msgObj.entry;
     var campaign = customCompany != "no"? customCompany: msgObj.company_name;
     var formData = msgObj.online_form_data || [];
@@ -2177,7 +2189,16 @@ function createOrUpdateBubble(msgObj) {
         } else if (entry == 'wechat') {
             channelImg = 'WeChat';
         }
-        var bubbleMsg = (entry == 'fb_comment' || entry == 'fb_post') ? '' : isOfflineForm ? handleOfflineFormName(offlineFormData) : handleBubbleMsg(lastMsgContent, lastMsg.msg_object_client_name, lastMsg.msg_object_path);
+		//20250520 Extract this nested ternary operation into an independent statement.
+        //var bubbleMsg = (entry == 'fb_comment' || entry == 'fb_post') ? '' : isOfflineForm ? handleOfflineFormName(offlineFormData) : handleBubbleMsg(lastMsgContent, lastMsg.msg_object_client_name, lastMsg.msg_object_path);
+		var bubbleMsg = '';
+		if (entry === 'fb_comment' || entry === 'fb_post') {
+			bubbleMsg = '';
+		} else if (isOfflineForm) {
+			bubbleMsg = handleOfflineFormName(offlineFormData);
+		} else {
+			bubbleMsg = handleBubbleMsg(lastMsgContent, lastMsg.msg_object_client_name, lastMsg.msg_object_path);
+		}
         var offlineFormStr = isOfflineForm ? 'bubble-closed ' : '';
         var bubbleStyle = isOfflineForm ? 'style="background:white;color:black;" ' : '';
         var inviteAgentIdStr = '';
@@ -2186,10 +2207,21 @@ function createOrUpdateBubble(msgObj) {
         var addAgentStr = 'addAgent(' + ticketId + ',"' + campaign + '","' + entry + '")';
         if (entry != 'fb_comment' && entry != 'fb_post') {
 
-            // conference call button and leave button
-            conferenceStr = isMonitor ? '<i class="fas fa-sign-out-alt leave-chat-icon bubble-small-icon" onclick="endMonitor(' + ticketId + ')" data-bs-toggle="tooltip" data-bs-placement="bottom" title="' + langJson['l-social-leave-chat'] + '"></i>' :
-                (parent.tmpTicketId == ticketId ? '' : '<i class="fas fa-plus bubble-small-icon me-2" onclick=' + addAgentStr + ' data-bs-toggle="tooltip" data-bs-placement="bottom" title="' + langJson['l-social-conference-call'] + '"></i>') +
-                '<i class="fas fa-sign-out-alt leave-chat-icon bubble-small-icon" onclick="leaveChat(' + ticketId + ')" data-bs-toggle="tooltip" data-bs-placement="bottom" title="' + langJson['l-social-leave-chat'] + '"></i>' + (parent.tmpTicketId == ticketId ? '' : '<i class="fas fa-star private-i"></i>');
+            // conference call button and leave button		//20250520 Extract this nested ternary operation into an independent statement.
+            //conferenceStr = isMonitor ? '<i class="fas fa-sign-out-alt leave-chat-icon bubble-small-icon" onclick="endMonitor(' + ticketId + ')" data-bs-toggle="tooltip" data-bs-placement="bottom" title="' + langJson['l-social-leave-chat'] + '"></i>' :
+            //    (parent.tmpTicketId == ticketId ? '' : '<i class="fas fa-plus bubble-small-icon me-2" onclick=' + addAgentStr + ' data-bs-toggle="tooltip" data-bs-placement="bottom" title="' + langJson['l-social-conference-call'] + '"></i>') +
+            //    '<i class="fas fa-sign-out-alt leave-chat-icon bubble-small-icon" onclick="leaveChat(' + ticketId + ')" data-bs-toggle="tooltip" data-bs-placement="bottom" title="' + langJson['l-social-leave-chat'] + '"></i>' + (parent.tmpTicketId == ticketId ? '' : '<i class="fas fa-star private-i"></i>');
+				
+			if (isMonitor) {
+				conferenceStr = `<i class="fas fa-sign-out-alt leave-chat-icon bubble-small-icon" onclick="endMonitor(${ticketId})" data-bs-toggle="tooltip" data-bs-placement="bottom" title="${langJson['l-social-leave-chat']}"></i>`;
+			} else {
+				let addAgentIcon = parent.tmpTicketId == ticketId ? '' : `<i class="fas fa-plus bubble-small-icon me-2" onclick=${addAgentStr} data-bs-toggle="tooltip" data-bs-placement="bottom" title="${langJson['l-social-conference-call']}"></i>`;
+				let leaveChatIcon = `<i class="fas fa-sign-out-alt leave-chat-icon bubble-small-icon" onclick="leaveChat(${ticketId})" data-bs-toggle="tooltip" data-bs-placement="bottom" title="${langJson['l-social-leave-chat']}"></i>`;
+				let privateIcon = parent.tmpTicketId == ticketId ? '' : `<i class="fas fa-star private-i"></i>`;
+
+				conferenceStr = addAgentIcon + leaveChatIcon + privateIcon;
+			}
+
         } else {
 
             // fbpost, 10 minutes and 12 seconds later, if this ticket still here, assign again
@@ -2226,7 +2258,16 @@ function createOrUpdateBubble(msgObj) {
         var uploadBtnClickFn = '$(this).prev().trigger("click");';
         var uploadBtnStr = '<input type="file" onchange="uploadAttachment(this, ' + ticketId + ');" style="display:none"><button id="upload-' + ticketId + '" class="reply-share-container keyboard-icon" data-bs-toggle="tooltip" data-bs-placement="top" title="Send File" onclick=' + uploadBtnClickFn + '><span class="align-sub"><i class="fas fa-file-upload"></i></span></button>';
 
-        var contentInnerHeight = (entry == 'fb_comment' || entry == 'fb_post' || noFormInSocial) ? 'calc(100vh - 262px)' : (isOfflineForm ? '413px' : '520px');
+      //20250520 Extract this nested ternary operation into an independent statement.
+      //var contentInnerHeight = (entry == 'fb_comment' || entry == 'fb_post' || noFormInSocial) ? 'calc(100vh - 262px)' : (isOfflineForm ? '413px' : '520px');
+		var contentInnerHeight = '';
+		if (entry === 'fb_comment' || entry === 'fb_post' || noFormInSocial) {
+			contentInnerHeight = 'calc(100vh - 262px)';
+		} else if (isOfflineForm) {
+			contentInnerHeight = '413px';
+		} else {
+			contentInnerHeight = '520px';
+		}
 
         var companyLogoStr = customCompany == 'no' ? '<img class="company-logo" src="./campaign/' + campaign + '/logo.png"/>' : '';
         var companyShortName = msgObj.company_short_name;
@@ -2234,11 +2275,43 @@ function createOrUpdateBubble(msgObj) {
 
         var textareaId = 'reply-textarea-' + ticketId;
         var sendCSInputStr = (entry == 'webchat' ? (' onkeyup="sendCSInput(' + ticketId + ')"') : '');
-        var replyContainerStr = isOfflineForm ? '' : (isMonitor ?
+	 /* 20250520 Extract this nested ternary operation into an independent statement.
+		var replyContainerStr = isOfflineForm ? '' : (isMonitor ?
             ('<div class="reply-container"><div class="text-center silent-btn-group"><textarea id="txt-coach-' + ticketId + '" class="reply-textarea d-none" maxlength="1000" placeholder="Type coach message here..." onkeydown="coachTextareaPressed(event)"></textarea><div id="silent-btn-container-' + ticketId + '" class="mt-4"><button class="btn btn-warning btn-sm rounded text-capitalize me-2" onclick="monitorConference(' + ticketId + ')"><i class="fas fa-user-friends me-2"></i>Conference</button><button class="btn btn-warning btn-sm rounded text-capitalize me-2" onclick="monitorBargeIn(' + ticketId + ')"><i class="fas fa-door-open me-2"></i>Barge-In</button><button class="btn btn-warning btn-sm rounded text-capitalize me-2" onclick="monitorCoach(' + ticketId + ')"><i class="fas fa-paper-plane me-2"></i>Coach</button><button class="btn btn-warning btn-sm rounded text-capitalize" onclick="endMonitor(' + ticketId + ')"><i class="fas fa-sign-out-alt me-2"></i>Quit Monitor</button><label class="silent-agent-lbl">Monitoring Agent ID:&nbsp;<span id="mon-agent-id-' + ticketId + '">' + parent.tmpAgentId + '</span></lable></div><div id="coach-btn-container-' + ticketId + '" class="d-none"><button class="btn btn-warning btn-sm rounded text-capitalize me-2" onclick="quitCoach(' + ticketId + ')"><i class="fas fa-sign-out-alt me-2"></i>Quit Coach</button><button class="btn btn-warning btn-sm rounded text-capitalize" onclick="endMonitor(' + ticketId + ')"><i class="fas fa-sign-out-alt me-2"></i>Quit Monitor</button><button class="reply-send-container" onclick="sendCoach(' + ticketId + ')" title="Send Coach Message"><img class="reply-icon-size" src="./images/send.svg"></button></div></div>' +
                 '<div class="d-none stop-silent-group"><textarea id="' + textareaId + '" class="reply-textarea" maxlength="1000" rows="2" placeholder="' + langJson['l-social-type-your-text-here'] + '" onkeydown="textareaPressed(event)"></textarea><div class="reply-icon-group"><button id="canned-' + ticketId + '" class="reply-canned-container keyboard-icon" data-bs-toggle="tooltip" data-bs-placement="top" title="' + langJson['l-social-select-message'] + '" onclick=' + cannedBtnClickFn + '><span class="align-sub"><i class="far fa-keyboard"></i></span></button><button id="share-' + ticketId + '" class="reply-share-container keyboard-icon" data-bs-toggle="tooltip" data-bs-placement="top" title="' + langJson['l-social-select-file'] + '" onclick=' + shareBtnClickFn + '><span class="align-sub"><i class="far fa-file"></i></span></button><button id="end-' + ticketId + '" class="reply-end-container keyboard-icon" data-bs-toggle="tooltip" data-bs-placement="top" title="' + langJson['l-social-end-session'] + '" entry="' + entry + '" onclick="endClicked(' + ticketId + ',this)"><span class="align-sub"><i class="fas fa-times"></i></span></button><button id="reply-btn-' + ticketId + '" class="reply-send-container" entry="' + entry + '" onclick="replyClicked(' + ticketId + ')" data-bs-toggle="tooltip" data-bs-placement="top" title="' + langJson['l-social-send-message'] + '"><img class="reply-icon-size" src="./images/send.svg" /></button></div></div>'
             )
             : '<div class="reply-container"><textarea id="' + textareaId + '" class="reply-textarea" maxlength="1000" rows="2" placeholder="' + langJson['l-social-type-your-text-here'] + '" onkeypress="textareaPressed(event);"' + sendCSInputStr + '></textarea><div class="reply-icon-group"><button id="canned-' + ticketId + '" class="reply-canned-container keyboard-icon" data-bs-toggle="tooltip" data-bs-placement="top" title="' + langJson['l-social-select-message'] + '" onclick=' + cannedBtnClickFn + '><span class="align-sub"><i class="far fa-keyboard"></i></span></button><button id="share-' + ticketId + '" class="reply-share-container keyboard-icon" data-bs-toggle="tooltip" data-bs-placement="top" title="' + langJson['l-social-select-file'] + '" onclick=' + shareBtnClickFn + '><span class="align-sub"><i class="far fa-file"></i></span></button>' + uploadBtnStr + '<button id="end-' + ticketId + '" class="reply-end-container keyboard-icon" data-bs-toggle="tooltip" data-bs-placement="top" title="' + langJson['l-social-end-session'] + '" entry="' + entry + '" onclick="endClicked(' + ticketId + ',this)"><span class="align-sub"><i class="fas fa-times"></i></span></button><button id="reply-btn-' + ticketId + '" class="reply-send-container" entry="' + entry + '" onclick="replyClicked(' + ticketId + ')" data-bs-toggle="tooltip" data-bs-placement="top" title="' + langJson['l-social-send-message'] + '"><img class="reply-icon-size" src="./images/send.svg" /></button></div></div>');
+		*/
+		var replyContainerStr = '';
+		if (isOfflineForm) {
+			replyContainerStr = '';
+		} else if (isMonitor) {
+			let monitorControls = `<div class="reply-container"><div class="text-center silent-btn-group">
+				<textarea id="txt-coach-${ticketId}" class="reply-textarea d-none" maxlength="1000" placeholder="Type coach message here..." onkeydown="coachTextareaPressed(event)"></textarea>
+				<div id="silent-btn-container-${ticketId}" class="mt-4">
+					<button class="btn btn-warning btn-sm rounded text-capitalize me-2" onclick="monitorConference(${ticketId})"><i class="fas fa-user-friends me-2"></i>Conference</button>
+					<button class="btn btn-warning btn-sm rounded text-capitalize me-2" onclick="monitorBargeIn(${ticketId})"><i class="fas fa-door-open me-2"></i>Barge-In</button>
+					<button class="btn btn-warning btn-sm rounded text-capitalize me-2" onclick="monitorCoach(${ticketId})"><i class="fas fa-paper-plane me-2"></i>Coach</button>
+					<button class="btn btn-warning btn-sm rounded text-capitalize" onclick="endMonitor(${ticketId})"><i class="fas fa-sign-out-alt me-2"></i>Quit Monitor</button>
+					<label class="silent-agent-lbl">Monitoring Agent ID:&nbsp;<span id="mon-agent-id-${ticketId}">${parent.tmpAgentId}</span></label>
+				</div>
+			</div></div>`;
+			
+			replyContainerStr = monitorControls;
+		} else {
+			let replyControls = `<div class="reply-container">
+				<textarea id="${textareaId}" class="reply-textarea" maxlength="1000" rows="2" placeholder="${langJson['l-social-type-your-text-here']}" onkeypress="textareaPressed(event);" ${sendCSInputStr}></textarea>
+				<div class="reply-icon-group">
+					<button id="canned-${ticketId}" class="reply-canned-container keyboard-icon" data-bs-toggle="tooltip" data-bs-placement="top" title="${langJson['l-social-select-message']}" onclick=${cannedBtnClickFn}><span class="align-sub"><i class="far fa-keyboard"></i></span></button>
+					<button id="share-${ticketId}" class="reply-share-container keyboard-icon" data-bs-toggle="tooltip" data-bs-placement="top" title="${langJson['l-social-select-file']}" onclick=${shareBtnClickFn}><span class="align-sub"><i class="far fa-file"></i></span></button>
+					${uploadBtnStr}
+					<button id="end-${ticketId}" class="reply-end-container keyboard-icon" data-bs-toggle="tooltip" data-bs-placement="top" title="${langJson['l-social-end-session']}" entry="${entry}" onclick="endClicked(${ticketId},this)"><span class="align-sub"><i class="fas fa-times"></i></span></button>
+					<button id="reply-btn-${ticketId}" class="reply-send-container" entry="${entry}" onclick="replyClicked(${ticketId})" data-bs-toggle="tooltip" data-bs-placement="top" title="${langJson['l-social-send-message']}"><img class="reply-icon-size" src="./images/send.svg" /></button>
+				</div>
+			</div>`;
+
+			replyContainerStr = replyControls;
+		}
 
         var whatsappStr = entry == 'whatsapp' ? '<span style="white-space:pre;"><span class="content-gray-label">Phone:</span>&nbsp;<span id="phone-' + ticketId + '">' + enduserId.replace('whatsapp:+', '') + '</span></span>' : '';
 

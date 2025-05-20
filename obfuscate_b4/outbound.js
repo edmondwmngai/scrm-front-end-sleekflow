@@ -2812,7 +2812,16 @@ function campaignAddFormStructure() {
       //20250520 Extract this nested ternary operation into an independent statement.
   	  //uploadTblStr += ('<tr><td>' + fieldObj.Order + '</td><td>' + fieldObj.Excel_Header + '</td><td>' + (fieldObj.DB_Header.length == 0 ? dbSelectStr : fieldObj.DB_Header) + '</td><td>' + (fieldObj.DB_Header.length == 0 ? '' : (fieldObj.Check_Type && fieldObj.Check_Type.length > 0 ? fieldObj.Check_Type : 'N/A')) + '</td><td class="bg-lavender">' + selectStr + '</td><td class="bg-lavender"><input type="search" class="form-control" value="' + fieldObj.Excel_Header + '" /></td></tr>');
 		let dbHeaderValue = fieldObj.DB_Header.length === 0 ? dbSelectStr : fieldObj.DB_Header;
-		let checkTypeValue = fieldObj.DB_Header.length === 0 ? '' : (fieldObj.Check_Type && fieldObj.Check_Type.length > 0 ? fieldObj.Check_Type : 'N/A');
+		let checkTypeValue;
+		if (fieldObj.DB_Header.length === 0) {
+			checkTypeValue = '';
+		} else {
+			if (fieldObj.Check_Type && fieldObj.Check_Type.length > 0) {
+				checkTypeValue = fieldObj.Check_Type;
+			} else {
+				checkTypeValue = 'N/A';
+			}
+		}
 
 		uploadTblStr += `<tr>
 			<td>${fieldObj.Order}</td>

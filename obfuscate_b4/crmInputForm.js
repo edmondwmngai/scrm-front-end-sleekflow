@@ -19,7 +19,21 @@ var isManualUpdate = false;
 var callType = isSocial ? window.frameElement.getAttribute("callType") : parent.window.frameElement.getAttribute("callType") || ''; // When manual update open input form channel is ''
 var details = isSocial ? (window.frameElement.getAttribute("details") || '') : unescape(parent.window.frameElement.getAttribute("details") || ''); // isSocial ? '' : parent.window.frameElement.getAttribute("details") || '';
 var connId = isSocial ? -1 : parent.window.frameElement.getAttribute("connId") || null;
-var ticketId = isSocial ? window.frameElement.getAttribute("connId") : (parent.document.getElementById('media-content') != null) ? parent.document.getElementById('media-content').getAttribute('mediaid') || null : null;
+
+//20250520 Extract this nested ternary operation into an independent statement.
+//var ticketId = isSocial ? window.frameElement.getAttribute("connId") : (parent.document.getElementById('media-content') != null) ? parent.document.getElementById('media-content').getAttribute('mediaid') || null : null;
+var ticketId;
+if (isSocial) {
+    ticketId = window.frameElement.getAttribute("connId");
+} else {
+    let mediaContent = parent.document.getElementById('media-content');
+    if (mediaContent !== null) {
+        ticketId = mediaContent.getAttribute('mediaid') || null;
+    } else {
+        ticketId = null;
+    }
+}
+
 // When manual update open input form connId is null
 var updateCaseObj = {}; // Object used to send to UpdateCase api
 if (ticketId) {
@@ -1821,7 +1835,20 @@ function callSaveCallHistory(isSaved) { // if update reply details only, will no
     var hvInbound = !isManualUpdate && connId && connId != -1 && connId != 0;
 
     // Conn_Id is primary key, so when just reply call, the Conn_Id should be Reply_Conn_Id
-    var toSaveConnId = hvInbound ? Number(connId) : (isSocial && !isManualUpdate) ? Number(ticketId) : Number(updateCaseObj.Reply_Conn_Id);
+// 20250520 Extract this nested ternary operation into an independent statement.
+ // var toSaveConnId = hvInbound ? Number(connId) : (isSocial && !isManualUpdate) ? Number(ticketId) : Number(updateCaseObj.Reply_Conn_Id);
+	var toSaveConnId;
+	if (hvInbound) {
+		toSaveConnId = Number(connId);
+	} else if (isSocial && !isManualUpdate) {
+		toSaveConnId = Number(ticketId);
+	} else {
+		toSaveConnId = Number(updateCaseObj.Reply_Conn_Id);
+	}
+
+	
+	
+	
     var saveCallHistoryObj = {
         "Conn_Id": toSaveConnId,
         // "Conn_Id": updateCaseObj.Ticket_Id ? Number(updateCaseObj.Ticket_Id) : (updateCaseObj.Conn_Id ? Number(updateCaseObj.Conn_Id) : Number(updateCaseObj.Reply_Conn_Id)),
@@ -3456,7 +3483,20 @@ function updateClicked(isTemp) {
         return;
     }
     var title = document.getElementById('Title').value || ''
-    var gender = title.length > 0? (title == 'Mr'? 'Male' : 'Female'): ''
+//	20250520 Extract this nested ternary operation into an independent statement.
+//  var gender = title.length > 0? (title == 'Mr'? 'Male' : 'Female'): ''
+	var gender = '';
+
+	if (title.length > 0) {
+		if (title === 'Mr') {
+			gender = 'Male';
+		} else {
+			gender = 'Female';
+		}
+	} else {
+		gender = '';
+	}
+
     // Update customer
     var Customer_Data = {
         Title: title,

@@ -445,7 +445,21 @@ function confirmClicked() {
 
     if (changedField.Title) {
         var title = changedField.Title;
-        changedField.Gender = title.length > 0? (title == 'Mr'? 'Male' : 'Female'): '';
+      //20250520 Extract this nested ternary operation into an independent statement.
+	  //changedField.Gender = title.length > 0? (title == 'Mr'? 'Male' : 'Female'): '';
+		let gender;
+		if (title.length > 0) {
+			if (title === 'Mr') {
+				gender = 'Male';
+			} else {
+				gender = 'Female';
+			}
+		} else {
+			gender = '';
+		}
+		changedField.Gender = gender;
+
+		
     }
 
     // ========================== 1/2 Update Customer (if needed) ==========================

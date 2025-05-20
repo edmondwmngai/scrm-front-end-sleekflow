@@ -297,7 +297,36 @@ function addReplyStr(reply_msg) {
         replyBubbleStr = ('<div class="reply-bubble reply-cust"><div class="content-bubble-name">' +
             reply_msg.nick_name + '</div><div class="content-bubble-content">' + theMsgContentDisplay + '</div></div>');
     } else {
-        var agentBubbleName = reply_msg.sender == '0' ? 'SYSTEM' : isNaN(reply_msg.sender) ? (isNaN(reply_msg.nick_name) ? reply_msg.nick_name : (nonPopup ? (openType == 'menu' ? parent.parent.getAgentName(reply_msg.nick_name) : parent.parent.parent.getAgentName(reply_msg.nick_name)) : (window.opener.getAgentName(reply_msg.nick_name)))) : (nonPopup ? (openType == 'menu' ? parent.parent.getAgentName(reply_msg.sender) : parent.parent.parent.getAgentName(reply_msg.sender)) : (window.opener.getAgentName(reply_msg.sender)));
+     // 20250520 Extract this nested ternary operation into an independent statement.
+	 // var agentBubbleName = reply_msg.sender == '0' ? 'SYSTEM' : isNaN(reply_msg.sender) ? (isNaN(reply_msg.nick_name) ? reply_msg.nick_name : (nonPopup ? (openType == 'menu' ? parent.parent.getAgentName(reply_msg.nick_name) : parent.parent.parent.getAgentName(reply_msg.nick_name)) : (window.opener.getAgentName(reply_msg.nick_name)))) : (nonPopup ? (openType == 'menu' ? parent.parent.getAgentName(reply_msg.sender) : parent.parent.parent.getAgentName(reply_msg.sender)) : (window.opener.getAgentName(reply_msg.sender)));
+		var agentBubbleName = '';
+
+		if (reply_msg.sender === '0') {
+			agentBubbleName = 'SYSTEM';
+		} else if (isNaN(reply_msg.sender)) {
+			if (isNaN(reply_msg.nick_name)) {
+				agentBubbleName = reply_msg.nick_name;
+			} else {
+				if (nonPopup) {
+					agentBubbleName = openType === 'menu' 
+						? parent.parent.getAgentName(reply_msg.nick_name) 
+						: parent.parent.parent.getAgentName(reply_msg.nick_name);
+				} else {
+					agentBubbleName = window.opener.getAgentName(reply_msg.nick_name);
+				}
+			}
+		} else {
+			if (nonPopup) {
+				agentBubbleName = openType === 'menu' 
+					? parent.parent.getAgentName(reply_msg.sender) 
+					: parent.parent.parent.getAgentName(reply_msg.sender);
+			} else {
+				agentBubbleName = window.opener.getAgentName(reply_msg.sender);
+			}
+		}
+				
+		
+		
         replyBubbleStr = ('<div class="reply-bubble reply-agent"><div class="content-bubble-name">' +
             agentBubbleName +
             '</div><div class="content-bubble-content">' + theMsgContentDisplay + '</div></div>');
@@ -357,8 +386,35 @@ function addMsgRow(msgList, entry, onlineFormArr) {
             rows += '<div class="message-row visitor-row"><div><span class="user-icon"><i class="fas fa-user"></i></span><div class="time-with-seconds"><span>' + theMsgDate + '</span><span>' + theMsgTime + '</span></div></div><div class="' + bubbleClassStr + '">' + replyMsgStr + userNameStr + '<div class="content-bubble-content">' + theMsgContentDisplay + '</div></div></div>';
         } else {
             var msgFailStr = theMsg.msg_completed == -1 ? '<span class="text-gray"><i class="fas fa-exclamation-circle me-2"></i>Send Failed</span>' : '';
-            var agentBubbleName = theMsg.sender == '0' ? 'SYSTEM' : isNaN(theMsg.sender) ? (isNaN(theMsg.nick_name) ? theMsg.nick_name : (nonPopup ? (openType == 'menu' ? parent.parent.getAgentName(theMsg.nick_name) : parent.parent.parent.getAgentName(theMsg.nick_name)) : (window.opener.getAgentName(theMsg.nick_name)))) : (nonPopup ? (openType == 'menu' ? parent.parent.getAgentName(theMsg.sender) : parent.parent.parent.getAgentName(theMsg.sender)) : (window.opener.getAgentName(theMsg.sender)));
-            // for chatbot will show selection
+         //20250520  Extract this nested ternary operation into an independent statement. 
+		//	var agentBubbleName = theMsg.sender == '0' ? 'SYSTEM' : isNaN(theMsg.sender) ? (isNaN(theMsg.nick_name) ? theMsg.nick_name : (nonPopup ? (openType == 'menu' ? parent.parent.getAgentName(theMsg.nick_name) : parent.parent.parent.getAgentName(theMsg.nick_name)) : (window.opener.getAgentName(theMsg.nick_name)))) : (nonPopup ? (openType == 'menu' ? parent.parent.getAgentName(theMsg.sender) : parent.parent.parent.getAgentName(theMsg.sender)) : (window.opener.getAgentName(theMsg.sender)));
+			var agentBubbleName = '';
+
+			if (theMsg.sender === '0') {
+				agentBubbleName = 'SYSTEM';
+			} else if (isNaN(theMsg.sender)) {
+				if (isNaN(theMsg.nick_name)) {
+					agentBubbleName = theMsg.nick_name;
+				} else {
+					if (nonPopup) {
+						agentBubbleName = openType === 'menu' 
+							? parent.parent.getAgentName(theMsg.nick_name) 
+							: parent.parent.parent.getAgentName(theMsg.nick_name);
+					} else {
+						agentBubbleName = window.opener.getAgentName(theMsg.nick_name);
+					}
+				}
+			} else {
+				if (nonPopup) {
+					agentBubbleName = openType === 'menu' 
+						? parent.parent.getAgentName(theMsg.sender) 
+						: parent.parent.parent.getAgentName(theMsg.sender);
+				} else {
+					agentBubbleName = window.opener.getAgentName(theMsg.sender);
+				}
+			}
+						
+			// for chatbot will show selection
             // if (theMsg.msg_json && theMsg.msg_json.Commands && theMsg.msg_json.Commands.length > 0) {	//20250516 Prefer using an optional chain expression instead, as it's more concise and easier to read.
 			if (theMsg?.msg_json?.Commands?.length > 0) {
                 theMsgContentDisplay += '<div class="mt-1">'
@@ -451,7 +507,33 @@ function webchatDownload(ticketId, isWebchat) {
         // Add name
         if (theMsg.send_by_flag == 1) {
             //agent
-            var agentBubbleName = theMsg.sender == '0' ? 'SYSTEM' : isNaN(theMsg.sender) ? (isNaN(theMsg.nick_name) ? theMsg.nick_name : (nonPopup ? (openType == 'menu' ? parent.parent.getAgentName(theMsg.nick_name) : parent.parent.parent.getAgentName(theMsg.nick_name)) : (window.opener.getAgentName(theMsg.nick_name)))) : (nonPopup ? (openType == 'menu' ? parent.parent.getAgentName(theMsg.sender) : parent.parent.parent.getAgentName(theMsg.sender)) : (window.opener.getAgentName(theMsg.sender)));
+		 // 20250520 Extract this nested ternary operation into an independent statement.
+         // var agentBubbleName = theMsg.sender == '0' ? 'SYSTEM' : isNaN(theMsg.sender) ? (isNaN(theMsg.nick_name) ? theMsg.nick_name : (nonPopup ? (openType == 'menu' ? parent.parent.getAgentName(theMsg.nick_name) : parent.parent.parent.getAgentName(theMsg.nick_name)) : (window.opener.getAgentName(theMsg.nick_name)))) : (nonPopup ? (openType == 'menu' ? parent.parent.getAgentName(theMsg.sender) : parent.parent.parent.getAgentName(theMsg.sender)) : (window.opener.getAgentName(theMsg.sender)));
+			var agentBubbleName = '';
+
+			if (theMsg.sender === '0') {
+				agentBubbleName = 'SYSTEM';
+			} else if (isNaN(theMsg.sender)) {
+				if (isNaN(theMsg.nick_name)) {
+					agentBubbleName = theMsg.nick_name;
+				} else {
+					if (nonPopup) {
+						agentBubbleName = openType === 'menu' 
+							? parent.parent.getAgentName(theMsg.nick_name) 
+							: parent.parent.parent.getAgentName(theMsg.nick_name);
+					} else {
+						agentBubbleName = window.opener.getAgentName(theMsg.nick_name);
+					}
+				}
+			} else {
+				if (nonPopup) {
+					agentBubbleName = openType === 'menu' 
+						? parent.parent.getAgentName(theMsg.sender) 
+						: parent.parent.parent.getAgentName(theMsg.sender);
+				} else {
+					agentBubbleName = window.opener.getAgentName(theMsg.sender);
+				}
+			}
             msgContent += (agentBubbleName + '</span>:&nbsp;<span style="display:table-cell;">');
         } else {
             if (theMsg.msg_completed == -2) {
@@ -617,8 +699,27 @@ function caseRecordPopupOnload() {
         // var mediaContent = window.opener.parent.mediaContent;
         // ===================== 2/3 set info of case =====================
         var escalatedTo = queryObj.Escalated_To;
-        var longCall = queryObj.Long_Call == 'N' ? 'No' : (queryObj.Long_Call == 'Y' ? 'Yes' : '');
-        var isJunkMail = queryObj.Is_Junk_Mail == 'N' ? 'No' : (queryObj.Is_Junk_Mail == 'Y' ? 'Yes' : '');
+      //var longCall = queryObj.Long_Call == 'N' ? 'No' : (queryObj.Long_Call == 'Y' ? 'Yes' : '');			//20250520 Extract this nested ternary operation into an independent statement.
+      //var isJunkMail = queryObj.Is_Junk_Mail == 'N' ? 'No' : (queryObj.Is_Junk_Mail == 'Y' ? 'Yes' : '');
+		var longCall;
+		var isJunkMail;
+
+		if (queryObj.Long_Call === 'N') {
+			longCall = 'No';
+		} else if (queryObj.Long_Call === 'Y') {
+			longCall = 'Yes';
+		} else {
+			longCall = '';
+		}
+
+		if (queryObj.Is_Junk_Mail === 'N') {
+			isJunkMail = 'No';
+		} else if (queryObj.Is_Junk_Mail === 'Y') {
+			isJunkMail = 'Yes';
+		} else {
+			isJunkMail = '';
+		}
+				
         $("#p-nature").text(queryObj.Call_Nature);
         $('#p-details').text($("<div>", {
             html: queryObj.Details || ''

@@ -1007,13 +1007,34 @@ function addCallerSetting(addType) {
 }
 
 function callSaveCallHistory(isSaved) { // if update reply details only, will not update Is_Saved to Y (when made an outbound call)
-    var saveCallHistoryObj = {
+    
+	//20250520 Extract this nested ternary operation into an independent statement.
+	let connId;
+	if (updateCaseObj.Ticket_Id) {
+		connId = Number(updateCaseObj.Ticket_Id);
+	} else if (updateCaseObj.Conn_Id) {
+		connId = Number(updateCaseObj.Conn_Id);
+	} else {
+		connId = Number(updateCaseObj.Reply_Conn_Id);
+	}
+
+	let internalCaseNoValue = internalCaseNo != null ? Number(internalCaseNo);
+	
+	var saveCallHistoryObj = {
+		"Conn_Id": connId,
+		"Internal_Case_No": internalCaseNoValue,
+		"Updated_By": loginId,
+		Agent_Id: loginId,
+		Token: token
+	};
+	/*
+	var saveCallHistoryObj = {
         "Conn_Id": updateCaseObj.Ticket_Id ? Number(updateCaseObj.Ticket_Id) : (updateCaseObj.Conn_Id ? Number(updateCaseObj.Conn_Id) : Number(updateCaseObj.Reply_Conn_Id)),
         "Internal_Case_No": internalCaseNo != null ? Number(internalCaseNo) : null,
         "Updated_By": loginId,
         Agent_Id: loginId,
         Token: token
-    }
+    }*/
     if (updateCaseObj.Reply_Type) {
         saveCallHistoryObj.Reply_Type = updateCaseObj.Reply_Type;
     }

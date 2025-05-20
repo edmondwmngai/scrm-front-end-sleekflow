@@ -458,8 +458,29 @@ function caseRecordPopupOnload() {
         // var mediaContent = window.opener.parent.mediaContent;
         // ===================== 2/3 set info of case =====================
         var escalatedTo = queryObj.Escalated_To;
-        var longCall = queryObj.Long_Call == 'N' ? 'No' : (queryObj.Long_Call == 'Y' ? 'Yes' : '');
-        var isJunkMail = queryObj.Is_Junk_Mail == 'N' ? 'No' : (queryObj.Is_Junk_Mail == 'Y' ? 'Yes' : '');
+    //  20250520    Extract this nested ternary operation into an independent statement.
+	//	var longCall = queryObj.Long_Call == 'N' ? 'No' : (queryObj.Long_Call == 'Y' ? 'Yes' : '');
+    //  var isJunkMail = queryObj.Is_Junk_Mail == 'N' ? 'No' : (queryObj.Is_Junk_Mail == 'Y' ? 'Yes' : '');
+		var longCall = '';
+		var isJunkMail = '';
+
+		if (queryObj.Long_Call === 'N') {
+			longCall = 'No';
+		} else if (queryObj.Long_Call === 'Y') {
+			longCall = 'Yes';
+		} else {
+			longCall = '';
+		}
+
+		if (queryObj.Is_Junk_Mail === 'N') {
+			isJunkMail = 'No';
+		} else if (queryObj.Is_Junk_Mail === 'Y') {
+			isJunkMail = 'Yes';
+		} else {
+			isJunkMail = '';
+		}
+
+		
         $("#p-nature").text(queryObj.Call_Nature);
         $("#p-details").text(queryObj.Details);
         $("#p-updated-by").text(windowOpener.getAgentName(queryObj.Updated_By));

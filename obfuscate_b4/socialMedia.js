@@ -906,6 +906,42 @@ function handleSystemMsg(sentMsgAgent, msgType, ticketId, MsgOrHtml, formData, f
     }
 }
 
+//20250520 add function for Extract this nested ternary operation into an independent statement.
+function updateAgentByMsg(theMsg)
+{
+	let agentBubbleName = "";
+	if (theMsg.sender === '0') {
+	  agentBubbleName = 'SYSTEM';
+	} else if (isNaN(theMsg.sender)) {
+	  // sender is not a number
+	  if (isNaN(theMsg.nick_name)) {
+		agentBubbleName = theMsg.nick_name;
+	  } else {
+		agentBubbleName = parent.getAgentName(Number(theMsg.nick_name));
+	  }
+	} else {
+	  // sender is a number
+	  agentBubbleName = parent.getAgentName(Number(theMsg.sender));
+	}
+	return agentBubbleName;
+}
+function updateAgentByReplyMsg(reply_msg)
+{
+	let agentBubbleName = "";
+
+	if (reply_msg.sender === '0') {
+		agentBubbleName = 'SYSTEM';
+	} else if (isNaN(reply_msg.sender)) {
+		if (isNaN(reply_msg.nick_name)) {
+			agentBubbleName = reply_msg.nick_name;
+		} else {
+			agentBubbleName = parent.getAgentName(Number(reply_msg.nick_name));
+		}
+	} else {
+		agentBubbleName = parent.getAgentName(Number(reply_msg.sender));
+	}	
+	return agentBubbleName;
+}
 function addOldHistory(msgObj, ticketId, ticketLength) {
     console.log('addOldHistory msgObj');
     console.log(msgObj);
@@ -981,8 +1017,9 @@ function addOldHistory(msgObj, ticketId, ticketLength) {
                         '<span class="user-icon"><i class="fas fa-user"></i></span>';
                     contentScrollDiv.prepend('<div id="' + msgRowId + '" class="message-row"><div>' + userIconStr + '<div class="time-with-seconds" title="' + sentTime + '"><span>' + theMsgDate + '</span><span>' + theMsgTime + '</span></div></div><div class="' + bubbleClassStr + '">' + userNameStr + '<div class="content-bubble-content">' + theMsgContentDisplay + '</div></div></div>');
                 } else {
-                    var agentBubbleName = theMsg.sender == '0' ? 'SYSTEM' : isNaN(theMsg.sender) ? (isNaN(theMsg.nick_name) ? theMsg.nick_name : parent.getAgentName(Number(theMsg.nick_name))) : parent.getAgentName(Number(theMsg.sender));
-
+                    //20250520 Extract this nested ternary operation into an independent statement.
+					//var agentBubbleName = theMsg.sender == '0' ? 'SYSTEM' : isNaN(theMsg.sender) ? (isNaN(theMsg.nick_name) ? theMsg.nick_name : parent.getAgentName(Number(theMsg.nick_name))) : parent.getAgentName(Number(theMsg.sender));
+					var agentBubbleName = updateAgentByMsg(theMsg);
                     // Lazy loading so no need lastConversationStr
                     contentScrollDiv.prepend('<div id="' + msgRowId + '" class="message-row agent-row"><div class="agent-content-bubble"><div class="content-bubble"><span class="content-bubble-name">' + agentBubbleName + '</span></div><div class="content-bubble-content">' + theMsgContentDisplay + '</div></div><div><span class="user-icon"><i class="fas fa-user"></i></span><div class="time-with-seconds"><span>' + theMsgDate + '</span><span>' + theMsgTime + '</span></div></div></div>')
                 }
@@ -1015,8 +1052,10 @@ function addOldHistory(msgObj, ticketId, ticketLength) {
                             reply_msg.nick_name +
                             formNameStr + '</div><div class="content-bubble-content">' + theMsgContentDisplay + '</div></div>');
                     } else {
-                        var agentBubbleName = reply_msg.sender == '0' ? 'SYSTEM' : isNaN(reply_msg.sender) ? (isNaN(reply_msg.nick_name) ? reply_msg.nick_name : parent.getAgentName(Number(reply_msg.nick_name))) : parent.getAgentName(Number(reply_msg.sender));
-                        replyBubbleStr = ('<div class="reply-bubble reply-agent"><div class="content-bubble-name">' +
+                      //20250520   Extract this nested ternary operation into an independent statement.
+					  //var agentBubbleName = reply_msg.sender == '0' ? 'SYSTEM' : isNaN(reply_msg.sender) ? (isNaN(reply_msg.nick_name) ? reply_msg.nick_name : parent.getAgentName(Number(reply_msg.nick_name))) : parent.getAgentName(Number(reply_msg.sender));
+                        var agentBubbleName = updateAgentByReplyMsg(reply_msg);
+						replyBubbleStr = ('<div class="reply-bubble reply-agent"><div class="content-bubble-name">' +
                             agentBubbleName +
                             '</div><div class="content-bubble-content">' + theMsgContentDisplay + '</div></div>');
                     }
@@ -1230,8 +1269,10 @@ function loadFBReplies(oThis, ticketId, scrollDown) {
                                 '<div class="time-with-seconds"><span>' + theMsgDate + '</span><span>' + theMsgTime + '</span></div></div><div class="visitor-content-bubble fb-visitor-reply-bubble ms-0"><div class="content-bubble-name">' + SC.handleBubbleName(theMsg.nick_name, null, null, true) + '</div><div class="content-bubble-content">' + theMsgContentDisplay + '</div></div></div>');
                         }
                     } else {
-                        var agentBubbleName = theMsg.sender == '0' ? 'SYSTEM' : isNaN(theMsg.sender) ? (isNaN(theMsg.nick_name) ? theMsg.nick_name : parent.getAgentName(Number(theMsg.nick_name))) : parent.getAgentName(Number(theMsg.sender)); // FB messenger greeting's nick name is customer
-                        theTag.after('<div' + lastBubbleId + ' class="fb-reply-row"><div><span class="user-icon"><i class="fas fa-user"></i></span><div class="time-with-seconds"><span>' + theMsgDate + '</span><span>' + theMsgTime + '</span></div></div><div class="fb-agent-bubble ms-0 w-auto"><div class="content-bubble-name">' + agentBubbleName + '</div><div class="content-bubble-content">' + theMsgContentDisplay + '</div></div></div>');
+                        //20250520 Extract this nested ternary operation into an independent statement.
+						//var agentBubbleName = theMsg.sender == '0' ? 'SYSTEM' : isNaN(theMsg.sender) ? (isNaN(theMsg.nick_name) ? theMsg.nick_name : parent.getAgentName(Number(theMsg.nick_name))) : parent.getAgentName(Number(theMsg.sender)); // FB messenger greeting's nick name is customer
+                        var agentBubbleName = updateAgentByMsg(theMsg);
+						theTag.after('<div' + lastBubbleId + ' class="fb-reply-row"><div><span class="user-icon"><i class="fas fa-user"></i></span><div class="time-with-seconds"><span>' + theMsgDate + '</span><span>' + theMsgTime + '</span></div></div><div class="fb-agent-bubble ms-0 w-auto"><div class="content-bubble-name">' + agentBubbleName + '</div><div class="content-bubble-content">' + theMsgContentDisplay + '</div></div></div>');
                     }
                 }
                 theTag.remove();
@@ -1328,7 +1369,9 @@ function fbMoreComments(ticketId, aboveMsgId, oThis) {
 
                         // send_by_flag == 1: agent
                     } else {
-                        var agentBubbleName = theMsg.sender == '0' ? 'SYSTEM' : isNaN(theMsg.sender) ? (isNaN(theMsg.nick_name) ? theMsg.nick_name : parent.getAgentName(Number(theMsg.nick_name))) : parent.getAgentName(Number(theMsg.sender)); // FB messenger greeting's nick name is customer
+                      //20250520 Extract this nested ternary operation into an independent statement.
+  					  //var agentBubbleName = theMsg.sender == '0' ? 'SYSTEM' : isNaN(theMsg.sender) ? (isNaN(theMsg.nick_name) ? theMsg.nick_name : parent.getAgentName(Number(theMsg.nick_name))) : parent.getAgentName(Number(theMsg.sender)); // FB messenger greeting's nick name is customer
+                        var agentBubbleName = updateAgentByMsg(theMsg);
                         prependDiv += '<div class="message-row justify-content-start w-auto" commentId="' + commentId + '"><div><span class="user-icon"><i class="fas fa-user"></i></span><div class="time-with-seconds"><span>' + theMsgDate + '</span><span>' + theMsgTime + '</span></div></div><div class="fb-agent-bubble"><div class="content-bubble-name">' + agentBubbleName + '</div><div class="content-bubble-content">' + theMsgContentDisplay + '</div></div></div>';
                     }
                     var replyCount = theMsg.reply_count;
@@ -1493,7 +1536,9 @@ function getFBComments(ticketId, commentIdArr, tryCount) {
                         } else { 
 
                             // send_by_flag == 1: agent
-                            var agentBubbleName = theMsg.sender == '0' ? 'SYSTEM' : isNaN(theMsg.sender) ? (isNaN(theMsg.nick_name) ? theMsg.nick_name : parent.getAgentName(Number(theMsg.nick_name))) : parent.getAgentName(Number(theMsg.sender));
+                          //20250520 Extract this nested ternary operation into an independent statement.
+						  //var agentBubbleName = theMsg.sender == '0' ? 'SYSTEM' : isNaN(theMsg.sender) ? (isNaN(theMsg.nick_name) ? theMsg.nick_name : parent.getAgentName(Number(theMsg.nick_name))) : parent.getAgentName(Number(theMsg.sender)); // FB messenger greeting's nick name is customer
+							var agentBubbleName = updateAgentByMsg(theMsg);	
                             contentScrollDiv.append('<div class="message-row justify-content-start w-auto" commentId="' + commentId + '"><div><span class="user-icon"><i class="fas fa-user"></i></span><div class="time-with-seconds"><span>' + theMsgDate + '</span><span>' + theMsgTime + '</span></div></div><div class="fb-agent-bubble"><div class="content-bubble-name">' + agentBubbleName + '</div><div class="content-bubble-content">' + theMsgContentDisplay + '</div></div></div>');
                         }
                         var replyCount = theMsg.reply_count;
@@ -2286,7 +2331,10 @@ function createOrUpdateBubble(msgObj) {
                     lastClientTime = sentTime;
                 }
             } else {
-                var agentBubbleName = theMsg.sender == '0' ? 'SYSTEM' : isNaN(theMsg.sender) ? (isNaN(theMsg.nick_name) ? theMsg.nick_name : parent.getAgentName(Number(theMsg.nick_name))) : parent.getAgentName(Number(theMsg.sender));
+				
+			  //20250520 Extract this nested ternary operation into an independent statement.
+			  //var agentBubbleName = theMsg.sender == '0' ? 'SYSTEM' : isNaN(theMsg.sender) ? (isNaN(theMsg.nick_name) ? theMsg.nick_name : parent.getAgentName(Number(theMsg.nick_name))) : parent.getAgentName(Number(theMsg.sender)); // FB messenger greeting's nick name is customer
+                var agentBubbleName = updateAgentByMsg(theMsg);
                 
                 // for chatbot will show selection
                 //if (theMsg.msg_json && theMsg.msg_json.Commands && theMsg.msg_json.Commands.length > 0) {	//20250516 Prefer using an optional chain expression instead, as it's more concise and easier to read.
@@ -2339,7 +2387,9 @@ function createOrUpdateBubble(msgObj) {
                         reply_msg.nick_name +
                         formNameStr + '</div><div class="content-bubble-content">' + theMsgContentDisplay + '</div></div>');
                 } else {
-                    var agentBubbleName = reply_msg.sender == '0' ? 'SYSTEM' : isNaN(reply_msg.sender) ? (isNaN(reply_msg.nick_name) ? reply_msg.nick_name : parent.getAgentName(Number(reply_msg.nick_name))) : parent.getAgentName(Number(reply_msg.sender));
+                  //20250520   Extract this nested ternary operation into an independent statement.
+				  //var agentBubbleName = reply_msg.sender == '0' ? 'SYSTEM' : isNaN(reply_msg.sender) ? (isNaN(reply_msg.nick_name) ? reply_msg.nick_name : parent.getAgentName(Number(reply_msg.nick_name))) : parent.getAgentName(Number(reply_msg.sender));
+                    var agentBubbleName = updateAgentByReplyMsg(reply_msg);									  
                     replyBubbleStr = ('<div class="reply-bubble reply-agent"><div class="content-bubble-name">' +
                         agentBubbleName +
                         '</div><div class="content-bubble-content">' + theMsgContentDisplay + '</div></div>');

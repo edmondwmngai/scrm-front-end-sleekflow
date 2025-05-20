@@ -50,10 +50,9 @@ body {
 .people-list .about {
   float: left;
   margin-top: 8px;
-}
-.people-list .about {
   padding-left: 8px;
 }
+
 .people-list .status {
   color: #92959E;
 }

@@ -99,10 +99,6 @@ a.text-light:focus {
     cursor: pointer;
 }
 
-.nav-item>.l-main-ready-idle:hover {
-    color: #dae0e5 !important
-}
-
 .wise-mon-icon{
     font-size: 25px;
     cursor: pointer;

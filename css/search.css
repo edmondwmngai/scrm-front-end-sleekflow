@@ -4,11 +4,6 @@ table {
     font-size: 14px;
 }
 
-body {
-    margin: 0px;
-    background: rgb(244, 245, 247)
-}
-
 .customer-table-td {
     height: 23px;
 }
@@ -551,6 +546,8 @@ a.paginate_button.current {
 /* ============= overwrite master-kit ============= */
 
 body {
+	margin: 0px;
+    background: rgb(244, 245, 247);
     background: #f4f5f7 !important;
 }
 

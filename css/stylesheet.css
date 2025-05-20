@@ -32,18 +32,6 @@ BODY {
     SCROLLBAR-BASE-COLOR: aliceblue
 }
 
-TEXTAREA {
-    FONT-SIZE: 12px;
-    SCROLLBAR-HIGHLIGHT-COLOR: gray;
-    SCROLLBAR-SHADOW-COLOR: gray;
-    SCROLLBAR-3DLIGHT-COLOR: white;
-    SCROLLBAR-ARROW-COLOR: blue;
-    SCROLLBAR-TRACK-COLOR: white;
-    FONT-FAMILY: "Arial", "Helvetica", "sans-serif";
-    SCROLLBAR-DARKSHADOW-COLOR: white;
-    SCROLLBAR-BASE-COLOR: aliceblue
-}
-
 SELECT {
     FONT-SIZE: 12px;
     FONT-FAMILY: "Arial", "Helvetica", "sans-serif";
@@ -69,6 +57,15 @@ BUTTON {
 }
 
 TEXTAREA {
+	FONT-SIZE: 12px;
+    SCROLLBAR-HIGHLIGHT-COLOR: gray;
+    SCROLLBAR-SHADOW-COLOR: gray;
+    SCROLLBAR-3DLIGHT-COLOR: white;
+    SCROLLBAR-ARROW-COLOR: blue;
+    SCROLLBAR-TRACK-COLOR: white;
+    FONT-FAMILY: "Arial", "Helvetica", "sans-serif";
+    SCROLLBAR-DARKSHADOW-COLOR: white;
+    SCROLLBAR-BASE-COLOR: aliceblue;
     FONT-SIZE: 12px;
     FONT-FAMILY: "Arial", "Helvetica", "sans-serif"
 }

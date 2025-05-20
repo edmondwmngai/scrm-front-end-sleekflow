@@ -46,7 +46,8 @@ HTML
 LABEL
 {
     WIDTH: 80px;
-    TEXT-ALIGN: left
+    TEXT-ALIGN: left;
+	CURSOR: hand;
 }
 TEXTAREA
 {
@@ -167,8 +168,4 @@ HR
 	border-style: solid;
 	border-color: #D3D3D3;
 	background-color: #F1F1F1;
-}
-LABEL
-{
-    CURSOR: hand
 }

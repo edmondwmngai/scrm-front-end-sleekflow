@@ -638,7 +638,18 @@ function showFullfContent(fpFull) {
                                 monitoringAgentId = 0;
                         //} else {      // 20250410 'If' statement should not be the only statement in 'else' block
                         } else if (confirm('Are you sure you want to "' + selected + '"?')) {
-                                        var typeId = selected == 'Silent' ? 1 : (selected == 'Coach' ? 4 : 2); //Conference = 2
+                                        
+										//20250520 Extract this nested ternary operation into an independent statement.
+										//var typeId = selected == 'Silent' ? 1 : (selected == 'Coach' ? 4 : 2); //Conference = 2
+										var typeId;
+										if (selected === 'Silent') {
+											typeId = 1;
+										} else if (selected === 'Coach') {
+											typeId = 4;
+										} else {
+											typeId = 2; // Conference
+										}
+
                                         monitoringAgentId = targetAgentId;
                                         window.opener.document.getElementById("phone-panel").contentWindow.WiseStartMonitorCall(targetAgentId, typeId);
                               //  }     // 20250410 for else if 

@@ -2807,8 +2807,22 @@ function campaignAddFormStructure() {
     var selectStr = '<select class="form-select pe-2"><option vlaue="text">Text Field</option><option vlaue="radio">Radio</option><option vlaue="textarea">Textarea</option><option vlaue="date">Date</option></select>';
     var uploadTblStr = '<table id="upload-tbl" class="custom-tbl">' +
         '<tr><th>' + langJson['l-outbound-order'] + '</th><th>' + langJson['l-outbound-excel-header'] + '</th><th>' + langJson['l-outbound-db-header'] + '</th><th>' + langJson['l-outbound-check-type'] + '</th><th class="bg-lavender">' + langJson['l-outbound-input-type'] + '</th><th class="bg-lavender">' + langJson['l-outbound-label-name'] + '</th></tr><tbody id="c-other-field-tbody">';
-    for (let fieldObj of rowUploadArr) {
-        uploadTblStr += ('<tr><td>' + fieldObj.Order + '</td><td>' + fieldObj.Excel_Header + '</td><td>' + (fieldObj.DB_Header.length == 0 ? dbSelectStr : fieldObj.DB_Header) + '</td><td>' + (fieldObj.DB_Header.length == 0 ? '' : (fieldObj.Check_Type && fieldObj.Check_Type.length > 0 ? fieldObj.Check_Type : 'N/A')) + '</td><td class="bg-lavender">' + selectStr + '</td><td class="bg-lavender"><input type="search" class="form-control" value="' + fieldObj.Excel_Header + '" /></td></tr>');
+    
+	for (let fieldObj of rowUploadArr) {
+      //20250520 Extract this nested ternary operation into an independent statement.
+  	  //uploadTblStr += ('<tr><td>' + fieldObj.Order + '</td><td>' + fieldObj.Excel_Header + '</td><td>' + (fieldObj.DB_Header.length == 0 ? dbSelectStr : fieldObj.DB_Header) + '</td><td>' + (fieldObj.DB_Header.length == 0 ? '' : (fieldObj.Check_Type && fieldObj.Check_Type.length > 0 ? fieldObj.Check_Type : 'N/A')) + '</td><td class="bg-lavender">' + selectStr + '</td><td class="bg-lavender"><input type="search" class="form-control" value="' + fieldObj.Excel_Header + '" /></td></tr>');
+		let dbHeaderValue = fieldObj.DB_Header.length === 0 ? dbSelectStr : fieldObj.DB_Header;
+		let checkTypeValue = fieldObj.DB_Header.length === 0 ? '' : (fieldObj.Check_Type && fieldObj.Check_Type.length > 0 ? fieldObj.Check_Type : 'N/A');
+
+		uploadTblStr += `<tr>
+			<td>${fieldObj.Order}</td>
+			<td>${fieldObj.Excel_Header}</td>
+			<td>${dbHeaderValue}</td>
+			<td>${checkTypeValue}</td>
+			<td class="bg-lavender">${selectStr}</td>
+			<td class="bg-lavender"><input type="search" class="form-control" value="${fieldObj.Excel_Header}" /></td>
+		</tr>`;
+				
     }
     uploadTblStr += emptyFieldRowStr
     uploadTblStr += '</tbody></table>';

@@ -80,8 +80,29 @@ function initWallCard() {
 }
 
 function initSlaGauge(abanonedPercentage, avgAbandonedTime, idx) {
-    var sla1Color = abanonedPercentage > 15 ? '#f64e4e' : (abanonedPercentage > 5 ? '#fd9704' : '#0fdc63');
-    var sla2Color = avgAbandonedTime > 15 ? '#f64e4e' : (avgAbandonedTime > 5 ? '#fd9704' : '#0fdc63');
+
+// 	  20250520 Extract this nested ternary operation into an independent statement.
+//    var sla1Color = abanonedPercentage > 15 ? '#f64e4e' : (abanonedPercentage > 5 ? '#fd9704' : '#0fdc63');
+//    var sla2Color = avgAbandonedTime > 15 ? '#f64e4e' : (avgAbandonedTime > 5 ? '#fd9704' : '#0fdc63');
+	var sla2Color = '';
+	var sla2Color = ''; 
+	if (abanonedPercentage > 15) {
+		sla1Color = '#f64e4e';
+	} else if (abanonedPercentage > 5) {
+		sla1Color = '#fd9704';
+	} else {
+		sla1Color = '#0fdc63';
+	}
+
+	if (avgAbandonedTime > 15) {
+		sla2Color = '#f64e4e';
+	} else if (avgAbandonedTime > 5) {
+		sla2Color = '#fd9704';
+	} else {
+		sla2Color = '#0fdc63';
+	}
+
+	
     var guage2Idx = (idx + 1) * 2;
     var guage1Idx = guage2Idx - 1;
     var slaGauge1 = wallGauge[guage1Idx];

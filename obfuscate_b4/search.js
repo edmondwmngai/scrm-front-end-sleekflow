@@ -5,7 +5,20 @@ var connId = isSocial ? window.frameElement.getAttribute("connId") : parent.wind
 var callType = isSocial ? window.frameElement.getAttribute("callType") : parent.window.frameElement.getAttribute("callType") || "";
 var details = isSocial ? window.frameElement.getAttribute("details") : parent.window.frameElement.getAttribute("details") || "";
 var customCompany = sessionStorage.getItem('scrmCustomCompany') || 'no';
-var campaign = customCompany!= 'no'? customCompany: (isSocial ? window.frameElement.getAttribute("campaign") : (parent.frameElement.getAttribute("campaign") || parent.campaign || ''));
+
+//20250520 Extract this nested ternary operation into an independent statement.
+//var campaign = customCompany!= 'no'? customCompany: (isSocial ? window.frameElement.getAttribute("campaign") : (parent.frameElement.getAttribute("campaign") || parent.campaign || ''));
+var campaign = '';
+
+if (customCompany !== 'no') {
+    campaign = customCompany;
+} else if (isSocial) {
+    campaign = window.frameElement.getAttribute("campaign");
+} else {
+    campaign = parent.frameElement.getAttribute("campaign") || parent.campaign || '';
+}
+
+
 var recordPerPage = 5;
 var agentList = parent.parent.agentList || [];
 var langJson = JSON.parse(sessionStorage.getItem('scrmLangJson')) || {};
@@ -895,7 +908,18 @@ function returnSocialSearchArr(isCase) { // isCase == true: Case Search, isCase 
         var enduserId = window.frameElement.getAttribute("enduserId");
         // /Ticket/GetTicketMsg does not provide enduser_id, so incomplete cases cannot auto search
         if (enduserId) {
-            var idName = callType == 'Inbound_Facebook' ? 'Facebook_Id' : (callType == 'Inbound_Whatsapp' ? 'Whatsapp_Id' : 'Wechat_Id');
+            
+			//20250520 for Extract this nested ternary operation into an independent statement.
+			//var idName = callType == 'Inbound_Facebook' ? 'Facebook_Id' : (callType == 'Inbound_Whatsapp' ? 'Whatsapp_Id' : 'Wechat_Id');
+			
+			if (callType === 'Inbound_Facebook') {
+				idName = 'Facebook_Id';
+			} else if (callType === 'Inbound_Whatsapp') {
+				idName = 'Whatsapp_Id';
+			} else {
+				idName = 'Wechat_Id';
+			}
+
             if (isCase) {
                 searchArr.push({
                     "list_name": "Contact List",

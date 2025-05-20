@@ -244,8 +244,7 @@ select:-webkit-autofill:focus {
     padding: 5px 15px !important;
     text-transform: unset;
     transition: unset;
-    border-radius: 0;
-	transition: unset;
+    border-radius: 0;;
 }
 
 .nav-item{

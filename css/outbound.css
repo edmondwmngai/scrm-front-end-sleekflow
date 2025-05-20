@@ -157,12 +157,13 @@ ul .nav-pills {
     background-color: white;
     color: #007bff !important;
     font-weight: bold;
+	border-bottom: 3px solid white !important;
     border-bottom-color: #f4f5f7 !important;
     border-top: 1px solid #eee !important;
     border-right: 1px solid #eee !important;
     border-left: 1px solid #eee !important;
     transition: unset;
-    border-bottom: 3px solid white !important;
+    
 }
 
 .bg-lavender {

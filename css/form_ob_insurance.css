@@ -5,7 +5,7 @@ body {
 }
 
 h1 {
-    Font-family: impact, Arial;
+    font-family: Impact, Arial, sans-serif;
     color: #92b2cc;
     Font-size: 31px;
 }

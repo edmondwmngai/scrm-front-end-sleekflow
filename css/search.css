@@ -351,7 +351,7 @@ table.dataTable thead th{
 table.dataTable thead .sorting:after,
 table.dataTable thead .sorting_asc:after,
 table.dataTable thead .sorting_desc:after {
-    font-family: 'icomoon' !important;
+    font-family: 'icomoon', sans-serif !important;
     margin-left: 7px;
     position: absolute;
     /* To vertical align text on left */

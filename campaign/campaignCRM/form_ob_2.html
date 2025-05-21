@@ -247,7 +247,7 @@
                 <span id="customer-tbl-customer-id" class="align-middle d-none" style="color:darkblue;">
                     &nbsp;&nbsp;(<span class="l-ob-call-id">Call ID</span>:&nbsp;<span id="customer-id-title"></span>)
                 </span>
-                <span id="scheduled-reminder" class="mt-0 mb-0 ms-3 rounded btn btn-sm btn-warning text-capitalize"
+                <span id="scheduled-reminder" class="mt-0 mb-0 ms-3 rounded btn btn-sm btn-warning text-capitalize" onkeydown="" 
                     style="display:none;" onclick="scheduleClick()"><i class="fas fa-calendar-alt me-2"></i><span
                         class='l-form-scheduled-reminder'></span></span>
             </h5>
@@ -441,7 +441,7 @@
 
                                 <div class="form-check ms-3">
                                     <label class="form-check-label">
-                                        <input class='form-check-input dial-yes-disable l-form-none'
+                                        <input class='form-check-input dial-yes-disable l-form-none' onkeydown='' 
                                             onclick='replyChannelChange(this)' type="radio" id="reply-none"
                                             name="replyList" value="" checked>
                                         &nbsp;
@@ -453,7 +453,7 @@
 
                                 <div class="form-check ms-2">
                                     <label class="form-check-label">
-                                        <input class='form-check-input dial-yes-disable l-form-call'
+                                        <input class='form-check-input dial-yes-disable l-form-call' onkeydown='' 
                                             onclick='replyChannelChange(this)' type="radio" id="reply-call"
                                             name="replyList" value="call">
                                         &nbsp; <span class="circle">
@@ -475,7 +475,7 @@
                                     <label class="form-check-label">
                                         <input type="checkbox"
                                             class="form-check-input reply-checkbox email-list l-form-radio-other"
-                                            value='other' id="email-other-check"
+                                            value='other' id="email-other-check" onkeydown='' 
                                             onclick='replyOtherClicked("email-other-input", this)' autocomplete="off">
                                         &nbsp;
                                         <span class="form-check-sign">
@@ -493,7 +493,7 @@
                                 <div class="form-check ms-2" style='display:inline;'><label class="form-check-label">
                                         <input type="checkbox"
                                             class="form-check-input reply-checkbox fax-list l-form-radio-other"
-                                            value='other' id="fax-other-check"
+                                            value='other' id="fax-other-check" onkeydown='' 
                                             onclick='replyOtherClicked("fax-other-input", this)' autocomplete="off">
                                         &nbsp;
                                         <span class="form-check-sign">
@@ -513,7 +513,7 @@
                                     <label class="form-check-label">
                                         <input type="checkbox"
                                             class="form-check-input reply-checkbox sms-list l-form-radio-other"
-                                            name="smsList" value='other' id="sms-other-check"
+                                            name="smsList" value='other' id="sms-other-check" onkeydown='' 
                                             onclick='replyOtherClicked("sms-other-input", this)' autocomplete="off">
                                         &nbsp;
                                         <span class="form-check-sign">

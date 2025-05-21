@@ -18,7 +18,7 @@
                             id="customer-id-title"></span>)
                     </span>
                     <span id="scheduled-reminder" class="mt-0 mb-0 ms-3 rounded btn btn-sm btn-warning text-capitalize"
-                        style="display:none;" onclick="scheduleClick()"><i class="fas fa-calendar-alt me-2"></i><span
+                        style="display:none;" onclick="scheduleClick()" onkeydown=""><i class="fas fa-calendar-alt me-2"></i><span
                             class='l-form-scheduled-reminder'></span></span>
                 </h5>
             </div>
@@ -821,7 +821,7 @@
 
                                     <div class="form-check ms-3">
                                         <label for="reply-none" class="form-check-label">
-                                            <input class='form-check-input dial-yes-disable l-form-none'
+                                            <input class='form-check-input dial-yes-disable l-form-none' onkeydown='' 
                                                 onclick='replyChannelChange(this)' type="radio" id="reply-none"
                                                 name="replyList" value="" checked>
                                             &nbsp;
@@ -833,7 +833,7 @@
 
                                     <div class="form-check ms-2">
                                         <label for="reply-call" class="form-check-label">
-                                            <input class='form-check-input dial-yes-disable l-form-call'
+                                            <input class='form-check-input dial-yes-disable l-form-call' onkeydown='' 
                                                 onclick='replyChannelChange(this)' type="radio" id="reply-call"
                                                 name="replyList" value="call">
                                             &nbsp; <span class="circle">
@@ -856,7 +856,7 @@
                                             <input type="checkbox"
                                                 class="form-check-input reply-checkbox email-list l-form-radio-other"
                                                 value='other' id="email-other-check"
-                                                onclick='replyOtherClicked("email-other-input", this)'
+                                                onclick='replyOtherClicked("email-other-input", this)' onkeydown='' 
                                                 autocomplete="off">
                                             &nbsp;
                                             <span class="form-check-sign">
@@ -875,7 +875,7 @@
                                             class="form-check-label">
                                             <input type="checkbox"
                                                 class="form-check-input reply-checkbox fax-list l-form-radio-other"
-                                                value='other' id="fax-other-check"
+                                                value='other' id="fax-other-check" onkeydown='' 
                                                 onclick='replyOtherClicked("fax-other-input", this)' autocomplete="off">
                                             &nbsp;
                                             <span class="form-check-sign">
@@ -895,7 +895,7 @@
                                         <label class="form-check-label">
                                             <input type="checkbox"
                                                 class="form-check-input reply-checkbox sms-list l-form-radio-other"
-                                                name="smsList" value='other' id="sms-other-check"
+                                                name="smsList" value='other' id="sms-other-check" onkeydown='' 
                                                 onclick='replyOtherClicked("sms-other-input", this)' autocomplete="off">
                                             &nbsp;
                                             <span class="form-check-sign">

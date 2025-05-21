@@ -3485,7 +3485,7 @@ function updateClicked(isTemp) {
     var title = document.getElementById('Title').value || ''
 //	20250520 Extract this nested ternary operation into an independent statement.
 //  var gender = title.length > 0? (title == 'Mr'? 'Male' : 'Female'): ''
-	var gender = '';
+	var gender;
 
 	if (title.length > 0) {
 		if (title === 'Mr') {

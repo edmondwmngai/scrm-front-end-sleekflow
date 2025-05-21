@@ -2136,7 +2136,7 @@ function createOrUpdateBubble(msgObj) {
     var lastMsgDate = lastMsgSentTime.length == 0 ? '' : SC.handleDate(lastMsgSentTime);
  // 20250520  Extract this nested ternary operation into an independent statement.
  // var lastMsgTime = lastMsgDate == '' ? lastMsgSentTime.length == 0 ? '' : SC.returnTime(lastMsgSentTime, true) : "";
-	var lastMsgTime = '';
+	var lastMsgTime;
 	if (lastMsgDate === '') {
 		if (lastMsgSentTime.length === 0) {
 			lastMsgTime = '';
@@ -2191,7 +2191,7 @@ function createOrUpdateBubble(msgObj) {
         }
 		//20250520 Extract this nested ternary operation into an independent statement.
         //var bubbleMsg = (entry == 'fb_comment' || entry == 'fb_post') ? '' : isOfflineForm ? handleOfflineFormName(offlineFormData) : handleBubbleMsg(lastMsgContent, lastMsg.msg_object_client_name, lastMsg.msg_object_path);
-		var bubbleMsg = '';
+		var bubbleMsg;
 		if (entry === 'fb_comment' || entry === 'fb_post') {
 			bubbleMsg = '';
 		} else if (isOfflineForm) {
@@ -2282,7 +2282,7 @@ function createOrUpdateBubble(msgObj) {
             )
             : '<div class="reply-container"><textarea id="' + textareaId + '" class="reply-textarea" maxlength="1000" rows="2" placeholder="' + langJson['l-social-type-your-text-here'] + '" onkeypress="textareaPressed(event);"' + sendCSInputStr + '></textarea><div class="reply-icon-group"><button id="canned-' + ticketId + '" class="reply-canned-container keyboard-icon" data-bs-toggle="tooltip" data-bs-placement="top" title="' + langJson['l-social-select-message'] + '" onclick=' + cannedBtnClickFn + '><span class="align-sub"><i class="far fa-keyboard"></i></span></button><button id="share-' + ticketId + '" class="reply-share-container keyboard-icon" data-bs-toggle="tooltip" data-bs-placement="top" title="' + langJson['l-social-select-file'] + '" onclick=' + shareBtnClickFn + '><span class="align-sub"><i class="far fa-file"></i></span></button>' + uploadBtnStr + '<button id="end-' + ticketId + '" class="reply-end-container keyboard-icon" data-bs-toggle="tooltip" data-bs-placement="top" title="' + langJson['l-social-end-session'] + '" entry="' + entry + '" onclick="endClicked(' + ticketId + ',this)"><span class="align-sub"><i class="fas fa-times"></i></span></button><button id="reply-btn-' + ticketId + '" class="reply-send-container" entry="' + entry + '" onclick="replyClicked(' + ticketId + ')" data-bs-toggle="tooltip" data-bs-placement="top" title="' + langJson['l-social-send-message'] + '"><img class="reply-icon-size" src="./images/send.svg" /></button></div></div>');
 		*/
-		var replyContainerStr = '';
+		var replyContainerStr;
 		if (isOfflineForm) {
 			replyContainerStr = '';
 		} else if (isMonitor) {

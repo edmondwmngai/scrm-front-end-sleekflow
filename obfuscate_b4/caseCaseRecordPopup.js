@@ -461,8 +461,8 @@ function caseRecordPopupOnload() {
     //  20250520    Extract this nested ternary operation into an independent statement.
 	//	var longCall = queryObj.Long_Call == 'N' ? 'No' : (queryObj.Long_Call == 'Y' ? 'Yes' : '');
     //  var isJunkMail = queryObj.Is_Junk_Mail == 'N' ? 'No' : (queryObj.Is_Junk_Mail == 'Y' ? 'Yes' : '');
-		var longCall = '';
-		var isJunkMail = '';
+		var longCall;
+		var isJunkMail;
 
 		if (queryObj.Long_Call === 'N') {
 			longCall = 'No';

@@ -8,7 +8,7 @@ var customCompany = sessionStorage.getItem('scrmCustomCompany') || 'no';
 
 //20250520 Extract this nested ternary operation into an independent statement.
 //var campaign = customCompany!= 'no'? customCompany: (isSocial ? window.frameElement.getAttribute("campaign") : (parent.frameElement.getAttribute("campaign") || parent.campaign || ''));
-var campaign = '';
+var campaign;
 
 if (customCompany !== 'no') {
     campaign = customCompany;
@@ -911,7 +911,7 @@ function returnSocialSearchArr(isCase) { // isCase == true: Case Search, isCase 
             
 			//20250520 for Extract this nested ternary operation into an independent statement.
 			//var idName = callType == 'Inbound_Facebook' ? 'Facebook_Id' : (callType == 'Inbound_Whatsapp' ? 'Whatsapp_Id' : 'Wechat_Id');
-			
+			var idName;
 			if (callType === 'Inbound_Facebook') {
 				idName = 'Facebook_Id';
 			} else if (callType === 'Inbound_Whatsapp') {

@@ -2815,12 +2815,10 @@ function campaignAddFormStructure() {
 		let checkTypeValue;
 		if (fieldObj.DB_Header.length === 0) {
 			checkTypeValue = '';
+		} else if (fieldObj.Check_Type && fieldObj.Check_Type.length > 0) {
+			checkTypeValue = fieldObj.Check_Type;
 		} else {
-			if (fieldObj.Check_Type && fieldObj.Check_Type.length > 0) {
-				checkTypeValue = fieldObj.Check_Type;
-			} else {
-				checkTypeValue = 'N/A';
-			}
+			checkTypeValue = 'N/A';
 		}
 
 		uploadTblStr += `<tr>

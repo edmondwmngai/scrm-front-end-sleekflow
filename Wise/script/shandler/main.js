@@ -1086,7 +1086,17 @@ function addPopupIdle(theDocument) {
 
 // $(document).ready(function () {
 loadCampaignLang();
-var idleTimeLimit = functions.indexOf('Wallboard') != -1 ? 39570 : (functions.indexOf('Wise-Mon') != -1 ? 10770 : 570); // 570+30=10mins 39570+30=11hr 10770+30=3hr
+
+//20250520 extract this nested ternary operation into an independent statement.
+//var idleTimeLimit = functions.indexOf('Wallboard') != -1 ? 39570 : (functions.indexOf('Wise-Mon') != -1 ? 10770 : 570); // 570+30=10mins 39570+30=11hr 10770+30=3hr
+var idleTimeLimit = 0;
+if (functions.indexOf('Wallboard') !== -1) {
+    idleTimeLimit = 39570;
+} else if (functions.indexOf('Wise-Mon') !== -1) {
+    idleTimeLimit = 10770;
+} else {
+    idleTimeLimit = 570;
+}
 
 // deprecated, if needed can add back the functions
 // if (functions.indexOf('No-Phone-On-Top') === -1) { $('#direct-call-container').removeClass('d-none'); $('#phone-dropdown').removeClass('d-none'); }

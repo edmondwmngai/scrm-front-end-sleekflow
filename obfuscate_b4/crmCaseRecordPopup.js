@@ -306,23 +306,21 @@ function addReplyStr(reply_msg) {
 		} else if (isNaN(reply_msg.sender)) {
 			if (isNaN(reply_msg.nick_name)) {
 				agentBubbleName = reply_msg.nick_name;
-			} else {
-				if (nonPopup) {
+			} else if (nonPopup) {
 					agentBubbleName = openType === 'menu' 
 						? parent.parent.getAgentName(reply_msg.nick_name) 
 						: parent.parent.parent.getAgentName(reply_msg.nick_name);
-				} else {
+			} else {
 					agentBubbleName = window.opener.getAgentName(reply_msg.nick_name);
-				}
+				
 			}
-		} else {
-			if (nonPopup) {
-				agentBubbleName = openType === 'menu' 
+		} else if (nonPopup) {
+			agentBubbleName = openType === 'menu' 
 					? parent.parent.getAgentName(reply_msg.sender) 
 					: parent.parent.parent.getAgentName(reply_msg.sender);
-			} else {
-				agentBubbleName = window.opener.getAgentName(reply_msg.sender);
-			}
+		} else {
+			agentBubbleName = window.opener.getAgentName(reply_msg.sender);
+		
 		}
 				
 		
@@ -395,23 +393,21 @@ function addMsgRow(msgList, entry, onlineFormArr) {
 			} else if (isNaN(theMsg.sender)) {
 				if (isNaN(theMsg.nick_name)) {
 					agentBubbleName = theMsg.nick_name;
-				} else {
-					if (nonPopup) {
+				} else if (nonPopup) {
 						agentBubbleName = openType === 'menu' 
 							? parent.parent.getAgentName(theMsg.nick_name) 
 							: parent.parent.parent.getAgentName(theMsg.nick_name);
-					} else {
+				} else {
 						agentBubbleName = window.opener.getAgentName(theMsg.nick_name);
-					}
+					
 				}
-			} else {
-				if (nonPopup) {
+			} else if (nonPopup) {
 					agentBubbleName = openType === 'menu' 
 						? parent.parent.getAgentName(theMsg.sender) 
 						: parent.parent.parent.getAgentName(theMsg.sender);
-				} else {
+			} else {
 					agentBubbleName = window.opener.getAgentName(theMsg.sender);
-				}
+				
 			}
 						
 			// for chatbot will show selection
@@ -516,23 +512,21 @@ function webchatDownload(ticketId, isWebchat) {
 			} else if (isNaN(theMsg.sender)) {
 				if (isNaN(theMsg.nick_name)) {
 					agentBubbleName = theMsg.nick_name;
-				} else {
-					if (nonPopup) {
+				} else if (nonPopup) {
 						agentBubbleName = openType === 'menu' 
 							? parent.parent.getAgentName(theMsg.nick_name) 
 							: parent.parent.parent.getAgentName(theMsg.nick_name);
-					} else {
+				} else {
 						agentBubbleName = window.opener.getAgentName(theMsg.nick_name);
-					}
+					
 				}
-			} else {
-				if (nonPopup) {
+			} else if (nonPopup) {
 					agentBubbleName = openType === 'menu' 
 						? parent.parent.getAgentName(theMsg.sender) 
 						: parent.parent.parent.getAgentName(theMsg.sender);
-				} else {
+			} else {
 					agentBubbleName = window.opener.getAgentName(theMsg.sender);
-				}
+			
 			}
             msgContent += (agentBubbleName + '</span>:&nbsp;<span style="display:table-cell;">');
         } else {

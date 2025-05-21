@@ -198,8 +198,9 @@ function sendSMS(serviceName, phoneNo, shortMsg) {
     return connId;
 }
 
-function sendFax(serviceName, faxNo, faxFile, coverSubject, coverMsg, coverAttn, coverSender, coverCompany) {
-    var connId = document.getElementById("phone-panel").contentWindow.wiseSendFax(serviceName, Number(config.telPrefix + String(faxNo)), faxFile, coverSubject, coverMsg, coverAttn, coverSender, coverCompany);
+function sendFax(serviceName, faxNo, faxFile, coverData) {
+    /* coverData - coverSubject, coverMsg, coverAttn, coverSender, coverCompany */
+    var connId = document.getElementById("phone-panel").contentWindow.wiseSendFax(serviceName, Number(config.telPrefix + String(faxNo)), faxFile, coverData);
     return connId;
 }
 

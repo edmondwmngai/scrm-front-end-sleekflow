@@ -1168,31 +1168,42 @@ function assignmentAgentTblLoad(data) {
         var lowerPartStr = "";
         // Add From Select
         var unassignment = data.Unassigned;
+		
         lowerPartStr += '<div id="a-agent-be-assigned-container" class="card my-2">' +
             '<div class="card-body">' +
-            '<div class="mb-3 d-flex align-items-center mb-1">' +
-            '<span class="form-label pe-3 d-table-cell">' + langJson['l-outbound-assign-from'] + '</span>' +
-            '<select id="m-assign-from" class="form-select d-table-cell"><option value=0 unused=' + unassignment + '>Pool</option>' + agentOptionStr + '</select>' +
-            '<span id="m-from-description" class="text-secondary d-table-cell ps-2">' + langJson['l-outbound-unassignment'] + unassignment + '</span>' +
-            '<span style="position: absolute;right:0">' +
-            '<div class="mb-3 d-flex align-items-center me-3 mb-0 d-inline">' +
-            '<span>' + langJson['l-form-gender'] + '</span><select id="m-filter-gender" class="form-select c-customer-input"> <option value="">- Please Select -</option>' +
+			//------------------------------------------------------------------------------
+			'<div class="d-flex justify-content-between">' +
+								
+   
+            '<div class="mb-3 d-flex align-items-center mb-1" style="width:65%">' +
+            '<span class="form-label pe-3 d-table-cell text-nowrap">' + langJson['l-outbound-assign-from'] + '</span>' +
+            '<select id="m-assign-from" class="form-select form-select-sm me-3 col-md-3"><option value=0 unused=' + unassignment + '>Pool</option>' + agentOptionStr + '</select>' +
+            '<span id="m-from-description" class="text-secondary d-table-cell ps-2 text-nowrap">' + langJson['l-outbound-unassignment'] + unassignment + '</span>' +
+            '</div>' +
+			
+			'<div style="width:35%" class="d-flex align-items-center">' +
+            
+			'<div class="mb-3 align-items-center me-3 mb-0 d-flex" >' +
+            '<span class="text-nowrap">' + langJson['l-form-gender'] + '</span><select id="m-filter-gender" class="form-select form-select-sm"> <option value="">- Please Select -</option>' +
             '<option value="M">Male</option> <option value="F">Female</option> </select>' +
             '</div>' +
-            '<div class="mb-3 d-flex align-items-center mb-0 d-inline">' +
-            '<span>' + langJson['l-campaign-agefrom'] + '</span> <input id="m-filter-age-from" class="form-control" type="number" min="0" style="width:5rem">' +
+            '<div class="mb-3 align-items-center mb-0 d-flex">' +
+            '<span class="text-nowrap">' + langJson['l-campaign-agefrom'] + '</span> <input id="m-filter-age-from" class="form-control text-center" type="number" min="0" style="width:5rem">' +
             '</div>' +
-            '<div class="mb-3 d-flex align-items-center mb-0 d-inline">' +
-            '<span class="ps-2">' + langJson['l-campaign-ageto'] + '</span> <input id="m-filter-age-to" class="form-control" type="number" min="0" style="width:5rem">' +
+            '<div class="mb-3 align-items-center mb-0 d-flex">' +
+            '<span class="ps-2 text-nowrap">' + langJson['l-campaign-ageto'] + '</span> <input id="m-filter-age-to" class="form-control text-center" type="number" min="0" style="width:5rem">' +
             '</div>' +
-            '<button id="m-filter-btn" class="btn rounded btn-sm btn-warning text-capitalize ms-2"><i class="fas fa-filter me-2"></i><span>' + langJson['l-outbound-filter'] + '</span></button>' +
-            '</span>' +
-            '</div>';
+            '<button id="m-filter-btn" class="mb-3 align-items-center mb-0 btn rounded btn-sm btn-warning text-capitalize ms-2 d-flex"><i class="fas fa-filter me-2"></i><span>' + langJson['l-outbound-filter'] + '</span></button>' +
+           
+			'</div>'
+											//btn rounded btn-sm btn-warning text-capitalize ms-2 mt-3 m-multiple-assign-ele
+            //'</div>';
 
         // add Optional Call Result
-        lowerPartStr += '<div id="m-call-result-container" class="mb-3 d-flex align-items-center mb-1 d-none"><span class="d-table-cell me-2">' + langJson['l-campaign-callstatus'] + '&nbsp;&nbsp;</span><select id="m-call-result" class="form-select d-table-cell"><option value="NewLead" selected>Null</option><option value="Unreach" style="display:none;">Unreach</option><option value="Reached" style="display:none;">Reached</option></select>' +
-
-            '<select id="m-unreach-reason" class="d-none form-select">' +
+        lowerPartStr += '<div id="mb-3 m-call-result-container" class="mb-3 align-items-center mb-1 d-none">' + 
+		
+			'<span class="d-table-cell me-2">' + langJson['l-campaign-callstatus'] + '&nbsp;&nbsp;</span><select id="m-call-result" class="form-select d-table-cell"><option value="NewLead" selected>Null</option><option value="Unreach" style="display:none;">Unreach</option><option value="Reached" style="display:none;">Reached</option></select>' +
+			'<select id="m-unreach-reason" class="d-none form-select">' +
             '<option value="" selected>- Please Select -</option>' +
             '<option value="No Answered">No Answered</option>' +
             '<option value="Voice Mail">Voice Mail</option>' +
@@ -1207,17 +1218,33 @@ function assignmentAgentTblLoad(data) {
             '<option value="" selected>- Please Select -</option>' +
             '<option value="Consider">Consider</option>' +
             '<option value="Reject">Reject</option>' +
-            '</select></div>';
+   
+            '</select></div>' + 
 
         // Add To Select
-        lowerPartStr += (
-            '<div class="mb-3 d-flex align-items-center mb-1 m-single-assign-row d-none"><span class="form-label pe-3 d-table-cell">' + langJson['l-campaign-assignto'] + '</span><select id="m-assign-to" class="form-select d-table-cell"><option value=0 unused=' + unassignment + '>Pool</option>' + agentOptionStr + '</select><span id="m-to-description" class="text-secondary d-table-cell ps-2">' + langJson['l-outbound-unassignment'] + unassignment + '</span></div>' +
+        
+			'</div>';
+		
+		lowerPartStr += 
+            '<div class="mb-3 align-items-center mb-1 m-single-assign-row d-none"><span class="form-label pe-3 d-table-cell">' + langJson['l-campaign-assignto'] + '</span><select id="m-assign-to" class="form-select d-table-cell"><option value=0 unused=' + unassignment + '>Pool</option>' + agentOptionStr + '</select><span id="m-to-description" class="text-secondary d-table-cell ps-2">' + langJson['l-outbound-unassignment'] + unassignment + '</span></div>' +
+   		
+			//------------------------------------------------------------------------------
+   
             '<div class="mb-3 m-single-assign-row d-none">&nbsp;</div>' +
             '<div class="mb-3 m-single-assign-row d-none"><span class="me-2 d-table-cell">' + langJson['l-campaign-numrecords'] + '&nbsp;&nbsp;</span><input id="m-assign-no" type="number" min="1" class"form-control w-auto d-table-cell" autocomplete="off" maxlength="6"><span id="m-assignable-description" class="text-secondary d-table-cell ps-2">' + langJson['l-outbound-available-no'] + ': ' + unassignment + '</span></div>' +
-            '<button id="m-confirm-single-btn" class="btn rounded btn-sm btn-warning text-capitalize ms-2 mt-3 m-single-assign-ele d-none"><i class="fas fa-clipboard-check me-2"></i><span>' + langJson['l-general-confirm'] + '</span></button>' +
-            '<div class="m-multiple-assign-ele mt-2"><table id="m-agent-tbl" class="table table-hover w-100"></table></div>' +
+            '<button id="m-confirm-single-btn" class="btn rounded btn-sm btn-warning text-capitalize ms-2 mt-3 m-single-assign-ele d-none"><i class="fas fa-clipboard-check me-2"></i><span>' + langJson['l-general-confirm'] + '</span></button>';
+			
+			
+			
+			
+        lowerPartStr += ('<div class="m-multiple-assign-ele mt-2"><table id="m-agent-tbl" class="table table-hover w-100"></table></div>' +
+   
+   
             '<button id="m-confirm-multiple-btn" class="btn rounded btn-sm btn-warning text-capitalize ms-2 mt-3 m-multiple-assign-ele"><i class="fas fa-clipboard-check me-2"></i><span>' + langJson['l-general-confirm'] + '</span></button>' +
             '</div>');
+
+			
+		
 
         $('#m-lower-part').append(lowerPartStr);
 
@@ -3670,14 +3697,37 @@ $(document).ready(function () {
             '<li id="m-manage-content-tab"><a id="manage-tab" class="nav-link text-capitalize mx-2" data-bs-toggle="pill" href="#manage-content" role="tab" aria-controls="manage-content" aria-selected="false"><i class="fas fa-tasks me-2"></i><span class="align-middle">' + langJson['l-outbound-assign'] + '</span></a></li>'
         );
     }
+	 
+	/*
+	let lastClickedElement = null;
 
-    $('.within-batch-period-toggle').on('click', function (e) {
-        e.stopPropagation();
-    })
+	$(document).on("click", "[data-bs-toggle='collapse']", function (event) {
+		lastClickedElement = event.currentTarget; // Store the clicked button
+		console.log(event.currentTarget);
+	});
+	 
+	document.addEventListener("change", function (event) {
+		console.log(`Id: ${event.target.id} | Event: ${event.type} | Element: ${event.target.tagName} | Timestamp: ${performance.now()}`);
+	});
 
+	
+	$('#a-within-batch-period').on('mousedown', function () {
+		$('.card-header').removeAttr('data-bs-toggle');
+		setTimeout(() => $('.card-header').attr('data-bs-toggle', 'collapse'), 100);
+	});
+
+    $("#a-batch-body").on("hide.bs.collapse", function (e) {
+		
+		if (e.target.id == 'a-within-batch-period')
+		{
+			e.preventDefault();
+			e.stopPropagation();
+		}
+    });*/
+
+	  
     $('#a-within-batch-period').on('change', function (e) {
-       
-
+     
         /*  //20250326 Remove this conditional structure or edit its code blocks so that they're not all the same.
         var checked = $(this).prop('checked');
 

@@ -133,17 +133,18 @@
 
                 <div class="tab-pane fade pt-1 px-0 mb-5" id="manage-content" role="tabpanel" aria-labelledby="manage-tab">
                     <div id="a-assign-call-list-card" class="card mb-0">
-                        <div class='card-header card-header-text card-header-warning' data-bs-toggle="collapse" data-bs-target="#a-batch-body">
-                            <h5 class="my-0 d-inline">
+                        <div class='card-header card-header-text card-header-warning d-flex justify-content-between' >
+							<span style="width:75%" data-bs-toggle="collapse" data-bs-target="#a-batch-body">
+							<h5 class="my-0 d-inline">
                                 <i class="fas fa-tasks me-2"></i><span class="align-middle l-outbound-assign-call-to-agent">Assign Call List To
                                     Agents</span>
                             </h5>
-
-                            <div class="togglebutton within-batch-period-toggle"><label><input
+							</span>
+                            <div class="togglebutton within-batch-period-toggle d-inline"><label><input
                                 id="a-within-batch-period" type="checkbox" checked=""><span
                                 class="toggle"></span><span class="within-batch-period-toggle-lbl">Not Include
                                 Expired Batches</span></label></div>
-                        </div>
+							</div>
                         <div id="a-batch-body" class="show">
                             <div class="card-body">
                                 <table id="a-batch-tbl" class="table table-hover w-100"></table>

@@ -283,7 +283,7 @@ function addCaseAutoSearchTable(tabName, data, oThis) {
                         }
                     ]
                 });
-				*/
+				
                 // $('#' + tabName + '-customer-container').find('i[data-bs-toggle="popover"]').popover();
 
                 // Add event listener for opening and closing details
@@ -319,6 +319,7 @@ function addCaseAutoSearchTable(tabName, data, oThis) {
                     var data = caseTbl.row($(this).parents('tr')).data();
                     UpdateCase(data);
                 });
+				*/
             }
         });
     }
@@ -470,6 +471,8 @@ function addCaseAutoSearchTableDetail(tabName, oThis, r){
 		var data = caseTbl.row($(this).parents('tr')).data();
 		UpdateCase(data);
 	});
+
+
 
 	
 }

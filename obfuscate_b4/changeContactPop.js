@@ -525,14 +525,14 @@ function handleConfirmClick($btn, customerTable) {
             success: function (r) {
                 if (!/^success$/i.test(r.result || "")) {
                     console.log('error in caseRecordPopupOnload');
-                } else {
-                    if (openFrom == 'input') {
+                //} else {		//20250602 'If' statement should not be the only statement in 'else' block
+                } else if (openFrom == 'input') {
                         window.opener.changedCustomer(customerId);
                         window.close();
-                    } else {
+                } else {
                         window.opener.submitClicked('case');
                         window.close();
-                    }
+                    //}
                 }
             },
             error: function (r) {

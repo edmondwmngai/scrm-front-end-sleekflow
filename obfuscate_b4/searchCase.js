@@ -347,7 +347,7 @@ function submitClicked(type) {
             contentType: "application/json",
             dataType: 'json'
         }).always(function (r) {
-			handleCaseManualSearchResponse(connId, callType, details, r);
+			handleCaseManualSearchResponse(connId, callType, details, r, aaSorting, exportColumns, columns, columnDefs);
 			/*
 		    if (!/^success$/i.test(r.result || "")) {
                 console.log("error /n" + r ? r : '');
@@ -493,7 +493,7 @@ function submitClicked(type) {
     }
 }
 
-function handleCaseManualSearchResponse(connId, callType, details, r)
+function handleCaseManualSearchResponse(connId, callType, details, r, aaSorting, exportColumns, columns, columnDefs)
 {
 	if (!/^success$/i.test(r.result || "")) {
 		console.log("error /n" + r ? r : '');

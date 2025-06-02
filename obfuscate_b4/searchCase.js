@@ -113,9 +113,9 @@ function format(d) {
 
 function submitClicked(type) {
     $('#case-submit-btn').prop('disabled', true);
-    var connId = parent.window.frameElement.getAttribute("connId") || "";
-    var callType = parent.window.frameElement.getAttribute("callType") || "";
-    var details = parent.window.frameElement.getAttribute("details") || "";
+    //var connId = parent.window.frameElement.getAttribute("connId") || "";		//20250602 Remove this useless assignment after refactor this code to not nest functions more than 4 levels deep
+    //var callType = parent.window.frameElement.getAttribute("callType") || "";
+    //var details = parent.window.frameElement.getAttribute("details") || "";
     var allAny = $('.' + type + '-all-any option:selected')[0].value;
     var searchCondition = $('.' + type + '-search-condition option:selected');
     var searchSymbol = $('.' + type + '-search-symbol option:selected');
@@ -347,8 +347,7 @@ function submitClicked(type) {
             contentType: "application/json",
             dataType: 'json'
         }).always(function (r) {
-
-            
+            //20250602 Refactor this code to not nest functions more than 4 levels deep
 			handleCaseManualSearchResponse(r, aaSorting, exportColumns, columns, columnDefs);
 			/*
 		    if (!/^success$/i.test(r.result || "")) {
@@ -494,7 +493,7 @@ function submitClicked(type) {
         addsearchCaseDiv();
     }
 }
-
+//20250602 Refactor this code to not nest functions more than 4 levels deep
 function handleCaseManualSearchResponse(r, aaSorting, exportColumns, columns, columnDefs)
 {
     var connId = parent.window.frameElement.getAttribute("connId") || "";

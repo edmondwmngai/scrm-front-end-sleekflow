@@ -324,7 +324,7 @@ function fbMoreComments(ticketId, aboveMsgId, oThis) {
         }
     });
 }
-
+/* 20250530 Refactor this code to not nest functions more than 4 levels deep.
 var loadFacebookPosts = function (intitial) {
     $.ajax({
         type: "POST",
@@ -448,6 +448,129 @@ var loadFacebookPosts = function (intitial) {
                 }
             });
         }
+    });
+}
+*/
+// 20250530 Refactor this code to not nest functions more than 4 levels deep.
+var loadFacebookPosts = function (initial) {
+    $.ajax({
+        type: "POST",
+        url: config.mvcUrl + '/api/GetFaceBookPostContent/',
+        data: JSON.stringify({
+            Ticket_Id: -1,
+            Agent_Id: loginId,
+            Token: token
+        }),
+        crossDomain: true,
+        contentType: "application/json",
+        dataType: 'json'
+    }).always(handleFacebookPostsResponse);
+};
+
+function handleFacebookPostsResponse(res) {
+    if (!/^success$/i.test(res.result || "")) {
+        console.log("Error in loadFacebookPosts." + (res ? res.details : ''));
+        return;
+    }
+    var postContent = res.details;
+    var postTable = initializeDataTable(postContent);
+    attachRowClickHighlight(postTable);
+    attachHistoryButtonHandler(postTable);
+    attachEditButtonHandler(postTable);
+}
+
+function initializeDataTable(postContent) {
+    return $('#post-table').DataTable({
+        data: postContent,
+        aaSorting: [[0, 'desc']],
+        pageLength: 10,
+        lengthChange: false,
+        searching: false,
+        columns: [
+            { title: langJson['l-fb-ticket-id'], data: 'Ticket_Id' },
+            { title: langJson['l-fb-details'], data: 'Details' },
+            { title: langJson['l-fb-media-type'], data: 'Media_Type' },
+            { title: langJson['l-fb-media-link'], data: 'Media_Link' },
+            { title: '' },
+            { title: '' }
+        ],
+        language: {
+            emptyTable: langJson['l-general-empty-table'],
+            info: langJson['l-general-info'],
+            infoEmpty: langJson['l-general-info-empty'],
+            infoFiltered: langJson['l-general-info-filtered'],
+            lengthMenu: langJson['l-general-length-menu'],
+            search: langJson['l-general-search-colon'],
+            zeroRecords: langJson['l-general-zero-records'],
+            paginate: {
+                previous: langJson['l-general-previous'],
+                next: langJson['l-general-next']
+            }
+        },
+        columnDefs: [
+            {
+                targets: 1,
+                className: 'lengthy-column'
+            },
+            {
+                targets: 4,
+                render: function (data, type, row) {
+                    return '<i class="fas fa-history table-btn" title="History"></i>';
+                },
+                orderable: false,
+                className: 'btnColumn'
+            },
+            {
+                targets: 5,
+                render: function (data, type, row) {
+                    return '<i class="fas fa-edit table-btn open" title="' + langJson['l-fb-edit-post'] + '"></i>';
+                },
+                orderable: false,
+                className: 'btnColumn'
+            }
+        ]
+    });
+}
+
+function attachRowClickHighlight(postTable) {
+    $('#post-table tbody').on('click', 'tr', function () {
+        postTable.$('tr.highlight').removeClass('highlight');
+        $(this).addClass('highlight');
+    });
+}
+
+function attachHistoryButtonHandler(postTable) {
+    $('#post-table tbody').on('click', '.fa-history', function () {
+        var data = postTable.row($(this).parents('tr')).data();
+        var ticketId = data.Ticket_Id;
+        $('#modal-comment-no').empty();
+        $('#modal-fb-history').empty();
+        getFBComments(ticketId);
+        $('#history-modal').modal('toggle');
+    });
+}
+
+function attachEditButtonHandler(postTable) {
+    $('#post-table tbody').on('click', '.open', function () {
+        var data = postTable.row($(this).parents('tr')).data();
+        selectedPost = data;
+        var openWindows = parent.openWindows;
+        var fbPopup = window.open(
+            './fbPopup.html',
+            'postRecord',
+            'menubar=no,location=no,scrollbar=no,fullscreen=no,toolbar=no,status=no,width=400,height=800,top=200,left=20,resizable=1'
+        );
+        openWindows.push(fbPopup);
+        fbPopup.onload = function () {
+            fbPopup.onbeforeunload = function () {
+                for (var i = 0; i < openWindows.length; i++) {
+                    if (openWindows[i] === fbPopup) {
+                        openWindows.splice(i, 1);
+                        break;
+                    }
+                }
+            };
+        };
     });
 }
 

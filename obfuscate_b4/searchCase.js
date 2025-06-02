@@ -347,7 +347,9 @@ function submitClicked(type) {
             contentType: "application/json",
             dataType: 'json'
         }).always(function (r) {
-            if (!/^success$/i.test(r.result || "")) {
+			handleCaseManualSearchResponse(connId, callType, details, r);
+			/*
+		    if (!/^success$/i.test(r.result || "")) {
                 console.log("error /n" + r ? r : '');
                 $('#case-submit-btn').prop('disabled', false);
             } else {
@@ -480,7 +482,7 @@ function submitClicked(type) {
                         return false;
                     }
                 });
-            }
+            }*/
         });
     }
     if (searchCaseDiv.length > 0) {
@@ -489,6 +491,146 @@ function submitClicked(type) {
     } else {
         addsearchCaseDiv();
     }
+}
+
+function handleCaseManualSearchResponse(connId, callType, details, r)
+{
+	if (!/^success$/i.test(r.result || "")) {
+		console.log("error /n" + r ? r : '');
+		$('#case-submit-btn').prop('disabled', false);
+	} else {
+		var caseTable = $('#search-case-table').DataTable({
+			data: r.details,
+			dom: 'Btip',
+			buttons: [
+				// { // NO DEL clipboard too much data issue
+				//     extend: 'copy',
+				//     text: '',
+				//     tag: 'span',
+				//     titleAttr: 'Copy',
+				//     className: 'fas fa-copy cursor-pointer text-warning fa-2x ml-1',
+				//     exportOptions: {
+				//         columns: exportColumns
+				//     }
+				// },
+				{
+					extend: 'csv',
+					text: '',
+					tag: 'span',
+					titleAttr: 'CSV',
+					className: 'fas fa-file-csv cursor-pointer text-warning fa-2x ml-1',
+					filename: 'CSV-File',
+					charset: 'utf-8',
+					bom: true,
+					exportOptions: {
+						columns: exportColumns
+					}
+				}, {
+					extend: 'excel',
+					text: '',
+					tag: 'span',
+					titleAttr: 'Excel',
+					className: 'fas fa-table cursor-pointer text-warning fa-2x ml-1',
+					filename: 'Excel-File',
+					exportOptions: {
+						columns: exportColumns
+					}
+				},
+				// { // NO DEL pdf spend too much time to load, so no this function by default
+				//     extend: 'pdf',
+				//     text: '',
+				//     tag: 'span',
+				//     titleAttr: 'PDF',
+				//     className: 'fas fa-file-pdf cursor-pointer text-warning fa-2x ml-1',
+				//     exportOptions: {
+				//         columns: exportColumns
+				//     }
+				// }, // /NO DEL
+				{
+					extend: 'print',
+					text: '',
+					tag: 'span',
+					titleAttr: 'Print',
+					className: 'fas fa-print cursor-pointer text-warning fa-2x ml-1',
+					exportOptions: {
+						columns: exportColumns
+					}
+				}
+			],
+			lengthChange: false,
+			aaSorting: aaSorting,
+			searching: false,
+			columnDefs: columnDefs,
+			columns: columns,
+			"language": {
+				"emptyTable": langJson['l-general-empty-table'],
+				"info": langJson['l-general-info-100'],
+				"infoEmpty": langJson['l-general-info-empty'],
+				"infoFiltered": langJson['l-general-info-filtered'],
+				"lengthMenu": langJson['l-general-length-menu'],
+				"search": langJson['l-general-search-colon'],
+				"zeroRecords": langJson['l-general-zero-records'],
+				"paginate": {
+					"previous": langJson['l-general-previous'],
+					"next": langJson['l-general-next']
+				}
+			},
+			initComplete: function (settings, json) {
+				resize();
+				$('#case-submit-btn').prop('disabled', false);
+			}
+		});
+
+		// Add event listener for opening and closing details
+		$('#search-case-table tbody').on('click', 'td.details-control', function () {
+			var tr = $(this).closest('tr');
+			var row = caseTable.row(tr);
+
+			if (row.child.isShown()) {
+				// This row is already open - close it
+				row.child.hide();
+				tr.removeClass('shown');
+				resize();
+			} else {
+				// Open this row
+				row.child(format(row.data())).show();
+				tr.addClass('shown');
+			}
+		});
+
+		$('#search-case-table tbody').on('click', 'tr', function (e) {
+			caseTable.$('tr.highlight').removeClass('highlight'); // $('xxx tbody tr) will not select other pages not showing, do not use this selector
+			$(this).addClass('highlight')
+		});
+		$('#search-case-table tbody').on('click', '.select', function () {
+			var data = caseTable.row($(this).parents('tr')).data();
+			UpdateCase(connId, callType, details, data);
+		});
+		$('#search-case-table tbody').on('click', '.change', function () {
+			var data = caseTable.row($(this).parents('tr')).data();
+			changeContactCaseNo = data.Case_No;
+			changeContactCustomerId = data.Customer_Id;
+			//if (parent.parent && parent.parent.openWindows) {		//20250516 Prefer using an optional chain expression instead, as it's more concise and easier to read.
+			if (parent?.parent?.openWindows) {
+				var openWindows = parent.parent.openWindows;
+				var changeContactPop = window.open('./changeContactPop.html', 'Change Contact', '_blank, toolbar=0,location=0,top=50, left=50,menubar=0,resizable=0,scrollbars=1,width=903,height=640');
+				openWindows[openWindows.length] = changeContactPop;
+				changeContactPop.onload = function () {
+					changeContactPop.onbeforeunload = function () {
+						for (var i = 0; i < openWindows.length; i++) {
+							if (openWindows[i] == changeContactPop) {
+								openWindows.splice(i, 1);
+								break;
+							}
+						}
+					}
+				}
+				return false;
+			}
+		});
+	}
+	
+	
 }
 
 function UpdateCase(connId, callType, details, rowData) {

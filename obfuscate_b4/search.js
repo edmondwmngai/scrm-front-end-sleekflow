@@ -183,6 +183,9 @@ function addCaseAutoSearchTable(tabName, data, oThis) {
                 console.log("ERROR in CaseAutoSearch" + r.details);
                 $(oThis).prop('disabled', false);
             } else {
+				//20250602 Refactor this code to not nest functions more than 4 levels deep.
+				addCaseAutoSearchTableDetail(tabName, oThis, r);
+				/*
                 $('#' + tabName + '-customer-container').hide();
                 var caseDetails = r.details;
                 var caseTbl = $('#search-' + tabName + '-case-table').DataTable({
@@ -280,6 +283,7 @@ function addCaseAutoSearchTable(tabName, data, oThis) {
                         }
                     ]
                 });
+				*/
                 // $('#' + tabName + '-customer-container').find('i[data-bs-toggle="popover"]').popover();
 
                 // Add event listener for opening and closing details
@@ -330,6 +334,144 @@ function addCaseAutoSearchTable(tabName, data, oThis) {
     } else {
         addCustomerInfo(tabName, data, addCaseContainer);
     }
+}
+
+function addCaseAutoSearchTableDetail(tabName, oThis, r){
+	
+	$('#' + tabName + '-customer-container').hide();
+	var caseDetails = r.details;
+	var caseTbl = $('#search-' + tabName + '-case-table').DataTable({
+		data: caseDetails,
+		lengthChange: true, // not showing 'Show ? per page' dropdown
+		language: {
+			"paginate": {
+				"previous": "PREV"
+			}
+		},
+		"lengthMenu": [5, 10, 50],
+		aaSorting: [
+			[2, "desc"]
+		],
+		// pageLength: recordPerPage,
+		searching: false,
+		//buttons: [{ extend: 'colvis', columns: ':not(.noVis)' }],
+		columnDefs: [{
+			targets: 0,
+			data: null,
+			// colVis: false,
+			defaultContent: '<i title="' + langJson['l-search-update-case'] + '" class="fas fa-edit table-btn select" data-bs-toggle="tooltip"></i>',
+			className: 'btnColumn',
+			// className: 'noVis', //NOTES: no column visibility
+			orderable: false,
+		}, {
+			targets: 4,
+			render: function (data, type, row) {
+				if (data.length > 0) {
+					return data.replace(/_/g, " ");       // return data.replace(/[_]/g, " ");        // 20250409 Replace this character class by the character itself.
+				} else {
+					return 'Manual Update';
+				}
+			}
+		}, {
+			targets: 6,
+			render: function (data, type, row) {
+				var escalatedTo = row.Escalated_To;
+				if (escalatedTo != null) {
+					return 'Escalated to ' + '<span style="color:green">' + getAgentName(escalatedTo) + ' (ID: ' + escalatedTo + ')<span>'
+				} else {
+					return data
+				}
+			}
+			// }, {
+			//     targets: -2,
+			//     render: function (data, type, row) {
+			//         return getAgentName(data || '') + ' (' + data + ')';
+			//     }
+		}, {
+			targets: 2,
+			render: function (data, type, row) {
+				var DateWithoutDot = data.slice(0, data.indexOf("."));
+				return DateWithoutDot.replace('T', ' ');
+			}
+		}],
+		initComplete: function (settings, json) {
+			// var header = '<h5>' +
+			//     '<i class="far fa-folder-open title-icon me-2"></i>Case List' +
+			//     '</h5>';
+			// $(header).insertBefore('#search-' + tabName + '-case-table')
+			resize();
+			$(oThis).prop('disabled', false);
+		},
+		columns: [{
+				title: ""
+			}, {
+				title: langJson["l-search-case-no"],
+				data: "Case_No"
+			}, {
+				title: langJson["l-search-last-revision"],
+				data: "Case_Updated_Time"
+			}, {
+				title: langJson["l-search-full-name"],
+				data: "Name_Eng"
+			}, {
+				title: langJson["l-search-inbound-type"],
+				data: "Call_Type"
+			}, {
+				title: langJson["l-search-nature"],
+				data: "Call_Nature"
+			}, {
+				title: langJson["l-search-status"],
+				data: "Status"
+			},
+			//{ title: langJson["l-search-revised-by"], data: "Case_Updated_By" },
+			{
+				title: langJson["l-form-details"],
+				data: "Details"
+			}, {
+				"className": 'details-control',
+				"orderable": false,
+				"data": null,
+				"defaultContent": ''
+			}
+		]
+	});
+	// $('#' + tabName + '-customer-container').find('i[data-bs-toggle="popover"]').popover();
+
+	// Add event listener for opening and closing details
+	$('#search-' + tabName + '-case-table').on('click', 'td.details-control', function () {
+		var tr = $(this).closest('tr');
+		var row = caseTbl.row(tr);
+
+		if (row.child.isShown()) {
+			// This row is already open - close it
+			row.child.hide();
+			tr.removeClass('shown');
+			resize();
+		} else {
+			// Open this row
+			row.child(format(row.data())).show();
+			tr.addClass('shown');
+			resize();
+		}
+	});
+
+	$('#search-' + tabName + '-case-table').on('draw.dt', function (e) {
+		setTimeout(function () {
+			resize();
+		}, 500);
+	});
+
+	$('#search-' + tabName + '-case-table tbody').on('click', 'tr', function (e) {
+		caseTbl.$('tr.highlight').removeClass('highlight'); // $('xxx tbody tr) will not select other pages not showing, do not use this selector
+		$(this).addClass('highlight')
+	});
+
+	$('#search-' + tabName + '-case-table').on('click', '.select', function () {
+		var data = caseTbl.row($(this).parents('tr')).data();
+		UpdateCase(data);
+	});
+
+	
 }
 
 function returnToNewCase(tabName) {
@@ -594,6 +736,8 @@ function submitClicked(type) {
                 crossDomain: true,
                 contentType: "application/json",
                 dataType: 'json'
+			}).always(handleManualSearchResponse);
+			/*
             }).always(function (r) {
                 if (!/^success$/i.test(r.result || "")) {
                     console.log("error /n" + res ? res : '');
@@ -728,6 +872,7 @@ function submitClicked(type) {
                     });
                 }
             });
+			*/
         }
         if (menu3CustomerDiv.length > 0) {
             menu3CustomerDiv.remove();
@@ -736,6 +881,106 @@ function submitClicked(type) {
             addMenu3CustomerDiv();
         }
     }
+}
+
+function handleManualSearchResponse(r)
+{
+	 if (!/^success$/i.test(r.result || "")) {
+		console.log("error /n" + r ? r : '');
+		$('#' + type + '-submit-btn').prop('disabled', false);
+	} else {
+		var customerDetails = r.details;
+		var customerTable = $('#search-menu2-customer-table').DataTable({
+			data: customerDetails,
+			lengthChange: true,
+			"lengthMenu": [5, 10, 50],
+			language: {
+				"paginate": {
+					"previous": "PREV"
+				}
+			},
+			aaSorting: [], // no initial sorting
+			// pageLength: recordPerPage,
+			searching: false,
+			columnDefs: [{
+				targets: 0,
+				colVis: false,
+				defaultContent: '<i title="' + langJson['l-search-create-case'] + '" class="fas fa-edit table-btn create" data-bs-toggle="tooltip"></i>',
+				className: 'btnColumn',
+				// className: 'noVis', //NOTES: no column visibility
+				orderable: false,
+			}, {
+				targets: 1,
+				orderable: false,
+				render: function (data, type, row) {
+					if (data) {
+						return '<i title="' + langJson['l-search-search-case-to-update'] + '" class="table-btn fas fa-search-plus search-case" data-bs-toggle="tooltip"></i>';
+					} else {
+						return '';
+					}
+				},
+				className: 'btnColumn'
+			}],
+			columns: [{
+					title: "",
+					data: null
+				}, {
+					title: "",
+					data: 'have_case'
+				}, {
+					title: langJson['l-search-customer-id'],
+					data: 'Customer_Id'
+				}, {
+					title: langJson['l-search-full-name'],
+					data: "Name_Eng"
+				},
+				// { title: "Home", data: "Home_No" },
+				// { title: "Office", data: "Office_No" },
+				{
+					title: langJson['l-search-mobile'],
+					data: "Mobile_No"
+				}, {
+					title: langJson['l-search-fax'],
+					data: "Fax_No"
+				}, {
+					title: langJson['l-search-other'],
+					data: "Other_Phone_No"
+				}, {
+					title: langJson['l-search-email'],
+					data: "Email"
+				}
+			],
+			initComplete: function (settings, json) {
+				resize();
+				$('#' + type + '-submit-btn').prop('disabled', false);
+			}
+		});
+
+
+		$('#search-menu2-customer-table').on('draw.dt', function (e) {
+			setTimeout(function () {
+				resize();
+			}, 500);
+		});
+
+		$('#search-menu2-customer-table tbody').on('click', 'tr', function (e) {
+			customerTable.$('tr.highlight').removeClass('highlight'); // $('xxx tbody tr) will not select other pages not showing, do not use this selector
+			$(this).addClass('highlight')
+		});
+		$('#search-menu2-customer-table tbody').on('click', '.create', function (e) {
+			e.preventDefault();
+			var data = customerTable.row($(this).parents('tr')).data();
+			addCase(data.Customer_Id, data);
+		});
+
+		$('#search-menu2-customer-table tbody').on('click', '.search-case', function (e) {
+			$(this).prop('disabled', true);
+			e.preventDefault();
+			var data = customerTable.row($(this).parents('tr')).data();
+			addCaseAutoSearchTable('menu2', data, this);
+		});
+	}	
+	
 }
 
 function isInteger(num) { //Number.isInteger only work on Chrome, not IE, so have this function

@@ -685,6 +685,12 @@ function submitClicked(type, clickedByPop) {
             contentType: "application/json",
             dataType: 'json'
         }).always(function (res) {
+			
+			//20250602 Refactor this code to not nest functions more than 4 levels deep.
+
+			handleManualSearchResponse(res, canSendWA, columnDefs, columns);
+			
+			/*
             if (!/^success$/i.test(res.result || "")) {
                 console.log("error /n" + res ? res : '');
                 $('#customer-submit-btn').prop('disabled', false);
@@ -824,6 +830,7 @@ function submitClicked(type, clickedByPop) {
                     });
                 }
             }
+			*/
         });
     }
     if (searchCustomerDiv.length > 0) {
@@ -836,6 +843,152 @@ function submitClicked(type, clickedByPop) {
         addsearchCustomerDiv();
     }
     $('#send-wa-container').removeClass('d-none');
+}
+
+function handleManualSearchResponse(res, canSendWA, columnDefs, columns)
+{
+	if (!/^success$/i.test(res.result || "")) {
+		console.log("error /n" + res ? res : '');
+		$('#customer-submit-btn').prop('disabled', false);
+	} else {
+		var customerDetails = res.details;
+		customerTable = $('#search-customer-table').DataTable({ // send template will need get the table selected rows, so not define table here
+			data: customerDetails,
+			lengthChange: false,
+			aaSorting: [], // no initial sorting
+			// pageLength: recordPerPage,
+			searching: true,
+			sDom: 'Btip', // to hide the search
+			buttons: [
+				{
+					text: '',
+					tag: 'span',
+					titleAttr: 'CSV',
+					charset: 'utf-8',
+					bom: true,
+					className: 'fas fa-file-csv cursor-pointer text-warning fa-2x ml-1',
+					action: function (e, dt, node, config) {
+						if (confirm('Full data are going to be loaded.\nThis could take a few minutes. Are you sure?')) {
+							loadAllCustomerData('csv');
+						}
+					}
+				},
+				{
+					text: '',
+					tag: 'span',
+					titleAttr: 'Excel',
+					className: 'fas fa-table cursor-pointer text-warning fa-2x ml-1',
+					action: function (e, dt, node, config) {
+						if (confirm('Full data are going to be loaded, this could take a few minutes.\nAre you sure?')) {
+							loadAllCustomerData('excel');
+						}
+					}
+				},
+				{
+					text: '',
+					tag: 'span',
+					titleAttr: 'Print',
+					className: 'fas fa-print cursor-pointer text-warning fa-2x ml-1',
+					action: function (e, dt, node, config) {
+						if (confirm('Full data are going to be loaded, this could take a few minutes.\nAre you sure?')) {
+							loadAllCustomerData('print');
+						}
+					}
+				}
+			],
+			columnDefs: columnDefs,
+			columns: columns,
+			"language": {
+				"emptyTable": langJson['l-general-empty-table'],
+				"info": langJson['l-general-info-100'],
+				"infoEmpty": langJson['l-general-info-empty'],
+				"infoFiltered": langJson['l-general-info-filtered'],
+				"lengthMenu": langJson['l-general-length-menu'],
+				"search": langJson['l-general-search-colon'],
+				"zeroRecords": langJson['l-general-zero-records'],
+				"paginate": {
+					"previous": langJson['l-general-previous'],
+					"next": langJson['l-general-next']
+				}
+			},
+			initComplete: function (settings, json) {
+				resize();
+				$('#send-wa-container').removeClass('d-none');
+				$('#send-wa-section').empty();
+				$('#customer-submit-btn').prop('disabled', false);
+			}
+		});
+
+		$('#search-customer-table tbody').on('click', 'tr', function (e) {
+			customerTable.$('tr.highlight').removeClass('highlight'); // $('xxx tbody tr) will not select other pages not showing, do not use this selector
+			$(this).addClass('highlight');
+		});
+		$('#search-customer-table tbody').on('click', '.create', function (e) {
+			e.preventDefault();
+			var connId = parent.window.frameElement.getAttribute("connId") || "";
+			var callType = parent.window.frameElement.getAttribute("callType") || "";
+			var details = parent.window.frameElement.getAttribute("details") || "";
+			var data = customerTable.row($(this).parents('tr')).data();
+			addCustomerCase(connId, data.Customer_Id, callType, details, data);
+		});
+
+		$('#search-customer-table tbody').on('click', '.search-case', function () {
+			$(this).prop('disabled', true);
+			var data = customerTable.row($(this).parents('tr')).data();
+			addCaseAutoSearchTable(data, this);
+			$('#send-wa-container').addClass('d-none');
+		});
+		$('#search-customer-table tbody').on('click', '.open', function () {
+			var data = customerTable.row($(this).parents('tr')).data();
+			selectedCustomerId = data.Customer_Id;
+			var openWindows = parent.parent.openWindows;
+			var csPopup = window.open('../campaign/' + campaign + '/csPopup.html?edit=true', '', 'toolbar=0,location=0,top=50, left=50,menubar=0,resizable=0,scrollbars=1,width=1050,height=584');
+			openWindows[openWindows.length] = csPopup;
+			csPopup.onload = function () {
+				csPopup.onbeforeunload = function () {
+					for (var i = 0; i < openWindows.length; i++) {
+						if (openWindows[i] == csPopup) {
+							openWindows.splice(i, 1);
+							break;
+						}
+					}
+				}
+			}
+		});
+		if (canSendWA) {
+			var column = customerTable.column(8) || null;
+			if (column) {
+				column.visible(waChecked);
+			}
+			var mobileCount = customerTable.rows(function (idx, data, node) {
+				return data.Mobile_No && data.Mobile_No.length > 0;
+			}).count();
+			// Handle click on "Select all" control
+			$('#search-customer-table').on('change', '#select-all', function () {
+				// Get all rows with search applied
+				var rows = customerTable.rows({
+					'search': 'applied'
+				}).nodes();
+				// Check/uncheck checkboxes for all rows in the table
+				$('input[type="checkbox"]', rows).prop('checked', this.checked);
+			});
+			$('#search-customer-table').on('click', '.form-check-content', function (e) {
+				e.stopPropagation();
+				var rows = customerTable.rows({
+					'search': 'applied'
+				}).nodes();
+				var selectedRows = $('input[type="checkbox"]:checked', rows);
+				if (selectedRows.length == mobileCount) {
+					$('#select-all').prop('checked', true);
+				} else {
+					$('#select-all').prop('checked', false);
+				}
+			});
+		}
+	}	
+	
+	
+	
 }
 
 function UpdateCase(connId, callType, details, rowData) {

@@ -76,6 +76,7 @@ function addSearchField(type) {
 function isInteger(num) {  //Number.isInteger only work on Chrome, not IE, so have this function
     return (num ^ 0) === num;
 }
+/*
 function submitClicked(type) {   //20250325 This function expects no arguments, but 1 was provided.
     var campaign = window.opener.parent.campaign || '';
     var allAny = $('.customer-all-any option:selected')[0].value;
@@ -297,7 +298,252 @@ function submitClicked(type) {   //20250325 This function expects no arguments, 
     } else {
         addsearchCustomerDiv();
     }
+}*/
+
+
+//20250530 Refactor this code to not nest functions more than 4 levels deep.
+function submitClicked(type) { //20250325 This function expects no arguments, but 1 was provided.
+    var campaign = window.opener.parent.campaign || '';
+    var allAny = $('.customer-all-any option:selected')[0].value;
+    var searchCondition = $('.customer-search-condition option:selected');
+    var searchSymbol = $('.customer-search-symbol option:selected');
+    var searchInput = $('.customer-search-input');
+    var searchArr = [];
+
+    // Validate and build search conditions
+    if (!buildSearchConditions(searchCondition, searchSymbol, searchInput, searchArr)) {
+        return;
+    }
+
+    var submitData = {
+        "anyAll": allAny,
+        "searchArr": searchArr,
+        "Is_Valid": "Y",
+        Agent_Id: loginId,
+        Token: token
+    };
+
+    // Check if search container exists
+    var searchCustomerDiv = $('#search-customer-container');
+    if (searchCustomerDiv.length > 0) {
+        searchCustomerDiv.remove();
+    }
+    addSearchCustomerDiv(submitData, campaign);
 }
+
+// Function to build search conditions array; returns false if validation fails
+function buildSearchConditions(searchCondition, searchSymbol, searchInput, searchArr) {
+    for (var i = 0; i < searchCondition.length; i++) {
+        var condition = searchCondition[i];
+        var conditionTag = $(condition).attr('tag') || '';
+        var conditionValue = condition.value || '';
+        var conditionType = $(condition).attr('type') || '';
+        var inputValue = '';
+
+        if (conditionTag == 'select') {
+            inputValue = $(condition).parent().siblings('.select-value')[0].value || '';
+        } else {
+            inputValue = (searchInput[i].value || '').trim();
+            if (conditionType == 'number') {
+                if (isNaN(inputValue)) {
+                    alertEnhanced('notValid', 'Please input a valid number');
+                    $('#customer-submit-btn').prop('disabled', false);
+                    return false;
+                } else {
+                    inputValue = Number(inputValue);
+                }
+            }
+        }
+
+        if (conditionValue.length == 0) {
+            alertEnhanced('noLength', langJson['l-alert-no-condition-selected']);
+            return false;
+        }
+        if (inputValue.length == 0) {
+            alertEnhanced('noInput', langJson['l-alert-search-field-blank']);
+            return false;
+        }
+        if (conditionValue == "All_Phone_No") {
+            if (!/^\d+$/.test(inputValue)) {
+                alertEnhanced('phoneNo1', langJson['l-alert-phone-not-digit']);
+                return false;
+            }
+            if (inputValue.length < 4) {
+                alertEnhanced('phoneNo2', 'All Phone Numbers must input at least 4 digits');
+                return false;
+            }
+        }
+        if (conditionValue == "Email") {
+            if (inputValue.length < 4) {
+                alertEnhanced('email', 'Email must input at least 4 characters');
+                return false;
+            }
+        }
+        if (conditionValue == "Name_Eng") {
+            if (inputValue.length < 2) {
+                alertEnhanced('fullName', 'Full Name must input at least 2 characters');
+                return false;
+            }
+        }
+
+        var tmpArr = {
+            "field_name": conditionValue,
+            "logic_operator": searchSymbol[i].value,
+            "value": inputValue,
+            "field_type": conditionType,
+            "list_name": $(condition).attr('list') || ''
+        };
+        searchArr.push(tmpArr);
+    }
+    return true;
+}
+
+// Function to create and fetch search results
+function addSearchCustomerDiv(submitData, campaign) {
+    var recordPerPage = (sessionStorage.getItem('scrmCaseLength') != 'NaN' && sessionStorage.getItem('scrmCaseLength') != null)
+        ? Number(sessionStorage.getItem('scrmCaseLength'))
+        : 5;
+
+    var containerHtml = `
+        <div id="search-customer-container">
+            <table id="search-customer-table" class="table table-hover display" style="width:100%" data-page-length="${recordPerPage}"></table>
+        </div>`;
+    $('#lower-part-container').append(containerHtml);
+
+    var columns = [
+        { title: "" },
+        { title: langJson['l-search-customer-id'], data: "Customer_Id" },
+        { title: langJson['l-search-full-name'], data: "Name_Eng" },
+        { title: langJson['l-search-mobile'], data: "Mobile_No" },
+        { title: langJson['l-search-other'], data: "Other_Phone_No" },
+        { title: langJson['l-search-email'], data: "Email" }
+    ];
+
+    var columnDefs = [{
+        targets: 0,
+        colVis: false,
+        className: 'btnColumn',
+        orderable: false,
+        render: function (data, type, row) {
+            if (row.Customer_Id == changeContactCustomerId) {
+                return '';
+            } else {
+                return '<i data-bs-toggle="tooltip" data-bs-placement="top" title="' + langJson['l-search-change-the-case-to-this-customer'] + '" class="table-btn fas fa-clipboard-check confirm"></i>';
+            }
+        }
+    }];
+
+    if (customCompany == 'no') {
+        columns.push({ title: langJson['l-search-company'] });
+        columnDefs.push({
+            targets: columns.length - 1,
+            colVis: false,
+            defaultContent: campaign,
+            orderable: false,
+        });
+    }
+
+    // Fetch and display search results
+    fetchSearchResults(submitData, columns, columnDefs);
+}
+
+// Function to perform AJAX fetch and initialize DataTable
+function fetchSearchResults(submitData, columns, columnDefs) {
+    $.ajax({
+        type: "POST",
+        url: config.companyUrl + '/api/ManualSearch',
+        data: JSON.stringify(submitData),
+        crossDomain: true,
+        contentType: "application/json",
+        dataType: 'json'
+    }).always(function (res) {
+        if (!/^success$/i.test(res.result || "")) {
+            console.log("error /n" + res ? res : '');
+        } else {
+            var customerDetails = res.details;
+            initializeDataTable(customerDetails, columns, columnDefs);
+        }
+    });
+}
+
+// Function to initialize DataTable and event handlers
+function initializeDataTable(data, columns, columnDefs) {
+    var customerTable = $('#search-customer-table').DataTable({
+        data: data,
+        lengthChange: false,
+        aaSorting: [],
+        searching: false,
+        columnDefs: columnDefs,
+        columns: columns,
+        language: {
+            emptyTable: langJson['l-general-empty-table'],
+            info: langJson['l-general-info'],
+            infoEmpty: langJson['l-general-info-empty'],
+            infoFiltered: langJson['l-general-info-filtered'],
+            lengthMenu: langJson['l-general-length-menu'],
+            search: langJson['l-general-search-colon'],
+            zeroRecords: langJson['l-general-zero-records'],
+            paginate: {
+                previous: langJson['l-general-previous'],
+                next: langJson['l-general-next']
+            }
+        }
+    });
+
+    // Row click to highlight
+    $('#search-customer-table tbody').on('click', 'tr', function () {
+        customerTable.$('tr.highlight').removeClass('highlight');
+        $(this).addClass('highlight');
+    });
+
+    // Confirm button click handler
+    $('#search-customer-table tbody').on('click', '.confirm', function () {
+        handleConfirmClick($(this), customerTable);
+    });
+}
+
+// Function to handle confirm button click
+function handleConfirmClick($btn, customerTable) {
+    var data = customerTable.row($btn.parents('tr')).data();
+    var customerId = data.Customer_Id;
+
+    if (changeContactCaseNo == -1) {
+        if (openFrom == 'input') {
+            window.opener.changedCustomer(customerId);
+            window.close();
+        } else {
+            window.opener.submitClicked('case');
+            window.close();
+        }
+    } else {
+        $.ajax({
+            type: "PUT",
+            url: config.companyUrl + '/api/ChangeContact',
+            data: JSON.stringify({ "Case_No": changeContactCaseNo, "Customer_Id": customerId, "Agent_Id": loginId, Token: token }),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (r) {
+                if (!/^success$/i.test(r.result || "")) {
+                    console.log('error in caseRecordPopupOnload');
+                } else {
+                    if (openFrom == 'input') {
+                        window.opener.changedCustomer(customerId);
+                        window.close();
+                    } else {
+                        window.opener.submitClicked('case');
+                        window.close();
+                    }
+                }
+            },
+            error: function (r) {
+                console.log('error in caseRecordPopupOnload');
+                console.log(r);
+            }
+        });
+    }
+}
+
+
 function selectChange(type, iThis) {
     var selected = $(iThis).find('option:selected'); // the selected option tag
     var selectedType = selected.attr("type");

@@ -622,7 +622,10 @@ function caseRecordPopupOnload() {
         // ===================== 1/3 set info of call messagea =====================
         if (callType.length > 0) {
             callTypeTitle.innerHTML = callType.replace(/_/g, " ");        // callTypeTitle.innerHTML = callType.replace(/[_]/g, " "); // 20250409 Replace this character class by the character itself.
-            if (!isSocial) {
+            
+			
+			/*--20250530---Refactor this code to not nest functions more than 4 levels deep.-----------------------------------------------------------
+			if (!isSocial) {
                 $('#call-media-content').addClass('mt-3');
                 if (callMediaType == 'Call') {
                     getRelatvieCallId(callMediaType, connId).then(function (connIdArr) {
@@ -633,14 +636,14 @@ function caseRecordPopupOnload() {
                         async function getContentLoop() {
 
                             try {
-
+			*----------------------------------------------------------------
                                 /*for (var theConnId of connIdArr) {                        // 20250401 comment the old logic for async call
                                     // collect promises returned by twiceAsync to an array
                                     await getContent(callMediaType, theConnId).then(function (r) {
                                          generateContent('call', callType, r || {}, theConnId)
                                     }, function () { console.log("api error") });
                                 }*/
-
+			/*-----------------------------------------------------------------
                                 // Collect promises for all connection IDs outside the loop  // 20250401 new logic
                                 const contentPromises = connIdArr.map((theConnId) => getContent(callMediaType, theConnId));
 
@@ -686,6 +689,34 @@ function caseRecordPopupOnload() {
                 $('#call-media-content').removeClass('mx-3');
                 window.opener.parent.parent.getTicketMsg(connId, windowOpener.ticketId, windowOpener.openType);
             }
+			---------------------------------------------*/
+			
+			
+			if (!isSocial) {
+				$('#call-media-content').addClass('mt-3');
+
+				if (callMediaType === 'Call') {
+					getRelatvieCallId(callMediaType, connId).then(async (connIdArr) => {
+						await processContentForConnections(callMediaType, callType, connIdArr);
+						console.log("All calls processed successfully.");
+					}).catch(error => {
+						console.error("Error fetching related call IDs:", error);
+					});
+				} else {
+					getContent(callMediaType, connId).then(r => {
+						generateContent('call', callType, r || {}, connId);
+					}).catch(error => {
+						console.error("Error fetching content:", error);
+					});
+				}
+			} else {
+				$('#call-media-content').removeClass('mx-3');
+				window.opener.parent.parent.getTicketMsg(connId, windowOpener.ticketId, windowOpener.openType);
+			}
+					
+			
+			
+			
         } else {
             callTypeTitle.innerHTML = langJson['l-form-inbound-type'] + ':&nbsp;&nbsp;&nbsp;-' // langJson['l-form-manual-update'];
             $('<h1 class="text-center text-secondary mt-0"><i class="fa fa-times-circle mt-3"></i></h1>').appendTo('#call-media-content');
@@ -762,5 +793,29 @@ function caseRecordPopupOnload() {
         }
     }
 }
+
+// 20250530 Refactor this code to not nest functions more than 4 levels deep
+// Separate function to process multiple connection IDs asynchronously
+async function processContentForConnections(callMediaType, callType, connIdArr) {
+    try {
+        // Map each connection ID to a promise of getContent
+        const contentPromises = connIdArr.map((theConnId) => getContent(callMediaType, theConnId).catch(error => {
+            console.log("API error for connection ID", theConnId, error);
+            return null; // Handle errors gracefully
+        }));
+
+        // Wait for all promises to settle
+        const results = await Promise.all(contentPromises);
+
+        results.forEach((result, index) => {
+            if (result != null) {
+                generateContent('call', callType, result, connIdArr[index]);
+            }
+        });
+    } catch (error) {
+        console.error("Error during processing connections:", error);
+    }
+}
+
 // prevent right click
 document.addEventListener('contextmenu', event => event.preventDefault());

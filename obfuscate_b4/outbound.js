@@ -964,6 +964,13 @@ function assignmentAllToOne(data) {
 
     // draw Lower Part
     getAgentList(batchCode, campaignCode, function (agentDetails) {
+        //20250602 for Refactor this code to not nest functions more than 4 levels deep.
+        assignmentAllToOneDetail(data, batchCode, campaignCode, agentDetails);
+    })
+}
+//20250602 for Refactor this code to not nest functions more than 4 levels deep.
+function assignmentAllToOneDetail(data, batchCode, campaignCode, agentDetails)
+{
         var agentOptionStr = "";
         for (let theAgentObj of agentDetails) {
             agentOptionStr += '<option assigned="' + theAgentObj.Assigned + '"  unused="' + theAgentObj.Unused + '" value=' + theAgentObj.Agent_Id + '>' + theAgentObj.AgentName + ' (ID: ' + theAgentObj.Agent_Id + ' )</option>'
@@ -1126,7 +1133,7 @@ function assignmentAllToOne(data) {
                 }
             })
         });
-    })
+
 }
 
 // as need to get the used unused, so need to call everytime
@@ -1159,6 +1166,13 @@ function assignmentAgentTblLoad(data) {
 
     // get agent list remarks: currently Vincent hard coded get agent info table Level ID 1,2,3,4 agents only
     getAgentList(batchCode, campaignCode, function (agentDetails) {
+        //20250602 Refactor this code to not nest functions more than 4 levels deep.
+        assignmentAgentTblLoadDetail(data, batchCode, campaignCode, agentDetails);
+    })
+}
+ //20250602 Refactor this code to not nest functions more than 4 levels deep.
+function assignmentAgentTblLoadDetail(data, batchCode, campaignCode, agentDetails)
+{
         var agentOptionStr = "";
         for (let theAgentObj of agentDetails) {
             agentOptionStr += '<option assigned="' + theAgentObj.Assigned + '"  unused="' + theAgentObj.Unused + '" value=' + theAgentObj.Agent_Id + '>' + theAgentObj.AgentName + ' (ID: ' + theAgentObj.Agent_Id + ' )</option>'
@@ -1595,7 +1609,7 @@ function assignmentAgentTblLoad(data) {
                     column: 4
                 }).node()).find('input');
                 var assignNum = $(cellInput).val();
-                if (assignNum.length > 0) {
+                if (assignNum && assignNum.length > 0) {		//20250602 fix assignNum is undefined
                     var theAgentObj = agentTbl.row(rowIdx).data();
                     var assignTo = theAgentObj.Agent_Id;
                     var theAgentName = theAgentObj.AgentName;
@@ -1712,9 +1726,306 @@ function assignmentAgentTblLoad(data) {
             var data = agentTbl.row($(this).parents('tr')).data();
             $('#m-assign-from').val(data.id).change();
         });
-    })
+
+}
+//20250602 Refactor this code to not nest functions more than 4 levels deep.
+function loadBatchTbl(isOpen) {
+    var isWithinBatch = isOpen ? $('#o-within-batch-period').prop('checked') : $('#a-within-batch-period').prop('checked');
+
+    // Fetch batch data
+    $.ajax({
+        type: "POST",
+        url: config.companyUrl + '/api/GetOBBatch',
+        data: JSON.stringify({ Agent_Id: loginId, Token: token }),
+        crossDomain: true,
+        contentType: "application/json",
+        dataType: 'json'
+    }).always(function (r) {
+        handleBatchResponse(r, isWithinBatch, isOpen);
+    });
 }
 
+
+function handleBatchResponse(response, isWithinBatch, isOpen) {
+    var rDetails = response.details;
+    if (!/^success$/i.test(response.result || "")) {
+        console.log('error: ' + rDetails);
+        return;
+    }
+
+    // Prepare search options
+    $('#o-search-batch').empty();
+    var searchCampaignStr = '<option value="" campaigncode="">- Please Select -</option>';
+    const today = new Date().setHours(0, 0, 0, 0);
+    var batchTblData = rDetails;
+    var assignTblArr = [];
+
+    if (batchTblData != null) {
+        if (isWithinBatch) {
+
+            // by opinion of Vincent, only shows table in between start date and end date at assign table and agent can open, depend customer may change this restriction
+            for (let batchObj of batchTblData) {
+                var startDate = Date.parse(batchObj.Batch_Start_Date);
+                var endDate = Date.parse(batchObj.Batch_End_Date);
+
+                // assign tab can assign future batches
+                var request = isOpen ? startDate <= today && endDate >= today : endDate >= today
+
+                if (request) {
+                    var theCampaignCode = batchObj.Campaign_Code;
+                    var theBatchCode = batchObj.Batch_Code.replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll('"', "&quot;").replaceAll("'", "&apos;").replaceAll("&", "&amp;").replace(/\\/g, "\\\\");
+
+                    searchCampaignStr += '<option campaigncode=' + theCampaignCode + ' value=' + theBatchCode + '>' + theBatchCode + '</option>';
+
+                    $('#o-search-campaign-select option[value="' + theCampaignCode + '"]').removeClass('d-none');
+                    assignTblArr.push(batchObj);
+                }
+            }
+        } else {
+            for (let batchObj of batchTblData) {
+
+                // both assign table and call list will not shown the batch not between start date and end date
+                var theCampaignCode = batchObj.Campaign_Code;
+                var theBatchCode = batchObj.Batch_Code;
+
+                searchCampaignStr += '<option campaigncode=' + theCampaignCode + ' value=' + theBatchCode + '>' + theBatchCode + '</option>';
+
+                $('#o-search-campaign-select option[value="' + theCampaignCode + '"]').removeClass('d-none');
+                assignTblArr.push(batchObj);
+            }
+        }
+    }
+
+    // Update the search options
+    $('#o-search-batch').append(searchCampaignStr);
+
+    if (isOpen) {
+        // select the first
+        // $("#o-search-campaign-select").val($('#o-search-campaign-select option:eq(2)').val());
+        $('#o-search-campaign-select').val($('#o-search-campaign-select option').not('.d-none').first().val()).trigger('change');
+        $("#o-search-batch").val($('#o-search-batch option').not('.d-none').eq(1).val());
+
+        // not auto search
+        // $('#o-search-btn').click();
+    }
+
+    // Initialize or refresh DataTable
+    refreshBatchTable(assignTblArr);
+}
+
+function refreshBatchTable(assignTblArr)
+{
+    if (batchTbl) {
+        $('#a-batch-tbl').DataTable().clear();
+        $('#a-batch-tbl').DataTable().rows.add(assignTblArr); // Add new data
+        $('#a-batch-tbl').DataTable().columns.adjust().draw(); // Redraw the DataTable
+    } else {
+        batchTbl = $('#a-batch-tbl').DataTable({
+            data: assignTblArr,
+            lengthChange: false,
+            aaSorting: [
+                [0, "desc"]
+            ],
+            pageLength: 5,
+            searching: false,
+            "language": {
+                "emptyTable": langJson['l-general-empty-table'],
+                "info": langJson['l-general-info'],
+                "infoEmpty": langJson['l-general-info-empty'],
+                "infoFiltered": langJson['l-general-info-filtered'],
+                "lengthMenu": langJson['l-general-length-menu'],
+                "search": langJson['l-general-search-colon'],
+                "zeroRecords": langJson['l-general-zero-records'],
+                "paginate": {
+                    "previous": langJson['l-general-previous'],
+                    "next": langJson['l-general-next']
+                }
+            },
+            createdRow: function (row, data, index) {
+                $(row).addClass("cursor-pointer");
+            },
+            columns: [{
+                title: "",
+                data: "B_Id",
+                visible: false
+            }, {
+                title: langJson['l-outbound-batch-code'],
+                data: "Batch_Code"
+            }, {
+                title: langJson['l-outbound-campaign-code'],
+                data: "Campaign_Code"
+            }, {
+                title: langJson['l-form-status'],
+                data: "Batch_Status"
+            },
+            {
+                title: langJson['l-search-start-date'],
+                data: "Batch_Start_Date",
+                render: function (data, type, row) {
+                    return data.slice(0, 10)
+                }
+            },
+            {
+                title: langJson['l-search-end-date'],
+                data: "Batch_End_Date",
+                render: function (data, type, row) {
+                    return data.slice(0, 10)
+                }
+            }, {
+                title: langJson['l-scheduler-created-by'] + ' (Agent ID)',
+                data: "Created_By"
+            }, {
+                title: langJson['l-outbound-created-time'],
+                data: "Created_Time",
+                render: function (data, type, row) {
+                    return data.slice(0, 10)
+                }
+            }
+            ],
+            columnDefs: [{
+                "targets": '_all',
+                "render": $.fn.dataTable.render.text()
+            }]
+        });
+
+
+        $('#a-batch-tbl tbody').on('click', 'tr', function (e) {
+            e.preventDefault();
+
+            // this function will need to refresh datat, so even highlighted, can click to related data
+            // highlight the row
+            batchTbl.$('tr.highlight').removeClass('highlight');
+            $(this).addClass('highlight');
+            // get data
+            var data = batchTbl.row(this).data();
+
+            // if no any batches, data will be undefined
+            if (typeof data != 'undefined') {
+                // clear Lower Part
+                $('#m-lower-part').empty();
+                // draw selected 1 row table
+                $.ajax({
+                    type: "POST",
+                    url: config.companyUrl + '/api/GetOBBatchAssignment',
+                    data: JSON.stringify({
+                        Batch_Code: data.Batch_Code,
+                        Campaign_Code: data.Campaign_Code,
+                        Agent_Id: loginId,
+                        Token: token
+                    }),
+                    crossDomain: true,
+                    contentType: "application/json",
+                    dataType: 'json'
+                }).always(function (r) {
+
+                    if (!/^success$/i.test(r.result || "")) {
+                        console.log('error: ' + rDetails);
+                    } else {
+                        var batchAssignDetails = r.details[0];
+                        // add selected table html
+                        var selectTblHtml = '<div class="card my-2"><div class="card-body pt-0"><div class="c-section">' +
+                            '<table id="m-selected-tbl" class="table w-100"></table></div></div></div>';
+
+                        // TBD                                
+                        // var selectTblHtml = '<div class="card my-2"><div class="card-body pt-0 bg-azure"><div class="c-section"><div class="my-1"><h5 class="d-inline">Selected Batch</h5>' +
+                        // '<button id="a-assign-agent-btn" class="btn btn-sm rounded btn-warning text-capitalize float-end" style="margin-top: -5px;"><i class="fas fa-mouse-pointer me-2"></i><span>Assign to Agents</span></button>' +
+                        // '<button id="a-return-select-batch-tbl" class="btn btn-sm rounded btn-lightgray text-capitalize float-end d-none" style="margin-top: -5px;"><i class="fas fa-arrow-left me-2"></i><span>Return</span></button></div>' +
+                        // '<table id="m-selected-tbl" class="table w-100"></table></div></div></div>';
+
+                        $('#m-lower-part').append(selectTblHtml);
+
+                        // TBD
+                        // $('#a-return-select-batch-tbl').on('click', function () {
+                        //     $('#a-assign-call-list-card').removeClass('d-none');
+                        //     $('#a-assign-agent-btn').removeClass('d-none');
+                        //     $(this).addClass('d-none');
+                        //     // $('#a-agent-be-assigned-container').empty(); // TBD
+                        //     $('#a-agent-be-assigned-container').remove();
+                        // })
+
+                        data['Total'] = batchAssignDetails.Total;
+                        data['Assigned'] = batchAssignDetails.Assigned;
+                        data['Unassigned'] = batchAssignDetails.Unassigned;
+                        $('#m-selected-tbl').DataTable({
+                            data: [data],
+                            dom: "t",
+                            "ordering": false,
+                            columns: [{
+                                title: langJson['l-outbound-batch-code'],
+                                data: "Batch_Code"
+                            }, {
+                                title: langJson['l-outbound-campaign-code'],
+                                data: "Campaign_Code"
+                            }, {
+                                title: langJson['l-campaign-total'],
+                                data: "Total"
+                            }, {
+                                title: langJson['l-campaign-assigned'],
+                                data: "Assigned"
+                            }, {
+                                title: langJson['l-campaign-unassigned'],
+                                data: "Unassigned"
+                            }, {
+                                className: 'a-assign-tbl-col',
+                                render: function (data, type, row) {
+                                    var endDate = new Date(row.Batch_End_Date.slice(0, 10));
+
+                                    // both assign table and call list will not shown the batch not between start date and end date
+                                    if (endDate >= today) {
+                                        return '<button id="a-assign-cancel-btn" class="btn btn-sm rounded btn-default text-capitalize float-end a-selected-batch-btn ms-2" style="display:none;"><i class="fas fa-times-circle me-2"></i><span>Cancel</span></button>' +
+                                            '<button id="a-assign-agent-btn" class="btn btn-sm rounded btn-warning text-capitalize float-end a-selected-batch-btn ms-2"><i class="fas fa-mouse-pointer me-2"></i><span>' +
+                                            langJson['l-outbound-assign-to-agents'] +
+                                            '</span></button>' +
+                                            '<button id="a-assign-all-btn" class="btn btn-sm rounded btn-success text-capitalize float-end a-selected-batch-btn"><i class="fas fa-mouse-pointer me-2"></i><span>All To One</span></button>'
+                                    } else {
+                                        return 'Exprired batches no assignment allowed'
+                                    }
+                                }
+                            }],
+                            columnDefs: [{
+                                "targets": '_all',
+                                "render": $.fn.dataTable.render.text()
+                            }]
+                        });
+
+                        $('#a-assign-all-btn').on('click', function () {
+                            $(this).hide();
+                            $('#a-assign-agent-btn').show();
+                            $('#a-assign-cancel-btn').show();
+                            $('#a-batch-body').collapse('hide');
+
+                            // if previous clicked a-assign-agent-btn need to remove it
+                            $('#a-agent-be-assigned-container').remove();
+                            assignmentAllToOne(data)
+                        })
+
+                        $('#a-assign-agent-btn').on('click', function () {
+                            $(this).hide();
+                            $('#a-assign-all-btn').show();
+                            $('#a-assign-cancel-btn').show();
+                            $('#a-batch-body').collapse('hide');
+
+                            // if previous clicked a-assign-all-btn need to remove it
+                            $('#a-agent-be-assigned-container').remove();
+                            assignmentAgentTblLoad(data);
+                        })
+
+                        $('#a-assign-cancel-btn').on('click', function () {
+                            $(this).prop('disabled', true);
+                            $('#a-batch-body').collapse('show');
+                            $('#a-assign-cancel-btn').hide();
+                            $('#m-lower-part').empty();
+                            batchTbl.$('tr.highlight').removeClass('highlight');
+                        })
+                    }
+                });
+            }
+        });
+    }
+
+
+}
+/* 20250602 Refactor this code to not nest functions more than 4 levels deep
 function loadBatchTbl(isOpen) {
     var isWithinBatch = isOpen ? $('#o-within-batch-period').prop('checked') : $('#a-within-batch-period').prop('checked');
     $.ajax({
@@ -2000,7 +2311,7 @@ function loadBatchTbl(isOpen) {
         }
     });
 }
-
+*/
 function drawCCustomerTbl() {
     cCustDeselectArr = [];
     var customerTblStr = '<table id="c-customer-tbl" class="table w-100"></table><div class="mt-3 d-table"><p class="d-table-row"><span class="d-table-cell">Number of customer match the criteria at the moment:&nbsp;&nbsp;&nbsp;</span><span id="c-customer-total-no" class="d-table-cell"></span></p><p class="deselect-container d-none" style="display:table-row;"><span class="d-table-cell">Number of customer take away from the selection: </span><span id="c-customer-deselect-no" class="d-table-cell"></span></p><p class="deselect-container d-none" style="display:table-row"><span class="d-table-cell">Number of customer remaining in the selection: </span><span id="c-customer-remaining-no" class="d-table-cell" style="text-decoration: underline;font-weight:600"></span></p></div>';

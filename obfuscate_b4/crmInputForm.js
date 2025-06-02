@@ -2751,6 +2751,7 @@ var replySubmitClicked = function () {
     });
 }
 
+/* 20250530 
 var loadCaseLog = function (initial) {
     $.ajax({
         type: "POST",
@@ -2902,6 +2903,169 @@ var loadCaseLog = function (initial) {
         }
     });
 }
+*/
+// refactored loadCaseLog function 
+var loadCaseLog = function (initial) {
+    $.ajax({
+        type: "POST",
+        url: config.companyUrl + '/api/GetCaseLog',
+        data: JSON.stringify({
+            'Case_No': Number(caseNo),
+            'Is_Valid': 'Y',
+            Agent_Id: loginId,
+            Token: token
+        }),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json"
+    }).always(function (res) {
+        if (!/^success$/i.test(res.result || "")) {
+            console.log("Error in loadCaseLog." + (res ? res.details : ''));
+			resize();
+        } else {
+            var followHistoryContent = res.details;
+            createCaseLogContainer();
+			var caseLogTable = initializeDataTable(followHistoryContent);
+			attachTableEventHandlers(caseLogTable);
+        }
+    });
+};
+
+function createCaseLogContainer() {
+    $('<div id="case-log-container" class="card mt-5 mb-5">' +
+        '<div class="card-header card-header-text card-header-info" data-bs-toggle="collapse" data-bs-target="#case-log-body">' +
+        '<h5 class="mt-0 mb-0"><i class="fa fa-table card-header-icon"></i><span class="align-middle">' + langJson['l-form-case-log'] + '</span><span class="align-middle" style="color:darkblue;">  (' + langJson['l-search-case-no'] + ': ' + caseNo + ')</span></h5>' +
+        '</div><div class="collapse show mt-1" id="case-log-body">' +
+        '<div class="card-body">' +
+        '<table class="table table-hover" style="width:100%" id="case-log-table" data-page-length=' + caseLogLength + '></table>' +
+        '</div></div></div>').insertAfter('#customer-table');
+}
+
+function initializeDataTable(data) {
+    return $('#case-log-table').DataTable({
+        data: data,
+        aaSorting: [[1, 'desc']],
+        lengthChange: false,
+        searching: false,
+        initComplete: function (settings, json) {
+            resize(true);
+        },
+        columns: getTableColumns(),
+        language: getLanguageSettings(),
+        columnDefs: getColumnDefinitions()
+    });
+}
+
+function getTableColumns() {
+    return [
+        { title: langJson['l-form-open'] },
+        { title: langJson['l-form-last-revision'], data: 'Updated_Time' },
+        { title: langJson['l-search-inbound-type'], data: "Call_Type" },
+        { title: langJson['l-form-inbound-details'], data: "Type_Details" },
+        { title: langJson['l-form-details'], data: "Details", className: 'case-log-details-min-width' },
+        { title: langJson['l-form-outbound-type'], data: "Reply_Type" },
+        { title: langJson['l-form-outbound-details'], data: "Reply_Details" },
+        { title: langJson['l-form-status'], data: "Status" }
+    ];
+}
+
+function getLanguageSettings() {
+    return {
+        "emptyTable": langJson['l-general-empty-table'],
+        "info": langJson['l-general-info'],
+        "infoEmpty": langJson['l-general-info-empty'],
+        "infoFiltered": langJson['l-general-info-filtered'],
+        "lengthMenu": langJson['l-general-length-menu'],
+        "search": langJson['l-general-search-colon'],
+        "zeroRecords": langJson['l-general-zero-records'],
+        "paginate": {
+            "previous": langJson['l-general-previous'],
+            "next": langJson['l-general-next']
+        }
+    };
+}
+
+function getColumnDefinitions() {
+    return [
+        {
+            targets: 0,
+            render: function (data, type, row) {
+                return '<i title="Details" class="table-btn fas fa-search-plus open"></i>';
+            },
+            orderable: false,
+            className: 'btnColumn'
+        },
+        {
+            targets: 1,
+            render: function (data) {
+                var newData = data.replace(/T/g, " ");
+                var indexOfDot = newData.indexOf('.');
+                return indexOfDot > -1 ? newData.slice(0, indexOfDot) : newData;
+            }
+        },
+        {
+            targets: 2,
+            render: function (data) {
+                return data && data.length > 0 ? data.replace('Inbound_', '') : '  -  ';
+            }
+        },
+        {
+            targets: 5,
+            render: function (data) {
+                return data && data.length > 0 ? data.replace('Outbound_', '') : '  -  ';
+            }
+        },
+        {
+            targets: -1,
+            render: function (data, type, row) {
+                var escalatedTo = row.Escalated_To;
+                if (escalatedTo != null) {
+                    return 'Escalated to ' + '<span style="color:green">' + getAgentName(escalatedTo) + ' (ID: ' + escalatedTo + ')<span>';
+                } else {
+                    return data;
+                }
+            }
+        }
+    ];
+}
+
+function attachTableEventHandlers(caseLogTable) {
+    $('#case-log-table tbody').on('click', 'tr', function () {
+        caseLogTable.$('tr.highlight').removeClass('highlight');
+        $(this).addClass('highlight');
+    });
+
+    $('#case-log-table tbody').on('click', '.open', function () {
+        var data = caseLogTable.row($(this).parents('tr')).data();
+        handleOpenCaseRecord(data);
+    });
+}
+
+function handleOpenCaseRecord(data) {
+    selectedCaseLog = data;
+    var openWindows = parent.parent.openWindows;
+    caseRecordPopup = window.open('./caseRecordPopup.html', 'caseRecord', 'menubar=no,location=no,resizable=no,scrollbar=no,fullscreen=no,toolbar=no,status=no,width=800,height=740,top=200,left=20');
+
+    if (openWindows) {
+        openWindows[openWindows.length] = caseRecordPopup;
+        caseRecordPopup.onload = function () {
+            caseRecordPopup.onbeforeunload = function () {
+                for (var i = 0; i < openWindows.length; i++) {
+                    if (openWindows[i] == caseRecordPopup) {
+                        openWindows.splice(i, 1);
+                        break;
+                    }
+                }
+            };
+        };
+    }
+}
+
+function getAgentName(agentId) {
+    // Placeholder: Implement your logic to get agent name by ID
+    return "AgentName"; // Example placeholder
+}
+
+
 // Call clicked
 var replyCallChanged = function (oThis) {
     var valueOfCall = $(oThis).prop('value');

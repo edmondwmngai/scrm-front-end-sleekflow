@@ -347,7 +347,9 @@ function submitClicked(type) {
             contentType: "application/json",
             dataType: 'json'
         }).always(function (r) {
-			handleCaseManualSearchResponse(connId, callType, details, r, aaSorting, exportColumns, columns, columnDefs);
+
+            
+			handleCaseManualSearchResponse(r, aaSorting, exportColumns, columns, columnDefs);
 			/*
 		    if (!/^success$/i.test(r.result || "")) {
                 console.log("error /n" + r ? r : '');
@@ -493,8 +495,12 @@ function submitClicked(type) {
     }
 }
 
-function handleCaseManualSearchResponse(connId, callType, details, r, aaSorting, exportColumns, columns, columnDefs)
+function handleCaseManualSearchResponse(r, aaSorting, exportColumns, columns, columnDefs)
 {
+    var connId = parent.window.frameElement.getAttribute("connId") || "";
+    var callType = parent.window.frameElement.getAttribute("callType") || "";
+    var details = parent.window.frameElement.getAttribute("details") || "";
+
 	if (!/^success$/i.test(r.result || "")) {
 		console.log("error /n" + r ? r : '');
 		$('#case-submit-btn').prop('disabled', false);

@@ -618,7 +618,12 @@ function submitClicked(type) {
                 crossDomain: true,
                 contentType: "application/json",
                 dataType: 'json'
-            }).always(function (r) {
+				
+			}).always(handleCustomerManualSearchResponse);
+            /*
+			}).always(function (r) {
+				
+			
                 if (!/^success$/i.test(r.result || "")) {
                     console.log("error /n" + r ? r : '');
                     $('#' + type + '-submit-btn').prop('disabled', false);
@@ -713,7 +718,7 @@ function submitClicked(type) {
                         var data = customerTable.row($(this).parents('tr')).data();
                         addCaseAutoSearchTable('menu2', data, this);
                     });
-                }
+                }*/
             })
         }
         if (menu2CustomerDiv.length > 0) {
@@ -739,7 +744,7 @@ function submitClicked(type) {
                 crossDomain: true,
                 contentType: "application/json",
                 dataType: 'json'
-			}).always(handleManualSearchResponse);
+			}).always(handleCaseManualSearchResponse);
 			/*
             }).always(function (r) {
                 if (!/^success$/i.test(r.result || "")) {
@@ -886,7 +891,110 @@ function submitClicked(type) {
     }
 }
 
-function handleManualSearchResponse(r)
+function handleCustomerManualSearchResponse(r)
+{
+	if (!/^success$/i.test(r.result || "")) {
+		console.log("error /n" + r ? r : '');
+		$('#' + type + '-submit-btn').prop('disabled', false);
+	} else {
+		var customerDetails = r.details;
+		var customerTable = $('#search-menu2-customer-table').DataTable({
+			data: customerDetails,
+			lengthChange: true,
+			"lengthMenu": [5, 10, 50],
+			language: {
+				"paginate": {
+					"previous": "PREV"
+				}
+			},
+			aaSorting: [], // no initial sorting
+			// pageLength: recordPerPage,
+			searching: false,
+			columnDefs: [{
+				targets: 0,
+				colVis: false,
+				defaultContent: '<i title="' + langJson['l-search-create-case'] + '" class="fas fa-edit table-btn create" data-bs-toggle="tooltip"></i>',
+				className: 'btnColumn',
+				// className: 'noVis', //NOTES: no column visibility
+				orderable: false,
+			}, {
+				targets: 1,
+				orderable: false,
+				render: function (data, type, row) {
+					if (data) {
+						return '<i title="' + langJson['l-search-search-case-to-update'] + '" class="table-btn fas fa-search-plus search-case" data-bs-toggle="tooltip"></i>';
+					} else {
+						return '';
+					}
+				},
+				className: 'btnColumn'
+			}],
+			columns: [{
+					title: "",
+					data: null
+				}, {
+					title: "",
+					data: 'have_case'
+				}, {
+					title: langJson['l-search-customer-id'],
+					data: 'Customer_Id'
+				}, {
+					title: langJson['l-search-full-name'],
+					data: "Name_Eng"
+				},
+				// { title: "Home", data: "Home_No" },
+				// { title: "Office", data: "Office_No" },
+				{
+					title: langJson['l-search-mobile'],
+					data: "Mobile_No"
+				}, {
+					title: langJson['l-search-fax'],
+					data: "Fax_No"
+				}, {
+					title: langJson['l-search-other'],
+					data: "Other_Phone_No"
+				}, {
+					title: langJson['l-search-email'],
+					data: "Email"
+				}
+			],
+			initComplete: function (settings, json) {
+				resize();
+				$('#' + type + '-submit-btn').prop('disabled', false);
+			}
+		});
+
+
+		$('#search-menu2-customer-table').on('draw.dt', function (e) {
+			setTimeout(function () {
+				resize();
+			}, 500);
+		});
+
+		$('#search-menu2-customer-table tbody').on('click', 'tr', function (e) {
+			customerTable.$('tr.highlight').removeClass('highlight'); // $('xxx tbody tr) will not select other pages not showing, do not use this selector
+			$(this).addClass('highlight')
+		});
+		$('#search-menu2-customer-table tbody').on('click', '.create', function (e) {
+			e.preventDefault();
+			var data = customerTable.row($(this).parents('tr')).data();
+			addCase(data.Customer_Id, data);
+		});
+
+		$('#search-menu2-customer-table tbody').on('click', '.search-case', function (e) {
+			$(this).prop('disabled', true);
+			e.preventDefault();
+			var data = customerTable.row($(this).parents('tr')).data();
+			addCaseAutoSearchTable('menu2', data, this);
+		});
+	}
+	
+	
+	
+}
+
+
+function handleCaseManualSearchResponse(r)
 {
 	 if (!/^success$/i.test(r.result || "")) {
 		console.log("error /n" + r ? r : '');

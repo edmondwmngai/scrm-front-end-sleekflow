@@ -2183,7 +2183,7 @@ function processBatchTblDataDetail(batchTblData)
         });
         
         $('#m-batch-tbl tbody').on('click', '.m-email', function () {
-            prcesssBatchTblEmail(batchTbl, loginId, token)
+            prcesssBatchTblEmail(batchTbl, loginId, token, $(this))
         });
         
         $('#m-batch-tbl tbody').on('click', '.m-sms', function () {
@@ -2774,9 +2774,10 @@ function prcesssBatchTblSMS(batchTbl, loginId, token)
 
 }
          
-function prcesssBatchTblEmail(batchTbl, loginId, token)
+function prcesssBatchTblEmail(batchTbl, loginId, token, element)
 {
-        var data = batchTbl.row($(this).parents('tr')).data();
+        //var data = batchTbl.row($(this).parents('tr')).data();
+		var data = batchTbl.row(element.parents('tr')).data();
         data.Type = "Email";
         console.log(data);
         var emailSubject = data.Email_Subject || '';

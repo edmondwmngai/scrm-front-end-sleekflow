@@ -135,6 +135,7 @@ function uploadPhotoAfterCreateUpdate() {
     // upload photo
     var fileUpload = $("#p-file-to-upload").get(0);
     var fileUploadFiles = fileUpload.files;
+	var theAgentId = parseInt(userAgentId);		//20250604 to fix agentId Not find
     if (fileUploadFiles.length > 0) {
         var fileData = new FormData();
         fileData.append("Photo_File", fileUploadFiles[0]);

@@ -2177,7 +2177,7 @@ function processBatchTblDataDetail(batchTblData)
                 if (!/^success$/i.test(r.result || "")) {
                     console.log('error: ' + rDetails);
                 } else {
-                    processBatchTblCall(campaignDetails, loginId, token)
+                    processBatchTblCall(campaignDetails, data, batchId, loginId, token)
                 }
             });
         });
@@ -3096,7 +3096,8 @@ function prcesssBatchTblEmail(batchTbl, loginId, token)
 
 }
 
-function processBatchTblCall(campaignDetails, batchId, loginId, token)
+         
+function processBatchTblCall(campaignDetails, data, batchId, loginId, token)
 {
     // Add selected table html
     // Add Title 

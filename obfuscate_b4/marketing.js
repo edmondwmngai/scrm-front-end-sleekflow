@@ -2187,21 +2187,22 @@ function processBatchTblDataDetail(batchTblData)
         });
         
         $('#m-batch-tbl tbody').on('click', '.m-sms', function () {
-            prcesssBatchTblSMS(batchTbl, loginId, token)
+            prcesssBatchTblSMS(batchTbl, loginId, token, $(this))
         });
 
         $('#m-batch-tbl tbody').on('click', '.m-whatsapp', function () {
-            processBatchTblWhatsapp(batchTbl, loginId, token)
+            processBatchTblWhatsapp(batchTbl, loginId, token, $(this))
         });
             
      
     
 }
 
-function processBatchTblWhatsapp(batchTbl, loginId, token)
+function processBatchTblWhatsapp(batchTbl, loginId, token, element)
 {
-        var data = batchTbl.row($(this).parents('tr')).data();
-
+		//var data = batchTbl.row($(this).parents('tr')).data();
+		var data = batchTbl.row(element.parents('tr')).data();
+		
         $('#m-lower-part').empty();
         var lowerPartStr = "";
         lowerPartStr += '<div class="card my-2"><div class="card-body bg-lightgray"><div class="c-section"><div class="my-1"><h5 class="d-inline l-campaign-selected-channel">Selected Campaign & Channel</h5></div>';
@@ -2538,9 +2539,11 @@ function processBatchTblWhatsapp(batchTbl, loginId, token)
 
 }
 
-function prcesssBatchTblSMS(batchTbl, loginId, token)
+function prcesssBatchTblSMS(batchTbl, loginId, token, element)
 {
-    var data = batchTbl.row($(this).parents('tr')).data();
+    //var data = batchTbl.row($(this).parents('tr')).data();
+	var data = batchTbl.row(element.parents('tr')).data();
+		
     data.Type = "SMS";
     var smsContent = data.SMS_Content || '';
     var sendDateTime = data.SMS_Delivery_Time || '';

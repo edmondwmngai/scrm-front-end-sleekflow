@@ -448,10 +448,18 @@ var validateEmail = function () {
         $('#email-error').text('');
     }
 }
+
+
 //check agent id duplicate
 $('#txt-agent-id').change(function () {
     fieldChanged = true;
     validateAgentId();
+})
+
+//20250603 add agent name checking
+$('#txt-name').change(function () {
+
+	fieldChanged = true;
 })
 
 // check seller id duplicate
@@ -491,7 +499,15 @@ $(".form-group").change(function () {
 $(".form-check").change(function () {
     fieldChanged = true;
 });
+//20250603 for role change
+$('#role-div').change(function () {
+  
+    fieldChanged = true;
+});
 
+$('#status-toggle').change(function () {
+	fieldChanged = true;
+});
 
 // cancel is clicked
 function clearForm() {

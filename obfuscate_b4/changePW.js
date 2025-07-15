@@ -128,7 +128,7 @@ function submitForm() {
     if (formHasError == 'true') {
         event.preventDefault(); // do not submit form
     //} else { // 20250410 for 'If' statement should not be the only statement in 'else' block
-    } else if (fieldChanged) {
+    } else { //if (fieldChanged) { 20250715 remove fieldchanged logic
             changePassword(sellerIdInput, oldPassword, newPassword); // call change password function
        // }// 20250410 for else if 
     }

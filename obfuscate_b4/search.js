@@ -719,7 +719,7 @@ function submitClicked(type) {
                         addCaseAutoSearchTable('menu2', data, this);
                     });
                 }*/
-            })
+            //})
         }
         if (menu2CustomerDiv.length > 0) {
             menu2CustomerDiv.remove();

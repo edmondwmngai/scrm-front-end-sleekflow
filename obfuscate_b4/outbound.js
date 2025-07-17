@@ -1978,7 +1978,7 @@ function refreshBatchTable(assignTblArr)
                                             '</span></button>' +
                                             '<button id="a-assign-all-btn" class="btn btn-sm rounded btn-success text-capitalize float-end a-selected-batch-btn"><i class="fas fa-mouse-pointer me-2"></i><span>All To One</span></button>'
                                     } else {
-                                        return 'Exprired batches no assignment allowed'
+                                        return 'Expired batches no assignment allowed'
                                     }
                                 }
                             }],

@@ -997,8 +997,9 @@ function handleCustomerManualSearchResponse(r)
 function handleCaseManualSearchResponse(r)
 {
 	 if (!/^success$/i.test(r.result || "")) {
+		console.log("handle case manual search");
 		console.log("error /n" + r ? r : '');
-		$('#' + type + '-submit-btn').prop('disabled', false);
+		$('#' + type + '-submit-btn').prop('disabled', false);		
 	} else {
 		var customerDetails = r.details;
 		var customerTable = $('#search-menu2-customer-table').DataTable({

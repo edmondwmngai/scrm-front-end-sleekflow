@@ -329,6 +329,10 @@ function accountRecordPopupOnload() {
 
         // set the field values
         $('#txt-agent-id').val(userAgentId);
+		
+		//20250716 for disable agent id in update
+		$('#txt-agent-id').prop('disabled', true);
+		
         $('#txt-name').val(agentName);
         $('#txt-email').val(email);
         $('#txt-seller-id').val(sellerId);

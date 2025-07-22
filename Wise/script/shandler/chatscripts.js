@@ -1515,10 +1515,87 @@
 	  //-------------------------------------------------------------------------------------------------------------------------
 	  addAgentToChat()	// call the interface to add agent to conference
 	  {
-		  parent.$('#phone-panel')[0].contentWindow.getAgentListFromWise();
-		  this.gotAgentListTest(); // enable for testing  (((wait the API implementation)))
+		//  parent.$('#phone-panel')[0].contentWindow.getAgentListFromWise();
+		  //this.gotAgentListTest(); // enable for testing  (((wait the API implementation)))
+		  
+		  this.getAgentListByAPI();
+		  
 		  //this.getWiseAgentList();
 	  };
+	  
+	async getAgentListByAPI()
+    {
+        
+        var URL = config.shandlerapi;	var sAgentId = top.loginId;		var sToken = top.token;
+
+        function getAgentList(sAgentId, sToken)
+        {
+            return new Promise((resolve, reject) => {
+
+                $.ajax({
+                    type: "POST",
+                    url: URL + "/api/GetOnlineAgent",
+                    data: JSON.stringify({ "AgentId": sAgentId, "Token": sToken }),
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (r) {
+                        if (!/^success$/i.test(r.result || "")) {
+                            console.log('error in getAgentListByAPI');
+
+                            reject('error in getAgentListByAPI');
+                            //callback(null, r);
+                        } else {
+                            resolve(r.details)
+
+                        }
+                    },
+
+                    error: function (r) {
+                        //callback(null, r);
+                        console.log('error in getAgentList');
+                        console.log(r);
+                        reject('error in getAgentListByAPI');
+                    }
+                });
+            });
+        }
+
+        try {
+            // Use Promise.all to wait for all AJAX requests to resolve
+            // const results = await Promise.all(fetchPromises);
+            const agentArr = await getAgentList(sAgentId, sToken);
+			
+			$('#agent-list-campaign').html(tempCampaign);
+			$('#agent-list-entry').html(this.selectedChatChannel);
+			$('#agent-list-ticketid').html(this.selectedTicketId);
+			$('#agent-list-message').val('');
+
+			$('#agentListModal').modal('show');
+		  
+            // Combine all `details` from the results and assign to self.templateList
+            let agentArrDivs = "";			let agentArrDiv = $('#agent-list-arr');			let availableAgent = 0;
+				
+			for (let theAgent of agentArr) {
+				var theAgentId = theAgent.AgentId;
+				if (theAgentId != loginId) {
+						agentArrDivs += ('<div style="display:table-row;"><div class="form-check"><label class="form-check-label"><input class="form-check-input" type="radio" name="agentList" value="' + theAgentId + '" id="agent-' + theAgentId + '">' + theAgent.AgentName + '&nbsp;(ID: ' + theAgentId + ')<span class="circle"><span class="check"></span></span></label></div><label class="agent-list-cell pl-3" for="agent-' + theAgentId + '"></label></div>');					
+						availableAgent += 1;
+				}
+			}
+
+			if (availableAgent == 0) {
+				agentArrDivs = '<div>--- ' + langJson['l-social-no-agents-available'] + ' ---</div>';
+		    }
+			
+			agentArrDiv.html(agentArrDivs);
+
+        } catch (error) {
+            console.error('Error in fetching templates:', error);
+        }
+
+    };
+
+	  
 	  getWiseAgentList()
 	  {	  //agentList come from LogonAgentEx in phone.html
 		  if (parent.$('#phone-panel')[0].contentWindow.currentAgentList != null) {
@@ -1576,7 +1653,10 @@
 
 			for (let theAgent of agentArr) {
 				var theAgentId = theAgent.AgentID;
-				if (theAgentId != loginId) {
+				var agentName = theAgent.AgentName;
+												
+				//theAgent.AgentName 
+				if (theAgentId != loginId && agentName.indexOf("test") === -1) {
 					var agentStatus = theAgent.Status;
 					if (agentStatus == undefined) {		agentStatus = 'IDLE';	}	// only for testing, should be commented
 					if (agentStatus == 'IDLE' || agentStatus == 'WORKING' || agentStatus == 'READY') { 

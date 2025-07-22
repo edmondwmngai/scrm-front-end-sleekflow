@@ -1625,7 +1625,7 @@ function sendTemplateMessageFromCase(agent, token, companyName, sTemplate, sFrom
 	$.ajax({
         type: "POST",
 		
-        url: config.waTemplate + '/api/sendTemplate', crossDomain: true,
+        url: config.shandlerapi + '/api/sendTemplate', crossDomain: true,
         data:
             JSON.stringify({
                 "Agent_Id": agent,      "TicketId": sTicketId,                  "Token": token,

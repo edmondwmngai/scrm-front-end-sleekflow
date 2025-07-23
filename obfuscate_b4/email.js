@@ -219,6 +219,8 @@ function emailOnload() {
                 listTable.$('tr.highlight').removeClass('highlight');
                 $(this).addClass('highlight');
                 var data = listTable.row($(this)).data();
+			     //20250723 for handling data is null
+				if (data == null) {return;}
                 if (openType != 'menu') {
                     parent.getEmailSetting(data.Sender);
                     parent.mediaContent = {};

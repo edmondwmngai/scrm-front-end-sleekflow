@@ -195,7 +195,11 @@ function vmailOnload() {
                 $(this).addClass('highlight');
                 var data = listTable.row($(this)).data();
                 console.log('data in the row'); console.log(data);
-                var tel = data.CallerDisplay;
+                //20250723 for handling data is null
+				if (data == null) {return;}
+				
+				var tel = data.CallerDisplay;
+				
                 if (openType != 'menu') {
                     parent.getCallerSetting(tel);
                     parent.mediaContent = { VmailID: data.VmailID, FilePath: data.FilePath };

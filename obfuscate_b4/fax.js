@@ -177,6 +177,9 @@ function loadTbl(tableData) {
         var data = listTable.row($(this)).data();
         listTable.$('tr.highlight').removeClass('highlight');  // $('xxx tbody tr) will not select other pages not showing, do not use this selector
         $(this).addClass('highlight');
+		//20250723 for handling data is null
+		if (data == null) {return;}
+				
         var tel = data.CallerDisplay;
         if (openType != 'menu') {
             parent.getCallerSetting(tel);

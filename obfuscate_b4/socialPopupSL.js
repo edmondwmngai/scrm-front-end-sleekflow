@@ -520,9 +520,9 @@ $(document).ready(function () {
           
         $.ajax({
             type: "POST",
-            url: config.shandlerUrl + '/socialmedia/GetCannedFiles',
+            url: config.cannedFilesUrl + "/socialmedia/GetCannedFiles",
             crossDomain: true,
-            data: JSON.stringify({ "company": 'EPRO' }),
+            data: JSON.stringify({ "company": 'EPRO'}),
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             success: function (r) {

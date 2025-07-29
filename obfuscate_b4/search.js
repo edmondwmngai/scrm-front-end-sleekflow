@@ -600,7 +600,9 @@ function submitClicked(type) {
     if (type == 'customer') {
         var menu2CustomerDiv = $('#menu2-customer-container');
         var addMenu2CustomerDiv = function () {
-            $('#search-menu2').append(
+        
+			//$('#search-menu2').append(		//20250729 handle the manual search result
+			$('#search-menu2').append(
                 '<div id="menu2-customer-container">' +
                 // '<h5>' +
                 // '<i class="fas fa-users title-icon me-2"></i><span class="align-middle">' + langJson['l-search-customer-list'] +
@@ -730,6 +732,7 @@ function submitClicked(type) {
     } else { // type == case
         var menu3CustomerDiv = $('#search-menu3-customer-div');
         var addMenu3CustomerDiv = function () {
+			//$('#search-menu3').append(
             $('#search-menu3').append(
                 '<div id="search-menu3-customer-div">' +
                 '<table id="search-menu3-case-table" class="table table-hover display" style="width:100%" data-page-length=' + recordPerPage + '>' +
@@ -893,6 +896,7 @@ function submitClicked(type) {
 
 function handleCustomerManualSearchResponse(r)
 {
+	var type = "customer";
 	if (!/^success$/i.test(r.result || "")) {
 		console.log("error /n" + r ? r : '');
 		$('#' + type + '-submit-btn').prop('disabled', false);
@@ -996,14 +1000,15 @@ function handleCustomerManualSearchResponse(r)
 
 function handleCaseManualSearchResponse(r)
 {
+	 var type = "case";
 	 if (!/^success$/i.test(r.result || "")) {
 		console.log("handle case manual search");
 		console.log("error /n" + r ? r : '');
 		$('#' + type + '-submit-btn').prop('disabled', false);		
 	} else {
-		var customerDetails = r.details;
-		var customerTable = $('#search-menu2-customer-table').DataTable({
-			data: customerDetails,
+		var menu3CaseDetails = r.details;
+		var menu3Table = $('#search-menu3-case-table').DataTable({
+			data: menu3CaseDetails,
 			lengthChange: true,
 			"lengthMenu": [5, 10, 50],
 			language: {
@@ -1011,85 +1016,121 @@ function handleCaseManualSearchResponse(r)
 					"previous": "PREV"
 				}
 			},
-			aaSorting: [], // no initial sorting
+			aaSorting: [
+				[2, "desc"]
+			],
 			// pageLength: recordPerPage,
 			searching: false,
 			columnDefs: [{
 				targets: 0,
-				colVis: false,
-				defaultContent: '<i title="' + langJson['l-search-create-case'] + '" class="fas fa-edit table-btn create" data-bs-toggle="tooltip"></i>',
+				data: null,
+				// colVis: false,
+				defaultContent: '<i title="' + langJson['l-search-update-case'] + '" class="fas fa-edit table-btn select" data-toggle="tooltip"></i>',
 				className: 'btnColumn',
 				// className: 'noVis', //NOTES: no column visibility
 				orderable: false,
 			}, {
-				targets: 1,
-				orderable: false,
+				targets: 4,
 				render: function (data, type, row) {
-					if (data) {
-						return '<i title="' + langJson['l-search-search-case-to-update'] + '" class="table-btn fas fa-search-plus search-case" data-bs-toggle="tooltip"></i>';
+					if (data.length > 0) {
+						return data.replace(/[_]/g, " ");
 					} else {
-						return '';
+						return 'Manual Update';
 					}
-				},
-				className: 'btnColumn'
+				}
+			}, {
+				targets: 6,
+				render: function (data, type, row) {
+					var escalatedTo = row.Escalated_To;
+					if (escalatedTo != null) {
+						return 'Escalated to ' + '<span style="color:green">' + getAgentName(escalatedTo) + ' (ID: ' + escalatedTo + ')<span>'
+					} else {
+						return data
+					}
+				}
+				// }, {
+				//     targets: 6,
+				//     render: function (data, type, row) {
+				//         return getAgentName(data || '') + ' (' + data + ')';
+				//     }
+			}, {
+				targets: 2,
+				render: function (data, type, row) {
+					var DateWithoutDot = data.slice(0, data.indexOf("."));
+					return DateWithoutDot.replace('T', ' ');
+				}
 			}],
 			columns: [{
-					title: "",
-					data: null
+					title: ""
 				}, {
-					title: "",
-					data: 'have_case'
+					title: langJson["l-search-case-no"],
+					data: "Case_No"
 				}, {
-					title: langJson['l-search-customer-id'],
-					data: 'Customer_Id'
+					title: langJson["l-search-last-revision"],
+					data: "Case_Updated_Time"
 				}, {
-					title: langJson['l-search-full-name'],
+					title: langJson["l-search-full-name"],
 					data: "Name_Eng"
+				}, {
+					title: langJson["l-search-inbound-type"],
+					data: "Call_Type"
+				}, {
+					title: langJson["l-search-nature"],
+					data: "Call_Nature"
+				}, {
+					title: langJson["l-search-status"],
+					data: "Status"
 				},
-				// { title: "Home", data: "Home_No" },
-				// { title: "Office", data: "Office_No" },
+				//{ title: langJson["l-search-revised-by"], data: "Case_Updated_By" },
 				{
-					title: langJson['l-search-mobile'],
-					data: "Mobile_No"
+					title: langJson["l-form-details"],
+					data: "Details"
 				}, {
-					title: langJson['l-search-fax'],
-					data: "Fax_No"
-				}, {
-					title: langJson['l-search-other'],
-					data: "Other_Phone_No"
-				}, {
-					title: langJson['l-search-email'],
-					data: "Email"
+					"className": 'details-control',
+					"orderable": false,
+					"data": null,
+					"defaultContent": ''
 				}
 			],
 			initComplete: function (settings, json) {
 				resize();
 				$('#' + type + '-submit-btn').prop('disabled', false);
 			}
+		});		
+
+
+		// Add event listener for opening and closing details
+		$('#search-menu3-case-table').on('click', 'td.details-control', function () {
+			var tr = $(this).closest('tr');
+			var row = menu3Table.row(tr);
+
+			if (row.child.isShown()) {
+				// This row is already open - close it
+				row.child.hide();
+				tr.removeClass('shown');
+				resize();
+			} else {
+				// Open this row
+				row.child(format(row.data())).show();
+				tr.addClass('shown');
+				resize();
+			}
 		});
 
-
-		$('#search-menu2-customer-table').on('draw.dt', function (e) {
+		$('#search-menu3-case-table').on('draw.dt', function (e) {
 			setTimeout(function () {
 				resize();
 			}, 500);
 		});
 
-		$('#search-menu2-customer-table tbody').on('click', 'tr', function (e) {
-			customerTable.$('tr.highlight').removeClass('highlight'); // $('xxx tbody tr) will not select other pages not showing, do not use this selector
+		$('#search-menu3-case-table tbody').on('click', 'tr', function (e) {
+			menu3Table.$('tr.highlight').removeClass('highlight'); // $('xxx tbody tr) will not select other pages not showing, do not use this selector
 			$(this).addClass('highlight')
 		});
-		$('#search-menu2-customer-table tbody').on('click', '.create', function (e) {
-			e.preventDefault();
-			var data = customerTable.row($(this).parents('tr')).data();
-			addCase(data.Customer_Id, data);
-		});
 
-		$('#search-menu2-customer-table tbody').on('click', '.search-case', function (e) {
-			$(this).prop('disabled', true);
-			e.preventDefault();
-			var data = customerTable.row($(this).parents('tr')).data();
-			addCaseAutoSearchTable('menu2', data, this);
+		$('#search-menu3-case-table tbody').on('click', '.select', function () {
+			var data = menu3Table.row($(this).parents('tr')).data();
+			UpdateCase(data);
 		});
 	}	
 	

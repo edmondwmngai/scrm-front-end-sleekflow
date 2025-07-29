@@ -24,6 +24,8 @@ class WaTemplateService {
             console.log('AJAX call succeeded:', result);
 
         });
+		
+		//getAgentListByAPI();
     };
 
     
@@ -189,7 +191,6 @@ class WaTemplateService {
         return this.templateList;
     };
 
-
     async getTemplateByAPI(sCompany, sAgentId, sToken)
     {
         //"http://172.17.6.11:8033/api/getTemplate",
@@ -245,6 +246,10 @@ class WaTemplateService {
         }
 
     };
+	
+	
+
+
 
     validateTemplateInputFilled(sTemplate)
     {

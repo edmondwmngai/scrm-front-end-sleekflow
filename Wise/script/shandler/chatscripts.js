@@ -1518,10 +1518,55 @@
 		//  parent.$('#phone-panel')[0].contentWindow.getAgentListFromWise();
 		  //this.gotAgentListTest(); // enable for testing  (((wait the API implementation)))
 		  
-		  this.getAgentListByAPI();
+		  //this.getAgentListByAPI();
 		  
+		  this.disableReloadMsg = true;	// any action in select bubble will reload all the messages, enable it for disable reload
+		  parent.$('#phone-panel')[0].contentWindow.getOnlineAgentList();
+	
 		  //this.getWiseAgentList();
 	  };
+	  
+	  getOnlineAgentListCallBack(agentArr)
+	  {
+		  
+		  
+		 try {
+            // Use Promise.all to wait for all AJAX requests to resolve
+            // const results = await Promise.all(fetchPromises);
+      //      const agentArr = await getAgentList(sAgentId, sToken);
+			
+			$('#agent-list-campaign').html(tempCampaign);
+			$('#agent-list-entry').html(this.selectedChatChannel);
+			$('#agent-list-ticketid').html(this.selectedTicketId);
+			$('#agent-list-message').val('');
+
+			$('#agentListModal').modal('show');
+		  
+            // Combine all `details` from the results and assign to self.templateList
+            let agentArrDivs = "";			let agentArrDiv = $('#agent-list-arr');			let availableAgent = 0;
+				
+			for (let theAgent of agentArr) {
+				var theAgentId = theAgent.AgentId;
+				if (theAgentId != loginId) {
+						agentArrDivs += ('<div style="display:table-row;"><div class="form-check"><label class="form-check-label"><input class="form-check-input" type="radio" name="agentList" value="' + theAgentId + '" id="agent-' + theAgentId + '">' + theAgent.AgentName + '&nbsp;(ID: ' + theAgentId + ')<span class="circle"><span class="check"></span></span></label></div><label class="agent-list-cell pl-3" for="agent-' + theAgentId + '"></label></div>');					
+						availableAgent += 1;
+				}
+			}
+
+			if (availableAgent == 0) {
+				agentArrDivs = '<div>--- ' + langJson['l-social-no-agents-available'] + ' ---</div>';
+		    }
+			
+			agentArrDiv.html(agentArrDivs);
+
+        } catch (error) {
+            console.error('Error in fetching templates:', error);
+        }
+		  
+		  
+		  
+	  }
+	  
 	  
 	async getAgentListByAPI()
     {
@@ -1785,6 +1830,7 @@
 		  }
 		  else
 		  {
+			  this.disableReloadMsg = true;
 			  alert("Cannot leave the chat");
 			  //return;		//	20250328	Remove this redundant jump.
 		  }

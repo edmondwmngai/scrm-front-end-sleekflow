@@ -99,6 +99,10 @@
          var response = JSON.parse(responseText);
          showBeInvitedModal(response);
      }
+	 
+	 
+	 
+	 
 
      //For development and debug //20241031
      //--------------------------------------------------------------------------------
@@ -662,6 +666,41 @@
                  console.log(error);
              });
 
+     }
+
+
+     function getOnlineAgentList()
+	 {
+		 
+		 var URL = config.shandlerapi;	var sAgentId = top.loginId;		var sToken = top.token;
+		 
+         //check websocket state, continue process is not allowed if false is returned;
+         var wssresult = checkWebSocketState(shandler.websocket);
+         //if (wssresult.result == false) { alert(wssresult.message); return; }	// 20250407 Refactor the code to avoid using this boolean literal.
+         if (!wssresult.result) { alert(wssresult.message); return; }
+         //-----
+
+         $.ajax({
+			type: "POST",
+			url: URL + "/api/GetOnlineAgent",
+			data: JSON.stringify({ "AgentId": sAgentId, "Token": sToken }),
+			contentType: "application/json; charset=utf-8",
+			dataType: "json",
+			success: function (r) {
+				if (!/^success$/i.test(r.result || "")) {
+					console.log('error in getAgentListByAPI');
+				} else {
+					parent.$('#social-media-main')[0].contentWindow.chatService.getOnlineAgentListCallBack(r.details);
+				}
+			},
+
+			error: function (r) {
+				//callback(null, r);
+				console.log('error in getAgentList');
+				console.log(r);
+				reject('error in getAgentListByAPI');
+			}
+		});
      }
 
      // Conference Inviter side

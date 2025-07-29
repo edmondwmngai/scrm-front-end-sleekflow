@@ -148,8 +148,12 @@ function callSetting(callType, apiName, isValid) {
                 Token: token
             }
         }
-    } else if (apiName == 'AddCallFilter') {          //20250424 = => == Extract the assignment of "apiName" from this expression.
-        dataObj = {
+    //} else if (apiName == 'AddCallFilter') {          //20250424 = => == Extract the assignment of "apiName" from this expression.
+   
+    } else if (apiName == 'AddSetting') {          //202500726 for fixing
+	
+		apiName = "AddCallFilter";
+		dataObj = {
             "Filter_Type": callType,
             "Agent_Id": loginId,
             "Last_Name": ($('#' + idType + '-full-name').val() || ''),

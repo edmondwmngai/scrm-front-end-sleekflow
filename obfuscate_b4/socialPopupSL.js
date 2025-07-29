@@ -22,7 +22,7 @@ function getParameterByName(name, url) {
     if (!results[2]) return '';
     return decodeURIComponent(results[2].replace(/\+/g, ' '));
 }
-
+/*
 function get_folder_files(file_type, title, param_path) {
     // v.0.1.2
     var path = "";
@@ -34,7 +34,7 @@ function get_folder_files(file_type, title, param_path) {
 
     var my_folder = new Folder(path);
     return my_folder.getFiles(file_type);
-};
+};*/
 
 function selectClicked(index) {
 
@@ -406,7 +406,7 @@ function setLanuage() {
 function closeWindow() {
     window.close();
 }
-
+/*
 function previewPhoto(input, tpId) {
     var photoFile = input.files[0];
     if (input.files && photoFile) {
@@ -459,7 +459,7 @@ function previewPhoto(input, tpId) {
         }
         reader.readAsDataURL(photoFile);
     }
-}
+}*/
 
 $(document).ready(function () {
     // if (typeof (window.opener) == 'undefined' || typeof(window.opener.popupCampaign) == 'undefined' ) {
@@ -517,19 +517,20 @@ $(document).ready(function () {
 
             // url: config.wiseUrl + '/api/SocialMedia/GetCannedFiles',
             //data: JSON.stringify({ "companyName": 'HKTB' }),
+			// url: config.cannedFilesUrl + "/socialmedia/GetCannedFiles",
           
         $.ajax({
             type: "POST",
-            url: config.shandlerUrl + '/socialmedia/GetCannedFiles',
+            url: config.shandlerapi + "/api/GetCannedFiles",
             crossDomain: true,
-            data: JSON.stringify({ "company": 'EPRO' }),
+            data: JSON.stringify({ "Company": 'EPRO'}),
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             success: function (r) {
                 if (!/^success$/i.test(r.result || "")) {
                     console.log('error in socialPopup');
                 } else {
-                    var tableData = r.data;
+                    var tableData = r.details;
                     listTable = $('#file-list-table').DataTable({
                         data: tableData,
                         lengthChange: false,
@@ -628,7 +629,9 @@ $(document).ready(function () {
                 console.log(r);
             }
         });
-    } else if (type == 'wa-template') {
+    } 
+	
+	/*else if (type == 'wa-template') {
         // To do: API to get whtsapp template
         // To do: new web socket command to upload media to Emma
         // no of props without picture
@@ -701,8 +704,10 @@ $(document).ready(function () {
             var selectBtnStr = 'selectClicked(' + i + ')';
             fileContainer.append('<tr class="row-container"><td id="display-msg-' + tpId + '" class="canned-cell">' + crmText + '</td><td class="btn-cell"><button class="btn btn-sm rounded btn-info text-capitalize" onclick=' + selectBtnStr + '><i class="fas fa-mouse-pointer me-2"></i><span>' + langJson['l-campaign-select'] + '</span></button></td></tr>')
         }
+		
     }
-
+    */
+   
     // movement will reset timeout counter
     if (window.opener.addPopupIdle) {
         window.opener.addPopupIdle($(document));

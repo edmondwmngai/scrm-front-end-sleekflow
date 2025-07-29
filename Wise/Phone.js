@@ -13,7 +13,7 @@ headTag.insertBefore(scriptElement, headTag.firstChild);
 
 
 let queueLayout = {};
-queueLayout[CATY_INDB]={ prefix: "inbound", style: "width:48px;border-radius:3px;background: linear-gradient(60deg,#FFC83D,#fb8c00);box-shadow:3px 3px 4px 0 rgba(0,0,0,.36);", image: "img/call-icon-512-2.png", color: "#F89A1E" };
+queueLayout[CATY_INDB]={ prefix: "inbound", style: "width:48px;border-radius:3px;background: linear-gradient(60deg,#EF7C50,#e53935);box-shadow:3px 3px 4px 0 rgba(0,0,0,.36);", image: "img/call-icon-512-2.png", color: "#E9433F" };
 queueLayout[CATY_EMAIL]={ prefix: "email", style: "width:48px;border-radius:3px;background: linear-gradient(60deg,#FFC83D,#fb8c00);box-shadow:3px 3px 4px 0 rgba(0,0,0,.36);", image: "img/email-icon-512-2.png", color: "#F89A1E"};
 queueLayout[CATY_VMAIL]={ prefix: "vmail", style: "width:48px;border-radius:3px;background: linear-gradient(60deg,#86B784,#43a047);box-shadow:3px 3px 4px 0 rgba(0,0,0,.36);", image: "img/vmail-icon-512-2.png", color: "#52BD00"};
 queueLayout[CATY_FAX]={ prefix: "fax", style: "width:48px;border-radius:3px;background:linear-gradient(60deg,#6AD1D8,#00acc1);box-shadow:3px 3px 4px 0 rgba(0,0,0,.36);", image: "img/fax-icon-512-2.png", color: "#08B1C6"};
@@ -189,8 +189,9 @@ async function windowOnload() {
 	var sToken = top.token;
 
 	(async () => {
-		waTempService = new WaTemplateService(wa_template, q_template, config.waTemplate);
+		waTempService = new WaTemplateService(wa_template, q_template, config.shandlerapi);
 		await waTempService.getTemplateByAPI(sCompany, sAgentId, sToken);
+		//await waTempService.getAgentListByAPI();
 		console.log(waTempService.templateList); // Access the updated template list
 	})();
 
@@ -1881,7 +1882,7 @@ function wiseAssignAgent(channel, mediaIds, assignTo, callback)
 		url: _link,
 		contentType: "application/json; charset=utf-8",
 		dataType: "json",
-		data: JSON.stringify({"mediaIds" : mediaIds, "assignTo": assignTo, "updatedBy": loginId}),
+		data: JSON.stringify({"mediaIds" : mediaIds, "assignTo": assignTo, "updatedBy":  loginId}),
 		success: function (r) {
             let _dnisArray = $.unique(r.data.map(function (d) {return d.dnis;}));
 			for (let _dnis of _dnisArray) {

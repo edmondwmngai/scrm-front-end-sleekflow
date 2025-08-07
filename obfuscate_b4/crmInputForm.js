@@ -2378,7 +2378,7 @@ var replySubmitClicked = function () {
 
                 '<div class="mb-3 col-sm-12 ps-0 d-flex">' +
                 '<label class="col-sm-1 control-label ps-4">From</label>' +
-                '<div class="col-sm-11 ps-2">' + htmlEncode(companyName) + ' (' + htmlEncode(companyEmail) + ')' +
+                '<div class="col-sm-11 ps-2">' + companyName + ' (' + companyEmail + ')' +
 
                 '</div></div>' +
 

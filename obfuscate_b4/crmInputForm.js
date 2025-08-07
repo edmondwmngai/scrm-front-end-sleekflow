@@ -2378,7 +2378,7 @@ var replySubmitClicked = function () {
 
                 '<div class="mb-3 col-sm-12 ps-0 d-flex">' +
                 '<label class="col-sm-1 control-label ps-4">From</label>' +
-                '<div class="col-sm-11 ps-2">' + companyName + ' (' + companyEmail + ')' +
+                '<div class="col-sm-11 ps-2">' + htmlEncode(companyName) + ' (' + htmlEncode(companyEmail) + ')' +
 
                 '</div></div>' +
 
@@ -3117,7 +3117,8 @@ function windowOnload() {
 
     //20250113 for auto update phone when create phone number
     //status update when openInputForm  
-    if (parent.parent[3].callTypeAfteropenForm != undefined) {  //detect it is in case create
+    //if (parent.parent[3].callTypeAfteropenForm != undefined) {  //detect it is in case create		20250729 fix the checking
+	if (parent.parent[3].callTypeAfteropenForm) {  //detect it is in case create
         if (parent.parent[3].callTypeAfteropenForm == "Inbound_Whatsapp") {
             if (parent.parent[3].rowDataAfteropenForm == null)	//use this to check whether it is new case
             {

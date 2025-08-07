@@ -2845,7 +2845,7 @@ function openInputForm(connId, callType, internalCaseNo, campaign, rowData, cust
             var scrollDivName = scrollDiv.attr('formName');
             if (scrollDivName == undefined || scrollDivName.length == 0) {
                 scrollDiv.attr('formName', formName);
-                addFormNameToContent(connId, formName);
+                //addFormNameToContent(connId, formName);
             }
         }
     }

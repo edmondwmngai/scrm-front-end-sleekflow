@@ -3119,6 +3119,7 @@ function windowOnload() {
     //status update when openInputForm  
     //if (parent.parent[3].callTypeAfteropenForm != undefined) {  //detect it is in case create		20250729 fix the checking
 	if (parent.parent[3].callTypeAfteropenForm) {  //detect it is in case create
+
         if (parent.parent[3].callTypeAfteropenForm == "Inbound_Whatsapp") {
             if (parent.parent[3].rowDataAfteropenForm == null)	//use this to check whether it is new case
             {

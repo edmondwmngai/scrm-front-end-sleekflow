@@ -294,6 +294,42 @@ function openMedia(omType, omMediaId, omMediaPath, omTimestamp, omCallerDisplay,
     $('#media-content').removeClass('jit-inspected');
 }
 
+function openMediaVoiceMail(omType, omMediaId, omMediaPath, omTimestamp, omCallerDisplay, omName, omSubject, ASRContent) {
+    console.log("omType, omMediaId, omMediaPath, omTimestamp, omCallerDisplay, omName, omSubject");
+    console.log(omType, omMediaId, omMediaPath, omTimestamp, omCallerDisplay, omName, omSubject, ASRContent);
+    var mediaContentFrame = document.getElementById('media-content');
+    mediaContentFrame.setAttribute('mediaId', omMediaId);
+    if (omTimestamp != null) {
+        mediaContentFrame.setAttribute('timestamp', omTimestamp);
+    }
+    if (omCallerDisplay != null) {
+        mediaContentFrame.setAttribute('callerDisplay', omCallerDisplay);
+    }
+    if (omType != 'email') {
+        mediaContentFrame.setAttribute('mediaPath', omMediaPath);
+    }
+    if (omType == 'fax') {
+        mediaContentFrame.src = './faxContent.html';
+    } else if (omType == 'vmail') {
+        mediaContentFrame.setAttribute('subject', omSubject);
+        
+		if (ASRContent != null) {
+			mediaContentFrame.setAttribute('ASRContent', ASRContent);
+		}
+		mediaContentFrame.src = './vmailContent.html';
+		
+		
+		
+    } else if (omType == 'email') {
+        mediaContentFrame.setAttribute('name', omName);
+        mediaContentFrame.setAttribute('time', omTimestamp);
+        mediaContentFrame.src = './emailContent.html';
+    } else if (omType == 'call') {
+        mediaContentFrame.src = './callContent.html';
+    }
+    $('#media-content').removeClass('jit-inspected');
+}
+
 function replyCallClick(lastCallType, lastCallID, confConnID) {
     var iframeInputForm = document.getElementById('input-form');
     iframeInputForm.contentWindow.replyCallClick(lastCallType, lastCallID, confConnID);

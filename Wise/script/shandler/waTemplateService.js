@@ -406,7 +406,16 @@ class WaTemplateService {
 	
 	
 
-
+	//20250812 for fix 
+	validateTemplateInputExist(sTemplate)
+	{
+			
+		if (!sTemplate || !Array.isArray(sTemplate.inputList)) {
+			return false; // or handle accordingly
+		}
+		return true;
+	}
+	
 
     validateTemplateInputFilled(sTemplate)
     {

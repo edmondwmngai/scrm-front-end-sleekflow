@@ -1552,9 +1552,18 @@ function saveClicked(isTemp, callback) { // 1. declare 2. verify 3. update custo
 
 
             // 20241231     New function for check template message input
-
+            var validTemplateInputExist = parent.parent.$('#phone-panel')[0].contentWindow.waTempService.validateTemplateInputExist(selectedSendTemplate);     // 20250407 Refactor the code to avoid using this boolean literal.
             var validTemplateInputFilled = parent.parent.$('#phone-panel')[0].contentWindow.waTempService.validateTemplateInputFilled(selectedSendTemplate);     // 20250407 Refactor the code to avoid using this boolean literal.
             var validTemplateInputLength = parent.parent.$('#phone-panel')[0].contentWindow.waTempService.validateTemplateInputLength(selectedSendTemplate);
+
+			if (!validTemplateInputExist)
+			{
+				document.getElementById("case-save-btn").disabled = false;
+                alert('Template or input is not valid. Please select the template and input valid props again');
+                return;
+				
+			}
+
 
             if (!validTemplateInputFilled)
             {
@@ -3060,9 +3069,19 @@ function handleOpenCaseRecord(data) {
     }
 }
 
-function getAgentName(agentId) {
+function getAgentName(theAgentId) {
     // Placeholder: Implement your logic to get agent name by ID
-    return "AgentName"; // Example placeholder
+    //return "AgentName"; // Example placeholder
+	
+	//20250825 for fix escalatedTo 
+	var agentObj = gf.altFind(agentList, function (obj) {
+        return obj.AgentID == theAgentId
+    });
+    if (agentObj != undefined) {
+        return agentObj.AgentName;
+    } else {
+        return theAgentId;
+    }
 }
 
 
@@ -3119,7 +3138,6 @@ function windowOnload() {
     //status update when openInputForm  
     //if (parent.parent[3].callTypeAfteropenForm != undefined) {  //detect it is in case create		20250729 fix the checking
 	if (parent.parent[3].callTypeAfteropenForm) {  //detect it is in case create
-
         if (parent.parent[3].callTypeAfteropenForm == "Inbound_Whatsapp") {
             if (parent.parent[3].rowDataAfteropenForm == null)	//use this to check whether it is new case
             {

@@ -13,7 +13,8 @@ var canDownloadVoice = functions.indexOf('Download-Voice') != -1;
 var downloadVoiceStr = canDownloadVoice ? '' : ' controlsList="nodownload"';
 
 function resize() {
-    var newHeight = $('.card').height() + 130;
+    //var newHeight = $('.card').height() + 130;
+	var newHeight = $('.card').height() + 130;
     var parentSearch = openType == 'menu' ? parent.document.getElementById("input-form-vmail") : parent.document.getElementById("search")
     parentSearch.height = newHeight + 'px'; //將子頁面高度傳到父頁面框架 // no need to add extra space
     if (parent.resize) {
@@ -25,12 +26,50 @@ function setLanguage() {
     $('.l-vmail-transfer-to').text(langJson['l-vmail-transfer-to']);
     $('.l-vmail-confirm').text(langJson['l-vmail-confirm']);
 }
-
+/*
 function format(d, theTr, rowChild) {
     console.log('d'); console.log(d);
     rowChild('<span><div style="align-items: middle;display: table-caption;line-height: 27px;padding-right: 15px;">' + langJson['l-media-play'] + '</div><video controls="" name="media" style="height:27px;width:50%;"' + downloadVoiceStr + '><source src="' + d.FilePath + '" type="audio/wav"></video></span>').show();
     theTr.addClass('shown');
     resize();
+}*/
+
+function format(d, theTr, rowChild) {
+    $.ajax({
+        type: "POST",
+        url: config.wiseUrl + '/api/vmail/GetContent',
+        data: JSON.stringify({ "id": d.VmailID || -1 }),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (r) {
+            var details = r.data;
+            var emailContent = details.ASRContent  //details.Body;
+            emailContent = emailContent.replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '');
+            var imgTagIdx = emailContent.indexOf('<img ');
+            if (imgTagIdx != -1) {
+                var imgLastIdx = emailContent.indexOf('>', imgTagIdx) + 1;
+                var imgTag = emailContent.slice(imgTagIdx, imgLastIdx);
+                var imgType = imgTag.indexOf('jpg') != -1 ? 'jpeg' : 'png';
+                var imgNameIdx = imgTag.indexOf('cid:') + 4;
+                var fileName = imgTag.slice(imgNameIdx, imgTag.indexOf('@', imgNameIdx));
+                var attachments = details.Attachments;
+                for (let attachment of attachments) {
+                    if (attachment.FileName == fileName) {
+                        var newEmailContent = emailContent.slice(0, imgTagIdx) + '<img src="data:image/' + imgType + ';charset=utf-8;base64,' + attachment.Base64Data + '">' + emailContent.slice(imgLastIdx + 1);
+                        emailContent = newEmailContent;
+                        break;
+                    }
+                }
+            }
+            rowChild('<div>' + langJson['l-email-content'] + ':</div><div class="custom-scroll details-content">' + emailContent + '</div>').show();
+            theTr.addClass('shown');
+            resize();
+        },
+        error: function (r) {
+            console.log('An error occurred.');
+            console.log(r);
+        },
+    });
 }
 
 function vmailOnload() {
@@ -109,6 +148,7 @@ function vmailOnload() {
         type: 'POST',
         url: config.wiseUrl + '/api/Vmail/GetList',
         data: JSON.stringify({ "dnis": dnis, "agentId": selectedAgent || -1 }),
+		
         crossDomain: true,
         contentType: "application/json; charset=utf-8",
         dataType: "json"
@@ -195,6 +235,8 @@ function vmailOnload() {
                 $(this).addClass('highlight');
                 var data = listTable.row($(this)).data();
                 console.log('data in the row'); console.log(data);
+				$('#voice-content').text("");
+				
                 //20250723 for handling data is null
 				if (data == null) {return;}
 				
@@ -202,17 +244,36 @@ function vmailOnload() {
 				
                 if (openType != 'menu') {
                     parent.getCallerSetting(tel);
-                    parent.mediaContent = { VmailID: data.VmailID, FilePath: data.FilePath };
+                    //parent.mediaContent = { VmailID: data.VmailID, FilePath: data.FilePath };
+					parent.mediaContent = { VmailID: data.VmailID, FilePath: data.FilePath, ASRContent: data.ASRContent };
                     var connId = data.VmailID;
                     if (selectedId != connId) {
-                        selectedId = connId;
-                        parent.openMedia('vmail', connId, data.FilePath, data.CreateDateTime, tel, null, data.Subject);
+                        selectedId = connId; 
+                        parent.openMediaVoiceMail('vmail', connId, data.FilePath, data.CreateDateTime, tel, null, data.Subject, data.ASRContent);
                     }
                 }
+				//20250820
+				//var row = listTable.row($(this)).data();
+				const dtRow = listTable.row($(this));
+				const tr = dtRow.node();
+
+				if (data.ASRContent.length > 0) {
+					$('.voice-content').show();
+					
+					$('#voice-content').text(data.ASRContent);
+				} else {
+					$('.voice-content').hide();
+				}
+
+
+		
+				//voice-content
+				
             });
 
-            $('#media-list-table tbody').on('click', '.create-or-update', function (e) {
-                e.preventDefault();
+			//$('#media-list-table tbody').on('click', '.create-or-update', function (e) {
+            $('#media-list-table').on('click', '.create-or-update', function (e) {
+			    e.preventDefault();
                 var data = listTable.row($(this).parents('tr')).data();
                 var connId = data.VmailID;
                 var details = Number(data.CallerDisplay || -1);
@@ -228,6 +289,7 @@ function vmailOnload() {
             // every time page change select the first record
             $('#media-list-table').on('draw.dt', function (e) {
                 e.preventDefault();
+					
                 // cancel previous page radio selection
                 $('#media-list-table tbody tr td input[name="transferRadio"]').prop('checked', false);
                 // remove original page rows highlight

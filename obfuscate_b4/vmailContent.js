@@ -1,5 +1,5 @@
 var mediaId;
-var mediaPath;
+var mediaPath; 	var ASRContent;
 var timestamp = '';
 var callerDisplay = '';
 var langJson = JSON.parse(sessionStorage.getItem('scrmLangJson')) || {};
@@ -17,15 +17,36 @@ function buildContent() {
     $("#timestamp-span").text(timestamp.replace('T', ' '));
     $("#vmail-caller").text(callerDisplay);
     $("#vmail-subject").text(window.frameElement.getAttribute("subject") || '');
+	$("#voice-content").text(window.frameElement.getAttribute("ASRContent") || '');																	
 	var vmailPath = window.frameElement.getAttribute("mediaPath") || '';
 
     //if (config.isHttps) {		//20250411 should not be currently used which is replace by vmailPath
     //    voiceUrl = voiceUrl.replace(voiceUrl.substr(0,voiceUrl.indexOf("/wisepbx/")), wiseHost);
     //}
     if (vmailPath.length > 0) {
-        $('<video controls="" name="media" style="height:27px;width:95%;"' + downloadVoiceStr + '><source src="' + vmailPath + '" type="audio/wav"></video>').appendTo('#audio-player');
+		
+		//20250804 for xss issue
+		let $video = $('<video>', {
+			controls: true,
+			name: 'media',
+			style: 'height:27px;width:95%;'
+		});
+
+		if (!canDownloadVoice) {
+			$video.attr('controlsList', 'nodownload');
+		}
+
+		let $source = $('<source>', {
+			src: vmailPath,
+			type: 'audio/wav'
+		});
+
+		$video.append($source).appendTo('#audio-player');
+
+		
+        //$('<video controls="" name="media" style="height:27px;width:95%;"' + downloadVoiceStr + '><source src="' + vmailPath + '" type="audio/wav"></video>').appendTo('#audio-player');
     }
-    parent.document.getElementById("media-content").height = '80px';//將子頁面高度傳到父頁面框架
+	parent.document.getElementById("media-content").height = '200px';//將子頁面高度傳到父頁面框架
     // if the content load slower than the input form, will need to resize this input form
     if (parent.resize) {
         parent.resize();
@@ -46,6 +67,7 @@ function getContent() {
                 mediaPath = details.FileUrl;
                 timestamp = details.CreateDateTime;
                 callerDisplay = details.CallerDisplay;
+				ASRContent = details.ASRContent;			
                 buildContent();
             }
         },
@@ -59,6 +81,7 @@ function vmailContentOnload() {
     setLanguage();
     mediaId = window.frameElement.getAttribute("mediaId") || -1;
     mediaPath = window.frameElement.getAttribute("mediaPath");
+	ASRContent= window.frameElement.getAttribute("ASRContent");														
     if (mediaPath == undefined) {
         getContent();
         return;

@@ -181,6 +181,13 @@ class WaTemplateService {
         var selectedTemplate = cList.filter(i => i.TemplateName === templateName)[0];
         return selectedTemplate;
     }
+	
+	returnSelectedTemplateByTemplateName(templateName)
+    {
+        var cList = this.templateList;
+        var selectedTemplate = cList.filter(i => i.TemplateName === templateName)[0];
+        return selectedTemplate;
+    }
 
     setTemplateList(tList) {
         this.templateList = tList;
@@ -190,6 +197,156 @@ class WaTemplateService {
     {
         return this.templateList;
     };
+	
+	
+	returnVariableTable(data, element)
+	{
+		
+		var droot = element;
+		
+		const container = document.createElement('div');
+		container.className = 'd-table';
+
+		// Header row
+		const headerRow = document.createElement('div');
+		headerRow.className = 'd-table-row';
+        let i = 0;
+		['Field', 'Test Value', '', 'Field', 'Variable', ''].forEach(text => {
+		  const cell = document.createElement('b');
+		  i = i + 1;
+
+          if (i == 4)
+          {
+                cell.className = 'd-table-cell ps-5 l-campaign-field';
+          }else{
+                cell.className = 'd-table-cell';
+          }
+		  cell.textContent = text;
+		  headerRow.appendChild(cell);
+		});
+
+		container.appendChild(headerRow);
+
+		for (let i = 0; i < data.length; i += 2) {
+		  const row = document.createElement('div');
+		  row.className = 'd-table-row';
+
+		  // First field in row
+		  const [field1, value1] = Object.entries(data[i])[0];
+		  const field1Class = field1.toLowerCase().replace(/\s+/g, '-');
+
+		  // Second field in row (if exists)
+		  let field2 = '', value2 = '', field2Class = '';
+		  if (i + 1 < data.length) {
+			[field2, value2] = Object.entries(data[i + 1])[0];
+			field2Class = field2.toLowerCase().replace(/\s+/g, '-');
+		  }
+
+		  row.innerHTML = `
+			<span class="d-table-cell pe-2 l-form-${field1Class}">${field1}</span>
+			<span class="d-table-cell pe-2">${value1}</span>
+			<span class="d-table-cell pe-2">
+				<i class="fas fa-copy cursor-pointer pop" data-bs-content="" data-bs-toggle="popover" data-bs-placement="bottom" aria-label="Copied!" data-bs-original-title="Copied!"></i>
+			</span>
+			<span class="d-table-cell pe-2 ps-5 l-campaign-${field2Class}">${field2}</span>
+			<span class="d-table-cell pe-2">${value2}</span>
+			<span class="d-table-cell pe-2">
+				<i class="fas fa-copy cursor-pointer pop" data-bs-content="" data-bs-toggle="popover" data-bs-placement="bottom" aria-label="Copied!" data-bs-original-title="Copied!"></i>
+			</span>
+		  `;
+
+		  container.appendChild(row);
+		}
+		
+		// Append to body or any container
+		droot.append(container);		
+		
+	}
+	
+	fillInputFromAssignmentTable(inputJson, variableTableData, assignmentTableData)
+	{
+		// Create a mapping of placeholders to values
+		const valueMap = {};
+		for (let i = 0; i < assignmentTableData.length; i++) {
+		  const [key, value] = Object.entries(assignmentTableData[i])[0];
+
+		  // Find the matching variable name from variableTableData
+		  for (let j = 0; j < variableTableData.length; j++) {
+			const [varKey, varPlaceholder] = Object.entries(variableTableData[j])[0];
+
+			// Match based on key name, not placeholder
+			if (key === varKey) {
+			  valueMap[varPlaceholder] = value; // e.g. valueMap["{{Mobile}}"] = "61234567"
+			  break;
+			}
+		  }
+		}
+
+		// Step 2: Replace placeholders in inputJson
+		const result = [];
+		for (let i = 0; i < inputJson.length; i++) {
+		  const item = inputJson[i];
+		  const newText = valueMap[item.text] || item.text;
+		  result.push({ type: item.type, text: newText });
+		}
+
+		return result;
+	}
+	
+	returnAssignmentTable(data, element)
+	{
+		
+		var droot = element;
+		
+		const container = document.createElement('div');
+		container.className = 'd-table';
+
+		// Header row
+		const headerRow = document.createElement('div');
+		headerRow.className = 'd-table-row';
+
+		['Field', 'Test Value', '', 'Field', 'Test Value'].forEach(text => {
+		  const cell = document.createElement('b');
+		  cell.className = 'd-table-cell';
+		  cell.textContent = text;
+		  headerRow.appendChild(cell);
+		});
+
+		container.appendChild(headerRow);
+
+		for (let i = 0; i < data.length; i += 2) {
+		  const row = document.createElement('div');
+		  row.className = 'd-table-row';
+
+		  // First field in row
+		  const [field1, value1] = Object.entries(data[i])[0];
+		  const field1Class = field1.toLowerCase().replace(/\s+/g, '-');
+
+		  // Second field in row (if exists)
+		  let field2 = '', value2 = '', field2Class = '';
+		  if (i + 1 < data.length) {
+			[field2, value2] = Object.entries(data[i + 1])[0];
+			field2Class = field2.toLowerCase().replace(/\s+/g, '-');
+		  }
+
+		  row.innerHTML = `
+			<span class="d-table-cell pe-2 l-form-${field1Class}">${field1}</span>
+			<span class="d-table-cell pe-2">${value1}</span>
+			<span class="d-table-cell pe-2"></span>
+			<span class="d-table-cell pe-2 ps-5 l-campaign-${field2Class}">${field2}</span>
+			<span class="d-table-cell pe-2">${value2}</span>
+		  `;
+
+		  container.appendChild(row);
+		}
+		
+		// Append to body or any container
+		droot.append(container);
+
+	}
+	
+	
+//	<div class="d-table"><div class="d-table-row"><b class="d-table-cell l-campaign-field">Field</b><b class="d-table-cell l-campaign-variable">Variable</b><b class="d-table-cell"></b><b class="d-table-cell ps-5 l-campaign-field">Field</b><b class="d-table-cell l-campaign-variable">Variable</b><b class="d-table-cell"></b></div><div class="d-table-row"><span class="d-table-cell pe-2 l-form-full-name">Full Name</span><span class="d-table-cell pe-2">{{FullName}}</span><span class="d-table-cell pe-2"><i class="fas fa-copy cursor-pointer pop" data-bs-content="" data-bs-toggle="popover" data-bs-placement="bottom" aria-label="Copied!" data-bs-original-title="Copied!"></i></span><span class="d-table-cell pe-2 ps-5 l-campaign-mobile-num">Mobile No</span><span class="d-table-cell pe-2">{{Mobile}}</span><span class="d-table-cell pe-2"><i class="fas fa-copy cursor-pointer pop" data-bs-content="" data-bs-toggle="popover" data-bs-placement="bottom" aria-label="Copied!" data-bs-original-title="Copied!"></i></span></div><div class="d-table-row"><span class="d-table-cell pe-2 l-form-title">Title</span><span class="d-table-cell pe-2">{{Title}}</span><span class="d-table-cell pe-2"><i class="fas fa-copy cursor-pointer pop" data-bs-content="" data-bs-toggle="popover" data-bs-placement="bottom" aria-label="Copied!" data-bs-original-title="Copied!"></i></span><span class="d-table-cell pe-2 ps-5 l-campaign-home-num">Home No</span><span class="d-table-cell pe-2">{{Home}}</span><span class="d-table-cell pe-2"><i class="fas fa-copy cursor-pointer pop" data-bs-content="" data-bs-toggle="popover" data-bs-placement="bottom" aria-label="Copied!" data-bs-original-title="Copied!"></i></span></div><div class="d-table-row"><span class="d-table-cell pe-2 l-form-email">Email</span><span class="d-table-cell pe-2">{{Email}}</span><span class="d-table-cell pe-2"><i class="fas fa-copy cursor-pointer pop" data-bs-content="" data-bs-toggle="popover" data-bs-placement="bottom" aria-label="Copied!" data-bs-original-title="Copied!"></i></span><span class="d-table-cell pe-2 ps-5 l-campaign-work-num">Work No</span><span class="d-table-cell pe-2">{{Work}}</span><span class="d-table-cell pe-2"><i class="fas fa-copy cursor-pointer pop" data-bs-content="" data-bs-toggle="popover" data-bs-placement="bottom" aria-label="Copied!" data-bs-original-title="Copied!"></i></span></div></div>
 
     async getTemplateByAPI(sCompany, sAgentId, sToken)
     {
@@ -247,10 +404,17 @@ class WaTemplateService {
 
     };
 	
+	//20250812 for fix 
+	validateTemplateInputExist(sTemplate)
+	{
+			
+		if (!sTemplate || !Array.isArray(sTemplate.inputList)) {
+			return false; // or handle accordingly
+		}
+		return true;
+		
+	}
 	
-
-
-
     validateTemplateInputFilled(sTemplate)
     {
         var inputList = sTemplate.inputList;

@@ -23,6 +23,13 @@ var functions = parent.functions;
 var isAdmin = (functions.indexOf('Campaign-Admin-Fn') != -1);
 var cCustDeselectArr = [];
 
+
+//20250730 for send whatsapp message by shandler
+var selectedSendTemplate = null;
+var sAgentId = top.loginId;
+var sToken = top.token;
+var sCompany = "EPRO";
+
 function openNav() {
     var existingWidth = document.getElementById("left-menu").style.width;
     if (existingWidth == "135px") {
@@ -2198,10 +2205,49 @@ function processBatchTblDataDetail(batchTblData)
     
 }
 
+const assignmentTableData = [
+	{ "Full Name":  "Chan Tai Man" 	},
+	{ "Mobile No":  "61234567" 		},
+	{ "Title": 	    "Mr." 			},
+	{ "Home No": 	"23456789" 		},
+	{ "Email": 	    "abc@abcde.com" },
+	{ "Work No": 	"34567890" 		}
+];
+
+const variableTableData = [
+	{ "Full Name":	"{{FullName}}"  },		
+	{ "Mobile No":	"{{Mobile}}"    },	
+	{ "Title":		"{{Title}}"     },		
+	{ "Home No":	"{{Home}}"      },	
+	{ "Email":		"{{Email}}"     },		
+	{ "Work No":	"{{Work}}"      }    
+]
+
 function processBatchTblWhatsapp(batchTbl, loginId, token, element)
 {
+	
+		var id  = "";
+		var pobj= null;
 		//var data = batchTbl.row($(this).parents('tr')).data();
-		var data = batchTbl.row(element.parents('tr')).data();
+		var data= batchTbl.row(element.parents('tr')).data();
+		
+		Content = data.Whatsapp_Tp_Props || '';
+		if (Content)
+		{
+			pobj 	= JSON.parse(Content);
+			id 		= pobj.TP_id;
+		}
+		
+		//20250731 for call whatsapp template service
+		waTempService = parent.parent.document.getElementById("phone-panel").contentWindow.waTempService;
+		var useTemplateService = false;
+		
+		if (id.length > 3)
+		{
+			useTemplateService = true;
+		}
+      
+		
 		
         $('#m-lower-part').empty();
         var lowerPartStr = "";
@@ -2214,20 +2260,33 @@ function processBatchTblWhatsapp(batchTbl, loginId, token, element)
         lowerPartStr += '<div id="send-wa-container" class="">' + '<button id="select-tp-btn" class="btn btn-sm btn-warning text-capitalize rounded">' + langJson['l-campaign-select-template'] + '</button>' + '<div id="send-wa-section" class="mt-2"></div></div>';
 
         //09/06 whatsapp variable list=====================
-        lowerPartStr += '<div class="card my-2"><div class="card-body bg-lightgray"><div class="my-1"><h5 class="d-inline l-campaign-variable-list">Variable List</h5></div>';
-        lowerPartStr += ('<div class="d-table">' +
+        lowerPartStr += '<div class="card my-2"><div class="card-body bg-lightgray"><div class="my-1"><h5 class="d-inline l-campaign-variable-list">Variable List</h5></div><div id="tblVariableTable"></div>';
+      
+	  	if (useTemplateService == false) 
+		{
+ 	  lowerPartStr += ('<div class="d-table">' +
             '<div class="d-table-row"><b class="d-table-cell l-campaign-field">Field</b><b class="d-table-cell l-campaign-variable">Variable</b><b class="d-table-cell"></b><b class="d-table-cell ps-5 l-campaign-field">Field</b><b class="d-table-cell l-campaign-variable">Variable</b><b class="d-table-cell"></b></div>' +
             '<div class="d-table-row"><span class="d-table-cell pe-2 l-form-full-name">Full Name</span><span class="d-table-cell pe-2">{{FullName}}</span><span class="d-table-cell pe-2"><i class="fas fa-copy cursor-pointer pop" title="Copied!" data-bs-content="" data-bs-toggle="popover" data-bs-placement="bottom"></i></span><span class="d-table-cell pe-2 ps-5 l-campaign-mobile-num">Mobile No</span><span class="d-table-cell pe-2">{{Mobile}}</span><span class="d-table-cell pe-2"><i class="fas fa-copy cursor-pointer pop" title="Copied!" data-bs-content="" data-bs-toggle="popover" data-bs-placement="bottom"></i></span></div>' +
             '<div class="d-table-row"><span class="d-table-cell pe-2 l-form-title">Title</span><span class="d-table-cell pe-2">{{Title}}</span><span class="d-table-cell pe-2"><i class="fas fa-copy cursor-pointer pop" title="Copied!" data-bs-content="" data-bs-toggle="popover" data-bs-placement="bottom"></i></span><span class="d-table-cell pe-2 ps-5 l-campaign-home-num">Home No</span><span class="d-table-cell pe-2">{{Home}}</span><span class="d-table-cell pe-2"><i class="fas fa-copy cursor-pointer pop" title="Copied!" data-bs-content="" data-bs-toggle="popover" data-bs-placement="bottom"></i></span></div>' +
             '<div class="d-table-row"><span class="d-table-cell pe-2 l-form-email">Email</span><span class="d-table-cell pe-2">{{Email}}</span><span class="d-table-cell pe-2"><i class="fas fa-copy cursor-pointer pop" title="Copied!" data-bs-content="" data-bs-toggle="popover" data-bs-placement="bottom"></i></span><span class="d-table-cell pe-2 ps-5 l-campaign-work-num">Work No</span><span class="d-table-cell pe-2">{{Work}}</span><span class="d-table-cell pe-2"><i class="fas fa-copy cursor-pointer pop" title="Copied!" data-bs-content="" data-bs-toggle="popover" data-bs-placement="bottom"></i></span></div>' +
-            '</div></div></div>');
-        lowerPartStr += '<div class="card my-2"><div class="card-body"><div class="c-section">';
+            '</div>');
+			
+		}	
+		
+		lowerPartStr += ('</div></div>');
+        lowerPartStr += '<div class="card my-2"><div class="card-body"><div id="tblAssignmentTable"></div><div class="c-section">';
+      
+	  
+		if (useTemplateService == false) 
+		{
         lowerPartStr += ('<div class="d-table">' +
             '<div class="d-table-row"><b class="d-table-cell l-campaign-field">Field</b><b class="d-table-cell l-campaign-test-value">Test Value</b><b class="d-table-cell"></b><b class="d-table-cell ps-5 l-campaign-field">Field</b><b class="d-table-cell l-campaign-test-value">Test Value</b></div>' +
             '<div class="d-table-row"><span class="d-table-cell pe-2 l-form-full-name">Full Name</span><span class="d-table-cell pe-2">Chan Tai Man</span><span class="d-table-cell pe-2"></span><span class="d-table-cell pe-2 ps-5 l-campaign-mobile-num">Mobile No</span><span class="d-table-cell pe-2">61234567</span></div>' +
             '<div class="d-table-row"><span class="d-table-cell pe-2 l-form-title">Title</span><span class="d-table-cell pe-2">Mr.</span><span class="d-table-cell pe-2"></span><span class="d-table-cell pe-2 ps-5 l-campaign-home-num">Home No</span><span class="d-table-cell pe-2">23456789</span></div>' +
             '<div class="d-table-row"><span class="d-table-cell pe-2 l-form-email">Email</span><span class="d-table-cell pe-2">abc@abcde.com</span><span class="d-table-cell pe-2"></span><span class="d-table-cell pe-2 ps-5 l-campaign-work-num">Work No</span><span class="d-table-cell pe-2">34567890</span></div>' +
             '</div></div>');
+
+		}
 
         // Add Test Whatsapp
         lowerPartStr += '<div class="mt-2"><input id="m-test-phone-no" type="tel" class="form-control w-25 d-inline" placeholder="' + langJson['l-campaign-type-your-phone'] + '" maxlength=100 autocomplete="off" /><button id="m-send-test-whatsapp-btn" class="btn rounded btn-sm btn-warning text-capitalize ms-2"><i class="fas fa-paper-plane me-2"></i><span class="l-campaign-send-test-whatsapp">Send Test Whatsapp</span></button><span id="sent-test-whatsapp-lbl" style="display:none;">&nbsp;Sent!</span></div>';
@@ -2239,7 +2298,16 @@ function processBatchTblWhatsapp(batchTbl, loginId, token, element)
         //whatsapp variable list end==========================
 
         // Insert String
-        $('#m-lower-part').append(lowerPartStr);
+		
+        $('#m-lower-part').append(lowerPartStr); 
+
+		//20250731 for use tempplate Service
+		if (useTemplateService) 
+		{
+			waTempService.returnVariableTable(variableTableData,$('#tblVariableTable'))	
+			waTempService.returnAssignmentTable(assignmentTableData,$('#tblAssignmentTable'))	
+			
+		}
 
         //Set Language (Whatsapp)
         $('.l-campaign-selected-channel').text(langJson['l-campaign-selected-channel']);
@@ -2304,50 +2372,73 @@ function processBatchTblWhatsapp(batchTbl, loginId, token, element)
             }
 
             var theTemplate = waTPArr[index];
-            var crmText = theTemplate.crm;
-            var msg_content = crmText.replace(/\{\{1}}/g, props[0]).replace(/\{\{2}}/g, props[1]).replace(/\{\{3}}/g, props[2]).replace(/\{\{4}}/g, props[3]).replace(/\{\{5}}/g, props[4]);
+			//20250731 check using waTPArr to determine using old or new logic
+			if (theTemplate)
+			{
+			
+				var crmText = theTemplate.crm;
+				var msg_content = crmText.replace(/\{\{1}}/g, props[0]).replace(/\{\{2}}/g, props[1]).replace(/\{\{3}}/g, props[2]).replace(/\{\{4}}/g, props[3]).replace(/\{\{5}}/g, props[4]);
 
-            if (theTemplate.id != 6) { //with image
-                var waContainerStr = (
-                    '<div class="form-check form-check-radio ms-4"><label class="form-check-label" for="tp-5"><input checked class="form-check-input" type="radio" name="tp" id="tp-' + theTemplate.id + '" value="' + theTemplate.id + '" props=' + props.length + '>Selected Template ID: ' + theTemplate.id + '</div><span class="circle"><span class="check"></span></span></label></div>'
-                )
+				if (theTemplate.id != 6) { //with image
+					var waContainerStr = (
+						'<div class="form-check form-check-radio ms-4"><label class="form-check-label" for="tp-5"><input checked class="form-check-input" type="radio" name="tp" id="tp-' + theTemplate.id + '" value="' + theTemplate.id + '" props=' + props.length + '>Selected Template ID: ' + theTemplate.id + '</div><span class="circle"><span class="check"></span></span></label></div>'
+					)
 
-                for (let prop of props) {
-                    // NO DEL: just prsent method different: waContainerStr += '<div><label>Prop ' + (i + 1) + ':&nbsp;&nbsp;&nbsp;</label><input id="tpl-content-' + i + '" type="text" value="' + tpPropsArr[i] + '" class="w-50" /></div>'
-                    waContainerStr += '<input id="tpl-content-' + i + '" type="text" value="' + prop + '" class="d-none" />'
-                }
+					for (let prop of props) {
+						// NO DEL: just prsent method different: waContainerStr += '<div><label>Prop ' + (i + 1) + ':&nbsp;&nbsp;&nbsp;</label><input id="tpl-content-' + i + '" type="text" value="' + tpPropsArr[i] + '" class="w-50" /></div>'
+						waContainerStr += '<input id="tpl-content-' + i + '" type="text" value="' + prop + '" class="d-none" />'
+					}
 
-                if (theTemplate.type == 'tp_qr') {
-                    msg_content = msg_content.replaceAll('\\', '\\\\');
-                    msg_content = msg_content.replaceAll('\\\\r', '\\r');
-                    msg_content = msg_content.replaceAll('\\\\n', '\\n');
-                    waContainerStr += SC.handleWATpQRMsg(msg_content).text;
+					if (theTemplate.type == 'tp_qr') {
+						msg_content = msg_content.replaceAll('\\', '\\\\');
+						msg_content = msg_content.replaceAll('\\\\r', '\\r');
+						msg_content = msg_content.replaceAll('\\\\n', '\\n');
+						waContainerStr += SC.handleWATpQRMsg(msg_content).text;
 
-                } else if (theTemplate.type == 'tp_cta') {
-                    msg_content = msg_content.replaceAll('\\', '\\\\');
-                    msg_content = msg_content.replaceAll('\\\\r', '\\r');
-                    msg_content = msg_content.replaceAll('\\\\n', '\\n');
-                    //waContainerStr += handleWATpCTAMsg(msg_content).text;
-                    waContainerStr += SC.handleWATpCTAMsg(msg_content).text;
+					} else if (theTemplate.type == 'tp_cta') {
+						msg_content = msg_content.replaceAll('\\', '\\\\');
+						msg_content = msg_content.replaceAll('\\\\r', '\\r');
+						msg_content = msg_content.replaceAll('\\\\n', '\\n');
+						//waContainerStr += handleWATpCTAMsg(msg_content).text;
+						waContainerStr += SC.handleWATpCTAMsg(msg_content).text;
 
-                }
+					}
 
-                $('#send-wa-section').empty().append(waContainerStr);
-
-
-            } else { //with no image
-                var waContainerStr = (
-                    '<div class="form-check form-check-radio ms-4"><label class="form-check-label" for="tp-5"><input checked class="form-check-input" type="radio" name="tp" id="tp-' + tpid + '" value="' + data.tpid + '" props=' + props.length + '>Selected Template ID: ' + tpid + '</div><span class="circle"><span class="check"></span></span></label></div>');
-
-                for (var i = 0; i < props.length; i++) {
-                    waContainerStr += '<input id="tpl-content-' + i + '" type="text" value="' + props[i] + '" class="d-none" />'
-                }
-                waContainerStr += ('<div class="ms-5">' + msg_content + '</div>');
-
-                $('#send-wa-section').empty().append(waContainerStr);
-            }
+					$('#send-wa-section').empty().append(waContainerStr);
 
 
+				} else { //with no image
+					var waContainerStr = (
+						'<div class="form-check form-check-radio ms-4"><label class="form-check-label" for="tp-5"><input checked class="form-check-input" type="radio" name="tp" id="tp-' + tpid + '" value="' + data.tpid + '" props=' + props.length + '>Selected Template ID: ' + tpid + '</div><span class="circle"><span class="check"></span></span></label></div>');
+
+					for (var i = 0; i < props.length; i++) {
+						waContainerStr += '<input id="tpl-content-' + i + '" type="text" value="' + props[i] + '" class="d-none" />'
+					}
+					waContainerStr += ('<div class="ms-5">' + msg_content + '</div>');
+
+					$('#send-wa-section').empty().append(waContainerStr);
+				}
+
+			}
+			else
+			{
+				
+				//20250731 for shandler reload logic
+				$('#send-wa-section').empty();									
+									
+   			 	selectedSendTemplate = waTempService.returnSelectedTemplateByTemplateName(tpid);
+				
+				
+				selectedSendTemplate.inputList = props;
+				waTempService.displayFilledTemplateOnWeb(selectedSendTemplate, $('#send-wa-section'));
+				
+				
+				var waContainerStr = ('<div class="form-check form-check-radio ms-4">' + 
+										'Selected Template ID: ' + tpid + 
+									'</div>');
+				$('#send-wa-section').prepend(waContainerStr);				
+				
+			}
 
         } //end show history=============================================
 
@@ -2395,8 +2486,26 @@ function processBatchTblWhatsapp(batchTbl, loginId, token, element)
 
         $('#select-tp-btn').on('click', function () {
             var openWindows = parent.parent.openWindows;
-            var socialPopup = window.open('socialPopup.html?type=wa-template', 'marketingWA', '_blank, toolbar=0,location=0,top=50, left=100,menubar=0,resizable=0,scrollbars=1,width=1000,height=928');
-            openWindows[openWindows.length] = socialPopup;
+
+			
+			////20250730 newly added for shandler whatsapp send template
+			selectedSendTemplate = null;
+
+            
+            sAgentId = top.loginId;
+            sToken = top.token;
+            sCompany = "EPRO";
+
+            // The service location is different from chatbot (parent.parent)
+            // waTempService = parent.document.getElementById("phone-panel").contentWindow.waTempService;
+            waTempService = parent.parent.document.getElementById("phone-panel").contentWindow.waTempService;
+		    
+			var socialPopup = window.open('./socialWaTemplateSL.html?type=wa-template', 'socialPop', '_blank, toolbar=0,location=0,top=50, left=100,menubar=0,resizable=0,scrollbars=1,width=1000,height=928');
+            
+			//var socialPopup = window.open('socialPopup.html?type=wa-template', 'marketingWA', '_blank, toolbar=0,location=0,top=50, left=100,menubar=0,resizable=0,scrollbars=1,width=1000,height=928');
+			
+			
+			openWindows[openWindows.length] = socialPopup;
             socialPopup.onload = function () {
                 socialPopup.onbeforeunload = function () {
                     for (var i = 0; i < openWindows.length; i++) {
@@ -2405,8 +2514,38 @@ function processBatchTblWhatsapp(batchTbl, loginId, token, element)
                             break;
                         }
                     }
+					
+					//20250730 FOR shandler
+					if (selectedSendTemplate != null)
+					{
+						
+						replyConfirmed = true;
+						//document.getElementById("case-save-btn").disabled = false;   
+						
+						const div = $("#send-wa-section"); 
+						 $('#send-wa-section').empty();
+						 
+						 
+						
+						
+						waTempService.displayFilledTemplateOnWeb(selectedSendTemplate, $('#send-wa-section'));
+
+
+
+						if (typeof parent[0].resize !== "undefined") {
+							parent[0].resize();     //If send whatsapp template in chat room search case flow
+						}
+						else if (typeof parent[1].resize !== "undefined") {
+							parent[1].resize();     //If send whatsapp template in search case flow
+													//or pure create new customer flow
+						}
+
+						div.animate({ scrollTop: div[0].scrollHeight }, 'slow');
+					}
                 }
             }
+			
+
         })
 
         $('#m-selected-tbl').DataTable({
@@ -2438,10 +2577,134 @@ function processBatchTblWhatsapp(batchTbl, loginId, token, element)
                 return;
             }
 
-            sendTP();
+            //sendTP();
+			var updatedInputList = waTempService.fillInputFromAssignmentTable(selectedSendTemplate.inputList,  variableTableData, assignmentTableData);
+		//	selectedSendTemplate.inputList = updatedInputList;
+			sendTemplateMessageFromCase(sAgentId, sToken, "EPRO", selectedSendTemplate, updatedInputList, "85293909352", testPhoneNo, null);
+
+
 
         });
+		
+		
+		
+		//20250730 for shandler whatsapp template messaage	(copy from sendTemplateMessageByHandler on phone.html)
+		//-------------------------start-----------------
+		function sendTemplateMessageFromCase(agent, token, companyName, sTemplate, inputList, sFrom, sTo, sTicketId) {
+			
 
+			let no = "";
+			no += (sTo.length<=8)? "852" + sTo: sTo;
+			
+			$.ajax({
+				type: "POST",
+				
+				url: config.shandlerapi + '/api/sendTemplate', crossDomain: true,
+				data:
+					JSON.stringify({
+						"Agent_Id": agent,      "TicketId": sTicketId,                  "Token": token,
+						"Company": companyName, "TemplateName": sTemplate.TemplateName,
+						"From": sFrom,          "To": no,                              "BodyParams": inputList
+					}),
+				contentType: "application/json; charset=utf-8", dataType: "json",
+				success: function (r) {
+					if (!/^success$/i.test(r.result || "")) {
+						console.log('error in function sendTemplateMessageFromCase in marketing page');
+					} else {  //cannot use this.selectedTicketId because the function is tiggerd in popup
+						 // return to the same .js
+						sendTemplateMessageFromCaseCallBack(r.details);
+						//aleer("message sent successful");
+					}
+				},
+				error: function (r) {
+					console.log('error in sendTemplateMessageByHandler in crmInputForm.js');
+					console.log(r);
+				}
+			});
+
+
+		}
+
+		function sendTemplateMessageFromCaseCallBack(sMsg)
+		{
+			
+				$('#sent-test-whatsapp-lbl').fadeIn();
+				setTimeout(function () { $('#sent-test-whatsapp-lbl').fadeOut() }, 2000);
+				// Opacity becmoe 1 again
+				$('#m-confirm-container').removeClass('opacity-low');
+				// Piont Event Become Cursor Again
+				$('#m-confirm-cbx').removeClass('form-check-label-disabled');
+				// Cbx Can be Clicked Again
+				$('#m-confirm-whatsapp-cbx').prop('disabled', false).removeClass('btn-cursor-default');
+		}
+		
+		 //24/5/2021 whatsapp call api: updateOutBoundBatch ---------------------
+        $('#m-whatsapp-confirm-btn').on('click', function () {
+
+            // var selectedTP = undefined;	// 20250326 (JavaScript) Variables should not be initialized to undefined
+            //var selectedTP = $('input[name=tp]').val();
+            
+			
+			if (selectedSendTemplate == false) {
+                alert(langJson['l-campaign-template-blank']);
+                return;
+            }
+
+
+			var selectedTP = selectedSendTemplate.TemplateName;
+
+
+
+
+            //write to json string
+            var whatsappJsonStr = '{"agent_id":null, "TP_id":null, "company_code":"SM_WA", "props":[]}';
+            var jsonObj = JSON.parse(whatsappJsonStr);
+            jsonObj.agent_id = loginId;
+            jsonObj.TP_id = selectedTP;
+            for (let theTrimmedProp of selectedSendTemplate.inputList) {
+                jsonObj.props.push(theTrimmedProp);
+            }
+            whatsappJsonStr = JSON.stringify(jsonObj);
+
+            var inputDate = $('#m-calendar').val();
+            if (inputDate.length == 0) {
+                alert(langJson['l-campaign-email-datetime-blank']);
+                return;
+            }
+            var inputHour = $('#m-hour').val();
+            var inputMinute = $('#m-min').val();
+            var theHour = inputHour.length != 2 ? '00' : inputHour;
+            var theMinute = inputMinute.length != 2 ? '00' : inputMinute;
+            var sendDateTime = inputDate + ' ' + theHour + ':' + theMinute;
+
+            var sendObj = {
+                Batch_Id: data.Batch_Id,
+                Agent_Id: loginId,
+                Whatsapp_Delivery_Time: sendDateTime,
+                Token: token,
+                Whatsapp_Tp_ID: selectedTP,
+                Whatsapp_Tp_Props: whatsappJsonStr
+            };
+
+            $.ajax({
+                type: "PUT",
+                url: config.companyUrl + '/api/UpdateOutboundBatch',
+                data: JSON.stringify(sendObj),
+                crossDomain: true,
+                contentType: "application/json",
+                dataType: 'json'
+            }).always(function (r) {
+                if (!/^success$/i.test(r.result || "")) {
+                    console.log('error: ' + r.details);
+                    alert(langJson['l-campaign-fail-update-outbound']);
+                } else {
+                    switchContent('Manage', true);
+                    alert(langJson['l-campaign-scheduled-send-whatsapp']);
+                }
+            }); //end send whatsapp ------------------------------------------
+
+        })
+/*
         //24/5/2021 whatsapp call api: updateOutBoundBatch ---------------------
         $('#m-whatsapp-confirm-btn').on('click', function () {
 
@@ -2535,7 +2798,7 @@ function processBatchTblWhatsapp(batchTbl, loginId, token, element)
 
         })
 
-
+*/
 
 }
 

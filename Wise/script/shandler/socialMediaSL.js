@@ -33,14 +33,14 @@ var sAgentId = 0;
 var sToken = "";
 var sCompany = "";
 var waTempService = null;
-
+/* 20250806 comment for removing not using code
 function replyCallClick(lastCallType, lastCallID, confConnID, theTicketId) {
     if (theTicketId) {
         var iframeInputForm = document.getElementById('input-form-' + theTicketId);
         iframeInputForm.contentWindow.replyCallClick(lastCallType, lastCallID, confConnID);
         parent.tmpTicketId = null;
     }
-}
+}*/
 
 if (dd < 10) {
     dd = '0' + dd
@@ -60,7 +60,7 @@ var canDownloadVoice = functions.indexOf('Download-Voice') != -1;
 var downloadVoiceStr = canDownloadVoice ? '' : ' controlsList="nodownload"';
 var typingObj = {};
 var fbHistoryfileHost = 'https://api.commas.hk/';
-
+/* 20250806 comment for removing not using code
 //Number.isInteger only work on Chrome, not IE, so have this function
 function removeTypingBubble(ticketId) {
     $('#chatBubble-' + ticketId).remove();
@@ -68,13 +68,13 @@ function removeTypingBubble(ticketId) {
         clearTimeout(typingObj[ticketId]);
         delete typingObj[ticketId];
     }
-}
-
+}*/
+/* 20250806 comment for removing not using code
 function WA24Expired(ticketId) {
     parent.document.getElementById("phone-panel").contentWindow.wiseCompleteTicket(ticketId); // will disable textarea afterward automatically
     $('#reply-textarea-' + ticketId).prop("placeholder", "Over 24 hours. Template only can be sent.");
-}
-
+}*/
+/* 20250806 comment for removing not using code
 function WARenewTimeout(ticketId, lastClientTime) {
     lastClientTime = lastClientTime.replace("T", " ");
     lastClientTime = lastClientTime.slice(0, 19);
@@ -91,8 +91,8 @@ function WARenewTimeout(ticketId, lastClientTime) {
         var remainingTime = 86400000 - timeDiff; // 24 hours millisecond minus last sent time till now millisecond
         WATimeOutObj[ticketId] = setTimeout(function (p) { WA24Expired(p.ticketId) }.bind(this, { ticketId: ticketId }), remainingTime);
     }
-}
-
+}*/
+/* 20250806 comment for removing not using code
 function customerTyping(ticketId) {
     var chatDiv = $('#content-inner-scroll-' + ticketId);
 
@@ -123,10 +123,11 @@ function customerTyping(ticketId) {
         }
     }
 }
-
+*/
+/* 20250806 comment for removing not using code
 function isInteger(num) {
     return (num ^ 0) === num;
-}
+}*/
 var loginId = parseInt(sessionStorage.getItem('scrmAgentId') || -1);
 var token = sessionStorage.getItem('scrmToken') || '';
 var agentName = sessionStorage.getItem('scrmAgentName') || '';
@@ -153,15 +154,15 @@ function setLanguage() {
     $('.l-social-to-pass-the-input-form-to').text(langJson['l-social-to-pass-the-input-form-to']);
     $('.l-general-confirm').text(langJson['l-general-confirm']);
 }
-
+/* 20250806 comment for removing not using code
 function readOrDeletedMsg(msgObj) {
     if (msgObj.deleted_msg_id) {
         $('#content-inner-scroll-' + msgObj.ticket_id).find('#' + msgObj.deleted_msg_id).find('.content-bubble').addClass('my-auto')
             .empty().
             append('<span class="deleted-msg"><i class="fas fa-ban me-1"></i>This message was deleted</span>')
     }
-}
-
+}*/
+/* 20250806 comment for removing not using code
 // got social status from wise e.g. {ticket_id: -1944358426, ticket_status: "timeout"}
 function addSocialStatus(obj) {
     var ticketId = obj.ticket_id;
@@ -235,7 +236,8 @@ function addSocialStatus(obj) {
         delete WATimeOutObj[ticketId];
     }
 }
-
+*/
+/* 20250806 comment for removing not using code
 // called for handle bubble's message
 function handleBubbleMsg(msg, msg_object_client_name, msg_object_path) {
     if (msg != null && msg.length > 0) {
@@ -260,7 +262,7 @@ function handleBubbleMsg(msg, msg_object_client_name, msg_object_path) {
     } else {
         return '';
     }
-}
+}*/
 
 function getSqlFormatTime() {
     var date;
@@ -341,7 +343,7 @@ function shareBtnClicked(campaign) {
    
 	
 }
-
+/* 20250806 comment for removing not using code
 function endClicked(ticketId, oThis) {
 
     // close the tooltip
@@ -381,8 +383,8 @@ function endClicked(ticketId, oThis) {
             parent.document.getElementById("phone-panel").contentWindow.wiseCompleteTicket(ticketId);
         }
     }
-}
-
+}*/
+/* 20250806 comment for removing not using code
 function commentRowClicked(oThis, msgId) {
     var visitorRow = $(oThis);
     if (visitorRow.hasClass('selected-row')) {
@@ -390,8 +392,8 @@ function commentRowClicked(oThis, msgId) {
     } else {
         visitorRow.addClass('selected-row');
     }
-}
-
+}*/
+/* 20250806 comment for removing not using code
 function sendSocialFile(ticketId, filePath, msgIdArr, commentIdArr) {
 
     // if fb comment need to check file format first
@@ -436,7 +438,7 @@ function sendSocialFile(ticketId, filePath, msgIdArr, commentIdArr) {
         }
     });
 }
-
+*/
 /* NO DEL may need in future
 // emoji function here
 function emojiBtnClicked(ticketId) {
@@ -459,7 +461,7 @@ function closeEmoji() {
     $('#emoji-container-' + presentTicketId).hide();
 }
 */
-
+/* 20250806 comment for removing not using code
 function uploadAttachment(input, ticketId) {
 
     // if open browse file window but did not choose any file, will reply input undefined
@@ -538,7 +540,7 @@ function uploadAttachment(input, ticketId) {
             }*/
 
             // as file spent too much time to deliver and return to us that is successuflly, so want to create the bubble first
-            if (entry != 'fb_comment') {
+          /* if (entry != 'fb_comment') {
                 createOrUpdateBubble({
                     'ticket_id': ticketId,
                     'msg_list': [{
@@ -551,7 +553,7 @@ function uploadAttachment(input, ticketId) {
                     ]
                 });
             }
-
+*//*
             parent.sendSocialFile(ticketId, fileDetails.FilePath, msgIdArr, function (r) {
                 if (/^success$/i.test(r.result || "")) {
                     if (entry != 'fb_comment') {
@@ -595,8 +597,8 @@ function uploadAttachment(input, ticketId) {
 
         }
     });
-}
-
+}*/
+/* 20250806 comment for removing not using code
 function bubbleClicked(bubbleTicketId) {
     if (presentTicketId != bubbleTicketId) {
 
@@ -633,8 +635,8 @@ function bubbleClicked(bubbleTicketId) {
         var objDiv = document.getElementById('content-inner-scroll-' + bubbleTicketId);
         objDiv.scrollTop = objDiv.scrollHeight;
     }
-}
-
+}*/
+/* 20250806 comment for removing not using code
 function pasteIntoInput(el, text) {
     el.focus();
     if (typeof el.selectionStart == "number" &&
@@ -757,8 +759,8 @@ function replyClicked(ticketId) {
     } else {
         alert(langJson['l-alert-reply-message-blank']);
     }
-}
-
+}*/
+/* 20250806 comment for removing not using code
 function passFormConfirmClicked() {
     var ticketId = tempTicketId;
     var selectedInput = $("input[name='agentList']:checked");
@@ -786,8 +788,8 @@ function passFormConfirmClicked() {
     // /NO DEL
     $('#inputFormModal').modal('toggle');
     tempTicketId = null;
-}
-
+}*/
+/* 20250806 comment for removing not using code
 function passFormClicked(ticketId) {
     $('#input-form-ticketid').html(ticketId);
     var agentArrDivs = '';
@@ -804,7 +806,7 @@ function passFormClicked(ticketId) {
     $('#inputFormModal').modal('show');
     tempTicketId = ticketId;
 }
-
+/* 20250806 comment for removing not using code
 function groupChatTooltip(roomAgentArr, ticketId) {
     var channelIcon = $('#channel-' + ticketId);
     if (roomAgentArr.length <= 1) {
@@ -828,8 +830,8 @@ function groupChatTooltip(roomAgentArr, ticketId) {
         channelIcon.attr('roomAgents', roomAgentArr.join());
     }
     channelIcon.tooltip();
-}
-
+}*/
+/* 20250806 comment for removing not using code
 function agentAddGroupChat(ticketId, toAddAgentId, typeId) {
     var statusMsg = "";
     var agentNameStr = parent.getAgentName(toAddAgentId) + ' (ID: ' + toAddAgentId + ')';
@@ -847,8 +849,8 @@ function agentAddGroupChat(ticketId, toAddAgentId, typeId) {
     if (objDiv != null) {
         objDiv.scrollTop = objDiv.scrollHeight;
     }
-}
-
+}*/
+/* 20250806 comment for removing not using code
 function agentleftGroupChat(ticketId, toRemoveAgentId, typeId) {
     if (toRemoveAgentId == loginId) {
         addSocialStatus({ ticket_id: ticketId, ticket_status: 'left' });
@@ -865,8 +867,8 @@ function agentleftGroupChat(ticketId, toRemoveAgentId, typeId) {
             objDiv.scrollTop = objDiv.scrollHeight;
         }
     }
-}
-
+}*/
+/* 20250806 comment for removing not using code
 function handleSystemMsg(sentMsgAgent, msgType, ticketId, MsgOrHtml, formData, formType) {
 
     // var bubbleTicket = $('#bubble-' + ticketId); // NO DEL may need in future
@@ -946,7 +948,8 @@ function handleSystemMsg(sentMsgAgent, msgType, ticketId, MsgOrHtml, formData, f
         }
         return;
     }
-}
+}*/
+/* 20250806 comment for removing not using code
 //20250520 add function for Extract this nested ternary operation into an independent statement.
 function updateAgentByMsg(theMsg)
 {
@@ -1150,8 +1153,8 @@ function addOldHistory(msgObj, ticketId, ticketLength) {
         delete parent.mainOldTicketObj[theOldMsgTicketId]
     }
 }
-
-
+*/
+/* 20250806 comment for removing not using code
 function gotMsgHistory(msgObj, openConnId) { // got event from wise
     var inputFormFrame = document.getElementById('input-form-' + openConnId)
     var onlineFormData = msgObj.online_form_data;
@@ -1208,7 +1211,8 @@ function gotMsgHistory(msgObj, openConnId) { // got event from wise
     var casePopup = inputFormFrame.contentWindow.caseRecordPopup;
     casePopup.window.generateSocialHistory(msgObj);
 }
-
+*/
+/* 20250806 comment for removing not using code
 // remove the session display
 function removeTicket(ticketId) {
 
@@ -1231,7 +1235,7 @@ function removeTicket(ticketId) {
         // click the top one
         $(bubbleChildren[0]).trigger('click');
     }
-}
+}*/
 
 // inputform.html submitted case: 1. if chat ended, close all 2. if chat not ended yet, mark down it and close all when chat ended
 function savedCase(ticketId) {
@@ -1245,7 +1249,7 @@ function savedCase(ticketId) {
         $('#input-form-' + ticketId).contents().find('#save-btn-section').append('<button id="no-followup-btn" class="btn btn-warning rounded btn-sm text-capitalize" onclick="return parent.leaveChat(' + ticketId + ',true)"><i class="fa fa-sign-out-alt me-2"></i><span>Leave Without Follow-up Action</span></button>');
     }
 }
-
+/* 20250806 comment for removing not using code
 function gotFBPostInfo(postObj) {
     var msg = postObj.message;
     var ticketId = postObj.ticket_id;
@@ -1255,8 +1259,8 @@ function gotFBPostInfo(postObj) {
 
     // add to right panel
     $('#fb-title-' + ticketId).text(msg);
-}
-
+}*/
+/* 20250806 comment for removing not using code
 function loadFBReplies(oThis, ticketId, scrollDown) {
     var theTag = $(oThis);
     var commentId = theTag.attr('commentId');
@@ -1338,8 +1342,8 @@ function loadFBReplies(oThis, ticketId, scrollDown) {
             console.log(r);
         }
     });
-}
-
+}*/
+/* 20250806 comment for removing not using code
 function fbMoreComments(ticketId, aboveMsgId, oThis) {
     $.ajax({
         type: "POST",
@@ -1446,8 +1450,8 @@ function fbMoreComments(ticketId, aboveMsgId, oThis) {
             $(oThis).remove(); // to avoid find comments forever loop
         }
     });
-}
-
+}*/
+/* 20250806 comment for removing not using code
 function reloadFBHistory(ticketId) {
     $('fb-content-' + ticketId).empty();
     getFBComments(ticketId);
@@ -1610,7 +1614,7 @@ function getFBComments(ticketId, commentIdArr, tryCount) {
             }
         });
     }
-}
+}*/
 
 var selectedSendTemplate = null;
 function waTemplate(campaign) {
@@ -1653,7 +1657,7 @@ function waTemplate(campaign) {
         }
     }
 }
-
+/* 20250806 comment for removing not using code
 function selectAllClicked(ticketId) {
     var messageRows = $('#content-inner-scroll-' + ticketId).find('.message-row');
     var selectAll = false;
@@ -2121,8 +2125,8 @@ function fbPostAddContinus(ticketId) {
             delete fbPostTimeoutObj[ticketId];
        // }// 20250410 for else if 
     }
-}
-
+}*/
+/* 20250806 comment for removing not using code
 function createOrUpdateBubble(msgObj) {
     console.log(msgObj); // TBD
     var channelImg = '';
@@ -2281,7 +2285,7 @@ function createOrUpdateBubble(msgObj) {
                 '<div class="d-none stop-silent-group"><textarea id="' + textareaId + '" class="reply-textarea" maxlength="1000" rows="2" placeholder="' + langJson['l-social-type-your-text-here'] + '" onkeydown="textareaPressed(event)"></textarea><div class="reply-icon-group"><button id="canned-' + ticketId + '" class="reply-canned-container keyboard-icon" data-bs-toggle="tooltip" data-bs-placement="top" title="' + langJson['l-social-select-message'] + '" onclick=' + cannedBtnClickFn + '><span class="align-sub"><i class="far fa-keyboard"></i></span></button><button id="share-' + ticketId + '" class="reply-share-container keyboard-icon" data-bs-toggle="tooltip" data-bs-placement="top" title="' + langJson['l-social-select-file'] + '" onclick=' + shareBtnClickFn + '><span class="align-sub"><i class="far fa-file"></i></span></button><button id="end-' + ticketId + '" class="reply-end-container keyboard-icon" data-bs-toggle="tooltip" data-bs-placement="top" title="' + langJson['l-social-end-session'] + '" entry="' + entry + '" onclick="endClicked(' + ticketId + ',this)"><span class="align-sub"><i class="fas fa-times"></i></span></button><button id="reply-btn-' + ticketId + '" class="reply-send-container" entry="' + entry + '" onclick="replyClicked(' + ticketId + ')" data-bs-toggle="tooltip" data-bs-placement="top" title="' + langJson['l-social-send-message'] + '"><img class="reply-icon-size" src="./images/send.svg" /></button></div></div>'
             )
             : '<div class="reply-container"><textarea id="' + textareaId + '" class="reply-textarea" maxlength="1000" rows="2" placeholder="' + langJson['l-social-type-your-text-here'] + '" onkeypress="textareaPressed(event);"' + sendCSInputStr + '></textarea><div class="reply-icon-group"><button id="canned-' + ticketId + '" class="reply-canned-container keyboard-icon" data-bs-toggle="tooltip" data-bs-placement="top" title="' + langJson['l-social-select-message'] + '" onclick=' + cannedBtnClickFn + '><span class="align-sub"><i class="far fa-keyboard"></i></span></button><button id="share-' + ticketId + '" class="reply-share-container keyboard-icon" data-bs-toggle="tooltip" data-bs-placement="top" title="' + langJson['l-social-select-file'] + '" onclick=' + shareBtnClickFn + '><span class="align-sub"><i class="far fa-file"></i></span></button>' + uploadBtnStr + '<button id="end-' + ticketId + '" class="reply-end-container keyboard-icon" data-bs-toggle="tooltip" data-bs-placement="top" title="' + langJson['l-social-end-session'] + '" entry="' + entry + '" onclick="endClicked(' + ticketId + ',this)"><span class="align-sub"><i class="fas fa-times"></i></span></button><button id="reply-btn-' + ticketId + '" class="reply-send-container" entry="' + entry + '" onclick="replyClicked(' + ticketId + ')" data-bs-toggle="tooltip" data-bs-placement="top" title="' + langJson['l-social-send-message'] + '"><img class="reply-icon-size" src="./images/send.svg" /></button></div></div>');
-		*/
+		*//* 20250806 comment for removing not using code
 		var replyContainerStr;
 		if (isOfflineForm) {
 			replyContainerStr = '';
@@ -2731,8 +2735,8 @@ function createOrUpdateBubble(msgObj) {
     } else {
         objDiv.scrollTop = objDiv.scrollHeight;
     }
-}
-
+}*/
+/* 20250806 comment for removing not using code
 function updatePhotoConfirmed(campaign, customerId, iconSrc, ticketId) {
     if (confirm(langJson['l-confirm-change-profile-photo'])) {
         var fileData = new FormData();
@@ -2796,7 +2800,7 @@ function callSaveCallHistory(connId, callType, internalCaseNo, campaign) {
         }
     });
 }
-
+*/
 function addFormNameToContent(ticketId, formName) {
     var contentVisitorNameContainer = $('#content-inner-scroll-' + ticketId).find('.visitor-content-bubble').find('.content-bubble-name');
 
@@ -2845,7 +2849,7 @@ function openInputForm(connId, callType, internalCaseNo, campaign, rowData, cust
             var scrollDivName = scrollDiv.attr('formName');
             if (scrollDivName == undefined || scrollDivName.length == 0) {
                 scrollDiv.attr('formName', formName);
-                addFormNameToContent(connId, formName);
+                //addFormNameToContent(connId, formName);
             }
         }
     }

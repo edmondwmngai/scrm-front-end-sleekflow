@@ -87,6 +87,30 @@
 
 	  onChatHistoryScroll()
 	  {
+		  
+    	  var sTicket = parent.$('#phone-panel')[0].contentWindow.AssignedTicketList.filter(i => i.TicketId == this.selectedTicketId)[0];
+          
+
+		 if ($('#chatHistory').length) {
+			sTicket.scrollTop = $('#chatHistory').scrollTop();
+			console.log("sTicket.scrollTop: "  + sTicket.scrollTop);
+		 } 
+		/*
+		  if (this.$chatHistory != undefined)
+		  {
+			 // If it's jQuery
+			  if (typeof this.$chatHistory.scrollTop === 'function') {
+				sTicket.scrollTop = this.$chatHistory.scrollTop();
+			  }
+			  // If it's a native DOM element
+			  else if (typeof this.$chatHistory.scrollTop === 'number') {
+				//sTicket.scrollTop = this.$chatHistory.scrollTop;
+			  }
+
+		  }*/
+		  /*
+		if (this.$chatHistory.scrollTop)
+		{
 		  if (this.$chatHistory.scrollTop() < 20) {
 			  //console.log("scroll top" + this.$chatHistory.scrollTop());
 			  //parent.$('#phone-panel')[0].contentWindow.addTestMessageAtTop();
@@ -101,6 +125,29 @@
 			  }
 			  	// simulate the situation read the previous message;
 		  }
+		}*/
+		
+		if ($('#chatHistory').length) {
+	//	  const scrollTop = typeof this.$chatHistory.scrollTop === 'function'
+	//		? this.$chatHistory.scrollTop()
+	//		: this.$chatHistory.scrollTop;
+
+		// if (typeof this.$chatHistory.scrollTop === 'function') {
+			
+		  if ($('#chatHistory').scrollTop() < 20) {
+			  if (this.allowPastMessageCall)
+			  { 
+				this.allowPastMessageCall = false;
+				//this.isScrollToBottom = false;
+				this.returnPastMessageByTicketId(this.selectedTicketId);
+				this.scrollToTop();
+			  }
+			// do something
+		  }
+		  
+		 // }
+		}
+
 	  };
 
 
@@ -334,7 +381,7 @@
 			  if (ticketId == this.selectedTicketId) {
 				  this.disableInput(true);
 				  this.updateChatStatus("Session Ended");
-				  this.scrollToBottom();
+				  setTimeout(() => { this.scrollToBottom(); }, 600);
 			  }
 			  this.updateChatEndSession(ticketId);
 		  }
@@ -383,6 +430,12 @@
 			  var sTicket = parent.$('#phone-panel')[0].contentWindow.AssignedTicketList.filter(i => i.TicketId == ticketId);
 			  var newList = JSON.parse(JSON.stringify(msgList));
 
+			  //20250820 force enable scroll when there is past message
+			  if (newList.length > 0)
+			  {
+				    sTicket[0].overflow = "scroll";
+					$('#chatHistory').css('overflow-y', 'scroll'); // Always show scrollbar
+			  }
 			  //console.log('before');	  //console.log(JSON.stringify(newList));
 
 			  //Record the original TicketID
@@ -402,6 +455,8 @@
 			  //update the current message list to ticket record in assignedList
 			  sTicket[0].messages = newList;
 
+			  sTicket[0].UpdateStatus = "Updated";
+			  
 			  //console.log("old");		 //console.log(JSON.parse(JSON.stringify(sTicket[0].messages)));
 			  //console.log("updated");	 // console.log(JSON.stringify(sTicket[0]));
 			  this.reloadChatHistory(sTicket[0].messages);
@@ -803,17 +858,61 @@
 	  //--------------------------------------------------------------------
 
 	  scrollToTop() {
-		  this.$chatHistory.scrollTop(50);
+		 // if (this.$chatHistory == undefined)
+		  //{
+		//	this.$chatHistory	= $('#chatHistory');
+		 // }
+		  /*
+		  if (this.$chatHistory.scrollTop)
+		  {
+			this.$chatHistory.scrollTop(50);			  
+		  }*/
+		 // if (typeof this.$chatHistory.scrollTop === 'function') {
+			setTimeout(() => { this.$chatHistory[0].scrollTop = 50; }, 500);
+			//this.$chatHistory.scrollTop(this.$chatHistory[0].scrollHeight + 500);
+		//  }
+
+		  
+
 	  };
 
 	  scrollToBottom() {
-		   this.$chatHistory.scrollTop(this.$chatHistory[0].scrollHeight + 500);
+		//  if (this.$chatHistory == undefined)
+		//  {
+		//	this.$chatHistory	= $('#chatHistory');
+		//  }
+		// if (typeof this.$chatHistory.scrollTop === 'function') {
+		  //this.$chatHistory.scrollTop(this.$chatHistory[0].scrollHeight + 500);
+		  this.$chatHistory[0].scrollTop = this.$chatHistory[0].scrollHeight + 500;
+	//	}
+
+
 	  };
 
 	  
 	  //Update the status in chat history, eg. timeout and update the status at the end of chat history
 	  updateChatStatus(statusMessage)
 	  {
+		  //const sessionEndedExist = this.$chatHistory.text().includes("Session Ended");
+
+		  //if (sessionEndedExist) { return; }
+		  /*
+		  const text = this.$chatHistory?.[0]?.innerText;
+		  if (text && text.includes("Session Ended")) {
+			  // Your logic here
+			  return;
+		  }*/
+
+		const el = this.$chatHistory?.[0]; // Get the native DOM element from jQuery
+		const text = el?.innerText || "";
+
+		if (text.includes("Session Ended")) {
+			return;
+		}
+
+
+	
+		  
 		  var template  = this.statusUpdateTemplate;
 		  var context = { status: statusMessage	};
 		  this.$chatHistory.append(template(context));
@@ -845,6 +944,7 @@
 		  {
 			  return;
 		  }
+		  	  
 
 		  //Reset the chat history screen
 		  $('#chatHistory').html('');
@@ -938,6 +1038,8 @@
 		  //element.style.visibility = 'hidden';
 		  //element.style.visibility = 'visible';
 
+		  
+
 
 		  if (ticketStatus == "closed")
 		  {	
@@ -955,6 +1057,8 @@
 		  } else { 
 			  document.getElementsByClassName('s-standalone-btn keyboard-icon')[0].style = "display:none";
 		  }
+		  
+		  lTicket.UpdateStatus = "Reloaded";
 	  };
 
 	  //function update all the msglist in assignedlist
@@ -973,6 +1077,7 @@
 		  //Update back the ticket information
 		  sTicket.UpdatedAt = sMsg.UpdatedAt;
 		  sTicket.LastMessage= sMsg.MessageContent;
+		  sTicket.UpdateStatus = "Updated";
 
 
 		  //Also update the current Status of Ticket Bubble
@@ -1078,6 +1183,8 @@
 	  selectTicket(e)
 	  {
 
+		
+
 		//Get the value from each Bubble
 		//e.getElementsByClassName('bubble-subject')[0].innerHTML;
 		
@@ -1099,8 +1206,12 @@
 		e.classList.add("bubble-present");
 		e.classList.remove("bubble-unread");
 
+		
+
 	    var selectedTicket = parent.$('#phone-panel')[0].contentWindow.AssignedTicketList.filter(i => i.TicketId == e.getElementsByClassName('bubble-id')[0].innerHTML);
 
+		if (selectedTicket[0].overflow == "scroll") {	$('#chatHistory').css('overflow-y', 'scroll');	}
+		if (selectedTicket[0].overflow == "auto")	{	$('#chatHistory').css('overflow-y', 'auto');	}
 
 		  // for not reload the chat room is ticket is not originally assigned to login agent AND it is closed / leave)
 		  if (((selectedTicket[0].Status == "closed" || selectedTicket[0].Status == "selfLeave" || selectedTicket[0].Status == "memberLeave")) && this.selectedAgentId != top.loginId) {
@@ -1133,7 +1244,14 @@
 			  document.getElementsByClassName('s-standalone-btn keyboard-icon')[0].style = "display:none";
 		  }
 		//  this.returnMessagesPastMessage(this.selectedTicketId);
-
+		
+		var ref = this.$chatHistory;
+		//ref.scrollTop = selectedTicket[0].scrollTop;
+		
+		this.$chatHistory[0].scrollTop = selectedTicket[0].scrollTop;
+		
+		console.log("this.$chatHistory.scrolltop: "  + this.$chatHistory[0].scrollTop);
+		 //this.$chatHistory.scrollTop = sTicket.scrollTop;
 	  };
 
 	  moveBubbleToFirst(inputTicketID)
@@ -1256,7 +1374,15 @@
 			  this.updateBubbleStatus(ticket.TicketId, "Session_End", true);
 		  }
 			
-			
+		  if (this.$chatHistory != undefined)
+		  {
+			if (this.$chatHistory.scrollTop)
+			{
+				sTicket.scrollTop= this.$chatHistory.scrollTop();
+				sTicket.overflow = "auto";
+			}
+		  }
+
 	  };
 
 	  addTestBubble(status, timeout, name, ticketID)
@@ -1362,7 +1488,7 @@
 			  subDivs.forEach(sub => {
 				  if (sub.innerHTML.trim() === specifiedValue.toString())
 				  {
-					  parent.getElementsByClassName('bubble-message mr-auto')[0].innerHTML = sTicket.messages[sTicket.messages.length - 1].MessageContent;
+					  parent.getElementsByClassName('bubble-message me-auto')[0].innerHTML = sTicket.messages[sTicket.messages.length - 1].MessageContent;
 				  }
 			  });
 		  });
@@ -1407,11 +1533,14 @@
 						  
 						  parent.classList.add("bubble-closed");
 						  parent.classList.remove("bubble-present");
-						  parent.getElementsByClassName('bubble-message mr-auto')[0].innerHTML = "Session Closed";
+						  parent.getElementsByClassName('bubble-message me-auto')[0].innerHTML = "Session Closed";
 						  parent.getElementsByClassName('bubble-icon')[0].style = "opacity: 0.1;";
 						  parent.getElementsByClassName('bubble-subject')[0].style = "color:grey";
 						  parent.querySelector('#bubble-add-agent').style.visibility = "hidden";
 						  parent.querySelector('#bubble-leave-chat').style.visibility = "hidden";
+						  this.updateChatStatus("Session Ended");
+						  
+						  setTimeout(() => { this.scrollToBottom(); }, 500);
 					  }
 				  }
 			  });
@@ -1454,8 +1583,9 @@
 				this.selectedwebClientSenderId  = currentTicket.EndUserId;
 				this.selectedChatChannel 	   	= currentTicket.Channel;
 				this.selectedEndUserName		= currentTicket.EndUserName;
-		
-
+				
+				currentTicket.UpdateStatus = "Updated";
+				
 				for (var i = 0; i < assignedLst.length; i++)
 				{
 					if (i == (assignedLst.length - 1)) {
@@ -1492,14 +1622,16 @@
 		  this.reloadChatHistory(sMsgList);
 
 		  //4. update the chat history if there is past message ((only whatsapp will execute this logic))
-		  if (this.selectedChatChannel == "whatsapp" && !responseInvite) {		// responseInvite== false) { // 20250407 Refactor the code to avoid using this boolean literal.
-			  this.returnPastMessageByTicketId(this.selectedTicketId);
+		  if (this.selectedChatChannel == "whatsapp") {		// responseInvite== false) { // 20250407 Refactor the code to avoid using this boolean literal.
+			  //this.returnPastMessageByTicketId(this.selectedTicketId);
+			  
+			  setTimeout(() => { this.returnPastMessageByTicketId(this.selectedTicketId); }, 1000);
 		  }
 
 
 		  //5. scroll to bottom 
 		  setTimeout(() => { this.scrollToBottom(); }, 500);
-		  setTimeout(() => { this.scrollToBottom(); }, 1500);
+		  setTimeout(() => { this.scrollToBottom(); }, 800);
 	  };
 
 
@@ -1752,7 +1884,7 @@
 	  sendInviteRequestcallBack(result)		//****not direct callback from  inviteAgentByHandler except error return
 	  {
 		  //{ "type": "responseConference", "details": { "targentAgentId": 6, "ticketId": 1023, "message": "RESPONSE YOU", "agentResponse": "Y" }, "agentResponse": "Y", "targentAgentId": 6 }
-
+		  disableReloadMsg = true;
 		  // returned from inviteAgentByHandler
 		  if (result.details.agentResponse == undefined) {		// error in calling sHandler API
 			  alert(result.details);

@@ -106,7 +106,7 @@ var selectedSendTemplate = null;
 //     'Link of My Choice Fund Swtich Form https://bit.ly/2Y20KcV',
 //     'My Choice - Link of Instruction of Use of Personal Information https://bit.ly/3gXruCC'
 // ]
-
+/*
 var SMSTemplateArr = [
     'ABC Company: 你的驗證碼是 M-123456',
     'ABC Company: M-123456 is your verification code',
@@ -127,131 +127,131 @@ var SMSTemplateArr = [
     'ABC Company: Link of Fund Swtich Form https://bit.ly/2Y20KcV',
     'ABC Company: Link of Instruction of Use of Personal Information https://bit.ly/3gXruCC'
 ]
+*/
+let SMSTemplateArr =[{
+	language: 'chi',
+	title: '戶口結餘',
+	content: '截至 {{date}}, 您的個人帳戶戶口結餘 $178,991'
+	
+},{
+	language: 'eng',
+	title: 'account balance',
+	content: 'As of {{date}, your accumulation fund personal account balance $178,991'
+},{
+	language: 'chi',
+	title: '強積金計劃說明書',
+	content: '強積金計劃說明書連結 https://bit.ly/3iBpRer'
+},{
+	language: 'eng',
+	title: 'MPF Scheme',
+	content: 'Link of MPF Scheme https://bit.ly/3fV6cEo'
+},{
+	language: 'chi',
+	title: '驗證碼',
+	content: '你的驗證碼是 M-{{code}}'
+},{
+	language: 'eng',
+	title: 'verification code',
+	content: 'M-{{code}} is your verification code'
+}
+]
 
-// var emailTemplateArr = [
-// { subject: '你的 My Choice 驗證碼', content: '你的 My Choice 驗證碼是 M-123456'},
-//     { subject: 'Your My Choice verification code', content: 'M-123456 is your My Choice verification code'},
-//     { subject: '您的 My Choice 積金之個人帳戶戶口結餘', content: 'My Choice: 截至 01/01/00, 您的 My Choice 積金之個人帳戶戶口結餘 $178,991' },
-//     { subject: 'Your My Choice accumulation fund personal account balance', content: 'My Choice: As of 01/01/00, your My Choice accumulation fund personal account balance $178,991' },
-
-//     { subject: 'My Choice 強積金計劃說明書連結', content: 'My Choice 強積金計劃說明書連結 <a href="https://www.bocpt.com/media/1605/my-choice-mpf-sb_chi_final.pdf">https://www.bocpt.com/media/1605/my-choice-mpf-sb_chi_final.pdf</a>'},
-//     { subject: 'My Choice 強積金計劃說明書第一補編連結', content: 'My Choice 強積金計劃說明書第一補編連結 <a href="https://www.bocpt.com/media/1897/my_choice_sb_first-addendum_chi_202005.pdf">https://www.bocpt.com/media/1897/my_choice_sb_first-addendum_chi_202005.pdf</a>'},
-//     { subject: 'My Choice 持續成本列表連結', content: 'My Choice 持續成本列表連結 <a href="https://www.bocpt.com/media/1171/oci_chi_mymp-mar-2020.pdf">https://www.bocpt.com/media/1171/oci_chi_mymp-mar-2020.pdf</a>'},
-//     { subject: 'My Choice 強積金保守基金年費解說例子連結', content: 'My Choice 強積金保守基金年費解說例子連結 <a href="https://www.bocpt.com/media/1172/mcf-illustrative-example_-chi.pdf">https://www.bocpt.com/media/1172/mcf-illustrative-example_-chi.pdf</a>'},
-
-//     { subject: 'Link of My Choice MPF Scheme', content: 'Link of My Choice MPF Scheme <a href="https://www.bocpt.com/media/1606/my-choice-mpf-sb_eng_final.pdf"> https://www.bocpt.com/media/1606/my-choice-mpf-sb_eng_final.pdf</a>'},
-//     { subject: 'Link of First Addendum to the MPF Scheme Brochure of My Choice MPF', content: 'Link of First Addendum to the MPF Scheme Brochure of My Choice MPF <a href="https://www.bocpt.com/media/1896/my_choice_sb_first-addendum_eng_202005.pdf">https://www.bocpt.com/media/1896/my_choice_sb_first-addendum_eng_202005.pdf</a>'},
-//     { subject: 'My Choice - Link of On-Going Cost Illustrations', content: 'My Choice - Link of On-Going Cost Illustrations <a href="https://www.bocpt.com/media/1265/oci_eng_mymp-mar-2020.pdf">https://www.bocpt.com/media/1265/oci_eng_mymp-mar-2020.pdf</a>'},
-//     { subject: 'Link of Illustrative Example for My Choice MPF Conservative Fund', content: 'Link of Illustrative Example for My Choice MPF Conservative Fund <a href="https://www.bocpt.com/media/1266/mcf-illustrative-example_-eng.pdf">https://www.bocpt.com/media/1266/mcf-illustrative-example_-eng.pdf</a>'},
-
-//     { subject: 'My Choice 更改基金組合授權書連結', content: 'My Choice 更改基金組合授權書連結 <a href="https://www.bocpt.com/media/1234/my-choice-fund-rebalance_201808-2.pdf">https://www.bocpt.com/media/1234/my-choice-fund-rebalance_201808-2.pdf</a>'},
-//     { subject: 'My Choice 基金轉換指示連結', content: 'My Choice 基金轉換指示連結 <a href="https://www.bocpt.com/media/1667/my-choice-fund-switching_r1.pdf">https://www.bocpt.com/media/1667/my-choice-fund-switching_r1.pdf</a>'},
-//     { subject: 'My Choice 個人資料使用指示連結', content: 'My Choice 個人資料使用指示連結 <a href="https://www.bocpt.com/media/1818/instruction-of-use-of-personal-info-mymp_201912.pdf">https://www.bocpt.com/media/1818/instruction-of-use-of-personal-info-mymp_201912.pdf</a>'},
-
-//     { subject: 'Link of Change of Investment Fund Instruction of My Choice', content: 'Link of Change of Investment Fund Instruction of My Choice <a href="https://www.bocpt.com/media/1234/my-choice-fund-rebalance_201808-2.pdf">https://www.bocpt.com/media/1234/my-choice-fund-rebalance_201808-2.pdf</a>'},
-//     { subject: 'Link of My Choice Fund Swtich Form', content: 'Link of My Choice Fund Swtich Form <a href="https://www.bocpt.com/media/1667/my-choice-fund-switching_r1.pdf">https://www.bocpt.com/media/1667/my-choice-fund-switching_r1.pdf</a>'},
-//     { subject: 'My Choice - Link of Instruction of Use of Personal Information', content: 'My Choice - Link of Instruction of Use of Personal Information <a href="https://www.bocpt.com/media/1818/instruction-of-use-of-personal-info-mymp_201912.pdf">https://www.bocpt.com/media/1818/instruction-of-use-of-personal-info-mymp_201912.pdf</a>'}
-// ]
 var emailTemplateArr = [{
+	language: 'chi',
     subject: 'ABC Company 你的驗證碼',
-    content: '你的驗證碼是 M-123456'
+    content: '你的驗證碼是 M-{{code}}'
 },
 {
+	language: 'eng',
     subject: 'ABC Company your verification code',
-    content: 'M-123456 is your verification code'
+    content: 'M-{{code}} is your verification code'
 },
 {
+	language: 'chi',
     subject: 'ABC Company 您的積金之個人帳戶戶口結餘',
-    content: '截至 01/01/00, 您的積金之個人帳戶戶口結餘 $178,991'
+    content: '截至 {{date}}, 您的積金之個人帳戶戶口結餘 $178,991'
 },
 {
+	language: 'eng',
     subject: 'ABC Company your accumulation personal account balance',
-    content: 'As of 01/01/00, your accumulation personal account balance $178,991'
+    content: 'As of {{date}}, your accumulation personal account balance $178,991'
 },
 
 {
+	language: 'eng',
+	language: 'chi',
     subject: 'ABC Company 強積金計劃說明書連結',
     content: '強積金計劃說明書連結 <a href="https://www.bocpt.com/media/1605/my-choice-mpf-sb_chi_final.pdf">https://www.bocpt.com/media/1605/my-choice-mpf-sb_chi_final.pdf</a>'
 },
 {
+	language: 'chi',
     subject: 'ABC Company 強積金計劃說明書第一補編連結',
     content: '強積金計劃說明書第一補編連結 <a href="https://www.bocpt.com/media/1897/my_choice_sb_first-addendum_chi_202005.pdf">https://www.bocpt.com/media/1897/my_choice_sb_first-addendum_chi_202005.pdf</a>'
 },
 {
+	language: 'chi',
     subject: 'ABC Company 持續成本列表連結',
     content: '持續成本列表連結 <a href="https://www.bocpt.com/media/1171/oci_chi_mymp-mar-2020.pdf">https://www.bocpt.com/media/1171/oci_chi_mymp-mar-2020.pdf</a>'
 },
 {
+	language: 'chi',
     subject: 'ABC Company 強積金保守基金年費解說例子連結',
     content: '強積金保守基金年費解說例子連結 <a href="https://www.bocpt.com/media/1172/mcf-illustrative-example_-chi.pdf">https://www.bocpt.com/media/1172/mcf-illustrative-example_-chi.pdf</a>'
 },
 
 {
+	language: 'eng',
     subject: 'ABC Company Link of MPF Scheme',
     content: 'Link of MPF Scheme <a href="https://www.bocpt.com/media/1606/my-choice-mpf-sb_eng_final.pdf"> https://www.bocpt.com/media/1606/my-choice-mpf-sb_eng_final.pdf</a>'
 },
 {
+	language: 'eng',
     subject: 'ABC Company Link of First Addendum to the MPF Scheme Brochure of MPF',
     content: 'Link of First Addendum to the MPF Scheme Brochure of MPF <a href="https://www.bocpt.com/media/1896/my_choice_sb_first-addendum_eng_202005.pdf">https://www.bocpt.com/media/1896/my_choice_sb_first-addendum_eng_202005.pdf</a>'
 },
 {
+	language: 'eng',
     subject: 'ABC Company Link of On-Going Cost Illustrations',
     content: 'Link of On-Going Cost Illustrations <a href="https://www.bocpt.com/media/1265/oci_eng_mymp-mar-2020.pdf">https://www.bocpt.com/media/1265/oci_eng_mymp-mar-2020.pdf</a>'
 },
 {
+	language: 'eng',
     subject: 'ABC Company Link of Illustrative Example for MPF Conservative Fund',
     content: 'Link of Illustrative Example for MPF Conservative Fund <a href="https://www.bocpt.com/media/1266/mcf-illustrative-example_-eng.pdf">https://www.bocpt.com/media/1266/mcf-illustrative-example_-eng.pdf</a>'
 },
 
 {
+	language: 'chi',
     subject: 'ABC Company 更改基金組合授權書連結',
     content: '更改基金組合授權書連結 <a href="https://www.bocpt.com/media/1234/my-choice-fund-rebalance_201808-2.pdf">https://www.bocpt.com/media/1234/my-choice-fund-rebalance_201808-2.pdf</a>'
 },
 {
+	language: 'chi',
     subject: 'ABC Company 基金轉換指示連結',
     content: '基金轉換指示連結 <a href="https://www.bocpt.com/media/1667/my-choice-fund-switching_r1.pdf">https://www.bocpt.com/media/1667/my-choice-fund-switching_r1.pdf</a>'
 },
 {
+	language: 'chi',
     subject: 'ABC Company 個人資料使用指示連結',
     content: '個人資料使用指示連結 <a href="https://www.bocpt.com/media/1818/instruction-of-use-of-personal-info-mymp_201912.pdf">https://www.bocpt.com/media/1818/instruction-of-use-of-personal-info-mymp_201912.pdf</a>'
 },
 
 {
+	language: 'eng',
     subject: 'ABC Company Link of Change of Investment Fund Instruction',
     content: 'Link of Change of Investment Fund Instruction <a href="https://www.bocpt.com/media/1234/my-choice-fund-rebalance_201808-2.pdf">https://www.bocpt.com/media/1234/my-choice-fund-rebalance_201808-2.pdf</a>'
 },
 {
+	language: 'eng',
     subject: 'ABC Company Link of Fund Swtich Form',
     content: 'Link of Fund Swtich Form <a href="https://www.bocpt.com/media/1667/my-choice-fund-switching_r1.pdf">https://www.bocpt.com/media/1667/my-choice-fund-switching_r1.pdf</a>'
 },
 {
+	language: 'eng',
     subject: 'ABC Company Link of Instruction of Use of Personal Information',
     content: 'Link of Instruction of Use of Personal Information <a href="https://www.bocpt.com/media/1818/instruction-of-use-of-personal-info-mymp_201912.pdf">https://www.bocpt.com/media/1818/instruction-of-use-of-personal-info-mymp_201912.pdf</a>'
 }
 ]
-
-// Email Template
-// var emailTemplateArr = [
-//     { subject: 'Your My Choice verification code', content: 'M-123456 is your My Choice verification code'},
-//     { subject: '你的 My Choice 驗證碼', content: '你的 My Choice 驗證碼是 M-123456'},
-//     { subject: 'My Choice - Link of My Choice Fund Swtich Form', content: 'Link of My Choice Fund Swtich Form <a href="https://www.bocpt.com/media/1667/my-choice-fund-switching_r1.pdf">https://www.bocpt.com/media/1667/my-choice-fund-switching_r1.pdf</a>' },
-//     { subject: 'My Choice 基金轉換指示連結', content: 'My Choice 基金轉換指示連結 <a href="https://www.bocpt.com/media/1667/my-choice-fund-switching_r1.pdf">https://www.bocpt.com/media/1667/my-choice-fund-switching_r1.pdf</a>' },
-//     { subject: 'My Choice - Link of Change of Investment Fund Instruction Form', content: 'My Choice - Link of Change of Investment Fund Instruction Form <a href="https://www.bocpt.com/media/1304/my-choice-fund-rebalance_201808.pdf">https://www.bocpt.com/media/1304/my-choice-fund-rebalance_201808.pdf</a>' },
-//     { subject: 'My Choice更改基金組合授權書連結', content: 'My Choice 更改基金組合授權書連結 <a href="https://www.bocpt.com/media/1304/my-choice-fund-rebalance_201808.pdf">https://www.bocpt.com/media/1304/my-choice-fund-rebalance_201808.pdf</a>' },
-//     { subject: 'Your My Choice accumulation fund personal account balance', content: 'My Choice: As of 01/01/00, your My Choice accumulation fund personal account balance $178,991' },
-//     { subject: '您的 My Choice 積金之個人帳戶戶口結餘', content: 'My Choice: 截至 01/01/00, 您的 My Choice 積金之個人帳戶戶口結餘 $178,991' }    
-// ]
-
-// var SMSTemplateArr = [
-//     'M-123456 is your My Choice verification code',
-//     '你的 My Choice 驗證碼是 M-123456',
-//     'Link of My Choice Fund Swtich Form https://bit.ly/3gMmL6B',
-//     'My Choice 基金轉換指示連結 https://bit.ly/3gMmL6B',
-//     'Link of Change of Investment Fund Instruction of My Choice https://bit.ly/3alo7TB',
-//     'My Choice 更改基金組合授權書連結 https://bit.ly/3alo7TB',
-//     'My Choice: As of 01/01/00, your My Choice accumulation fund personal account balance $178,991',
-//     'My Choice: 截至 01/01/00, 您的 My Choice 積金之個人帳戶戶口結餘 $178,991'            
-// ]
 
 function nationalityChanged(oThis) {
     var nationalitySelect = $(oThis);
@@ -1552,7 +1552,7 @@ function saveClicked(isTemp, callback) { // 1. declare 2. verify 3. update custo
 
 
             // 20241231     New function for check template message input
-			var validTemplateInputExist = parent.parent.$('#phone-panel')[0].contentWindow.waTempService.validateTemplateInputExist(selectedSendTemplate);     // 20250407 Refactor the code to avoid using this boolean literal.
+            var validTemplateInputExist = parent.parent.$('#phone-panel')[0].contentWindow.waTempService.validateTemplateInputExist(selectedSendTemplate);     // 20250407 Refactor the code to avoid using this boolean literal.
             var validTemplateInputFilled = parent.parent.$('#phone-panel')[0].contentWindow.waTempService.validateTemplateInputFilled(selectedSendTemplate);     // 20250407 Refactor the code to avoid using this boolean literal.
             var validTemplateInputLength = parent.parent.$('#phone-panel')[0].contentWindow.waTempService.validateTemplateInputLength(selectedSendTemplate);
 
@@ -1561,6 +1561,8 @@ function saveClicked(isTemp, callback) { // 1. declare 2. verify 3. update custo
 				document.getElementById("case-save-btn").disabled = false;
                 alert('Template or input is not valid. Please select the template and input valid props again');
                 return;
+				
+			
 			}
             if (!validTemplateInputFilled)
             {
@@ -2274,7 +2276,8 @@ var replySubmitClicked = function () {
         }
         var areYouSure = $('#are-you-sure');
         if (areYouSure.length == 0) {
-            $('<span id="are-you-sure">&nbsp;&nbsp;&nbsp;' + langJson['l-form-are-you-sure'] + '?&nbsp;&nbsp;&nbsp;<button class="btn btn-sm btn-warning text-capitalize rounded" onclick="dialYesClicked();"><i class="fas fa-check me-2"></i><span>' + langJson['l-form-yes'] + '</span></button>&nbsp;<button onclick="dialNoClicked();" class="btn btn-sm btn-warning text-capitalize rounded"><i class="fas fa-times me-2"></i><span>' + langJson['l-form-no'] + '</span></button></span>').insertAfter('#reply-submit-btn');
+            let clone = $($("#areyousure-template").html());
+			clone.insertAfter('#reply-submit-btn');
             $('.dial-yes-disable').prop('disabled', true);
         }
     } else if (replyChannel == 'email' || replyChannel == 'fax' || replyChannel == 'sms') {
@@ -2292,121 +2295,21 @@ var replySubmitClicked = function () {
         if (replyChannel == 'email') {
             var preview = parent.$('#media-content').contents() || '';
             var mediaContent = parent.mediaContent;
-            var subjectStr = callType == 'Inbound_Email' ? ('"RE: ' + mediaContent.Subject + '"') : "";
-
-            var previous_email = '';
-            var contentStr = '';
+            let subjectStr = '';
+            let previous_email = '';
 
             if (callType == 'Inbound_Email') {
-                previous_email = '&#13;&#10;<br />' +
-                    '<hr />' +
-                    '<b>From: </b>' + (preview.find('#name').html() || '') + (preview.find('#from').html() || '') + '&#13;&#10;<br />' +
-                    '<b>Sent: </b>' + (preview.find('#time').html() || '') + '&#13;&#10;<br />' +
-                    '<b>To: </b>' + (preview.find('#to').html() || '') + '&#13;&#10;<br />' +
-                    '<b>Subject: </b>' + (preview.find('#subject').html() || '') + '&#13;&#10;<br />' +
-                    (preview.find('#content').html() || '');
-                contentStr = ('&#13;&#10;' + previous_email);
-				console.log(contentStr);
+				subjectStr = 'RE: ' + mediaContent.Subject;
+				previous_email =`<br/><hr/><b>From: </b>${preview.find('#name').html() || ''}${preview.find('#from').html() || ''}<br/><b>Sent: </b>${preview.find('#time').html() || ''}<br/><b>To: </b>${preview.find('#to').html() || ''}<b>Subject: </b>${preview.find('#subject').html() || ''}<br/>${preview.find('#content').html() || ''}`;
             }
-
-            var emailFileTriggerStr = "$('#upload-emailFile').trigger('click');"
-            var emailFileUploadStr = 'uploadAttachment(this,"emailFile");'
-            var replyCardStr = '<div id="reply-card" class="my-2 bg-light mb-4 rounded-2 py-5 px-3 py-3"><div class="text-center mb-2 bg-info rounded text-white"><h5 class="mt-0 mb-0">Send Email</h5></div><div class="row d-flex align-items-center">' +
-
-                '<div class="d-flex mb-3 col-sm-12 ps-0 mb-0">' +
-
-                '<label class="col-sm-1 control-label ps-4">Template</label>' +
-
-                '<div class="d-flex col-sm-11 ps-2">' +
-
-                '<span class="mb-3 d-flex align-items-center float-start" style="margin-top:-8px">' +
-                '<div class="form-check mt-2">' +
-                '<label class="form-check-label" style="text-wrap: nowrap;">' +
-                '<input class="form-check-input" type="radio" name="lang-rd-list" value="chi" checked="">中文<span class="circle">' +
-                '<span class="check"></span>' +
-                '</span>' +
-                '</label>' +
-                '</div>' +
-
-                '<div class="form-check mt-2 ms-2">' +
-                '<label class="form-check-label">' +
-                '<input class="form-check-input" type="radio" name="lang-rd-list" value="eng">English<span class="circle">' +
-                '<span class="check"></span>' +
-                '</span>' +
-                '</label>' +
-
-                '</div>' +
-                '</span>&nbsp;&nbsp;&nbsp;' +
-
-                '<select id="tmp-2nd-lv" class="form-select">' +
-                '<option selected="selected" value=""></option>' +
-                '<option lang="chi" value=0>提供驗證碼</option>' +
-                '<option lang="eng" class="d-none" value=1>Give Verification</option>' +
-                '<option lang="chi" value=2>上月結餘</option>' +
-                '<option lang="eng" class="d-none" value=3>Last Month Balance</option>' +
-
-                '<option lang="chi" group-id="3" value=4>銷售文件</option>' +
-
-                '<option lang="eng" class="d-none" group-id="3" value=5>Offering Document</option>' +
-                '<option lang="chi" group-id="4" value=6>個人賬戶成員</option>' +
-                '<option lang="eng" class="d-none" group-id="4" value=7>Personal Account Member</option>' +
-                '</select>' +
-
-                '</div>' +
-                '</div>' +
-
-                '<div class="col-sm-12 ps-0">' +
-
-                '<div class="offset-md-1 col-sm-11 ps-1">' +
-
-                '<select id="tmp-3rd-lv" class="form-select d-none pt-0 mb-2" style="margin-left:148px;">' +
-                '<option selected="selected" value=""></option>' +
-                '<option lang="chi" group-id="3" value=4>強積金計劃說明書 - 我的強積金計劃 (2020年3月31日)</option>' +
-                '<option lang="chi" group-id="3" value=5>我的強積金計劃之強積金計劃說明書第一補編 (2020年5月15日)</option>' +
-                '<option lang="chi" group-id="3" value=6>持續成本列表</option>' +
-                '<option lang="chi" group-id="3" value=7>我的強積金保守基金年費解說例子</option>' +
-                '<option lang="eng" group-id="3" class="d-none" value=8>MPF Scheme Brochure for My Choice Mandatory Provident Fund Scheme (31 Mar 2020)</option>' +
-                '<option lang="eng" group-id="3" class="d-none" value=9>First Addendum to the MPF Scheme Brochure of My Choice Mandatory Provident Fund (15 May 2020)' +
-                '<option lang="eng" group-id="3" class="d-none" value=10>On-Going Cost Illustrations</option>' +
-                '<option lang="eng" group-id="3" class="d-none" value=11>Illustrative Example for My Choice MPF Conservative Fund</option>' +
-                '<option lang="chi" group-id="4" value=12>更改投資基金組合授權書 (適用於新供款及/或現有戶口結餘) (可輸入資料)</option>' +
-                '<option lang="chi" group-id="4" value=13>基金轉換指示 (只適用於現有戶口結餘) (可輸入資料)</option>' +
-                '<option lang="chi" group-id="4" value=14>個人資料使用指示</option>' +
-                '<option lang="eng" group-id="4" class="d-none" value=15>Change of Investment Fund Instruction (for Future Contribution and/or Existing Account Balances) (electronic fillable)</option>' +
-                '<option lang="eng" group-id="4" class="d-none" value=16>Fund Switching Instruction(for Existing Account Balance Only)(electronic fillable)' +
-                '<option lang="eng" group-id="4" class="d-none" value=17>Instruction of Use of Personal Information</option>' +
-                '</select>' +
-
-                '</div>' +
-
-                '</div>' +
-
-
-                '<div class="mb-3 col-sm-12 ps-0 d-flex">' +
-                '<label class="col-sm-1 control-label ps-4">From</label>' +
-                '<div class="col-sm-11 ps-2">' + htmlEncode(companyName) + ' (' + htmlEncode(companyEmail) + ')' +
-
-                '</div></div>' +
-
-                '<div class="mb-4 col-sm-12 ps-0 d-flex"><label for="email-cc" class="col-sm-1 control-label ps-4">CC</label>' +
-                '<input class="form-control col-sm-6 col-offset-5 ms-2" id="email-cc" type="search" maxlength="100" autocomplete="off"></div>' +
-
-                '<div class="mb-4 col-sm-12 ps-0 d-flex"><label for="email-subject" class="col-sm-1 control-label ps-4">Subject</label>' +
-                '<input class="form-control col-sm-6 col-offset-5 ms-2" id="email-subject" type="search" maxlength="100" autocomplete="off" value=' + subjectStr + '></div>' +
-
-                '<div class="mb-3 col-sm-12 ps-0 mt-1 d-flex"><label for="editor" class="col-sm-1 control-label ps-4">Content<br />&nbsp;&nbsp;(html)</label>' +
-                '<div class="col-sm-11 ps-2">' +
-                '<div id="editor">' + contentStr + '</div>' +
-                '</div></div><div class="mb-3 col-sm-12 ps-0 mt-2"><label for="emailFile-attachment" class="col-sm-1 control-label ps-4" style="text-wrap: nowrap">Attachment</label>' +
-                '<div id="emailFile-attachment" class="col-sm-11 ps-3">' +
-                '<input type="file" id="upload-emailFile" onchange=' + emailFileUploadStr + ' style="display:none" multiple>' +
-                '<input type="button" class="btn btn-warning btn-sm text-capitalize" title="Upload Attachment" value="Upload" onclick=' + emailFileTriggerStr + ' /></div></div>' +
-                '</div></div>';
-
-            $(replyCardStr).appendTo("#reply-container").ready(function () {
+			
+			let clone = $($("#email-template").html());
+			$('#email-subject', clone).val(subjectStr);
+			$('#email-from', clone).text(`${companyName} (${companyEmail})`);
+			clone.appendTo("#reply-container").ready(function () {
                 initEditor();
-            });
-
+			});
+			
             CKEDITOR.on('instanceCreated', function (e) {
                 e.editor.on('contentDom', function () {
                     var editable = e.editor.editable();
@@ -2417,334 +2320,76 @@ var replySubmitClicked = function () {
                     });
                 });
             });
-            CKEDITOR.on("instanceReady", function (ev) {
+            CKEDITOR.on("instanceReady", function (event) {
                 resize();
+				let editor=event.editor;
+				editor.focus();
+				if (previous_email!="") {
+					editor.setData(previous_email);
+					let range = editor.createRange();
+					range.setStart(editor.document.getBody(), 0);
+					range.collapse(true);
+					editor.getSelection().selectRanges([range]);
+				}
             });
-
-            $('input[name="lang-rd-list"]').on('change', function () {
-                event.preventDefault();
-                var targetLang = $('input[name="lang-rd-list"]:checked').val();
-
-                // 2nd lv change lang and set to default
-                $('#tmp-2nd-lv').val('');
-                var secondLvOpts = $('#tmp-2nd-lv option');
-                secondLvOpts.removeClass('d-none');
-                secondLvOpts.each(function () {
-                    var langCode = $(this).attr('lang');
-                    if (langCode != targetLang) {
-                        $(this).addClass('d-none');
-                    }
-                });
-
-                // 3rd lv hide & change language
-                $('#tmp-3rd-lv').addClass('d-none');
-                var thirdLvOpts = $('#tmp-3rd-lv option');
-                thirdLvOpts.removeClass('d-none');
-                // filter out non-targeted code
-                thirdLvOpts.each(function () {
-                    var langCode = $(this).attr('lang');
-                    if (langCode != targetLang) {
-                        $(this).addClass('d-none');
-                    }
-                });
-
-            });
-
-            $('#tmp-2nd-lv').on('change', function () {
-                event.preventDefault();
-                var templateVal = $(this).val();
-                var targetLang = $('option:selected', this).attr('lang');
-                if (templateVal.length > 0) {
-                    // not 3rd lv
-                    if (templateVal < 4) {
-                        $('#tmp-3rd-lv').addClass('d-none'); // no need to show 3rd lv
-                        var template = emailTemplateArr[Number(templateVal)];
-                        var greetingStr = targetLang == 'chi' ? '親愛的客戶:<br/><br/>' : 'Dear Custoemr,<br/><br/>';
-                        var endingStr = '<br/><br/>ABC Company';
-                        var templateContent = (greetingStr + (template.content || '') + endingStr + previous_email);
-                        if (previous_email.length == 0) {
-                            var templateSubject = template.subject || '';
-                            $('#email-subject').val(templateSubject);
-                        }
-                        // verfication code
-                        if (templateVal == 0 || templateVal == 1) {
-                            //var randomNo = Math.floor(100000 + Math.random() * 900000); // random 6 digit number
-                            var randomNo = generateSecureRandomNumber(); // random 6 digit number
-                            templateContent = templateContent.replace('123456', randomNo);
-                        } else if (templateVal == 2 || templateVal == 3) {
-                            var now = new Date();
-                            var prevMonthLastDate = new Date(now.getFullYear(), now.getMonth(), 0);
-                            var date = prevMonthLastDate.getDate();
-                            var month = prevMonthLastDate.getMonth() + 1; // Since getMonth() returns month from 0-11 not 1-12
-                            var year = prevMonthLastDate.getFullYear().toString().substr(-2);
-                            if (date < 10) {
-                                date = '0' + date;
-                            }
-                            if (month < 10) {
-                                month = '0' + month;
-                            }
-                            var dateStr = date + "/" + month + "/" + year;
-                            templateContent = templateContent.replace('01/01/00', dateStr);
-                        }
-                        CKEDITOR.instances['editor'].setData(templateContent);
-                    } else { // set 3rd lv display
-                        // get lang
-                        $('#tmp-3rd-lv').val(''); // default empty
-                        var targetGroup = $('option:selected', this).attr('group-id');
-                        var thirdLvOpts = $('#tmp-3rd-lv option');
-                        thirdLvOpts.removeClass('d-none');
-                        // filter out non-targeted code
-                        thirdLvOpts.each(function () {
-                            var groupId = $(this).attr('group-id');
-                            var langCode = $(this).attr('lang');
-                            if (groupId != targetGroup || langCode != targetLang) {
-                                $(this).addClass('d-none');
-                            }
-                        });
-                        $('#tmp-3rd-lv').removeClass('d-none'); // show 3rd lv      
-                    }
-                } else {
-                    $('#tmp-3rd-lv').addClass('d-none'); // no need to show 3rd lv
-                }
-            });
-            $('#tmp-3rd-lv').on('change', function () {
-                event.preventDefault();
-                var templateVal = $(this).val();
-                if (templateVal.length > 0) {
-                    var targetLang = $('option:selected', this).attr('lang');
-                    var greetingStr = targetLang == 'chi' ? '<p>親愛的客戶:</p>' : '<p>Dear Custoemr,</p>';
-                    var endingStr = '<br/><br/>ABC Company';
-                    var template = emailTemplateArr[Number(templateVal)];
-                    var templateContent = (greetingStr + (template.content || '') + endingStr + previous_email);
-                    if (previous_email.length == 0) {
-                        var templateSubject = template.subject || '';
-                        $('#email-subject').val(templateSubject);
-                    }
-                    CKEDITOR.instances['editor'].setData(templateContent);
-                }
-            });
+			
+			$('input[name="lang-rd-list"]').on('change', function (event) {
+				event.preventDefault();
+				$("#tmp-2nd-lv").empty();
+				$("#tmp-2nd-lv").append($('<option>'));
+				$.each(emailTemplateArr.filter(t=>t.language==$(this).val()),function(index, item) {
+					$("#tmp-2nd-lv").append($('<option>').val(item.subject).html(item.subject));
+				});
+			});
+			$('#tmp-2nd-lv').on('change', function (event) {
+				event.preventDefault();
+				const template=emailTemplateArr.find(t=>t.subject==$(this).val());
+				let emailSubject=$('#email-subject').val();
+				emailSubject =$.trim(`${emailSubject} ${template.subject}`);
+				$('#email-subject').val(emailSubject);
+				let templateContent=template.content;
+				const randomNo = Math.floor(100000 + Math.random() * 900000);
+				templateContent=templateContent.replace("{{code}}",randomNo);
+				const todaystr = (new Date()).toLocaleString("en-AU",{year:"2-digit",month:"2-digit",day:"2-digit"});
+				templateContent=templateContent.replace("{{date}}",todaystr);
+				templateContent=`${(template.language=='chi')? '親愛的客戶':'Dear Custoemr'},<br/><br/>${templateContent}<br/><br/>ABC Company`;
+				//CKEDITOR.instances['editor'].setData(templateContent);
+				CKEDITOR.instances['editor'].insertHtml(templateContent);
+				
+			});
+            $('input[name="lang-rd-list"][value="chi"]').prop('checked', true).trigger('change');
         } else if (replyChannel === 'fax') {
-            var faxFileTriggerStr = "$('#upload-faxFile').trigger('click');"
-            var faxFileUploadStr = 'uploadAttachment(this,"faxFile");'
-            $('<div id="reply-card" class="my-2 bg-light mb-4 rounded-2 py-5 px-3 py-3"><div class="text-center mb-3 bg-info rounded text-white"><h5 class="mt-0 mb-0">Send Fax</h5></div><div class="row d-flex align-items-center">' +
-                '<div class="mb-3 col-sm-12 ps-3 d-flex">' +
-                '<label class="col-sm-2 control-label ps-5 justify-content-start">Cover Sender</label>' +
-                '<div class="col-sm-10 ps-3">' + agentName + '</div></div>' +
-                '<div class="mb-3 col-sm-12 ps-3 d-flex">' +
-                '<label class="col-sm-2 control-label ps-5 justify-content-start">Cover Company</label>' +
-                '<div class="col-sm-10 ps-3">' + companyName + '</div></div>' +
-                '<div class="mb-3 col-sm-12 ps-3 d-flex">' +
-                '<label for="fax-attn" class="col-sm-2 control-label ps-5 justify-content-start">Cover Attention</label>' +
-                '<div class="col-sm-10 ps-3"><input id="fax-attn" class="form-control" /></div></div>' +
-                '<div class="mb-3 col-sm-12 ps-3 d-flex">' +
-                '<label for="fax-subject" class="col-sm-2 control-label ps-5 justify-content-start">Cover Subject</label>' +
-                '<div class="col-sm-10 ps-3"><input id="fax-subject" class="form-control" /></div></div>' +
-                '<div class="mb-3 col-sm-12 ps-3 d-flex"><label for="fax-msg" class="col-sm-2 control-label  ps-5 justify-content-start">Content</label>' +
-                '<div class="col-sm-10 ps-3">' +
-                '<textarea class="mt-2" id="fax-msg" rows="3" cols="20" style="font-family:inherit;width:100%;" maxlength="500"></textarea></div></div>' +
-                '<div class="mb-3 col-sm-12 ps-3 d-flex">' +
-                '<label class="col-sm-2 control-label ps-5 justify-content-start">Fax File<br>(TXT, PDF, DOC, PPT, XLS Format Allowed)</label>' +
-                '<div id="faxFile-attachment" class="col-sm-10 ps-3"><input type="file" accept=".doc,.docx,.pdf,.xls,.xlsx,.ppt,.pptx,.txt" id="upload-faxFile" onchange=' + faxFileUploadStr + ' style="display:none" multiple>' +
-                '<input type="button" class="btn btn-warning btn-sm ms-0 text-capitalize" title="Upload Fax File" value="Upload" style="margin-left:5px;" onclick=' + faxFileTriggerStr + ' /></div></div></div></div>' +
-                +'</div>').appendTo('#reply-container');
+            let clone = $($("#fax-template").html());
+			$('#fax-sender', clone).text(agentName);
+			$('#fax-company', clone).text(companyName);
+			clone.appendTo("#reply-container");
         } else if (replyChannel === 'sms') {
-            $('<div id="reply-card" class="my-2 bg-light mb-4 rounded-2 py-5 px-3 py-3"><div class="text-center mb-3 bg-info rounded text-white"><h5 class="mt-0 mb-0">Send SMS</h5></div>' +
-                '<div class="row d-flex align-items-center">' +
-
-                '<div class="d-flex mb-3 col-sm-12 ps-0 mb-0">' +
-                '<label class="col-sm-1 control-label ps-4">Template</label>' +
-
-                '<div class="d-flex col-sm-11 ps-2">' +
-
-                '<span class="mb-3 d-flex align-items-center float-start" style="margin-top:-8px">' +
-                '<div class="form-check mt-2" style="text-wrap: nowrap;">' +
-                '<label class="form-check-label" >' +
-                '<input class="form-check-input" type="radio" name="lang-rd-list" value="chi" checked="">中文<span class="circle">' +
-                '<span class="check"></span>' +
-                '</span>' +
-                '</label>' +
-                '</div>' +
-
-                '<div class="form-check mt-2 ms-2">' +
-                '<label class="form-check-label">' +
-                '<input class="form-check-input" type="radio" name="lang-rd-list" value="eng">English<span class="circle">' +
-                '<span class="check"></span>' +
-                '</span>' +
-                '</label>' +
-
-                '</div>' +
-                '</span>&nbsp;&nbsp;&nbsp;' +
-
-                '<select id="tmp-2nd-lv" class="form-select w-auto" style="height:34px">' +
-                '<option selected="selected" value=""></option>' +
-                '<option lang="chi" value=0>提供驗證碼</option>' +
-                '<option lang="eng" class="d-none" value=1>Give Verification</option>' +
-                '<option lang="chi" value=2>網址連結</option>' +
-                '<option lang="eng" class="d-none" value=3>Webchat Link</option>' +
-
-                '<option lang="chi" group-id="3" value=4>銷售文件</option>' +
-
-                '<option lang="eng" class="d-none" group-id="3" value=5>Offering Document</option>' +
-                '<option lang="chi" group-id="4" value=6>個人賬戶成員</option>' +
-                '<option lang="eng" class="d-none" group-id="4" value=7>Personal Account Member</option>' +
-                '</select>' +
-
-                '</div>' +
-                '</div>' +
-
-                '<div class="col-sm-12 ps-0">' +
-
-                '<div class="offset-md-1 col-sm-11 ps-1">' +
-
-                '<select id="tmp-3rd-lv" class="form-select d-none pt-0 mb-2  w15" style="margin-left:148px;">' +
-                '<option selected="selected" value=""></option>' +
-                '<option lang="chi" group-id="3" value=4>強積金計劃說明書 - 我的強積金計劃 (2020年3月31日)</option>' +
-                '<option lang="chi" group-id="3" value=5>我的強積金計劃之強積金計劃說明書第一補編 (2020年5月15日)</option>' +
-                '<option lang="chi" group-id="3" value=6>持續成本列表</option>' +
-                '<option lang="chi" group-id="3" value=7>我的強積金保守基金年費解說例子</option>' +
-                '<option lang="eng" group-id="3" class="d-none" value=8>MPF Scheme Brochure for My Choice Mandatory Provident Fund Scheme (31 Mar 2020)</option>' +
-                '<option lang="eng" group-id="3" class="d-none" value=9>First Addendum to the MPF Scheme Brochure of My Choice Mandatory Provident Fund (15 May 2020)' +
-                '<option lang="eng" group-id="3" class="d-none" value=10>On-Going Cost Illustrations</option>' +
-                '<option lang="eng" group-id="3" class="d-none" value=11>Illustrative Example for My Choice MPF Conservative Fund</option>' +
-                '<option lang="chi" group-id="4" value=12>更改投資基金組合授權書 (適用於新供款及/或現有戶口結餘) (可輸入資料)</option>' +
-                '<option lang="chi" group-id="4" value=13>基金轉換指示 (只適用於現有戶口結餘) (可輸入資料)</option>' +
-                '<option lang="chi" group-id="4" value=14>個人資料使用指示</option>' +
-                '<option lang="eng" group-id="4" class="d-none" value=15>Change of Investment Fund Instruction (for Future Contribution and/or Existing Account Balances) (electronic fillable)</option>' +
-                '<option lang="eng" group-id="4" class="d-none" value=16>Fund Switching Instruction(for Existing Account Balance Only)(electronic fillable)' +
-                '<option lang="eng" group-id="4" class="d-none" value=17>Instruction of Use of Personal Information</option>' +
-                '</select>' +
-
-                '</div>' +
-
-                '</div>' +
-
-                '<div class="d-flex mb-3 col-sm-12 ps-0">' +
-                '<label class="d-flex col-sm-2 control-label ps-4 ">&nbsp;&nbsp;&nbsp;From</label>' +
-                '<div class="col-sm-11 ps-2">' + companyName +
-                '</div></div>' +
-
-                '<div class="mb-3 col-sm-12 ps-0"><label for="sms-content" class="col-sm-2 control-label ps-4">&nbsp;&nbsp;&nbsp;Content</label>' +
-                '<div class="col-sm-11 ps-2">' +
-                '<textarea class="mt-3" id="sms-content" rows="3" cols="20" style="font-family:inherit;width:100%;" maxlength="500" onKeyUp="smsWordCount()"></textarea></textarea></div></div>' +
-                '<div class="w-100"><span style="float:right;margin-right:30px;"><span id="sms-word-count" class="align-right">0/170</span>&nbsp;&nbsp;<span id="sms-msg-count">1</span>&nbsp;message(s)</span></div>' +
-                +'</div></div>').appendTo('#reply-container');
-
-            $('input[name="lang-rd-list"]').on('change', function () {
-                event.preventDefault();
-                var targetLang = $('input[name="lang-rd-list"]:checked').val();
-
-                // 2nd lv change lang and set to default
-                $('#tmp-2nd-lv').val('');
-                var secondLvOpts = $('#tmp-2nd-lv option');
-                secondLvOpts.removeClass('d-none');
-                secondLvOpts.each(function () {
-                    var langCode = $(this).attr('lang');
-                    if (langCode != targetLang) {
-                        $(this).addClass('d-none');
-                    }
-                });
-
-                // 3rd lv hide & change language
-                $('#tmp-3rd-lv').addClass('d-none');
-                var thirdLvOpts = $('#tmp-3rd-lv option');
-                thirdLvOpts.removeClass('d-none');
-                // filter out non-targeted code
-                thirdLvOpts.each(function () {
-                    var langCode = $(this).attr('lang');
-                    if (langCode != targetLang) {
-                        $(this).addClass('d-none');
-                    }
-                });
-
-            });
-
-            $('#tmp-2nd-lv').on('change', function () {
-                event.preventDefault();
-                var templateVal = $(this).val();
-                if (templateVal.length > 0) {
-                    // no 3rd lv
-                    if (templateVal < 4) {
-                        $('#tmp-3rd-lv').addClass('d-none'); // no need to show 3rd lv
-                        var templateContent = SMSTemplateArr[Number(templateVal)] || '';
-                        // verfication code
-                        if (templateVal == 0 || templateVal == 1) {
-                            //var randomNo = Math.floor(100000 + Math.random() * 900000); // random 6 digit number
-                            var randomNo = generateSecureRandomNumber(); // random 6 digit number
-                            templateContent = templateContent.replace('123456', randomNo);
-                        } else if (templateVal == 2 || templateVal == 3) { // webchat link
-
-                            // year + agent id + case no
-                            // str.toString(16) => to base 16
-                            var today = new Date();
-
-                            // the padStart() method in JavaScript is used to pad a string with another string until it reaches the given length. The padding is applied from the left end of the string.
-                            var dd = String(today.getDate()).padStart(2, '0');
-                            var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
-                            var yy = today.getFullYear().toString().substr(-2);
-
-                            var agentIdStr = String(loginId);
-
-                            // slice(-2) extracts last 2 characters of the agentId, will not change original string
-                            // agent id could not put before date, becuase if the number begins with 0, the 0 will disappear when toString(36)
-                            // for same reason above, the eStr below will have error when year 20xx beomcs 210x
-                            agentIdStr = agentIdStr.length == 1 ? ('0' + agentIdStr) : agentIdStr.slice(-2); // all agent single now, uncomment if double digits
-                            var eStr = String(yy) + mm + dd + agentIdStr + String(internalCaseNo);
-                            var b36Str = Number(eStr).toString(36);
-
-                            if (templateVal == 2) {
-                                templateContent = '易寶: 感謝聯絡我們。請點擊 https://www.commas.hk/webchat/client/index.html?m=test40&l=t&q=1&e=' + b36Str + ' 以線上對話與我們聯繫。服務時間 : 星期一至五上午9時至下午5時。';
-                            } else if (templateVal == 3) {
-                                templateContent = 'Epro: Thank you for contacting us. Please click https://www.commas.hk/webchat/client/index.html?m=test40&l=e&q=1&e=' + b36Str + ' to chat with us. Live agents are available from 9am to 5pm (Mon-Fri).';
-                            }
-
-                            // showing last month balance
-                            // var now = new Date();
-                            // var prevMonthLastDate = new Date(now.getFullYear(), now.getMonth(), 0);
-                            // var date = prevMonthLastDate.getDate();
-                            // var month = prevMonthLastDate.getMonth() + 1; // Since getMonth() returns month from 0-11 not 1-12
-                            // var year = prevMonthLastDate.getFullYear().toString().substr(-2);
-                            // if (date < 10) {
-                            //     date = '0' + date;
-                            // }
-                            // if (month < 10) {
-                            //     month = '0' + month;
-                            // }
-                            // var dateStr = date + "/" + month + "/" + year;
-                            // templateContent = templateContent.replace('01/01/00', dateStr);
-                        }
-                        $('#sms-content').val(templateContent).focus();
-                        smsWordCount();
-                    } else { // set 3rd lv display
-                        // get lang
-                        $('#tmp-3rd-lv').val(''); // default empty
-                        var targetLang = $('option:selected', this).attr('lang');
-                        var targetGroup = $('option:selected', this).attr('group-id');
-
-                        var thirdLvOpts = $('#tmp-3rd-lv option');
-                        thirdLvOpts.removeClass('d-none');
-                        // filter out non-targeted code
-                        thirdLvOpts.each(function () {
-                            var groupId = $(this).attr('group-id');
-                            var langCode = $(this).attr('lang');
-                            if (groupId != targetGroup || langCode != targetLang) {
-                                $(this).addClass('d-none');
-                            }
-                        });
-                        $('#tmp-3rd-lv').removeClass('d-none'); // show 3rd lv      
-                    }
-                } else {
-                    $('#tmp-3rd-lv').addClass('d-none'); // no need to show 3rd lv
-                }
-            });
-            $('#tmp-3rd-lv').on('change', function () {
-                event.preventDefault();
-                var templateVal = $(this).val();
-                if (templateVal.length > 0) {
-                    var templateContent = SMSTemplateArr[Number(templateVal)] || '';
-                    $('#sms-content').val(templateContent).focus();
+            let clone = $($("#sms-template").html());
+			$('#sms-from', clone).text(companyName);
+			clone.appendTo("#reply-container").ready(function () {
+                $('input[name="lang-rd-list"]').on('change', function (event) {
+					event.preventDefault();
+					$("#tmp-2nd-lv").empty();
+					$("#tmp-2nd-lv").append($('<option>'));
+					$.each(SMSTemplateArr.filter(t=>t.language==$(this).val()),function(index, item) {
+						$("#tmp-2nd-lv").append($('<option>').val(item.title).html(item.title));
+					});
+				});
+				
+				$('#tmp-2nd-lv').on('change', function (event) {
+					event.preventDefault();
+					const template=SMSTemplateArr.find(t=>t.title==$(this).val());
+					let templateContent=template.content;
+					const randomNo = Math.floor(100000 + Math.random() * 900000);
+					templateContent=templateContent.replace("{{code}}",randomNo);
+					const todaystr = (new Date()).toLocaleString("en-AU",{year:"2-digit",month:"2-digit",day:"2-digit"});
+					templateContent=templateContent.replace("{{date}}",todaystr);
+					$('#sms-content').val(templateContent).focus();
                     smsWordCount();
-                }
-            });
+					
+				});
+				$('input[name="lang-rd-list"][value="chi"]').prop('checked', true).trigger('change');
+			});
         }
         // Added reply section, so needed to resize
         resize();
@@ -3082,7 +2727,6 @@ function getAgentName(theAgentId) {
 }
 
 
-
 // Call clicked
 var replyCallChanged = function (oThis) {
     var valueOfCall = $(oThis).prop('value');
@@ -3136,7 +2780,7 @@ function windowOnload() {
     //status update when openInputForm  
     //if (parent.parent[3].callTypeAfteropenForm != undefined) {  //detect it is in case create		20250729 fix the checking
 	//if (parent.parent[3].callTypeAfteropenForm) {  //detect it is in case create
-	if (parent.parent[3]?.callTypeAfteropenForm !== undefined) {
+	if (parent.parent[3]?.callTypeAfteropenForm !== undefined) {														 
         if (parent.parent[3].callTypeAfteropenForm == "Inbound_Whatsapp") {
             if (parent.parent[3].rowDataAfteropenForm == null)	//use this to check whether it is new case
             {

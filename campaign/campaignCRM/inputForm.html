@@ -185,6 +185,10 @@
         .border-form-control:disabled {
             background-color: #e9ecef;
         }
+		#save-btn-section button {
+		  display: inline-block;
+		  margin: 0 5px;
+		  vertical-align: middle;
     </style>
 </head>
 
@@ -460,10 +464,10 @@
                     </div> /NO DEL not sure will this field be added back-->
 
                     <div class='row d-flex align-items-center'>
-                        <div class='mb-3 col-sm-12 ps-0 d-flex align-items-baseline'>
+                        <div class='mb-0 col-sm-12 ps-0 d-flex align-items-baseline'>
                             <span class='control-label custom-form-label'><span class="l-form-reply"></span></span>
                             <div class='col-sm-11 ps-0'>
-                                <div id="reply-radio-group" class='mb-3 d-flex align-items-center'>
+                                <div id="reply-radio-group" class='mb-0 d-flex align-items-center'>
 
                                     <div class="form-check ms-3">
                                         <label for="reply-none" class="form-check-label">
@@ -620,8 +624,7 @@
 					
 
 					</div>
-					
-                    <div id="save-btn-section" style="text-align:center;margin-top:10px;">
+					<div id="save-btn-section" style="text-align:center;margin-bottom:40px;">
                         <button id="case-save-btn" class='btn btn-warning rounded btn-sm text-capitalize'
                             onclick='saveClicked()'><i class="fa fa-save me-2"></i><span
                                 class="l-form-save"></span></button>
@@ -637,6 +640,140 @@
     </div>
 
     <script type="text/javascript" src="../../obfuscate_b4/crmInputForm.js"></script>
+<template id="email-template">
+<div id="reply-card" class="my-2 jumbotron py-3">
+	<div class="text-center mb-2 bg-info rounded text-white"><h5 class="mt-0 mb-0">Send Email</h5></div>
+	<div class="row form-inline">
+		<div class="form-group col-sm-12 pl-0 mb-0">
+		<label class="col-sm-1 control-label pl-4">Template</label>
+		<div class="col-sm-11 pl-2">
+			<span class="form-group form-inline float-left">
+				<div class="form-check mt-2">
+				<label class="form-check-label">
+					<input class="form-check-input" type="radio" name="lang-rd-list" value="chi">中文
+					<span class="circle"><span class="check"></span></span>
+				</label>
+				</div>
+				<div class="form-check mt-2 ml-2">
+				<label class="form-check-label">
+					<input class="form-check-input" type="radio" name="lang-rd-list" value="eng">English
+					<span class="circle"><span class="check"></span></span>
+				</label>
+				</div>
+			</span>&nbsp;&nbsp;&nbsp;
+			<select id="tmp-2nd-lv" class="form-control"><option></option></select>
+			<button id="tmp-preview-btn" class="cs-button btn btn-warning rounded btn-sm text-capitalize" onclick="previewEmailTemplate();">Preview</button>
+		</div>
+		</div>
+		<div class="form-group col-sm-12 pl-0">
+			<label for="email-from" class="col-sm-1 control-label pl-4">From</label>
+			<div class="col-sm-11 pl-2" id="email-from"></div>
+		</div>
+		<div class="form-group col-sm-12 pl-0">
+			<label for="email-cc" class="col-sm-1 control-label pl-4">CC</label>
+			<input class="form-control col-sm-6 col-offset-5 ml-2" id="email-cc" type="search" maxlength="100" autocomplete="off">
+		</div>
+		<div class="form-group col-sm-12 pl-0">
+			<label for="email-subject" class="col-sm-1 control-label pl-4">Subject</label>
+			<input class="form-control col-sm-6 col-offset-5 ml-2" id="email-subject" type="search" maxlength="100" autocomplete="off">
+		</div>
+		<div class="form-group col-sm-12 pl-0">
+			<label for="editor" class="col-sm-1 control-label pl-4">Content<br>&nbsp;&nbsp;(html)</label>
+			<div class="col-sm-11 pl-2"><div id="editor" /></div>
+		</div>
+		<div class="form-group col-sm-12 pl-0 mt-2">
+			<label for="emailFile-attachment" class="col-sm-1 control-label pl-4">Attachment</label>
+			<div id="emailFile-attachment" class="col-sm-11 pl-2">
+			<input type="file" id="upload-emailFile" onchange="uploadAttachment(this,'emailFile');" style="display:none" multiple="">
+			<input type="button" class="btn btn-warning btn-sm text-capitalize" title="Upload Attachment" value="Upload" onclick="$('#upload-emailFile').trigger('click');">
+			</div>
+		</div>
+	</div>
+</div>
+</template>
+
+<template id="sms-template">
+<div id="reply-card" class="my-2 jumbotron py-3">
+	<div class="text-center mb-3 bg-info rounded text-white"><h5 class="mt-0 mb-0">Send SMS</h5></div>
+	<div class="row form-inline">
+	<div class="form-group col-sm-12 pl-0 mb-0">
+		<label class="col-sm-1 control-label pl-4">Template</label>
+		<div class="col-sm-11 pl-2">
+			<span class="form-group form-inline float-left">
+				<div class="form-check mt-2">
+				<label class="form-check-label">
+					<input class="form-check-input" type="radio" name="lang-rd-list" value="chi">中文
+					<span class="circle"><span class="check"></span></span>
+				</label>
+				</div>
+				<div class="form-check mt-2 ml-2">
+				<label class="form-check-label">
+					<input class="form-check-input" type="radio" name="lang-rd-list" value="eng">English
+					<span class="circle"><span class="check"></span></span>
+				</label>
+				</div>
+			</span>&nbsp;&nbsp;&nbsp;
+			<select id="tmp-2nd-lv" class="form-control"></select>
+			
+		</div>
+	</div>
+	<div class="form-group col-sm-12 pl-0">
+		<label for="sms-from" class="col-sm-1 control-label pl-4">&nbsp;&nbsp;&nbsp;From</label>
+		<div class="col-sm-11 pl-2" id="sms-from"></div>
+	</div>
+	<div class="form-group col-sm-12 pl-0">
+		<label for="sms-content" class="col-sm-1 control-label pl-4">&nbsp;&nbsp;&nbsp;Content</label>
+		<div class="col-sm-11 pl-2">
+			<textarea class="mt-3" id="sms-content" rows="3" cols="20" style="font-family:inherit;width:100%;" maxlength="500" onkeyup="smsWordCount()"></textarea>
+		</div>
+	</div>
+	<div class="w-100">
+		<span style="float:right;margin-right:30px;">
+		<span id="sms-word-count" class="align-right">0/170</span>&nbsp;&nbsp;
+		<span id="sms-msg-count">1</span>&nbsp;message(s)</span>
+	</div>
+	</div>
+</div>
+</template>
+<template id="fax-template">
+<div id="reply-card" class="my-2 jumbotron py-3">
+	<div class="text-center mb-3 bg-info rounded text-white"><h5 class="mt-0 mb-0">Send SMS</h5></div>
+	<div class="row form-inline">
+	<div class="form-group col-sm-12 pl-3">
+		<label class="col-sm-2 control-label pl-5 justify-content-start">Cover Sender</label>
+		<div class="col-sm-10 pl-3" id="fax-sender"></div>
+	</div>
+	<div class="form-group col-sm-12 pl-3">
+		<label class="col-sm-2 control-label pl-5 justify-content-start">Cover Company</label>
+		<div class="col-sm-10 pl-3" id="fax-company"></div>
+	</div>
+	<div class="form-group col-sm-12 pl-3">
+		<label for="fax-attn" class="col-sm-2 control-label pl-5 justify-content-start">Cover Attention</label>
+		<div class="col-sm-10 pl-3"><input id="fax-attn" class="form-control"></div>
+	</div>
+	<div class="form-group col-sm-12 pl-3">
+		<label for="fax-subject" class="col-sm-2 control-label pl-5 justify-content-start">Cover Subject</label>
+		<div class="col-sm-10 pl-3"><input id="fax-subject" class="form-control"></div>
+	</div>
+	<div class="form-group col-sm-12 pl-3">
+		<label for="fax-msg" class="col-sm-2 control-label pl-5 justify-content-start">Content</label>
+		<div class="col-sm-10 pl-3"><textarea class="mt-2" id="fax-msg" rows="3" cols="20" style="font-family:inherit;width:100%;" maxlength="500"></textarea></div>
+	</div>
+	<div class="form-group col-sm-12 pl-3">
+		<label class="col-sm-2 control-label pl-5 justify-content-start">Fax File<br>(TXT, PDF, DOC, PPT, XLS Format Allowed)</label>
+		<div id="faxFile-attachment" class="col-sm-10 pl-3">
+			<input type="file" accept=".doc,.docx,.pdf,.xls,.xlsx,.ppt,.pptx,.txt" id="upload-faxFile" onchange="uploadAttachment(this,&quot;faxFile&quot;);" style="display:none" multiple="">
+			<input type="button" class="btn btn-warning btn-sm ml-0 text-capitalize" title="Upload Fax File" value="Upload" style="margin-left:5px;" onclick="$('#upload-faxFile').trigger('click');">
+		</div>
+	</div>
+	</div>
+</div>
+</template>
+<template id="areyousure-template">
+	<span id="are-you-sure">&nbsp;&nbsp;&nbsp;Are you sure?&nbsp;&nbsp;&nbsp;
+	<button class="btn btn-sm btn-warning text-capitalize rounded" onclick="dialYesClicked();"><i class="fas fa-check mr-2"></i><span>Yes</span></button>&nbsp;
+	<button class="btn btn-sm btn-warning text-capitalize rounded" onclick="dialNoClicked();"><i class="fas fa-times mr-2"></i><span>No</span></button></span>
+</template>							  
 
 </body>
 

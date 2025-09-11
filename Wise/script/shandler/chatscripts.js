@@ -29,6 +29,7 @@
 	  isSendingMessage = false;
 	  interval = null;
 	  disableReloadMsg = false;
+	  returnPastMessageAtBegin = false;
 
 		//Contacted us in the last hour: Last Ticket ID: 1386264423 on 2024-11 - 29 12: 17: 37
 	  init()
@@ -462,6 +463,20 @@
 			  this.reloadChatHistory(sTicket[0].messages);
 
 			  this.allowPastMessageCall = true;
+			  
+			  if (newList.length > 0 && this.returnPastMessageAtBegin == true)
+			  {
+				  
+				  this.returnPastMessageAtBegin = false;
+				  this.scrollToBottom();
+				  
+				  
+			  }else{
+				  
+				  this.scrollToTop();
+				  
+			  }
+			  
 
 			  //this.scrollToBottom();
 		  }
@@ -1017,7 +1032,7 @@
 
 				  
 				  //------------------------------------------------
-				  if (this.isScrollToBottom) {
+				  /*if (this.isScrollToBottom) {
 
 					 // console.log("bottom");
 					  this.scrollToBottom();
@@ -1027,7 +1042,7 @@
 				  {
 					 // console.log("top");
 					  this.scrollToTop();
-				  }
+				  }*/
 			  }
 		  }
 
@@ -1234,6 +1249,7 @@
 		  { 
 				this.reloadChatHistory(sMsglist, true);
 				this.updateChatHeader(selectedTicket[0].Channel, selectedTicket[0]);
+				this.scrollToBottom();
 		  }
 
 		  searchInput(selectedTicket[0]);	
@@ -1625,13 +1641,16 @@
 		  if (this.selectedChatChannel == "whatsapp") {		// responseInvite== false) { // 20250407 Refactor the code to avoid using this boolean literal.
 			  //this.returnPastMessageByTicketId(this.selectedTicketId);
 			  
-			  setTimeout(() => { this.returnPastMessageByTicketId(this.selectedTicketId); }, 1000);
+			  this.returnPastMessageAtBegin = false;
+			  setTimeout(() => { this.returnPastMessageByTicketId(this.selectedTicketId); }, 800);
+			  
+			  setTimeout(() => { this.scrollToBottom() }, 1000);
 		  }
 
 
 		  //5. scroll to bottom 
-		  setTimeout(() => { this.scrollToBottom(); }, 500);
-		  setTimeout(() => { this.scrollToBottom(); }, 800);
+		  setTimeout(() => { this.scrollToBottom(); }, 400);
+		  setTimeout(() => { this.scrollToBottom(); }, 600);
 	  };
 
 
@@ -1884,7 +1903,7 @@
 	  sendInviteRequestcallBack(result)		//****not direct callback from  inviteAgentByHandler except error return
 	  {
 		  //{ "type": "responseConference", "details": { "targentAgentId": 6, "ticketId": 1023, "message": "RESPONSE YOU", "agentResponse": "Y" }, "agentResponse": "Y", "targentAgentId": 6 }
-		  disableReloadMsg = true;
+		  this.disableReloadMsg = true;
 		  // returned from inviteAgentByHandler
 		  if (result.details.agentResponse == undefined) {		// error in calling sHandler API
 			  alert(result.details);

@@ -22,8 +22,9 @@ var batchTblData = [];
 var functions = parent.functions;
 var isAdmin = (functions.indexOf('Campaign-Admin-Fn') != -1);
 var cCustDeselectArr = [];
-
-
+var replyConfirmed = false; // 20250911 Add "var" to this declaration
+							// If true, reply is confirmed and the area is disabled, cannot be changed
+var waTempService = null;
 //20250730 for send whatsapp message by shandler
 var selectedSendTemplate = null;
 var sAgentId = top.loginId;
@@ -2231,7 +2232,7 @@ function processBatchTblWhatsapp(batchTbl, loginId, token, element)
 		//var data = batchTbl.row($(this).parents('tr')).data();
 		var data= batchTbl.row(element.parents('tr')).data();
 		
-		Content = data.Whatsapp_Tp_Props || '';
+		var Content = data.Whatsapp_Tp_Props || '';		// 20250911 Add the "var" to this declaration
 		if (Content)
 		{
 			pobj 	= JSON.parse(Content);

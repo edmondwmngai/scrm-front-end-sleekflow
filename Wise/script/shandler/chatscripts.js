@@ -1641,7 +1641,7 @@
 		  if (this.selectedChatChannel == "whatsapp") {		// responseInvite== false) { // 20250407 Refactor the code to avoid using this boolean literal.
 			  //this.returnPastMessageByTicketId(this.selectedTicketId);
 			  
-			  this.returnPastMessageAtBegin = false;
+			  this.returnPastMessageAtBegin = true;			  
 			  setTimeout(() => { this.returnPastMessageByTicketId(this.selectedTicketId); }, 800);
 			  
 			  setTimeout(() => { this.scrollToBottom() }, 1000);

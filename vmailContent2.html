@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<title></title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<meta http-equiv="cache-control" content="max-age=0">
+	<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+	<meta http-equiv="expires" content="-1">
+	<meta http-equiv="expires" content="Tue, 01 Jan 1980 11:00:00 GMT">
+	<meta http-equiv="pragma" content="no-cache">
+	<style>
+		body {
+			font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+			margin: 0px;
+			font-size: 14px;
+		}
+
+		.gray-bg-label-span {
+			font-size: 12px;
+			background: #f4f5f7;
+			padding: 2px;
+			border-radius: 5px;
+		}
+
+		.line-bottom-container-first {
+			border-bottom: 1px solid #E5E9F2;
+			padding: 0 0 8px 0;
+		}
+
+		.main-card {
+			background: #FFFFFF;
+			border: 1px solid #E5E9F2;
+			border-radius: 5px;
+			padding: 6px 15px 6px 15px
+		}
+	</style>
+</head>
+<body>
+	<div class="main-card">
+		<div class="row d-flex line-bottom-container-first">
+			<div class='col-sm-6 d-flex px-2 pt-1 align-items-center'>
+				<span style="width:90px"><span class="gray-bg-label-span mr-1"><span class="l-form-timestamp"></span>:</span></span>
+				<span id="vmail-timestamp" style='word-break:break-word'></span>
+			</div>
+			<div class='col-sm-6 d-flex px-2 pt-1 align-items-center'>
+				<span style="width:90px"><span class="gray-bg-label-span mr-1"><span class="l-vmail-caller-display"></span>:</span></span>
+				<span id="vmail-caller"></span>
+			</div>
+		</div>
+		
+		<div class="row line-bottom-container-first">
+			<div class='col-sm-6 d-flex px-2 pt-1 align-items-center'>
+				<span style="width:90px"><span class="gray-bg-label-span mr-1"><span class="l-form-play-voicemail"></span>:</span></span>
+				<span id="audio-player" style="height:27px;max-width:100px"></span>
+			</div>
+			<div class='col-sm-6 d-flex px-2 pt-1 align-items-center'>
+				<span style="width:90px"><span class="gray-bg-label-span mr-1"><span class="l-vmail-subject"></span>:</span></span>
+				<span id="vmail-subject"></span>
+			</div>
+		</div>
+		
+		<div class="row d-flex align-items-center">
+			<div class='col-sm-12 d-flex px-2 pt-1'>
+				<span style="width:90px"><span class="gray-bg-label-span mr-1">Content:</span></span>
+				<span id="vmail-content"></span>
+			</div>
+		</div>
+		
+	</div>
+	<script type="text/javascript" src="./obfuscate_b4/vmailContent2.js"></script>
+</body>
+</html>

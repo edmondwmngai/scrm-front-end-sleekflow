@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<meta http-equiv="cache-control" content="no-store" />
+
+<head>
+    <title></title>
+    <link rel="stylesheet" href="./css/loading.css">
+    <style>
+        body {
+            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+            margin: 0px;
+            font-size: 14px;
+        }
+
+        .gray-bg-label-span {
+            font-size: 12px;
+            background: #f4f5f7;
+            padding: 2px;
+            border-radius: 5px;
+        }
+
+        .line-bottom-container-first {
+            border-bottom: 1px solid #E5E9F2;
+            padding: 0 0 7.5px 0;
+        }
+
+        .standard-margin-top {
+            margin-top: 7.5px;
+            word-wrap: break-word;
+        }
+
+        .main-card {
+            background: #FFFFFF;
+            border: 1px solid #E5E9F2;
+            border-radius: 5px;
+            padding: 12px 15px 6px 15px;
+        }
+
+        .vertical-center {
+            display: flex;
+            align-items: center;
+        }
+
+        .video-tag {
+            height: 27px;
+            min-width: 25vw;
+            width: max-content;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="main-card">
+		<div class="row d-flex line-bottom-container-first">
+			<div class='col-sm-6 d-flex px-2 align-items-center'>
+				<span style="width:90px"><span class="gray-bg-label-span mr-1"><span class="l-form-timestamp"></span>:</span></span>
+				<span id="timestamp-span"></span>
+			</div>
+			<div class='col-sm-6 d-flex px-2 align-items-center'>
+				<span style="width:90px"><span class="gray-bg-label-span mr-1"><span class="l-vmail-caller-display"></span>:</span></span>
+				<span id="caller-display"></span>
+			</div>
+        </div>
+		<div class="row d-flex standard-margin-top">
+			<div class='col-sm-12 d-flex px-2 align-items-center'>
+                <span style="width:90px"><span class="gray-bg-label-span"><span class="l-form-play-call"></span>:</span></span>
+            
+				<span id="audio-player">
+					<span id='video' class='text-gray'><i class='fa fa-exclamation-triangle me-2'></i>
+					<span id="repload-later" class="d-none">Please try to reload later</span></span>
+				</span>
+				<button id="reload-btn" class="btn rounded btn-sm btn-warning text-capitalize ms-3"
+					onclick="loadCallData(winConnId);">
+					<span class="l-call-reload"></span><i class="fas fa-redo-alt"></i>
+				</button>
+				<span id="loading-icon" class="ms-2 d-none">
+				<div id="circularG">
+                    <div id="circularG_1" class="circularG"></div>
+                    <div id="circularG_2" class="circularG"></div>
+                    <div id="circularG_3" class="circularG"></div>
+                    <div id="circularG_4" class="circularG"></div>
+                    <div id="circularG_5" class="circularG"></div>
+                    <div id="circularG_6" class="circularG"></div>
+                    <div id="circularG_7" class="circularG"></div>
+                    <div id="circularG_8" class="circularG"></div>
+                </div><span>
+			</div>
+        </div>
+    </div>
+	<script type="text/javascript" src="./obfuscate_b4/callContent2.js"></script>
+</body>
+</html>

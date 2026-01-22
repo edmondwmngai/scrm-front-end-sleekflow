@@ -241,6 +241,18 @@
             box-shadow: 0 3px 8px 1px lightgrey;
         }
 
+		.agent-content-bubble-ai {
+				
+			background: #f2f2f2;
+			width: inherit;
+			height: 100%;
+			border-radius: 5px;
+			padding: 10px 15px;
+			margin-left: 12px;
+			margin-right: 12px;
+			box-shadow: 0 3px 8px 1px lightgrey;
+		}
+
         .content-bubble-name {
             font-weight: bold;
             max-width: 65%;
@@ -407,7 +419,7 @@
 		//20250813 for not execute the logic for other type
 		if (caseLog.Reply_Type.indexOf("SMS") < 0 &&
 			call_type.indexOf("Voicemail") < 0 &&
-			call_Type.indexOf("Inbound_call") < 0
+			call_type.indexOf("Inbound_call") < 0
 		)
 		{
 			// Check it is inbound or outbound. then fill the case history on the top (or bottom) in pop up box

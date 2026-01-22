@@ -12,10 +12,19 @@ class Agent {
 	{
 
 		if (id != null) {
-			var name = top.agentList.find(l => l.AgentID == id).AgentName;
+	
+			
+			if (id == -10) {
 
+				return "Chat Bot";
+			}
+			else
+			{
 
-			return name;
+				var name = top.agentList.find(l => l.AgentID == id).AgentName;
+				return name;
+			}
+		 
 		} else {
 
 			return "";

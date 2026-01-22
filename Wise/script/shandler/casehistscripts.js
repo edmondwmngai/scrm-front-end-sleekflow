@@ -235,6 +235,7 @@
 
 				  var output = template(context);
 				  output = output.replace("{{attachment}}", aTag);
+				  
 				  this.$chatHistory.append(output);
 			  }
 			  else if (FileMime.startsWith('video/mp4'))
@@ -252,6 +253,7 @@
 				  };
 				  var output = template(context);
 				  output = output.replace("{{attachment}}", aTag);
+				  
 				  this.$chatHistory.append(output);
 			  }
 			  else
@@ -342,6 +344,11 @@
 			  var templateResult = agentTemplate(context);
 			  templateResult = templateResult.replace("{{Content}}", MessageTemplate);
 			  templateResult = templateResult.replace("content-bubble-content", "");
+			
+			  if (sMsg.UpdatedBy == -10)
+			  {
+				  templateResult = templateResult.replace("agent-content-bubble", "agent-content-bubble-ai");
+			  }
 
 			  this.$chatHistory.append(templateResult);
 		  }
@@ -361,7 +368,12 @@
 				  time: mDate
 			  };
 
-			  this.$chatHistory.append(template(context));
+			  var templateResult = 	template(context);
+			  if (sMsg.UpdatedBy == -10)
+			  {
+				  templateResult = templateResult.replace("agent-content-bubble", "agent-content-bubble-ai");
+			  }
+			  this.$chatHistory.append(templateResult);
 
 		  }
 		  else if (sMsg.MessageType === "file" || sMsg.FilesJson.length > 4)
@@ -394,8 +406,14 @@
 					  FileUrl: Fileurl,
 					  displayImage: displayImage
 				  };
-
-				  this.$chatHistory.append(template(contextResponse));
+					var templateResult = 	template(contextResponse);
+					if (sMsg.UpdatedBy == -10)
+				    {
+					  templateResult = templateResult.replace("agent-content-bubble", "agent-content-bubble-ai");
+				    }
+					this.$chatHistory.append(templateResult);
+			  
+				  //this.$chatHistory.append(template(contextResponse));
 			  }
 			  else
 			  {
@@ -419,6 +437,13 @@
 
 				  var output = template(context);
 				  output = output.replace("{{attachment}}", aTag);
+				  
+				  if (sMsg.UpdatedBy == -10)
+				  {
+					  output = output.replace("agent-content-bubble", "agent-content-bubble-ai");
+				  }
+					
+				  
 				  this.$chatHistory.append(output);
 			  }
 		  }
@@ -529,15 +554,24 @@
 
 	  getAgentNameByID(id) {
 
-		  if (id != null) {
-			  var name = this.agentList.find(l => l.AgentID == id).AgentName;
+		if (id != null) {
+	
+			
+			if (id == -10) {
 
+				return "Chat Bot";
+			}
+			else
+			{
 
-			  return name;
-		  } else {
+				var name = this.agentList.find(l => l.AgentID == id).AgentName;
+				return name;
+			}
+		 
+		} else {
 
-			  return "";
-		  }
+			return "";
+		}
 	  };
 
 	  downloadHistoryAsHTML() {

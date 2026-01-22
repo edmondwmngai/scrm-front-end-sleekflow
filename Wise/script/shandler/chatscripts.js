@@ -419,7 +419,7 @@
 
 		  //parent.$('#phone-panel')[0].contentWindow.returnMessagesFromHandlerByUserId(ticketId, loginId, token, sTicket[0].EndUserId, sTicket[0].messages[0].MessageId, 5);
 
-		  parent.$('#phone-panel')[0].contentWindow.getPastMessageByHandler(ticketId, loginId, token, sTicket[0].EndUserId, sTicket[0].messages[0].MessageId, 5);
+		  parent.$('#phone-panel')[0].contentWindow.getPastMessageByHandler(ticketId, loginId, token, sTicket[0].EndUserId, sTicket[0].messages[0].MessageId, 7);
 	  };
 
 	  returnPastMessageByTicketIdCallBack(ticketId, msgList)
@@ -464,6 +464,7 @@
 
 			  this.allowPastMessageCall = true;
 			  
+			  //if (newList.length > 0 && this.returnPastMessageAtBegin == true)
 			  if (newList.length > 0 && this.returnPastMessageAtBegin == true)
 			  {
 				  
@@ -775,7 +776,11 @@
 			  var templateResult = agentTemplate(context);
 			  templateResult = templateResult.replace("{{Content}}", MessageTemplate);
 			  templateResult = templateResult.replace("content-bubble-content", "");
-
+				
+			  if (sMsg.UpdatedBy == -10)
+			  {
+				  templateResult = templateResult.replace("agent-content-bubble", "agent-content-bubble-ai");
+			  }
 			  this.$chatHistory.append(templateResult);
 		  }
 		  else if (sMsg.MessageType === "text" && sMsg.FilesJson.length < 4)
@@ -793,8 +798,13 @@
 				  messageOutput: sMsg.MessageContent,
 				  time: mDate
 			  };
-
-			  this.$chatHistory.append(template(context));
+			  
+			  var templateResult = template(context);
+			  if (sMsg.UpdatedBy == -10)
+			  {
+				  templateResult = templateResult.replace("agent-content-bubble", "agent-content-bubble-ai");
+			  }
+			  this.$chatHistory.append(templateResult);
 
 		  }
 		  else if (sMsg.MessageType === "file" || sMsg.FilesJson.length > 4)
@@ -828,7 +838,16 @@
 					  displayImage: displayImage
 				  };
 
-				  this.$chatHistory.append(template(contextResponse));
+				  var templateResult = template(contextResponse);
+				  
+  
+				  if (sMsg.UpdatedBy == -10)
+				  {
+					  templateResult = templateResult.replace("agent-content-bubble", "agent-content-bubble-ai");
+				  }
+				  
+							  
+				  this.$chatHistory.append(templateResult);
 			  }
 			  else
 			  {
@@ -852,6 +871,17 @@
 
 				  var output = template(context);
 				  output = output.replace("{{attachment}}", aTag);
+				  
+				  
+  
+				  if (sMsg.UpdatedBy == -10)
+				  {
+					  output = output.replace("agent-content-bubble", "agent-content-bubble-ai");
+				  }
+				  
+			
+				  
+				  
 				  this.$chatHistory.append(output);
 			  }
 		  }
@@ -1649,8 +1679,8 @@
 
 
 		  //5. scroll to bottom 
-		  setTimeout(() => { this.scrollToBottom(); }, 400);
-		  setTimeout(() => { this.scrollToBottom(); }, 600);
+		  setTimeout(() => { this.scrollToBottom(); }, 800);
+		  setTimeout(() => { this.scrollToBottom(); }, 1400);
 	  };
 
 

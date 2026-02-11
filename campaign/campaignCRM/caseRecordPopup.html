@@ -418,8 +418,9 @@
 		
 		//20250813 for not execute the logic for other type
 		if (caseLog.Reply_Type.indexOf("SMS") < 0 &&
+			caseLog.Reply_Type.indexOf("Email") < 0 &&
 			call_type.indexOf("Voicemail") < 0 &&
-			call_type.indexOf("Inbound_call") < 0
+			call_type.indexOf("Inbound_Call") < 0 
 		)
 		{
 			// Check it is inbound or outbound. then fill the case history on the top (or bottom) in pop up box
